@@ -1,0 +1,31 @@
+Name     Lab1_Part1;
+PartNo   00;
+Date     9/5/2024;
+Revision 01;
+Designer Engineer;
+Company  University of Colorado Boulder;
+Assembly None;
+Location ;
+Device   g16v8a;
+
+
+ORDER: A12, A13, A14, A15, !CSPERIPH, !PSEN, !RD, !READ; 
+
+
+VECTORS:
+0000*00*
+0001*01*
+0010*10*
+0011*11*
+0100*00*
+0101*00*
+0110*00*
+0111*00*
+1000*00*
+1001*00*
+1010*00*
+1011*00*
+1100*00*
+1101*00*
+1110*00*
+1111*00*
