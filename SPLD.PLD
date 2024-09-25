@@ -10,11 +10,11 @@ Location  ;
 Device   virtual ;
 
 /* *************** INPUT PINS *********************/
-PIN   2  =  EA                       ; /*                                 */ 
-PIN   3 =  A15                       ; /*                                 */ 
-PIN   4  =  RD                       ; /*                                 */ 
-PIN   5  =  WR                       ; /*                                 */ 
-PIN   6  =  PSEN                       ; /*                                 */ 
+PIN   3   =  EA                       ; /*                                 */ 
+PIN   2 =   A15                       ; /*                                 */ 
+PIN   7  =  RD                       ; /*                                 */ 
+PIN  6  =  WR                       ; /*                                 */ 
+PIN   8  =  PSEN                       ; /*                                 */ 
 
 /* *************** OUTPUT PINS *********************/
 PIN   12  =  CE                        ; /*                                 */ 
