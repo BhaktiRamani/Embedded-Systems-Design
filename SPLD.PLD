@@ -1,4 +1,3 @@
-
 Name     SPLD ;
 PartNo   00 ;
 Date     9/23/2024 ;
@@ -7,7 +6,7 @@ Designer Engineer ;
 Company  University of Colorado Boulder ;
 Assembly None ;
 Location  ;
-Device   virtual ;
+Device   g16v8a ;
 
 /* *************** INPUT PINS *********************/
 PIN   3   =  EA                       ; /*                                 */ 
