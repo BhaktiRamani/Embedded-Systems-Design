@@ -1,0 +1,30 @@
+
+Name     SPLD ;
+PartNo   00 ;
+Date     9/23/2024 ;
+Revision 01 ;
+Designer Engineer ;
+Company  University of Colorado Boulder ;
+Assembly None ;
+Location  ;
+Device   virtual ;
+
+/* *************** INPUT PINS *********************/
+PIN   2  =  EA                       ; /*                                 */ 
+PIN   3 =  A15                       ; /*                                 */ 
+PIN   4  =  RD                       ; /*                                 */ 
+PIN   5  =  WR                       ; /*                                 */ 
+PIN   6  =  PSEN                       ; /*                                 */ 
+
+/* *************** OUTPUT PINS *********************/
+PIN   12  =  CE                        ; /*                                 */ 
+PIN   13  =  OE                       ; /*                                 */ 
+
+
+/****************LOGIC**************************/
+CE = (EA & A15) # ( RD $ WR) ;
+OE = PSEN ;
+
+
+
+

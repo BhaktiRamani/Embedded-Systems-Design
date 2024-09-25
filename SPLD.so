@@ -1,0 +1,39 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# 
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Tue Sep 24 19:47:16 2024
+
+LISTING FOR SIMULATION FILE: SPLD.si
+
+   1: Name     SPLD;
+   2: PartNo   00;
+   3: Date     9/23/2024;
+   4: Revision 01;
+   5: Designer Engineer;
+   6: Company  University of Colorado Boulder;
+   7: Assembly None;
+   8: Location ;
+   9: Device   virtual;
+  10: 
+  11: 
+  12: ORDER: A15, EA, RD, WR, CE, PSEN, OE; 
+  13: 
+  14: 
+
+================
+           P    
+      A    S    
+      1ERWCEO   
+      5ADRENE   
+================
+0001: 0001H1H
+            ^
+[0019sa] user expected (Z) for OE
+
+0002: 0010H1H
+0003: 0011L1H
+0004: 0111L1H
+0005: 1110H0L
+0006: 1000L0L
+0007: 0000L0L
+0008: 1111H0L
