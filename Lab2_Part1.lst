@@ -1,0 +1,101 @@
+A51 MACRO ASSEMBLER  LAB2_PART1                                                           09/27/2024 13:20:30 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Lab2_Part1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Lab2_Part1.A51 SET(SMALL) DEBUG PRINT(.\Listings\Lab2_Part1.lst) OBJECT
+                      (.\Objects\Lab2_Part1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;*******************************************************************************
+                       2     ; File Name: LED_BLINK_VARIABLE_FREQ.ASM
+                       3     ; Author: Bhakti Ramani
+                       4     ; Date: 9/27/2024
+                       5     ;
+                       6     ; Description: This program uses Timer 0 to blink an LED at two different 
+                       7     ;              frequencies based on an input pin state. It also toggles a 
+                       8     ;              second pin to indicate ISR execution.
+                       9     ;
+                      10     ; Pin Configuration:
+                      11     ;   P1.0 - Output: LED
+                      12     ;   P1.1 - Output: ISR indicator
+                      13     ;   P1.2 - Input:  Frequency select (HIGH: 1.25 Hz, LOW: 0.40 Hz)
+                      14     ;*******************************************************************************
+                      15     
+0000                  16     ORG 0000H
+0000 020100           17         LJMP MAIN          ; Jump to main program
+                      18     
+000B                  19     ORG 000BH
+000B 020115           20         LJMP TIMER0_ISR    ; Timer 0 interrupt vector
+                      21     
+0100                  22     ORG 0100H              ; Start main code at a safe distance
+0100                  23     MAIN:
+0100 7B0B             24         MOV R3, #11        ; Initialize overflow counter for normal mode (1.25 Hz)
+0102 758901           25         MOV TMOD, #01H     ; Set Timer 0 to 16-bit mode
+0105 75A882           26         MOV IE, #82H       ; Enable Timer 0 interrupt
+0108 758C7C           27         MOV TH0, #7CH      ; Set initial Timer 0 value (high byte)
+010B 758AC8           28         MOV TL0, #0C8H     ; Set initial Timer 0 value (low byte)
+010E 759004           29         MOV P1, #00000100B ; Configure P1.2 as input, P1.0 and P1.1 as outputs
+0111 D28C             30         SETB TR0           ; Start Timer 0
+                      31     
+0113                  32     MAIN_LOOP:
+0113 80FE             33         SJMP MAIN_LOOP     ; Infinite main loop
+                      34     
+0115                  35     TIMER0_ISR:
+0115 D291             36         SETB P1.1          ; Set ISR indicator pin
+0117 C28D             37         CLR TF0            ; Clear Timer 0 overflow flag
+0119 C28C             38         CLR TR0            ; Stop Timer 0
+                      39         
+011B DB10             40         DJNZ R3, TIMER0_OVERFLOW; Decrement overflow counter, jump if not zero
+                      41         
+011D B290             42         CPL P1.0           ; Toggle LED pin
+                      43         
+011F 209203           44         JB P1.2, LED_NORM  ; Check input pin state
+0122 309204           45         JNB P1.2, LED_SLOW ; Branch based on input pin state
+                      46     
+0125                  47     LED_NORM:
+0125 7B0B             48         MOV R3, #11        ; Set counter for normal mode (1.25 Hz)
+0127 8004             49         SJMP TIMER0_OVERFLOW;
+                      50     
+0129                  51     LED_SLOW:
+0129 7B18             52         MOV R3, #24        ; Set counter for slow mode (0.40 Hz)
+012B 8000             53         SJMP TIMER0_OVERFLOW
+                      54     
+012D                  55     TIMER0_OVERFLOW:
+012D 758C7C           56         MOV TH0, #7CH      ; Reload Timer 0 high byte
+0130 758AC8           57         MOV TL0, #0C8H     ; Reload Timer 0 low byte
+A51 MACRO ASSEMBLER  LAB2_PART1                                                           09/27/2024 13:20:30 PAGE     2
+
+0133 D28C             58         SETB TR0           ; Restart Timer 0
+0135 C291             59         CLR P1.1           ; Clear ISR indicator pin
+0137 32               60         RETI               ; Return from interrupt
+                      61     
+                      62     END
+A51 MACRO ASSEMBLER  LAB2_PART1                                                           09/27/2024 13:20:30 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+IE . . . . . . . .  D ADDR   00A8H   A   
+LED_NORM . . . . .  C ADDR   0125H   A   
+LED_SLOW . . . . .  C ADDR   0129H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+MAIN_LOOP. . . . .  C ADDR   0113H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER0_ISR . . . .  C ADDR   0115H   A   
+TIMER0_OVERFLOW. .  C ADDR   012DH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
