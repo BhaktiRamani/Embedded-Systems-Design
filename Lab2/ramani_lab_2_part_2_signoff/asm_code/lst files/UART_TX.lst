@@ -1,0 +1,76 @@
+A51 MACRO ASSEMBLER  UART_TX                                                              10/04/2024 13:35:08 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\UART_TX.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE ..\Downloads\UART_TX.asm SET(SMALL) DEBUG PRINT(.\Listings\UART_TX.lst)
+                       OBJECT(.\Objects\UART_TX.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 020003            2     LJMP INIT;
+                       3                     
+0003                   4     INIT:
+0003 758920            5             MOV TMOD, #20H;
+0006 758DFA            6             MOV TH1, #0FAH;
+0009 758BFA            7             MOV TL1, #0FAH;
+000C 75A890            8             MOV IE, #090H;
+                       9             
+000F D28E             10             SETB TR1;
+                      11     
+0011 759850           12             MOV SCON, #50H;
+                      13     
+0014 7455             14             MOV A, #'U';
+                      15     
+0016                  16     main:
+0016 111D             17             ACALL send;
+0018 020025           18             LJMP delay;
+001B 80F9             19             SJMP main;
+                      20     
+001D                  21     send:
+001D F599             22         MOV SBUF, A
+001F                  23     WAIT_TX:
+001F 3099FD           24         JNB TI, WAIT_TX        
+0022 C299             25         CLR TI 
+0024 22               26             RET
+                      27                    
+0025                  28     delay:
+0025 7FFF             29         MOV R7, #255        ; Load R7 with 255
+0027                  30     delay_loop:
+0027 DFFE             31         DJNZ R7, delay_loop ; Decrement R7 and loop until zero
+0029 22               32         RET
+                      33     
+                      34     END
+                                     
+                             
+                                     
+                                     
+A51 MACRO ASSEMBLER  UART_TX                                                              10/04/2024 13:35:08 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0025H   A   
+DELAY_LOOP . . . .  C ADDR   0027H   A   
+IE . . . . . . . .  D ADDR   00A8H   A   
+INIT . . . . . . .  C ADDR   0003H   A   
+MAIN . . . . . . .  C ADDR   0016H   A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SEND . . . . . . .  C ADDR   001DH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+WAIT_TX. . . . . .  C ADDR   001FH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

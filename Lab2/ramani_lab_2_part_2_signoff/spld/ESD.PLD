@@ -1,0 +1,27 @@
+Name     esd ;
+PartNo   00 ;
+Date     10/4/2024 ;
+Revision 01 ;
+Designer Engineer ;
+Company  University of Colorado Boulder ;
+Assembly None ;
+Location  ;
+Device   g16v8a ;
+
+/* *************** INPUT PINS *********************/
+PIN       2  =  EA                      ; /*                                 */ 
+PIN        3 =  A15                    ; /*                                 */ 
+PIN     4  =  RD                        ; /*                                 */ 
+PIN     5  =  WR                         ; /*                                 */ 
+PIN      6  =  PSEN                         ; /*                                 */ 
+
+/* *************** OUTPUT PINS *********************/
+PIN     12  =  CE                         ; /*                                 */ 
+PIN    13  =  OE                            ; /*                                 */ 
+PIN  14  = 374_CE;                       ; /*                                 */ 
+
+/**** LOGIC *****/
+CE = (EA & A15) # ( RD $ WR) ;
+OE = PSEN ;
+374_CE = !(A15) & !(WR);
+

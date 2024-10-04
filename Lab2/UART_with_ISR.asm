@@ -1,0 +1,63 @@
+ORG 0000H
+	LJMP INIT;
+
+ORG 0023H 
+    LJMP SERIAL_ISR
+
+ORG 0100H
+INIT:
+	MOV SCON, #50H;
+	MOV TMOD, #20H;
+	MOV TH1, #0FAH;
+	MOV TL1, #0FAH;
+	;MOV IE, #10010000B;
+    SETB ES;
+	SETB EA;
+	
+	SETB TR1;
+
+
+
+	;MOV A, #'U';
+
+	
+JMP $;
+	
+SERIAL_ISR:
+	JNB RI, EMIT_IT;		//
+	CLR RI
+	MOV A, SBUF
+	CPL P0.0;
+	MOV SBUF, A
+	LJMP END_IT
+	
+EMIT_IT:
+	CLR TI
+	
+END_IT:
+	RETI;
+	;JB TI, TX_DONE;
+	;JB RI, RX_DONE;
+	
+	
+TX_DONE: 
+	CPL P0.0;
+	CLR TI 
+	RETI
+               
+RX_DONE:
+	CPL P1.0;
+	MOV A, SBUF;
+	MOV P1, A;
+	CLR RI;
+	RETI
+		
+
+
+END
+	
+
+        
+
+        
+        

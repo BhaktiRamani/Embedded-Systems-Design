@@ -1,0 +1,107 @@
+A51 MACRO ASSEMBLER  UART_WITH_ISR                                                        10/04/2024 13:35:08 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\UART_with_ISR.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE ..\Downloads\UART_with_ISR.asm SET(SMALL) DEBUG PRINT(.\Listings\UART_w
+                      ith_ISR.lst) OBJECT(.\Objects\UART_with_ISR.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 020100            2             LJMP INIT;
+                       3     
+0023                   4     ORG 0023H 
+0023 020114            5         LJMP SERIAL_ISR
+                       6     
+0100                   7     ORG 0100H
+0100                   8     INIT:
+0100 759850            9             MOV SCON, #50H;
+0103 758920           10             MOV TMOD, #20H;
+0106 758DFA           11             MOV TH1, #0FAH;
+0109 758BFA           12             MOV TL1, #0FAH;
+                      13             ;MOV IE, #10010000B;
+010C D2AC             14         SETB ES;
+010E D2AF             15             SETB EA;
+                      16             
+0110 D28E             17             SETB TR1;
+                      18     
+                      19     
+                      20     
+                      21             ;MOV A, #'U';
+                      22     
+                      23             
+0112 80FE             24     JMP $;
+                      25             
+0114                  26     SERIAL_ISR:
+0114 30980B           27             JNB RI, EMIT_IT;                //
+0117 C298             28             CLR RI
+0119 E599             29             MOV A, SBUF
+011B B280             30             CPL P0.0;
+011D F599             31             MOV SBUF, A
+011F 020124           32             LJMP END_IT
+                      33             
+0122                  34     EMIT_IT:
+0122 C299             35             CLR TI
+                      36             
+0124                  37     END_IT:
+0124 32               38             RETI;
+                      39             ;JB TI, TX_DONE;
+                      40             ;JB RI, RX_DONE;
+                      41             
+                      42             
+0125                  43     TX_DONE: 
+0125 B280             44             CPL P0.0;
+0127 C299             45             CLR TI 
+0129 32               46             RETI
+                      47                    
+012A                  48     RX_DONE:
+012A B290             49             CPL P1.0;
+012C E599             50             MOV A, SBUF;
+012E F590             51             MOV P1, A;
+0130 C298             52             CLR RI;
+0132 32               53             RETI
+                      54                     
+                      55     
+                      56     
+                      57     END
+A51 MACRO ASSEMBLER  UART_WITH_ISR                                                        10/04/2024 13:35:08 PAGE     2
+
+                                     
+                             
+                                     
+                             
+                                     
+                                     
+A51 MACRO ASSEMBLER  UART_WITH_ISR                                                        10/04/2024 13:35:08 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EMIT_IT. . . . . .  C ADDR   0122H   A   
+END_IT . . . . . .  C ADDR   0124H   A   
+ES . . . . . . . .  B ADDR   00A8H.4 A   
+INIT . . . . . . .  C ADDR   0100H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+RI . . . . . . . .  B ADDR   0098H.0 A   
+RX_DONE. . . . . .  C ADDR   012AH   A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SERIAL_ISR . . . .  C ADDR   0114H   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+TX_DONE. . . . . .  C ADDR   0125H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

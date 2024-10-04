@@ -1,0 +1,22 @@
+TMOD |= #20H;
+TH1 = #FDH;
+SETB TR1;
+
+SCON = #50H;
+
+data = 'U';
+
+
+send :
+    MOV SBUF, #data
+WAIT_TX:
+    JNB TI, WAIT_TX
+    CLR TI
+
+recieve :
+WAIT_RX:
+    JNB RI, WAIT_RX;
+    MOV data, SBUF;
+    CLR RI;
+    LJMP send;
+

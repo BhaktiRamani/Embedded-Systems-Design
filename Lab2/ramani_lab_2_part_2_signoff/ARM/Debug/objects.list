@@ -1,0 +1,8 @@
+"./Core/Src/clock_config.o"
+"./Core/Src/delay.o"
+"./Core/Src/interrupt.o"
+"./Core/Src/led.o"
+"./Core/Src/main.o"
+"./Core/Src/syscalls.o"
+"./Core/Src/sysmem.o"
+"./Core/Startup/startup_stm32f411vetx.o"

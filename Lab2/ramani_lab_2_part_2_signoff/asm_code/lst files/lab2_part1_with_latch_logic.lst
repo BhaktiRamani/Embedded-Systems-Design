@@ -1,0 +1,130 @@
+A51 MACRO ASSEMBLER  LAB2_PART1_WITH_LATCH_LOGIC                                          10/04/2024 13:41:52 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\lab2_part1_with_latch_logic.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE ..\Downloads\lab2_part1_with_latch_logic.asm SET(SMALL) DEBUG PRINT(.\L
+                      istings\lab2_part1_with_latch_logic.lst) OBJECT(.\Objects\lab2_part1_with_latch_logic.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1      
+                       2     ;*******************************************************************************
+                       3     ; File Name: LED_BLINK_VARIABLE_FREQ_WITH_DEBUG.ASM
+                       4     ; Author: Bhakti Ramani (modified by Assistant)
+                       5     ; Date: 9/27/2024
+                       6     ;
+                       7     ; Description: This program uses Timer 0 to blink an LED at two different
+                       8     ;              frequencies based on an input pin state. It also toggles a
+                       9     ;              second pin to indicate ISR execution. Additionally, it implements
+                      10     ;              a debug latch functionality for tracing execution.
+                      11     ;
+                      12     ; Pin Configuration:
+                      13     ;   P1.0 - Output: LED
+                      14     ;   P1.1 - Output: ISR indicator
+                      15     ;   P1.2 - Input:  Frequency select (HIGH: 1.25 Hz, LOW: 0.40 Hz)
+                      16     ;   P0   - Output: Data bus for debug latch
+                      17     ;*******************************************************************************
+                      18     
+0000                  19     ORG 0000H
+0000 020100           20         LJMP MAIN          ; Jump to main program
+                      21     
+000B                  22     ORG 000BH
+000B 020125           23         LJMP TIMER0_ISR    ; Timer 0 interrupt vector
+                      24     
+0030                  25     ORG 0030H              ; Data memory for debug counters
+                      26     
+                      27     
+                      28     
+0100                  29     ORG 0100H              ; Start main code at a safe distance
+0100                  30     MAIN:
+0100 7B0B             31         MOV R3, #11        ; Initialize overflow counter for normal mode (1.25 Hz)
+0102 758901           32         MOV TMOD, #01H     ; Set Timer 0 to 16-bit mode
+0105 75A882           33         MOV IE, #82H       ; Enable Timer 0 interrupt
+0108 758C7C           34         MOV TH0, #7CH      ; Set initial Timer 0 value (high byte)
+010B 758AC8           35         MOV TL0, #0C8H     ; Set initial Timer 0 value (low byte)
+010E 759004           36         MOV P1, #00000100B ; Configure P1.2 as input, P1.0 and P1.1 as outputs
+                      37             
+                      38             
+0111 7980             39         MOV R1, #80H  ; Initialize ISR debug counter
+0113 7800             40         MOV R0, #00H ; Initialize main loop debug counter
+0115 D28C             41         SETB TR0           ; Start Timer 0
+                      42     
+0117                  43     MAIN_LOOP:
+                      44         ; Write to debug latch
+0117 900000           45         MOV DPTR, #0000H   ; Set DPTR to low memory address
+011A E8               46         MOV A, R0
+011B F0               47         MOVX @DPTR, A      ; Write to debug latch
+011C 08               48         INC R0   ; Increment main loop counter
+011D E8               49         MOV A, R0
+011E B48002           50         CJNE A, #80H, SKIP_MAIN_RESET
+0121 7800             51         MOV R0, #00H  ; Reset to 00h if reached 80h
+0123                  52     SKIP_MAIN_RESET:
+0123 80F2             53         SJMP MAIN_LOOP     ; Infinite main loop
+                      54     
+0125                  55     TIMER0_ISR:
+0125 D291             56         SETB P1.1          ; Set ISR indicator pin
+0127 C28D             57         CLR TF0            ; Clear Timer 0 overflow flag
+A51 MACRO ASSEMBLER  LAB2_PART1_WITH_LATCH_LOGIC                                          10/04/2024 13:41:52 PAGE     2
+
+0129 C28C             58         CLR TR0            ; Stop Timer 0
+                      59     
+                      60         ; Write to debug latch
+012B 900000           61         MOV DPTR, #0000H   ; Set DPTR to low memory address
+012E E9               62         MOV A, R1
+012F F0               63         MOVX @DPTR, A      ; Write to debug latch
+0130 09               64         INC R1    ; Increment ISR counter
+0131 E9               65         MOV A, R1
+0132 B40002           66         CJNE A, #00H, SKIP_ISR_RESET
+0135 7980             67         MOV R1, #80H  ; Reset to 80h if reached 00h
+0137                  68     SKIP_ISR_RESET:
+                      69     
+0137 DB10             70         DJNZ R3, TIMER0_OVERFLOW ; Decrement overflow counter, jump if not zero
+                      71     
+0139 B290             72         CPL P1.0           ; Toggle LED pin
+                      73     
+013B 209203           74         JB P1.2, LED_NORM  ; Check input pin state
+013E 309204           75         JNB P1.2, LED_SLOW ; Branch based on input pin state
+0141                  76     LED_NORM:
+0141 7B0B             77         MOV R3, #11        ; Set counter for normal mode (1.25 Hz)
+0143 8004             78         SJMP TIMER0_OVERFLOW
+0145                  79     LED_SLOW:
+0145 7B18             80         MOV R3, #24        ; Set counter for slow mode (0.40 Hz)
+0147 8000             81         SJMP TIMER0_OVERFLOW
+0149                  82     TIMER0_OVERFLOW:
+0149 758C7C           83         MOV TH0, #7CH      ; Reload Timer 0 high byte
+014C 758AC8           84         MOV TL0, #0C8H     ; Reload Timer 0 low byte
+014F D28C             85         SETB TR0           ; Restart Timer 0
+0151 C291             86         CLR P1.1           ; Clear ISR indicator pin
+0153 32               87         RETI               ; Return from interrupt
+                      88     
+                      89     END
+A51 MACRO ASSEMBLER  LAB2_PART1_WITH_LATCH_LOGIC                                          10/04/2024 13:41:52 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+IE . . . . . . . .  D ADDR   00A8H   A   
+LED_NORM . . . . .  C ADDR   0141H   A   
+LED_SLOW . . . . .  C ADDR   0145H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+MAIN_LOOP. . . . .  C ADDR   0117H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+SKIP_ISR_RESET . .  C ADDR   0137H   A   
+SKIP_MAIN_RESET. .  C ADDR   0123H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER0_ISR . . . .  C ADDR   0125H   A   
+TIMER0_OVERFLOW. .  C ADDR   0149H   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
