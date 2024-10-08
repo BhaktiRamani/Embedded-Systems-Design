@@ -1,0 +1,29 @@
+Name     Lab3_Part1 ;
+PartNo   00 ;
+Date     10/7/2024 ;
+Revision 01 ;
+Designer Engineer ;
+Company  ITLP ;
+Assembly None ;
+Location  ;
+Device   g16v8a ;
+
+/* *************** INPUT PINS *********************/
+             
+PIN   3 =   A15                      ; /*                                 */ 
+PIN   4 =  RD                       ; /*                                 */ 
+PIN   5 =  WR                      ; /*                                 */ 
+PIN   6 =  A10                       ; /*                                 */ 
+
+/* *************** OUTPUT PINS *********************/
+PIN   12 =    CE                     ; /*                                 */ 
+PIN   13  =   OE                      ; /*                                 */ 
+PIN   14  =   WE                      ; /*                                 */ 
+
+
+/***************LOGIC************************/
+CE = !((!A15 & A10 & (WR $ RD)));
+OE = RD;
+WE = WR;
+ 
+
