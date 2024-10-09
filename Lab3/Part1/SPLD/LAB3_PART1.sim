@@ -1,11 +1,11 @@
 %SIGNAL
-PIN   6 =  A10 
-PIN   3 =  A15 
+PIN   8 =  A10 
+PIN   2 =  A15 
 PIN  12 =  CE 
 PIN  13 =  OE 
-PIN   4 =  RD 
+PIN   7 =  RD 
 PIN  14 =  WE 
-PIN   5 =  WR 
+PIN   6 =  WR 
 %END
 
 %FIELD
@@ -13,8 +13,7 @@ PIN   5 =  WR
 
 %EQUATION
 CE =>
-    A10 & !A15 & !RD & WR
-  # A10 & !A15 & RD & !WR
+    A15
 
 OE =>
     RD

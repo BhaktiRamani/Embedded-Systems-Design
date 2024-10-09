@@ -5,7 +5,7 @@
   {Program "CUPL(WM) Version 5.0a"}
   {DBtype "Schematic"}
   {DBvrev 1.01}
-  {DBtime "Tue Oct 08 01:23:30 2024 "}
+  {DBtime "Tue Oct 08 18:45:41 2024 "}
   {DBunit "MIL"}
   {DBgrid 10}
   {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
@@ -34,8 +34,8 @@
   {PIN_DEF
    [Ly "PINCON"]
    {P A15 {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
-   {P RD {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
-   {P WR {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
+   {P WR {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P RD {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
    {P A10 {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
    {P CE {Pt "I/O"}{Lq 0}{Ploc 280 20}}
    {P OE {Pt "I/O"}{Lq 0}{Ploc 280 40}}
@@ -58,7 +58,7 @@
    {Pnl 260 50}
    {Pnl 260 70}
 
-   {Sd A 3 4 5 6 12 13 14}
+   {Sd A 2 6 7 8 12 13 14}
   }
 
   {PIC
@@ -75,8 +75,8 @@
    [Ly "PINNAM"]
    [Tj "LC"]
    {T "A15" 140 80}
-   {T "RD" 140 60}
-   {T "WR" 140 40}
+   {T "WR" 140 60}
+   {T "RD" 140 40}
    {T "A10" 140 20}
    [Tj "RC"]
    {T "CE" 240 20}
@@ -107,9 +107,9 @@
   {NET_DEF
    {N A15
    }
-   {N RD
-   }
    {N WR
+   }
+   {N RD
    }
    {N A10
    }
