@@ -56,9 +56,9 @@ void main(void)
         // Free the allocated memory (optional in embedded systems)
         //free((__xdata char*)(ptr));
     }*/
-    __asm
-        ljmp 0x0400;
-    __endasm;
+    // __asm
+    //     ljmp 0x0400;
+    // __endasm;
 
      // Infinite loop to keep the program running
 }
