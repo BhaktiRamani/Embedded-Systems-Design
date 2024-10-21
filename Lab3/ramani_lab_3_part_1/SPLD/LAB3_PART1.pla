@@ -1,0 +1,24 @@
+# Berkeley PLA format generated using
+#
+# CUPL(WM)        5.0a Serial# 60008009
+# Device          g16v8as  Library DLIB-h-40-2
+# Created         Tue Oct 08 18:45:41 2024
+# Name            Lab3_Part1 
+# Partno          00 
+# Revision        01 
+# Date            10/7/2024 
+# Designer        Engineer 
+# Company         ITLP 
+# Assembly        None 
+# Location        
+#
+# Inputs  A10 A15 CE OE 
+#         RD WE WR 
+# Outputs CE OE WE 
+.i 7
+.o 3
+.p 3
+-1----- 1~~
+----1-- ~1~
+------1 ~~1
+.end

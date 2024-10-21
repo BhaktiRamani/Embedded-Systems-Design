@@ -1,0 +1,15 @@
+-muwx
+-i output
+-M
+-b HOME = 0x2000
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k C:\Program Files (x86)\SDCC\bin\..\lib\small
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+output.rel
+
+-e

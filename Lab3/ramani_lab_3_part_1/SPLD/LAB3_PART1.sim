@@ -1,0 +1,24 @@
+%SIGNAL
+PIN   8 =  A10 
+PIN   2 =  A15 
+PIN  12 =  CE 
+PIN  13 =  OE 
+PIN   7 =  RD 
+PIN  14 =  WE 
+PIN   6 =  WR 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+CE =>
+    A15
+
+OE =>
+    RD
+
+WE =>
+    WR
+
+%END

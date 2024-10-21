@@ -1,0 +1,34 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# 
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Tue Oct 08 01:24:50 2024
+
+LISTING FOR SIMULATION FILE: LAB3_PART1.si
+
+   1: Name     Lab3_Part1;
+   2: PartNo   00;
+   3: Date     10/7/2024;
+   4: Revision 01;
+   5: Designer Engineer;
+   6: Company  ITLP;
+   7: Assembly None;
+   8: Location ;
+   9: Device   g16v8a;
+  10: 
+  11: 
+  12: ORDER: A15, A10, RD, WR, CE; 
+  13: 
+  14: 
+
+==============
+      AA      
+      11RWC   
+      50DRE   
+==============
+0001: 0010H
+0002: 1001H
+0003: 1110H
+0004: 0001H
+0005: 0110L
+0006: 0100H
+0007: 0111H
