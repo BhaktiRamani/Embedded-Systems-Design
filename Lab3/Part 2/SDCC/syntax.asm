@@ -503,25 +503,25 @@ _get_buf_value_buffer_size_65536_56:
 	.ds 2
 _get_buf_value_index_65536_56:
 	.ds 2
-_sendUint32ToUART_value_65536_61:
+_sendUint32ToUART_value_65536_60:
 	.ds 4
-_print_prompt_string_65536_64:
+_print_prompt_string_65536_63:
 	.ds 3
-_get_command_command_65536_67:
+_get_command_command_65536_66:
 	.ds 2
-_get_command_rd_ptr_131073_73:
+_get_command_rd_ptr_131073_72:
 	.ds 3
-_get_command_temp_131073_73:
+_get_command_temp_131073_72:
 	.ds 1
-_get_command_node_131074_78:
+_get_command_node_131074_77:
 	.ds 6
-_buffer0_dump_rd_ptr_65536_80:
+_buffer0_dump_rd_ptr_65536_79:
 	.ds 3
-_buffer0_dump_temp_65536_80:
+_buffer0_dump_temp_65536_79:
 	.ds 1
-_main_node1_65537_89:
+_main_node1_65537_88:
 	.ds 6
-_main_node2_65538_90:
+_main_node2_65538_89:
 	.ds 6
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -816,19 +816,19 @@ _get_buf_value:
 	movx	a,@dptr
 	mov	r6,a
 	clr	a
-	cjne	r5,#0x0d,00145$
-	cjne	r6,#0x00,00145$
+	cjne	r5,#0x0d,00133$
+	cjne	r6,#0x00,00133$
 	inc	a
-00145$:
-	cjne	a,#0x01,00147$
-00147$:
+00133$:
+	cjne	a,#0x01,00135$
+00135$:
 	clr	a
 	rlc	a
 	mov	r6,a
 	anl	a,r7
-	jnz	00148$
+	jnz	00136$
 	ljmp	00109$
-00148$:
+00136$:
 ;	syntax.c:101: data_from_serial = getchar();
 	lcall	_getchar
 	mov	r6,dpl
@@ -855,11 +855,11 @@ _get_buf_value:
 	subb	a,b
 	jnc	00102$
 00104$:
-	cjne	r6,#0x0d,00151$
-	cjne	r7,#0x00,00151$
+	cjne	r6,#0x0d,00139$
+	cjne	r7,#0x00,00139$
 	sjmp	00102$
-00151$:
-;	syntax.c:103: print_prompt("\nEnter valid input\n");
+00139$:
+;	syntax.c:103: print_prompt("\nEnter valid input\n\r");
 	mov	dptr,#___str_0
 	mov	b,#0x80
 	lcall	_print_prompt
@@ -868,10 +868,10 @@ _get_buf_value:
 	ret
 00102$:
 ;	syntax.c:107: if(data_from_serial == 0x0d){
-	cjne	r6,#0x0d,00152$
-	cjne	r7,#0x00,00152$
+	cjne	r6,#0x0d,00140$
+	cjne	r7,#0x00,00140$
 	sjmp	00109$
-00152$:
+00140$:
 ;	syntax.c:111: putchar(data_from_serial);
 	mov	dpl,r6
 	mov	dph,r7
@@ -941,65 +941,29 @@ _get_buf_value:
 	movx	@dptr,a
 	ljmp	00107$
 00109$:
-;	syntax.c:117: if((buffer_size % 16) != 0 || (buffer_size < LOWER) || (buffer_size > UPPER)) {
+;	syntax.c:115: printf("SIZE ENTERED : %d\n\r", buffer_size);
 	mov	dptr,#_get_buf_value_buffer_size_65536_56
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
-	mov	dptr,#__modsint_PARM_2
-	mov	a,#0x10
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	mov	dpl,r6
-	mov	dph,r7
 	push	ar7
 	push	ar6
-	lcall	__modsint
-	mov	a,dpl
-	mov	b,dph
+	push	ar6
+	push	ar7
+	mov	a,#___str_1
+	push	acc
+	mov	a,#(___str_1 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
 	pop	ar6
 	pop	ar7
-	orl	a,b
-	jnz	00110$
-	mov	dptr,#_get_buf_value_PARM_3
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	clr	c
-	mov	a,r6
-	subb	a,r4
-	mov	a,r7
-	xrl	a,#0x80
-	mov	b,r5
-	xrl	b,#0x80
-	subb	a,b
-	jc	00110$
-	mov	dptr,#_get_buf_value_PARM_2
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	clr	c
-	mov	a,r4
-	subb	a,r6
-	mov	a,r5
-	xrl	a,#0x80
-	mov	b,r7
-	xrl	b,#0x80
-	subb	a,b
-	jnc	00111$
-00110$:
-;	syntax.c:118: return -1;
-	mov	dptr,#0xffff
-	ret
-00111$:
 ;	syntax.c:122: return buffer_size;
 	mov	dpl,r6
 	mov	dph,r7
@@ -1008,10 +972,10 @@ _get_buf_value:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'sendUint32ToUART'
 ;------------------------------------------------------------
-;value                     Allocated with name '_sendUint32ToUART_value_65536_61'
-;byte                      Allocated with name '_sendUint32ToUART_byte_65536_62'
-;i                         Allocated with name '_sendUint32ToUART_i_65536_62'
-;byte                      Allocated with name '_sendUint32ToUART_byte_131072_63'
+;value                     Allocated with name '_sendUint32ToUART_value_65536_60'
+;byte                      Allocated with name '_sendUint32ToUART_byte_65536_61'
+;i                         Allocated with name '_sendUint32ToUART_i_65536_61'
+;byte                      Allocated with name '_sendUint32ToUART_byte_131072_62'
 ;------------------------------------------------------------
 ;	syntax.c:126: void sendUint32ToUART(uint32_t value) {
 ;	-----------------------------------------
@@ -1022,7 +986,7 @@ _sendUint32ToUART:
 	mov	r6,dph
 	mov	r5,b
 	mov	r4,a
-	mov	dptr,#_sendUint32ToUART_value_65536_61
+	mov	dptr,#_sendUint32ToUART_value_65536_60
 	mov	a,r7
 	movx	@dptr,a
 	mov	a,r6
@@ -1036,7 +1000,7 @@ _sendUint32ToUART:
 	movx	@dptr,a
 ;	syntax.c:129: while (value > 1) {
 00101$:
-	mov	dptr,#_sendUint32ToUART_value_65536_61
+	mov	dptr,#_sendUint32ToUART_value_65536_60
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1104,7 +1068,7 @@ _sendUint32ToUART:
 	mov	r5,dph
 	mov	r6,b
 	mov	r7,a
-	mov	dptr,#_sendUint32ToUART_value_65536_61
+	mov	dptr,#_sendUint32ToUART_value_65536_60
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -1123,7 +1087,7 @@ _sendUint32ToUART:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'print_prompt'
 ;------------------------------------------------------------
-;string                    Allocated with name '_print_prompt_string_65536_64'
+;string                    Allocated with name '_print_prompt_string_65536_63'
 ;------------------------------------------------------------
 ;	syntax.c:138: void print_prompt(const char * string){
 ;	-----------------------------------------
@@ -1133,7 +1097,7 @@ _print_prompt:
 	mov	r7,b
 	mov	r6,dph
 	mov	a,dpl
-	mov	dptr,#_print_prompt_string_65536_64
+	mov	dptr,#_print_prompt_string_65536_63
 	movx	@dptr,a
 	mov	a,r6
 	inc	dptr
@@ -1142,7 +1106,7 @@ _print_prompt:
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:139: while(*string != '\0'){
-	mov	dptr,#_print_prompt_string_65536_64
+	mov	dptr,#_print_prompt_string_65536_63
 	movx	a,@dptr
 	mov	r5,a
 	inc	dptr
@@ -1174,7 +1138,7 @@ _print_prompt:
 	cjne	r5,#0x00,00116$
 	inc	r6
 00116$:
-	mov	dptr,#_print_prompt_string_65536_64
+	mov	dptr,#_print_prompt_string_65536_63
 	mov	a,r5
 	movx	@dptr,a
 	mov	a,r6
@@ -1185,7 +1149,7 @@ _print_prompt:
 	movx	@dptr,a
 	sjmp	00101$
 00108$:
-	mov	dptr,#_print_prompt_string_65536_64
+	mov	dptr,#_print_prompt_string_65536_63
 	mov	a,r5
 	movx	@dptr,a
 	mov	a,r6
@@ -1201,16 +1165,16 @@ _print_prompt:
 ;------------------------------------------------------------
 ;sloc0                     Allocated with name '_get_command_sloc0_1_0'
 ;sloc1                     Allocated with name '_get_command_sloc1_1_0'
-;command                   Allocated with name '_get_command_command_65536_67'
-;temp_value                Allocated with name '_get_command_temp_value_65536_68'
-;pointer                   Allocated with name '_get_command_pointer_65536_68'
-;array_index_temp          Allocated with name '_get_command_array_index_temp_65536_68'
-;i                         Allocated with name '_get_command_i_196608_70'
-;rd_ptr                    Allocated with name '_get_command_rd_ptr_131073_73'
-;wr_ptr                    Allocated with name '_get_command_wr_ptr_131073_73'
-;temp                      Allocated with name '_get_command_temp_131073_73'
-;i                         Allocated with name '_get_command_i_262145_75'
-;node                      Allocated with name '_get_command_node_131074_78'
+;command                   Allocated with name '_get_command_command_65536_66'
+;temp_value                Allocated with name '_get_command_temp_value_65536_67'
+;pointer                   Allocated with name '_get_command_pointer_65536_67'
+;array_index_temp          Allocated with name '_get_command_array_index_temp_65536_67'
+;i                         Allocated with name '_get_command_i_196608_69'
+;rd_ptr                    Allocated with name '_get_command_rd_ptr_131073_72'
+;wr_ptr                    Allocated with name '_get_command_wr_ptr_131073_72'
+;temp                      Allocated with name '_get_command_temp_131073_72'
+;i                         Allocated with name '_get_command_i_262145_74'
+;node                      Allocated with name '_get_command_node_131074_77'
 ;------------------------------------------------------------
 ;	syntax.c:152: int get_command(int command){
 ;	-----------------------------------------
@@ -1219,13 +1183,13 @@ _print_prompt:
 _get_command:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_get_command_command_65536_67
+	mov	dptr,#_get_command_command_65536_66
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:160: switch(command){
-	mov	dptr,#_get_command_command_65536_67
+	mov	dptr,#_get_command_command_65536_66
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -1250,7 +1214,7 @@ _get_command:
 	ljmp	00120$
 00191$:
 ;	syntax.c:164: print_prompt("Total number of commands from the start: ");
-	mov	dptr,#___str_1
+	mov	dptr,#___str_2
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:165: printf("%d",total_number_of_commands);
@@ -1260,9 +1224,9 @@ _get_command:
 	mov	r6,#0x00
 	push	ar7
 	push	ar6
-	mov	a,#___str_2
+	mov	a,#___str_3
 	push	acc
-	mov	a,#(___str_2 >> 8)
+	mov	a,#(___str_3 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1271,11 +1235,11 @@ _get_command:
 	add	a,#0xfb
 	mov	sp,a
 ;	syntax.c:166: print_prompt("\n\r");
-	mov	dptr,#___str_3
+	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:167: print_prompt("Recent number of commands from the last ?: ");
-	mov	dptr,#___str_4
+	mov	dptr,#___str_5
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:168: printf("%d",recent_commands);
@@ -1285,9 +1249,9 @@ _get_command:
 	mov	r6,#0x00
 	push	ar7
 	push	ar6
-	mov	a,#___str_2
+	mov	a,#___str_3
 	push	acc
-	mov	a,#(___str_2 >> 8)
+	mov	a,#(___str_3 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1296,15 +1260,15 @@ _get_command:
 	add	a,#0xfb
 	mov	sp,a
 ;	syntax.c:169: print_prompt("\n\r");
-	mov	dptr,#___str_3
+	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:170: print_prompt("\n\r");
-	mov	dptr,#___str_3
+	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:172: print_prompt("Total number of storage chars from the start: ");
-	mov	dptr,#___str_5
+	mov	dptr,#___str_6
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:173: printf("%d",total_number_of_storage);
@@ -1314,9 +1278,9 @@ _get_command:
 	mov	r6,#0x00
 	push	ar7
 	push	ar6
-	mov	a,#___str_2
+	mov	a,#___str_3
 	push	acc
-	mov	a,#(___str_2 >> 8)
+	mov	a,#(___str_3 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1325,11 +1289,11 @@ _get_command:
 	add	a,#0xfb
 	mov	sp,a
 ;	syntax.c:174: print_prompt("\n\r");
-	mov	dptr,#___str_3
+	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:175: print_prompt("Recent number of storage chars from the last ?: ");
-	mov	dptr,#___str_6
+	mov	dptr,#___str_7
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:176: printf("%d",recent_storage);
@@ -1339,9 +1303,9 @@ _get_command:
 	mov	r6,#0x00
 	push	ar7
 	push	ar6
-	mov	a,#___str_2
+	mov	a,#___str_3
 	push	acc
-	mov	a,#(___str_2 >> 8)
+	mov	a,#(___str_3 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1350,11 +1314,11 @@ _get_command:
 	add	a,#0xfb
 	mov	sp,a
 ;	syntax.c:177: print_prompt("\n\r");
-	mov	dptr,#___str_3
+	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:178: print_prompt("\n\r");
-	mov	dptr,#___str_3
+	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:180: for(int i=0; i<99; i++){
@@ -1444,9 +1408,9 @@ _get_command:
 	push	ar7
 	push	ar4
 	push	ar5
-	mov	a,#___str_7
+	mov	a,#___str_8
 	push	acc
-	mov	a,#(___str_7 >> 8)
+	mov	a,#(___str_8 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1478,7 +1442,7 @@ _get_command:
 	inc	dptr
 	movx	a,@dptr
 	mov	(_get_command_sloc1_1_0 + 2),a
-	mov	dptr,#_get_command_rd_ptr_131073_73
+	mov	dptr,#_get_command_rd_ptr_131073_72
 	mov	a,_get_command_sloc1_1_0
 	movx	@dptr,a
 	mov	a,(_get_command_sloc1_1_0 + 1)
@@ -1490,12 +1454,12 @@ _get_command:
 ;	syntax.c:191: uint8_t temp = array_for_nodes[0].size*sizeof(uint8_t);
 	mov	dptr,#(_array_for_nodes + 0x0004)
 	movx	a,@dptr
-	mov	dptr,#_get_command_temp_131073_73
+	mov	dptr,#_get_command_temp_131073_72
 	movx	@dptr,a
 ;	syntax.c:192: printf("....... Dumping Buffer0 ......\r\n");
-	mov	a,#___str_8
+	mov	a,#___str_9
 	push	acc
-	mov	a,#(___str_8 >> 8)
+	mov	a,#(___str_9 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1505,7 +1469,7 @@ _get_command:
 	dec	sp
 ;	syntax.c:193: while(temp){
 00107$:
-	mov	dptr,#_get_command_temp_131073_73
+	mov	dptr,#_get_command_temp_131073_72
 	movx	a,@dptr
 	mov	r4,a
 	movx	a,@dptr
@@ -1514,7 +1478,7 @@ _get_command:
 00195$:
 ;	syntax.c:194: printf("%p: ", rd_ptr);
 	push	ar4
-	mov	dptr,#_get_command_rd_ptr_131073_73
+	mov	dptr,#_get_command_rd_ptr_131073_72
 	movx	a,@dptr
 	push	acc
 	inc	dptr
@@ -1523,9 +1487,9 @@ _get_command:
 	inc	dptr
 	movx	a,@dptr
 	push	acc
-	mov	a,#___str_9
+	mov	a,#___str_10
 	push	acc
-	mov	a,#(___str_9 >> 8)
+	mov	a,#(___str_10 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1535,7 +1499,7 @@ _get_command:
 	mov	sp,a
 	pop	ar4
 ;	syntax.c:195: for(int i=15; i>=0;i--){
-	mov	dptr,#_get_command_rd_ptr_131073_73
+	mov	dptr,#_get_command_rd_ptr_131073_72
 	movx	a,@dptr
 	mov	r1,a
 	inc	dptr
@@ -1564,9 +1528,9 @@ _get_command:
 	push	ar1
 	push	ar0
 	push	ar7
-	mov	a,#___str_10
+	mov	a,#___str_11
 	push	acc
-	mov	a,#(___str_10 >> 8)
+	mov	a,#(___str_11 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1592,9 +1556,9 @@ _get_command:
 	push	ar1
 	push	ar7
 	push	ar6
-	mov	a,#___str_10
+	mov	a,#___str_11
 	push	acc
-	mov	a,#(___str_10 >> 8)
+	mov	a,#(___str_11 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1623,7 +1587,7 @@ _get_command:
 00197$:
 	ljmp	00125$
 00144$:
-	mov	dptr,#_get_command_rd_ptr_131073_73
+	mov	dptr,#_get_command_rd_ptr_131073_72
 	mov	a,r1
 	movx	@dptr,a
 	mov	a,r2
@@ -1632,13 +1596,13 @@ _get_command:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#_get_command_temp_131073_73
+	mov	dptr,#_get_command_temp_131073_72
 	mov	a,r4
 	movx	@dptr,a
 ;	syntax.c:202: printf("\r\n");
-	mov	a,#___str_11
+	mov	a,#___str_12
 	push	acc
-	mov	a,#(___str_11 >> 8)
+	mov	a,#(___str_12 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1672,13 +1636,13 @@ _get_command:
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#___str_12
+	mov	dptr,#___str_13
 	mov	b,#0x80
 	lcall	_get_buf_value
 	mov	r6,dpl
 	mov	r7,dph
 ;	syntax.c:212: print_prompt("Buffer size you entered is : ");
-	mov	dptr,#___str_13
+	mov	dptr,#___str_14
 	mov	b,#0x80
 	push	ar7
 	push	ar6
@@ -1690,9 +1654,9 @@ _get_command:
 	push	ar6
 	push	ar6
 	push	ar7
-	mov	a,#___str_14
+	mov	a,#___str_15
 	push	acc
-	mov	a,#(___str_14 >> 8)
+	mov	a,#(___str_15 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1717,7 +1681,7 @@ _get_command:
 	orl	a,r5
 	jnz	00112$
 ;	syntax.c:217: print_prompt("\n\rFailed to get malloc try to enter smaller size by again entering +");
-	mov	dptr,#___str_15
+	mov	dptr,#___str_16
 	mov	b,#0x80
 	push	ar7
 	push	ar6
@@ -1732,10 +1696,10 @@ _get_command:
 ;	syntax.c:221: node_t node = {index_of_buffers, pointer, temp_value};
 	mov	dptr,#_index_of_buffers
 	movx	a,@dptr
-	mov	dptr,#_get_command_node_131074_78
+	mov	dptr,#_get_command_node_131074_77
 	movx	@dptr,a
 	mov	r3,#0x00
-	mov	dptr,#(_get_command_node_131074_78 + 0x0001)
+	mov	dptr,#(_get_command_node_131074_77 + 0x0001)
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -1744,7 +1708,7 @@ _get_command:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#(_get_command_node_131074_78 + 0x0004)
+	mov	dptr,#(_get_command_node_131074_77 + 0x0004)
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
@@ -1762,9 +1726,9 @@ _get_command:
 	mov	r7,a
 	mov	r5,#0x00
 	mov	dptr,#___memcpy_PARM_2
-	mov	a,#_get_command_node_131074_78
+	mov	a,#_get_command_node_131074_77
 	movx	@dptr,a
-	mov	a,#(_get_command_node_131074_78 >> 8)
+	mov	a,#(_get_command_node_131074_77 >> 8)
 	inc	dptr
 	movx	@dptr,a
 	clr	a
@@ -1790,7 +1754,7 @@ _get_command:
 	sjmp	00120$
 00113$:
 ;	syntax.c:227: print_prompt("\n\rEnter Number to delete between 0 to 127 for buffer:");
-	mov	dptr,#___str_16
+	mov	dptr,#___str_17
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:228: temp_value = getchar();
@@ -1875,9 +1839,9 @@ _get_command:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'buffer0_dump'
 ;------------------------------------------------------------
-;rd_ptr                    Allocated with name '_buffer0_dump_rd_ptr_65536_80'
-;temp                      Allocated with name '_buffer0_dump_temp_65536_80'
-;i                         Allocated with name '_buffer0_dump_i_196608_82'
+;rd_ptr                    Allocated with name '_buffer0_dump_rd_ptr_65536_79'
+;temp                      Allocated with name '_buffer0_dump_temp_65536_79'
+;i                         Allocated with name '_buffer0_dump_i_196608_81'
 ;------------------------------------------------------------
 ;	syntax.c:247: void buffer0_dump(){
 ;	-----------------------------------------
@@ -1894,7 +1858,7 @@ _buffer0_dump:
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
-	mov	dptr,#_buffer0_dump_rd_ptr_65536_80
+	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
 	mov	a,r5
 	movx	@dptr,a
 	mov	a,r6
@@ -1906,12 +1870,12 @@ _buffer0_dump:
 ;	syntax.c:249: uint8_t temp = array_for_nodes[0].size*sizeof(uint8_t);
 	mov	dptr,#(_array_for_nodes + 0x0004)
 	movx	a,@dptr
-	mov	dptr,#_buffer0_dump_temp_65536_80
+	mov	dptr,#_buffer0_dump_temp_65536_79
 	movx	@dptr,a
 ;	syntax.c:250: printf("....... Dumping Buffer0 ......\r\n");
-	mov	a,#___str_8
+	mov	a,#___str_9
 	push	acc
-	mov	a,#(___str_8 >> 8)
+	mov	a,#(___str_9 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1921,7 +1885,7 @@ _buffer0_dump:
 	dec	sp
 ;	syntax.c:251: while(temp){
 00102$:
-	mov	dptr,#_buffer0_dump_temp_65536_80
+	mov	dptr,#_buffer0_dump_temp_65536_79
 	movx	a,@dptr
 	mov	r7,a
 	movx	a,@dptr
@@ -1930,7 +1894,7 @@ _buffer0_dump:
 00127$:
 ;	syntax.c:252: printf("%p: ", rd_ptr);
 	push	ar7
-	mov	dptr,#_buffer0_dump_rd_ptr_65536_80
+	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
 	movx	a,@dptr
 	push	acc
 	inc	dptr
@@ -1939,9 +1903,9 @@ _buffer0_dump:
 	inc	dptr
 	movx	a,@dptr
 	push	acc
-	mov	a,#___str_9
+	mov	a,#___str_10
 	push	acc
-	mov	a,#(___str_9 >> 8)
+	mov	a,#(___str_10 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1951,7 +1915,7 @@ _buffer0_dump:
 	mov	sp,a
 	pop	ar7
 ;	syntax.c:253: for(int i=15; i>=0;i--){
-	mov	dptr,#_buffer0_dump_rd_ptr_65536_80
+	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1982,9 +1946,9 @@ _buffer0_dump:
 	push	ar2
 	push	ar0
 	push	ar1
-	mov	a,#___str_10
+	mov	a,#___str_11
 	push	acc
-	mov	a,#(___str_10 >> 8)
+	mov	a,#(___str_11 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2014,9 +1978,9 @@ _buffer0_dump:
 	push	ar2
 	push	ar0
 	push	ar1
-	mov	a,#___str_10
+	mov	a,#___str_11
 	push	acc
-	mov	a,#(___str_10 >> 8)
+	mov	a,#(___str_11 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2040,7 +2004,7 @@ _buffer0_dump:
 00129$:
 	ljmp	00106$
 00114$:
-	mov	dptr,#_buffer0_dump_rd_ptr_65536_80
+	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -2049,13 +2013,13 @@ _buffer0_dump:
 	mov	a,r6
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#_buffer0_dump_temp_65536_80
+	mov	dptr,#_buffer0_dump_temp_65536_79
 	mov	a,r7
 	movx	@dptr,a
 ;	syntax.c:259: printf("\r\n");
-	mov	a,#___str_11
+	mov	a,#___str_12
 	push	acc
-	mov	a,#(___str_11 >> 8)
+	mov	a,#(___str_12 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2069,12 +2033,12 @@ _buffer0_dump:
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;sloc0                     Allocated with name '_main_sloc0_1_0'
-;buffer_size               Allocated with name '_main_buffer_size_65536_85'
-;node1                     Allocated with name '_main_node1_65537_89'
-;node2                     Allocated with name '_main_node2_65538_90'
-;wr                        Allocated with name '_main_wr_65539_91'
-;ch                        Allocated with name '_main_ch_131075_92'
-;cha                       Allocated with name '_main_cha_131076_95'
+;buffer_size               Allocated with name '_main_buffer_size_65536_84'
+;node1                     Allocated with name '_main_node1_65537_88'
+;node2                     Allocated with name '_main_node2_65538_89'
+;wr                        Allocated with name '_main_wr_65539_90'
+;ch                        Allocated with name '_main_ch_131075_91'
+;cha                       Allocated with name '_main_cha_131076_94'
 ;temp_buffer_size          Allocated to registers 
 ;index_for_write           Allocated to registers 
 ;------------------------------------------------------------
@@ -2098,13 +2062,13 @@ _main:
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#___str_17
+	mov	dptr,#___str_18
 	mov	b,#0x80
 	lcall	_get_buf_value
 	mov	r6,dpl
 	mov	r7,dph
 ;	syntax.c:273: print_prompt("Buffer you entered is : 0x");
-	mov	dptr,#___str_18
+	mov	dptr,#___str_19
 	mov	b,#0x80
 	push	ar7
 	push	ar6
@@ -2116,9 +2080,9 @@ _main:
 	push	ar6
 	push	ar6
 	push	ar7
-	mov	a,#___str_14
+	mov	a,#___str_15
 	push	acc
-	mov	a,#(___str_14 >> 8)
+	mov	a,#(___str_15 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2154,7 +2118,7 @@ _main:
 	orl	a,r5
 	jnz	00104$
 ;	syntax.c:280: print_prompt("Failed to get malloc try to enter smaller size for buf 1\n\r");
-	mov	dptr,#___str_19
+	mov	dptr,#___str_20
 	mov	b,#0x80
 	push	ar7
 	push	ar6
@@ -2199,7 +2163,7 @@ _main:
 	push	ar6
 	lcall	_free
 ;	syntax.c:290: print_prompt("Failed to get malloc try to enter smaller size for buf 2\n\r");
-	mov	dptr,#___str_20
+	mov	dptr,#___str_21
 	mov	b,#0x80
 	lcall	_print_prompt
 	pop	ar6
@@ -2224,9 +2188,9 @@ _main:
 	push	ar1
 	push	ar0
 	push	ar2
-	mov	a,#___str_21
+	mov	a,#___str_22
 	push	acc
-	mov	a,#(___str_21 >> 8)
+	mov	a,#(___str_22 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2261,7 +2225,7 @@ _main:
 	clr	a
 	movx	@dptr,a
 ;	syntax.c:300: node_t node1 = { index_of_buffers, pointer1, buffer_size};
-	mov	dptr,#_main_node1_65537_89
+	mov	dptr,#_main_node1_65537_88
 	movx	@dptr,a
 	mov	dptr,#_pointer1
 	movx	a,@dptr
@@ -2270,7 +2234,7 @@ _main:
 	movx	a,@dptr
 	mov	r5,a
 	mov	r3,#0x00
-	mov	dptr,#(_main_node1_65537_89 + 0x0001)
+	mov	dptr,#(_main_node1_65537_88 + 0x0001)
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -2279,7 +2243,7 @@ _main:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#(_main_node1_65537_89 + 0x0004)
+	mov	dptr,#(_main_node1_65537_88 + 0x0004)
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
@@ -2297,9 +2261,9 @@ _main:
 	mov	r5,a
 	mov	r3,#0x00
 	mov	dptr,#___memcpy_PARM_2
-	mov	a,#_main_node1_65537_89
+	mov	a,#_main_node1_65537_88
 	movx	@dptr,a
-	mov	a,#(_main_node1_65537_89 >> 8)
+	mov	a,#(_main_node1_65537_88 >> 8)
 	inc	dptr
 	movx	@dptr,a
 	clr	a
@@ -2354,9 +2318,9 @@ _main:
 	push	ar1
 	push	ar4
 	push	ar5
-	mov	a,#___str_22
+	mov	a,#___str_23
 	push	acc
-	mov	a,#(___str_22 >> 8)
+	mov	a,#(___str_23 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2373,7 +2337,7 @@ _main:
 	movx	@dptr,a
 ;	syntax.c:305: node_t node2 = { index_of_buffers, pointer2, buffer_size};
 	movx	a,@dptr
-	mov	dptr,#_main_node2_65538_90
+	mov	dptr,#_main_node2_65538_89
 	movx	@dptr,a
 	mov	dptr,#_pointer2
 	movx	a,@dptr
@@ -2382,7 +2346,7 @@ _main:
 	movx	a,@dptr
 	mov	r5,a
 	mov	r3,#0x00
-	mov	dptr,#(_main_node2_65538_90 + 0x0001)
+	mov	dptr,#(_main_node2_65538_89 + 0x0001)
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -2391,7 +2355,7 @@ _main:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#(_main_node2_65538_90 + 0x0004)
+	mov	dptr,#(_main_node2_65538_89 + 0x0004)
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
@@ -2409,9 +2373,9 @@ _main:
 	mov	r7,a
 	mov	r5,#0x00
 	mov	dptr,#___memcpy_PARM_2
-	mov	a,#_main_node2_65538_90
+	mov	a,#_main_node2_65538_89
 	movx	@dptr,a
-	mov	a,#(_main_node2_65538_90 >> 8)
+	mov	a,#(_main_node2_65538_89 >> 8)
 	inc	dptr
 	movx	@dptr,a
 	clr	a
@@ -2464,9 +2428,9 @@ _main:
 	push	ar3
 	push	ar6
 	push	ar7
-	mov	a,#___str_22
+	mov	a,#___str_23
 	push	acc
-	mov	a,#(___str_22 >> 8)
+	mov	a,#(___str_23 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2480,7 +2444,7 @@ _main:
 	add	a,#0x01
 	movx	@dptr,a
 ;	syntax.c:310: print_prompt("Enter Uppercase char to save in buffer 0: \n\r");
-	mov	dptr,#___str_23
+	mov	dptr,#___str_24
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:312: __idata int temp_buffer_size = array_for_nodes[0].size;
@@ -2549,7 +2513,7 @@ _main:
 	inc	a
 	movx	@dptr,a
 ;	syntax.c:323: print_prompt("Command recived ! \n\r");
-	mov	dptr,#___str_24
+	mov	dptr,#___str_25
 	mov	b,#0x80
 	push	ar7
 	push	ar6
@@ -2615,9 +2579,9 @@ _main:
 	push	(_main_sloc0_1_0 + 1)
 	push	ar0
 	push	ar2
-	mov	a,#___str_25
+	mov	a,#___str_26
 	push	acc
-	mov	a,#(___str_25 >> 8)
+	mov	a,#(___str_26 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2649,9 +2613,9 @@ _main:
 	ljmp	00114$
 00179$:
 ;	syntax.c:336: printf("buffer0 got full nothing to write !");
-	mov	a,#___str_26
+	mov	a,#___str_27
 	push	acc
-	mov	a,#(___str_26 >> 8)
+	mov	a,#(___str_27 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2662,7 +2626,7 @@ _main:
 ;	syntax.c:341: while(1)
 00122$:
 ;	syntax.c:343: print_prompt("Please enter An command (+) (-) (?) (=) (@): \n");
-	mov	dptr,#___str_27
+	mov	dptr,#___str_28
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:344: int cha = getchar();
@@ -2696,7 +2660,7 @@ _main:
 	inc	a
 	movx	@dptr,a
 ;	syntax.c:348: print_prompt("Command recived ! \n\r");
-	mov	dptr,#___str_24
+	mov	dptr,#___str_25
 	mov	b,#0x80
 	push	ar7
 	push	ar6
@@ -2730,41 +2694,49 @@ ___str_0:
 	.db 0x0a
 	.ascii "Enter valid input"
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "Total number of commands from the start: "
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_2:
-	.ascii "%d"
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_3:
+	.ascii "SIZE ENTERED : %d"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
+___str_2:
+	.ascii "Total number of commands from the start: "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_3:
+	.ascii "%d"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
 ___str_4:
-	.ascii "Recent number of commands from the last ?: "
+	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_5:
-	.ascii "Total number of storage chars from the start: "
+	.ascii "Recent number of commands from the last ?: "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_6:
-	.ascii "Recent number of storage chars from the last ?: "
+	.ascii "Total number of storage chars from the start: "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_7:
+	.ascii "Recent number of storage chars from the last ?: "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_8:
 	.ascii "Index: %d , starting address of Pointer: %p  Ending Address "
 	.ascii "of the pointer %p size of array: %d"
 	.db 0x0a
@@ -2772,49 +2744,49 @@ ___str_7:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_8:
+___str_9:
 	.ascii "....... Dumping Buffer0 ......"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_9:
+___str_10:
 	.ascii "%p: "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_10:
+___str_11:
 	.ascii "%d "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_11:
+___str_12:
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_12:
+___str_13:
 	.db 0x0a
 	.db 0x0d
 	.ascii "Enter buffer size between 20 to 400: "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_13:
+___str_14:
 	.ascii "Buffer size you entered is : "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_14:
+___str_15:
 	.ascii "%d "
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_15:
+___str_16:
 	.db 0x0a
 	.db 0x0d
 	.ascii "Failed to get malloc try to enter smaller size by again ente"
@@ -2822,79 +2794,79 @@ ___str_15:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_16:
+___str_17:
 	.db 0x0a
 	.db 0x0d
 	.ascii "Enter Number to delete between 0 to 127 for buffer:"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_17:
+___str_18:
 	.ascii "Enter buffer size between 32 and 4800 bytes (buffer size mus"
 	.ascii "t be evenly divisible by 16): "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_18:
+___str_19:
 	.ascii "Buffer you entered is : 0x"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_19:
+___str_20:
 	.ascii "Failed to get malloc try to enter smaller size for buf 1"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_20:
+___str_21:
 	.ascii "Failed to get malloc try to enter smaller size for buf 2"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_21:
+___str_22:
 	.ascii "pointer_value : %p %p"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_22:
+___str_23:
 	.ascii "pointer location %p, size %d"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_23:
+___str_24:
 	.ascii "Enter Uppercase char to save in buffer 0: "
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_24:
+___str_25:
 	.ascii "Command recived ! "
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_25:
+___str_26:
 	.ascii "total storage %d recent storage %d pointer %p "
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_26:
+___str_27:
 	.ascii "buffer0 got full nothing to write !"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_27:
+___str_28:
 	.ascii "Please enter An command (+) (-) (?) (=) (@): "
 	.db 0x0a
 	.db 0x00

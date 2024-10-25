@@ -4,19 +4,17 @@
 #include "/usr/share/sdcc/include/stdio.h"
 #include "/usr/share/sdcc/include/stdint.h"
 
-#define upper_default 4800
+#define upper_default 5120
 #define LOWER_DEFAULT 32
-#define HEAP_SIZE 5000
+#define HEAP_SIZE 5120
 
 #define DEBUG
 
 #ifdef DEBUG
 #define DEBUGPORT(x) dataout(0xFFFF,x);
 void dataout(uint16_t val1, uint8_t x){
-    DPL = val1 & 0xFF;
-    DPH = (val1 >> 8) & 0xFF;
-    ACC = x;
-    __asm__("movx @dptr, a");
+    __xdata * debug_add = (__xdata *)0x8100;
+    &debug_add = 1; 
 }
  // generates a MOVX 0FFFFh,x where x is an 8-bitvalue
 #else
@@ -24,8 +22,8 @@ void dataout(uint16_t val1, uint8_t x){
  // empty statement, nothing passed on from the preprocessor to the compiler
 #endif
 
-#define UPPER_SMALL_BUFFERS 400
-#define LOWER_SMALL_BUFFERS 20
+#define UPPER_SMALL_BUFFERS 500
+#define LOWER_SMALL_BUFFERS 50
 
 
 static uint8_t index_of_buffers = 0;
@@ -40,7 +38,6 @@ uint8_t recived_bytes = 0;
 void print_prompt(const char * string);
 int getchar(void);
 int putchar(int);
-void sendUint32ToUART(uint32_t value);
 int get_buf_value(const char * string, int UPPER, int LOWER);
 void buffer0_dump();
 
@@ -56,11 +53,11 @@ node_t array_for_nodes[100];
 __xdata uint8_t* pointer1 = NULL;
 __xdata uint8_t* pointer2 = NULL;
 
-unsigned char __sdcc_external_startup(void){
-    AUXR |= (XRS1 | XRS0);
-    AUXR &= ~(XRS2);
-    return 0;
-}
+// unsigned char __sdcc_external_startup(void){
+//     AUXR |= (XRS1 | XRS0);
+//     AUXR &= ~(XRS2);
+//     return 0;
+// }
 
 void init_uart(){
      SCON = 0x50;
@@ -97,42 +94,35 @@ int get_buf_value(const char * string, int UPPER, int LOWER){
     print_prompt(string);
 
 
-    while(index >= 1 & data_from_serial != 0x0d){
+    while(index >= 1 && data_from_serial != 0x0d)
+    {
         data_from_serial = getchar();
         if((data_from_serial < '0' || data_from_serial > '9') && data_from_serial != 0x0d) {
-            print_prompt("\nEnter valid input\n");
+            print_prompt("\nEnter valid input\n\r");
             return -1;
         }
 
-        if(data_from_serial == 0x0d){
+        if(data_from_serial == 0x0d)
+        {
             break;
         }
 
         putchar(data_from_serial);
-        buffer_size += (data_from_serial-48)*index;
+        buffer_size += (data_from_serial - '0')*index;
         index=index/10;
     }
+    printf("SIZE ENTERED : %d\n\r", buffer_size);
 
-
-    if((buffer_size % 16) != 0 || (buffer_size < LOWER) || (buffer_size > UPPER)) {
-            return -1;
+    if((buffer_size % 16) != 0 || (buffer_size < LOWER) || (buffer_size > UPPER)) 
+    {
+        printf("INVALID VALUE FOR BUFFER 0\n\r");
+        return -1;
     }
 
 
     return buffer_size;
 
 }
-
-void sendUint32ToUART(uint32_t value) {
-    int byte = 0;
-    int i = 0;
-    while (value > 1) {
-        int byte = value % 10; // Extract one byte at a time
-        putchar(byte);
-        value = value / 10;
-    }
-}
-
 
 
 void print_prompt(const char * string){
@@ -208,7 +198,7 @@ int get_command(int command){
             break;
 
         case '+':
-            temp_value = get_buf_value("\n\rEnter buffer size between 20 to 400: ", UPPER_SMALL_BUFFERS, LOWER_SMALL_BUFFERS);
+            temp_value = get_buf_value("\n\rEnter buffer size between 50 to 500: ", UPPER_SMALL_BUFFERS, LOWER_SMALL_BUFFERS);
             print_prompt("Buffer size you entered is : ");
             printf("%d \n\r", temp_value);
 
