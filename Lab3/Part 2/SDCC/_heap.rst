@@ -1,6 +1,6 @@
                                       1 ;--------------------------------------------------------
-                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
-                                      3 ; Version 4.0.0 #11528 (Linux)
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (MINGW32)
                                       4 ;--------------------------------------------------------
                                       5 	.module _heap
                                       6 	.optsdcc -mmcs51 --model-large
@@ -30,7 +30,7 @@
                                      30 ;--------------------------------------------------------
                                      31 	.area DSEG    (DATA)
                                      32 ;--------------------------------------------------------
-                                     33 ; overlayable items in internal ram 
+                                     33 ; overlayable items in internal ram
                                      34 ;--------------------------------------------------------
                                      35 ;--------------------------------------------------------
                                      36 ; indirectly addressable internal ram data
@@ -50,17 +50,17 @@
                                      50 ;--------------------------------------------------------
                                      51 	.area PSEG    (PAG,XDATA)
                                      52 ;--------------------------------------------------------
-                                     53 ; external ram data
+                                     53 ; uninitialized external ram data
                                      54 ;--------------------------------------------------------
                                      55 	.area XSEG    (XDATA)
-      00068E                         56 ___sdcc_heap::
-      00068E                         57 	.ds 2048
+      00068D                         56 ___sdcc_heap::
+      00068D                         57 	.ds 5120
                                      58 ;--------------------------------------------------------
                                      59 ; absolute external ram data
                                      60 ;--------------------------------------------------------
                                      61 	.area XABS    (ABS,XDATA)
                                      62 ;--------------------------------------------------------
-                                     63 ; external initialized ram data
+                                     63 ; initialized external ram data
                                      64 ;--------------------------------------------------------
                                      65 	.area XISEG   (XDATA)
                                      66 	.area HOME    (CODE)
@@ -91,7 +91,7 @@
                                      91 	.area CSEG    (CODE)
                                      92 	.area CSEG    (CODE)
                                      93 	.area CONST   (CODE)
-      0051EF                         94 ___sdcc_heap_size:
-      0051EF 00 08                   95 	.byte #0x00, #0x08	; 2048
+      0062FA                         94 ___sdcc_heap_size:
+      0062FA 00 14                   95 	.byte #0x00, #0x14	; 5120
                                      96 	.area XINIT   (CODE)
                                      97 	.area CABS    (ABS,CODE)

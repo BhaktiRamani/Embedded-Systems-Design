@@ -1,6 +1,6 @@
 ;--------------------------------------------------------
-; File Created by SDCC : free open source ANSI-C Compiler
-; Version 4.0.0 #11528 (Linux)
+; File Created by SDCC : free open source ISO C Compiler 
+; Version 4.4.0 #14620 (MINGW32)
 ;--------------------------------------------------------
 	.module syntax
 	.optsdcc -mmcs51 --model-large
@@ -10,9 +10,9 @@
 ;--------------------------------------------------------
 	.globl _main
 	.globl _get_command
-	.globl _init_uart
-	.globl ___sdcc_external_startup
+	.globl _get_number
 	.globl _dataout
+	.globl _memset
 	.globl _printf
 	.globl _free
 	.globl _malloc
@@ -214,6 +214,7 @@
 	.globl _P0
 	.globl _pointer2
 	.globl _pointer1
+	.globl _wr
 	.globl _recived_bytes
 	.globl _recent_storage
 	.globl _recent_commands
@@ -223,10 +224,11 @@
 	.globl _get_buf_value_PARM_2
 	.globl _array_for_nodes
 	.globl _dataout_PARM_2
+	.globl _temp_buffer_size
+	.globl _init_uart
 	.globl _putchar
 	.globl _getchar
 	.globl _get_buf_value
-	.globl _sendUint32ToUART
 	.globl _print_prompt
 	.globl _buffer0_dump
 ;--------------------------------------------------------
@@ -444,19 +446,31 @@ _P5_7	=	0x00ef
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
+_get_buf_value_sloc0_1_0:
+	.ds 1
+_get_buf_value_sloc1_1_0:
+	.ds 2
 _get_command_sloc0_1_0:
 	.ds 2
 _get_command_sloc1_1_0:
 	.ds 3
+_get_command_sloc2_1_0:
+	.ds 3
+_buffer0_dump_sloc0_1_0:
+	.ds 2
+_buffer0_dump_sloc1_1_0:
+	.ds 3
+_buffer0_dump_sloc2_1_0:
+	.ds 2
 _main_sloc0_1_0:
 	.ds 2
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 ;--------------------------------------------------------
-; Stack segment in internal ram 
+; Stack segment in internal ram
 ;--------------------------------------------------------
-	.area	SSEG
+	.area SSEG
 __start__stack:
 	.ds	1
 
@@ -464,6 +478,8 @@ __start__stack:
 ; indirectly addressable internal ram data
 ;--------------------------------------------------------
 	.area ISEG    (DATA)
+_temp_buffer_size::
+	.ds 2
 ;--------------------------------------------------------
 ; absolute internal ram data
 ;--------------------------------------------------------
@@ -478,57 +494,53 @@ __start__stack:
 ;--------------------------------------------------------
 	.area PSEG    (PAG,XDATA)
 ;--------------------------------------------------------
-; external ram data
+; uninitialized external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
 _dataout_PARM_2:
 	.ds 1
-_dataout_val1_65536_41:
+_dataout_address_10000_69:
 	.ds 2
-_node_count:
-	.ds 1
 _array_for_nodes::
 	.ds 600
-_putchar_chr_65536_51:
+_putchar_chr_10000_79:
 	.ds 2
 _get_buf_value_PARM_2:
 	.ds 2
 _get_buf_value_PARM_3:
 	.ds 2
-_get_buf_value_string_65536_55:
+_get_buf_value_string_10000_84:
 	.ds 3
-_get_buf_value_data_from_serial_65536_56:
+_get_buf_value_buffer_size_10000_85:
 	.ds 2
-_get_buf_value_buffer_size_65536_56:
+_get_buf_value_input_10000_85:
+	.ds 5
+_get_buf_value_valid_input_10000_85:
 	.ds 2
-_get_buf_value_index_65536_56:
-	.ds 2
-_sendUint32ToUART_value_65536_60:
-	.ds 4
-_print_prompt_string_65536_63:
+_print_prompt_string_10000_92:
 	.ds 3
-_get_command_command_65536_66:
-	.ds 2
-_get_command_rd_ptr_131073_72:
+_get_number_prompt_10000_95:
 	.ds 3
-_get_command_temp_131073_72:
-	.ds 1
-_get_command_node_131074_77:
+_get_number_buffer_size_10000_96:
+	.ds 2
+_get_number_index_10000_96:
+	.ds 2
+_get_command_command_10000_99:
+	.ds 2
+_get_command_node_30003_120:
 	.ds 6
-_buffer0_dump_rd_ptr_65536_79:
-	.ds 3
-_buffer0_dump_temp_65536_79:
-	.ds 1
-_main_node1_65537_88:
+_buffer0_dump_offset_20001_128:
+	.ds 2
+_main_node1_10002_140:
 	.ds 6
-_main_node2_65538_89:
+_main_node2_10003_141:
 	.ds 6
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
 	.area XABS    (ABS,XDATA)
 ;--------------------------------------------------------
-; external initialized ram data
+; initialized external ram data
 ;--------------------------------------------------------
 	.area XISEG   (XDATA)
 _index_of_buffers:
@@ -543,6 +555,8 @@ _recent_storage::
 	.ds 1
 _recived_bytes::
 	.ds 1
+_wr::
+	.ds 3
 _pointer1::
 	.ds 2
 _pointer2::
@@ -558,7 +572,7 @@ _pointer2::
 	.area GSFINAL (CODE)
 	.area CSEG    (CODE)
 ;--------------------------------------------------------
-; interrupt vector 
+; interrupt vector
 ;--------------------------------------------------------
 	.area HOME    (CODE)
 __interrupt_vect:
@@ -576,6 +590,12 @@ __interrupt_vect:
 	.globl __mcs51_genXINIT
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
+;	syntax.c:52: __idata int temp_buffer_size = 0;
+	mov	r0,#_temp_buffer_size
+	clr	a
+	mov	@r0,a
+	inc	r0
+	mov	@r0,a
 	.area GSFINAL (CODE)
 	ljmp	__sdcc_program_startup
 ;--------------------------------------------------------
@@ -593,10 +613,11 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'dataout'
 ;------------------------------------------------------------
-;x                         Allocated with name '_dataout_PARM_2'
-;val1                      Allocated with name '_dataout_val1_65536_41'
+;value                     Allocated with name '_dataout_PARM_2'
+;address                   Allocated with name '_dataout_address_10000_69'
+;debug_add                 Allocated with name '_dataout_debug_add_10000_70'
 ;------------------------------------------------------------
-;	syntax.c:15: void dataout(uint16_t val1, uint8_t x){
+;	syntax.c:27: void dataout(uint16_t address, uint8_t value)
 ;	-----------------------------------------
 ;	 function dataout
 ;	-----------------------------------------
@@ -611,139 +632,140 @@ _dataout:
 	ar0 = 0x00
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_dataout_val1_65536_41
+	mov	dptr,#_dataout_address_10000_69
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:16: DPL = val1 & 0xFF;
-	mov	dptr,#_dataout_val1_65536_41
+;	syntax.c:29: __xdata unsigned char * debug_add = (__xdata unsigned char*)address;
+	mov	dptr,#_dataout_address_10000_69
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
-	mov	_DPL,r6
-;	syntax.c:17: DPH = (val1 >> 8) & 0xFF;
-	mov	_DPH,r7
-;	syntax.c:18: ACC = x;
+;	syntax.c:30: *debug_add = value; 
 	mov	dptr,#_dataout_PARM_2
 	movx	a,@dptr
-	mov	_ACC,a
-;	syntax.c:19: __asm__("movx @dptr, a");
-	movx	@dptr, a
-;	syntax.c:20: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function '__sdcc_external_startup'
-;------------------------------------------------------------
-;	syntax.c:59: unsigned char __sdcc_external_startup(void){
-;	-----------------------------------------
-;	 function __sdcc_external_startup
-;	-----------------------------------------
-___sdcc_external_startup:
-;	syntax.c:60: AUXR |= (XRS1 | XRS0);
-	orl	_AUXR,#0x0c
-;	syntax.c:61: AUXR &= ~(XRS2);
-	anl	_AUXR,#0xef
-;	syntax.c:62: return 0;
-	mov	dpl,#0x00
-;	syntax.c:63: }
+	mov	dpl,r6
+	mov	dph,r7
+	movx	@dptr,a
+;	syntax.c:31: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'init_uart'
 ;------------------------------------------------------------
-;	syntax.c:65: void init_uart(){
+;	syntax.c:73: void init_uart(void)
 ;	-----------------------------------------
 ;	 function init_uart
 ;	-----------------------------------------
 _init_uart:
-;	syntax.c:66: SCON = 0x50;
+;	syntax.c:75: SCON = 0x50;               // Serial mode 1, 8-bit UART, enable receiver
 	mov	_SCON,#0x50
-;	syntax.c:67: TMOD = 0x20;
+;	syntax.c:76: TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
 	mov	_TMOD,#0x20
-;	syntax.c:68: TH1 = 0xFD;
+;	syntax.c:77: TH1 = 0xFD;                // 9600 baud rate
 	mov	_TH1,#0xfd
-;	syntax.c:69: TR1 = 1;
+;	syntax.c:78: TR1 = 1;                   // Start timer 1
 ;	assignBit
 	setb	_TR1
-;	syntax.c:70: }
+;	syntax.c:79: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar'
 ;------------------------------------------------------------
-;chr                       Allocated with name '_putchar_chr_65536_51'
+;chr                       Allocated with name '_putchar_chr_10000_79'
 ;------------------------------------------------------------
-;	syntax.c:72: int putchar(int chr){
+;	syntax.c:87: int putchar(int chr){
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
 _putchar:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_putchar_chr_65536_51
+	mov	dptr,#_putchar_chr_10000_79
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:73: SBUF = chr;
-	mov	dptr,#_putchar_chr_65536_51
+;	syntax.c:88: SBUF = chr;                 // Load character to send
+	mov	dptr,#_putchar_chr_10000_79
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	mov	_SBUF,r6
-;	syntax.c:74: while(!TI);
+;	syntax.c:89: while(!TI);                 // Wait for transmission complete
 00101$:
-;	syntax.c:75: TI = 0;
+	jnb	_TI,00101$
+;	syntax.c:90: DEBUGPORT(55);              // Debug marker for transmission
+	mov	dptr,#_dataout_PARM_2
+	mov	a,#0x37
+	movx	@dptr,a
+	mov	dptr,#0xfefe
+	lcall	_dataout
+;	syntax.c:91: TI = 0;                     // Clear transmission flag
 ;	assignBit
-	jbc	_TI,00114$
-	sjmp	00101$
-00114$:
-;	syntax.c:76: return 1;
+	clr	_TI
+;	syntax.c:92: return 1;
 	mov	dptr,#0x0001
-;	syntax.c:78: }
+;	syntax.c:93: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;a                         Allocated with name '_getchar_a_65537_54'
+;a                         Allocated with name '_getchar_a_10001_83'
 ;------------------------------------------------------------
-;	syntax.c:80: int getchar(){
+;	syntax.c:101: int getchar(void){
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
-;	syntax.c:82: while(!RI);
+;	syntax.c:102: while(!RI);                 // Wait for character reception
 00101$:
 	jnb	_RI,00101$
-;	syntax.c:83: int a = SBUF;
+;	syntax.c:103: int a = SBUF;               // Get received character
 	mov	r6,_SBUF
 	mov	r7,#0x00
-;	syntax.c:84: RI = 0;
+;	syntax.c:104: DEBUGPORT(10);              // Debug marker for reception
+	mov	dptr,#_dataout_PARM_2
+	mov	a,#0x0a
+	movx	@dptr,a
+	mov	dptr,#0xfefe
+	push	ar7
+	push	ar6
+	lcall	_dataout
+	pop	ar6
+	pop	ar7
+;	syntax.c:105: RI = 0;                     // Clear reception flag
 ;	assignBit
 	clr	_RI
-;	syntax.c:85: recived_bytes++;
+;	syntax.c:106: recived_bytes++;            // Update received byte count
 	mov	dptr,#_recived_bytes
 	movx	a,@dptr
-	add	a,#0x01
+	add	a, #0x01
 	movx	@dptr,a
-;	syntax.c:86: return a;
-	mov	dpl,r6
-	mov	dph,r7
-;	syntax.c:88: }
+;	syntax.c:107: return a;
+	mov	dpl, r6
+	mov	dph, r7
+;	syntax.c:108: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'get_buf_value'
 ;------------------------------------------------------------
+;sloc0                     Allocated with name '_get_buf_value_sloc0_1_0'
+;sloc1                     Allocated with name '_get_buf_value_sloc1_1_0'
 ;UPPER                     Allocated with name '_get_buf_value_PARM_2'
 ;LOWER                     Allocated with name '_get_buf_value_PARM_3'
-;string                    Allocated with name '_get_buf_value_string_65536_55'
-;data_from_serial          Allocated with name '_get_buf_value_data_from_serial_65536_56'
-;buffer_size               Allocated with name '_get_buf_value_buffer_size_65536_56'
-;index                     Allocated with name '_get_buf_value_index_65536_56'
+;string                    Allocated with name '_get_buf_value_string_10000_84'
+;buffer_size               Allocated with name '_get_buf_value_buffer_size_10000_85'
+;input                     Allocated with name '_get_buf_value_input_10000_85'
+;valid_input               Allocated with name '_get_buf_value_valid_input_10000_85'
+;digit_count               Allocated with name '_get_buf_value_digit_count_20001_87'
+;i                         Allocated with name '_get_buf_value_i_20001_87'
+;c                         Allocated with name '_get_buf_value_c_20001_87'
 ;------------------------------------------------------------
-;	syntax.c:91: int get_buf_value(const char * string, int UPPER, int LOWER){
+;	syntax.c:119: int get_buf_value(const char* string, int UPPER, int LOWER) {
 ;	-----------------------------------------
 ;	 function get_buf_value
 ;	-----------------------------------------
@@ -751,7 +773,7 @@ _get_buf_value:
 	mov	r7,b
 	mov	r6,dph
 	mov	a,dpl
-	mov	dptr,#_get_buf_value_string_65536_55
+	mov	dptr,#_get_buf_value_string_10000_84
 	movx	@dptr,a
 	mov	a,r6
 	inc	dptr
@@ -759,199 +781,110 @@ _get_buf_value:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:92: int data_from_serial = 0;
-	mov	dptr,#_get_buf_value_data_from_serial_65536_56
+;	syntax.c:120: int buffer_size = 0;
+	mov	dptr,#_get_buf_value_buffer_size_10000_85
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:93: int buffer_size = 0;
-	mov	dptr,#_get_buf_value_buffer_size_65536_56
+;	syntax.c:122: int valid_input = 0;
+	mov	dptr,#_get_buf_value_valid_input_10000_85
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:94: int index = 1000;
-	mov	dptr,#_get_buf_value_index_65536_56
-	mov	a,#0xe8
-	movx	@dptr,a
-	mov	a,#0x03
-	inc	dptr
-	movx	@dptr,a
-;	syntax.c:97: print_prompt(string);
-	mov	dptr,#_get_buf_value_string_65536_55
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
+;	syntax.c:124: while (!valid_input) {
+	mov	dptr,#_get_buf_value_PARM_2
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
-	lcall	_print_prompt
-;	syntax.c:100: while(index >= 1 & data_from_serial != 0x0d){
-00107$:
-	mov	dptr,#_get_buf_value_index_65536_56
+	mov	dptr,#_get_buf_value_PARM_3
 	movx	a,@dptr
-	mov	r6,a
+	mov	_get_buf_value_sloc1_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r7,a
-	clr	c
-	mov	a,r6
-	subb	a,#0x01
-	mov	a,r7
-	xrl	a,#0x80
-	subb	a,#0x80
-	cpl	c
-	clr	a
-	rlc	a
-	mov	r7,a
-	mov	dptr,#_get_buf_value_data_from_serial_65536_56
+	mov	(_get_buf_value_sloc1_1_0 + 1),a
+00117$:
+	mov	dptr,#_get_buf_value_valid_input_10000_85
 	movx	a,@dptr
-	mov	r5,a
+	mov	b,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r6,a
-	clr	a
-	cjne	r5,#0x0d,00133$
-	cjne	r6,#0x00,00133$
-	inc	a
-00133$:
-	cjne	a,#0x01,00135$
-00135$:
-	clr	a
-	rlc	a
-	mov	r6,a
-	anl	a,r7
-	jnz	00136$
-	ljmp	00109$
-00136$:
-;	syntax.c:101: data_from_serial = getchar();
-	lcall	_getchar
-	mov	r6,dpl
-	mov	r7,dph
-	mov	dptr,#_get_buf_value_data_from_serial_65536_56
-	mov	a,r6
-	movx	@dptr,a
-	mov	a,r7
-	inc	dptr
-	movx	@dptr,a
-;	syntax.c:102: if((data_from_serial < '0' || data_from_serial > '9') && data_from_serial != 0x0d) {
-	clr	c
-	mov	a,r6
-	subb	a,#0x30
-	mov	a,r7
-	xrl	a,#0x80
-	subb	a,#0x80
-	jc	00104$
-	mov	a,#0x39
-	subb	a,r6
-	mov	a,#(0x00 ^ 0x80)
-	mov	b,r7
-	xrl	b,#0x80
-	subb	a,b
-	jnc	00102$
-00104$:
-	cjne	r6,#0x0d,00139$
-	cjne	r7,#0x00,00139$
-	sjmp	00102$
-00139$:
-;	syntax.c:103: print_prompt("\nEnter valid input\n\r");
+	orl	a,b
+	jz	00188$
+	ljmp	00119$
+00188$:
+;	syntax.c:125: print_prompt("\n\r+--------------------------------------------------+");
 	mov	dptr,#___str_0
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:104: return -1;
-	mov	dptr,#0xffff
-	ret
-00102$:
-;	syntax.c:107: if(data_from_serial == 0x0d){
-	cjne	r6,#0x0d,00140$
-	cjne	r7,#0x00,00140$
-	sjmp	00109$
-00140$:
-;	syntax.c:111: putchar(data_from_serial);
-	mov	dpl,r6
-	mov	dph,r7
+	mov	b, #0x80
 	push	ar7
 	push	ar6
-	lcall	_putchar
-	pop	ar6
-	pop	ar7
-;	syntax.c:112: buffer_size += (data_from_serial-48)*index;
-	mov	a,r6
-	add	a,#0xd0
-	mov	r6,a
-	mov	a,r7
-	addc	a,#0xff
-	mov	r7,a
-	mov	dptr,#_get_buf_value_index_65536_56
+	lcall	_print_prompt
+;	syntax.c:126: print_prompt(string);
+	mov	dptr,#_get_buf_value_string_10000_84
 	movx	a,@dptr
-	mov	r4,a
+	mov	r1,a
 	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	mov	dptr,#__mulint_PARM_2
-	mov	a,r4
-	movx	@dptr,a
-	mov	a,r5
-	inc	dptr
-	movx	@dptr,a
-	mov	dpl,r6
-	mov	dph,r7
-	push	ar5
-	push	ar4
-	lcall	__mulint
-	mov	r6,dpl
-	mov	r7,dph
-	pop	ar4
-	pop	ar5
-	mov	dptr,#_get_buf_value_buffer_size_65536_56
 	movx	a,@dptr
 	mov	r2,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r3,a
-	mov	dptr,#_get_buf_value_buffer_size_65536_56
-	mov	a,r6
-	add	a,r2
-	movx	@dptr,a
-	mov	a,r7
-	addc	a,r3
-	inc	dptr
-	movx	@dptr,a
-;	syntax.c:113: index=index/10;
-	mov	dptr,#__divsint_PARM_2
-	mov	a,#0x0a
-	movx	@dptr,a
+	mov	dpl, r1
+	mov	dph, r2
+	mov	b, r3
+	lcall	_print_prompt
+	pop	ar6
+	pop	ar7
+;	syntax.c:129: buffer_size = 0;
+	mov	dptr,#_get_buf_value_buffer_size_10000_85
 	clr	a
+	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-	mov	dpl,r4
-	mov	dph,r5
-	lcall	__divsint
-	mov	a,dpl
-	mov	b,dph
-	mov	dptr,#_get_buf_value_index_65536_56
-	movx	@dptr,a
-	mov	a,b
-	inc	dptr
-	movx	@dptr,a
-	ljmp	00107$
-00109$:
-;	syntax.c:115: printf("SIZE ENTERED : %d\n\r", buffer_size);
-	mov	dptr,#_get_buf_value_buffer_size_65536_56
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	push	ar7
-	push	ar6
+;	syntax.c:135: while ((c = getchar()) != 0x0d && digit_count < 4) {
+	mov	r2,a
+	mov	r3,a
+	mov	r1,a
+00108$:
 	push	ar6
 	push	ar7
+	push	ar6
+	push	ar3
+	push	ar2
+	push	ar1
+	lcall	_getchar
+	mov	r0, dpl
+	pop	ar1
+	pop	ar2
+	pop	ar3
+	pop	ar6
+	mov	_get_buf_value_sloc0_1_0,r0
+	mov	a,#0x0d
+	cjne	a,_get_buf_value_sloc0_1_0,00189$
+	pop	ar7
+	pop	ar6
+	ljmp	00110$
+00189$:
+	pop	ar7
+	pop	ar6
+	cjne	r1,#0x04,00190$
+00190$:
+	jc	00191$
+	ljmp	00110$
+00191$:
+;	syntax.c:137: if (c < '0' || c > '9') {
+	mov	a,#0x100 - 0x30
+	add	a,_get_buf_value_sloc0_1_0
+	jnc	00104$
+	mov	a,_get_buf_value_sloc0_1_0
+	add	a,#0xff - 0x39
+	jnc	00105$
+00104$:
+;	syntax.c:138: printf("\n\r| ERROR: Invalid input - Please enter numbers only     |");
+	push	ar7
+	push	ar6
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -959,137 +892,293 @@ _get_buf_value:
 	mov	a,#0x80
 	push	acc
 	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:139: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
 	pop	ar6
 	pop	ar7
-;	syntax.c:122: return buffer_size;
-	mov	dpl,r6
-	mov	dph,r7
-;	syntax.c:124: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'sendUint32ToUART'
-;------------------------------------------------------------
-;value                     Allocated with name '_sendUint32ToUART_value_65536_60'
-;byte                      Allocated with name '_sendUint32ToUART_byte_65536_61'
-;i                         Allocated with name '_sendUint32ToUART_i_65536_61'
-;byte                      Allocated with name '_sendUint32ToUART_byte_131072_62'
-;------------------------------------------------------------
-;	syntax.c:126: void sendUint32ToUART(uint32_t value) {
-;	-----------------------------------------
-;	 function sendUint32ToUART
-;	-----------------------------------------
-_sendUint32ToUART:
-	mov	r7,dpl
-	mov	r6,dph
-	mov	r5,b
-	mov	r4,a
-	mov	dptr,#_sendUint32ToUART_value_65536_60
-	mov	a,r7
-	movx	@dptr,a
-	mov	a,r6
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r5
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r4
-	inc	dptr
-	movx	@dptr,a
-;	syntax.c:129: while (value > 1) {
+;	syntax.c:141: while (getchar() != 0x0d);  // Clear input buffer
 00101$:
-	mov	dptr,#_sendUint32ToUART_value_65536_60
-	movx	a,@dptr
-	mov	r4,a
+	push	ar6
+	push	ar7
+	push	ar6
+	lcall	_getchar
+	mov	r0, dpl
+	mov	r7, dph
+	pop	ar6
+	cjne	r0,#0x0d,00194$
+	cjne	r7,#0x00,00194$
+	sjmp	00195$
+00194$:
+	pop	ar7
+	pop	ar6
+	sjmp	00101$
+00195$:
+	pop	ar7
+	pop	ar6
+;	syntax.c:142: buffer_size = -1;
+	mov	dptr,#_get_buf_value_buffer_size_10000_85
+	mov	a,#0xff
+	movx	@dptr,a
 	inc	dptr
+	movx	@dptr,a
+;	syntax.c:143: break;
+	ljmp	00110$
+00105$:
+;	syntax.c:146: putchar(c);
+	push	ar6
+	push	ar7
+	mov	r0,_get_buf_value_sloc0_1_0
+	mov	r7,#0x00
+	mov	dpl, r0
+	mov	dph, r7
+	push	ar7
+	push	ar6
+	push	ar3
+	push	ar2
+	push	ar1
+	push	ar0
+	lcall	_putchar
+	pop	ar0
+	pop	ar1
+	pop	ar2
+	pop	ar3
+	pop	ar6
+	pop	ar7
+;	syntax.c:147: input[i++] = c;
+	mov	a,r2
+	add	a, #_get_buf_value_input_10000_85
+	mov	dpl,a
+	mov	a,r3
+	addc	a, #(_get_buf_value_input_10000_85 >> 8)
+	mov	dph,a
+	inc	r2
+	cjne	r2,#0x00,00196$
+	inc	r3
+00196$:
+	mov	a,_get_buf_value_sloc0_1_0
+	movx	@dptr,a
+;	syntax.c:148: digit_count++;
+	inc	r1
+;	syntax.c:149: buffer_size = buffer_size * 10 + (c - '0');
+	mov	dptr,#_get_buf_value_buffer_size_10000_85
 	movx	a,@dptr
 	mov	r5,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	clr	c
-	mov	a,#0x01
-	subb	a,r4
-	clr	a
-	subb	a,r5
-	clr	a
-	subb	a,r6
-	clr	a
-	subb	a,r7
-	jnc	00104$
-;	syntax.c:130: int byte = value % 10; // Extract one byte at a time
-	mov	dptr,#__modulong_PARM_2
-	mov	a,#0x0a
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r6
-	mov	a,r7
-	push	ar7
-	push	ar6
-	push	ar5
-	push	ar4
-	lcall	__modulong
-;	syntax.c:131: putchar(byte);
-	lcall	_putchar
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	syntax.c:132: value = value / 10;
-	mov	dptr,#__divulong_PARM_2
-	mov	a,#0x0a
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r6
-	mov	a,r7
-	lcall	__divulong
-	mov	r4,dpl
-	mov	r5,dph
-	mov	r6,b
-	mov	r7,a
-	mov	dptr,#_sendUint32ToUART_value_65536_60
-	mov	a,r4
-	movx	@dptr,a
+	mov	dptr,#__mulint_PARM_2
 	mov	a,r5
-	inc	dptr
 	movx	@dptr,a
 	mov	a,r6
 	inc	dptr
 	movx	@dptr,a
+	mov	dptr,#0x000a
+	push	ar7
+	push	ar3
+	push	ar2
+	push	ar1
+	push	ar0
+	lcall	__mulint
+	mov	r5, dpl
+	mov	r6, dph
+	pop	ar0
+	pop	ar1
+	pop	ar2
+	pop	ar3
+	pop	ar7
+	mov	a,r0
+	add	a,#0xd0
+	mov	r0,a
 	mov	a,r7
+	addc	a,#0xff
+	mov	r7,a
+	mov	dptr,#_get_buf_value_buffer_size_10000_85
+	mov	a,r0
+	add	a, r5
+	movx	@dptr,a
+	mov	a,r7
+	addc	a, r6
 	inc	dptr
 	movx	@dptr,a
-	sjmp	00101$
-00104$:
-;	syntax.c:134: }
+	pop	ar7
+	pop	ar6
+	ljmp	00108$
+00110$:
+;	syntax.c:153: if (buffer_size == -1) {
+	mov	dptr,#_get_buf_value_buffer_size_10000_85
+	movx	a,@dptr
+	mov	r4,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r5,a
+	cjne	r4,#0xff,00197$
+	cjne	r5,#0xff,00197$
+	ljmp	00117$
+00197$:
+;	syntax.c:158: if ((buffer_size % 16) != 0 || (buffer_size < LOWER) || (buffer_size > UPPER)) {
+	mov	dptr,#__modsint_PARM_2
+	mov	a,#0x10
+	movx	@dptr,a
+	clr	a
+	inc	dptr
+	movx	@dptr,a
+	mov	dpl, r4
+	mov	dph, r5
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	lcall	__modsint
+	mov	a, dpl
+	mov	b, dph
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+	orl	a,b
+	jnz	00113$
+	clr	c
+	mov	a,r4
+	subb	a,_get_buf_value_sloc1_1_0
+	mov	a,r5
+	xrl	a,#0x80
+	mov	b,(_get_buf_value_sloc1_1_0 + 1)
+	xrl	b,#0x80
+	subb	a,b
+	jc	00113$
+	mov	a,r6
+	subb	a,r4
+	mov	a,r7
+	xrl	a,#0x80
+	mov	b,r5
+	xrl	b,#0x80
+	subb	a,b
+	jnc	00114$
+00113$:
+;	syntax.c:159: printf("\n\r| ERROR: Invalid buffer size                          |");
+	push	ar7
+	push	ar6
+	mov	a,#___str_3
+	push	acc
+	mov	a,#(___str_3 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar6
+	pop	ar7
+;	syntax.c:160: printf("\n\r| - Must be between %d and %d                       |", LOWER, UPPER);
+	push	ar7
+	push	ar6
+	push	ar6
+	push	ar7
+	push	_get_buf_value_sloc1_1_0
+	push	(_get_buf_value_sloc1_1_0 + 1)
+	mov	a,#___str_4
+	push	acc
+	mov	a,#(___str_4 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf9
+	mov	sp,a
+;	syntax.c:161: printf("\n\r| - Must be multiple of 16                           |");
+	mov	a,#___str_5
+	push	acc
+	mov	a,#(___str_5 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:162: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar6
+	pop	ar7
+;	syntax.c:163: continue;
+	ljmp	00117$
+00114$:
+;	syntax.c:165: printf("\n\r| Input size: %-39d |", buffer_size);
+	push	ar7
+	push	ar6
+	push	ar4
+	push	ar5
+	mov	a,#___str_6
+	push	acc
+	mov	a,#(___str_6 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:166: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar6
+	pop	ar7
+;	syntax.c:167: valid_input = 1;
+	mov	dptr,#_get_buf_value_valid_input_10000_85
+	mov	a,#0x01
+	movx	@dptr,a
+	clr	a
+	inc	dptr
+	movx	@dptr,a
+	ljmp	00117$
+00119$:
+;	syntax.c:170: return buffer_size;
+	mov	dptr,#_get_buf_value_buffer_size_10000_85
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+;	syntax.c:171: }
+	mov	dpl,r6
+	mov	dph,a
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'print_prompt'
 ;------------------------------------------------------------
-;string                    Allocated with name '_print_prompt_string_65536_63'
+;string                    Allocated with name '_print_prompt_string_10000_92'
 ;------------------------------------------------------------
-;	syntax.c:138: void print_prompt(const char * string){
+;	syntax.c:179: void print_prompt(const char * string){
 ;	-----------------------------------------
 ;	 function print_prompt
 ;	-----------------------------------------
@@ -1097,7 +1186,7 @@ _print_prompt:
 	mov	r7,b
 	mov	r6,dph
 	mov	a,dpl
-	mov	dptr,#_print_prompt_string_65536_63
+	mov	dptr,#_print_prompt_string_10000_92
 	movx	@dptr,a
 	mov	a,r6
 	inc	dptr
@@ -1105,8 +1194,8 @@ _print_prompt:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:139: while(*string != '\0'){
-	mov	dptr,#_print_prompt_string_65536_63
+;	syntax.c:180: while(*string != '\0'){
+	mov	dptr,#_print_prompt_string_10000_92
 	movx	a,@dptr
 	mov	r5,a
 	inc	dptr
@@ -1122,10 +1211,10 @@ _print_prompt:
 	lcall	__gptrget
 	mov	r4,a
 	jz	00108$
-;	syntax.c:140: putchar(*string);
+;	syntax.c:181: putchar(*string);
 	mov	r3,#0x00
-	mov	dpl,r4
-	mov	dph,r3
+	mov	dpl, r4
+	mov	dph, r3
 	push	ar7
 	push	ar6
 	push	ar5
@@ -1133,12 +1222,12 @@ _print_prompt:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	syntax.c:141: string++;
+;	syntax.c:182: string++;
 	inc	r5
-	cjne	r5,#0x00,00116$
+	cjne	r5,#0x00,00120$
 	inc	r6
-00116$:
-	mov	dptr,#_print_prompt_string_65536_63
+00120$:
+	mov	dptr,#_print_prompt_string_10000_92
 	mov	a,r5
 	movx	@dptr,a
 	mov	a,r6
@@ -1149,7 +1238,7 @@ _print_prompt:
 	movx	@dptr,a
 	sjmp	00101$
 00108$:
-	mov	dptr,#_print_prompt_string_65536_63
+	mov	dptr,#_print_prompt_string_10000_92
 	mov	a,r5
 	movx	@dptr,a
 	mov	a,r6
@@ -1158,75 +1247,379 @@ _print_prompt:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:143: }
+;	syntax.c:184: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'get_number'
+;------------------------------------------------------------
+;prompt                    Allocated with name '_get_number_prompt_10000_95'
+;buffer_size               Allocated with name '_get_number_buffer_size_10000_96'
+;c                         Allocated with name '_get_number_c_10000_96'
+;index                     Allocated with name '_get_number_index_10000_96'
+;------------------------------------------------------------
+;	syntax.c:192: int get_number(const char* prompt)
+;	-----------------------------------------
+;	 function get_number
+;	-----------------------------------------
+_get_number:
+	mov	r7,b
+	mov	r6,dph
+	mov	a,dpl
+	mov	dptr,#_get_number_prompt_10000_95
+	movx	@dptr,a
+	mov	a,r6
+	inc	dptr
+	movx	@dptr,a
+	mov	a,r7
+	inc	dptr
+	movx	@dptr,a
+;	syntax.c:194: int buffer_size = 0;
+	mov	dptr,#_get_number_buffer_size_10000_96
+	clr	a
+	movx	@dptr,a
+	inc	dptr
+	movx	@dptr,a
+;	syntax.c:196: int index = 100;            // Start with highest place value for 3 digits
+	mov	dptr,#_get_number_index_10000_96
+	mov	a,#0x64
+	movx	@dptr,a
+	clr	a
+	inc	dptr
+	movx	@dptr,a
+;	syntax.c:198: print_prompt("\n\r+--------------------------------------------------+");
+	mov	dptr,#___str_0
+	mov	b, #0x80
+	lcall	_print_prompt
+;	syntax.c:199: print_prompt(prompt);
+	mov	dptr,#_get_number_prompt_10000_95
+	movx	a,@dptr
+	mov	r5,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
+	mov	dpl, r5
+	mov	dph, r6
+	mov	b, r7
+	lcall	_print_prompt
+;	syntax.c:201: while (index >= 1 && (c = getchar()) != 0x0d) {
+00105$:
+	mov	dptr,#_get_number_index_10000_96
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
+	clr	c
+	mov	a,r6
+	subb	a,#0x01
+	mov	a,r7
+	xrl	a,#0x80
+	subb	a,#0x80
+	jnc	00134$
+	ljmp	00107$
+00134$:
+	push	ar7
+	push	ar6
+	lcall	_getchar
+	mov	r4, dpl
+	pop	ar6
+	pop	ar7
+	cjne	r4,#0x0d,00135$
+	ljmp	00107$
+00135$:
+;	syntax.c:202: if (c < '0' || c > '9') {
+	cjne	r4,#0x30,00136$
+00136$:
+	jc	00101$
+	mov	a,r4
+	add	a,#0xff - 0x39
+	jnc	00102$
+00101$:
+;	syntax.c:203: printf("\n\r| ERROR: Invalid input - Please enter numbers only     |");
+	mov	a,#___str_1
+	push	acc
+	mov	a,#(___str_1 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:204: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:205: return -1;
+	mov	dptr,#0xffff
+	ret
+00102$:
+;	syntax.c:208: putchar(c);
+	mov	r5,#0x00
+	mov	dpl, r4
+	mov	dph, r5
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	lcall	_putchar
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	syntax.c:209: buffer_size += (c - '0') * index;
+	mov	a,r4
+	add	a,#0xd0
+	mov	r4,a
+	mov	a,r5
+	addc	a,#0xff
+	mov	r5,a
+	mov	dptr,#__mulint_PARM_2
+	mov	a,r6
+	movx	@dptr,a
+	mov	a,r7
+	inc	dptr
+	movx	@dptr,a
+	mov	dpl, r4
+	mov	dph, r5
+	push	ar7
+	push	ar6
+	lcall	__mulint
+	mov	r4, dpl
+	mov	r5, dph
+	pop	ar6
+	pop	ar7
+	mov	dptr,#_get_number_buffer_size_10000_96
+	movx	a,@dptr
+	mov	r2,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r3,a
+	mov	dptr,#_get_number_buffer_size_10000_96
+	mov	a,r4
+	add	a, r2
+	movx	@dptr,a
+	mov	a,r5
+	addc	a, r3
+	inc	dptr
+	movx	@dptr,a
+;	syntax.c:210: index = index/10;
+	mov	dptr,#__divsint_PARM_2
+	mov	a,#0x0a
+	movx	@dptr,a
+	clr	a
+	inc	dptr
+	movx	@dptr,a
+	mov	dpl, r6
+	mov	dph, r7
+	lcall	__divsint
+	mov	a, dpl
+	mov	b, dph
+	mov	dptr,#_get_number_index_10000_96
+	movx	@dptr,a
+	mov	a,b
+	inc	dptr
+	movx	@dptr,a
+	ljmp	00105$
+00107$:
+;	syntax.c:213: printf("\n\r| Input size: %-39d |", buffer_size);
+	mov	dptr,#_get_number_buffer_size_10000_96
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
+	push	ar7
+	push	ar6
+	push	ar6
+	push	ar7
+	mov	a,#___str_6
+	push	acc
+	mov	a,#(___str_6 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:214: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar6
+	pop	ar7
+;	syntax.c:216: return buffer_size;
+	mov	dpl, r6
+	mov	dph, r7
+;	syntax.c:217: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'get_command'
 ;------------------------------------------------------------
 ;sloc0                     Allocated with name '_get_command_sloc0_1_0'
 ;sloc1                     Allocated with name '_get_command_sloc1_1_0'
-;command                   Allocated with name '_get_command_command_65536_66'
-;temp_value                Allocated with name '_get_command_temp_value_65536_67'
-;pointer                   Allocated with name '_get_command_pointer_65536_67'
-;array_index_temp          Allocated with name '_get_command_array_index_temp_65536_67'
-;i                         Allocated with name '_get_command_i_196608_69'
-;rd_ptr                    Allocated with name '_get_command_rd_ptr_131073_72'
-;wr_ptr                    Allocated with name '_get_command_wr_ptr_131073_72'
-;temp                      Allocated with name '_get_command_temp_131073_72'
-;i                         Allocated with name '_get_command_i_262145_74'
-;node                      Allocated with name '_get_command_node_131074_77'
+;sloc2                     Allocated with name '_get_command_sloc2_1_0'
+;command                   Allocated with name '_get_command_command_10000_99'
+;temp_value                Allocated with name '_get_command_temp_value_10000_100'
+;pointer                   Allocated with name '_get_command_pointer_10000_100'
+;array_index_temp          Allocated with name '_get_command_array_index_temp_10000_100'
+;total_buffers             Allocated with name '_get_command_total_buffers_20001_102'
+;buffers_freed             Allocated with name '_get_command_buffers_freed_20001_102'
+;failed_frees              Allocated with name '_get_command_failed_frees_20001_102'
+;i                         Allocated with name '_get_command_i_30001_103'
+;i                         Allocated with name '_get_command_i_30001_106'
+;i                         Allocated with name '_get_command_i_30001_111'
+;buffer_size               Allocated with name '_get_command_buffer_size_20002_115'
+;node                      Allocated with name '_get_command_node_30003_120'
 ;------------------------------------------------------------
-;	syntax.c:152: int get_command(int command){
+;	syntax.c:226: int get_command(int command)
 ;	-----------------------------------------
 ;	 function get_command
 ;	-----------------------------------------
 _get_command:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_get_command_command_65536_66
+	mov	dptr,#_get_command_command_10000_99
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:160: switch(command){
-	mov	dptr,#_get_command_command_65536_66
+;	syntax.c:232: switch(command)
+	mov	dptr,#_get_command_command_10000_99
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
-	cjne	r6,#0x2b,00187$
-	cjne	r7,#0x00,00187$
-	ljmp	00110$
-00187$:
-	cjne	r6,#0x2d,00188$
-	cjne	r7,#0x00,00188$
-	ljmp	00113$
-00188$:
-	cjne	r6,#0x3d,00189$
-	cjne	r7,#0x00,00189$
-	ljmp	00118$
-00189$:
-	cjne	r6,#0x3f,00190$
-	cjne	r7,#0x00,00190$
-	sjmp	00191$
-00190$:
-	ljmp	00120$
-00191$:
-;	syntax.c:164: print_prompt("Total number of commands from the start: ");
-	mov	dptr,#___str_2
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:165: printf("%d",total_number_of_commands);
-	mov	dptr,#_total_number_of_commands
-	movx	a,@dptr
-	mov	r7,a
-	mov	r6,#0x00
-	push	ar7
-	push	ar6
-	mov	a,#___str_3
+	cjne	r6,#0x2b,00263$
+	cjne	r7,#0x00,00263$
+	ljmp	00117$
+00263$:
+	cjne	r6,#0x2d,00264$
+	cjne	r7,#0x00,00264$
+	ljmp	00125$
+00264$:
+	cjne	r6,#0x3d,00265$
+	cjne	r7,#0x00,00265$
+	ljmp	00132$
+00265$:
+	cjne	r6,#0x3f,00266$
+	cjne	r7,#0x00,00266$
+	ljmp	00111$
+00266$:
+	cjne	r6,#0x40,00267$
+	cjne	r7,#0x00,00267$
+	sjmp	00268$
+00267$:
+	ljmp	00133$
+00268$:
+;	syntax.c:239: printf("\n\r| BUFFER DEALLOCATION STATUS                      |");
+	mov	a,#___str_7
 	push	acc
-	mov	a,#(___str_3 >> 8)
+	mov	a,#(___str_7 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:240: printf("\n\r|------------------------------------------------|");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:243: for(int i = 0; i < 100; i++) 
+	clr	a
+	mov	_get_command_sloc0_1_0,a
+	mov	(_get_command_sloc0_1_0 + 1),a
+	mov	r4,a
+	mov	r5,a
+00135$:
+	clr	c
+	mov	a,r4
+	subb	a,#0x64
+	mov	a,r5
+	xrl	a,#0x80
+	subb	a,#0x80
+	jnc	00104$
+;	syntax.c:245: if(array_for_nodes[i].data_pointer != NULL)
+	mov	dptr,#__mulint_PARM_2
+	mov	a,r4
+	movx	@dptr,a
+	mov	a,r5
+	inc	dptr
+	movx	@dptr,a
+	mov	dptr,#0x0006
+	push	ar5
+	push	ar4
+	lcall	__mulint
+	mov	r2, dpl
+	mov	r3, dph
+	pop	ar4
+	pop	ar5
+	mov	a,r2
+	add	a, #_array_for_nodes
+	mov	r2,a
+	mov	a,r3
+	addc	a, #(_array_for_nodes >> 8)
+	mov	r3,a
+	mov	dpl,r2
+	mov	dph,r3
+	inc	dptr
+	movx	a,@dptr
+	mov	r2,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r3,a
+	inc	dptr
+	movx	a,@dptr
+	mov	a,r2
+	orl	a,r3
+	jz	00136$
+;	syntax.c:247: total_buffers++;
+	inc	_get_command_sloc0_1_0
+	clr	a
+	cjne	a,_get_command_sloc0_1_0,00271$
+	inc	(_get_command_sloc0_1_0 + 1)
+00271$:
+00136$:
+;	syntax.c:243: for(int i = 0; i < 100; i++) 
+	inc	r4
+	cjne	r4,#0x00,00135$
+	inc	r5
+	sjmp	00135$
+00104$:
+;	syntax.c:251: printf("\n\r| Buffers to Free  | %-28d |", total_buffers);
+	push	_get_command_sloc0_1_0
+	push	(_get_command_sloc0_1_0 + 1)
+	mov	a,#___str_9
+	push	acc
+	mov	a,#(___str_9 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1234,107 +1627,18 @@ _get_command:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	syntax.c:166: print_prompt("\n\r");
-	mov	dptr,#___str_4
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:167: print_prompt("Recent number of commands from the last ?: ");
-	mov	dptr,#___str_5
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:168: printf("%d",recent_commands);
-	mov	dptr,#_recent_commands
-	movx	a,@dptr
-	mov	r7,a
-	mov	r6,#0x00
-	push	ar7
-	push	ar6
-	mov	a,#___str_3
-	push	acc
-	mov	a,#(___str_3 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-;	syntax.c:169: print_prompt("\n\r");
-	mov	dptr,#___str_4
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:170: print_prompt("\n\r");
-	mov	dptr,#___str_4
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:172: print_prompt("Total number of storage chars from the start: ");
-	mov	dptr,#___str_6
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:173: printf("%d",total_number_of_storage);
-	mov	dptr,#_total_number_of_storage
-	movx	a,@dptr
-	mov	r7,a
-	mov	r6,#0x00
-	push	ar7
-	push	ar6
-	mov	a,#___str_3
-	push	acc
-	mov	a,#(___str_3 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-;	syntax.c:174: print_prompt("\n\r");
-	mov	dptr,#___str_4
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:175: print_prompt("Recent number of storage chars from the last ?: ");
-	mov	dptr,#___str_7
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:176: printf("%d",recent_storage);
-	mov	dptr,#_recent_storage
-	movx	a,@dptr
-	mov	r7,a
-	mov	r6,#0x00
-	push	ar7
-	push	ar6
-	mov	a,#___str_3
-	push	acc
-	mov	a,#(___str_3 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-;	syntax.c:177: print_prompt("\n\r");
-	mov	dptr,#___str_4
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:178: print_prompt("\n\r");
-	mov	dptr,#___str_4
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:180: for(int i=0; i<99; i++){
+;	syntax.c:254: for(int i = 0; i < 100; i++) 
 	mov	r6,#0x00
 	mov	r7,#0x00
-00122$:
+00138$:
 	clr	c
 	mov	a,r6
-	subb	a,#0x63
+	subb	a,#0x64
 	mov	a,r7
 	xrl	a,#0x80
 	subb	a,#0x80
-	jc	00192$
-	ljmp	00105$
-00192$:
-;	syntax.c:181: if(array_for_nodes[i]){
+	jnc	00107$
+;	syntax.c:256: if(array_for_nodes[i].data_pointer != NULL) 
 	mov	dptr,#__mulint_PARM_2
 	mov	a,r6
 	movx	@dptr,a
@@ -1345,23 +1649,374 @@ _get_command:
 	push	ar7
 	push	ar6
 	lcall	__mulint
-	mov	r4,dpl
-	mov	r5,dph
+	mov	r4, dpl
+	mov	r5, dph
 	pop	ar6
 	pop	ar7
 	mov	a,r4
-	add	a,#_array_for_nodes
+	add	a, #_array_for_nodes
 	mov	r4,a
 	mov	a,r5
-	addc	a,#(_array_for_nodes >> 8)
+	addc	a, #(_array_for_nodes >> 8)
+	mov	r5,a
+	inc	r4
+	cjne	r4,#0x00,00274$
+	inc	r5
+00274$:
+	mov	dpl,r4
+	mov	dph,r5
+	movx	a,@dptr
+	mov	_get_command_sloc1_1_0,a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_get_command_sloc1_1_0 + 1),a
+	inc	dptr
+	movx	a,@dptr
+	mov	(_get_command_sloc1_1_0 + 2),a
+	mov	a,_get_command_sloc1_1_0
+	orl	a,(_get_command_sloc1_1_0 + 1)
+	jz	00139$
+;	syntax.c:258: free(array_for_nodes[i].data_pointer);
+	push	ar6
+	push	ar7
+	mov	r2,_get_command_sloc1_1_0
+	mov	r3,(_get_command_sloc1_1_0 + 1)
+	mov	r7,(_get_command_sloc1_1_0 + 2)
+	mov	dpl, r2
+	mov	dph, r3
+	mov	b, r7
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	lcall	_free
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	syntax.c:259: array_for_nodes[i].data_pointer = NULL;
+	mov	dpl,r4
+	mov	dph,r5
+	clr	a
+	movx	@dptr,a
+	inc	dptr
+	movx	@dptr,a
+	inc	dptr
+	movx	@dptr,a
+;	syntax.c:353: return -1;
+	pop	ar7
+	pop	ar6
+;	syntax.c:259: array_for_nodes[i].data_pointer = NULL;
+00139$:
+;	syntax.c:254: for(int i = 0; i < 100; i++) 
+	inc	r6
+	cjne	r6,#0x00,00276$
+	inc	r7
+00276$:
+	ljmp	00138$
+00107$:
+;	syntax.c:263: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:267: printf("\n\r| All buffers successfully deallocated            |");
+	mov	a,#___str_10
+	push	acc
+	mov	a,#(___str_10 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:271: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:279: case '?':               // Show system status
+00111$:
+;	syntax.c:280: printf("\n\r+------------------SYSTEM STATUS-------------------+");
+	mov	a,#___str_12
+	push	acc
+	mov	a,#(___str_12 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:281: printf("\n\r| COMMAND STATISTICS                              |");
+	mov	a,#___str_13
+	push	acc
+	mov	a,#(___str_13 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:282: printf("\n\r|------------------------------------------------|");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:283: printf("\n\r| Total Commands   | %-28d |", total_number_of_commands);
+	mov	dptr,#_total_number_of_commands
+	movx	a,@dptr
+	mov	r7,a
+	mov	r6,#0x00
+	push	ar7
+	push	ar6
+	mov	a,#___str_14
+	push	acc
+	mov	a,#(___str_14 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:284: printf("\n\r| Recent Commands  | %-28d |", recent_commands);
+	mov	dptr,#_recent_commands
+	movx	a,@dptr
+	mov	r7,a
+	mov	r6,#0x00
+	push	ar7
+	push	ar6
+	mov	a,#___str_15
+	push	acc
+	mov	a,#(___str_15 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:285: printf("\n\r|------------------------------------------------|");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:286: printf("\n\r| STORAGE STATISTICS                             |");
+	mov	a,#___str_16
+	push	acc
+	mov	a,#(___str_16 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:287: printf("\n\r|------------------------------------------------|");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:288: printf("\n\r| Total Storage    | %-28d |", total_number_of_storage);
+	mov	dptr,#_total_number_of_storage
+	movx	a,@dptr
+	mov	r7,a
+	mov	r6,#0x00
+	push	ar7
+	push	ar6
+	mov	a,#___str_17
+	push	acc
+	mov	a,#(___str_17 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:289: printf("\n\r| Recent Storage   | %-28d |", recent_storage);
+	mov	dptr,#_recent_storage
+	movx	a,@dptr
+	mov	r7,a
+	mov	r6,#0x00
+	push	ar7
+	push	ar6
+	mov	a,#___str_18
+	push	acc
+	mov	a,#(___str_18 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:290: printf("\n\r+--------------------------------------------------+");
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:291: printf("\n\r| TOTAL BUFFERS IN HEAP                           |");
+	mov	a,#___str_19
+	push	acc
+	mov	a,#(___str_19 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:292: printf("\n\r|------------------------------------------------|");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:293: printf("\n\r| Total Buffers    | %-28d |", index_of_buffers);
+	mov	dptr,#_index_of_buffers
+	movx	a,@dptr
+	mov	r7,a
+	mov	r6,#0x00
+	push	ar7
+	push	ar6
+	mov	a,#___str_20
+	push	acc
+	mov	a,#(___str_20 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:294: printf("\n\r+--------------------------------------------------+");
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:296: printf("\n\r+------------------BUFFER INFO--------------------+");
+	mov	a,#___str_21
+	push	acc
+	mov	a,#(___str_21 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:297: printf("\n\r| ID | Start Addr  | End Addr    | Size (bytes) |");
+	mov	a,#___str_22
+	push	acc
+	mov	a,#(___str_22 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:298: printf("\n\r|----|-------------|-------------|--------------|");
+	mov	a,#___str_23
+	push	acc
+	mov	a,#(___str_23 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:300: for(int i=1; i<100; i++){
+	mov	r6,#0x01
+	mov	r7,#0x00
+00141$:
+	clr	c
+	mov	a,r6
+	subb	a,#0x64
+	mov	a,r7
+	xrl	a,#0x80
+	subb	a,#0x80
+	jc	00277$
+	ljmp	00114$
+00277$:
+;	syntax.c:301: if(array_for_nodes[i]){
+	mov	dptr,#__mulint_PARM_2
+	mov	a,r6
+	movx	@dptr,a
+	mov	a,r7
+	inc	dptr
+	movx	@dptr,a
+	mov	dptr,#0x0006
+	push	ar7
+	push	ar6
+	lcall	__mulint
+	mov	r4, dpl
+	mov	r5, dph
+	pop	ar6
+	pop	ar7
+	mov	a,r4
+	add	a, #_array_for_nodes
+	mov	r4,a
+	mov	a,r5
+	addc	a, #(_array_for_nodes >> 8)
 	mov	r5,a
 	mov	dpl,r4
 	mov	dph,r5
 	movx	a,@dptr
-	jz	00123$
-;	syntax.c:182: printf("Index: %d , starting address of Pointer: %p  Ending Address of the pointer %p size of array: %d\n\r",array_for_nodes[i].index,array_for_nodes[i].data_pointer,array_for_nodes[i].data_pointer+array_for_nodes[i].size, array_for_nodes[i].size);
-	push	ar6
-	push	ar7
+	jz	00142$
+;	syntax.c:305: array_for_nodes[i].size);
 	mov	dpl,r4
 	mov	dph,r5
 	inc	dptr
@@ -1369,48 +2024,45 @@ _get_command:
 	inc	dptr
 	inc	dptr
 	movx	a,@dptr
-	mov	_get_command_sloc0_1_0,a
+	mov	_get_command_sloc1_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	(_get_command_sloc0_1_0 + 1),a
+	mov	(_get_command_sloc1_1_0 + 1),a
+;	syntax.c:304: array_for_nodes[i].data_pointer+array_for_nodes[i].size,
 	mov	dpl,r4
 	mov	dph,r5
 	inc	dptr
 	movx	a,@dptr
-	mov	r0,a
+	mov	_get_command_sloc2_1_0,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r1,a
+	mov	(_get_command_sloc2_1_0 + 1),a
 	inc	dptr
 	movx	a,@dptr
-	mov	r7,a
-	mov	a,_get_command_sloc0_1_0
-	add	a,r0
+	mov	(_get_command_sloc2_1_0 + 2),a
+	mov	a,_get_command_sloc1_1_0
+	add	a, _get_command_sloc2_1_0
 	mov	r2,a
-	mov	a,(_get_command_sloc0_1_0 + 1)
-	addc	a,r1
-	mov	r3,a
-	mov	ar6,r7
-	mov	dpl,r4
-	mov	dph,r5
-	movx	a,@dptr
+	mov	a,(_get_command_sloc1_1_0 + 1)
+	addc	a, (_get_command_sloc2_1_0 + 1)
 	mov	r4,a
-	mov	r5,#0x00
+	mov	r5,(_get_command_sloc2_1_0 + 2)
+;	syntax.c:302: printf("\n\r| %-2d | %-10p | %-10p | %-11d |",
 	push	ar7
 	push	ar6
-	push	_get_command_sloc0_1_0
-	push	(_get_command_sloc0_1_0 + 1)
+	push	_get_command_sloc1_1_0
+	push	(_get_command_sloc1_1_0 + 1)
 	push	ar2
-	push	ar3
-	push	ar6
-	push	ar0
-	push	ar1
-	push	ar7
 	push	ar4
 	push	ar5
-	mov	a,#___str_8
+	push	_get_command_sloc2_1_0
+	push	(_get_command_sloc2_1_0 + 1)
+	push	(_get_command_sloc2_1_0 + 2)
+	push	ar6
+	push	ar7
+	mov	a,#___str_24
 	push	acc
-	mov	a,#(___str_8 >> 8)
+	mov	a,#(___str_24 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1420,46 +2072,18 @@ _get_command:
 	mov	sp,a
 	pop	ar6
 	pop	ar7
-;	syntax.c:244: return 0;
-	pop	ar7
-	pop	ar6
-;	syntax.c:182: printf("Index: %d , starting address of Pointer: %p  Ending Address of the pointer %p size of array: %d\n\r",array_for_nodes[i].index,array_for_nodes[i].data_pointer,array_for_nodes[i].data_pointer+array_for_nodes[i].size, array_for_nodes[i].size);
-00123$:
-;	syntax.c:180: for(int i=0; i<99; i++){
+00142$:
+;	syntax.c:300: for(int i=1; i<100; i++){
 	inc	r6
-	cjne	r6,#0x00,00194$
+	cjne	r6,#0x00,00279$
 	inc	r7
-00194$:
-	ljmp	00122$
-00105$:
-;	syntax.c:189: uint8_t *rd_ptr = array_for_nodes[0].data_pointer;
-	mov	dptr,#(_array_for_nodes + 0x0001)
-	movx	a,@dptr
-	mov	_get_command_sloc1_1_0,a
-	inc	dptr
-	movx	a,@dptr
-	mov	(_get_command_sloc1_1_0 + 1),a
-	inc	dptr
-	movx	a,@dptr
-	mov	(_get_command_sloc1_1_0 + 2),a
-	mov	dptr,#_get_command_rd_ptr_131073_72
-	mov	a,_get_command_sloc1_1_0
-	movx	@dptr,a
-	mov	a,(_get_command_sloc1_1_0 + 1)
-	inc	dptr
-	movx	@dptr,a
-	mov	a,(_get_command_sloc1_1_0 + 2)
-	inc	dptr
-	movx	@dptr,a
-;	syntax.c:191: uint8_t temp = array_for_nodes[0].size*sizeof(uint8_t);
-	mov	dptr,#(_array_for_nodes + 0x0004)
-	movx	a,@dptr
-	mov	dptr,#_get_command_temp_131073_72
-	movx	@dptr,a
-;	syntax.c:192: printf("....... Dumping Buffer0 ......\r\n");
-	mov	a,#___str_9
+00279$:
+	ljmp	00141$
+00114$:
+;	syntax.c:309: printf("\n\r|------------------------------------------------|");
+	mov	a,#___str_8
 	push	acc
-	mov	a,#(___str_9 >> 8)
+	mov	a,#(___str_8 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1467,29 +2091,263 @@ _get_command:
 	dec	sp
 	dec	sp
 	dec	sp
-;	syntax.c:193: while(temp){
-00107$:
-	mov	dptr,#_get_command_temp_131073_72
+;	syntax.c:311: printf("\n\r| MEMORY ALLOCATION STATUS BUFFER 0              |");
+	mov	a,#___str_25
+	push	acc
+	mov	a,#(___str_25 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:312: printf("\n\r|------------------------------------------------|");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:313: printf("\n\r| Total Space      | %-28d |", array_for_nodes[0].size);
+	mov	dptr,#(_array_for_nodes + 0x0004)
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
+	push	ar6
+	push	ar7
+	mov	a,#___str_26
+	push	acc
+	mov	a,#(___str_26 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:314: printf("\n\r| Occupied Space   | %-28d |", total_number_of_storage);
+	mov	dptr,#_total_number_of_storage
+	movx	a,@dptr
+	mov	r7,a
+	mov	r6,#0x00
+	push	ar7
+	push	ar6
+	mov	a,#___str_27
+	push	acc
+	mov	a,#(___str_27 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:315: printf("\n\r| Free Space       | %-28d |", array_for_nodes[0].size - total_number_of_storage);
+	mov	dptr,#(_array_for_nodes + 0x0004)
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
+	mov	dptr,#_total_number_of_storage
+	movx	a,@dptr
+	mov	r5,a
+	mov	r4,#0x00
+	mov	a,r6
+	clr	c
+	subb	a,r5
+	mov	r6,a
+	mov	a,r7
+	subb	a,r4
+	mov	r7,a
+	push	ar6
+	push	ar7
+	mov	a,#___str_28
+	push	acc
+	mov	a,#(___str_28 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:316: printf("\n\r+--------------------------------------------------+");
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:317: printf("\n\r+--------------------------------------------------+");
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:319: buffer0_dump();
+	lcall	_buffer0_dump
+;	syntax.c:320: printf("\n\r| BUFFER 0 CLEAR STATUS                           |");
+	mov	a,#___str_29
+	push	acc
+	mov	a,#(___str_29 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:321: printf("\n\r|------------------------------------------------|");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:324: if(array_for_nodes[0].data_pointer == NULL) {
+	mov	dptr,#(_array_for_nodes + 0x0001)
+	movx	a,@dptr
+	mov	r5,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
+	mov	a,r5
+	orl	a,r6
+	jnz	00116$
+;	syntax.c:325: printf("\n\r| Buffer 0 is not initialized                     |");
+	mov	a,#___str_30
+	push	acc
+	mov	a,#(___str_30 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:326: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:327: return;
+	ret
+00116$:
+;	syntax.c:330: uint16_t buffer_size = array_for_nodes[0].size;
+	mov	dptr,#(_array_for_nodes + 0x0004)
+	movx	a,@dptr
+	mov	r3,a
+	inc	dptr
 	movx	a,@dptr
 	mov	r4,a
-	movx	a,@dptr
-	jnz	00195$
-	ljmp	00109$
-00195$:
-;	syntax.c:194: printf("%p: ", rd_ptr);
+;	syntax.c:333: memset(array_for_nodes[0].data_pointer, 0, buffer_size);
+	mov	_get_command_sloc2_1_0,r5
+	mov	(_get_command_sloc2_1_0 + 1),r6
+	mov	(_get_command_sloc2_1_0 + 2),r7
+	mov	ar2,r3
+	mov	ar7,r4
+	mov	dptr,#_memset_PARM_2
+	clr	a
+	movx	@dptr,a
+	mov	dptr,#_memset_PARM_3
+	mov	a,r2
+	movx	@dptr,a
+	mov	a,r7
+	inc	dptr
+	movx	@dptr,a
+	mov	dpl, _get_command_sloc2_1_0
+	mov	dph, (_get_command_sloc2_1_0 + 1)
+	mov	b, (_get_command_sloc2_1_0 + 2)
 	push	ar4
-	mov	dptr,#_get_command_rd_ptr_131073_72
+	push	ar3
+	lcall	_memset
+	pop	ar3
+	pop	ar4
+;	syntax.c:334: array_for_nodes[0].index = 0;
+	mov	dptr,#_array_for_nodes
+	clr	a
+	movx	@dptr,a
+;	syntax.c:336: temp_buffer_size = buffer_size;    // Reset available space
+	mov	r0,#_temp_buffer_size
+	mov	@r0,ar3
+	inc	r0
+	mov	@r0,ar4
+;	syntax.c:337: wr = array_for_nodes[0].data_pointer;  // Reset write pointer to start
+	mov	dptr,#(_array_for_nodes + 0x0001)
 	movx	a,@dptr
-	push	acc
+	mov	r5,a
 	inc	dptr
 	movx	a,@dptr
-	push	acc
+	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
+	mov	r7,a
+	mov	dptr,#_wr
+	mov	a,r5
+	movx	@dptr,a
+	mov	a,r6
+	inc	dptr
+	movx	@dptr,a
+	mov	a,r7
+	inc	dptr
+	movx	@dptr,a
+;	syntax.c:338: total_number_of_storage = 0;       // Reset storage counters
+	mov	dptr,#_total_number_of_storage
+	clr	a
+	movx	@dptr,a
+;	syntax.c:340: printf("\n\r| Buffer Size      | %-28d |", buffer_size);
+	push	ar3
+	push	ar4
+	mov	a,#___str_31
 	push	acc
-	mov	a,#___str_10
+	mov	a,#(___str_31 >> 8)
 	push	acc
-	mov	a,#(___str_10 >> 8)
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:341: printf("\n\r| Status          | %-28s |", "Data Erased");
+	mov	a,#___str_33
+	push	acc
+	mov	a,#(___str_33 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	mov	a,#___str_32
+	push	acc
+	mov	a,#(___str_32 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1497,112 +2355,10 @@ _get_command:
 	mov	a,sp
 	add	a,#0xfa
 	mov	sp,a
-	pop	ar4
-;	syntax.c:195: for(int i=15; i>=0;i--){
-	mov	dptr,#_get_command_rd_ptr_131073_72
-	movx	a,@dptr
-	mov	r1,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r2,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r3,a
-	mov	_get_command_sloc0_1_0,#0x0f
-	mov	(_get_command_sloc0_1_0 + 1),#0x00
-00125$:
-	mov	a,(_get_command_sloc0_1_0 + 1)
-	jnb	acc.7,00196$
-	ljmp	00144$
-00196$:
-;	syntax.c:196: printf("%d ",(*rd_ptr & (0x00FF)));
-	mov	dpl,r1
-	mov	dph,r2
-	mov	b,r3
-	lcall	__gptrget
-	mov	r0,a
-	mov	r7,#0x00
-	push	ar4
-	push	ar3
-	push	ar2
-	push	ar1
-	push	ar0
-	push	ar7
-	mov	a,#___str_11
+;	syntax.c:342: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
 	push	acc
-	mov	a,#(___str_11 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar1
-	pop	ar2
-	pop	ar3
-;	syntax.c:197: printf("%d ",((*rd_ptr & (0xFF00))>>8U));
-	mov	dpl,r1
-	mov	dph,r2
-	mov	b,r3
-	lcall	__gptrget
-	inc	dptr
-	mov	r1,dpl
-	mov	r2,dph
-	mov	r7,#0x00
-	mov	r6,#0x00
-	push	ar3
-	push	ar2
-	push	ar1
-	push	ar7
-	push	ar6
-	mov	a,#___str_11
-	push	acc
-	mov	a,#(___str_11 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar1
-	pop	ar2
-	pop	ar3
-	pop	ar4
-;	syntax.c:198: *wr_ptr = 0;
-	mov	dpl,_get_command_sloc1_1_0
-	mov	dph,(_get_command_sloc1_1_0 + 1)
-	mov	b,(_get_command_sloc1_1_0 + 2)
-	clr	a
-	lcall	__gptrput
-;	syntax.c:199: rd_ptr++;
-;	syntax.c:200: temp--;
-	dec	r4
-;	syntax.c:195: for(int i=15; i>=0;i--){
-	dec	_get_command_sloc0_1_0
-	mov	a,#0xff
-	cjne	a,_get_command_sloc0_1_0,00197$
-	dec	(_get_command_sloc0_1_0 + 1)
-00197$:
-	ljmp	00125$
-00144$:
-	mov	dptr,#_get_command_rd_ptr_131073_72
-	mov	a,r1
-	movx	@dptr,a
-	mov	a,r2
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r3
-	inc	dptr
-	movx	@dptr,a
-	mov	dptr,#_get_command_temp_131073_72
-	mov	a,r4
-	movx	@dptr,a
-;	syntax.c:202: printf("\r\n");
-	mov	a,#___str_12
-	push	acc
-	mov	a,#(___str_12 >> 8)
+	mov	a,#(___str_2 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1610,53 +2366,73 @@ _get_command:
 	dec	sp
 	dec	sp
 	dec	sp
-	ljmp	00107$
-00109$:
-;	syntax.c:206: recent_commands = 0;
+;	syntax.c:343: recent_commands = 0;
 	mov	dptr,#_recent_commands
 	clr	a
 	movx	@dptr,a
-;	syntax.c:207: recent_storage = 0;
+;	syntax.c:344: recent_storage = 0;
 	mov	dptr,#_recent_storage
 	movx	@dptr,a
-;	syntax.c:208: break;
-	ljmp	00120$
-;	syntax.c:210: case '+':
-00110$:
-;	syntax.c:211: temp_value = get_buf_value("\n\rEnter buffer size between 20 to 400: ", UPPER_SMALL_BUFFERS, LOWER_SMALL_BUFFERS);
-	mov	dptr,#_get_buf_value_PARM_2
-	mov	a,#0x90
-	movx	@dptr,a
-	mov	a,#0x01
-	inc	dptr
-	movx	@dptr,a
-	mov	dptr,#_get_buf_value_PARM_3
-	mov	a,#0x14
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	mov	dptr,#___str_13
-	mov	b,#0x80
-	lcall	_get_buf_value
-	mov	r6,dpl
-	mov	r7,dph
-;	syntax.c:212: print_prompt("Buffer size you entered is : ");
-	mov	dptr,#___str_14
-	mov	b,#0x80
-	push	ar7
-	push	ar6
-	lcall	_print_prompt
-	pop	ar6
-	pop	ar7
-;	syntax.c:213: printf("%d \n\r", temp_value);
-	push	ar7
-	push	ar6
-	push	ar6
-	push	ar7
-	mov	a,#___str_15
+;	syntax.c:345: break;
+	ljmp	00133$
+;	syntax.c:347: case '+':               // Create new buffer
+00117$:
+;	syntax.c:348: printf("\n\r+----------------BUFFER CREATION------------------+");
+	mov	a,#___str_34
 	push	acc
-	mov	a,#(___str_15 >> 8)
+	mov	a,#(___str_34 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:349: temp_value = get_number("\n\r| Enter buffer size (50-500): ");
+	mov	dptr,#___str_35
+	mov	b, #0x80
+	lcall	_get_number
+	mov	r6, dpl
+	mov	r7, dph
+;	syntax.c:350: if(temp_value < 50 || temp_value > 500)
+	clr	c
+	mov	a,r6
+	subb	a,#0x32
+	mov	a,r7
+	xrl	a,#0x80
+	subb	a,#0x80
+	jc	00121$
+	mov	a,#0xf4
+	subb	a,r6
+	mov	a,#(0x01 ^ 0x80)
+	mov	b,r7
+	xrl	b,#0x80
+	subb	a,b
+	jnc	00122$
+00121$:
+;	syntax.c:352: printf("\n\r ERROR : Invalid request\n\r"); 
+	mov	a,#___str_36
+	push	acc
+	mov	a,#(___str_36 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:353: return -1;
+	mov	dptr,#0xffff
+	ret
+00122$:
+;	syntax.c:357: printf("\n\r| Requested Size: %-32d |", temp_value);
+	push	ar7
+	push	ar6
+	push	ar6
+	push	ar7
+	mov	a,#___str_37
+	push	acc
+	mov	a,#(___str_37 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1666,40 +2442,98 @@ _get_command:
 	mov	sp,a
 	pop	ar6
 	pop	ar7
-;	syntax.c:215: pointer = (__xdata uint8_t *) malloc(temp_value);
-	mov	dpl,r6
-	mov	dph,r7
+;	syntax.c:359: pointer = (__xdata uint8_t *) malloc(temp_value);
+	mov	dpl, r6
+	mov	dph, r7
 	push	ar7
 	push	ar6
 	lcall	_malloc
-	mov	r4,dpl
-	mov	r5,dph
+	mov	r4, dpl
+	mov	r5, dph
 	pop	ar6
 	pop	ar7
-;	syntax.c:216: if (pointer == NULL){
+;	syntax.c:360: if (pointer == NULL){
 	mov	a,r4
 	orl	a,r5
-	jnz	00112$
-;	syntax.c:217: print_prompt("\n\rFailed to get malloc try to enter smaller size by again entering +");
-	mov	dptr,#___str_16
-	mov	b,#0x80
+	jnz	00119$
+;	syntax.c:361: printf("\n\r| ERROR: Memory allocation failed                  |");
 	push	ar7
 	push	ar6
 	push	ar5
 	push	ar4
-	lcall	_print_prompt
+	mov	a,#___str_38
+	push	acc
+	mov	a,#(___str_38 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:362: printf("\n\r| Try smaller size with '+' command                |");
+	mov	a,#___str_39
+	push	acc
+	mov	a,#(___str_39 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
 	pop	ar4
 	pop	ar5
 	pop	ar6
 	pop	ar7
-00112$:
-;	syntax.c:221: node_t node = {index_of_buffers, pointer, temp_value};
+	sjmp	00120$
+00119$:
+;	syntax.c:364: printf("\n\r| SUCCESS: Buffer created successfully            |");
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	mov	a,#___str_40
+	push	acc
+	mov	a,#(___str_40 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+00120$:
+;	syntax.c:366: printf("\n\r+--------------------------------------------------+\n\r");
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	syntax.c:368: node_t node = {index_of_buffers, pointer, temp_value};
 	mov	dptr,#_index_of_buffers
 	movx	a,@dptr
-	mov	dptr,#_get_command_node_131074_77
+	mov	dptr,#_get_command_node_30003_120
 	movx	@dptr,a
 	mov	r3,#0x00
-	mov	dptr,#(_get_command_node_131074_77 + 0x0001)
+	mov	dptr,#(_get_command_node_30003_120 + 0x0001)
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -1708,27 +2542,27 @@ _get_command:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#(_get_command_node_131074_77 + 0x0004)
+	mov	dptr,#(_get_command_node_30003_120 + 0x0004)
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:222: array_for_nodes[index_of_buffers] = node;
+;	syntax.c:369: array_for_nodes[index_of_buffers] = node;
 	mov	dptr,#_index_of_buffers
 	movx	a,@dptr
 	mov	b,#0x06
 	mul	ab
-	add	a,#_array_for_nodes
+	add	a, #_array_for_nodes
 	mov	r6,a
 	mov	a,#(_array_for_nodes >> 8)
-	addc	a,b
+	addc	a, b
 	mov	r7,a
 	mov	r5,#0x00
 	mov	dptr,#___memcpy_PARM_2
-	mov	a,#_get_command_node_131074_77
+	mov	a,#_get_command_node_30003_120
 	movx	@dptr,a
-	mov	a,#(_get_command_node_131074_77 >> 8)
+	mov	a,#(_get_command_node_30003_120 >> 8)
 	inc	dptr
 	movx	@dptr,a
 	clr	a
@@ -1740,34 +2574,37 @@ _get_command:
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-	mov	dpl,r6
-	mov	dph,r7
-	mov	b,r5
+	mov	dpl, r6
+	mov	dph, r7
+	mov	b, r5
 	lcall	___memcpy
-;	syntax.c:223: index_of_buffers++;
+;	syntax.c:370: index_of_buffers++;
 	mov	dptr,#_index_of_buffers
 	movx	a,@dptr
-	add	a,#0x01
+	add	a, #0x01
 	movx	@dptr,a
-;	syntax.c:224: break;
-;	syntax.c:226: case '-':
-	sjmp	00120$
-00113$:
-;	syntax.c:227: print_prompt("\n\rEnter Number to delete between 0 to 127 for buffer:");
-	mov	dptr,#___str_17
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:228: temp_value = getchar();
-	lcall	_getchar
-;	syntax.c:229: putchar(temp_value);
-	mov	r6,dpl
-	mov  r7,dph
-	push	ar7
-	push	ar6
-	lcall	_putchar
-	pop	ar6
-	pop	ar7
-;	syntax.c:230: if(temp_value <= 0) break;
+;	syntax.c:372: break;
+	ljmp	00133$
+;	syntax.c:374: case '-':               // Delete buffer
+00125$:
+;	syntax.c:375: printf("\n\r+----------------BUFFER DELETION------------------+");
+	mov	a,#___str_41
+	push	acc
+	mov	a,#(___str_41 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:376: temp_value = get_number("\n\r| Enter buffer number (0-102): ");
+	mov	dptr,#___str_42
+	mov	b, #0x80
+	lcall	_get_number
+	mov	r6, dpl
+	mov	r7, dph
+;	syntax.c:378: if(temp_value <= 0) 
 	clr	c
 	clr	a
 	subb	a,r6
@@ -1775,8 +2612,47 @@ _get_command:
 	mov	b,r7
 	xrl	b,#0x80
 	subb	a,b
-	jnc	00120$
-;	syntax.c:231: if(array_for_nodes[temp_value]){
+	jc	00127$
+;	syntax.c:380: printf("\n\r| ERROR: Cannot delete Buffer 0                    |");
+	mov	a,#___str_43
+	push	acc
+	mov	a,#(___str_43 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:381: return -1;
+	mov	dptr,#0xffff
+	ret
+00127$:
+;	syntax.c:383: if(temp_value < 0 || temp_value > 102) 
+	clr	c
+	mov	a,#0x66
+	subb	a,r6
+	mov	a,#(0x00 ^ 0x80)
+	mov	b,r7
+	xrl	b,#0x80
+	subb	a,b
+	jnc	00129$
+;	syntax.c:385: printf("\n\r| ERROR: Invalid delete request                  |");
+	mov	a,#___str_44
+	push	acc
+	mov	a,#(___str_44 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:386: return -1;
+	mov	dptr,#0xffff
+	ret
+00129$:
+;	syntax.c:390: array_for_nodes[temp_value].size = 0;
 	mov	dptr,#__mulint_PARM_2
 	mov	a,r6
 	movx	@dptr,a
@@ -1784,22 +2660,19 @@ _get_command:
 	inc	dptr
 	movx	@dptr,a
 	mov	dptr,#0x0006
+	push	ar7
+	push	ar6
 	lcall	__mulint
-	mov	r6,dpl
-	mov	r7,dph
-	mov	a,r6
-	add	a,#_array_for_nodes
-	mov	r6,a
-	mov	a,r7
-	addc	a,#(_array_for_nodes >> 8)
-	mov	r7,a
-	mov	dpl,r6
-	mov	dph,r7
-	movx	a,@dptr
-	jz	00120$
-;	syntax.c:232: array_for_nodes[temp_value].size = 0;
-	mov	dpl,r6
-	mov	dph,r7
+	mov	r4, dpl
+	mov	r5, dph
+	mov	a,r4
+	add	a, #_array_for_nodes
+	mov	r4,a
+	mov	a,r5
+	addc	a, #(_array_for_nodes >> 8)
+	mov	r5,a
+	mov	dpl,r4
+	mov	dph,r5
 	inc	dptr
 	inc	dptr
 	inc	dptr
@@ -1808,47 +2681,122 @@ _get_command:
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:233: free(array_for_nodes[temp_value].data_pointer);
-	mov	dpl,r6
-	mov	dph,r7
+;	syntax.c:391: free(array_for_nodes[temp_value].data_pointer);
+	mov	dpl,r4
+	mov	dph,r5
+	inc	dptr
+	movx	a,@dptr
+	mov	r3,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r4,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	dpl,r5
-	mov	dph,r6
-	mov	b,r7
+	mov	dpl, r3
+	mov	dph, r4
+	mov	b, r5
 	lcall	_free
-;	syntax.c:235: break;
-;	syntax.c:237: case '=':
-	sjmp	00120$
-00118$:
-;	syntax.c:238: buffer0_dump();
+	pop	ar6
+	pop	ar7
+;	syntax.c:392: printf("\n\r| SUCCESS: Buffer %-2d deleted                     |", temp_value);
+	push	ar6
+	push	ar7
+	mov	a,#___str_45
+	push	acc
+	mov	a,#(___str_45 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:394: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:395: break;
+;	syntax.c:397: case '=':               // Display Buffer 0
+	sjmp	00133$
+00132$:
+;	syntax.c:398: buffer0_dump();
 	lcall	_buffer0_dump
-;	syntax.c:242: }
-00120$:
-;	syntax.c:244: return 0;
+;	syntax.c:400: }
+00133$:
+;	syntax.c:401: return 0;
 	mov	dptr,#0x0000
-;	syntax.c:245: }
+;	syntax.c:402: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'buffer0_dump'
 ;------------------------------------------------------------
-;rd_ptr                    Allocated with name '_buffer0_dump_rd_ptr_65536_79'
-;temp                      Allocated with name '_buffer0_dump_temp_65536_79'
-;i                         Allocated with name '_buffer0_dump_i_196608_81'
+;sloc0                     Allocated with name '_buffer0_dump_sloc0_1_0'
+;sloc1                     Allocated with name '_buffer0_dump_sloc1_1_0'
+;sloc2                     Allocated with name '_buffer0_dump_sloc2_1_0'
+;rd_ptr                    Allocated with name '_buffer0_dump_rd_ptr_10001_127'
+;remaining_bytes           Allocated with name '_buffer0_dump_remaining_bytes_10001_127'
+;offset                    Allocated with name '_buffer0_dump_offset_20001_128'
+;i                         Allocated with name '_buffer0_dump_i_40001_130'
+;i                         Allocated with name '_buffer0_dump_i_40001_132'
 ;------------------------------------------------------------
-;	syntax.c:247: void buffer0_dump(){
+;	syntax.c:410: void buffer0_dump(void) {
 ;	-----------------------------------------
 ;	 function buffer0_dump
 ;	-----------------------------------------
 _buffer0_dump:
-;	syntax.c:248: uint8_t *rd_ptr = array_for_nodes[0].data_pointer;
+;	syntax.c:411: printf("\n\r+---------------BUFFER 0 CONTENTS-----------------+");
+	mov	a,#___str_46
+	push	acc
+	mov	a,#(___str_46 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:412: printf("\n\r| Address    | Data                               |");
+	mov	a,#___str_47
+	push	acc
+	mov	a,#(___str_47 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:413: printf("\n\r|------------|---------------------------------------|");
+	mov	a,#___str_48
+	push	acc
+	mov	a,#(___str_48 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:414: printf("\n\r");
+	mov	a,#___str_49
+	push	acc
+	mov	a,#(___str_49 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:416: if(array_for_nodes[0].data_pointer == NULL) 
 	mov	dptr,#(_array_for_nodes + 0x0001)
 	movx	a,@dptr
 	mov	r5,a
@@ -1858,129 +2806,79 @@ _buffer0_dump:
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
-	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
 	mov	a,r5
-	movx	@dptr,a
-	mov	a,r6
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r7
-	inc	dptr
-	movx	@dptr,a
-;	syntax.c:249: uint8_t temp = array_for_nodes[0].size*sizeof(uint8_t);
+	orl	a,r6
+	jnz	00102$
+;	syntax.c:417: {printf("BUFFER 0 DOES NOT EXIST\n\r");
+	mov	a,#___str_50
+	push	acc
+	mov	a,#(___str_50 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:418: return;
+	ret
+00102$:
+;	syntax.c:421: uint16_t remaining_bytes = array_for_nodes[0].size;
 	mov	dptr,#(_array_for_nodes + 0x0004)
 	movx	a,@dptr
-	mov	dptr,#_buffer0_dump_temp_65536_79
-	movx	@dptr,a
-;	syntax.c:250: printf("....... Dumping Buffer0 ......\r\n");
-	mov	a,#___str_9
-	push	acc
-	mov	a,#(___str_9 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	syntax.c:251: while(temp){
-00102$:
-	mov	dptr,#_buffer0_dump_temp_65536_79
-	movx	a,@dptr
-	mov	r7,a
-	movx	a,@dptr
-	jnz	00127$
-	ret
-00127$:
-;	syntax.c:252: printf("%p: ", rd_ptr);
-	push	ar7
-	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
-	movx	a,@dptr
-	push	acc
+	mov	r3,a
 	inc	dptr
-	movx	a,@dptr
-	push	acc
-	inc	dptr
-	movx	a,@dptr
-	push	acc
-	mov	a,#___str_10
-	push	acc
-	mov	a,#(___str_10 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfa
-	mov	sp,a
-	pop	ar7
-;	syntax.c:253: for(int i=15; i>=0;i--){
-	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
 	movx	a,@dptr
 	mov	r4,a
+;	syntax.c:424: for (uint16_t offset = 0; offset < total_number_of_storage; offset += 16) {
+	mov	dptr,#_buffer0_dump_offset_20001_128
+	clr	a
+	movx	@dptr,a
+	inc	dptr
+	movx	@dptr,a
+00114$:
+	push	ar5
+	push	ar6
+	push	ar7
+	mov	dptr,#_buffer0_dump_offset_20001_128
+	movx	a,@dptr
+	mov	r1,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
+	mov	r2,a
+	mov	dptr,#_total_number_of_storage
 	movx	a,@dptr
-	mov	r6,a
-	mov	r2,#0x0f
-	mov	r3,#0x00
-00106$:
-	mov	a,r3
-	jnb	acc.7,00128$
-	ljmp	00114$
-00128$:
-;	syntax.c:254: printf("%d ",(*rd_ptr & (0x00FF)));
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r6
-	lcall	__gptrget
 	mov	r0,a
-	mov	r1,#0x00
+	mov	r7,#0x00
+	clr	c
+	mov	a,r1
+	subb	a,r0
+	mov	a,r2
+	subb	a,r7
+	pop	ar7
+	pop	ar6
+	pop	ar5
+	jc	00170$
+	ljmp	00105$
+00170$:
+;	syntax.c:426: printf("\n\r| %04X      |", (uint16_t)(uintptr_t)rd_ptr);
+	push	ar3
+	push	ar4
+	mov	ar0,r5
+	mov	ar3,r6
+	mov	ar4,r7
 	push	ar7
 	push	ar6
 	push	ar5
 	push	ar4
 	push	ar3
 	push	ar2
-	push	ar0
 	push	ar1
-	mov	a,#___str_11
-	push	acc
-	mov	a,#(___str_11 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar2
-	pop	ar3
-	pop	ar4
-	pop	ar5
-	pop	ar6
-;	syntax.c:255: printf("%d ",((*rd_ptr & (0xFF00))>>8U));
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r6
-	lcall	__gptrget
-	inc	dptr
-	mov	r4,dpl
-	mov	r5,dph
-	mov	r0,#0x00
-	mov	r1,#0x00
-	push	ar6
-	push	ar5
-	push	ar4
+	push	ar0
 	push	ar3
-	push	ar2
-	push	ar0
-	push	ar1
-	mov	a,#___str_11
+	mov	a,#___str_51
 	push	acc
-	mov	a,#(___str_11 >> 8)
+	mov	a,#(___str_51 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1988,38 +2886,132 @@ _buffer0_dump:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
+	pop	ar1
 	pop	ar2
 	pop	ar3
 	pop	ar4
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	syntax.c:256: rd_ptr++;
-;	syntax.c:257: temp--;
-	dec	r7
-;	syntax.c:253: for(int i=15; i>=0;i--){
-	dec	r2
-	cjne	r2,#0xff,00129$
-	dec	r3
-00129$:
-	ljmp	00106$
-00114$:
-	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
-	mov	a,r4
-	movx	@dptr,a
-	mov	a,r5
-	inc	dptr
-	movx	@dptr,a
-	mov	a,r6
-	inc	dptr
-	movx	@dptr,a
-	mov	dptr,#_buffer0_dump_temp_65536_79
+;	syntax.c:429: for (int i = 0; i < 16 && (offset + i) < remaining_bytes; i++) {
+	mov	_buffer0_dump_sloc0_1_0,r1
+	mov	(_buffer0_dump_sloc0_1_0 + 1),r2
+	mov	_buffer0_dump_sloc1_1_0,r5
+	mov	(_buffer0_dump_sloc1_1_0 + 1),r6
+	mov	(_buffer0_dump_sloc1_1_0 + 2),r7
+	clr	a
+	mov	_buffer0_dump_sloc2_1_0,a
+	mov	(_buffer0_dump_sloc2_1_0 + 1),a
+;	syntax.c:442: printf("\n\r+--------------------------------------------------+\n\r");
+	pop	ar4
+	pop	ar3
+;	syntax.c:429: for (int i = 0; i < 16 && (offset + i) < remaining_bytes; i++) {
+00108$:
+	clr	c
+	mov	a,_buffer0_dump_sloc2_1_0
+	subb	a,#0x10
+	mov	a,(_buffer0_dump_sloc2_1_0 + 1)
+	xrl	a,#0x80
+	subb	a,#0x80
+	jnc	00103$
+	push	ar5
+	push	ar6
+	push	ar7
+	mov	r1,_buffer0_dump_sloc0_1_0
+	mov	r2,(_buffer0_dump_sloc0_1_0 + 1)
+	mov	r0,_buffer0_dump_sloc2_1_0
+	mov	r7,(_buffer0_dump_sloc2_1_0 + 1)
+	mov	a,r0
+	add	a, r1
+	mov	r1,a
 	mov	a,r7
-	movx	@dptr,a
-;	syntax.c:259: printf("\r\n");
-	mov	a,#___str_12
+	addc	a, r2
+	mov	r2,a
+	clr	c
+	mov	a,r1
+	subb	a,r3
+	mov	a,r2
+	subb	a,r4
+	pop	ar7
+	pop	ar6
+	pop	ar5
+	jnc	00103$
+;	syntax.c:430: printf(" %02X", rd_ptr[i]);
+	mov	a,_buffer0_dump_sloc2_1_0
+	add	a, _buffer0_dump_sloc1_1_0
+	mov	r0,a
+	mov	a,(_buffer0_dump_sloc2_1_0 + 1)
+	addc	a, (_buffer0_dump_sloc1_1_0 + 1)
+	mov	r1,a
+	mov	r2,(_buffer0_dump_sloc1_1_0 + 2)
+	mov	dpl,r0
+	mov	dph,r1
+	mov	b,r2
+	lcall	__gptrget
+	mov	r0,a
+	mov	r2,#0x00
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar0
+	push	ar2
+	mov	a,#___str_52
 	push	acc
-	mov	a,#(___str_12 >> 8)
+	mov	a,#(___str_52 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	syntax.c:429: for (int i = 0; i < 16 && (offset + i) < remaining_bytes; i++) {
+	inc	_buffer0_dump_sloc2_1_0
+	clr	a
+	cjne	a,_buffer0_dump_sloc2_1_0,00108$
+	inc	(_buffer0_dump_sloc2_1_0 + 1)
+	sjmp	00108$
+00103$:
+;	syntax.c:434: for (int i = remaining_bytes - offset; i < 16; i++) {
+	mov	dptr,#_buffer0_dump_offset_20001_128
+	movx	a,@dptr
+	mov	r1,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r2,a
+	mov	a,r3
+	clr	c
+	subb	a,r1
+	mov	r1,a
+	mov	a,r4
+	subb	a,r2
+	mov	r2,a
+00111$:
+	clr	c
+	mov	a,r1
+	subb	a,#0x10
+	mov	a,r2
+	xrl	a,#0x80
+	subb	a,#0x80
+	jnc	00104$
+;	syntax.c:435: printf("   ");
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar2
+	push	ar1
+	mov	a,#___str_53
+	push	acc
+	mov	a,#(___str_53 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2027,33 +3019,158 @@ _buffer0_dump:
 	dec	sp
 	dec	sp
 	dec	sp
-;	syntax.c:261: }
-	ljmp	00102$
+	pop	ar1
+	pop	ar2
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	syntax.c:434: for (int i = remaining_bytes - offset; i < 16; i++) {
+	inc	r1
+	cjne	r1,#0x00,00111$
+	inc	r2
+	sjmp	00111$
+00104$:
+;	syntax.c:438: printf(" |");
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	mov	a,#___str_54
+	push	acc
+	mov	a,#(___str_54 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	syntax.c:439: rd_ptr += 16;
+	mov	a,#0x10
+	add	a, r5
+	mov	r5,a
+	clr	a
+	addc	a, r6
+	mov	r6,a
+;	syntax.c:424: for (uint16_t offset = 0; offset < total_number_of_storage; offset += 16) {
+	mov	dptr,#_buffer0_dump_offset_20001_128
+	movx	a,@dptr
+	mov	r1,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r2,a
+	mov	a,#0x10
+	add	a, r1
+	mov	r1,a
+	clr	a
+	addc	a, r2
+	mov	r2,a
+	mov	dptr,#_buffer0_dump_offset_20001_128
+	mov	a,r1
+	movx	@dptr,a
+	mov	a,r2
+	inc	dptr
+	movx	@dptr,a
+	ljmp	00114$
+00105$:
+;	syntax.c:442: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:443: }
+	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;sloc0                     Allocated with name '_main_sloc0_1_0'
-;buffer_size               Allocated with name '_main_buffer_size_65536_84'
-;node1                     Allocated with name '_main_node1_65537_88'
-;node2                     Allocated with name '_main_node2_65538_89'
-;wr                        Allocated with name '_main_wr_65539_90'
-;ch                        Allocated with name '_main_ch_131075_91'
-;cha                       Allocated with name '_main_cha_131076_94'
+;buffer_size               Allocated with name '_main_buffer_size_10001_136'
+;node1                     Allocated with name '_main_node1_10002_140'
+;node2                     Allocated with name '_main_node2_10003_141'
+;wr                        Allocated with name '_main_wr_10004_142'
+;ch                        Allocated with name '_main_ch_20004_143'
+;cha                       Allocated with name '_main_cha_20005_146'
 ;temp_buffer_size          Allocated to registers 
 ;index_for_write           Allocated to registers 
 ;------------------------------------------------------------
-;	syntax.c:264: void main(void)
+;	syntax.c:451: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	syntax.c:270: do{
-00108$:
-;	syntax.c:271: buffer_size  = get_buf_value("Enter buffer size between 32 and 4800 bytes (buffer size must be evenly divisible by 16): ", upper_default, LOWER_DEFAULT);
-	mov	dptr,#_get_buf_value_PARM_2
-	mov	a,#0xc0
+;	syntax.c:454: printf("\n\r+==================================================+");
+	mov	a,#___str_55
+	push	acc
+	mov	a,#(___str_55 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:455: printf("\n\r|           BUFFER MANAGEMENT SYSTEM                |");
+	mov	a,#___str_56
+	push	acc
+	mov	a,#(___str_56 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:456: printf("\n\r+==================================================+");
+	mov	a,#___str_55
+	push	acc
+	mov	a,#(___str_55 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:460: index_of_buffers = 0;
+	mov	dptr,#_index_of_buffers
+	clr	a
 	movx	@dptr,a
-	mov	a,#0x12
+;	syntax.c:461: total_number_of_commands = 0;
+	mov	dptr,#_total_number_of_commands
+	movx	@dptr,a
+;	syntax.c:462: total_number_of_storage = 0;
+	mov	dptr,#_total_number_of_storage
+	movx	@dptr,a
+;	syntax.c:463: recent_commands = 0;
+	mov	dptr,#_recent_commands
+	movx	@dptr,a
+;	syntax.c:464: recent_storage = 0;
+	mov	dptr,#_recent_storage
+	movx	@dptr,a
+;	syntax.c:465: recived_bytes = 0;
+	mov	dptr,#_recived_bytes
+	movx	@dptr,a
+;	syntax.c:468: do{
+00108$:
+;	syntax.c:470: buffer_size = get_buf_value("\n\r| Enter initial buffer size (32-5120): ", upper_default, LOWER_DEFAULT);
+	mov	dptr,#_get_buf_value_PARM_2
+	clr	a
+	movx	@dptr,a
+	mov	a,#0x14
 	inc	dptr
 	movx	@dptr,a
 	mov	dptr,#_get_buf_value_PARM_3
@@ -2062,49 +3179,24 @@ _main:
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#___str_18
-	mov	b,#0x80
+	mov	dptr,#___str_57
+	mov	b, #0x80
 	lcall	_get_buf_value
-	mov	r6,dpl
-	mov	r7,dph
-;	syntax.c:273: print_prompt("Buffer you entered is : 0x");
-	mov	dptr,#___str_19
-	mov	b,#0x80
-	push	ar7
-	push	ar6
-	lcall	_print_prompt
-	pop	ar6
-	pop	ar7
-;	syntax.c:274: printf("%d \n\r", buffer_size);
-	push	ar7
-	push	ar6
-	push	ar6
-	push	ar7
-	mov	a,#___str_15
-	push	acc
-	mov	a,#(___str_15 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar6
-	pop	ar7
-;	syntax.c:276: if(buffer_size == -1) continue;
-	cjne	r6,#0xff,00171$
-	cjne	r7,#0xff,00171$
+	mov	r6, dpl
+	mov	r7, dph
+;	syntax.c:472: if(buffer_size == -1) continue;
+	cjne	r6,#0xff,00193$
+	cjne	r7,#0xff,00193$
 	ljmp	00109$
-00171$:
-;	syntax.c:278: pointer1 = (__xdata uint8_t *) malloc(buffer_size);
-	mov	dpl,r6
-	mov	dph,r7
+00193$:
+;	syntax.c:475: pointer1 = (__xdata uint8_t *) malloc(buffer_size);
+	mov	dpl, r6
+	mov	dph, r7
 	push	ar7
 	push	ar6
 	lcall	_malloc
-	mov	r4,dpl
-	mov	r5,dph
+	mov	r4, dpl
+	mov	r5, dph
 	pop	ar6
 	pop	ar7
 	mov	dptr,#_pointer1
@@ -2113,29 +3205,58 @@ _main:
 	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:279: if (pointer1 == NULL){
+;	syntax.c:476: if (pointer1 == NULL){
 	mov	a,r4
 	orl	a,r5
 	jnz	00104$
-;	syntax.c:280: print_prompt("Failed to get malloc try to enter smaller size for buf 1\n\r");
-	mov	dptr,#___str_20
-	mov	b,#0x80
+;	syntax.c:477: printf("\n\r| ERROR: Buffer 1 allocation failed                |");
 	push	ar7
 	push	ar6
-	lcall	_print_prompt
+	mov	a,#___str_58
+	push	acc
+	mov	a,#(___str_58 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:478: printf("\n\r| Try smaller size                                |");
+	mov	a,#___str_59
+	push	acc
+	mov	a,#(___str_59 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:479: printf("\n\r+------------------------------------------------+\n\r");
+	mov	a,#___str_60
+	push	acc
+	mov	a,#(___str_60 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
 	pop	ar6
 	pop	ar7
-;	syntax.c:281: continue;
-	sjmp	00109$
+;	syntax.c:480: continue;
+	ljmp	00109$
 00104$:
-;	syntax.c:286: pointer2 = (__xdata uint8_t *) malloc(buffer_size);
-	mov	dpl,r6
-	mov	dph,r7
+;	syntax.c:484: pointer2 = (__xdata uint8_t *) malloc(buffer_size);
+	mov	dpl, r6
+	mov	dph, r7
 	push	ar7
 	push	ar6
 	lcall	_malloc
-	mov	r4,dpl
-	mov	r5,dph
+	mov	r4, dpl
+	mov	r5, dph
 	pop	ar6
 	pop	ar7
 	mov	dptr,#_pointer2
@@ -2144,88 +3265,168 @@ _main:
 	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:287: if (pointer2 == NULL){
+;	syntax.c:485: if (pointer2 == NULL){
 	mov	a,r4
 	orl	a,r5
 	jnz	00106$
-;	syntax.c:288: free(pointer1);
+;	syntax.c:486: free(pointer1);
 	mov	dptr,#_pointer1
 	movx	a,@dptr
-	mov	r2,a
+	mov	r4,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r1,a
+	mov	r5,a
 	mov	r3,#0x00
-	mov	dpl,r2
-	mov	dph,r1
-	mov	b,r3
+	mov	dpl, r4
+	mov	dph, r5
+	mov	b, r3
 	push	ar7
 	push	ar6
 	lcall	_free
-;	syntax.c:290: print_prompt("Failed to get malloc try to enter smaller size for buf 2\n\r");
-	mov	dptr,#___str_21
-	mov	b,#0x80
-	lcall	_print_prompt
+;	syntax.c:487: printf("\n\r| ERROR: Buffer 2 allocation failed                |");
+	mov	a,#___str_61
+	push	acc
+	mov	a,#(___str_61 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:488: printf("\n\r| Try smaller size                                |");
+	mov	a,#___str_59
+	push	acc
+	mov	a,#(___str_59 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:489: printf("\n\r+------------------------------------------------+\n\r");
+	mov	a,#___str_60
+	push	acc
+	mov	a,#(___str_60 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
 	pop	ar6
 	pop	ar7
-;	syntax.c:291: continue;
-	sjmp	00109$
+;	syntax.c:490: continue;
+	ljmp	00109$
 00106$:
-;	syntax.c:295: printf("pointer_value : %p %p\n\r", pointer1, pointer2);
-	mov	r3,#0x00
-	mov	dptr,#_pointer1
-	movx	a,@dptr
-	mov	r1,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r0,a
-	mov	r2,#0x00
+;	syntax.c:494: printf("\n\r+----------------BUFFER STATUS--------------------+");
 	push	ar7
 	push	ar6
+	mov	a,#___str_62
+	push	acc
+	mov	a,#(___str_62 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar6
+	pop	ar7
+;	syntax.c:495: printf("\n\r| Buffer 1 | Addr: %-10p | Size: %-6d   |", pointer1, buffer_size);
+	mov	dptr,#_pointer1
+	movx	a,@dptr
+	mov	r4,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r5,a
+	mov	r3,#0x00
+	push	ar7
+	push	ar6
+	push	ar6
+	push	ar7
 	push	ar4
 	push	ar5
 	push	ar3
-	push	ar1
-	push	ar0
-	push	ar2
-	mov	a,#___str_22
+	mov	a,#___str_63
 	push	acc
-	mov	a,#(___str_22 >> 8)
+	mov	a,#(___str_63 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
 	lcall	_printf
 	mov	a,sp
-	add	a,#0xf7
+	add	a,#0xf8
 	mov	sp,a
+	pop	ar6
+	pop	ar7
+;	syntax.c:496: printf("\n\r| Buffer 2 | Addr: %-10p | Size: %-6d   |", pointer2, buffer_size);
+	mov	dptr,#_pointer2
+	movx	a,@dptr
+	mov	r4,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r5,a
+	mov	r3,#0x00
+	push	ar7
+	push	ar6
+	push	ar6
+	push	ar7
+	push	ar4
+	push	ar5
+	push	ar3
+	mov	a,#___str_64
+	push	acc
+	mov	a,#(___str_64 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf8
+	mov	sp,a
+;	syntax.c:497: printf("\n\r+------------------------------------------------+\n\r");
+	mov	a,#___str_60
+	push	acc
+	mov	a,#(___str_60 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
 	pop	ar6
 	pop	ar7
 00109$:
-;	syntax.c:296: }while( pointer2 == NULL || pointer1 == NULL);
+;	syntax.c:499: }while(pointer2 == NULL || pointer1 == NULL);
 	mov	dptr,#_pointer2
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-	jnz	00174$
+	jnz	00196$
 	ljmp	00108$
-00174$:
+00196$:
 	mov	dptr,#_pointer1
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-	jnz	00175$
+	jnz	00197$
 	ljmp	00108$
-00175$:
-;	syntax.c:298: index_of_buffers = 0;
+00197$:
+;	syntax.c:502: index_of_buffers = 0;
 	mov	dptr,#_index_of_buffers
 	clr	a
 	movx	@dptr,a
-;	syntax.c:300: node_t node1 = { index_of_buffers, pointer1, buffer_size};
-	mov	dptr,#_main_node1_65537_88
+;	syntax.c:505: node_t node1 = { index_of_buffers, pointer1, buffer_size};
+	mov	dptr,#_main_node1_10002_140
 	movx	@dptr,a
 	mov	dptr,#_pointer1
 	movx	a,@dptr
@@ -2234,7 +3435,7 @@ _main:
 	movx	a,@dptr
 	mov	r5,a
 	mov	r3,#0x00
-	mov	dptr,#(_main_node1_65537_88 + 0x0001)
+	mov	dptr,#(_main_node1_10002_140 + 0x0001)
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -2243,27 +3444,26 @@ _main:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#(_main_node1_65537_88 + 0x0004)
+	mov	dptr,#(_main_node1_10002_140 + 0x0004)
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:301: array_for_nodes[index_of_buffers] = node1;
+;	syntax.c:506: array_for_nodes[index_of_buffers] = node1;
 	mov	dptr,#_index_of_buffers
 	movx	a,@dptr
 	mov	b,#0x06
 	mul	ab
-	add	a,#_array_for_nodes
+	add	a, #_array_for_nodes
 	mov	r4,a
 	mov	a,#(_array_for_nodes >> 8)
-	addc	a,b
+	addc	a, b
 	mov	r5,a
-	mov	r3,#0x00
 	mov	dptr,#___memcpy_PARM_2
-	mov	a,#_main_node1_65537_88
+	mov	a,#_main_node1_10002_140
 	movx	@dptr,a
-	mov	a,#(_main_node1_65537_88 >> 8)
+	mov	a,#(_main_node1_10002_140 >> 8)
 	inc	dptr
 	movx	@dptr,a
 	clr	a
@@ -2275,69 +3475,22 @@ _main:
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-	mov	dpl,r4
-	mov	dph,r5
-	mov	b,r3
+	mov	dpl, r4
+	mov	dph, r5
+	mov	b, r3
 	push	ar7
 	push	ar6
 	lcall	___memcpy
-;	syntax.c:302: printf("pointer location %p, size %d\n\r", array_for_nodes[index_of_buffers].data_pointer, array_for_nodes[index_of_buffers].size);
-	mov	dptr,#_index_of_buffers
-	movx	a,@dptr
-	mov	b,#0x06
-	mul	ab
-	add	a,#_array_for_nodes
-	mov	r4,a
-	mov	a,#(_array_for_nodes >> 8)
-	addc	a,b
-	mov	r5,a
-	mov	dpl,r4
-	mov	dph,r5
-	inc	dptr
-	inc	dptr
-	inc	dptr
-	inc	dptr
-	movx	a,@dptr
-	mov	r2,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r3,a
-	mov	dpl,r4
-	mov	dph,r5
-	inc	dptr
-	movx	a,@dptr
-	mov	r1,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	push	ar2
-	push	ar3
-	push	ar1
-	push	ar4
-	push	ar5
-	mov	a,#___str_23
-	push	acc
-	mov	a,#(___str_23 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xf8
-	mov	sp,a
 	pop	ar6
 	pop	ar7
-;	syntax.c:303: index_of_buffers++;
+;	syntax.c:507: index_of_buffers++;
 	mov	dptr,#_index_of_buffers
 	movx	a,@dptr
-	add	a,#0x01
+	add	a, #0x01
 	movx	@dptr,a
-;	syntax.c:305: node_t node2 = { index_of_buffers, pointer2, buffer_size};
+;	syntax.c:510: node_t node2 = { index_of_buffers, pointer2, buffer_size};
 	movx	a,@dptr
-	mov	dptr,#_main_node2_65538_89
+	mov	dptr,#_main_node2_10003_141
 	movx	@dptr,a
 	mov	dptr,#_pointer2
 	movx	a,@dptr
@@ -2346,7 +3499,7 @@ _main:
 	movx	a,@dptr
 	mov	r5,a
 	mov	r3,#0x00
-	mov	dptr,#(_main_node2_65538_89 + 0x0001)
+	mov	dptr,#(_main_node2_10003_141 + 0x0001)
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -2355,27 +3508,27 @@ _main:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#(_main_node2_65538_89 + 0x0004)
+	mov	dptr,#(_main_node2_10003_141 + 0x0004)
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	syntax.c:306: array_for_nodes[index_of_buffers] = node2;
+;	syntax.c:511: array_for_nodes[index_of_buffers] = node2;
 	mov	dptr,#_index_of_buffers
 	movx	a,@dptr
 	mov	b,#0x06
 	mul	ab
-	add	a,#_array_for_nodes
+	add	a, #_array_for_nodes
 	mov	r6,a
 	mov	a,#(_array_for_nodes >> 8)
-	addc	a,b
+	addc	a, b
 	mov	r7,a
 	mov	r5,#0x00
 	mov	dptr,#___memcpy_PARM_2
-	mov	a,#_main_node2_65538_89
+	mov	a,#_main_node2_10003_141
 	movx	@dptr,a
-	mov	a,#(_main_node2_65538_89 >> 8)
+	mov	a,#(_main_node2_10003_141 >> 8)
 	inc	dptr
 	movx	@dptr,a
 	clr	a
@@ -2387,74 +3540,133 @@ _main:
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-	mov	dpl,r6
-	mov	dph,r7
-	mov	b,r5
+	mov	dpl, r6
+	mov	dph, r7
+	mov	b, r5
 	lcall	___memcpy
-;	syntax.c:307: printf("pointer location %p, size %d\n\r", array_for_nodes[index_of_buffers].data_pointer, array_for_nodes[index_of_buffers].size);
+;	syntax.c:512: index_of_buffers++;
 	mov	dptr,#_index_of_buffers
 	movx	a,@dptr
-	mov	b,#0x06
-	mul	ab
-	add	a,#_array_for_nodes
-	mov	r6,a
-	mov	a,#(_array_for_nodes >> 8)
-	addc	a,b
-	mov	r7,a
-	mov	dpl,r6
-	mov	dph,r7
-	inc	dptr
-	inc	dptr
-	inc	dptr
-	inc	dptr
-	movx	a,@dptr
-	mov	r4,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r5,a
-	mov	dpl,r6
-	mov	dph,r7
-	inc	dptr
-	movx	a,@dptr
-	mov	r3,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	push	ar4
-	push	ar5
-	push	ar3
-	push	ar6
-	push	ar7
-	mov	a,#___str_23
+	add	a, #0x01
+	movx	@dptr,a
+;	syntax.c:515: printf("\n\r+------------------COMMANDS----------------------+");
+	mov	a,#___str_65
 	push	acc
-	mov	a,#(___str_23 >> 8)
+	mov	a,#(___str_65 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
 	lcall	_printf
-	mov	a,sp
-	add	a,#0xf8
-	mov	sp,a
-;	syntax.c:308: index_of_buffers++;
-	mov	dptr,#_index_of_buffers
-	movx	a,@dptr
-	add	a,#0x01
-	movx	@dptr,a
-;	syntax.c:310: print_prompt("Enter Uppercase char to save in buffer 0: \n\r");
-	mov	dptr,#___str_24
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:312: __idata int temp_buffer_size = array_for_nodes[0].size;
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:516: printf("\n\r| [A-Z] : Store character in Buffer 0           |");
+	mov	a,#___str_66
+	push	acc
+	mov	a,#(___str_66 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:517: printf("\n\r| +     : Create new buffer                     |");
+	mov	a,#___str_67
+	push	acc
+	mov	a,#(___str_67 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:518: printf("\n\r| -     : Delete buffer                         |");
+	mov	a,#___str_68
+	push	acc
+	mov	a,#(___str_68 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:519: printf("\n\r| ?     : Show system status                    |");
+	mov	a,#___str_69
+	push	acc
+	mov	a,#(___str_69 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:520: printf("\n\r| =     : Display Buffer 0 contents             |");
+	mov	a,#___str_70
+	push	acc
+	mov	a,#(___str_70 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:521: printf("\n\r| @     : Reset system                          |");
+	mov	a,#___str_71
+	push	acc
+	mov	a,#(___str_71 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:522: printf("\n\r+--------------------------------------------------+");
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:523: printf("\n\r| Ready for input. Enter uppercase chars (A-Z):    |\n\r"); 
+	mov	a,#___str_72
+	push	acc
+	mov	a,#(___str_72 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:524: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:527: __idata int temp_buffer_size = array_for_nodes[0].size;
 	mov	dptr,#(_array_for_nodes + 0x0004)
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
-;	syntax.c:315: uint8_t * wr = array_for_nodes[0].data_pointer;
+;	syntax.c:529: uint8_t * wr = array_for_nodes[0].data_pointer;
 	mov	dptr,#(_array_for_nodes + 0x0001)
 	movx	a,@dptr
 	mov	r3,a
@@ -2464,16 +3676,16 @@ _main:
 	inc	dptr
 	movx	a,@dptr
 	mov	r5,a
-;	syntax.c:317: do{
+;	syntax.c:532: do{
 00114$:
-;	syntax.c:318: int ch = getchar();
+;	syntax.c:533: int ch = getchar();
 	push	ar7
 	push	ar6
 	push	ar5
 	push	ar4
 	push	ar3
 	lcall	_getchar
-;	syntax.c:319: putchar(ch);
+;	syntax.c:534: putchar(ch);
 	mov	r1,dpl
 	mov  r2,dph
 	push	ar2
@@ -2486,7 +3698,7 @@ _main:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	syntax.c:320: if(ch < 65 || ch > 90) {
+;	syntax.c:537: if(ch < 65 || ch > 90) {
 	clr	c
 	mov	a,r1
 	subb	a,#0x41
@@ -2502,19 +3714,17 @@ _main:
 	subb	a,b
 	jnc	00112$
 00111$:
-;	syntax.c:321: total_number_of_commands+=1;
+;	syntax.c:538: total_number_of_commands+=1;
 	mov	dptr,#_total_number_of_commands
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
-;	syntax.c:322: recent_commands+=1;
+;	syntax.c:539: recent_commands+=1;
 	mov	dptr,#_recent_commands
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
-;	syntax.c:323: print_prompt("Command recived ! \n\r");
-	mov	dptr,#___str_25
-	mov	b,#0x80
+;	syntax.c:540: printf("\n\r| Command received: %-31c |", ch);
 	push	ar7
 	push	ar6
 	push	ar5
@@ -2522,32 +3732,54 @@ _main:
 	push	ar3
 	push	ar2
 	push	ar1
-	lcall	_print_prompt
+	push	ar1
+	push	ar2
+	mov	a,#___str_73
+	push	acc
+	mov	a,#(___str_73 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	syntax.c:541: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
 	pop	ar1
 	pop	ar2
-;	syntax.c:324: get_command(ch);
-	mov	dpl,r1
-	mov	dph,r2
+;	syntax.c:542: get_command(ch);
+	mov	dpl, r1
+	mov	dph, r2
 	lcall	_get_command
 	pop	ar3
 	pop	ar4
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	syntax.c:325: continue;
+;	syntax.c:543: continue;
 	sjmp	00115$
 00112$:
-;	syntax.c:327: total_number_of_storage = total_number_of_storage + 1;
+;	syntax.c:547: total_number_of_storage = total_number_of_storage + 1;
 	mov	dptr,#_total_number_of_storage
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
-;	syntax.c:328: recent_storage = recent_storage + 1;
+;	syntax.c:548: recent_storage = recent_storage + 1;
 	mov	dptr,#_recent_storage
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
-;	syntax.c:330: *wr = ch;
+;	syntax.c:550: *wr = ch;
 	mov	dpl,r3
 	mov	dph,r4
 	mov	b,r5
@@ -2556,8 +3788,8 @@ _main:
 	inc	dptr
 	mov	r3,dpl
 	mov	r4,dph
-;	syntax.c:331: wr++;
-;	syntax.c:332: printf("total storage %d recent storage %d pointer %p \n\r", total_number_of_storage, recent_storage, wr);
+;	syntax.c:551: wr++;
+;	syntax.c:553: total_number_of_storage, recent_storage, wr);
 	mov	dptr,#_recent_storage
 	movx	a,@dptr
 	mov	r2,a
@@ -2567,6 +3799,7 @@ _main:
 	movx	a,@dptr
 	mov	r0,a
 	mov	r2,#0x00
+;	syntax.c:552: printf("\n\r| Storage: Total=%-4d Recent=%-4d Addr=%-10p |\n\r", 
 	push	ar7
 	push	ar6
 	push	ar5
@@ -2579,9 +3812,9 @@ _main:
 	push	(_main_sloc0_1_0 + 1)
 	push	ar0
 	push	ar2
-	mov	a,#___str_26
+	mov	a,#___str_74
 	push	acc
-	mov	a,#(___str_26 >> 8)
+	mov	a,#(___str_74 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2594,14 +3827,14 @@ _main:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	syntax.c:333: temp_buffer_size -= 1;
+;	syntax.c:554: temp_buffer_size -= 1;
 	dec	r6
-	cjne	r6,#0xff,00178$
+	cjne	r6,#0xff,00200$
 	dec	r7
-00178$:
-;	syntax.c:334: index_for_write += 1;
+00200$:
+;	syntax.c:555: index_for_write += 1;
 00115$:
-;	syntax.c:335: }while(temp_buffer_size>0);
+;	syntax.c:556: }while(temp_buffer_size>0);
 	clr	c
 	clr	a
 	subb	a,r6
@@ -2609,13 +3842,13 @@ _main:
 	mov	b,r7
 	xrl	b,#0x80
 	subb	a,b
-	jnc	00179$
+	jnc	00201$
 	ljmp	00114$
-00179$:
-;	syntax.c:336: printf("buffer0 got full nothing to write !");
-	mov	a,#___str_27
+00201$:
+;	syntax.c:559: printf("\n\r+--------------------------------------------------+");
+	mov	a,#___str_0
 	push	acc
-	mov	a,#(___str_27 >> 8)
+	mov	a,#(___str_0 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2623,17 +3856,57 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	syntax.c:341: while(1)
+;	syntax.c:560: printf("\n\r| NOTICE: Buffer 0 is full - Storage stopped        |");
+	mov	a,#___str_75
+	push	acc
+	mov	a,#(___str_75 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:561: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:564: while(1)
 00122$:
-;	syntax.c:343: print_prompt("Please enter An command (+) (-) (?) (=) (@): \n");
-	mov	dptr,#___str_28
-	mov	b,#0x80
-	lcall	_print_prompt
-;	syntax.c:344: int cha = getchar();
+;	syntax.c:566: printf("\n\r| Enter command (+, -, ?, =, @):                   |");
+	mov	a,#___str_76
+	push	acc
+	mov	a,#(___str_76 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:567: printf("\n\r+--------------------------------------------------+\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	syntax.c:568: int cha = getchar();
 	lcall	_getchar
-	mov	r6,dpl
-	mov	r7,dph
-;	syntax.c:345: if(cha < 65 || cha > 90) {
+	mov	r6, dpl
+	mov	r7, dph
+;	syntax.c:569: if(cha < 65 || cha > 90) {
 	clr	c
 	mov	a,r6
 	subb	a,#0x41
@@ -2649,226 +3922,592 @@ _main:
 	subb	a,b
 	jnc	00118$
 00117$:
-;	syntax.c:346: total_number_of_commands+=1;
+;	syntax.c:570: total_number_of_commands+=1;
 	mov	dptr,#_total_number_of_commands
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
-;	syntax.c:347: recent_commands+=1;
+;	syntax.c:571: recent_commands+=1;
 	mov	dptr,#_recent_commands
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
-;	syntax.c:348: print_prompt("Command recived ! \n\r");
-	mov	dptr,#___str_25
-	mov	b,#0x80
+;	syntax.c:572: printf("\n\r| Command received: %-31c |", cha);
 	push	ar7
 	push	ar6
-	lcall	_print_prompt
+	push	ar6
+	push	ar7
+	mov	a,#___str_73
+	push	acc
+	mov	a,#(___str_73 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
 	pop	ar6
 	pop	ar7
 	sjmp	00119$
 00118$:
-;	syntax.c:351: total_number_of_storage = total_number_of_storage + 1;
+;	syntax.c:575: total_number_of_storage = total_number_of_storage + 1;
 	mov	dptr,#_total_number_of_storage
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
-;	syntax.c:352: recent_storage = recent_storage + 1;
+;	syntax.c:576: recent_storage = recent_storage + 1;
 	mov	dptr,#_recent_storage
 	movx	a,@dptr
-	mov	r5,a
 	inc	a
 	movx	@dptr,a
 00119$:
-;	syntax.c:355: get_command(cha);
-	mov	dpl,r6
-	mov	dph,r7
+;	syntax.c:578: get_command(cha);
+	mov	dpl, r6
+	mov	dph, r7
 	lcall	_get_command
-;	syntax.c:362: }
-	sjmp	00122$
+;	syntax.c:580: }
+	ljmp	00122$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
 	.db 0x0a
-	.ascii "Enter valid input"
-	.db 0x0a
 	.db 0x0d
+	.ascii "+--------------------------------------------------+"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "SIZE ENTERED : %d"
+	.db 0x0a
+	.db 0x0d
+	.ascii "| ERROR: Invalid input - Please enter numbers only     |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_2:
+	.db 0x0a
+	.db 0x0d
+	.ascii "+--------------------------------------------------+"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_2:
-	.ascii "Total number of commands from the start: "
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
 ___str_3:
-	.ascii "%d"
+	.db 0x0a
+	.db 0x0d
+	.ascii "| ERROR: Invalid buffer size                          |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_4:
 	.db 0x0a
 	.db 0x0d
+	.ascii "| - Must be between %d and %d                       |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_5:
-	.ascii "Recent number of commands from the last ?: "
+	.db 0x0a
+	.db 0x0d
+	.ascii "| - Must be multiple of 16                           |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_6:
-	.ascii "Total number of storage chars from the start: "
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Input size: %-39d |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_7:
-	.ascii "Recent number of storage chars from the last ?: "
+	.db 0x0a
+	.db 0x0d
+	.ascii "| BUFFER DEALLOCATION STATUS                      |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_8:
-	.ascii "Index: %d , starting address of Pointer: %p  Ending Address "
-	.ascii "of the pointer %p size of array: %d"
 	.db 0x0a
 	.db 0x0d
+	.ascii "|------------------------------------------------|"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_9:
-	.ascii "....... Dumping Buffer0 ......"
-	.db 0x0d
 	.db 0x0a
+	.db 0x0d
+	.ascii "| Buffers to Free  | %-28d |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_10:
-	.ascii "%p: "
+	.db 0x0a
+	.db 0x0d
+	.ascii "| All buffers successfully deallocated            |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_11:
-	.ascii "%d "
+	.db 0x0a
+	.db 0x0d
+	.ascii "| WARNING: Some buffers failed to deallocate      |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_12:
-	.db 0x0d
 	.db 0x0a
+	.db 0x0d
+	.ascii "+------------------SYSTEM STATUS-------------------+"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_13:
 	.db 0x0a
 	.db 0x0d
-	.ascii "Enter buffer size between 20 to 400: "
+	.ascii "| COMMAND STATISTICS                              |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_14:
-	.ascii "Buffer size you entered is : "
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Total Commands   | %-28d |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_15:
-	.ascii "%d "
 	.db 0x0a
 	.db 0x0d
+	.ascii "| Recent Commands  | %-28d |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_16:
 	.db 0x0a
 	.db 0x0d
-	.ascii "Failed to get malloc try to enter smaller size by again ente"
-	.ascii "ring +"
+	.ascii "| STORAGE STATISTICS                             |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_17:
 	.db 0x0a
 	.db 0x0d
-	.ascii "Enter Number to delete between 0 to 127 for buffer:"
+	.ascii "| Total Storage    | %-28d |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_18:
-	.ascii "Enter buffer size between 32 and 4800 bytes (buffer size mus"
-	.ascii "t be evenly divisible by 16): "
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Recent Storage   | %-28d |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_19:
-	.ascii "Buffer you entered is : 0x"
+	.db 0x0a
+	.db 0x0d
+	.ascii "| TOTAL BUFFERS IN HEAP                           |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_20:
-	.ascii "Failed to get malloc try to enter smaller size for buf 1"
 	.db 0x0a
 	.db 0x0d
+	.ascii "| Total Buffers    | %-28d |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_21:
-	.ascii "Failed to get malloc try to enter smaller size for buf 2"
 	.db 0x0a
 	.db 0x0d
+	.ascii "+------------------BUFFER INFO--------------------+"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_22:
-	.ascii "pointer_value : %p %p"
 	.db 0x0a
 	.db 0x0d
+	.ascii "| ID | Start Addr  | End Addr    | Size (bytes) |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_23:
-	.ascii "pointer location %p, size %d"
 	.db 0x0a
 	.db 0x0d
+	.ascii "|----|-------------|-------------|--------------|"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_24:
-	.ascii "Enter Uppercase char to save in buffer 0: "
 	.db 0x0a
 	.db 0x0d
+	.ascii "| %-2d | %-10p | %-10p | %-11d |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_25:
-	.ascii "Command recived ! "
 	.db 0x0a
 	.db 0x0d
+	.ascii "| MEMORY ALLOCATION STATUS BUFFER 0              |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_26:
-	.ascii "total storage %d recent storage %d pointer %p "
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Total Space      | %-28d |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_27:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Occupied Space   | %-28d |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_28:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Free Space       | %-28d |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_29:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| BUFFER 0 CLEAR STATUS                           |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_30:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Buffer 0 is not initialized                     |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_31:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Buffer Size      | %-28d |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_32:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Status          | %-28s |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_33:
+	.ascii "Data Erased"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_34:
+	.db 0x0a
+	.db 0x0d
+	.ascii "+----------------BUFFER CREATION------------------+"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_35:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Enter buffer size (50-500): "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_36:
+	.db 0x0a
+	.db 0x0d
+	.ascii " ERROR : Invalid request"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_27:
-	.ascii "buffer0 got full nothing to write !"
+___str_37:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Requested Size: %-32d |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_28:
-	.ascii "Please enter An command (+) (-) (?) (=) (@): "
+___str_38:
 	.db 0x0a
+	.db 0x0d
+	.ascii "| ERROR: Memory allocation failed                  |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_39:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Try smaller size with '+' command                |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_40:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| SUCCESS: Buffer created successfully            |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_41:
+	.db 0x0a
+	.db 0x0d
+	.ascii "+----------------BUFFER DELETION------------------+"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_42:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Enter buffer number (0-102): "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_43:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| ERROR: Cannot delete Buffer 0                    |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_44:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| ERROR: Invalid delete request                  |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_45:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| SUCCESS: Buffer %-2d deleted                     |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_46:
+	.db 0x0a
+	.db 0x0d
+	.ascii "+---------------BUFFER 0 CONTENTS-----------------+"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_47:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Address    | Data                               |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_48:
+	.db 0x0a
+	.db 0x0d
+	.ascii "|------------|---------------------------------------|"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_49:
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_50:
+	.ascii "BUFFER 0 DOES NOT EXIST"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_51:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| %04X      |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_52:
+	.ascii " %02X"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_53:
+	.ascii "   "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_54:
+	.ascii " |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_55:
+	.db 0x0a
+	.db 0x0d
+	.ascii "+==================================================+"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_56:
+	.db 0x0a
+	.db 0x0d
+	.ascii "|           BUFFER MANAGEMENT SYSTEM                |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_57:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Enter initial buffer size (32-5120): "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_58:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| ERROR: Buffer 1 allocation failed                |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_59:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Try smaller size                                |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_60:
+	.db 0x0a
+	.db 0x0d
+	.ascii "+------------------------------------------------+"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_61:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| ERROR: Buffer 2 allocation failed                |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_62:
+	.db 0x0a
+	.db 0x0d
+	.ascii "+----------------BUFFER STATUS--------------------+"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_63:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Buffer 1 | Addr: %-10p | Size: %-6d   |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_64:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Buffer 2 | Addr: %-10p | Size: %-6d   |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_65:
+	.db 0x0a
+	.db 0x0d
+	.ascii "+------------------COMMANDS----------------------+"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_66:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| [A-Z] : Store character in Buffer 0           |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_67:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| +     : Create new buffer                     |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_68:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| -     : Delete buffer                         |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_69:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| ?     : Show system status                    |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_70:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| =     : Display Buffer 0 contents             |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_71:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| @     : Reset system                          |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_72:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Ready for input. Enter uppercase chars (A-Z):    |"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_73:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Command received: %-31c |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_74:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Storage: Total=%-4d Recent=%-4d Addr=%-10p |"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_75:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| NOTICE: Buffer 0 is full - Storage stopped        |"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_76:
+	.db 0x0a
+	.db 0x0d
+	.ascii "| Enter command (+, -, ?, =, @):                   |"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)
@@ -2884,6 +4523,8 @@ __xinit__recent_storage:
 	.db #0x00	; 0
 __xinit__recived_bytes:
 	.db #0x00	; 0
+__xinit__wr:
+	.byte #0x00,#0x00,#0x00
 __xinit__pointer1:
 	.byte #0x00,#0x00
 __xinit__pointer2:

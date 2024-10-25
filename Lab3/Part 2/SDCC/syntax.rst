@@ -1,6 +1,6 @@
                                       1 ;--------------------------------------------------------
-                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
-                                      3 ; Version 4.0.0 #11528 (Linux)
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (MINGW32)
                                       4 ;--------------------------------------------------------
                                       5 	.module syntax
                                       6 	.optsdcc -mmcs51 --model-large
@@ -10,9 +10,9 @@
                                      10 ;--------------------------------------------------------
                                      11 	.globl _main
                                      12 	.globl _get_command
-                                     13 	.globl _init_uart
-                                     14 	.globl ___sdcc_external_startup
-                                     15 	.globl _dataout
+                                     13 	.globl _get_number
+                                     14 	.globl _dataout
+                                     15 	.globl _memset
                                      16 	.globl _printf
                                      17 	.globl _free
                                      18 	.globl _malloc
@@ -214,2802 +214,4729 @@
                                     214 	.globl _P0
                                     215 	.globl _pointer2
                                     216 	.globl _pointer1
-                                    217 	.globl _recived_bytes
-                                    218 	.globl _recent_storage
-                                    219 	.globl _recent_commands
-                                    220 	.globl _total_number_of_storage
-                                    221 	.globl _total_number_of_commands
-                                    222 	.globl _get_buf_value_PARM_3
-                                    223 	.globl _get_buf_value_PARM_2
-                                    224 	.globl _array_for_nodes
-                                    225 	.globl _dataout_PARM_2
-                                    226 	.globl _putchar
-                                    227 	.globl _getchar
-                                    228 	.globl _get_buf_value
-                                    229 	.globl _sendUint32ToUART
-                                    230 	.globl _print_prompt
-                                    231 	.globl _buffer0_dump
-                                    232 ;--------------------------------------------------------
-                                    233 ; special function registers
+                                    217 	.globl _wr
+                                    218 	.globl _recived_bytes
+                                    219 	.globl _recent_storage
+                                    220 	.globl _recent_commands
+                                    221 	.globl _total_number_of_storage
+                                    222 	.globl _total_number_of_commands
+                                    223 	.globl _get_buf_value_PARM_3
+                                    224 	.globl _get_buf_value_PARM_2
+                                    225 	.globl _array_for_nodes
+                                    226 	.globl _dataout_PARM_2
+                                    227 	.globl _temp_buffer_size
+                                    228 	.globl _init_uart
+                                    229 	.globl _putchar
+                                    230 	.globl _getchar
+                                    231 	.globl _get_buf_value
+                                    232 	.globl _print_prompt
+                                    233 	.globl _buffer0_dump
                                     234 ;--------------------------------------------------------
-                                    235 	.area RSEG    (ABS,DATA)
-      000000                        236 	.org 0x0000
-                           000080   237 _P0	=	0x0080
-                           000081   238 _SP	=	0x0081
-                           000082   239 _DPL	=	0x0082
-                           000083   240 _DPH	=	0x0083
-                           000087   241 _PCON	=	0x0087
-                           000088   242 _TCON	=	0x0088
-                           000089   243 _TMOD	=	0x0089
-                           00008A   244 _TL0	=	0x008a
-                           00008B   245 _TL1	=	0x008b
-                           00008C   246 _TH0	=	0x008c
-                           00008D   247 _TH1	=	0x008d
-                           000090   248 _P1	=	0x0090
-                           000098   249 _SCON	=	0x0098
-                           000099   250 _SBUF	=	0x0099
-                           0000A0   251 _P2	=	0x00a0
-                           0000A8   252 _IE	=	0x00a8
-                           0000B0   253 _P3	=	0x00b0
-                           0000B8   254 _IP	=	0x00b8
-                           0000D0   255 _PSW	=	0x00d0
-                           0000E0   256 _ACC	=	0x00e0
-                           0000F0   257 _B	=	0x00f0
-                           0000C8   258 _T2CON	=	0x00c8
-                           0000CA   259 _RCAP2L	=	0x00ca
-                           0000CB   260 _RCAP2H	=	0x00cb
-                           0000CC   261 _TL2	=	0x00cc
-                           0000CD   262 _TH2	=	0x00cd
-                           00008E   263 _AUXR	=	0x008e
-                           0000A2   264 _AUXR1	=	0x00a2
-                           000097   265 _CKRL	=	0x0097
-                           00008F   266 _CKCON0	=	0x008f
-                           0000AF   267 _CKCON1	=	0x00af
-                           0000FA   268 _CCAP0H	=	0x00fa
-                           0000FB   269 _CCAP1H	=	0x00fb
-                           0000FC   270 _CCAP2H	=	0x00fc
-                           0000FD   271 _CCAP3H	=	0x00fd
-                           0000FE   272 _CCAP4H	=	0x00fe
-                           0000EA   273 _CCAP0L	=	0x00ea
-                           0000EB   274 _CCAP1L	=	0x00eb
-                           0000EC   275 _CCAP2L	=	0x00ec
-                           0000ED   276 _CCAP3L	=	0x00ed
-                           0000EE   277 _CCAP4L	=	0x00ee
-                           0000DA   278 _CCAPM0	=	0x00da
-                           0000DB   279 _CCAPM1	=	0x00db
-                           0000DC   280 _CCAPM2	=	0x00dc
-                           0000DD   281 _CCAPM3	=	0x00dd
-                           0000DE   282 _CCAPM4	=	0x00de
-                           0000D8   283 _CCON	=	0x00d8
-                           0000F9   284 _CH	=	0x00f9
-                           0000E9   285 _CL	=	0x00e9
-                           0000D9   286 _CMOD	=	0x00d9
-                           0000A8   287 _IEN0	=	0x00a8
-                           0000B1   288 _IEN1	=	0x00b1
-                           0000B8   289 _IPL0	=	0x00b8
-                           0000B7   290 _IPH0	=	0x00b7
-                           0000B2   291 _IPL1	=	0x00b2
-                           0000B3   292 _IPH1	=	0x00b3
-                           0000C0   293 _P4	=	0x00c0
-                           0000E8   294 _P5	=	0x00e8
-                           0000A6   295 _WDTRST	=	0x00a6
-                           0000A7   296 _WDTPRG	=	0x00a7
-                           0000A9   297 _SADDR	=	0x00a9
-                           0000B9   298 _SADEN	=	0x00b9
-                           0000C3   299 _SPCON	=	0x00c3
-                           0000C4   300 _SPSTA	=	0x00c4
-                           0000C5   301 _SPDAT	=	0x00c5
-                           0000C9   302 _T2MOD	=	0x00c9
-                           00009B   303 _BDRCON	=	0x009b
-                           00009A   304 _BRL	=	0x009a
-                           00009C   305 _KBLS	=	0x009c
-                           00009D   306 _KBE	=	0x009d
-                           00009E   307 _KBF	=	0x009e
-                           0000D2   308 _EECON	=	0x00d2
-                                    309 ;--------------------------------------------------------
-                                    310 ; special function bits
+                                    235 ; special function registers
+                                    236 ;--------------------------------------------------------
+                                    237 	.area RSEG    (ABS,DATA)
+      000000                        238 	.org 0x0000
+                           000080   239 _P0	=	0x0080
+                           000081   240 _SP	=	0x0081
+                           000082   241 _DPL	=	0x0082
+                           000083   242 _DPH	=	0x0083
+                           000087   243 _PCON	=	0x0087
+                           000088   244 _TCON	=	0x0088
+                           000089   245 _TMOD	=	0x0089
+                           00008A   246 _TL0	=	0x008a
+                           00008B   247 _TL1	=	0x008b
+                           00008C   248 _TH0	=	0x008c
+                           00008D   249 _TH1	=	0x008d
+                           000090   250 _P1	=	0x0090
+                           000098   251 _SCON	=	0x0098
+                           000099   252 _SBUF	=	0x0099
+                           0000A0   253 _P2	=	0x00a0
+                           0000A8   254 _IE	=	0x00a8
+                           0000B0   255 _P3	=	0x00b0
+                           0000B8   256 _IP	=	0x00b8
+                           0000D0   257 _PSW	=	0x00d0
+                           0000E0   258 _ACC	=	0x00e0
+                           0000F0   259 _B	=	0x00f0
+                           0000C8   260 _T2CON	=	0x00c8
+                           0000CA   261 _RCAP2L	=	0x00ca
+                           0000CB   262 _RCAP2H	=	0x00cb
+                           0000CC   263 _TL2	=	0x00cc
+                           0000CD   264 _TH2	=	0x00cd
+                           00008E   265 _AUXR	=	0x008e
+                           0000A2   266 _AUXR1	=	0x00a2
+                           000097   267 _CKRL	=	0x0097
+                           00008F   268 _CKCON0	=	0x008f
+                           0000AF   269 _CKCON1	=	0x00af
+                           0000FA   270 _CCAP0H	=	0x00fa
+                           0000FB   271 _CCAP1H	=	0x00fb
+                           0000FC   272 _CCAP2H	=	0x00fc
+                           0000FD   273 _CCAP3H	=	0x00fd
+                           0000FE   274 _CCAP4H	=	0x00fe
+                           0000EA   275 _CCAP0L	=	0x00ea
+                           0000EB   276 _CCAP1L	=	0x00eb
+                           0000EC   277 _CCAP2L	=	0x00ec
+                           0000ED   278 _CCAP3L	=	0x00ed
+                           0000EE   279 _CCAP4L	=	0x00ee
+                           0000DA   280 _CCAPM0	=	0x00da
+                           0000DB   281 _CCAPM1	=	0x00db
+                           0000DC   282 _CCAPM2	=	0x00dc
+                           0000DD   283 _CCAPM3	=	0x00dd
+                           0000DE   284 _CCAPM4	=	0x00de
+                           0000D8   285 _CCON	=	0x00d8
+                           0000F9   286 _CH	=	0x00f9
+                           0000E9   287 _CL	=	0x00e9
+                           0000D9   288 _CMOD	=	0x00d9
+                           0000A8   289 _IEN0	=	0x00a8
+                           0000B1   290 _IEN1	=	0x00b1
+                           0000B8   291 _IPL0	=	0x00b8
+                           0000B7   292 _IPH0	=	0x00b7
+                           0000B2   293 _IPL1	=	0x00b2
+                           0000B3   294 _IPH1	=	0x00b3
+                           0000C0   295 _P4	=	0x00c0
+                           0000E8   296 _P5	=	0x00e8
+                           0000A6   297 _WDTRST	=	0x00a6
+                           0000A7   298 _WDTPRG	=	0x00a7
+                           0000A9   299 _SADDR	=	0x00a9
+                           0000B9   300 _SADEN	=	0x00b9
+                           0000C3   301 _SPCON	=	0x00c3
+                           0000C4   302 _SPSTA	=	0x00c4
+                           0000C5   303 _SPDAT	=	0x00c5
+                           0000C9   304 _T2MOD	=	0x00c9
+                           00009B   305 _BDRCON	=	0x009b
+                           00009A   306 _BRL	=	0x009a
+                           00009C   307 _KBLS	=	0x009c
+                           00009D   308 _KBE	=	0x009d
+                           00009E   309 _KBF	=	0x009e
+                           0000D2   310 _EECON	=	0x00d2
                                     311 ;--------------------------------------------------------
-                                    312 	.area RSEG    (ABS,DATA)
-      000000                        313 	.org 0x0000
-                           000080   314 _P0_0	=	0x0080
-                           000081   315 _P0_1	=	0x0081
-                           000082   316 _P0_2	=	0x0082
-                           000083   317 _P0_3	=	0x0083
-                           000084   318 _P0_4	=	0x0084
-                           000085   319 _P0_5	=	0x0085
-                           000086   320 _P0_6	=	0x0086
-                           000087   321 _P0_7	=	0x0087
-                           000088   322 _IT0	=	0x0088
-                           000089   323 _IE0	=	0x0089
-                           00008A   324 _IT1	=	0x008a
-                           00008B   325 _IE1	=	0x008b
-                           00008C   326 _TR0	=	0x008c
-                           00008D   327 _TF0	=	0x008d
-                           00008E   328 _TR1	=	0x008e
-                           00008F   329 _TF1	=	0x008f
-                           000090   330 _P1_0	=	0x0090
-                           000091   331 _P1_1	=	0x0091
-                           000092   332 _P1_2	=	0x0092
-                           000093   333 _P1_3	=	0x0093
-                           000094   334 _P1_4	=	0x0094
-                           000095   335 _P1_5	=	0x0095
-                           000096   336 _P1_6	=	0x0096
-                           000097   337 _P1_7	=	0x0097
-                           000098   338 _RI	=	0x0098
-                           000099   339 _TI	=	0x0099
-                           00009A   340 _RB8	=	0x009a
-                           00009B   341 _TB8	=	0x009b
-                           00009C   342 _REN	=	0x009c
-                           00009D   343 _SM2	=	0x009d
-                           00009E   344 _SM1	=	0x009e
-                           00009F   345 _SM0	=	0x009f
-                           0000A0   346 _P2_0	=	0x00a0
-                           0000A1   347 _P2_1	=	0x00a1
-                           0000A2   348 _P2_2	=	0x00a2
-                           0000A3   349 _P2_3	=	0x00a3
-                           0000A4   350 _P2_4	=	0x00a4
-                           0000A5   351 _P2_5	=	0x00a5
-                           0000A6   352 _P2_6	=	0x00a6
-                           0000A7   353 _P2_7	=	0x00a7
-                           0000A8   354 _EX0	=	0x00a8
-                           0000A9   355 _ET0	=	0x00a9
-                           0000AA   356 _EX1	=	0x00aa
-                           0000AB   357 _ET1	=	0x00ab
-                           0000AC   358 _ES	=	0x00ac
-                           0000AF   359 _EA	=	0x00af
-                           0000B0   360 _P3_0	=	0x00b0
-                           0000B1   361 _P3_1	=	0x00b1
-                           0000B2   362 _P3_2	=	0x00b2
-                           0000B3   363 _P3_3	=	0x00b3
-                           0000B4   364 _P3_4	=	0x00b4
-                           0000B5   365 _P3_5	=	0x00b5
-                           0000B6   366 _P3_6	=	0x00b6
-                           0000B7   367 _P3_7	=	0x00b7
-                           0000B0   368 _RXD	=	0x00b0
-                           0000B1   369 _TXD	=	0x00b1
-                           0000B2   370 _INT0	=	0x00b2
-                           0000B3   371 _INT1	=	0x00b3
-                           0000B4   372 _T0	=	0x00b4
-                           0000B5   373 _T1	=	0x00b5
-                           0000B6   374 _WR	=	0x00b6
-                           0000B7   375 _RD	=	0x00b7
-                           0000B8   376 _PX0	=	0x00b8
-                           0000B9   377 _PT0	=	0x00b9
-                           0000BA   378 _PX1	=	0x00ba
-                           0000BB   379 _PT1	=	0x00bb
-                           0000BC   380 _PS	=	0x00bc
-                           0000D0   381 _P	=	0x00d0
-                           0000D1   382 _F1	=	0x00d1
-                           0000D2   383 _OV	=	0x00d2
-                           0000D3   384 _RS0	=	0x00d3
-                           0000D4   385 _RS1	=	0x00d4
-                           0000D5   386 _F0	=	0x00d5
-                           0000D6   387 _AC	=	0x00d6
-                           0000D7   388 _CY	=	0x00d7
-                           0000AD   389 _ET2	=	0x00ad
-                           0000BD   390 _PT2	=	0x00bd
-                           0000C8   391 _T2CON_0	=	0x00c8
-                           0000C9   392 _T2CON_1	=	0x00c9
-                           0000CA   393 _T2CON_2	=	0x00ca
-                           0000CB   394 _T2CON_3	=	0x00cb
-                           0000CC   395 _T2CON_4	=	0x00cc
-                           0000CD   396 _T2CON_5	=	0x00cd
-                           0000CE   397 _T2CON_6	=	0x00ce
-                           0000CF   398 _T2CON_7	=	0x00cf
-                           0000C8   399 _CP_RL2	=	0x00c8
-                           0000C9   400 _C_T2	=	0x00c9
-                           0000CA   401 _TR2	=	0x00ca
-                           0000CB   402 _EXEN2	=	0x00cb
-                           0000CC   403 _TCLK	=	0x00cc
-                           0000CD   404 _RCLK	=	0x00cd
-                           0000CE   405 _EXF2	=	0x00ce
-                           0000CF   406 _TF2	=	0x00cf
-                           0000DF   407 _CF	=	0x00df
-                           0000DE   408 _CR	=	0x00de
-                           0000DC   409 _CCF4	=	0x00dc
-                           0000DB   410 _CCF3	=	0x00db
-                           0000DA   411 _CCF2	=	0x00da
-                           0000D9   412 _CCF1	=	0x00d9
-                           0000D8   413 _CCF0	=	0x00d8
-                           0000AE   414 _EC	=	0x00ae
-                           0000BE   415 _PPCL	=	0x00be
-                           0000BD   416 _PT2L	=	0x00bd
-                           0000BC   417 _PSL	=	0x00bc
-                           0000BB   418 _PT1L	=	0x00bb
-                           0000BA   419 _PX1L	=	0x00ba
-                           0000B9   420 _PT0L	=	0x00b9
-                           0000B8   421 _PX0L	=	0x00b8
-                           0000C0   422 _P4_0	=	0x00c0
-                           0000C1   423 _P4_1	=	0x00c1
-                           0000C2   424 _P4_2	=	0x00c2
-                           0000C3   425 _P4_3	=	0x00c3
-                           0000C4   426 _P4_4	=	0x00c4
-                           0000C5   427 _P4_5	=	0x00c5
-                           0000C6   428 _P4_6	=	0x00c6
-                           0000C7   429 _P4_7	=	0x00c7
-                           0000E8   430 _P5_0	=	0x00e8
-                           0000E9   431 _P5_1	=	0x00e9
-                           0000EA   432 _P5_2	=	0x00ea
-                           0000EB   433 _P5_3	=	0x00eb
-                           0000EC   434 _P5_4	=	0x00ec
-                           0000ED   435 _P5_5	=	0x00ed
-                           0000EE   436 _P5_6	=	0x00ee
-                           0000EF   437 _P5_7	=	0x00ef
-                                    438 ;--------------------------------------------------------
-                                    439 ; overlayable register banks
+                                    312 ; special function bits
+                                    313 ;--------------------------------------------------------
+                                    314 	.area RSEG    (ABS,DATA)
+      000000                        315 	.org 0x0000
+                           000080   316 _P0_0	=	0x0080
+                           000081   317 _P0_1	=	0x0081
+                           000082   318 _P0_2	=	0x0082
+                           000083   319 _P0_3	=	0x0083
+                           000084   320 _P0_4	=	0x0084
+                           000085   321 _P0_5	=	0x0085
+                           000086   322 _P0_6	=	0x0086
+                           000087   323 _P0_7	=	0x0087
+                           000088   324 _IT0	=	0x0088
+                           000089   325 _IE0	=	0x0089
+                           00008A   326 _IT1	=	0x008a
+                           00008B   327 _IE1	=	0x008b
+                           00008C   328 _TR0	=	0x008c
+                           00008D   329 _TF0	=	0x008d
+                           00008E   330 _TR1	=	0x008e
+                           00008F   331 _TF1	=	0x008f
+                           000090   332 _P1_0	=	0x0090
+                           000091   333 _P1_1	=	0x0091
+                           000092   334 _P1_2	=	0x0092
+                           000093   335 _P1_3	=	0x0093
+                           000094   336 _P1_4	=	0x0094
+                           000095   337 _P1_5	=	0x0095
+                           000096   338 _P1_6	=	0x0096
+                           000097   339 _P1_7	=	0x0097
+                           000098   340 _RI	=	0x0098
+                           000099   341 _TI	=	0x0099
+                           00009A   342 _RB8	=	0x009a
+                           00009B   343 _TB8	=	0x009b
+                           00009C   344 _REN	=	0x009c
+                           00009D   345 _SM2	=	0x009d
+                           00009E   346 _SM1	=	0x009e
+                           00009F   347 _SM0	=	0x009f
+                           0000A0   348 _P2_0	=	0x00a0
+                           0000A1   349 _P2_1	=	0x00a1
+                           0000A2   350 _P2_2	=	0x00a2
+                           0000A3   351 _P2_3	=	0x00a3
+                           0000A4   352 _P2_4	=	0x00a4
+                           0000A5   353 _P2_5	=	0x00a5
+                           0000A6   354 _P2_6	=	0x00a6
+                           0000A7   355 _P2_7	=	0x00a7
+                           0000A8   356 _EX0	=	0x00a8
+                           0000A9   357 _ET0	=	0x00a9
+                           0000AA   358 _EX1	=	0x00aa
+                           0000AB   359 _ET1	=	0x00ab
+                           0000AC   360 _ES	=	0x00ac
+                           0000AF   361 _EA	=	0x00af
+                           0000B0   362 _P3_0	=	0x00b0
+                           0000B1   363 _P3_1	=	0x00b1
+                           0000B2   364 _P3_2	=	0x00b2
+                           0000B3   365 _P3_3	=	0x00b3
+                           0000B4   366 _P3_4	=	0x00b4
+                           0000B5   367 _P3_5	=	0x00b5
+                           0000B6   368 _P3_6	=	0x00b6
+                           0000B7   369 _P3_7	=	0x00b7
+                           0000B0   370 _RXD	=	0x00b0
+                           0000B1   371 _TXD	=	0x00b1
+                           0000B2   372 _INT0	=	0x00b2
+                           0000B3   373 _INT1	=	0x00b3
+                           0000B4   374 _T0	=	0x00b4
+                           0000B5   375 _T1	=	0x00b5
+                           0000B6   376 _WR	=	0x00b6
+                           0000B7   377 _RD	=	0x00b7
+                           0000B8   378 _PX0	=	0x00b8
+                           0000B9   379 _PT0	=	0x00b9
+                           0000BA   380 _PX1	=	0x00ba
+                           0000BB   381 _PT1	=	0x00bb
+                           0000BC   382 _PS	=	0x00bc
+                           0000D0   383 _P	=	0x00d0
+                           0000D1   384 _F1	=	0x00d1
+                           0000D2   385 _OV	=	0x00d2
+                           0000D3   386 _RS0	=	0x00d3
+                           0000D4   387 _RS1	=	0x00d4
+                           0000D5   388 _F0	=	0x00d5
+                           0000D6   389 _AC	=	0x00d6
+                           0000D7   390 _CY	=	0x00d7
+                           0000AD   391 _ET2	=	0x00ad
+                           0000BD   392 _PT2	=	0x00bd
+                           0000C8   393 _T2CON_0	=	0x00c8
+                           0000C9   394 _T2CON_1	=	0x00c9
+                           0000CA   395 _T2CON_2	=	0x00ca
+                           0000CB   396 _T2CON_3	=	0x00cb
+                           0000CC   397 _T2CON_4	=	0x00cc
+                           0000CD   398 _T2CON_5	=	0x00cd
+                           0000CE   399 _T2CON_6	=	0x00ce
+                           0000CF   400 _T2CON_7	=	0x00cf
+                           0000C8   401 _CP_RL2	=	0x00c8
+                           0000C9   402 _C_T2	=	0x00c9
+                           0000CA   403 _TR2	=	0x00ca
+                           0000CB   404 _EXEN2	=	0x00cb
+                           0000CC   405 _TCLK	=	0x00cc
+                           0000CD   406 _RCLK	=	0x00cd
+                           0000CE   407 _EXF2	=	0x00ce
+                           0000CF   408 _TF2	=	0x00cf
+                           0000DF   409 _CF	=	0x00df
+                           0000DE   410 _CR	=	0x00de
+                           0000DC   411 _CCF4	=	0x00dc
+                           0000DB   412 _CCF3	=	0x00db
+                           0000DA   413 _CCF2	=	0x00da
+                           0000D9   414 _CCF1	=	0x00d9
+                           0000D8   415 _CCF0	=	0x00d8
+                           0000AE   416 _EC	=	0x00ae
+                           0000BE   417 _PPCL	=	0x00be
+                           0000BD   418 _PT2L	=	0x00bd
+                           0000BC   419 _PSL	=	0x00bc
+                           0000BB   420 _PT1L	=	0x00bb
+                           0000BA   421 _PX1L	=	0x00ba
+                           0000B9   422 _PT0L	=	0x00b9
+                           0000B8   423 _PX0L	=	0x00b8
+                           0000C0   424 _P4_0	=	0x00c0
+                           0000C1   425 _P4_1	=	0x00c1
+                           0000C2   426 _P4_2	=	0x00c2
+                           0000C3   427 _P4_3	=	0x00c3
+                           0000C4   428 _P4_4	=	0x00c4
+                           0000C5   429 _P4_5	=	0x00c5
+                           0000C6   430 _P4_6	=	0x00c6
+                           0000C7   431 _P4_7	=	0x00c7
+                           0000E8   432 _P5_0	=	0x00e8
+                           0000E9   433 _P5_1	=	0x00e9
+                           0000EA   434 _P5_2	=	0x00ea
+                           0000EB   435 _P5_3	=	0x00eb
+                           0000EC   436 _P5_4	=	0x00ec
+                           0000ED   437 _P5_5	=	0x00ed
+                           0000EE   438 _P5_6	=	0x00ee
+                           0000EF   439 _P5_7	=	0x00ef
                                     440 ;--------------------------------------------------------
-                                    441 	.area REG_BANK_0	(REL,OVR,DATA)
-      000000                        442 	.ds 8
-                                    443 ;--------------------------------------------------------
-                                    444 ; internal ram data
+                                    441 ; overlayable register banks
+                                    442 ;--------------------------------------------------------
+                                    443 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        444 	.ds 8
                                     445 ;--------------------------------------------------------
-                                    446 	.area DSEG    (DATA)
-      000008                        447 _get_command_sloc0_1_0:
-      000008                        448 	.ds 2
-      00000A                        449 _get_command_sloc1_1_0:
-      00000A                        450 	.ds 3
-      00000D                        451 _main_sloc0_1_0:
-      00000D                        452 	.ds 2
-                                    453 ;--------------------------------------------------------
-                                    454 ; overlayable items in internal ram 
-                                    455 ;--------------------------------------------------------
-                                    456 ;--------------------------------------------------------
-                                    457 ; Stack segment in internal ram 
-                                    458 ;--------------------------------------------------------
-                                    459 	.area	SSEG
-      000021                        460 __start__stack:
-      000021                        461 	.ds	1
-                                    462 
-                                    463 ;--------------------------------------------------------
-                                    464 ; indirectly addressable internal ram data
-                                    465 ;--------------------------------------------------------
-                                    466 	.area ISEG    (DATA)
+                                    446 ; internal ram data
+                                    447 ;--------------------------------------------------------
+                                    448 	.area DSEG    (DATA)
+      000008                        449 _get_buf_value_sloc0_1_0:
+      000008                        450 	.ds 1
+      000009                        451 _get_buf_value_sloc1_1_0:
+      000009                        452 	.ds 2
+      00000B                        453 _get_command_sloc0_1_0:
+      00000B                        454 	.ds 2
+      00000D                        455 _get_command_sloc1_1_0:
+      00000D                        456 	.ds 3
+      000010                        457 _get_command_sloc2_1_0:
+      000010                        458 	.ds 3
+      000013                        459 _buffer0_dump_sloc0_1_0:
+      000013                        460 	.ds 2
+      000015                        461 _buffer0_dump_sloc1_1_0:
+      000015                        462 	.ds 3
+      000018                        463 _buffer0_dump_sloc2_1_0:
+      000018                        464 	.ds 2
+      00001A                        465 _main_sloc0_1_0:
+      00001A                        466 	.ds 2
                                     467 ;--------------------------------------------------------
-                                    468 ; absolute internal ram data
+                                    468 ; overlayable items in internal ram
                                     469 ;--------------------------------------------------------
-                                    470 	.area IABS    (ABS,DATA)
-                                    471 	.area IABS    (ABS,DATA)
+                                    470 ;--------------------------------------------------------
+                                    471 ; Stack segment in internal ram
                                     472 ;--------------------------------------------------------
-                                    473 ; bit data
-                                    474 ;--------------------------------------------------------
-                                    475 	.area BSEG    (BIT)
-                                    476 ;--------------------------------------------------------
-                                    477 ; paged external ram data
-                                    478 ;--------------------------------------------------------
-                                    479 	.area PSEG    (PAG,XDATA)
-                                    480 ;--------------------------------------------------------
-                                    481 ; external ram data
-                                    482 ;--------------------------------------------------------
-                                    483 	.area XSEG    (XDATA)
-      000400                        484 _dataout_PARM_2:
-      000400                        485 	.ds 1
-      000401                        486 _dataout_val1_65536_41:
-      000401                        487 	.ds 2
-      000403                        488 _node_count:
-      000403                        489 	.ds 1
-      000404                        490 _array_for_nodes::
-      000404                        491 	.ds 600
-      00065C                        492 _putchar_chr_65536_51:
-      00065C                        493 	.ds 2
-      00065E                        494 _get_buf_value_PARM_2:
-      00065E                        495 	.ds 2
-      000660                        496 _get_buf_value_PARM_3:
-      000660                        497 	.ds 2
-      000662                        498 _get_buf_value_string_65536_55:
-      000662                        499 	.ds 3
-      000665                        500 _get_buf_value_data_from_serial_65536_56:
-      000665                        501 	.ds 2
-      000667                        502 _get_buf_value_buffer_size_65536_56:
-      000667                        503 	.ds 2
-      000669                        504 _get_buf_value_index_65536_56:
-      000669                        505 	.ds 2
-      00066B                        506 _sendUint32ToUART_value_65536_60:
-      00066B                        507 	.ds 4
-      00066F                        508 _print_prompt_string_65536_63:
-      00066F                        509 	.ds 3
-      000672                        510 _get_command_command_65536_66:
-      000672                        511 	.ds 2
-      000674                        512 _get_command_rd_ptr_131073_72:
-      000674                        513 	.ds 3
-      000677                        514 _get_command_temp_131073_72:
-      000677                        515 	.ds 1
-      000678                        516 _get_command_node_131074_77:
-      000678                        517 	.ds 6
-      00067E                        518 _buffer0_dump_rd_ptr_65536_79:
-      00067E                        519 	.ds 3
-      000681                        520 _buffer0_dump_temp_65536_79:
-      000681                        521 	.ds 1
-      000682                        522 _main_node1_65537_88:
-      000682                        523 	.ds 6
-      000688                        524 _main_node2_65538_89:
-      000688                        525 	.ds 6
-                                    526 ;--------------------------------------------------------
-                                    527 ; absolute external ram data
-                                    528 ;--------------------------------------------------------
-                                    529 	.area XABS    (ABS,XDATA)
-                                    530 ;--------------------------------------------------------
-                                    531 ; external initialized ram data
-                                    532 ;--------------------------------------------------------
-                                    533 	.area XISEG   (XDATA)
-      000F02                        534 _index_of_buffers:
-      000F02                        535 	.ds 1
-      000F03                        536 _total_number_of_commands::
-      000F03                        537 	.ds 1
-      000F04                        538 _total_number_of_storage::
-      000F04                        539 	.ds 1
-      000F05                        540 _recent_commands::
-      000F05                        541 	.ds 1
-      000F06                        542 _recent_storage::
-      000F06                        543 	.ds 1
-      000F07                        544 _recived_bytes::
-      000F07                        545 	.ds 1
-      000F08                        546 _pointer1::
-      000F08                        547 	.ds 2
-      000F0A                        548 _pointer2::
-      000F0A                        549 	.ds 2
-                                    550 	.area HOME    (CODE)
-                                    551 	.area GSINIT0 (CODE)
-                                    552 	.area GSINIT1 (CODE)
-                                    553 	.area GSINIT2 (CODE)
-                                    554 	.area GSINIT3 (CODE)
-                                    555 	.area GSINIT4 (CODE)
-                                    556 	.area GSINIT5 (CODE)
-                                    557 	.area GSINIT  (CODE)
-                                    558 	.area GSFINAL (CODE)
-                                    559 	.area CSEG    (CODE)
-                                    560 ;--------------------------------------------------------
-                                    561 ; interrupt vector 
-                                    562 ;--------------------------------------------------------
-                                    563 	.area HOME    (CODE)
-      003000                        564 __interrupt_vect:
-      003000 02 30 06         [24]  565 	ljmp	__sdcc_gsinit_startup
-                                    566 ;--------------------------------------------------------
-                                    567 ; global & static initialisations
-                                    568 ;--------------------------------------------------------
-                                    569 	.area HOME    (CODE)
-                                    570 	.area GSINIT  (CODE)
-                                    571 	.area GSFINAL (CODE)
-                                    572 	.area GSINIT  (CODE)
-                                    573 	.globl __sdcc_gsinit_startup
-                                    574 	.globl __sdcc_program_startup
-                                    575 	.globl __start__stack
-                                    576 	.globl __mcs51_genXINIT
-                                    577 	.globl __mcs51_genXRAMCLEAR
-                                    578 	.globl __mcs51_genRAMCLEAR
-                                    579 	.area GSFINAL (CODE)
-      00305F 02 30 03         [24]  580 	ljmp	__sdcc_program_startup
-                                    581 ;--------------------------------------------------------
-                                    582 ; Home
-                                    583 ;--------------------------------------------------------
-                                    584 	.area HOME    (CODE)
-                                    585 	.area HOME    (CODE)
-      003003                        586 __sdcc_program_startup:
-      003003 02 38 65         [24]  587 	ljmp	_main
-                                    588 ;	return from main will return to caller
-                                    589 ;--------------------------------------------------------
-                                    590 ; code
-                                    591 ;--------------------------------------------------------
-                                    592 	.area CSEG    (CODE)
-                                    593 ;------------------------------------------------------------
-                                    594 ;Allocation info for local variables in function 'dataout'
-                                    595 ;------------------------------------------------------------
-                                    596 ;x                         Allocated with name '_dataout_PARM_2'
-                                    597 ;val1                      Allocated with name '_dataout_val1_65536_41'
-                                    598 ;------------------------------------------------------------
-                                    599 ;	syntax.c:15: void dataout(uint16_t val1, uint8_t x){
-                                    600 ;	-----------------------------------------
-                                    601 ;	 function dataout
-                                    602 ;	-----------------------------------------
-      003062                        603 _dataout:
-                           000007   604 	ar7 = 0x07
-                           000006   605 	ar6 = 0x06
-                           000005   606 	ar5 = 0x05
-                           000004   607 	ar4 = 0x04
-                           000003   608 	ar3 = 0x03
-                           000002   609 	ar2 = 0x02
-                           000001   610 	ar1 = 0x01
-                           000000   611 	ar0 = 0x00
-      003062 AF 83            [24]  612 	mov	r7,dph
-      003064 E5 82            [12]  613 	mov	a,dpl
-      003066 90 04 01         [24]  614 	mov	dptr,#_dataout_val1_65536_41
-      003069 F0               [24]  615 	movx	@dptr,a
-      00306A EF               [12]  616 	mov	a,r7
-      00306B A3               [24]  617 	inc	dptr
-      00306C F0               [24]  618 	movx	@dptr,a
-                                    619 ;	syntax.c:16: DPL = val1 & 0xFF;
-      00306D 90 04 01         [24]  620 	mov	dptr,#_dataout_val1_65536_41
-      003070 E0               [24]  621 	movx	a,@dptr
-      003071 FE               [12]  622 	mov	r6,a
-      003072 A3               [24]  623 	inc	dptr
-      003073 E0               [24]  624 	movx	a,@dptr
-      003074 FF               [12]  625 	mov	r7,a
-      003075 8E 82            [24]  626 	mov	_DPL,r6
-                                    627 ;	syntax.c:17: DPH = (val1 >> 8) & 0xFF;
-      003077 8F 83            [24]  628 	mov	_DPH,r7
-                                    629 ;	syntax.c:18: ACC = x;
-      003079 90 04 00         [24]  630 	mov	dptr,#_dataout_PARM_2
-      00307C E0               [24]  631 	movx	a,@dptr
-      00307D F5 E0            [12]  632 	mov	_ACC,a
-                                    633 ;	syntax.c:19: __asm__("movx @dptr, a");
-      00307F F0               [24]  634 	movx	@dptr, a
-                                    635 ;	syntax.c:20: }
-      003080 22               [24]  636 	ret
-                                    637 ;------------------------------------------------------------
-                                    638 ;Allocation info for local variables in function '__sdcc_external_startup'
-                                    639 ;------------------------------------------------------------
-                                    640 ;	syntax.c:59: unsigned char __sdcc_external_startup(void){
-                                    641 ;	-----------------------------------------
-                                    642 ;	 function __sdcc_external_startup
-                                    643 ;	-----------------------------------------
-      003081                        644 ___sdcc_external_startup:
-                                    645 ;	syntax.c:60: AUXR |= (XRS1 | XRS0);
-      003081 43 8E 0C         [24]  646 	orl	_AUXR,#0x0c
-                                    647 ;	syntax.c:61: AUXR &= ~(XRS2);
-      003084 53 8E EF         [24]  648 	anl	_AUXR,#0xef
-                                    649 ;	syntax.c:62: return 0;
-      003087 75 82 00         [24]  650 	mov	dpl,#0x00
-                                    651 ;	syntax.c:63: }
-      00308A 22               [24]  652 	ret
-                                    653 ;------------------------------------------------------------
-                                    654 ;Allocation info for local variables in function 'init_uart'
+                                    473 	.area SSEG
+      000030                        474 __start__stack:
+      000030                        475 	.ds	1
+                                    476 
+                                    477 ;--------------------------------------------------------
+                                    478 ; indirectly addressable internal ram data
+                                    479 ;--------------------------------------------------------
+                                    480 	.area ISEG    (DATA)
+      00002E                        481 _temp_buffer_size::
+      00002E                        482 	.ds 2
+                                    483 ;--------------------------------------------------------
+                                    484 ; absolute internal ram data
+                                    485 ;--------------------------------------------------------
+                                    486 	.area IABS    (ABS,DATA)
+                                    487 	.area IABS    (ABS,DATA)
+                                    488 ;--------------------------------------------------------
+                                    489 ; bit data
+                                    490 ;--------------------------------------------------------
+                                    491 	.area BSEG    (BIT)
+                                    492 ;--------------------------------------------------------
+                                    493 ; paged external ram data
+                                    494 ;--------------------------------------------------------
+                                    495 	.area PSEG    (PAG,XDATA)
+                                    496 ;--------------------------------------------------------
+                                    497 ; uninitialized external ram data
+                                    498 ;--------------------------------------------------------
+                                    499 	.area XSEG    (XDATA)
+      000400                        500 _dataout_PARM_2:
+      000400                        501 	.ds 1
+      000401                        502 _dataout_address_10000_69:
+      000401                        503 	.ds 2
+      000403                        504 _array_for_nodes::
+      000403                        505 	.ds 600
+      00065B                        506 _putchar_chr_10000_79:
+      00065B                        507 	.ds 2
+      00065D                        508 _get_buf_value_PARM_2:
+      00065D                        509 	.ds 2
+      00065F                        510 _get_buf_value_PARM_3:
+      00065F                        511 	.ds 2
+      000661                        512 _get_buf_value_string_10000_84:
+      000661                        513 	.ds 3
+      000664                        514 _get_buf_value_buffer_size_10000_85:
+      000664                        515 	.ds 2
+      000666                        516 _get_buf_value_input_10000_85:
+      000666                        517 	.ds 5
+      00066B                        518 _get_buf_value_valid_input_10000_85:
+      00066B                        519 	.ds 2
+      00066D                        520 _print_prompt_string_10000_92:
+      00066D                        521 	.ds 3
+      000670                        522 _get_number_prompt_10000_95:
+      000670                        523 	.ds 3
+      000673                        524 _get_number_buffer_size_10000_96:
+      000673                        525 	.ds 2
+      000675                        526 _get_number_index_10000_96:
+      000675                        527 	.ds 2
+      000677                        528 _get_command_command_10000_99:
+      000677                        529 	.ds 2
+      000679                        530 _get_command_node_30003_120:
+      000679                        531 	.ds 6
+      00067F                        532 _buffer0_dump_offset_20001_128:
+      00067F                        533 	.ds 2
+      000681                        534 _main_node1_10002_140:
+      000681                        535 	.ds 6
+      000687                        536 _main_node2_10003_141:
+      000687                        537 	.ds 6
+                                    538 ;--------------------------------------------------------
+                                    539 ; absolute external ram data
+                                    540 ;--------------------------------------------------------
+                                    541 	.area XABS    (ABS,XDATA)
+                                    542 ;--------------------------------------------------------
+                                    543 ; initialized external ram data
+                                    544 ;--------------------------------------------------------
+                                    545 	.area XISEG   (XDATA)
+      001AF7                        546 _index_of_buffers:
+      001AF7                        547 	.ds 1
+      001AF8                        548 _total_number_of_commands::
+      001AF8                        549 	.ds 1
+      001AF9                        550 _total_number_of_storage::
+      001AF9                        551 	.ds 1
+      001AFA                        552 _recent_commands::
+      001AFA                        553 	.ds 1
+      001AFB                        554 _recent_storage::
+      001AFB                        555 	.ds 1
+      001AFC                        556 _recived_bytes::
+      001AFC                        557 	.ds 1
+      001AFD                        558 _wr::
+      001AFD                        559 	.ds 3
+      001B00                        560 _pointer1::
+      001B00                        561 	.ds 2
+      001B02                        562 _pointer2::
+      001B02                        563 	.ds 2
+                                    564 	.area HOME    (CODE)
+                                    565 	.area GSINIT0 (CODE)
+                                    566 	.area GSINIT1 (CODE)
+                                    567 	.area GSINIT2 (CODE)
+                                    568 	.area GSINIT3 (CODE)
+                                    569 	.area GSINIT4 (CODE)
+                                    570 	.area GSINIT5 (CODE)
+                                    571 	.area GSINIT  (CODE)
+                                    572 	.area GSFINAL (CODE)
+                                    573 	.area CSEG    (CODE)
+                                    574 ;--------------------------------------------------------
+                                    575 ; interrupt vector
+                                    576 ;--------------------------------------------------------
+                                    577 	.area HOME    (CODE)
+      003000                        578 __interrupt_vect:
+      003000 02 30 06         [24]  579 	ljmp	__sdcc_gsinit_startup
+                                    580 ;--------------------------------------------------------
+                                    581 ; global & static initialisations
+                                    582 ;--------------------------------------------------------
+                                    583 	.area HOME    (CODE)
+                                    584 	.area GSINIT  (CODE)
+                                    585 	.area GSFINAL (CODE)
+                                    586 	.area GSINIT  (CODE)
+                                    587 	.globl __sdcc_gsinit_startup
+                                    588 	.globl __sdcc_program_startup
+                                    589 	.globl __start__stack
+                                    590 	.globl __mcs51_genXINIT
+                                    591 	.globl __mcs51_genXRAMCLEAR
+                                    592 	.globl __mcs51_genRAMCLEAR
+                                    593 ;	syntax.c:52: __idata int temp_buffer_size = 0;
+      00305F 78 2E            [12]  594 	mov	r0,#_temp_buffer_size
+      003061 E4               [12]  595 	clr	a
+      003062 F6               [12]  596 	mov	@r0,a
+      003063 08               [12]  597 	inc	r0
+      003064 F6               [12]  598 	mov	@r0,a
+                                    599 	.area GSFINAL (CODE)
+      003065 02 30 03         [24]  600 	ljmp	__sdcc_program_startup
+                                    601 ;--------------------------------------------------------
+                                    602 ; Home
+                                    603 ;--------------------------------------------------------
+                                    604 	.area HOME    (CODE)
+                                    605 	.area HOME    (CODE)
+      003003                        606 __sdcc_program_startup:
+      003003 02 3F 91         [24]  607 	ljmp	_main
+                                    608 ;	return from main will return to caller
+                                    609 ;--------------------------------------------------------
+                                    610 ; code
+                                    611 ;--------------------------------------------------------
+                                    612 	.area CSEG    (CODE)
+                                    613 ;------------------------------------------------------------
+                                    614 ;Allocation info for local variables in function 'dataout'
+                                    615 ;------------------------------------------------------------
+                                    616 ;value                     Allocated with name '_dataout_PARM_2'
+                                    617 ;address                   Allocated with name '_dataout_address_10000_69'
+                                    618 ;debug_add                 Allocated with name '_dataout_debug_add_10000_70'
+                                    619 ;------------------------------------------------------------
+                                    620 ;	syntax.c:27: void dataout(uint16_t address, uint8_t value)
+                                    621 ;	-----------------------------------------
+                                    622 ;	 function dataout
+                                    623 ;	-----------------------------------------
+      003068                        624 _dataout:
+                           000007   625 	ar7 = 0x07
+                           000006   626 	ar6 = 0x06
+                           000005   627 	ar5 = 0x05
+                           000004   628 	ar4 = 0x04
+                           000003   629 	ar3 = 0x03
+                           000002   630 	ar2 = 0x02
+                           000001   631 	ar1 = 0x01
+                           000000   632 	ar0 = 0x00
+      003068 AF 83            [24]  633 	mov	r7,dph
+      00306A E5 82            [12]  634 	mov	a,dpl
+      00306C 90 04 01         [24]  635 	mov	dptr,#_dataout_address_10000_69
+      00306F F0               [24]  636 	movx	@dptr,a
+      003070 EF               [12]  637 	mov	a,r7
+      003071 A3               [24]  638 	inc	dptr
+      003072 F0               [24]  639 	movx	@dptr,a
+                                    640 ;	syntax.c:29: __xdata unsigned char * debug_add = (__xdata unsigned char*)address;
+      003073 90 04 01         [24]  641 	mov	dptr,#_dataout_address_10000_69
+      003076 E0               [24]  642 	movx	a,@dptr
+      003077 FE               [12]  643 	mov	r6,a
+      003078 A3               [24]  644 	inc	dptr
+      003079 E0               [24]  645 	movx	a,@dptr
+      00307A FF               [12]  646 	mov	r7,a
+                                    647 ;	syntax.c:30: *debug_add = value; 
+      00307B 90 04 00         [24]  648 	mov	dptr,#_dataout_PARM_2
+      00307E E0               [24]  649 	movx	a,@dptr
+      00307F 8E 82            [24]  650 	mov	dpl,r6
+      003081 8F 83            [24]  651 	mov	dph,r7
+      003083 F0               [24]  652 	movx	@dptr,a
+                                    653 ;	syntax.c:31: }
+      003084 22               [24]  654 	ret
                                     655 ;------------------------------------------------------------
-                                    656 ;	syntax.c:65: void init_uart(){
-                                    657 ;	-----------------------------------------
-                                    658 ;	 function init_uart
+                                    656 ;Allocation info for local variables in function 'init_uart'
+                                    657 ;------------------------------------------------------------
+                                    658 ;	syntax.c:73: void init_uart(void)
                                     659 ;	-----------------------------------------
-      00308B                        660 _init_uart:
-                                    661 ;	syntax.c:66: SCON = 0x50;
-      00308B 75 98 50         [24]  662 	mov	_SCON,#0x50
-                                    663 ;	syntax.c:67: TMOD = 0x20;
-      00308E 75 89 20         [24]  664 	mov	_TMOD,#0x20
-                                    665 ;	syntax.c:68: TH1 = 0xFD;
-      003091 75 8D FD         [24]  666 	mov	_TH1,#0xfd
-                                    667 ;	syntax.c:69: TR1 = 1;
-                                    668 ;	assignBit
-      003094 D2 8E            [12]  669 	setb	_TR1
-                                    670 ;	syntax.c:70: }
-      003096 22               [24]  671 	ret
-                                    672 ;------------------------------------------------------------
-                                    673 ;Allocation info for local variables in function 'putchar'
+                                    660 ;	 function init_uart
+                                    661 ;	-----------------------------------------
+      003085                        662 _init_uart:
+                                    663 ;	syntax.c:75: SCON = 0x50;               // Serial mode 1, 8-bit UART, enable receiver
+      003085 75 98 50         [24]  664 	mov	_SCON,#0x50
+                                    665 ;	syntax.c:76: TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
+      003088 75 89 20         [24]  666 	mov	_TMOD,#0x20
+                                    667 ;	syntax.c:77: TH1 = 0xFD;                // 9600 baud rate
+      00308B 75 8D FD         [24]  668 	mov	_TH1,#0xfd
+                                    669 ;	syntax.c:78: TR1 = 1;                   // Start timer 1
+                                    670 ;	assignBit
+      00308E D2 8E            [12]  671 	setb	_TR1
+                                    672 ;	syntax.c:79: }
+      003090 22               [24]  673 	ret
                                     674 ;------------------------------------------------------------
-                                    675 ;chr                       Allocated with name '_putchar_chr_65536_51'
+                                    675 ;Allocation info for local variables in function 'putchar'
                                     676 ;------------------------------------------------------------
-                                    677 ;	syntax.c:72: int putchar(int chr){
-                                    678 ;	-----------------------------------------
-                                    679 ;	 function putchar
+                                    677 ;chr                       Allocated with name '_putchar_chr_10000_79'
+                                    678 ;------------------------------------------------------------
+                                    679 ;	syntax.c:87: int putchar(int chr){
                                     680 ;	-----------------------------------------
-      003097                        681 _putchar:
-      003097 AF 83            [24]  682 	mov	r7,dph
-      003099 E5 82            [12]  683 	mov	a,dpl
-      00309B 90 06 5C         [24]  684 	mov	dptr,#_putchar_chr_65536_51
-      00309E F0               [24]  685 	movx	@dptr,a
-      00309F EF               [12]  686 	mov	a,r7
-      0030A0 A3               [24]  687 	inc	dptr
-      0030A1 F0               [24]  688 	movx	@dptr,a
-                                    689 ;	syntax.c:73: SBUF = chr;
-      0030A2 90 06 5C         [24]  690 	mov	dptr,#_putchar_chr_65536_51
-      0030A5 E0               [24]  691 	movx	a,@dptr
-      0030A6 FE               [12]  692 	mov	r6,a
-      0030A7 A3               [24]  693 	inc	dptr
-      0030A8 E0               [24]  694 	movx	a,@dptr
-      0030A9 8E 99            [24]  695 	mov	_SBUF,r6
-                                    696 ;	syntax.c:74: while(!TI);
-      0030AB                        697 00101$:
-                                    698 ;	syntax.c:75: TI = 0;
-                                    699 ;	assignBit
-      0030AB 10 99 02         [24]  700 	jbc	_TI,00114$
-      0030AE 80 FB            [24]  701 	sjmp	00101$
-      0030B0                        702 00114$:
-                                    703 ;	syntax.c:76: return 1;
-      0030B0 90 00 01         [24]  704 	mov	dptr,#0x0001
-                                    705 ;	syntax.c:78: }
-      0030B3 22               [24]  706 	ret
-                                    707 ;------------------------------------------------------------
-                                    708 ;Allocation info for local variables in function 'getchar'
-                                    709 ;------------------------------------------------------------
-                                    710 ;a                         Allocated with name '_getchar_a_65537_54'
-                                    711 ;------------------------------------------------------------
-                                    712 ;	syntax.c:80: int getchar(){
-                                    713 ;	-----------------------------------------
-                                    714 ;	 function getchar
-                                    715 ;	-----------------------------------------
-      0030B4                        716 _getchar:
-                                    717 ;	syntax.c:82: while(!RI);
-      0030B4                        718 00101$:
-      0030B4 30 98 FD         [24]  719 	jnb	_RI,00101$
-                                    720 ;	syntax.c:83: int a = SBUF;
-      0030B7 AE 99            [24]  721 	mov	r6,_SBUF
-      0030B9 7F 00            [12]  722 	mov	r7,#0x00
-                                    723 ;	syntax.c:84: RI = 0;
-                                    724 ;	assignBit
-      0030BB C2 98            [12]  725 	clr	_RI
-                                    726 ;	syntax.c:85: recived_bytes++;
-      0030BD 90 0F 07         [24]  727 	mov	dptr,#_recived_bytes
-      0030C0 E0               [24]  728 	movx	a,@dptr
-      0030C1 24 01            [12]  729 	add	a,#0x01
-      0030C3 F0               [24]  730 	movx	@dptr,a
-                                    731 ;	syntax.c:86: return a;
-      0030C4 8E 82            [24]  732 	mov	dpl,r6
-      0030C6 8F 83            [24]  733 	mov	dph,r7
-                                    734 ;	syntax.c:88: }
-      0030C8 22               [24]  735 	ret
-                                    736 ;------------------------------------------------------------
-                                    737 ;Allocation info for local variables in function 'get_buf_value'
-                                    738 ;------------------------------------------------------------
-                                    739 ;UPPER                     Allocated with name '_get_buf_value_PARM_2'
-                                    740 ;LOWER                     Allocated with name '_get_buf_value_PARM_3'
-                                    741 ;string                    Allocated with name '_get_buf_value_string_65536_55'
-                                    742 ;data_from_serial          Allocated with name '_get_buf_value_data_from_serial_65536_56'
-                                    743 ;buffer_size               Allocated with name '_get_buf_value_buffer_size_65536_56'
-                                    744 ;index                     Allocated with name '_get_buf_value_index_65536_56'
-                                    745 ;------------------------------------------------------------
-                                    746 ;	syntax.c:91: int get_buf_value(const char * string, int UPPER, int LOWER){
-                                    747 ;	-----------------------------------------
-                                    748 ;	 function get_buf_value
-                                    749 ;	-----------------------------------------
-      0030C9                        750 _get_buf_value:
-      0030C9 AF F0            [24]  751 	mov	r7,b
-      0030CB AE 83            [24]  752 	mov	r6,dph
-      0030CD E5 82            [12]  753 	mov	a,dpl
-      0030CF 90 06 62         [24]  754 	mov	dptr,#_get_buf_value_string_65536_55
-      0030D2 F0               [24]  755 	movx	@dptr,a
-      0030D3 EE               [12]  756 	mov	a,r6
-      0030D4 A3               [24]  757 	inc	dptr
-      0030D5 F0               [24]  758 	movx	@dptr,a
-      0030D6 EF               [12]  759 	mov	a,r7
-      0030D7 A3               [24]  760 	inc	dptr
-      0030D8 F0               [24]  761 	movx	@dptr,a
-                                    762 ;	syntax.c:92: int data_from_serial = 0;
-      0030D9 90 06 65         [24]  763 	mov	dptr,#_get_buf_value_data_from_serial_65536_56
-      0030DC E4               [12]  764 	clr	a
-      0030DD F0               [24]  765 	movx	@dptr,a
-      0030DE A3               [24]  766 	inc	dptr
-      0030DF F0               [24]  767 	movx	@dptr,a
-                                    768 ;	syntax.c:93: int buffer_size = 0;
-      0030E0 90 06 67         [24]  769 	mov	dptr,#_get_buf_value_buffer_size_65536_56
-      0030E3 F0               [24]  770 	movx	@dptr,a
-      0030E4 A3               [24]  771 	inc	dptr
-      0030E5 F0               [24]  772 	movx	@dptr,a
-                                    773 ;	syntax.c:94: int index = 1000;
-      0030E6 90 06 69         [24]  774 	mov	dptr,#_get_buf_value_index_65536_56
-      0030E9 74 E8            [12]  775 	mov	a,#0xe8
-      0030EB F0               [24]  776 	movx	@dptr,a
-      0030EC 74 03            [12]  777 	mov	a,#0x03
-      0030EE A3               [24]  778 	inc	dptr
-      0030EF F0               [24]  779 	movx	@dptr,a
-                                    780 ;	syntax.c:97: print_prompt(string);
-      0030F0 90 06 62         [24]  781 	mov	dptr,#_get_buf_value_string_65536_55
-      0030F3 E0               [24]  782 	movx	a,@dptr
-      0030F4 FD               [12]  783 	mov	r5,a
-      0030F5 A3               [24]  784 	inc	dptr
-      0030F6 E0               [24]  785 	movx	a,@dptr
-      0030F7 FE               [12]  786 	mov	r6,a
-      0030F8 A3               [24]  787 	inc	dptr
-      0030F9 E0               [24]  788 	movx	a,@dptr
-      0030FA FF               [12]  789 	mov	r7,a
-      0030FB 8D 82            [24]  790 	mov	dpl,r5
-      0030FD 8E 83            [24]  791 	mov	dph,r6
-      0030FF 8F F0            [24]  792 	mov	b,r7
-      003101 12 32 9C         [24]  793 	lcall	_print_prompt
-                                    794 ;	syntax.c:100: while(index >= 1 & data_from_serial != 0x0d){
-      003104                        795 00107$:
-      003104 90 06 69         [24]  796 	mov	dptr,#_get_buf_value_index_65536_56
-      003107 E0               [24]  797 	movx	a,@dptr
-      003108 FE               [12]  798 	mov	r6,a
-      003109 A3               [24]  799 	inc	dptr
-      00310A E0               [24]  800 	movx	a,@dptr
-      00310B FF               [12]  801 	mov	r7,a
-      00310C C3               [12]  802 	clr	c
-      00310D EE               [12]  803 	mov	a,r6
-      00310E 94 01            [12]  804 	subb	a,#0x01
-      003110 EF               [12]  805 	mov	a,r7
-      003111 64 80            [12]  806 	xrl	a,#0x80
-      003113 94 80            [12]  807 	subb	a,#0x80
-      003115 B3               [12]  808 	cpl	c
-      003116 E4               [12]  809 	clr	a
-      003117 33               [12]  810 	rlc	a
-      003118 FF               [12]  811 	mov	r7,a
-      003119 90 06 65         [24]  812 	mov	dptr,#_get_buf_value_data_from_serial_65536_56
-      00311C E0               [24]  813 	movx	a,@dptr
-      00311D FD               [12]  814 	mov	r5,a
-      00311E A3               [24]  815 	inc	dptr
-      00311F E0               [24]  816 	movx	a,@dptr
-      003120 FE               [12]  817 	mov	r6,a
-      003121 E4               [12]  818 	clr	a
-      003122 BD 0D 04         [24]  819 	cjne	r5,#0x0d,00133$
-      003125 BE 00 01         [24]  820 	cjne	r6,#0x00,00133$
-      003128 04               [12]  821 	inc	a
-      003129                        822 00133$:
-      003129 B4 01 00         [24]  823 	cjne	a,#0x01,00135$
-      00312C                        824 00135$:
-      00312C E4               [12]  825 	clr	a
-      00312D 33               [12]  826 	rlc	a
-      00312E FE               [12]  827 	mov	r6,a
-      00312F 5F               [12]  828 	anl	a,r7
-      003130 70 03            [24]  829 	jnz	00136$
-      003132 02 31 E6         [24]  830 	ljmp	00109$
-      003135                        831 00136$:
-                                    832 ;	syntax.c:101: data_from_serial = getchar();
-      003135 12 30 B4         [24]  833 	lcall	_getchar
-      003138 AE 82            [24]  834 	mov	r6,dpl
-      00313A AF 83            [24]  835 	mov	r7,dph
-      00313C 90 06 65         [24]  836 	mov	dptr,#_get_buf_value_data_from_serial_65536_56
-      00313F EE               [12]  837 	mov	a,r6
-      003140 F0               [24]  838 	movx	@dptr,a
-      003141 EF               [12]  839 	mov	a,r7
-      003142 A3               [24]  840 	inc	dptr
-      003143 F0               [24]  841 	movx	@dptr,a
-                                    842 ;	syntax.c:102: if((data_from_serial < '0' || data_from_serial > '9') && data_from_serial != 0x0d) {
-      003144 C3               [12]  843 	clr	c
-      003145 EE               [12]  844 	mov	a,r6
-      003146 94 30            [12]  845 	subb	a,#0x30
-      003148 EF               [12]  846 	mov	a,r7
-      003149 64 80            [12]  847 	xrl	a,#0x80
-      00314B 94 80            [12]  848 	subb	a,#0x80
-      00314D 40 0E            [24]  849 	jc	00104$
-      00314F 74 39            [12]  850 	mov	a,#0x39
-      003151 9E               [12]  851 	subb	a,r6
-      003152 74 80            [12]  852 	mov	a,#(0x00 ^ 0x80)
-      003154 8F F0            [24]  853 	mov	b,r7
-      003156 63 F0 80         [24]  854 	xrl	b,#0x80
-      003159 95 F0            [12]  855 	subb	a,b
-      00315B 50 15            [24]  856 	jnc	00102$
-      00315D                        857 00104$:
-      00315D BE 0D 05         [24]  858 	cjne	r6,#0x0d,00139$
-      003160 BF 00 02         [24]  859 	cjne	r7,#0x00,00139$
-      003163 80 0D            [24]  860 	sjmp	00102$
-      003165                        861 00139$:
-                                    862 ;	syntax.c:103: print_prompt("\nEnter valid input\n\r");
-      003165 90 4D CB         [24]  863 	mov	dptr,#___str_0
-      003168 75 F0 80         [24]  864 	mov	b,#0x80
-      00316B 12 32 9C         [24]  865 	lcall	_print_prompt
-                                    866 ;	syntax.c:104: return -1;
-      00316E 90 FF FF         [24]  867 	mov	dptr,#0xffff
-      003171 22               [24]  868 	ret
-      003172                        869 00102$:
-                                    870 ;	syntax.c:107: if(data_from_serial == 0x0d){
-      003172 BE 0D 05         [24]  871 	cjne	r6,#0x0d,00140$
-      003175 BF 00 02         [24]  872 	cjne	r7,#0x00,00140$
-      003178 80 6C            [24]  873 	sjmp	00109$
-      00317A                        874 00140$:
-                                    875 ;	syntax.c:111: putchar(data_from_serial);
-      00317A 8E 82            [24]  876 	mov	dpl,r6
-      00317C 8F 83            [24]  877 	mov	dph,r7
-      00317E C0 07            [24]  878 	push	ar7
-      003180 C0 06            [24]  879 	push	ar6
-      003182 12 30 97         [24]  880 	lcall	_putchar
-      003185 D0 06            [24]  881 	pop	ar6
-      003187 D0 07            [24]  882 	pop	ar7
-                                    883 ;	syntax.c:112: buffer_size += (data_from_serial-48)*index;
-      003189 EE               [12]  884 	mov	a,r6
-      00318A 24 D0            [12]  885 	add	a,#0xd0
-      00318C FE               [12]  886 	mov	r6,a
-      00318D EF               [12]  887 	mov	a,r7
-      00318E 34 FF            [12]  888 	addc	a,#0xff
-      003190 FF               [12]  889 	mov	r7,a
-      003191 90 06 69         [24]  890 	mov	dptr,#_get_buf_value_index_65536_56
-      003194 E0               [24]  891 	movx	a,@dptr
-      003195 FC               [12]  892 	mov	r4,a
-      003196 A3               [24]  893 	inc	dptr
-      003197 E0               [24]  894 	movx	a,@dptr
-      003198 FD               [12]  895 	mov	r5,a
-      003199 90 0E BE         [24]  896 	mov	dptr,#__mulint_PARM_2
-      00319C EC               [12]  897 	mov	a,r4
-      00319D F0               [24]  898 	movx	@dptr,a
-      00319E ED               [12]  899 	mov	a,r5
-      00319F A3               [24]  900 	inc	dptr
-      0031A0 F0               [24]  901 	movx	@dptr,a
-      0031A1 8E 82            [24]  902 	mov	dpl,r6
-      0031A3 8F 83            [24]  903 	mov	dph,r7
-      0031A5 C0 05            [24]  904 	push	ar5
-      0031A7 C0 04            [24]  905 	push	ar4
-      0031A9 12 42 1C         [24]  906 	lcall	__mulint
-      0031AC AE 82            [24]  907 	mov	r6,dpl
-      0031AE AF 83            [24]  908 	mov	r7,dph
-      0031B0 D0 04            [24]  909 	pop	ar4
-      0031B2 D0 05            [24]  910 	pop	ar5
-      0031B4 90 06 67         [24]  911 	mov	dptr,#_get_buf_value_buffer_size_65536_56
-      0031B7 E0               [24]  912 	movx	a,@dptr
-      0031B8 FA               [12]  913 	mov	r2,a
-      0031B9 A3               [24]  914 	inc	dptr
-      0031BA E0               [24]  915 	movx	a,@dptr
-      0031BB FB               [12]  916 	mov	r3,a
-      0031BC 90 06 67         [24]  917 	mov	dptr,#_get_buf_value_buffer_size_65536_56
-      0031BF EE               [12]  918 	mov	a,r6
-      0031C0 2A               [12]  919 	add	a,r2
-      0031C1 F0               [24]  920 	movx	@dptr,a
-      0031C2 EF               [12]  921 	mov	a,r7
-      0031C3 3B               [12]  922 	addc	a,r3
-      0031C4 A3               [24]  923 	inc	dptr
-      0031C5 F0               [24]  924 	movx	@dptr,a
-                                    925 ;	syntax.c:113: index=index/10;
-      0031C6 90 0E C0         [24]  926 	mov	dptr,#__divsint_PARM_2
-      0031C9 74 0A            [12]  927 	mov	a,#0x0a
-      0031CB F0               [24]  928 	movx	@dptr,a
-      0031CC E4               [12]  929 	clr	a
-      0031CD A3               [24]  930 	inc	dptr
-      0031CE F0               [24]  931 	movx	@dptr,a
-      0031CF 8C 82            [24]  932 	mov	dpl,r4
-      0031D1 8D 83            [24]  933 	mov	dph,r5
-      0031D3 12 42 3C         [24]  934 	lcall	__divsint
-      0031D6 E5 82            [12]  935 	mov	a,dpl
-      0031D8 85 83 F0         [24]  936 	mov	b,dph
-      0031DB 90 06 69         [24]  937 	mov	dptr,#_get_buf_value_index_65536_56
-      0031DE F0               [24]  938 	movx	@dptr,a
-      0031DF E5 F0            [12]  939 	mov	a,b
-      0031E1 A3               [24]  940 	inc	dptr
-      0031E2 F0               [24]  941 	movx	@dptr,a
-      0031E3 02 31 04         [24]  942 	ljmp	00107$
-      0031E6                        943 00109$:
-                                    944 ;	syntax.c:115: printf("SIZE ENTERED : %d\n\r", buffer_size);
-      0031E6 90 06 67         [24]  945 	mov	dptr,#_get_buf_value_buffer_size_65536_56
-      0031E9 E0               [24]  946 	movx	a,@dptr
-      0031EA FE               [12]  947 	mov	r6,a
-      0031EB A3               [24]  948 	inc	dptr
-      0031EC E0               [24]  949 	movx	a,@dptr
-      0031ED FF               [12]  950 	mov	r7,a
-      0031EE C0 07            [24]  951 	push	ar7
-      0031F0 C0 06            [24]  952 	push	ar6
-      0031F2 C0 06            [24]  953 	push	ar6
-      0031F4 C0 07            [24]  954 	push	ar7
-      0031F6 74 E0            [12]  955 	mov	a,#___str_1
-      0031F8 C0 E0            [24]  956 	push	acc
-      0031FA 74 4D            [12]  957 	mov	a,#(___str_1 >> 8)
-      0031FC C0 E0            [24]  958 	push	acc
-      0031FE 74 80            [12]  959 	mov	a,#0x80
-      003200 C0 E0            [24]  960 	push	acc
-      003202 12 43 89         [24]  961 	lcall	_printf
-      003205 E5 81            [12]  962 	mov	a,sp
-      003207 24 FB            [12]  963 	add	a,#0xfb
-      003209 F5 81            [12]  964 	mov	sp,a
-      00320B D0 06            [24]  965 	pop	ar6
-      00320D D0 07            [24]  966 	pop	ar7
-                                    967 ;	syntax.c:122: return buffer_size;
-      00320F 8E 82            [24]  968 	mov	dpl,r6
-      003211 8F 83            [24]  969 	mov	dph,r7
-                                    970 ;	syntax.c:124: }
-      003213 22               [24]  971 	ret
-                                    972 ;------------------------------------------------------------
-                                    973 ;Allocation info for local variables in function 'sendUint32ToUART'
-                                    974 ;------------------------------------------------------------
-                                    975 ;value                     Allocated with name '_sendUint32ToUART_value_65536_60'
-                                    976 ;byte                      Allocated with name '_sendUint32ToUART_byte_65536_61'
-                                    977 ;i                         Allocated with name '_sendUint32ToUART_i_65536_61'
-                                    978 ;byte                      Allocated with name '_sendUint32ToUART_byte_131072_62'
-                                    979 ;------------------------------------------------------------
-                                    980 ;	syntax.c:126: void sendUint32ToUART(uint32_t value) {
-                                    981 ;	-----------------------------------------
-                                    982 ;	 function sendUint32ToUART
-                                    983 ;	-----------------------------------------
-      003214                        984 _sendUint32ToUART:
-      003214 AF 82            [24]  985 	mov	r7,dpl
-      003216 AE 83            [24]  986 	mov	r6,dph
-      003218 AD F0            [24]  987 	mov	r5,b
-      00321A FC               [12]  988 	mov	r4,a
-      00321B 90 06 6B         [24]  989 	mov	dptr,#_sendUint32ToUART_value_65536_60
-      00321E EF               [12]  990 	mov	a,r7
-      00321F F0               [24]  991 	movx	@dptr,a
-      003220 EE               [12]  992 	mov	a,r6
-      003221 A3               [24]  993 	inc	dptr
-      003222 F0               [24]  994 	movx	@dptr,a
-      003223 ED               [12]  995 	mov	a,r5
-      003224 A3               [24]  996 	inc	dptr
-      003225 F0               [24]  997 	movx	@dptr,a
-      003226 EC               [12]  998 	mov	a,r4
-      003227 A3               [24]  999 	inc	dptr
-      003228 F0               [24] 1000 	movx	@dptr,a
-                                   1001 ;	syntax.c:129: while (value > 1) {
-      003229                       1002 00101$:
-      003229 90 06 6B         [24] 1003 	mov	dptr,#_sendUint32ToUART_value_65536_60
-      00322C E0               [24] 1004 	movx	a,@dptr
-      00322D FC               [12] 1005 	mov	r4,a
-      00322E A3               [24] 1006 	inc	dptr
-      00322F E0               [24] 1007 	movx	a,@dptr
-      003230 FD               [12] 1008 	mov	r5,a
-      003231 A3               [24] 1009 	inc	dptr
-      003232 E0               [24] 1010 	movx	a,@dptr
-      003233 FE               [12] 1011 	mov	r6,a
-      003234 A3               [24] 1012 	inc	dptr
-      003235 E0               [24] 1013 	movx	a,@dptr
-      003236 FF               [12] 1014 	mov	r7,a
-      003237 C3               [12] 1015 	clr	c
-      003238 74 01            [12] 1016 	mov	a,#0x01
-      00323A 9C               [12] 1017 	subb	a,r4
-      00323B E4               [12] 1018 	clr	a
-      00323C 9D               [12] 1019 	subb	a,r5
-      00323D E4               [12] 1020 	clr	a
-      00323E 9E               [12] 1021 	subb	a,r6
-      00323F E4               [12] 1022 	clr	a
-      003240 9F               [12] 1023 	subb	a,r7
-      003241 50 58            [24] 1024 	jnc	00104$
-                                   1025 ;	syntax.c:130: int byte = value % 10; // Extract one byte at a time
-      003243 90 0E 97         [24] 1026 	mov	dptr,#__modulong_PARM_2
-      003246 74 0A            [12] 1027 	mov	a,#0x0a
-      003248 F0               [24] 1028 	movx	@dptr,a
-      003249 E4               [12] 1029 	clr	a
-      00324A A3               [24] 1030 	inc	dptr
-      00324B F0               [24] 1031 	movx	@dptr,a
-      00324C A3               [24] 1032 	inc	dptr
-      00324D F0               [24] 1033 	movx	@dptr,a
-      00324E A3               [24] 1034 	inc	dptr
-      00324F F0               [24] 1035 	movx	@dptr,a
-      003250 8C 82            [24] 1036 	mov	dpl,r4
-      003252 8D 83            [24] 1037 	mov	dph,r5
-      003254 8E F0            [24] 1038 	mov	b,r6
-      003256 EF               [12] 1039 	mov	a,r7
-      003257 C0 07            [24] 1040 	push	ar7
-      003259 C0 06            [24] 1041 	push	ar6
-      00325B C0 05            [24] 1042 	push	ar5
-      00325D C0 04            [24] 1043 	push	ar4
-      00325F 12 3D B4         [24] 1044 	lcall	__modulong
-                                   1045 ;	syntax.c:131: putchar(byte);
-      003262 12 30 97         [24] 1046 	lcall	_putchar
-      003265 D0 04            [24] 1047 	pop	ar4
-      003267 D0 05            [24] 1048 	pop	ar5
-      003269 D0 06            [24] 1049 	pop	ar6
-      00326B D0 07            [24] 1050 	pop	ar7
-                                   1051 ;	syntax.c:132: value = value / 10;
-      00326D 90 0E A0         [24] 1052 	mov	dptr,#__divulong_PARM_2
-      003270 74 0A            [12] 1053 	mov	a,#0x0a
-      003272 F0               [24] 1054 	movx	@dptr,a
-      003273 E4               [12] 1055 	clr	a
-      003274 A3               [24] 1056 	inc	dptr
-      003275 F0               [24] 1057 	movx	@dptr,a
-      003276 A3               [24] 1058 	inc	dptr
-      003277 F0               [24] 1059 	movx	@dptr,a
-      003278 A3               [24] 1060 	inc	dptr
-      003279 F0               [24] 1061 	movx	@dptr,a
-      00327A 8C 82            [24] 1062 	mov	dpl,r4
-      00327C 8D 83            [24] 1063 	mov	dph,r5
-      00327E 8E F0            [24] 1064 	mov	b,r6
-      003280 EF               [12] 1065 	mov	a,r7
-      003281 12 3E F4         [24] 1066 	lcall	__divulong
-      003284 AC 82            [24] 1067 	mov	r4,dpl
-      003286 AD 83            [24] 1068 	mov	r5,dph
-      003288 AE F0            [24] 1069 	mov	r6,b
-      00328A FF               [12] 1070 	mov	r7,a
-      00328B 90 06 6B         [24] 1071 	mov	dptr,#_sendUint32ToUART_value_65536_60
-      00328E EC               [12] 1072 	mov	a,r4
-      00328F F0               [24] 1073 	movx	@dptr,a
-      003290 ED               [12] 1074 	mov	a,r5
-      003291 A3               [24] 1075 	inc	dptr
-      003292 F0               [24] 1076 	movx	@dptr,a
-      003293 EE               [12] 1077 	mov	a,r6
-      003294 A3               [24] 1078 	inc	dptr
-      003295 F0               [24] 1079 	movx	@dptr,a
-      003296 EF               [12] 1080 	mov	a,r7
-      003297 A3               [24] 1081 	inc	dptr
-      003298 F0               [24] 1082 	movx	@dptr,a
-      003299 80 8E            [24] 1083 	sjmp	00101$
-      00329B                       1084 00104$:
-                                   1085 ;	syntax.c:134: }
-      00329B 22               [24] 1086 	ret
-                                   1087 ;------------------------------------------------------------
-                                   1088 ;Allocation info for local variables in function 'print_prompt'
-                                   1089 ;------------------------------------------------------------
-                                   1090 ;string                    Allocated with name '_print_prompt_string_65536_63'
-                                   1091 ;------------------------------------------------------------
-                                   1092 ;	syntax.c:138: void print_prompt(const char * string){
-                                   1093 ;	-----------------------------------------
-                                   1094 ;	 function print_prompt
-                                   1095 ;	-----------------------------------------
-      00329C                       1096 _print_prompt:
-      00329C AF F0            [24] 1097 	mov	r7,b
-      00329E AE 83            [24] 1098 	mov	r6,dph
-      0032A0 E5 82            [12] 1099 	mov	a,dpl
-      0032A2 90 06 6F         [24] 1100 	mov	dptr,#_print_prompt_string_65536_63
-      0032A5 F0               [24] 1101 	movx	@dptr,a
-      0032A6 EE               [12] 1102 	mov	a,r6
-      0032A7 A3               [24] 1103 	inc	dptr
-      0032A8 F0               [24] 1104 	movx	@dptr,a
-      0032A9 EF               [12] 1105 	mov	a,r7
-      0032AA A3               [24] 1106 	inc	dptr
-      0032AB F0               [24] 1107 	movx	@dptr,a
-                                   1108 ;	syntax.c:139: while(*string != '\0'){
-      0032AC 90 06 6F         [24] 1109 	mov	dptr,#_print_prompt_string_65536_63
-      0032AF E0               [24] 1110 	movx	a,@dptr
-      0032B0 FD               [12] 1111 	mov	r5,a
-      0032B1 A3               [24] 1112 	inc	dptr
-      0032B2 E0               [24] 1113 	movx	a,@dptr
-      0032B3 FE               [12] 1114 	mov	r6,a
-      0032B4 A3               [24] 1115 	inc	dptr
-      0032B5 E0               [24] 1116 	movx	a,@dptr
-      0032B6 FF               [12] 1117 	mov	r7,a
-      0032B7                       1118 00101$:
-      0032B7 8D 82            [24] 1119 	mov	dpl,r5
-      0032B9 8E 83            [24] 1120 	mov	dph,r6
-      0032BB 8F F0            [24] 1121 	mov	b,r7
-      0032BD 12 4D AB         [24] 1122 	lcall	__gptrget
-      0032C0 FC               [12] 1123 	mov	r4,a
-      0032C1 60 27            [24] 1124 	jz	00108$
-                                   1125 ;	syntax.c:140: putchar(*string);
-      0032C3 7B 00            [12] 1126 	mov	r3,#0x00
-      0032C5 8C 82            [24] 1127 	mov	dpl,r4
-      0032C7 8B 83            [24] 1128 	mov	dph,r3
-      0032C9 C0 07            [24] 1129 	push	ar7
-      0032CB C0 06            [24] 1130 	push	ar6
-      0032CD C0 05            [24] 1131 	push	ar5
-      0032CF 12 30 97         [24] 1132 	lcall	_putchar
-      0032D2 D0 05            [24] 1133 	pop	ar5
-      0032D4 D0 06            [24] 1134 	pop	ar6
-      0032D6 D0 07            [24] 1135 	pop	ar7
-                                   1136 ;	syntax.c:141: string++;
-      0032D8 0D               [12] 1137 	inc	r5
-      0032D9 BD 00 01         [24] 1138 	cjne	r5,#0x00,00116$
-      0032DC 0E               [12] 1139 	inc	r6
-      0032DD                       1140 00116$:
-      0032DD 90 06 6F         [24] 1141 	mov	dptr,#_print_prompt_string_65536_63
-      0032E0 ED               [12] 1142 	mov	a,r5
-      0032E1 F0               [24] 1143 	movx	@dptr,a
-      0032E2 EE               [12] 1144 	mov	a,r6
-      0032E3 A3               [24] 1145 	inc	dptr
-      0032E4 F0               [24] 1146 	movx	@dptr,a
-      0032E5 EF               [12] 1147 	mov	a,r7
-      0032E6 A3               [24] 1148 	inc	dptr
-      0032E7 F0               [24] 1149 	movx	@dptr,a
-      0032E8 80 CD            [24] 1150 	sjmp	00101$
-      0032EA                       1151 00108$:
-      0032EA 90 06 6F         [24] 1152 	mov	dptr,#_print_prompt_string_65536_63
-      0032ED ED               [12] 1153 	mov	a,r5
-      0032EE F0               [24] 1154 	movx	@dptr,a
-      0032EF EE               [12] 1155 	mov	a,r6
-      0032F0 A3               [24] 1156 	inc	dptr
-      0032F1 F0               [24] 1157 	movx	@dptr,a
-      0032F2 EF               [12] 1158 	mov	a,r7
-      0032F3 A3               [24] 1159 	inc	dptr
-      0032F4 F0               [24] 1160 	movx	@dptr,a
-                                   1161 ;	syntax.c:143: }
-      0032F5 22               [24] 1162 	ret
-                                   1163 ;------------------------------------------------------------
-                                   1164 ;Allocation info for local variables in function 'get_command'
-                                   1165 ;------------------------------------------------------------
-                                   1166 ;sloc0                     Allocated with name '_get_command_sloc0_1_0'
-                                   1167 ;sloc1                     Allocated with name '_get_command_sloc1_1_0'
-                                   1168 ;command                   Allocated with name '_get_command_command_65536_66'
-                                   1169 ;temp_value                Allocated with name '_get_command_temp_value_65536_67'
-                                   1170 ;pointer                   Allocated with name '_get_command_pointer_65536_67'
-                                   1171 ;array_index_temp          Allocated with name '_get_command_array_index_temp_65536_67'
-                                   1172 ;i                         Allocated with name '_get_command_i_196608_69'
-                                   1173 ;rd_ptr                    Allocated with name '_get_command_rd_ptr_131073_72'
-                                   1174 ;wr_ptr                    Allocated with name '_get_command_wr_ptr_131073_72'
-                                   1175 ;temp                      Allocated with name '_get_command_temp_131073_72'
-                                   1176 ;i                         Allocated with name '_get_command_i_262145_74'
-                                   1177 ;node                      Allocated with name '_get_command_node_131074_77'
+                                    681 ;	 function putchar
+                                    682 ;	-----------------------------------------
+      003091                        683 _putchar:
+      003091 AF 83            [24]  684 	mov	r7,dph
+      003093 E5 82            [12]  685 	mov	a,dpl
+      003095 90 06 5B         [24]  686 	mov	dptr,#_putchar_chr_10000_79
+      003098 F0               [24]  687 	movx	@dptr,a
+      003099 EF               [12]  688 	mov	a,r7
+      00309A A3               [24]  689 	inc	dptr
+      00309B F0               [24]  690 	movx	@dptr,a
+                                    691 ;	syntax.c:88: SBUF = chr;                 // Load character to send
+      00309C 90 06 5B         [24]  692 	mov	dptr,#_putchar_chr_10000_79
+      00309F E0               [24]  693 	movx	a,@dptr
+      0030A0 FE               [12]  694 	mov	r6,a
+      0030A1 A3               [24]  695 	inc	dptr
+      0030A2 E0               [24]  696 	movx	a,@dptr
+      0030A3 8E 99            [24]  697 	mov	_SBUF,r6
+                                    698 ;	syntax.c:89: while(!TI);                 // Wait for transmission complete
+      0030A5                        699 00101$:
+      0030A5 30 99 FD         [24]  700 	jnb	_TI,00101$
+                                    701 ;	syntax.c:90: DEBUGPORT(55);              // Debug marker for transmission
+      0030A8 90 04 00         [24]  702 	mov	dptr,#_dataout_PARM_2
+      0030AB 74 37            [12]  703 	mov	a,#0x37
+      0030AD F0               [24]  704 	movx	@dptr,a
+      0030AE 90 FE FE         [24]  705 	mov	dptr,#0xfefe
+      0030B1 12 30 68         [24]  706 	lcall	_dataout
+                                    707 ;	syntax.c:91: TI = 0;                     // Clear transmission flag
+                                    708 ;	assignBit
+      0030B4 C2 99            [12]  709 	clr	_TI
+                                    710 ;	syntax.c:92: return 1;
+      0030B6 90 00 01         [24]  711 	mov	dptr,#0x0001
+                                    712 ;	syntax.c:93: }
+      0030B9 22               [24]  713 	ret
+                                    714 ;------------------------------------------------------------
+                                    715 ;Allocation info for local variables in function 'getchar'
+                                    716 ;------------------------------------------------------------
+                                    717 ;a                         Allocated with name '_getchar_a_10001_83'
+                                    718 ;------------------------------------------------------------
+                                    719 ;	syntax.c:101: int getchar(void){
+                                    720 ;	-----------------------------------------
+                                    721 ;	 function getchar
+                                    722 ;	-----------------------------------------
+      0030BA                        723 _getchar:
+                                    724 ;	syntax.c:102: while(!RI);                 // Wait for character reception
+      0030BA                        725 00101$:
+      0030BA 30 98 FD         [24]  726 	jnb	_RI,00101$
+                                    727 ;	syntax.c:103: int a = SBUF;               // Get received character
+      0030BD AE 99            [24]  728 	mov	r6,_SBUF
+      0030BF 7F 00            [12]  729 	mov	r7,#0x00
+                                    730 ;	syntax.c:104: DEBUGPORT(10);              // Debug marker for reception
+      0030C1 90 04 00         [24]  731 	mov	dptr,#_dataout_PARM_2
+      0030C4 74 0A            [12]  732 	mov	a,#0x0a
+      0030C6 F0               [24]  733 	movx	@dptr,a
+      0030C7 90 FE FE         [24]  734 	mov	dptr,#0xfefe
+      0030CA C0 07            [24]  735 	push	ar7
+      0030CC C0 06            [24]  736 	push	ar6
+      0030CE 12 30 68         [24]  737 	lcall	_dataout
+      0030D1 D0 06            [24]  738 	pop	ar6
+      0030D3 D0 07            [24]  739 	pop	ar7
+                                    740 ;	syntax.c:105: RI = 0;                     // Clear reception flag
+                                    741 ;	assignBit
+      0030D5 C2 98            [12]  742 	clr	_RI
+                                    743 ;	syntax.c:106: recived_bytes++;            // Update received byte count
+      0030D7 90 1A FC         [24]  744 	mov	dptr,#_recived_bytes
+      0030DA E0               [24]  745 	movx	a,@dptr
+      0030DB 24 01            [12]  746 	add	a, #0x01
+      0030DD F0               [24]  747 	movx	@dptr,a
+                                    748 ;	syntax.c:107: return a;
+      0030DE 8E 82            [24]  749 	mov	dpl, r6
+      0030E0 8F 83            [24]  750 	mov	dph, r7
+                                    751 ;	syntax.c:108: }
+      0030E2 22               [24]  752 	ret
+                                    753 ;------------------------------------------------------------
+                                    754 ;Allocation info for local variables in function 'get_buf_value'
+                                    755 ;------------------------------------------------------------
+                                    756 ;sloc0                     Allocated with name '_get_buf_value_sloc0_1_0'
+                                    757 ;sloc1                     Allocated with name '_get_buf_value_sloc1_1_0'
+                                    758 ;UPPER                     Allocated with name '_get_buf_value_PARM_2'
+                                    759 ;LOWER                     Allocated with name '_get_buf_value_PARM_3'
+                                    760 ;string                    Allocated with name '_get_buf_value_string_10000_84'
+                                    761 ;buffer_size               Allocated with name '_get_buf_value_buffer_size_10000_85'
+                                    762 ;input                     Allocated with name '_get_buf_value_input_10000_85'
+                                    763 ;valid_input               Allocated with name '_get_buf_value_valid_input_10000_85'
+                                    764 ;digit_count               Allocated with name '_get_buf_value_digit_count_20001_87'
+                                    765 ;i                         Allocated with name '_get_buf_value_i_20001_87'
+                                    766 ;c                         Allocated with name '_get_buf_value_c_20001_87'
+                                    767 ;------------------------------------------------------------
+                                    768 ;	syntax.c:119: int get_buf_value(const char* string, int UPPER, int LOWER) {
+                                    769 ;	-----------------------------------------
+                                    770 ;	 function get_buf_value
+                                    771 ;	-----------------------------------------
+      0030E3                        772 _get_buf_value:
+      0030E3 AF F0            [24]  773 	mov	r7,b
+      0030E5 AE 83            [24]  774 	mov	r6,dph
+      0030E7 E5 82            [12]  775 	mov	a,dpl
+      0030E9 90 06 61         [24]  776 	mov	dptr,#_get_buf_value_string_10000_84
+      0030EC F0               [24]  777 	movx	@dptr,a
+      0030ED EE               [12]  778 	mov	a,r6
+      0030EE A3               [24]  779 	inc	dptr
+      0030EF F0               [24]  780 	movx	@dptr,a
+      0030F0 EF               [12]  781 	mov	a,r7
+      0030F1 A3               [24]  782 	inc	dptr
+      0030F2 F0               [24]  783 	movx	@dptr,a
+                                    784 ;	syntax.c:120: int buffer_size = 0;
+      0030F3 90 06 64         [24]  785 	mov	dptr,#_get_buf_value_buffer_size_10000_85
+      0030F6 E4               [12]  786 	clr	a
+      0030F7 F0               [24]  787 	movx	@dptr,a
+      0030F8 A3               [24]  788 	inc	dptr
+      0030F9 F0               [24]  789 	movx	@dptr,a
+                                    790 ;	syntax.c:122: int valid_input = 0;
+      0030FA 90 06 6B         [24]  791 	mov	dptr,#_get_buf_value_valid_input_10000_85
+      0030FD F0               [24]  792 	movx	@dptr,a
+      0030FE A3               [24]  793 	inc	dptr
+      0030FF F0               [24]  794 	movx	@dptr,a
+                                    795 ;	syntax.c:124: while (!valid_input) {
+      003100 90 06 5D         [24]  796 	mov	dptr,#_get_buf_value_PARM_2
+      003103 E0               [24]  797 	movx	a,@dptr
+      003104 FE               [12]  798 	mov	r6,a
+      003105 A3               [24]  799 	inc	dptr
+      003106 E0               [24]  800 	movx	a,@dptr
+      003107 FF               [12]  801 	mov	r7,a
+      003108 90 06 5F         [24]  802 	mov	dptr,#_get_buf_value_PARM_3
+      00310B E0               [24]  803 	movx	a,@dptr
+      00310C F5 09            [12]  804 	mov	_get_buf_value_sloc1_1_0,a
+      00310E A3               [24]  805 	inc	dptr
+      00310F E0               [24]  806 	movx	a,@dptr
+      003110 F5 0A            [12]  807 	mov	(_get_buf_value_sloc1_1_0 + 1),a
+      003112                        808 00117$:
+      003112 90 06 6B         [24]  809 	mov	dptr,#_get_buf_value_valid_input_10000_85
+      003115 E0               [24]  810 	movx	a,@dptr
+      003116 F5 F0            [12]  811 	mov	b,a
+      003118 A3               [24]  812 	inc	dptr
+      003119 E0               [24]  813 	movx	a,@dptr
+      00311A 45 F0            [12]  814 	orl	a,b
+      00311C 60 03            [24]  815 	jz	00188$
+      00311E 02 33 78         [24]  816 	ljmp	00119$
+      003121                        817 00188$:
+                                    818 ;	syntax.c:125: print_prompt("\n\r+--------------------------------------------------+");
+      003121 90 55 A5         [24]  819 	mov	dptr,#___str_0
+      003124 75 F0 80         [24]  820 	mov	b, #0x80
+      003127 C0 07            [24]  821 	push	ar7
+      003129 C0 06            [24]  822 	push	ar6
+      00312B 12 33 84         [24]  823 	lcall	_print_prompt
+                                    824 ;	syntax.c:126: print_prompt(string);
+      00312E 90 06 61         [24]  825 	mov	dptr,#_get_buf_value_string_10000_84
+      003131 E0               [24]  826 	movx	a,@dptr
+      003132 F9               [12]  827 	mov	r1,a
+      003133 A3               [24]  828 	inc	dptr
+      003134 E0               [24]  829 	movx	a,@dptr
+      003135 FA               [12]  830 	mov	r2,a
+      003136 A3               [24]  831 	inc	dptr
+      003137 E0               [24]  832 	movx	a,@dptr
+      003138 FB               [12]  833 	mov	r3,a
+      003139 89 82            [24]  834 	mov	dpl, r1
+      00313B 8A 83            [24]  835 	mov	dph, r2
+      00313D 8B F0            [24]  836 	mov	b, r3
+      00313F 12 33 84         [24]  837 	lcall	_print_prompt
+      003142 D0 06            [24]  838 	pop	ar6
+      003144 D0 07            [24]  839 	pop	ar7
+                                    840 ;	syntax.c:129: buffer_size = 0;
+      003146 90 06 64         [24]  841 	mov	dptr,#_get_buf_value_buffer_size_10000_85
+      003149 E4               [12]  842 	clr	a
+      00314A F0               [24]  843 	movx	@dptr,a
+      00314B A3               [24]  844 	inc	dptr
+      00314C F0               [24]  845 	movx	@dptr,a
+                                    846 ;	syntax.c:135: while ((c = getchar()) != 0x0d && digit_count < 4) {
+      00314D FA               [12]  847 	mov	r2,a
+      00314E FB               [12]  848 	mov	r3,a
+      00314F F9               [12]  849 	mov	r1,a
+      003150                        850 00108$:
+      003150 C0 06            [24]  851 	push	ar6
+      003152 C0 07            [24]  852 	push	ar7
+      003154 C0 06            [24]  853 	push	ar6
+      003156 C0 03            [24]  854 	push	ar3
+      003158 C0 02            [24]  855 	push	ar2
+      00315A C0 01            [24]  856 	push	ar1
+      00315C 12 30 BA         [24]  857 	lcall	_getchar
+      00315F A8 82            [24]  858 	mov	r0, dpl
+      003161 D0 01            [24]  859 	pop	ar1
+      003163 D0 02            [24]  860 	pop	ar2
+      003165 D0 03            [24]  861 	pop	ar3
+      003167 D0 06            [24]  862 	pop	ar6
+      003169 88 08            [24]  863 	mov	_get_buf_value_sloc0_1_0,r0
+      00316B 74 0D            [12]  864 	mov	a,#0x0d
+      00316D B5 08 07         [24]  865 	cjne	a,_get_buf_value_sloc0_1_0,00189$
+      003170 D0 07            [24]  866 	pop	ar7
+      003172 D0 06            [24]  867 	pop	ar6
+      003174 02 32 6E         [24]  868 	ljmp	00110$
+      003177                        869 00189$:
+      003177 D0 07            [24]  870 	pop	ar7
+      003179 D0 06            [24]  871 	pop	ar6
+      00317B B9 04 00         [24]  872 	cjne	r1,#0x04,00190$
+      00317E                        873 00190$:
+      00317E 40 03            [24]  874 	jc	00191$
+      003180 02 32 6E         [24]  875 	ljmp	00110$
+      003183                        876 00191$:
+                                    877 ;	syntax.c:137: if (c < '0' || c > '9') {
+      003183 74 D0            [12]  878 	mov	a,#0x100 - 0x30
+      003185 25 08            [12]  879 	add	a,_get_buf_value_sloc0_1_0
+      003187 50 06            [24]  880 	jnc	00104$
+      003189 E5 08            [12]  881 	mov	a,_get_buf_value_sloc0_1_0
+      00318B 24 C6            [12]  882 	add	a,#0xff - 0x39
+      00318D 50 5E            [24]  883 	jnc	00105$
+      00318F                        884 00104$:
+                                    885 ;	syntax.c:138: printf("\n\r| ERROR: Invalid input - Please enter numbers only     |");
+      00318F C0 07            [24]  886 	push	ar7
+      003191 C0 06            [24]  887 	push	ar6
+      003193 74 DC            [12]  888 	mov	a,#___str_1
+      003195 C0 E0            [24]  889 	push	acc
+      003197 74 55            [12]  890 	mov	a,#(___str_1 >> 8)
+      003199 C0 E0            [24]  891 	push	acc
+      00319B 74 80            [12]  892 	mov	a,#0x80
+      00319D C0 E0            [24]  893 	push	acc
+      00319F 12 4B 63         [24]  894 	lcall	_printf
+      0031A2 15 81            [12]  895 	dec	sp
+      0031A4 15 81            [12]  896 	dec	sp
+      0031A6 15 81            [12]  897 	dec	sp
+                                    898 ;	syntax.c:139: printf("\n\r+--------------------------------------------------+\n\r");
+      0031A8 74 17            [12]  899 	mov	a,#___str_2
+      0031AA C0 E0            [24]  900 	push	acc
+      0031AC 74 56            [12]  901 	mov	a,#(___str_2 >> 8)
+      0031AE C0 E0            [24]  902 	push	acc
+      0031B0 74 80            [12]  903 	mov	a,#0x80
+      0031B2 C0 E0            [24]  904 	push	acc
+      0031B4 12 4B 63         [24]  905 	lcall	_printf
+      0031B7 15 81            [12]  906 	dec	sp
+      0031B9 15 81            [12]  907 	dec	sp
+      0031BB 15 81            [12]  908 	dec	sp
+      0031BD D0 06            [24]  909 	pop	ar6
+      0031BF D0 07            [24]  910 	pop	ar7
+                                    911 ;	syntax.c:141: while (getchar() != 0x0d);  // Clear input buffer
+      0031C1                        912 00101$:
+      0031C1 C0 06            [24]  913 	push	ar6
+      0031C3 C0 07            [24]  914 	push	ar7
+      0031C5 C0 06            [24]  915 	push	ar6
+      0031C7 12 30 BA         [24]  916 	lcall	_getchar
+      0031CA A8 82            [24]  917 	mov	r0, dpl
+      0031CC AF 83            [24]  918 	mov	r7, dph
+      0031CE D0 06            [24]  919 	pop	ar6
+      0031D0 B8 0D 05         [24]  920 	cjne	r0,#0x0d,00194$
+      0031D3 BF 00 02         [24]  921 	cjne	r7,#0x00,00194$
+      0031D6 80 06            [24]  922 	sjmp	00195$
+      0031D8                        923 00194$:
+      0031D8 D0 07            [24]  924 	pop	ar7
+      0031DA D0 06            [24]  925 	pop	ar6
+      0031DC 80 E3            [24]  926 	sjmp	00101$
+      0031DE                        927 00195$:
+      0031DE D0 07            [24]  928 	pop	ar7
+      0031E0 D0 06            [24]  929 	pop	ar6
+                                    930 ;	syntax.c:142: buffer_size = -1;
+      0031E2 90 06 64         [24]  931 	mov	dptr,#_get_buf_value_buffer_size_10000_85
+      0031E5 74 FF            [12]  932 	mov	a,#0xff
+      0031E7 F0               [24]  933 	movx	@dptr,a
+      0031E8 A3               [24]  934 	inc	dptr
+      0031E9 F0               [24]  935 	movx	@dptr,a
+                                    936 ;	syntax.c:143: break;
+      0031EA 02 32 6E         [24]  937 	ljmp	00110$
+      0031ED                        938 00105$:
+                                    939 ;	syntax.c:146: putchar(c);
+      0031ED C0 06            [24]  940 	push	ar6
+      0031EF C0 07            [24]  941 	push	ar7
+      0031F1 A8 08            [24]  942 	mov	r0,_get_buf_value_sloc0_1_0
+      0031F3 7F 00            [12]  943 	mov	r7,#0x00
+      0031F5 88 82            [24]  944 	mov	dpl, r0
+      0031F7 8F 83            [24]  945 	mov	dph, r7
+      0031F9 C0 07            [24]  946 	push	ar7
+      0031FB C0 06            [24]  947 	push	ar6
+      0031FD C0 03            [24]  948 	push	ar3
+      0031FF C0 02            [24]  949 	push	ar2
+      003201 C0 01            [24]  950 	push	ar1
+      003203 C0 00            [24]  951 	push	ar0
+      003205 12 30 91         [24]  952 	lcall	_putchar
+      003208 D0 00            [24]  953 	pop	ar0
+      00320A D0 01            [24]  954 	pop	ar1
+      00320C D0 02            [24]  955 	pop	ar2
+      00320E D0 03            [24]  956 	pop	ar3
+      003210 D0 06            [24]  957 	pop	ar6
+      003212 D0 07            [24]  958 	pop	ar7
+                                    959 ;	syntax.c:147: input[i++] = c;
+      003214 EA               [12]  960 	mov	a,r2
+      003215 24 66            [12]  961 	add	a, #_get_buf_value_input_10000_85
+      003217 F5 82            [12]  962 	mov	dpl,a
+      003219 EB               [12]  963 	mov	a,r3
+      00321A 34 06            [12]  964 	addc	a, #(_get_buf_value_input_10000_85 >> 8)
+      00321C F5 83            [12]  965 	mov	dph,a
+      00321E 0A               [12]  966 	inc	r2
+      00321F BA 00 01         [24]  967 	cjne	r2,#0x00,00196$
+      003222 0B               [12]  968 	inc	r3
+      003223                        969 00196$:
+      003223 E5 08            [12]  970 	mov	a,_get_buf_value_sloc0_1_0
+      003225 F0               [24]  971 	movx	@dptr,a
+                                    972 ;	syntax.c:148: digit_count++;
+      003226 09               [12]  973 	inc	r1
+                                    974 ;	syntax.c:149: buffer_size = buffer_size * 10 + (c - '0');
+      003227 90 06 64         [24]  975 	mov	dptr,#_get_buf_value_buffer_size_10000_85
+      00322A E0               [24]  976 	movx	a,@dptr
+      00322B FD               [12]  977 	mov	r5,a
+      00322C A3               [24]  978 	inc	dptr
+      00322D E0               [24]  979 	movx	a,@dptr
+      00322E FE               [12]  980 	mov	r6,a
+      00322F 90 1A AA         [24]  981 	mov	dptr,#__mulint_PARM_2
+      003232 ED               [12]  982 	mov	a,r5
+      003233 F0               [24]  983 	movx	@dptr,a
+      003234 EE               [12]  984 	mov	a,r6
+      003235 A3               [24]  985 	inc	dptr
+      003236 F0               [24]  986 	movx	@dptr,a
+      003237 90 00 0A         [24]  987 	mov	dptr,#0x000a
+      00323A C0 07            [24]  988 	push	ar7
+      00323C C0 03            [24]  989 	push	ar3
+      00323E C0 02            [24]  990 	push	ar2
+      003240 C0 01            [24]  991 	push	ar1
+      003242 C0 00            [24]  992 	push	ar0
+      003244 12 48 E3         [24]  993 	lcall	__mulint
+      003247 AD 82            [24]  994 	mov	r5, dpl
+      003249 AE 83            [24]  995 	mov	r6, dph
+      00324B D0 00            [24]  996 	pop	ar0
+      00324D D0 01            [24]  997 	pop	ar1
+      00324F D0 02            [24]  998 	pop	ar2
+      003251 D0 03            [24]  999 	pop	ar3
+      003253 D0 07            [24] 1000 	pop	ar7
+      003255 E8               [12] 1001 	mov	a,r0
+      003256 24 D0            [12] 1002 	add	a,#0xd0
+      003258 F8               [12] 1003 	mov	r0,a
+      003259 EF               [12] 1004 	mov	a,r7
+      00325A 34 FF            [12] 1005 	addc	a,#0xff
+      00325C FF               [12] 1006 	mov	r7,a
+      00325D 90 06 64         [24] 1007 	mov	dptr,#_get_buf_value_buffer_size_10000_85
+      003260 E8               [12] 1008 	mov	a,r0
+      003261 2D               [12] 1009 	add	a, r5
+      003262 F0               [24] 1010 	movx	@dptr,a
+      003263 EF               [12] 1011 	mov	a,r7
+      003264 3E               [12] 1012 	addc	a, r6
+      003265 A3               [24] 1013 	inc	dptr
+      003266 F0               [24] 1014 	movx	@dptr,a
+      003267 D0 07            [24] 1015 	pop	ar7
+      003269 D0 06            [24] 1016 	pop	ar6
+      00326B 02 31 50         [24] 1017 	ljmp	00108$
+      00326E                       1018 00110$:
+                                   1019 ;	syntax.c:153: if (buffer_size == -1) {
+      00326E 90 06 64         [24] 1020 	mov	dptr,#_get_buf_value_buffer_size_10000_85
+      003271 E0               [24] 1021 	movx	a,@dptr
+      003272 FC               [12] 1022 	mov	r4,a
+      003273 A3               [24] 1023 	inc	dptr
+      003274 E0               [24] 1024 	movx	a,@dptr
+      003275 FD               [12] 1025 	mov	r5,a
+      003276 BC FF 06         [24] 1026 	cjne	r4,#0xff,00197$
+      003279 BD FF 03         [24] 1027 	cjne	r5,#0xff,00197$
+      00327C 02 31 12         [24] 1028 	ljmp	00117$
+      00327F                       1029 00197$:
+                                   1030 ;	syntax.c:158: if ((buffer_size % 16) != 0 || (buffer_size < LOWER) || (buffer_size > UPPER)) {
+      00327F 90 1A AC         [24] 1031 	mov	dptr,#__modsint_PARM_2
+      003282 74 10            [12] 1032 	mov	a,#0x10
+      003284 F0               [24] 1033 	movx	@dptr,a
+      003285 E4               [12] 1034 	clr	a
+      003286 A3               [24] 1035 	inc	dptr
+      003287 F0               [24] 1036 	movx	@dptr,a
+      003288 8C 82            [24] 1037 	mov	dpl, r4
+      00328A 8D 83            [24] 1038 	mov	dph, r5
+      00328C C0 07            [24] 1039 	push	ar7
+      00328E C0 06            [24] 1040 	push	ar6
+      003290 C0 05            [24] 1041 	push	ar5
+      003292 C0 04            [24] 1042 	push	ar4
+      003294 12 49 03         [24] 1043 	lcall	__modsint
+      003297 E5 82            [12] 1044 	mov	a, dpl
+      003299 85 83 F0         [24] 1045 	mov	b, dph
+      00329C D0 04            [24] 1046 	pop	ar4
+      00329E D0 05            [24] 1047 	pop	ar5
+      0032A0 D0 06            [24] 1048 	pop	ar6
+      0032A2 D0 07            [24] 1049 	pop	ar7
+      0032A4 45 F0            [12] 1050 	orl	a,b
+      0032A6 70 1F            [24] 1051 	jnz	00113$
+      0032A8 C3               [12] 1052 	clr	c
+      0032A9 EC               [12] 1053 	mov	a,r4
+      0032AA 95 09            [12] 1054 	subb	a,_get_buf_value_sloc1_1_0
+      0032AC ED               [12] 1055 	mov	a,r5
+      0032AD 64 80            [12] 1056 	xrl	a,#0x80
+      0032AF 85 0A F0         [24] 1057 	mov	b,(_get_buf_value_sloc1_1_0 + 1)
+      0032B2 63 F0 80         [24] 1058 	xrl	b,#0x80
+      0032B5 95 F0            [12] 1059 	subb	a,b
+      0032B7 40 0E            [24] 1060 	jc	00113$
+      0032B9 EE               [12] 1061 	mov	a,r6
+      0032BA 9C               [12] 1062 	subb	a,r4
+      0032BB EF               [12] 1063 	mov	a,r7
+      0032BC 64 80            [12] 1064 	xrl	a,#0x80
+      0032BE 8D F0            [24] 1065 	mov	b,r5
+      0032C0 63 F0 80         [24] 1066 	xrl	b,#0x80
+      0032C3 95 F0            [12] 1067 	subb	a,b
+      0032C5 50 6F            [24] 1068 	jnc	00114$
+      0032C7                       1069 00113$:
+                                   1070 ;	syntax.c:159: printf("\n\r| ERROR: Invalid buffer size                          |");
+      0032C7 C0 07            [24] 1071 	push	ar7
+      0032C9 C0 06            [24] 1072 	push	ar6
+      0032CB 74 50            [12] 1073 	mov	a,#___str_3
+      0032CD C0 E0            [24] 1074 	push	acc
+      0032CF 74 56            [12] 1075 	mov	a,#(___str_3 >> 8)
+      0032D1 C0 E0            [24] 1076 	push	acc
+      0032D3 74 80            [12] 1077 	mov	a,#0x80
+      0032D5 C0 E0            [24] 1078 	push	acc
+      0032D7 12 4B 63         [24] 1079 	lcall	_printf
+      0032DA 15 81            [12] 1080 	dec	sp
+      0032DC 15 81            [12] 1081 	dec	sp
+      0032DE 15 81            [12] 1082 	dec	sp
+      0032E0 D0 06            [24] 1083 	pop	ar6
+      0032E2 D0 07            [24] 1084 	pop	ar7
+                                   1085 ;	syntax.c:160: printf("\n\r| - Must be between %d and %d                       |", LOWER, UPPER);
+      0032E4 C0 07            [24] 1086 	push	ar7
+      0032E6 C0 06            [24] 1087 	push	ar6
+      0032E8 C0 06            [24] 1088 	push	ar6
+      0032EA C0 07            [24] 1089 	push	ar7
+      0032EC C0 09            [24] 1090 	push	_get_buf_value_sloc1_1_0
+      0032EE C0 0A            [24] 1091 	push	(_get_buf_value_sloc1_1_0 + 1)
+      0032F0 74 8A            [12] 1092 	mov	a,#___str_4
+      0032F2 C0 E0            [24] 1093 	push	acc
+      0032F4 74 56            [12] 1094 	mov	a,#(___str_4 >> 8)
+      0032F6 C0 E0            [24] 1095 	push	acc
+      0032F8 74 80            [12] 1096 	mov	a,#0x80
+      0032FA C0 E0            [24] 1097 	push	acc
+      0032FC 12 4B 63         [24] 1098 	lcall	_printf
+      0032FF E5 81            [12] 1099 	mov	a,sp
+      003301 24 F9            [12] 1100 	add	a,#0xf9
+      003303 F5 81            [12] 1101 	mov	sp,a
+                                   1102 ;	syntax.c:161: printf("\n\r| - Must be multiple of 16                           |");
+      003305 74 C2            [12] 1103 	mov	a,#___str_5
+      003307 C0 E0            [24] 1104 	push	acc
+      003309 74 56            [12] 1105 	mov	a,#(___str_5 >> 8)
+      00330B C0 E0            [24] 1106 	push	acc
+      00330D 74 80            [12] 1107 	mov	a,#0x80
+      00330F C0 E0            [24] 1108 	push	acc
+      003311 12 4B 63         [24] 1109 	lcall	_printf
+      003314 15 81            [12] 1110 	dec	sp
+      003316 15 81            [12] 1111 	dec	sp
+      003318 15 81            [12] 1112 	dec	sp
+                                   1113 ;	syntax.c:162: printf("\n\r+--------------------------------------------------+\n\r");
+      00331A 74 17            [12] 1114 	mov	a,#___str_2
+      00331C C0 E0            [24] 1115 	push	acc
+      00331E 74 56            [12] 1116 	mov	a,#(___str_2 >> 8)
+      003320 C0 E0            [24] 1117 	push	acc
+      003322 74 80            [12] 1118 	mov	a,#0x80
+      003324 C0 E0            [24] 1119 	push	acc
+      003326 12 4B 63         [24] 1120 	lcall	_printf
+      003329 15 81            [12] 1121 	dec	sp
+      00332B 15 81            [12] 1122 	dec	sp
+      00332D 15 81            [12] 1123 	dec	sp
+      00332F D0 06            [24] 1124 	pop	ar6
+      003331 D0 07            [24] 1125 	pop	ar7
+                                   1126 ;	syntax.c:163: continue;
+      003333 02 31 12         [24] 1127 	ljmp	00117$
+      003336                       1128 00114$:
+                                   1129 ;	syntax.c:165: printf("\n\r| Input size: %-39d |", buffer_size);
+      003336 C0 07            [24] 1130 	push	ar7
+      003338 C0 06            [24] 1131 	push	ar6
+      00333A C0 04            [24] 1132 	push	ar4
+      00333C C0 05            [24] 1133 	push	ar5
+      00333E 74 FB            [12] 1134 	mov	a,#___str_6
+      003340 C0 E0            [24] 1135 	push	acc
+      003342 74 56            [12] 1136 	mov	a,#(___str_6 >> 8)
+      003344 C0 E0            [24] 1137 	push	acc
+      003346 74 80            [12] 1138 	mov	a,#0x80
+      003348 C0 E0            [24] 1139 	push	acc
+      00334A 12 4B 63         [24] 1140 	lcall	_printf
+      00334D E5 81            [12] 1141 	mov	a,sp
+      00334F 24 FB            [12] 1142 	add	a,#0xfb
+      003351 F5 81            [12] 1143 	mov	sp,a
+                                   1144 ;	syntax.c:166: printf("\n\r+--------------------------------------------------+\n\r");
+      003353 74 17            [12] 1145 	mov	a,#___str_2
+      003355 C0 E0            [24] 1146 	push	acc
+      003357 74 56            [12] 1147 	mov	a,#(___str_2 >> 8)
+      003359 C0 E0            [24] 1148 	push	acc
+      00335B 74 80            [12] 1149 	mov	a,#0x80
+      00335D C0 E0            [24] 1150 	push	acc
+      00335F 12 4B 63         [24] 1151 	lcall	_printf
+      003362 15 81            [12] 1152 	dec	sp
+      003364 15 81            [12] 1153 	dec	sp
+      003366 15 81            [12] 1154 	dec	sp
+      003368 D0 06            [24] 1155 	pop	ar6
+      00336A D0 07            [24] 1156 	pop	ar7
+                                   1157 ;	syntax.c:167: valid_input = 1;
+      00336C 90 06 6B         [24] 1158 	mov	dptr,#_get_buf_value_valid_input_10000_85
+      00336F 74 01            [12] 1159 	mov	a,#0x01
+      003371 F0               [24] 1160 	movx	@dptr,a
+      003372 E4               [12] 1161 	clr	a
+      003373 A3               [24] 1162 	inc	dptr
+      003374 F0               [24] 1163 	movx	@dptr,a
+      003375 02 31 12         [24] 1164 	ljmp	00117$
+      003378                       1165 00119$:
+                                   1166 ;	syntax.c:170: return buffer_size;
+      003378 90 06 64         [24] 1167 	mov	dptr,#_get_buf_value_buffer_size_10000_85
+      00337B E0               [24] 1168 	movx	a,@dptr
+      00337C FE               [12] 1169 	mov	r6,a
+      00337D A3               [24] 1170 	inc	dptr
+      00337E E0               [24] 1171 	movx	a,@dptr
+                                   1172 ;	syntax.c:171: }
+      00337F 8E 82            [24] 1173 	mov	dpl,r6
+      003381 F5 83            [12] 1174 	mov	dph,a
+      003383 22               [24] 1175 	ret
+                                   1176 ;------------------------------------------------------------
+                                   1177 ;Allocation info for local variables in function 'print_prompt'
                                    1178 ;------------------------------------------------------------
-                                   1179 ;	syntax.c:152: int get_command(int command){
-                                   1180 ;	-----------------------------------------
-                                   1181 ;	 function get_command
+                                   1179 ;string                    Allocated with name '_print_prompt_string_10000_92'
+                                   1180 ;------------------------------------------------------------
+                                   1181 ;	syntax.c:179: void print_prompt(const char * string){
                                    1182 ;	-----------------------------------------
-      0032F6                       1183 _get_command:
-      0032F6 AF 83            [24] 1184 	mov	r7,dph
-      0032F8 E5 82            [12] 1185 	mov	a,dpl
-      0032FA 90 06 72         [24] 1186 	mov	dptr,#_get_command_command_65536_66
-      0032FD F0               [24] 1187 	movx	@dptr,a
-      0032FE EF               [12] 1188 	mov	a,r7
-      0032FF A3               [24] 1189 	inc	dptr
-      003300 F0               [24] 1190 	movx	@dptr,a
-                                   1191 ;	syntax.c:160: switch(command){
-      003301 90 06 72         [24] 1192 	mov	dptr,#_get_command_command_65536_66
-      003304 E0               [24] 1193 	movx	a,@dptr
-      003305 FE               [12] 1194 	mov	r6,a
-      003306 A3               [24] 1195 	inc	dptr
-      003307 E0               [24] 1196 	movx	a,@dptr
-      003308 FF               [12] 1197 	mov	r7,a
-      003309 BE 2B 06         [24] 1198 	cjne	r6,#0x2b,00187$
-      00330C BF 00 03         [24] 1199 	cjne	r7,#0x00,00187$
-      00330F 02 35 F1         [24] 1200 	ljmp	00110$
-      003312                       1201 00187$:
-      003312 BE 2D 06         [24] 1202 	cjne	r6,#0x2d,00188$
-      003315 BF 00 03         [24] 1203 	cjne	r7,#0x00,00188$
-      003318 02 36 CA         [24] 1204 	ljmp	00113$
-      00331B                       1205 00188$:
-      00331B BE 3D 06         [24] 1206 	cjne	r6,#0x3d,00189$
-      00331E BF 00 03         [24] 1207 	cjne	r7,#0x00,00189$
-      003321 02 37 38         [24] 1208 	ljmp	00118$
-      003324                       1209 00189$:
-      003324 BE 3F 05         [24] 1210 	cjne	r6,#0x3f,00190$
-      003327 BF 00 02         [24] 1211 	cjne	r7,#0x00,00190$
-      00332A 80 03            [24] 1212 	sjmp	00191$
-      00332C                       1213 00190$:
-      00332C 02 37 3B         [24] 1214 	ljmp	00120$
-      00332F                       1215 00191$:
-                                   1216 ;	syntax.c:164: print_prompt("Total number of commands from the start: ");
-      00332F 90 4D F4         [24] 1217 	mov	dptr,#___str_2
-      003332 75 F0 80         [24] 1218 	mov	b,#0x80
-      003335 12 32 9C         [24] 1219 	lcall	_print_prompt
-                                   1220 ;	syntax.c:165: printf("%d",total_number_of_commands);
-      003338 90 0F 03         [24] 1221 	mov	dptr,#_total_number_of_commands
-      00333B E0               [24] 1222 	movx	a,@dptr
-      00333C FF               [12] 1223 	mov	r7,a
-      00333D 7E 00            [12] 1224 	mov	r6,#0x00
-      00333F C0 07            [24] 1225 	push	ar7
-      003341 C0 06            [24] 1226 	push	ar6
-      003343 74 1E            [12] 1227 	mov	a,#___str_3
-      003345 C0 E0            [24] 1228 	push	acc
-      003347 74 4E            [12] 1229 	mov	a,#(___str_3 >> 8)
-      003349 C0 E0            [24] 1230 	push	acc
-      00334B 74 80            [12] 1231 	mov	a,#0x80
-      00334D C0 E0            [24] 1232 	push	acc
-      00334F 12 43 89         [24] 1233 	lcall	_printf
-      003352 E5 81            [12] 1234 	mov	a,sp
-      003354 24 FB            [12] 1235 	add	a,#0xfb
-      003356 F5 81            [12] 1236 	mov	sp,a
-                                   1237 ;	syntax.c:166: print_prompt("\n\r");
-      003358 90 4E 21         [24] 1238 	mov	dptr,#___str_4
-      00335B 75 F0 80         [24] 1239 	mov	b,#0x80
-      00335E 12 32 9C         [24] 1240 	lcall	_print_prompt
-                                   1241 ;	syntax.c:167: print_prompt("Recent number of commands from the last ?: ");
-      003361 90 4E 24         [24] 1242 	mov	dptr,#___str_5
-      003364 75 F0 80         [24] 1243 	mov	b,#0x80
-      003367 12 32 9C         [24] 1244 	lcall	_print_prompt
-                                   1245 ;	syntax.c:168: printf("%d",recent_commands);
-      00336A 90 0F 05         [24] 1246 	mov	dptr,#_recent_commands
-      00336D E0               [24] 1247 	movx	a,@dptr
-      00336E FF               [12] 1248 	mov	r7,a
-      00336F 7E 00            [12] 1249 	mov	r6,#0x00
-      003371 C0 07            [24] 1250 	push	ar7
-      003373 C0 06            [24] 1251 	push	ar6
-      003375 74 1E            [12] 1252 	mov	a,#___str_3
-      003377 C0 E0            [24] 1253 	push	acc
-      003379 74 4E            [12] 1254 	mov	a,#(___str_3 >> 8)
-      00337B C0 E0            [24] 1255 	push	acc
-      00337D 74 80            [12] 1256 	mov	a,#0x80
-      00337F C0 E0            [24] 1257 	push	acc
-      003381 12 43 89         [24] 1258 	lcall	_printf
-      003384 E5 81            [12] 1259 	mov	a,sp
-      003386 24 FB            [12] 1260 	add	a,#0xfb
-      003388 F5 81            [12] 1261 	mov	sp,a
-                                   1262 ;	syntax.c:169: print_prompt("\n\r");
-      00338A 90 4E 21         [24] 1263 	mov	dptr,#___str_4
-      00338D 75 F0 80         [24] 1264 	mov	b,#0x80
-      003390 12 32 9C         [24] 1265 	lcall	_print_prompt
-                                   1266 ;	syntax.c:170: print_prompt("\n\r");
-      003393 90 4E 21         [24] 1267 	mov	dptr,#___str_4
-      003396 75 F0 80         [24] 1268 	mov	b,#0x80
-      003399 12 32 9C         [24] 1269 	lcall	_print_prompt
-                                   1270 ;	syntax.c:172: print_prompt("Total number of storage chars from the start: ");
-      00339C 90 4E 50         [24] 1271 	mov	dptr,#___str_6
-      00339F 75 F0 80         [24] 1272 	mov	b,#0x80
-      0033A2 12 32 9C         [24] 1273 	lcall	_print_prompt
-                                   1274 ;	syntax.c:173: printf("%d",total_number_of_storage);
-      0033A5 90 0F 04         [24] 1275 	mov	dptr,#_total_number_of_storage
-      0033A8 E0               [24] 1276 	movx	a,@dptr
-      0033A9 FF               [12] 1277 	mov	r7,a
-      0033AA 7E 00            [12] 1278 	mov	r6,#0x00
-      0033AC C0 07            [24] 1279 	push	ar7
-      0033AE C0 06            [24] 1280 	push	ar6
-      0033B0 74 1E            [12] 1281 	mov	a,#___str_3
-      0033B2 C0 E0            [24] 1282 	push	acc
-      0033B4 74 4E            [12] 1283 	mov	a,#(___str_3 >> 8)
-      0033B6 C0 E0            [24] 1284 	push	acc
-      0033B8 74 80            [12] 1285 	mov	a,#0x80
-      0033BA C0 E0            [24] 1286 	push	acc
-      0033BC 12 43 89         [24] 1287 	lcall	_printf
-      0033BF E5 81            [12] 1288 	mov	a,sp
-      0033C1 24 FB            [12] 1289 	add	a,#0xfb
-      0033C3 F5 81            [12] 1290 	mov	sp,a
-                                   1291 ;	syntax.c:174: print_prompt("\n\r");
-      0033C5 90 4E 21         [24] 1292 	mov	dptr,#___str_4
-      0033C8 75 F0 80         [24] 1293 	mov	b,#0x80
-      0033CB 12 32 9C         [24] 1294 	lcall	_print_prompt
-                                   1295 ;	syntax.c:175: print_prompt("Recent number of storage chars from the last ?: ");
-      0033CE 90 4E 7F         [24] 1296 	mov	dptr,#___str_7
-      0033D1 75 F0 80         [24] 1297 	mov	b,#0x80
-      0033D4 12 32 9C         [24] 1298 	lcall	_print_prompt
-                                   1299 ;	syntax.c:176: printf("%d",recent_storage);
-      0033D7 90 0F 06         [24] 1300 	mov	dptr,#_recent_storage
-      0033DA E0               [24] 1301 	movx	a,@dptr
-      0033DB FF               [12] 1302 	mov	r7,a
-      0033DC 7E 00            [12] 1303 	mov	r6,#0x00
-      0033DE C0 07            [24] 1304 	push	ar7
-      0033E0 C0 06            [24] 1305 	push	ar6
-      0033E2 74 1E            [12] 1306 	mov	a,#___str_3
-      0033E4 C0 E0            [24] 1307 	push	acc
-      0033E6 74 4E            [12] 1308 	mov	a,#(___str_3 >> 8)
-      0033E8 C0 E0            [24] 1309 	push	acc
-      0033EA 74 80            [12] 1310 	mov	a,#0x80
-      0033EC C0 E0            [24] 1311 	push	acc
-      0033EE 12 43 89         [24] 1312 	lcall	_printf
-      0033F1 E5 81            [12] 1313 	mov	a,sp
-      0033F3 24 FB            [12] 1314 	add	a,#0xfb
-      0033F5 F5 81            [12] 1315 	mov	sp,a
-                                   1316 ;	syntax.c:177: print_prompt("\n\r");
-      0033F7 90 4E 21         [24] 1317 	mov	dptr,#___str_4
-      0033FA 75 F0 80         [24] 1318 	mov	b,#0x80
-      0033FD 12 32 9C         [24] 1319 	lcall	_print_prompt
-                                   1320 ;	syntax.c:178: print_prompt("\n\r");
-      003400 90 4E 21         [24] 1321 	mov	dptr,#___str_4
-      003403 75 F0 80         [24] 1322 	mov	b,#0x80
-      003406 12 32 9C         [24] 1323 	lcall	_print_prompt
-                                   1324 ;	syntax.c:180: for(int i=0; i<99; i++){
-      003409 7E 00            [12] 1325 	mov	r6,#0x00
-      00340B 7F 00            [12] 1326 	mov	r7,#0x00
-      00340D                       1327 00122$:
-      00340D C3               [12] 1328 	clr	c
-      00340E EE               [12] 1329 	mov	a,r6
-      00340F 94 63            [12] 1330 	subb	a,#0x63
-      003411 EF               [12] 1331 	mov	a,r7
-      003412 64 80            [12] 1332 	xrl	a,#0x80
-      003414 94 80            [12] 1333 	subb	a,#0x80
-      003416 40 03            [24] 1334 	jc	00192$
-      003418 02 34 B3         [24] 1335 	ljmp	00105$
-      00341B                       1336 00192$:
-                                   1337 ;	syntax.c:181: if(array_for_nodes[i]){
-      00341B 90 0E BE         [24] 1338 	mov	dptr,#__mulint_PARM_2
-      00341E EE               [12] 1339 	mov	a,r6
-      00341F F0               [24] 1340 	movx	@dptr,a
-      003420 EF               [12] 1341 	mov	a,r7
-      003421 A3               [24] 1342 	inc	dptr
-      003422 F0               [24] 1343 	movx	@dptr,a
-      003423 90 00 06         [24] 1344 	mov	dptr,#0x0006
-      003426 C0 07            [24] 1345 	push	ar7
-      003428 C0 06            [24] 1346 	push	ar6
-      00342A 12 42 1C         [24] 1347 	lcall	__mulint
-      00342D AC 82            [24] 1348 	mov	r4,dpl
-      00342F AD 83            [24] 1349 	mov	r5,dph
-      003431 D0 06            [24] 1350 	pop	ar6
-      003433 D0 07            [24] 1351 	pop	ar7
-      003435 EC               [12] 1352 	mov	a,r4
-      003436 24 04            [12] 1353 	add	a,#_array_for_nodes
-      003438 FC               [12] 1354 	mov	r4,a
-      003439 ED               [12] 1355 	mov	a,r5
-      00343A 34 04            [12] 1356 	addc	a,#(_array_for_nodes >> 8)
-      00343C FD               [12] 1357 	mov	r5,a
-      00343D 8C 82            [24] 1358 	mov	dpl,r4
-      00343F 8D 83            [24] 1359 	mov	dph,r5
-      003441 E0               [24] 1360 	movx	a,@dptr
-      003442 60 67            [24] 1361 	jz	00123$
-                                   1362 ;	syntax.c:182: printf("Index: %d , starting address of Pointer: %p  Ending Address of the pointer %p size of array: %d\n\r",array_for_nodes[i].index,array_for_nodes[i].data_pointer,array_for_nodes[i].data_pointer+array_for_nodes[i].size, array_for_nodes[i].size);
-      003444 C0 06            [24] 1363 	push	ar6
-      003446 C0 07            [24] 1364 	push	ar7
-      003448 8C 82            [24] 1365 	mov	dpl,r4
-      00344A 8D 83            [24] 1366 	mov	dph,r5
-      00344C A3               [24] 1367 	inc	dptr
-      00344D A3               [24] 1368 	inc	dptr
-      00344E A3               [24] 1369 	inc	dptr
-      00344F A3               [24] 1370 	inc	dptr
-      003450 E0               [24] 1371 	movx	a,@dptr
-      003451 F5 08            [12] 1372 	mov	_get_command_sloc0_1_0,a
-      003453 A3               [24] 1373 	inc	dptr
-      003454 E0               [24] 1374 	movx	a,@dptr
-      003455 F5 09            [12] 1375 	mov	(_get_command_sloc0_1_0 + 1),a
-      003457 8C 82            [24] 1376 	mov	dpl,r4
-      003459 8D 83            [24] 1377 	mov	dph,r5
-      00345B A3               [24] 1378 	inc	dptr
-      00345C E0               [24] 1379 	movx	a,@dptr
-      00345D F8               [12] 1380 	mov	r0,a
-      00345E A3               [24] 1381 	inc	dptr
-      00345F E0               [24] 1382 	movx	a,@dptr
-      003460 F9               [12] 1383 	mov	r1,a
-      003461 A3               [24] 1384 	inc	dptr
-      003462 E0               [24] 1385 	movx	a,@dptr
-      003463 FF               [12] 1386 	mov	r7,a
-      003464 E5 08            [12] 1387 	mov	a,_get_command_sloc0_1_0
-      003466 28               [12] 1388 	add	a,r0
-      003467 FA               [12] 1389 	mov	r2,a
-      003468 E5 09            [12] 1390 	mov	a,(_get_command_sloc0_1_0 + 1)
-      00346A 39               [12] 1391 	addc	a,r1
-      00346B FB               [12] 1392 	mov	r3,a
-      00346C 8F 06            [24] 1393 	mov	ar6,r7
-      00346E 8C 82            [24] 1394 	mov	dpl,r4
-      003470 8D 83            [24] 1395 	mov	dph,r5
-      003472 E0               [24] 1396 	movx	a,@dptr
-      003473 FC               [12] 1397 	mov	r4,a
-      003474 7D 00            [12] 1398 	mov	r5,#0x00
-      003476 C0 07            [24] 1399 	push	ar7
-      003478 C0 06            [24] 1400 	push	ar6
-      00347A C0 08            [24] 1401 	push	_get_command_sloc0_1_0
-      00347C C0 09            [24] 1402 	push	(_get_command_sloc0_1_0 + 1)
-      00347E C0 02            [24] 1403 	push	ar2
-      003480 C0 03            [24] 1404 	push	ar3
-      003482 C0 06            [24] 1405 	push	ar6
-      003484 C0 00            [24] 1406 	push	ar0
-      003486 C0 01            [24] 1407 	push	ar1
-      003488 C0 07            [24] 1408 	push	ar7
-      00348A C0 04            [24] 1409 	push	ar4
-      00348C C0 05            [24] 1410 	push	ar5
-      00348E 74 B0            [12] 1411 	mov	a,#___str_8
-      003490 C0 E0            [24] 1412 	push	acc
-      003492 74 4E            [12] 1413 	mov	a,#(___str_8 >> 8)
-      003494 C0 E0            [24] 1414 	push	acc
-      003496 74 80            [12] 1415 	mov	a,#0x80
-      003498 C0 E0            [24] 1416 	push	acc
-      00349A 12 43 89         [24] 1417 	lcall	_printf
-      00349D E5 81            [12] 1418 	mov	a,sp
-      00349F 24 F3            [12] 1419 	add	a,#0xf3
-      0034A1 F5 81            [12] 1420 	mov	sp,a
-      0034A3 D0 06            [24] 1421 	pop	ar6
-      0034A5 D0 07            [24] 1422 	pop	ar7
-                                   1423 ;	syntax.c:244: return 0;
-      0034A7 D0 07            [24] 1424 	pop	ar7
-      0034A9 D0 06            [24] 1425 	pop	ar6
-                                   1426 ;	syntax.c:182: printf("Index: %d , starting address of Pointer: %p  Ending Address of the pointer %p size of array: %d\n\r",array_for_nodes[i].index,array_for_nodes[i].data_pointer,array_for_nodes[i].data_pointer+array_for_nodes[i].size, array_for_nodes[i].size);
-      0034AB                       1427 00123$:
-                                   1428 ;	syntax.c:180: for(int i=0; i<99; i++){
-      0034AB 0E               [12] 1429 	inc	r6
-      0034AC BE 00 01         [24] 1430 	cjne	r6,#0x00,00194$
-      0034AF 0F               [12] 1431 	inc	r7
-      0034B0                       1432 00194$:
-      0034B0 02 34 0D         [24] 1433 	ljmp	00122$
-      0034B3                       1434 00105$:
-                                   1435 ;	syntax.c:189: uint8_t *rd_ptr = array_for_nodes[0].data_pointer;
-      0034B3 90 04 05         [24] 1436 	mov	dptr,#(_array_for_nodes + 0x0001)
-      0034B6 E0               [24] 1437 	movx	a,@dptr
-      0034B7 F5 0A            [12] 1438 	mov	_get_command_sloc1_1_0,a
-      0034B9 A3               [24] 1439 	inc	dptr
-      0034BA E0               [24] 1440 	movx	a,@dptr
-      0034BB F5 0B            [12] 1441 	mov	(_get_command_sloc1_1_0 + 1),a
-      0034BD A3               [24] 1442 	inc	dptr
-      0034BE E0               [24] 1443 	movx	a,@dptr
-      0034BF F5 0C            [12] 1444 	mov	(_get_command_sloc1_1_0 + 2),a
-      0034C1 90 06 74         [24] 1445 	mov	dptr,#_get_command_rd_ptr_131073_72
-      0034C4 E5 0A            [12] 1446 	mov	a,_get_command_sloc1_1_0
-      0034C6 F0               [24] 1447 	movx	@dptr,a
-      0034C7 E5 0B            [12] 1448 	mov	a,(_get_command_sloc1_1_0 + 1)
-      0034C9 A3               [24] 1449 	inc	dptr
-      0034CA F0               [24] 1450 	movx	@dptr,a
-      0034CB E5 0C            [12] 1451 	mov	a,(_get_command_sloc1_1_0 + 2)
-      0034CD A3               [24] 1452 	inc	dptr
-      0034CE F0               [24] 1453 	movx	@dptr,a
-                                   1454 ;	syntax.c:191: uint8_t temp = array_for_nodes[0].size*sizeof(uint8_t);
-      0034CF 90 04 08         [24] 1455 	mov	dptr,#(_array_for_nodes + 0x0004)
-      0034D2 E0               [24] 1456 	movx	a,@dptr
-      0034D3 90 06 77         [24] 1457 	mov	dptr,#_get_command_temp_131073_72
-      0034D6 F0               [24] 1458 	movx	@dptr,a
-                                   1459 ;	syntax.c:192: printf("....... Dumping Buffer0 ......\r\n");
-      0034D7 74 12            [12] 1460 	mov	a,#___str_9
-      0034D9 C0 E0            [24] 1461 	push	acc
-      0034DB 74 4F            [12] 1462 	mov	a,#(___str_9 >> 8)
-      0034DD C0 E0            [24] 1463 	push	acc
-      0034DF 74 80            [12] 1464 	mov	a,#0x80
-      0034E1 C0 E0            [24] 1465 	push	acc
-      0034E3 12 43 89         [24] 1466 	lcall	_printf
-      0034E6 15 81            [12] 1467 	dec	sp
-      0034E8 15 81            [12] 1468 	dec	sp
-      0034EA 15 81            [12] 1469 	dec	sp
-                                   1470 ;	syntax.c:193: while(temp){
-      0034EC                       1471 00107$:
-      0034EC 90 06 77         [24] 1472 	mov	dptr,#_get_command_temp_131073_72
-      0034EF E0               [24] 1473 	movx	a,@dptr
-      0034F0 FC               [12] 1474 	mov	r4,a
-      0034F1 E0               [24] 1475 	movx	a,@dptr
-      0034F2 70 03            [24] 1476 	jnz	00195$
-      0034F4 02 35 E5         [24] 1477 	ljmp	00109$
-      0034F7                       1478 00195$:
-                                   1479 ;	syntax.c:194: printf("%p: ", rd_ptr);
-      0034F7 C0 04            [24] 1480 	push	ar4
-      0034F9 90 06 74         [24] 1481 	mov	dptr,#_get_command_rd_ptr_131073_72
-      0034FC E0               [24] 1482 	movx	a,@dptr
-      0034FD C0 E0            [24] 1483 	push	acc
-      0034FF A3               [24] 1484 	inc	dptr
-      003500 E0               [24] 1485 	movx	a,@dptr
-      003501 C0 E0            [24] 1486 	push	acc
-      003503 A3               [24] 1487 	inc	dptr
-      003504 E0               [24] 1488 	movx	a,@dptr
-      003505 C0 E0            [24] 1489 	push	acc
-      003507 74 33            [12] 1490 	mov	a,#___str_10
-      003509 C0 E0            [24] 1491 	push	acc
-      00350B 74 4F            [12] 1492 	mov	a,#(___str_10 >> 8)
-      00350D C0 E0            [24] 1493 	push	acc
-      00350F 74 80            [12] 1494 	mov	a,#0x80
-      003511 C0 E0            [24] 1495 	push	acc
-      003513 12 43 89         [24] 1496 	lcall	_printf
-      003516 E5 81            [12] 1497 	mov	a,sp
-      003518 24 FA            [12] 1498 	add	a,#0xfa
-      00351A F5 81            [12] 1499 	mov	sp,a
-      00351C D0 04            [24] 1500 	pop	ar4
-                                   1501 ;	syntax.c:195: for(int i=15; i>=0;i--){
-      00351E 90 06 74         [24] 1502 	mov	dptr,#_get_command_rd_ptr_131073_72
-      003521 E0               [24] 1503 	movx	a,@dptr
-      003522 F9               [12] 1504 	mov	r1,a
-      003523 A3               [24] 1505 	inc	dptr
-      003524 E0               [24] 1506 	movx	a,@dptr
-      003525 FA               [12] 1507 	mov	r2,a
-      003526 A3               [24] 1508 	inc	dptr
-      003527 E0               [24] 1509 	movx	a,@dptr
-      003528 FB               [12] 1510 	mov	r3,a
-      003529 75 08 0F         [24] 1511 	mov	_get_command_sloc0_1_0,#0x0f
-      00352C 75 09 00         [24] 1512 	mov	(_get_command_sloc0_1_0 + 1),#0x00
-      00352F                       1513 00125$:
-      00352F E5 09            [12] 1514 	mov	a,(_get_command_sloc0_1_0 + 1)
-      003531 30 E7 03         [24] 1515 	jnb	acc.7,00196$
-      003534 02 35 BD         [24] 1516 	ljmp	00144$
-      003537                       1517 00196$:
-                                   1518 ;	syntax.c:196: printf("%d ",(*rd_ptr & (0x00FF)));
-      003537 89 82            [24] 1519 	mov	dpl,r1
-      003539 8A 83            [24] 1520 	mov	dph,r2
-      00353B 8B F0            [24] 1521 	mov	b,r3
-      00353D 12 4D AB         [24] 1522 	lcall	__gptrget
-      003540 F8               [12] 1523 	mov	r0,a
-      003541 7F 00            [12] 1524 	mov	r7,#0x00
-      003543 C0 04            [24] 1525 	push	ar4
-      003545 C0 03            [24] 1526 	push	ar3
-      003547 C0 02            [24] 1527 	push	ar2
-      003549 C0 01            [24] 1528 	push	ar1
-      00354B C0 00            [24] 1529 	push	ar0
-      00354D C0 07            [24] 1530 	push	ar7
-      00354F 74 38            [12] 1531 	mov	a,#___str_11
-      003551 C0 E0            [24] 1532 	push	acc
-      003553 74 4F            [12] 1533 	mov	a,#(___str_11 >> 8)
-      003555 C0 E0            [24] 1534 	push	acc
-      003557 74 80            [12] 1535 	mov	a,#0x80
-      003559 C0 E0            [24] 1536 	push	acc
-      00355B 12 43 89         [24] 1537 	lcall	_printf
-      00355E E5 81            [12] 1538 	mov	a,sp
-      003560 24 FB            [12] 1539 	add	a,#0xfb
-      003562 F5 81            [12] 1540 	mov	sp,a
-      003564 D0 01            [24] 1541 	pop	ar1
-      003566 D0 02            [24] 1542 	pop	ar2
-      003568 D0 03            [24] 1543 	pop	ar3
-                                   1544 ;	syntax.c:197: printf("%d ",((*rd_ptr & (0xFF00))>>8U));
-      00356A 89 82            [24] 1545 	mov	dpl,r1
-      00356C 8A 83            [24] 1546 	mov	dph,r2
-      00356E 8B F0            [24] 1547 	mov	b,r3
-      003570 12 4D AB         [24] 1548 	lcall	__gptrget
-      003573 A3               [24] 1549 	inc	dptr
-      003574 A9 82            [24] 1550 	mov	r1,dpl
-      003576 AA 83            [24] 1551 	mov	r2,dph
-      003578 7F 00            [12] 1552 	mov	r7,#0x00
-      00357A 7E 00            [12] 1553 	mov	r6,#0x00
-      00357C C0 03            [24] 1554 	push	ar3
-      00357E C0 02            [24] 1555 	push	ar2
-      003580 C0 01            [24] 1556 	push	ar1
-      003582 C0 07            [24] 1557 	push	ar7
-      003584 C0 06            [24] 1558 	push	ar6
-      003586 74 38            [12] 1559 	mov	a,#___str_11
-      003588 C0 E0            [24] 1560 	push	acc
-      00358A 74 4F            [12] 1561 	mov	a,#(___str_11 >> 8)
-      00358C C0 E0            [24] 1562 	push	acc
-      00358E 74 80            [12] 1563 	mov	a,#0x80
-      003590 C0 E0            [24] 1564 	push	acc
-      003592 12 43 89         [24] 1565 	lcall	_printf
-      003595 E5 81            [12] 1566 	mov	a,sp
-      003597 24 FB            [12] 1567 	add	a,#0xfb
-      003599 F5 81            [12] 1568 	mov	sp,a
-      00359B D0 01            [24] 1569 	pop	ar1
-      00359D D0 02            [24] 1570 	pop	ar2
-      00359F D0 03            [24] 1571 	pop	ar3
-      0035A1 D0 04            [24] 1572 	pop	ar4
-                                   1573 ;	syntax.c:198: *wr_ptr = 0;
-      0035A3 85 0A 82         [24] 1574 	mov	dpl,_get_command_sloc1_1_0
-      0035A6 85 0B 83         [24] 1575 	mov	dph,(_get_command_sloc1_1_0 + 1)
-      0035A9 85 0C F0         [24] 1576 	mov	b,(_get_command_sloc1_1_0 + 2)
-      0035AC E4               [12] 1577 	clr	a
-      0035AD 12 40 5C         [24] 1578 	lcall	__gptrput
-                                   1579 ;	syntax.c:199: rd_ptr++;
-                                   1580 ;	syntax.c:200: temp--;
-      0035B0 1C               [12] 1581 	dec	r4
-                                   1582 ;	syntax.c:195: for(int i=15; i>=0;i--){
-      0035B1 15 08            [12] 1583 	dec	_get_command_sloc0_1_0
-      0035B3 74 FF            [12] 1584 	mov	a,#0xff
-      0035B5 B5 08 02         [24] 1585 	cjne	a,_get_command_sloc0_1_0,00197$
-      0035B8 15 09            [12] 1586 	dec	(_get_command_sloc0_1_0 + 1)
-      0035BA                       1587 00197$:
-      0035BA 02 35 2F         [24] 1588 	ljmp	00125$
-      0035BD                       1589 00144$:
-      0035BD 90 06 74         [24] 1590 	mov	dptr,#_get_command_rd_ptr_131073_72
-      0035C0 E9               [12] 1591 	mov	a,r1
-      0035C1 F0               [24] 1592 	movx	@dptr,a
-      0035C2 EA               [12] 1593 	mov	a,r2
-      0035C3 A3               [24] 1594 	inc	dptr
-      0035C4 F0               [24] 1595 	movx	@dptr,a
-      0035C5 EB               [12] 1596 	mov	a,r3
-      0035C6 A3               [24] 1597 	inc	dptr
-      0035C7 F0               [24] 1598 	movx	@dptr,a
-      0035C8 90 06 77         [24] 1599 	mov	dptr,#_get_command_temp_131073_72
-      0035CB EC               [12] 1600 	mov	a,r4
-      0035CC F0               [24] 1601 	movx	@dptr,a
-                                   1602 ;	syntax.c:202: printf("\r\n");
-      0035CD 74 3C            [12] 1603 	mov	a,#___str_12
-      0035CF C0 E0            [24] 1604 	push	acc
-      0035D1 74 4F            [12] 1605 	mov	a,#(___str_12 >> 8)
-      0035D3 C0 E0            [24] 1606 	push	acc
-      0035D5 74 80            [12] 1607 	mov	a,#0x80
-      0035D7 C0 E0            [24] 1608 	push	acc
-      0035D9 12 43 89         [24] 1609 	lcall	_printf
-      0035DC 15 81            [12] 1610 	dec	sp
-      0035DE 15 81            [12] 1611 	dec	sp
-      0035E0 15 81            [12] 1612 	dec	sp
-      0035E2 02 34 EC         [24] 1613 	ljmp	00107$
-      0035E5                       1614 00109$:
-                                   1615 ;	syntax.c:206: recent_commands = 0;
-      0035E5 90 0F 05         [24] 1616 	mov	dptr,#_recent_commands
-      0035E8 E4               [12] 1617 	clr	a
-      0035E9 F0               [24] 1618 	movx	@dptr,a
-                                   1619 ;	syntax.c:207: recent_storage = 0;
-      0035EA 90 0F 06         [24] 1620 	mov	dptr,#_recent_storage
-      0035ED F0               [24] 1621 	movx	@dptr,a
-                                   1622 ;	syntax.c:208: break;
-      0035EE 02 37 3B         [24] 1623 	ljmp	00120$
-                                   1624 ;	syntax.c:210: case '+':
-      0035F1                       1625 00110$:
-                                   1626 ;	syntax.c:211: temp_value = get_buf_value("\n\rEnter buffer size between 20 to 400: ", UPPER_SMALL_BUFFERS, LOWER_SMALL_BUFFERS);
-      0035F1 90 06 5E         [24] 1627 	mov	dptr,#_get_buf_value_PARM_2
-      0035F4 74 90            [12] 1628 	mov	a,#0x90
-      0035F6 F0               [24] 1629 	movx	@dptr,a
-      0035F7 74 01            [12] 1630 	mov	a,#0x01
-      0035F9 A3               [24] 1631 	inc	dptr
-      0035FA F0               [24] 1632 	movx	@dptr,a
-      0035FB 90 06 60         [24] 1633 	mov	dptr,#_get_buf_value_PARM_3
-      0035FE 74 14            [12] 1634 	mov	a,#0x14
-      003600 F0               [24] 1635 	movx	@dptr,a
-      003601 E4               [12] 1636 	clr	a
-      003602 A3               [24] 1637 	inc	dptr
-      003603 F0               [24] 1638 	movx	@dptr,a
-      003604 90 4F 3F         [24] 1639 	mov	dptr,#___str_13
-      003607 75 F0 80         [24] 1640 	mov	b,#0x80
-      00360A 12 30 C9         [24] 1641 	lcall	_get_buf_value
-      00360D AE 82            [24] 1642 	mov	r6,dpl
-      00360F AF 83            [24] 1643 	mov	r7,dph
-                                   1644 ;	syntax.c:212: print_prompt("Buffer size you entered is : ");
-      003611 90 4F 67         [24] 1645 	mov	dptr,#___str_14
-      003614 75 F0 80         [24] 1646 	mov	b,#0x80
-      003617 C0 07            [24] 1647 	push	ar7
-      003619 C0 06            [24] 1648 	push	ar6
-      00361B 12 32 9C         [24] 1649 	lcall	_print_prompt
-      00361E D0 06            [24] 1650 	pop	ar6
-      003620 D0 07            [24] 1651 	pop	ar7
-                                   1652 ;	syntax.c:213: printf("%d \n\r", temp_value);
-      003622 C0 07            [24] 1653 	push	ar7
-      003624 C0 06            [24] 1654 	push	ar6
-      003626 C0 06            [24] 1655 	push	ar6
-      003628 C0 07            [24] 1656 	push	ar7
-      00362A 74 85            [12] 1657 	mov	a,#___str_15
-      00362C C0 E0            [24] 1658 	push	acc
-      00362E 74 4F            [12] 1659 	mov	a,#(___str_15 >> 8)
-      003630 C0 E0            [24] 1660 	push	acc
-      003632 74 80            [12] 1661 	mov	a,#0x80
-      003634 C0 E0            [24] 1662 	push	acc
-      003636 12 43 89         [24] 1663 	lcall	_printf
-      003639 E5 81            [12] 1664 	mov	a,sp
-      00363B 24 FB            [12] 1665 	add	a,#0xfb
-      00363D F5 81            [12] 1666 	mov	sp,a
-      00363F D0 06            [24] 1667 	pop	ar6
-      003641 D0 07            [24] 1668 	pop	ar7
-                                   1669 ;	syntax.c:215: pointer = (__xdata uint8_t *) malloc(temp_value);
-      003643 8E 82            [24] 1670 	mov	dpl,r6
-      003645 8F 83            [24] 1671 	mov	dph,r7
-      003647 C0 07            [24] 1672 	push	ar7
-      003649 C0 06            [24] 1673 	push	ar6
-      00364B 12 40 B3         [24] 1674 	lcall	_malloc
-      00364E AC 82            [24] 1675 	mov	r4,dpl
-      003650 AD 83            [24] 1676 	mov	r5,dph
-      003652 D0 06            [24] 1677 	pop	ar6
-      003654 D0 07            [24] 1678 	pop	ar7
-                                   1679 ;	syntax.c:216: if (pointer == NULL){
-      003656 EC               [12] 1680 	mov	a,r4
-      003657 4D               [12] 1681 	orl	a,r5
-      003658 70 19            [24] 1682 	jnz	00112$
-                                   1683 ;	syntax.c:217: print_prompt("\n\rFailed to get malloc try to enter smaller size by again entering +");
-      00365A 90 4F 8B         [24] 1684 	mov	dptr,#___str_16
-      00365D 75 F0 80         [24] 1685 	mov	b,#0x80
-      003660 C0 07            [24] 1686 	push	ar7
-      003662 C0 06            [24] 1687 	push	ar6
-      003664 C0 05            [24] 1688 	push	ar5
-      003666 C0 04            [24] 1689 	push	ar4
-      003668 12 32 9C         [24] 1690 	lcall	_print_prompt
-      00366B D0 04            [24] 1691 	pop	ar4
-      00366D D0 05            [24] 1692 	pop	ar5
-      00366F D0 06            [24] 1693 	pop	ar6
-      003671 D0 07            [24] 1694 	pop	ar7
-      003673                       1695 00112$:
-                                   1696 ;	syntax.c:221: node_t node = {index_of_buffers, pointer, temp_value};
-      003673 90 0F 02         [24] 1697 	mov	dptr,#_index_of_buffers
-      003676 E0               [24] 1698 	movx	a,@dptr
-      003677 90 06 78         [24] 1699 	mov	dptr,#_get_command_node_131074_77
-      00367A F0               [24] 1700 	movx	@dptr,a
-      00367B 7B 00            [12] 1701 	mov	r3,#0x00
-      00367D 90 06 79         [24] 1702 	mov	dptr,#(_get_command_node_131074_77 + 0x0001)
-      003680 EC               [12] 1703 	mov	a,r4
-      003681 F0               [24] 1704 	movx	@dptr,a
-      003682 ED               [12] 1705 	mov	a,r5
-      003683 A3               [24] 1706 	inc	dptr
-      003684 F0               [24] 1707 	movx	@dptr,a
-      003685 EB               [12] 1708 	mov	a,r3
-      003686 A3               [24] 1709 	inc	dptr
-      003687 F0               [24] 1710 	movx	@dptr,a
-      003688 90 06 7C         [24] 1711 	mov	dptr,#(_get_command_node_131074_77 + 0x0004)
-      00368B EE               [12] 1712 	mov	a,r6
-      00368C F0               [24] 1713 	movx	@dptr,a
-      00368D EF               [12] 1714 	mov	a,r7
-      00368E A3               [24] 1715 	inc	dptr
-      00368F F0               [24] 1716 	movx	@dptr,a
-                                   1717 ;	syntax.c:222: array_for_nodes[index_of_buffers] = node;
-      003690 90 0F 02         [24] 1718 	mov	dptr,#_index_of_buffers
-      003693 E0               [24] 1719 	movx	a,@dptr
-      003694 75 F0 06         [24] 1720 	mov	b,#0x06
-      003697 A4               [48] 1721 	mul	ab
-      003698 24 04            [12] 1722 	add	a,#_array_for_nodes
-      00369A FE               [12] 1723 	mov	r6,a
-      00369B 74 04            [12] 1724 	mov	a,#(_array_for_nodes >> 8)
-      00369D 35 F0            [12] 1725 	addc	a,b
-      00369F FF               [12] 1726 	mov	r7,a
-      0036A0 7D 00            [12] 1727 	mov	r5,#0x00
-      0036A2 90 0E AD         [24] 1728 	mov	dptr,#___memcpy_PARM_2
-      0036A5 74 78            [12] 1729 	mov	a,#_get_command_node_131074_77
-      0036A7 F0               [24] 1730 	movx	@dptr,a
-      0036A8 74 06            [12] 1731 	mov	a,#(_get_command_node_131074_77 >> 8)
-      0036AA A3               [24] 1732 	inc	dptr
-      0036AB F0               [24] 1733 	movx	@dptr,a
-      0036AC E4               [12] 1734 	clr	a
-      0036AD A3               [24] 1735 	inc	dptr
-      0036AE F0               [24] 1736 	movx	@dptr,a
-      0036AF 90 0E B0         [24] 1737 	mov	dptr,#___memcpy_PARM_3
-      0036B2 74 06            [12] 1738 	mov	a,#0x06
-      0036B4 F0               [24] 1739 	movx	@dptr,a
-      0036B5 E4               [12] 1740 	clr	a
-      0036B6 A3               [24] 1741 	inc	dptr
-      0036B7 F0               [24] 1742 	movx	@dptr,a
-      0036B8 8E 82            [24] 1743 	mov	dpl,r6
-      0036BA 8F 83            [24] 1744 	mov	dph,r7
-      0036BC 8D F0            [24] 1745 	mov	b,r5
-      0036BE 12 3F E8         [24] 1746 	lcall	___memcpy
-                                   1747 ;	syntax.c:223: index_of_buffers++;
-      0036C1 90 0F 02         [24] 1748 	mov	dptr,#_index_of_buffers
-      0036C4 E0               [24] 1749 	movx	a,@dptr
-      0036C5 24 01            [12] 1750 	add	a,#0x01
-      0036C7 F0               [24] 1751 	movx	@dptr,a
-                                   1752 ;	syntax.c:224: break;
-                                   1753 ;	syntax.c:226: case '-':
-      0036C8 80 71            [24] 1754 	sjmp	00120$
-      0036CA                       1755 00113$:
-                                   1756 ;	syntax.c:227: print_prompt("\n\rEnter Number to delete between 0 to 127 for buffer:");
-      0036CA 90 4F D0         [24] 1757 	mov	dptr,#___str_17
-      0036CD 75 F0 80         [24] 1758 	mov	b,#0x80
-      0036D0 12 32 9C         [24] 1759 	lcall	_print_prompt
-                                   1760 ;	syntax.c:228: temp_value = getchar();
-      0036D3 12 30 B4         [24] 1761 	lcall	_getchar
-                                   1762 ;	syntax.c:229: putchar(temp_value);
-      0036D6 AE 82            [24] 1763 	mov	r6,dpl
-      0036D8 AF 83            [24] 1764 	mov  r7,dph
-      0036DA C0 07            [24] 1765 	push	ar7
-      0036DC C0 06            [24] 1766 	push	ar6
-      0036DE 12 30 97         [24] 1767 	lcall	_putchar
-      0036E1 D0 06            [24] 1768 	pop	ar6
-      0036E3 D0 07            [24] 1769 	pop	ar7
-                                   1770 ;	syntax.c:230: if(temp_value <= 0) break;
-      0036E5 C3               [12] 1771 	clr	c
-      0036E6 E4               [12] 1772 	clr	a
-      0036E7 9E               [12] 1773 	subb	a,r6
-      0036E8 74 80            [12] 1774 	mov	a,#(0x00 ^ 0x80)
-      0036EA 8F F0            [24] 1775 	mov	b,r7
-      0036EC 63 F0 80         [24] 1776 	xrl	b,#0x80
-      0036EF 95 F0            [12] 1777 	subb	a,b
-      0036F1 50 48            [24] 1778 	jnc	00120$
-                                   1779 ;	syntax.c:231: if(array_for_nodes[temp_value]){
-      0036F3 90 0E BE         [24] 1780 	mov	dptr,#__mulint_PARM_2
-      0036F6 EE               [12] 1781 	mov	a,r6
-      0036F7 F0               [24] 1782 	movx	@dptr,a
-      0036F8 EF               [12] 1783 	mov	a,r7
-      0036F9 A3               [24] 1784 	inc	dptr
-      0036FA F0               [24] 1785 	movx	@dptr,a
-      0036FB 90 00 06         [24] 1786 	mov	dptr,#0x0006
-      0036FE 12 42 1C         [24] 1787 	lcall	__mulint
-      003701 AE 82            [24] 1788 	mov	r6,dpl
-      003703 AF 83            [24] 1789 	mov	r7,dph
-      003705 EE               [12] 1790 	mov	a,r6
-      003706 24 04            [12] 1791 	add	a,#_array_for_nodes
-      003708 FE               [12] 1792 	mov	r6,a
-      003709 EF               [12] 1793 	mov	a,r7
-      00370A 34 04            [12] 1794 	addc	a,#(_array_for_nodes >> 8)
-      00370C FF               [12] 1795 	mov	r7,a
-      00370D 8E 82            [24] 1796 	mov	dpl,r6
-      00370F 8F 83            [24] 1797 	mov	dph,r7
-      003711 E0               [24] 1798 	movx	a,@dptr
-      003712 60 27            [24] 1799 	jz	00120$
-                                   1800 ;	syntax.c:232: array_for_nodes[temp_value].size = 0;
-      003714 8E 82            [24] 1801 	mov	dpl,r6
-      003716 8F 83            [24] 1802 	mov	dph,r7
-      003718 A3               [24] 1803 	inc	dptr
-      003719 A3               [24] 1804 	inc	dptr
-      00371A A3               [24] 1805 	inc	dptr
-      00371B A3               [24] 1806 	inc	dptr
-      00371C E4               [12] 1807 	clr	a
-      00371D F0               [24] 1808 	movx	@dptr,a
-      00371E A3               [24] 1809 	inc	dptr
-      00371F F0               [24] 1810 	movx	@dptr,a
-                                   1811 ;	syntax.c:233: free(array_for_nodes[temp_value].data_pointer);
-      003720 8E 82            [24] 1812 	mov	dpl,r6
-      003722 8F 83            [24] 1813 	mov	dph,r7
-      003724 A3               [24] 1814 	inc	dptr
-      003725 E0               [24] 1815 	movx	a,@dptr
-      003726 FD               [12] 1816 	mov	r5,a
-      003727 A3               [24] 1817 	inc	dptr
-      003728 E0               [24] 1818 	movx	a,@dptr
-      003729 FE               [12] 1819 	mov	r6,a
-      00372A A3               [24] 1820 	inc	dptr
-      00372B E0               [24] 1821 	movx	a,@dptr
-      00372C FF               [12] 1822 	mov	r7,a
-      00372D 8D 82            [24] 1823 	mov	dpl,r5
-      00372F 8E 83            [24] 1824 	mov	dph,r6
-      003731 8F F0            [24] 1825 	mov	b,r7
-      003733 12 3C 5D         [24] 1826 	lcall	_free
-                                   1827 ;	syntax.c:235: break;
-                                   1828 ;	syntax.c:237: case '=':
-      003736 80 03            [24] 1829 	sjmp	00120$
-      003738                       1830 00118$:
-                                   1831 ;	syntax.c:238: buffer0_dump();
-      003738 12 37 3F         [24] 1832 	lcall	_buffer0_dump
-                                   1833 ;	syntax.c:242: }
-      00373B                       1834 00120$:
-                                   1835 ;	syntax.c:244: return 0;
-      00373B 90 00 00         [24] 1836 	mov	dptr,#0x0000
-                                   1837 ;	syntax.c:245: }
-      00373E 22               [24] 1838 	ret
-                                   1839 ;------------------------------------------------------------
-                                   1840 ;Allocation info for local variables in function 'buffer0_dump'
-                                   1841 ;------------------------------------------------------------
-                                   1842 ;rd_ptr                    Allocated with name '_buffer0_dump_rd_ptr_65536_79'
-                                   1843 ;temp                      Allocated with name '_buffer0_dump_temp_65536_79'
-                                   1844 ;i                         Allocated with name '_buffer0_dump_i_196608_81'
-                                   1845 ;------------------------------------------------------------
-                                   1846 ;	syntax.c:247: void buffer0_dump(){
-                                   1847 ;	-----------------------------------------
-                                   1848 ;	 function buffer0_dump
-                                   1849 ;	-----------------------------------------
-      00373F                       1850 _buffer0_dump:
-                                   1851 ;	syntax.c:248: uint8_t *rd_ptr = array_for_nodes[0].data_pointer;
-      00373F 90 04 05         [24] 1852 	mov	dptr,#(_array_for_nodes + 0x0001)
-      003742 E0               [24] 1853 	movx	a,@dptr
-      003743 FD               [12] 1854 	mov	r5,a
-      003744 A3               [24] 1855 	inc	dptr
-      003745 E0               [24] 1856 	movx	a,@dptr
-      003746 FE               [12] 1857 	mov	r6,a
-      003747 A3               [24] 1858 	inc	dptr
-      003748 E0               [24] 1859 	movx	a,@dptr
-      003749 FF               [12] 1860 	mov	r7,a
-      00374A 90 06 7E         [24] 1861 	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
-      00374D ED               [12] 1862 	mov	a,r5
-      00374E F0               [24] 1863 	movx	@dptr,a
-      00374F EE               [12] 1864 	mov	a,r6
-      003750 A3               [24] 1865 	inc	dptr
-      003751 F0               [24] 1866 	movx	@dptr,a
-      003752 EF               [12] 1867 	mov	a,r7
-      003753 A3               [24] 1868 	inc	dptr
-      003754 F0               [24] 1869 	movx	@dptr,a
-                                   1870 ;	syntax.c:249: uint8_t temp = array_for_nodes[0].size*sizeof(uint8_t);
-      003755 90 04 08         [24] 1871 	mov	dptr,#(_array_for_nodes + 0x0004)
-      003758 E0               [24] 1872 	movx	a,@dptr
-      003759 90 06 81         [24] 1873 	mov	dptr,#_buffer0_dump_temp_65536_79
-      00375C F0               [24] 1874 	movx	@dptr,a
-                                   1875 ;	syntax.c:250: printf("....... Dumping Buffer0 ......\r\n");
-      00375D 74 12            [12] 1876 	mov	a,#___str_9
-      00375F C0 E0            [24] 1877 	push	acc
-      003761 74 4F            [12] 1878 	mov	a,#(___str_9 >> 8)
-      003763 C0 E0            [24] 1879 	push	acc
-      003765 74 80            [12] 1880 	mov	a,#0x80
-      003767 C0 E0            [24] 1881 	push	acc
-      003769 12 43 89         [24] 1882 	lcall	_printf
-      00376C 15 81            [12] 1883 	dec	sp
-      00376E 15 81            [12] 1884 	dec	sp
-      003770 15 81            [12] 1885 	dec	sp
-                                   1886 ;	syntax.c:251: while(temp){
-      003772                       1887 00102$:
-      003772 90 06 81         [24] 1888 	mov	dptr,#_buffer0_dump_temp_65536_79
-      003775 E0               [24] 1889 	movx	a,@dptr
-      003776 FF               [12] 1890 	mov	r7,a
-      003777 E0               [24] 1891 	movx	a,@dptr
-      003778 70 01            [24] 1892 	jnz	00127$
-      00377A 22               [24] 1893 	ret
-      00377B                       1894 00127$:
-                                   1895 ;	syntax.c:252: printf("%p: ", rd_ptr);
-      00377B C0 07            [24] 1896 	push	ar7
-      00377D 90 06 7E         [24] 1897 	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
-      003780 E0               [24] 1898 	movx	a,@dptr
-      003781 C0 E0            [24] 1899 	push	acc
-      003783 A3               [24] 1900 	inc	dptr
-      003784 E0               [24] 1901 	movx	a,@dptr
-      003785 C0 E0            [24] 1902 	push	acc
-      003787 A3               [24] 1903 	inc	dptr
-      003788 E0               [24] 1904 	movx	a,@dptr
-      003789 C0 E0            [24] 1905 	push	acc
-      00378B 74 33            [12] 1906 	mov	a,#___str_10
-      00378D C0 E0            [24] 1907 	push	acc
-      00378F 74 4F            [12] 1908 	mov	a,#(___str_10 >> 8)
-      003791 C0 E0            [24] 1909 	push	acc
-      003793 74 80            [12] 1910 	mov	a,#0x80
-      003795 C0 E0            [24] 1911 	push	acc
-      003797 12 43 89         [24] 1912 	lcall	_printf
-      00379A E5 81            [12] 1913 	mov	a,sp
-      00379C 24 FA            [12] 1914 	add	a,#0xfa
-      00379E F5 81            [12] 1915 	mov	sp,a
-      0037A0 D0 07            [24] 1916 	pop	ar7
-                                   1917 ;	syntax.c:253: for(int i=15; i>=0;i--){
-      0037A2 90 06 7E         [24] 1918 	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
-      0037A5 E0               [24] 1919 	movx	a,@dptr
-      0037A6 FC               [12] 1920 	mov	r4,a
-      0037A7 A3               [24] 1921 	inc	dptr
-      0037A8 E0               [24] 1922 	movx	a,@dptr
-      0037A9 FD               [12] 1923 	mov	r5,a
-      0037AA A3               [24] 1924 	inc	dptr
-      0037AB E0               [24] 1925 	movx	a,@dptr
-      0037AC FE               [12] 1926 	mov	r6,a
-      0037AD 7A 0F            [12] 1927 	mov	r2,#0x0f
-      0037AF 7B 00            [12] 1928 	mov	r3,#0x00
-      0037B1                       1929 00106$:
-      0037B1 EB               [12] 1930 	mov	a,r3
-      0037B2 30 E7 03         [24] 1931 	jnb	acc.7,00128$
-      0037B5 02 38 3D         [24] 1932 	ljmp	00114$
-      0037B8                       1933 00128$:
-                                   1934 ;	syntax.c:254: printf("%d ",(*rd_ptr & (0x00FF)));
-      0037B8 8C 82            [24] 1935 	mov	dpl,r4
-      0037BA 8D 83            [24] 1936 	mov	dph,r5
-      0037BC 8E F0            [24] 1937 	mov	b,r6
-      0037BE 12 4D AB         [24] 1938 	lcall	__gptrget
-      0037C1 F8               [12] 1939 	mov	r0,a
-      0037C2 79 00            [12] 1940 	mov	r1,#0x00
-      0037C4 C0 07            [24] 1941 	push	ar7
-      0037C6 C0 06            [24] 1942 	push	ar6
-      0037C8 C0 05            [24] 1943 	push	ar5
-      0037CA C0 04            [24] 1944 	push	ar4
-      0037CC C0 03            [24] 1945 	push	ar3
-      0037CE C0 02            [24] 1946 	push	ar2
-      0037D0 C0 00            [24] 1947 	push	ar0
-      0037D2 C0 01            [24] 1948 	push	ar1
-      0037D4 74 38            [12] 1949 	mov	a,#___str_11
-      0037D6 C0 E0            [24] 1950 	push	acc
-      0037D8 74 4F            [12] 1951 	mov	a,#(___str_11 >> 8)
-      0037DA C0 E0            [24] 1952 	push	acc
-      0037DC 74 80            [12] 1953 	mov	a,#0x80
-      0037DE C0 E0            [24] 1954 	push	acc
-      0037E0 12 43 89         [24] 1955 	lcall	_printf
-      0037E3 E5 81            [12] 1956 	mov	a,sp
-      0037E5 24 FB            [12] 1957 	add	a,#0xfb
-      0037E7 F5 81            [12] 1958 	mov	sp,a
-      0037E9 D0 02            [24] 1959 	pop	ar2
-      0037EB D0 03            [24] 1960 	pop	ar3
-      0037ED D0 04            [24] 1961 	pop	ar4
-      0037EF D0 05            [24] 1962 	pop	ar5
-      0037F1 D0 06            [24] 1963 	pop	ar6
-                                   1964 ;	syntax.c:255: printf("%d ",((*rd_ptr & (0xFF00))>>8U));
-      0037F3 8C 82            [24] 1965 	mov	dpl,r4
-      0037F5 8D 83            [24] 1966 	mov	dph,r5
-      0037F7 8E F0            [24] 1967 	mov	b,r6
-      0037F9 12 4D AB         [24] 1968 	lcall	__gptrget
-      0037FC A3               [24] 1969 	inc	dptr
-      0037FD AC 82            [24] 1970 	mov	r4,dpl
-      0037FF AD 83            [24] 1971 	mov	r5,dph
-      003801 78 00            [12] 1972 	mov	r0,#0x00
-      003803 79 00            [12] 1973 	mov	r1,#0x00
-      003805 C0 06            [24] 1974 	push	ar6
-      003807 C0 05            [24] 1975 	push	ar5
-      003809 C0 04            [24] 1976 	push	ar4
-      00380B C0 03            [24] 1977 	push	ar3
-      00380D C0 02            [24] 1978 	push	ar2
-      00380F C0 00            [24] 1979 	push	ar0
-      003811 C0 01            [24] 1980 	push	ar1
-      003813 74 38            [12] 1981 	mov	a,#___str_11
-      003815 C0 E0            [24] 1982 	push	acc
-      003817 74 4F            [12] 1983 	mov	a,#(___str_11 >> 8)
-      003819 C0 E0            [24] 1984 	push	acc
-      00381B 74 80            [12] 1985 	mov	a,#0x80
-      00381D C0 E0            [24] 1986 	push	acc
-      00381F 12 43 89         [24] 1987 	lcall	_printf
-      003822 E5 81            [12] 1988 	mov	a,sp
-      003824 24 FB            [12] 1989 	add	a,#0xfb
-      003826 F5 81            [12] 1990 	mov	sp,a
-      003828 D0 02            [24] 1991 	pop	ar2
-      00382A D0 03            [24] 1992 	pop	ar3
-      00382C D0 04            [24] 1993 	pop	ar4
-      00382E D0 05            [24] 1994 	pop	ar5
-      003830 D0 06            [24] 1995 	pop	ar6
-      003832 D0 07            [24] 1996 	pop	ar7
-                                   1997 ;	syntax.c:256: rd_ptr++;
-                                   1998 ;	syntax.c:257: temp--;
-      003834 1F               [12] 1999 	dec	r7
-                                   2000 ;	syntax.c:253: for(int i=15; i>=0;i--){
-      003835 1A               [12] 2001 	dec	r2
-      003836 BA FF 01         [24] 2002 	cjne	r2,#0xff,00129$
-      003839 1B               [12] 2003 	dec	r3
-      00383A                       2004 00129$:
-      00383A 02 37 B1         [24] 2005 	ljmp	00106$
-      00383D                       2006 00114$:
-      00383D 90 06 7E         [24] 2007 	mov	dptr,#_buffer0_dump_rd_ptr_65536_79
-      003840 EC               [12] 2008 	mov	a,r4
-      003841 F0               [24] 2009 	movx	@dptr,a
-      003842 ED               [12] 2010 	mov	a,r5
-      003843 A3               [24] 2011 	inc	dptr
-      003844 F0               [24] 2012 	movx	@dptr,a
-      003845 EE               [12] 2013 	mov	a,r6
-      003846 A3               [24] 2014 	inc	dptr
-      003847 F0               [24] 2015 	movx	@dptr,a
-      003848 90 06 81         [24] 2016 	mov	dptr,#_buffer0_dump_temp_65536_79
-      00384B EF               [12] 2017 	mov	a,r7
-      00384C F0               [24] 2018 	movx	@dptr,a
-                                   2019 ;	syntax.c:259: printf("\r\n");
-      00384D 74 3C            [12] 2020 	mov	a,#___str_12
-      00384F C0 E0            [24] 2021 	push	acc
-      003851 74 4F            [12] 2022 	mov	a,#(___str_12 >> 8)
-      003853 C0 E0            [24] 2023 	push	acc
-      003855 74 80            [12] 2024 	mov	a,#0x80
-      003857 C0 E0            [24] 2025 	push	acc
-      003859 12 43 89         [24] 2026 	lcall	_printf
-      00385C 15 81            [12] 2027 	dec	sp
-      00385E 15 81            [12] 2028 	dec	sp
-      003860 15 81            [12] 2029 	dec	sp
-                                   2030 ;	syntax.c:261: }
-      003862 02 37 72         [24] 2031 	ljmp	00102$
-                                   2032 ;------------------------------------------------------------
-                                   2033 ;Allocation info for local variables in function 'main'
-                                   2034 ;------------------------------------------------------------
-                                   2035 ;sloc0                     Allocated with name '_main_sloc0_1_0'
-                                   2036 ;buffer_size               Allocated with name '_main_buffer_size_65536_84'
-                                   2037 ;node1                     Allocated with name '_main_node1_65537_88'
-                                   2038 ;node2                     Allocated with name '_main_node2_65538_89'
-                                   2039 ;wr                        Allocated with name '_main_wr_65539_90'
-                                   2040 ;ch                        Allocated with name '_main_ch_131075_91'
-                                   2041 ;cha                       Allocated with name '_main_cha_131076_94'
-                                   2042 ;temp_buffer_size          Allocated to registers 
-                                   2043 ;index_for_write           Allocated to registers 
-                                   2044 ;------------------------------------------------------------
-                                   2045 ;	syntax.c:264: void main(void)
-                                   2046 ;	-----------------------------------------
-                                   2047 ;	 function main
-                                   2048 ;	-----------------------------------------
-      003865                       2049 _main:
-                                   2050 ;	syntax.c:270: do{
-      003865                       2051 00108$:
-                                   2052 ;	syntax.c:271: buffer_size  = get_buf_value("Enter buffer size between 32 and 4800 bytes (buffer size must be evenly divisible by 16): ", upper_default, LOWER_DEFAULT);
-      003865 90 06 5E         [24] 2053 	mov	dptr,#_get_buf_value_PARM_2
-      003868 74 C0            [12] 2054 	mov	a,#0xc0
-      00386A F0               [24] 2055 	movx	@dptr,a
-      00386B 74 12            [12] 2056 	mov	a,#0x12
-      00386D A3               [24] 2057 	inc	dptr
-      00386E F0               [24] 2058 	movx	@dptr,a
-      00386F 90 06 60         [24] 2059 	mov	dptr,#_get_buf_value_PARM_3
-      003872 74 20            [12] 2060 	mov	a,#0x20
-      003874 F0               [24] 2061 	movx	@dptr,a
-      003875 E4               [12] 2062 	clr	a
-      003876 A3               [24] 2063 	inc	dptr
-      003877 F0               [24] 2064 	movx	@dptr,a
-      003878 90 50 06         [24] 2065 	mov	dptr,#___str_18
-      00387B 75 F0 80         [24] 2066 	mov	b,#0x80
-      00387E 12 30 C9         [24] 2067 	lcall	_get_buf_value
-      003881 AE 82            [24] 2068 	mov	r6,dpl
-      003883 AF 83            [24] 2069 	mov	r7,dph
-                                   2070 ;	syntax.c:273: print_prompt("Buffer you entered is : 0x");
-      003885 90 50 61         [24] 2071 	mov	dptr,#___str_19
-      003888 75 F0 80         [24] 2072 	mov	b,#0x80
-      00388B C0 07            [24] 2073 	push	ar7
-      00388D C0 06            [24] 2074 	push	ar6
-      00388F 12 32 9C         [24] 2075 	lcall	_print_prompt
-      003892 D0 06            [24] 2076 	pop	ar6
-      003894 D0 07            [24] 2077 	pop	ar7
-                                   2078 ;	syntax.c:274: printf("%d \n\r", buffer_size);
-      003896 C0 07            [24] 2079 	push	ar7
-      003898 C0 06            [24] 2080 	push	ar6
-      00389A C0 06            [24] 2081 	push	ar6
-      00389C C0 07            [24] 2082 	push	ar7
-      00389E 74 85            [12] 2083 	mov	a,#___str_15
-      0038A0 C0 E0            [24] 2084 	push	acc
-      0038A2 74 4F            [12] 2085 	mov	a,#(___str_15 >> 8)
-      0038A4 C0 E0            [24] 2086 	push	acc
-      0038A6 74 80            [12] 2087 	mov	a,#0x80
-      0038A8 C0 E0            [24] 2088 	push	acc
-      0038AA 12 43 89         [24] 2089 	lcall	_printf
-      0038AD E5 81            [12] 2090 	mov	a,sp
-      0038AF 24 FB            [12] 2091 	add	a,#0xfb
-      0038B1 F5 81            [12] 2092 	mov	sp,a
-      0038B3 D0 06            [24] 2093 	pop	ar6
-      0038B5 D0 07            [24] 2094 	pop	ar7
-                                   2095 ;	syntax.c:276: if(buffer_size == -1) continue;
-      0038B7 BE FF 06         [24] 2096 	cjne	r6,#0xff,00171$
-      0038BA BF FF 03         [24] 2097 	cjne	r7,#0xff,00171$
-      0038BD 02 39 6C         [24] 2098 	ljmp	00109$
-      0038C0                       2099 00171$:
-                                   2100 ;	syntax.c:278: pointer1 = (__xdata uint8_t *) malloc(buffer_size);
-      0038C0 8E 82            [24] 2101 	mov	dpl,r6
-      0038C2 8F 83            [24] 2102 	mov	dph,r7
-      0038C4 C0 07            [24] 2103 	push	ar7
-      0038C6 C0 06            [24] 2104 	push	ar6
-      0038C8 12 40 B3         [24] 2105 	lcall	_malloc
-      0038CB AC 82            [24] 2106 	mov	r4,dpl
-      0038CD AD 83            [24] 2107 	mov	r5,dph
-      0038CF D0 06            [24] 2108 	pop	ar6
-      0038D1 D0 07            [24] 2109 	pop	ar7
-      0038D3 90 0F 08         [24] 2110 	mov	dptr,#_pointer1
-      0038D6 EC               [12] 2111 	mov	a,r4
-      0038D7 F0               [24] 2112 	movx	@dptr,a
-      0038D8 ED               [12] 2113 	mov	a,r5
-      0038D9 A3               [24] 2114 	inc	dptr
-      0038DA F0               [24] 2115 	movx	@dptr,a
-                                   2116 ;	syntax.c:279: if (pointer1 == NULL){
-      0038DB EC               [12] 2117 	mov	a,r4
-      0038DC 4D               [12] 2118 	orl	a,r5
-      0038DD 70 13            [24] 2119 	jnz	00104$
-                                   2120 ;	syntax.c:280: print_prompt("Failed to get malloc try to enter smaller size for buf 1\n\r");
-      0038DF 90 50 7C         [24] 2121 	mov	dptr,#___str_20
-      0038E2 75 F0 80         [24] 2122 	mov	b,#0x80
-      0038E5 C0 07            [24] 2123 	push	ar7
-      0038E7 C0 06            [24] 2124 	push	ar6
-      0038E9 12 32 9C         [24] 2125 	lcall	_print_prompt
-      0038EC D0 06            [24] 2126 	pop	ar6
-      0038EE D0 07            [24] 2127 	pop	ar7
-                                   2128 ;	syntax.c:281: continue;
-      0038F0 80 7A            [24] 2129 	sjmp	00109$
-      0038F2                       2130 00104$:
-                                   2131 ;	syntax.c:286: pointer2 = (__xdata uint8_t *) malloc(buffer_size);
-      0038F2 8E 82            [24] 2132 	mov	dpl,r6
-      0038F4 8F 83            [24] 2133 	mov	dph,r7
-      0038F6 C0 07            [24] 2134 	push	ar7
-      0038F8 C0 06            [24] 2135 	push	ar6
-      0038FA 12 40 B3         [24] 2136 	lcall	_malloc
-      0038FD AC 82            [24] 2137 	mov	r4,dpl
-      0038FF AD 83            [24] 2138 	mov	r5,dph
-      003901 D0 06            [24] 2139 	pop	ar6
-      003903 D0 07            [24] 2140 	pop	ar7
-      003905 90 0F 0A         [24] 2141 	mov	dptr,#_pointer2
-      003908 EC               [12] 2142 	mov	a,r4
-      003909 F0               [24] 2143 	movx	@dptr,a
-      00390A ED               [12] 2144 	mov	a,r5
-      00390B A3               [24] 2145 	inc	dptr
-      00390C F0               [24] 2146 	movx	@dptr,a
-                                   2147 ;	syntax.c:287: if (pointer2 == NULL){
-      00390D EC               [12] 2148 	mov	a,r4
-      00390E 4D               [12] 2149 	orl	a,r5
-      00390F 70 26            [24] 2150 	jnz	00106$
-                                   2151 ;	syntax.c:288: free(pointer1);
-      003911 90 0F 08         [24] 2152 	mov	dptr,#_pointer1
-      003914 E0               [24] 2153 	movx	a,@dptr
-      003915 FA               [12] 2154 	mov	r2,a
-      003916 A3               [24] 2155 	inc	dptr
-      003917 E0               [24] 2156 	movx	a,@dptr
-      003918 F9               [12] 2157 	mov	r1,a
-      003919 7B 00            [12] 2158 	mov	r3,#0x00
-      00391B 8A 82            [24] 2159 	mov	dpl,r2
-      00391D 89 83            [24] 2160 	mov	dph,r1
-      00391F 8B F0            [24] 2161 	mov	b,r3
-      003921 C0 07            [24] 2162 	push	ar7
-      003923 C0 06            [24] 2163 	push	ar6
-      003925 12 3C 5D         [24] 2164 	lcall	_free
-                                   2165 ;	syntax.c:290: print_prompt("Failed to get malloc try to enter smaller size for buf 2\n\r");
-      003928 90 50 B7         [24] 2166 	mov	dptr,#___str_21
-      00392B 75 F0 80         [24] 2167 	mov	b,#0x80
-      00392E 12 32 9C         [24] 2168 	lcall	_print_prompt
-      003931 D0 06            [24] 2169 	pop	ar6
-      003933 D0 07            [24] 2170 	pop	ar7
-                                   2171 ;	syntax.c:291: continue;
-      003935 80 35            [24] 2172 	sjmp	00109$
-      003937                       2173 00106$:
-                                   2174 ;	syntax.c:295: printf("pointer_value : %p %p\n\r", pointer1, pointer2);
-      003937 7B 00            [12] 2175 	mov	r3,#0x00
-      003939 90 0F 08         [24] 2176 	mov	dptr,#_pointer1
-      00393C E0               [24] 2177 	movx	a,@dptr
-      00393D F9               [12] 2178 	mov	r1,a
-      00393E A3               [24] 2179 	inc	dptr
-      00393F E0               [24] 2180 	movx	a,@dptr
-      003940 F8               [12] 2181 	mov	r0,a
-      003941 7A 00            [12] 2182 	mov	r2,#0x00
-      003943 C0 07            [24] 2183 	push	ar7
-      003945 C0 06            [24] 2184 	push	ar6
-      003947 C0 04            [24] 2185 	push	ar4
-      003949 C0 05            [24] 2186 	push	ar5
-      00394B C0 03            [24] 2187 	push	ar3
-      00394D C0 01            [24] 2188 	push	ar1
-      00394F C0 00            [24] 2189 	push	ar0
-      003951 C0 02            [24] 2190 	push	ar2
-      003953 74 F2            [12] 2191 	mov	a,#___str_22
-      003955 C0 E0            [24] 2192 	push	acc
-      003957 74 50            [12] 2193 	mov	a,#(___str_22 >> 8)
-      003959 C0 E0            [24] 2194 	push	acc
-      00395B 74 80            [12] 2195 	mov	a,#0x80
-      00395D C0 E0            [24] 2196 	push	acc
-      00395F 12 43 89         [24] 2197 	lcall	_printf
-      003962 E5 81            [12] 2198 	mov	a,sp
-      003964 24 F7            [12] 2199 	add	a,#0xf7
-      003966 F5 81            [12] 2200 	mov	sp,a
-      003968 D0 06            [24] 2201 	pop	ar6
-      00396A D0 07            [24] 2202 	pop	ar7
-      00396C                       2203 00109$:
-                                   2204 ;	syntax.c:296: }while( pointer2 == NULL || pointer1 == NULL);
-      00396C 90 0F 0A         [24] 2205 	mov	dptr,#_pointer2
-      00396F E0               [24] 2206 	movx	a,@dptr
-      003970 F5 F0            [12] 2207 	mov	b,a
-      003972 A3               [24] 2208 	inc	dptr
-      003973 E0               [24] 2209 	movx	a,@dptr
-      003974 45 F0            [12] 2210 	orl	a,b
-      003976 70 03            [24] 2211 	jnz	00174$
-      003978 02 38 65         [24] 2212 	ljmp	00108$
-      00397B                       2213 00174$:
-      00397B 90 0F 08         [24] 2214 	mov	dptr,#_pointer1
-      00397E E0               [24] 2215 	movx	a,@dptr
-      00397F F5 F0            [12] 2216 	mov	b,a
-      003981 A3               [24] 2217 	inc	dptr
-      003982 E0               [24] 2218 	movx	a,@dptr
-      003983 45 F0            [12] 2219 	orl	a,b
-      003985 70 03            [24] 2220 	jnz	00175$
-      003987 02 38 65         [24] 2221 	ljmp	00108$
-      00398A                       2222 00175$:
-                                   2223 ;	syntax.c:298: index_of_buffers = 0;
-      00398A 90 0F 02         [24] 2224 	mov	dptr,#_index_of_buffers
-      00398D E4               [12] 2225 	clr	a
-      00398E F0               [24] 2226 	movx	@dptr,a
-                                   2227 ;	syntax.c:300: node_t node1 = { index_of_buffers, pointer1, buffer_size};
-      00398F 90 06 82         [24] 2228 	mov	dptr,#_main_node1_65537_88
-      003992 F0               [24] 2229 	movx	@dptr,a
-      003993 90 0F 08         [24] 2230 	mov	dptr,#_pointer1
-      003996 E0               [24] 2231 	movx	a,@dptr
-      003997 FC               [12] 2232 	mov	r4,a
-      003998 A3               [24] 2233 	inc	dptr
-      003999 E0               [24] 2234 	movx	a,@dptr
-      00399A FD               [12] 2235 	mov	r5,a
-      00399B 7B 00            [12] 2236 	mov	r3,#0x00
-      00399D 90 06 83         [24] 2237 	mov	dptr,#(_main_node1_65537_88 + 0x0001)
-      0039A0 EC               [12] 2238 	mov	a,r4
-      0039A1 F0               [24] 2239 	movx	@dptr,a
-      0039A2 ED               [12] 2240 	mov	a,r5
-      0039A3 A3               [24] 2241 	inc	dptr
-      0039A4 F0               [24] 2242 	movx	@dptr,a
-      0039A5 EB               [12] 2243 	mov	a,r3
-      0039A6 A3               [24] 2244 	inc	dptr
-      0039A7 F0               [24] 2245 	movx	@dptr,a
-      0039A8 90 06 86         [24] 2246 	mov	dptr,#(_main_node1_65537_88 + 0x0004)
-      0039AB EE               [12] 2247 	mov	a,r6
-      0039AC F0               [24] 2248 	movx	@dptr,a
-      0039AD EF               [12] 2249 	mov	a,r7
-      0039AE A3               [24] 2250 	inc	dptr
-      0039AF F0               [24] 2251 	movx	@dptr,a
-                                   2252 ;	syntax.c:301: array_for_nodes[index_of_buffers] = node1;
-      0039B0 90 0F 02         [24] 2253 	mov	dptr,#_index_of_buffers
-      0039B3 E0               [24] 2254 	movx	a,@dptr
-      0039B4 75 F0 06         [24] 2255 	mov	b,#0x06
-      0039B7 A4               [48] 2256 	mul	ab
-      0039B8 24 04            [12] 2257 	add	a,#_array_for_nodes
-      0039BA FC               [12] 2258 	mov	r4,a
-      0039BB 74 04            [12] 2259 	mov	a,#(_array_for_nodes >> 8)
-      0039BD 35 F0            [12] 2260 	addc	a,b
-      0039BF FD               [12] 2261 	mov	r5,a
-      0039C0 7B 00            [12] 2262 	mov	r3,#0x00
-      0039C2 90 0E AD         [24] 2263 	mov	dptr,#___memcpy_PARM_2
-      0039C5 74 82            [12] 2264 	mov	a,#_main_node1_65537_88
-      0039C7 F0               [24] 2265 	movx	@dptr,a
-      0039C8 74 06            [12] 2266 	mov	a,#(_main_node1_65537_88 >> 8)
-      0039CA A3               [24] 2267 	inc	dptr
-      0039CB F0               [24] 2268 	movx	@dptr,a
-      0039CC E4               [12] 2269 	clr	a
-      0039CD A3               [24] 2270 	inc	dptr
-      0039CE F0               [24] 2271 	movx	@dptr,a
-      0039CF 90 0E B0         [24] 2272 	mov	dptr,#___memcpy_PARM_3
-      0039D2 74 06            [12] 2273 	mov	a,#0x06
-      0039D4 F0               [24] 2274 	movx	@dptr,a
-      0039D5 E4               [12] 2275 	clr	a
-      0039D6 A3               [24] 2276 	inc	dptr
-      0039D7 F0               [24] 2277 	movx	@dptr,a
-      0039D8 8C 82            [24] 2278 	mov	dpl,r4
-      0039DA 8D 83            [24] 2279 	mov	dph,r5
-      0039DC 8B F0            [24] 2280 	mov	b,r3
-      0039DE C0 07            [24] 2281 	push	ar7
-      0039E0 C0 06            [24] 2282 	push	ar6
-      0039E2 12 3F E8         [24] 2283 	lcall	___memcpy
-                                   2284 ;	syntax.c:302: printf("pointer location %p, size %d\n\r", array_for_nodes[index_of_buffers].data_pointer, array_for_nodes[index_of_buffers].size);
-      0039E5 90 0F 02         [24] 2285 	mov	dptr,#_index_of_buffers
-      0039E8 E0               [24] 2286 	movx	a,@dptr
-      0039E9 75 F0 06         [24] 2287 	mov	b,#0x06
-      0039EC A4               [48] 2288 	mul	ab
-      0039ED 24 04            [12] 2289 	add	a,#_array_for_nodes
-      0039EF FC               [12] 2290 	mov	r4,a
-      0039F0 74 04            [12] 2291 	mov	a,#(_array_for_nodes >> 8)
-      0039F2 35 F0            [12] 2292 	addc	a,b
-      0039F4 FD               [12] 2293 	mov	r5,a
-      0039F5 8C 82            [24] 2294 	mov	dpl,r4
-      0039F7 8D 83            [24] 2295 	mov	dph,r5
-      0039F9 A3               [24] 2296 	inc	dptr
-      0039FA A3               [24] 2297 	inc	dptr
-      0039FB A3               [24] 2298 	inc	dptr
-      0039FC A3               [24] 2299 	inc	dptr
-      0039FD E0               [24] 2300 	movx	a,@dptr
-      0039FE FA               [12] 2301 	mov	r2,a
-      0039FF A3               [24] 2302 	inc	dptr
-      003A00 E0               [24] 2303 	movx	a,@dptr
-      003A01 FB               [12] 2304 	mov	r3,a
-      003A02 8C 82            [24] 2305 	mov	dpl,r4
-      003A04 8D 83            [24] 2306 	mov	dph,r5
-      003A06 A3               [24] 2307 	inc	dptr
-      003A07 E0               [24] 2308 	movx	a,@dptr
-      003A08 F9               [12] 2309 	mov	r1,a
-      003A09 A3               [24] 2310 	inc	dptr
-      003A0A E0               [24] 2311 	movx	a,@dptr
-      003A0B FC               [12] 2312 	mov	r4,a
-      003A0C A3               [24] 2313 	inc	dptr
-      003A0D E0               [24] 2314 	movx	a,@dptr
-      003A0E FD               [12] 2315 	mov	r5,a
-      003A0F C0 02            [24] 2316 	push	ar2
-      003A11 C0 03            [24] 2317 	push	ar3
-      003A13 C0 01            [24] 2318 	push	ar1
-      003A15 C0 04            [24] 2319 	push	ar4
-      003A17 C0 05            [24] 2320 	push	ar5
-      003A19 74 0A            [12] 2321 	mov	a,#___str_23
-      003A1B C0 E0            [24] 2322 	push	acc
-      003A1D 74 51            [12] 2323 	mov	a,#(___str_23 >> 8)
-      003A1F C0 E0            [24] 2324 	push	acc
-      003A21 74 80            [12] 2325 	mov	a,#0x80
-      003A23 C0 E0            [24] 2326 	push	acc
-      003A25 12 43 89         [24] 2327 	lcall	_printf
-      003A28 E5 81            [12] 2328 	mov	a,sp
-      003A2A 24 F8            [12] 2329 	add	a,#0xf8
-      003A2C F5 81            [12] 2330 	mov	sp,a
-      003A2E D0 06            [24] 2331 	pop	ar6
-      003A30 D0 07            [24] 2332 	pop	ar7
-                                   2333 ;	syntax.c:303: index_of_buffers++;
-      003A32 90 0F 02         [24] 2334 	mov	dptr,#_index_of_buffers
-      003A35 E0               [24] 2335 	movx	a,@dptr
-      003A36 24 01            [12] 2336 	add	a,#0x01
-      003A38 F0               [24] 2337 	movx	@dptr,a
-                                   2338 ;	syntax.c:305: node_t node2 = { index_of_buffers, pointer2, buffer_size};
-      003A39 E0               [24] 2339 	movx	a,@dptr
-      003A3A 90 06 88         [24] 2340 	mov	dptr,#_main_node2_65538_89
-      003A3D F0               [24] 2341 	movx	@dptr,a
-      003A3E 90 0F 0A         [24] 2342 	mov	dptr,#_pointer2
-      003A41 E0               [24] 2343 	movx	a,@dptr
-      003A42 FC               [12] 2344 	mov	r4,a
-      003A43 A3               [24] 2345 	inc	dptr
-      003A44 E0               [24] 2346 	movx	a,@dptr
-      003A45 FD               [12] 2347 	mov	r5,a
-      003A46 7B 00            [12] 2348 	mov	r3,#0x00
-      003A48 90 06 89         [24] 2349 	mov	dptr,#(_main_node2_65538_89 + 0x0001)
-      003A4B EC               [12] 2350 	mov	a,r4
-      003A4C F0               [24] 2351 	movx	@dptr,a
-      003A4D ED               [12] 2352 	mov	a,r5
-      003A4E A3               [24] 2353 	inc	dptr
-      003A4F F0               [24] 2354 	movx	@dptr,a
-      003A50 EB               [12] 2355 	mov	a,r3
-      003A51 A3               [24] 2356 	inc	dptr
-      003A52 F0               [24] 2357 	movx	@dptr,a
-      003A53 90 06 8C         [24] 2358 	mov	dptr,#(_main_node2_65538_89 + 0x0004)
-      003A56 EE               [12] 2359 	mov	a,r6
-      003A57 F0               [24] 2360 	movx	@dptr,a
-      003A58 EF               [12] 2361 	mov	a,r7
-      003A59 A3               [24] 2362 	inc	dptr
-      003A5A F0               [24] 2363 	movx	@dptr,a
-                                   2364 ;	syntax.c:306: array_for_nodes[index_of_buffers] = node2;
-      003A5B 90 0F 02         [24] 2365 	mov	dptr,#_index_of_buffers
-      003A5E E0               [24] 2366 	movx	a,@dptr
-      003A5F 75 F0 06         [24] 2367 	mov	b,#0x06
-      003A62 A4               [48] 2368 	mul	ab
-      003A63 24 04            [12] 2369 	add	a,#_array_for_nodes
-      003A65 FE               [12] 2370 	mov	r6,a
-      003A66 74 04            [12] 2371 	mov	a,#(_array_for_nodes >> 8)
-      003A68 35 F0            [12] 2372 	addc	a,b
-      003A6A FF               [12] 2373 	mov	r7,a
-      003A6B 7D 00            [12] 2374 	mov	r5,#0x00
-      003A6D 90 0E AD         [24] 2375 	mov	dptr,#___memcpy_PARM_2
-      003A70 74 88            [12] 2376 	mov	a,#_main_node2_65538_89
-      003A72 F0               [24] 2377 	movx	@dptr,a
-      003A73 74 06            [12] 2378 	mov	a,#(_main_node2_65538_89 >> 8)
-      003A75 A3               [24] 2379 	inc	dptr
-      003A76 F0               [24] 2380 	movx	@dptr,a
-      003A77 E4               [12] 2381 	clr	a
-      003A78 A3               [24] 2382 	inc	dptr
-      003A79 F0               [24] 2383 	movx	@dptr,a
-      003A7A 90 0E B0         [24] 2384 	mov	dptr,#___memcpy_PARM_3
-      003A7D 74 06            [12] 2385 	mov	a,#0x06
-      003A7F F0               [24] 2386 	movx	@dptr,a
-      003A80 E4               [12] 2387 	clr	a
-      003A81 A3               [24] 2388 	inc	dptr
-      003A82 F0               [24] 2389 	movx	@dptr,a
-      003A83 8E 82            [24] 2390 	mov	dpl,r6
-      003A85 8F 83            [24] 2391 	mov	dph,r7
-      003A87 8D F0            [24] 2392 	mov	b,r5
-      003A89 12 3F E8         [24] 2393 	lcall	___memcpy
-                                   2394 ;	syntax.c:307: printf("pointer location %p, size %d\n\r", array_for_nodes[index_of_buffers].data_pointer, array_for_nodes[index_of_buffers].size);
-      003A8C 90 0F 02         [24] 2395 	mov	dptr,#_index_of_buffers
-      003A8F E0               [24] 2396 	movx	a,@dptr
-      003A90 75 F0 06         [24] 2397 	mov	b,#0x06
-      003A93 A4               [48] 2398 	mul	ab
-      003A94 24 04            [12] 2399 	add	a,#_array_for_nodes
-      003A96 FE               [12] 2400 	mov	r6,a
-      003A97 74 04            [12] 2401 	mov	a,#(_array_for_nodes >> 8)
-      003A99 35 F0            [12] 2402 	addc	a,b
-      003A9B FF               [12] 2403 	mov	r7,a
-      003A9C 8E 82            [24] 2404 	mov	dpl,r6
-      003A9E 8F 83            [24] 2405 	mov	dph,r7
-      003AA0 A3               [24] 2406 	inc	dptr
-      003AA1 A3               [24] 2407 	inc	dptr
-      003AA2 A3               [24] 2408 	inc	dptr
-      003AA3 A3               [24] 2409 	inc	dptr
-      003AA4 E0               [24] 2410 	movx	a,@dptr
-      003AA5 FC               [12] 2411 	mov	r4,a
-      003AA6 A3               [24] 2412 	inc	dptr
-      003AA7 E0               [24] 2413 	movx	a,@dptr
-      003AA8 FD               [12] 2414 	mov	r5,a
-      003AA9 8E 82            [24] 2415 	mov	dpl,r6
-      003AAB 8F 83            [24] 2416 	mov	dph,r7
-      003AAD A3               [24] 2417 	inc	dptr
-      003AAE E0               [24] 2418 	movx	a,@dptr
-      003AAF FB               [12] 2419 	mov	r3,a
-      003AB0 A3               [24] 2420 	inc	dptr
-      003AB1 E0               [24] 2421 	movx	a,@dptr
-      003AB2 FE               [12] 2422 	mov	r6,a
-      003AB3 A3               [24] 2423 	inc	dptr
-      003AB4 E0               [24] 2424 	movx	a,@dptr
-      003AB5 FF               [12] 2425 	mov	r7,a
-      003AB6 C0 04            [24] 2426 	push	ar4
-      003AB8 C0 05            [24] 2427 	push	ar5
-      003ABA C0 03            [24] 2428 	push	ar3
-      003ABC C0 06            [24] 2429 	push	ar6
-      003ABE C0 07            [24] 2430 	push	ar7
-      003AC0 74 0A            [12] 2431 	mov	a,#___str_23
-      003AC2 C0 E0            [24] 2432 	push	acc
-      003AC4 74 51            [12] 2433 	mov	a,#(___str_23 >> 8)
-      003AC6 C0 E0            [24] 2434 	push	acc
-      003AC8 74 80            [12] 2435 	mov	a,#0x80
-      003ACA C0 E0            [24] 2436 	push	acc
-      003ACC 12 43 89         [24] 2437 	lcall	_printf
-      003ACF E5 81            [12] 2438 	mov	a,sp
-      003AD1 24 F8            [12] 2439 	add	a,#0xf8
-      003AD3 F5 81            [12] 2440 	mov	sp,a
-                                   2441 ;	syntax.c:308: index_of_buffers++;
-      003AD5 90 0F 02         [24] 2442 	mov	dptr,#_index_of_buffers
-      003AD8 E0               [24] 2443 	movx	a,@dptr
-      003AD9 24 01            [12] 2444 	add	a,#0x01
-      003ADB F0               [24] 2445 	movx	@dptr,a
-                                   2446 ;	syntax.c:310: print_prompt("Enter Uppercase char to save in buffer 0: \n\r");
-      003ADC 90 51 29         [24] 2447 	mov	dptr,#___str_24
-      003ADF 75 F0 80         [24] 2448 	mov	b,#0x80
-      003AE2 12 32 9C         [24] 2449 	lcall	_print_prompt
-                                   2450 ;	syntax.c:312: __idata int temp_buffer_size = array_for_nodes[0].size;
-      003AE5 90 04 08         [24] 2451 	mov	dptr,#(_array_for_nodes + 0x0004)
-      003AE8 E0               [24] 2452 	movx	a,@dptr
-      003AE9 FE               [12] 2453 	mov	r6,a
-      003AEA A3               [24] 2454 	inc	dptr
-      003AEB E0               [24] 2455 	movx	a,@dptr
-      003AEC FF               [12] 2456 	mov	r7,a
-                                   2457 ;	syntax.c:315: uint8_t * wr = array_for_nodes[0].data_pointer;
-      003AED 90 04 05         [24] 2458 	mov	dptr,#(_array_for_nodes + 0x0001)
-      003AF0 E0               [24] 2459 	movx	a,@dptr
-      003AF1 FB               [12] 2460 	mov	r3,a
-      003AF2 A3               [24] 2461 	inc	dptr
-      003AF3 E0               [24] 2462 	movx	a,@dptr
-      003AF4 FC               [12] 2463 	mov	r4,a
-      003AF5 A3               [24] 2464 	inc	dptr
-      003AF6 E0               [24] 2465 	movx	a,@dptr
-      003AF7 FD               [12] 2466 	mov	r5,a
-                                   2467 ;	syntax.c:317: do{
-      003AF8                       2468 00114$:
-                                   2469 ;	syntax.c:318: int ch = getchar();
-      003AF8 C0 07            [24] 2470 	push	ar7
-      003AFA C0 06            [24] 2471 	push	ar6
-      003AFC C0 05            [24] 2472 	push	ar5
-      003AFE C0 04            [24] 2473 	push	ar4
-      003B00 C0 03            [24] 2474 	push	ar3
-      003B02 12 30 B4         [24] 2475 	lcall	_getchar
-                                   2476 ;	syntax.c:319: putchar(ch);
-      003B05 A9 82            [24] 2477 	mov	r1,dpl
-      003B07 AA 83            [24] 2478 	mov  r2,dph
-      003B09 C0 02            [24] 2479 	push	ar2
-      003B0B C0 01            [24] 2480 	push	ar1
-      003B0D 12 30 97         [24] 2481 	lcall	_putchar
-      003B10 D0 01            [24] 2482 	pop	ar1
-      003B12 D0 02            [24] 2483 	pop	ar2
-      003B14 D0 03            [24] 2484 	pop	ar3
-      003B16 D0 04            [24] 2485 	pop	ar4
-      003B18 D0 05            [24] 2486 	pop	ar5
-      003B1A D0 06            [24] 2487 	pop	ar6
-      003B1C D0 07            [24] 2488 	pop	ar7
-                                   2489 ;	syntax.c:320: if(ch < 65 || ch > 90) {
-      003B1E C3               [12] 2490 	clr	c
-      003B1F E9               [12] 2491 	mov	a,r1
-      003B20 94 41            [12] 2492 	subb	a,#0x41
-      003B22 EA               [12] 2493 	mov	a,r2
-      003B23 64 80            [12] 2494 	xrl	a,#0x80
-      003B25 94 80            [12] 2495 	subb	a,#0x80
-      003B27 40 0E            [24] 2496 	jc	00111$
-      003B29 74 5A            [12] 2497 	mov	a,#0x5a
-      003B2B 99               [12] 2498 	subb	a,r1
-      003B2C 74 80            [12] 2499 	mov	a,#(0x00 ^ 0x80)
-      003B2E 8A F0            [24] 2500 	mov	b,r2
-      003B30 63 F0 80         [24] 2501 	xrl	b,#0x80
-      003B33 95 F0            [12] 2502 	subb	a,b
-      003B35 50 3A            [24] 2503 	jnc	00112$
-      003B37                       2504 00111$:
-                                   2505 ;	syntax.c:321: total_number_of_commands+=1;
-      003B37 90 0F 03         [24] 2506 	mov	dptr,#_total_number_of_commands
-      003B3A E0               [24] 2507 	movx	a,@dptr
-      003B3B 04               [12] 2508 	inc	a
-      003B3C F0               [24] 2509 	movx	@dptr,a
-                                   2510 ;	syntax.c:322: recent_commands+=1;
-      003B3D 90 0F 05         [24] 2511 	mov	dptr,#_recent_commands
-      003B40 E0               [24] 2512 	movx	a,@dptr
-      003B41 04               [12] 2513 	inc	a
-      003B42 F0               [24] 2514 	movx	@dptr,a
-                                   2515 ;	syntax.c:323: print_prompt("Command recived ! \n\r");
-      003B43 90 51 56         [24] 2516 	mov	dptr,#___str_25
-      003B46 75 F0 80         [24] 2517 	mov	b,#0x80
-      003B49 C0 07            [24] 2518 	push	ar7
-      003B4B C0 06            [24] 2519 	push	ar6
-      003B4D C0 05            [24] 2520 	push	ar5
-      003B4F C0 04            [24] 2521 	push	ar4
-      003B51 C0 03            [24] 2522 	push	ar3
-      003B53 C0 02            [24] 2523 	push	ar2
-      003B55 C0 01            [24] 2524 	push	ar1
-      003B57 12 32 9C         [24] 2525 	lcall	_print_prompt
-      003B5A D0 01            [24] 2526 	pop	ar1
-      003B5C D0 02            [24] 2527 	pop	ar2
-                                   2528 ;	syntax.c:324: get_command(ch);
-      003B5E 89 82            [24] 2529 	mov	dpl,r1
-      003B60 8A 83            [24] 2530 	mov	dph,r2
-      003B62 12 32 F6         [24] 2531 	lcall	_get_command
-      003B65 D0 03            [24] 2532 	pop	ar3
-      003B67 D0 04            [24] 2533 	pop	ar4
-      003B69 D0 05            [24] 2534 	pop	ar5
-      003B6B D0 06            [24] 2535 	pop	ar6
-      003B6D D0 07            [24] 2536 	pop	ar7
-                                   2537 ;	syntax.c:325: continue;
-      003B6F 80 68            [24] 2538 	sjmp	00115$
-      003B71                       2539 00112$:
-                                   2540 ;	syntax.c:327: total_number_of_storage = total_number_of_storage + 1;
-      003B71 90 0F 04         [24] 2541 	mov	dptr,#_total_number_of_storage
-      003B74 E0               [24] 2542 	movx	a,@dptr
-      003B75 04               [12] 2543 	inc	a
-      003B76 F0               [24] 2544 	movx	@dptr,a
-                                   2545 ;	syntax.c:328: recent_storage = recent_storage + 1;
-      003B77 90 0F 06         [24] 2546 	mov	dptr,#_recent_storage
-      003B7A E0               [24] 2547 	movx	a,@dptr
-      003B7B 04               [12] 2548 	inc	a
-      003B7C F0               [24] 2549 	movx	@dptr,a
-                                   2550 ;	syntax.c:330: *wr = ch;
-      003B7D 8B 82            [24] 2551 	mov	dpl,r3
-      003B7F 8C 83            [24] 2552 	mov	dph,r4
-      003B81 8D F0            [24] 2553 	mov	b,r5
-      003B83 E9               [12] 2554 	mov	a,r1
-      003B84 12 40 5C         [24] 2555 	lcall	__gptrput
-      003B87 A3               [24] 2556 	inc	dptr
-      003B88 AB 82            [24] 2557 	mov	r3,dpl
-      003B8A AC 83            [24] 2558 	mov	r4,dph
-                                   2559 ;	syntax.c:331: wr++;
-                                   2560 ;	syntax.c:332: printf("total storage %d recent storage %d pointer %p \n\r", total_number_of_storage, recent_storage, wr);
-      003B8C 90 0F 06         [24] 2561 	mov	dptr,#_recent_storage
-      003B8F E0               [24] 2562 	movx	a,@dptr
-      003B90 FA               [12] 2563 	mov	r2,a
-      003B91 8A 0D            [24] 2564 	mov	_main_sloc0_1_0,r2
-      003B93 75 0E 00         [24] 2565 	mov	(_main_sloc0_1_0 + 1),#0x00
-      003B96 90 0F 04         [24] 2566 	mov	dptr,#_total_number_of_storage
-      003B99 E0               [24] 2567 	movx	a,@dptr
-      003B9A F8               [12] 2568 	mov	r0,a
-      003B9B 7A 00            [12] 2569 	mov	r2,#0x00
-      003B9D C0 07            [24] 2570 	push	ar7
-      003B9F C0 06            [24] 2571 	push	ar6
-      003BA1 C0 05            [24] 2572 	push	ar5
-      003BA3 C0 04            [24] 2573 	push	ar4
-      003BA5 C0 03            [24] 2574 	push	ar3
-      003BA7 C0 03            [24] 2575 	push	ar3
-      003BA9 C0 04            [24] 2576 	push	ar4
-      003BAB C0 05            [24] 2577 	push	ar5
-      003BAD C0 0D            [24] 2578 	push	_main_sloc0_1_0
-      003BAF C0 0E            [24] 2579 	push	(_main_sloc0_1_0 + 1)
-      003BB1 C0 00            [24] 2580 	push	ar0
-      003BB3 C0 02            [24] 2581 	push	ar2
-      003BB5 74 6B            [12] 2582 	mov	a,#___str_26
-      003BB7 C0 E0            [24] 2583 	push	acc
-      003BB9 74 51            [12] 2584 	mov	a,#(___str_26 >> 8)
-      003BBB C0 E0            [24] 2585 	push	acc
-      003BBD 74 80            [12] 2586 	mov	a,#0x80
-      003BBF C0 E0            [24] 2587 	push	acc
-      003BC1 12 43 89         [24] 2588 	lcall	_printf
-      003BC4 E5 81            [12] 2589 	mov	a,sp
-      003BC6 24 F6            [12] 2590 	add	a,#0xf6
-      003BC8 F5 81            [12] 2591 	mov	sp,a
-      003BCA D0 03            [24] 2592 	pop	ar3
-      003BCC D0 04            [24] 2593 	pop	ar4
-      003BCE D0 05            [24] 2594 	pop	ar5
-      003BD0 D0 06            [24] 2595 	pop	ar6
-      003BD2 D0 07            [24] 2596 	pop	ar7
-                                   2597 ;	syntax.c:333: temp_buffer_size -= 1;
-      003BD4 1E               [12] 2598 	dec	r6
-      003BD5 BE FF 01         [24] 2599 	cjne	r6,#0xff,00178$
-      003BD8 1F               [12] 2600 	dec	r7
-      003BD9                       2601 00178$:
-                                   2602 ;	syntax.c:334: index_for_write += 1;
-      003BD9                       2603 00115$:
-                                   2604 ;	syntax.c:335: }while(temp_buffer_size>0);
-      003BD9 C3               [12] 2605 	clr	c
-      003BDA E4               [12] 2606 	clr	a
-      003BDB 9E               [12] 2607 	subb	a,r6
-      003BDC 74 80            [12] 2608 	mov	a,#(0x00 ^ 0x80)
-      003BDE 8F F0            [24] 2609 	mov	b,r7
-      003BE0 63 F0 80         [24] 2610 	xrl	b,#0x80
-      003BE3 95 F0            [12] 2611 	subb	a,b
-      003BE5 50 03            [24] 2612 	jnc	00179$
-      003BE7 02 3A F8         [24] 2613 	ljmp	00114$
-      003BEA                       2614 00179$:
-                                   2615 ;	syntax.c:336: printf("buffer0 got full nothing to write !");
-      003BEA 74 9C            [12] 2616 	mov	a,#___str_27
-      003BEC C0 E0            [24] 2617 	push	acc
-      003BEE 74 51            [12] 2618 	mov	a,#(___str_27 >> 8)
-      003BF0 C0 E0            [24] 2619 	push	acc
-      003BF2 74 80            [12] 2620 	mov	a,#0x80
-      003BF4 C0 E0            [24] 2621 	push	acc
-      003BF6 12 43 89         [24] 2622 	lcall	_printf
-      003BF9 15 81            [12] 2623 	dec	sp
-      003BFB 15 81            [12] 2624 	dec	sp
-      003BFD 15 81            [12] 2625 	dec	sp
-                                   2626 ;	syntax.c:341: while(1)
-      003BFF                       2627 00122$:
-                                   2628 ;	syntax.c:343: print_prompt("Please enter An command (+) (-) (?) (=) (@): \n");
-      003BFF 90 51 C0         [24] 2629 	mov	dptr,#___str_28
-      003C02 75 F0 80         [24] 2630 	mov	b,#0x80
-      003C05 12 32 9C         [24] 2631 	lcall	_print_prompt
-                                   2632 ;	syntax.c:344: int cha = getchar();
-      003C08 12 30 B4         [24] 2633 	lcall	_getchar
-      003C0B AE 82            [24] 2634 	mov	r6,dpl
-      003C0D AF 83            [24] 2635 	mov	r7,dph
-                                   2636 ;	syntax.c:345: if(cha < 65 || cha > 90) {
-      003C0F C3               [12] 2637 	clr	c
-      003C10 EE               [12] 2638 	mov	a,r6
-      003C11 94 41            [12] 2639 	subb	a,#0x41
-      003C13 EF               [12] 2640 	mov	a,r7
-      003C14 64 80            [12] 2641 	xrl	a,#0x80
-      003C16 94 80            [12] 2642 	subb	a,#0x80
-      003C18 40 0E            [24] 2643 	jc	00117$
-      003C1A 74 5A            [12] 2644 	mov	a,#0x5a
-      003C1C 9E               [12] 2645 	subb	a,r6
-      003C1D 74 80            [12] 2646 	mov	a,#(0x00 ^ 0x80)
-      003C1F 8F F0            [24] 2647 	mov	b,r7
-      003C21 63 F0 80         [24] 2648 	xrl	b,#0x80
-      003C24 95 F0            [12] 2649 	subb	a,b
-      003C26 50 1F            [24] 2650 	jnc	00118$
-      003C28                       2651 00117$:
-                                   2652 ;	syntax.c:346: total_number_of_commands+=1;
-      003C28 90 0F 03         [24] 2653 	mov	dptr,#_total_number_of_commands
-      003C2B E0               [24] 2654 	movx	a,@dptr
-      003C2C 04               [12] 2655 	inc	a
-      003C2D F0               [24] 2656 	movx	@dptr,a
-                                   2657 ;	syntax.c:347: recent_commands+=1;
-      003C2E 90 0F 05         [24] 2658 	mov	dptr,#_recent_commands
-      003C31 E0               [24] 2659 	movx	a,@dptr
-      003C32 04               [12] 2660 	inc	a
-      003C33 F0               [24] 2661 	movx	@dptr,a
-                                   2662 ;	syntax.c:348: print_prompt("Command recived ! \n\r");
-      003C34 90 51 56         [24] 2663 	mov	dptr,#___str_25
-      003C37 75 F0 80         [24] 2664 	mov	b,#0x80
-      003C3A C0 07            [24] 2665 	push	ar7
-      003C3C C0 06            [24] 2666 	push	ar6
-      003C3E 12 32 9C         [24] 2667 	lcall	_print_prompt
-      003C41 D0 06            [24] 2668 	pop	ar6
-      003C43 D0 07            [24] 2669 	pop	ar7
-      003C45 80 0D            [24] 2670 	sjmp	00119$
-      003C47                       2671 00118$:
-                                   2672 ;	syntax.c:351: total_number_of_storage = total_number_of_storage + 1;
-      003C47 90 0F 04         [24] 2673 	mov	dptr,#_total_number_of_storage
-      003C4A E0               [24] 2674 	movx	a,@dptr
-      003C4B 04               [12] 2675 	inc	a
-      003C4C F0               [24] 2676 	movx	@dptr,a
-                                   2677 ;	syntax.c:352: recent_storage = recent_storage + 1;
-      003C4D 90 0F 06         [24] 2678 	mov	dptr,#_recent_storage
-      003C50 E0               [24] 2679 	movx	a,@dptr
-      003C51 FD               [12] 2680 	mov	r5,a
-      003C52 04               [12] 2681 	inc	a
-      003C53 F0               [24] 2682 	movx	@dptr,a
-      003C54                       2683 00119$:
-                                   2684 ;	syntax.c:355: get_command(cha);
-      003C54 8E 82            [24] 2685 	mov	dpl,r6
-      003C56 8F 83            [24] 2686 	mov	dph,r7
-      003C58 12 32 F6         [24] 2687 	lcall	_get_command
-                                   2688 ;	syntax.c:362: }
-      003C5B 80 A2            [24] 2689 	sjmp	00122$
-                                   2690 	.area CSEG    (CODE)
-                                   2691 	.area CONST   (CODE)
-                                   2692 	.area CONST   (CODE)
-      004DCB                       2693 ___str_0:
-      004DCB 0A                    2694 	.db 0x0a
-      004DCC 45 6E 74 65 72 20 76  2695 	.ascii "Enter valid input"
-             61 6C 69 64 20 69 6E
-             70 75 74
-      004DDD 0A                    2696 	.db 0x0a
-      004DDE 0D                    2697 	.db 0x0d
-      004DDF 00                    2698 	.db 0x00
-                                   2699 	.area CSEG    (CODE)
-                                   2700 	.area CONST   (CODE)
-      004DE0                       2701 ___str_1:
-      004DE0 53 49 5A 45 20 45 4E  2702 	.ascii "SIZE ENTERED : %d"
-             54 45 52 45 44 20 3A
-             20 25 64
-      004DF1 0A                    2703 	.db 0x0a
-      004DF2 0D                    2704 	.db 0x0d
-      004DF3 00                    2705 	.db 0x00
-                                   2706 	.area CSEG    (CODE)
-                                   2707 	.area CONST   (CODE)
-      004DF4                       2708 ___str_2:
-      004DF4 54 6F 74 61 6C 20 6E  2709 	.ascii "Total number of commands from the start: "
-             75 6D 62 65 72 20 6F
-             66 20 63 6F 6D 6D 61
-             6E 64 73 20 66 72 6F
-             6D 20 74 68 65 20 73
-             74 61 72 74 3A 20
-      004E1D 00                    2710 	.db 0x00
-                                   2711 	.area CSEG    (CODE)
-                                   2712 	.area CONST   (CODE)
-      004E1E                       2713 ___str_3:
-      004E1E 25 64                 2714 	.ascii "%d"
-      004E20 00                    2715 	.db 0x00
-                                   2716 	.area CSEG    (CODE)
-                                   2717 	.area CONST   (CODE)
-      004E21                       2718 ___str_4:
-      004E21 0A                    2719 	.db 0x0a
-      004E22 0D                    2720 	.db 0x0d
-      004E23 00                    2721 	.db 0x00
-                                   2722 	.area CSEG    (CODE)
-                                   2723 	.area CONST   (CODE)
-      004E24                       2724 ___str_5:
-      004E24 52 65 63 65 6E 74 20  2725 	.ascii "Recent number of commands from the last ?: "
-             6E 75 6D 62 65 72 20
-             6F 66 20 63 6F 6D 6D
-             61 6E 64 73 20 66 72
-             6F 6D 20 74 68 65 20
-             6C 61 73 74 20 3F 3A
-             20
-      004E4F 00                    2726 	.db 0x00
-                                   2727 	.area CSEG    (CODE)
-                                   2728 	.area CONST   (CODE)
-      004E50                       2729 ___str_6:
-      004E50 54 6F 74 61 6C 20 6E  2730 	.ascii "Total number of storage chars from the start: "
-             75 6D 62 65 72 20 6F
-             66 20 73 74 6F 72 61
-             67 65 20 63 68 61 72
-             73 20 66 72 6F 6D 20
-             74 68 65 20 73 74 61
-             72 74 3A 20
-      004E7E 00                    2731 	.db 0x00
-                                   2732 	.area CSEG    (CODE)
-                                   2733 	.area CONST   (CODE)
-      004E7F                       2734 ___str_7:
-      004E7F 52 65 63 65 6E 74 20  2735 	.ascii "Recent number of storage chars from the last ?: "
-             6E 75 6D 62 65 72 20
-             6F 66 20 73 74 6F 72
-             61 67 65 20 63 68 61
-             72 73 20 66 72 6F 6D
-             20 74 68 65 20 6C 61
-             73 74 20 3F 3A 20
-      004EAF 00                    2736 	.db 0x00
-                                   2737 	.area CSEG    (CODE)
-                                   2738 	.area CONST   (CODE)
-      004EB0                       2739 ___str_8:
-      004EB0 49 6E 64 65 78 3A 20  2740 	.ascii "Index: %d , starting address of Pointer: %p  Ending Address "
-             25 64 20 2C 20 73 74
-             61 72 74 69 6E 67 20
-             61 64 64 72 65 73 73
-             20 6F 66 20 50 6F 69
-             6E 74 65 72 3A 20 25
-             70 20 20 45 6E 64 69
-             6E 67 20 41 64 64 72
-             65 73 73 20
-      004EEC 6F 66 20 74 68 65 20  2741 	.ascii "of the pointer %p size of array: %d"
-             70 6F 69 6E 74 65 72
-             20 25 70 20 73 69 7A
-             65 20 6F 66 20 61 72
-             72 61 79 3A 20 25 64
-      004F0F 0A                    2742 	.db 0x0a
-      004F10 0D                    2743 	.db 0x0d
-      004F11 00                    2744 	.db 0x00
-                                   2745 	.area CSEG    (CODE)
-                                   2746 	.area CONST   (CODE)
-      004F12                       2747 ___str_9:
-      004F12 2E 2E 2E 2E 2E 2E 2E  2748 	.ascii "....... Dumping Buffer0 ......"
-             20 44 75 6D 70 69 6E
-             67 20 42 75 66 66 65
-             72 30 20 2E 2E 2E 2E
-             2E 2E
-      004F30 0D                    2749 	.db 0x0d
-      004F31 0A                    2750 	.db 0x0a
-      004F32 00                    2751 	.db 0x00
-                                   2752 	.area CSEG    (CODE)
-                                   2753 	.area CONST   (CODE)
-      004F33                       2754 ___str_10:
-      004F33 25 70 3A 20           2755 	.ascii "%p: "
-      004F37 00                    2756 	.db 0x00
-                                   2757 	.area CSEG    (CODE)
-                                   2758 	.area CONST   (CODE)
-      004F38                       2759 ___str_11:
-      004F38 25 64 20              2760 	.ascii "%d "
-      004F3B 00                    2761 	.db 0x00
-                                   2762 	.area CSEG    (CODE)
-                                   2763 	.area CONST   (CODE)
-      004F3C                       2764 ___str_12:
-      004F3C 0D                    2765 	.db 0x0d
-      004F3D 0A                    2766 	.db 0x0a
-      004F3E 00                    2767 	.db 0x00
-                                   2768 	.area CSEG    (CODE)
-                                   2769 	.area CONST   (CODE)
-      004F3F                       2770 ___str_13:
-      004F3F 0A                    2771 	.db 0x0a
-      004F40 0D                    2772 	.db 0x0d
-      004F41 45 6E 74 65 72 20 62  2773 	.ascii "Enter buffer size between 20 to 400: "
-             75 66 66 65 72 20 73
-             69 7A 65 20 62 65 74
-             77 65 65 6E 20 32 30
-             20 74 6F 20 34 30 30
-             3A 20
-      004F66 00                    2774 	.db 0x00
-                                   2775 	.area CSEG    (CODE)
-                                   2776 	.area CONST   (CODE)
-      004F67                       2777 ___str_14:
-      004F67 42 75 66 66 65 72 20  2778 	.ascii "Buffer size you entered is : "
-             73 69 7A 65 20 79 6F
-             75 20 65 6E 74 65 72
-             65 64 20 69 73 20 3A
-             20
-      004F84 00                    2779 	.db 0x00
-                                   2780 	.area CSEG    (CODE)
-                                   2781 	.area CONST   (CODE)
-      004F85                       2782 ___str_15:
-      004F85 25 64 20              2783 	.ascii "%d "
-      004F88 0A                    2784 	.db 0x0a
-      004F89 0D                    2785 	.db 0x0d
-      004F8A 00                    2786 	.db 0x00
-                                   2787 	.area CSEG    (CODE)
-                                   2788 	.area CONST   (CODE)
-      004F8B                       2789 ___str_16:
-      004F8B 0A                    2790 	.db 0x0a
-      004F8C 0D                    2791 	.db 0x0d
-      004F8D 46 61 69 6C 65 64 20  2792 	.ascii "Failed to get malloc try to enter smaller size by again ente"
-             74 6F 20 67 65 74 20
-             6D 61 6C 6C 6F 63 20
-             74 72 79 20 74 6F 20
-             65 6E 74 65 72 20 73
-             6D 61 6C 6C 65 72 20
-             73 69 7A 65 20 62 79
-             20 61 67 61 69 6E 20
-             65 6E 74 65
-      004FC9 72 69 6E 67 20 2B     2793 	.ascii "ring +"
-      004FCF 00                    2794 	.db 0x00
-                                   2795 	.area CSEG    (CODE)
-                                   2796 	.area CONST   (CODE)
-      004FD0                       2797 ___str_17:
-      004FD0 0A                    2798 	.db 0x0a
-      004FD1 0D                    2799 	.db 0x0d
-      004FD2 45 6E 74 65 72 20 4E  2800 	.ascii "Enter Number to delete between 0 to 127 for buffer:"
-             75 6D 62 65 72 20 74
-             6F 20 64 65 6C 65 74
-             65 20 62 65 74 77 65
-             65 6E 20 30 20 74 6F
-             20 31 32 37 20 66 6F
-             72 20 62 75 66 66 65
-             72 3A
-      005005 00                    2801 	.db 0x00
-                                   2802 	.area CSEG    (CODE)
-                                   2803 	.area CONST   (CODE)
-      005006                       2804 ___str_18:
-      005006 45 6E 74 65 72 20 62  2805 	.ascii "Enter buffer size between 32 and 4800 bytes (buffer size mus"
-             75 66 66 65 72 20 73
-             69 7A 65 20 62 65 74
-             77 65 65 6E 20 33 32
-             20 61 6E 64 20 34 38
-             30 30 20 62 79 74 65
-             73 20 28 62 75 66 66
+                                   1183 ;	 function print_prompt
+                                   1184 ;	-----------------------------------------
+      003384                       1185 _print_prompt:
+      003384 AF F0            [24] 1186 	mov	r7,b
+      003386 AE 83            [24] 1187 	mov	r6,dph
+      003388 E5 82            [12] 1188 	mov	a,dpl
+      00338A 90 06 6D         [24] 1189 	mov	dptr,#_print_prompt_string_10000_92
+      00338D F0               [24] 1190 	movx	@dptr,a
+      00338E EE               [12] 1191 	mov	a,r6
+      00338F A3               [24] 1192 	inc	dptr
+      003390 F0               [24] 1193 	movx	@dptr,a
+      003391 EF               [12] 1194 	mov	a,r7
+      003392 A3               [24] 1195 	inc	dptr
+      003393 F0               [24] 1196 	movx	@dptr,a
+                                   1197 ;	syntax.c:180: while(*string != '\0'){
+      003394 90 06 6D         [24] 1198 	mov	dptr,#_print_prompt_string_10000_92
+      003397 E0               [24] 1199 	movx	a,@dptr
+      003398 FD               [12] 1200 	mov	r5,a
+      003399 A3               [24] 1201 	inc	dptr
+      00339A E0               [24] 1202 	movx	a,@dptr
+      00339B FE               [12] 1203 	mov	r6,a
+      00339C A3               [24] 1204 	inc	dptr
+      00339D E0               [24] 1205 	movx	a,@dptr
+      00339E FF               [12] 1206 	mov	r7,a
+      00339F                       1207 00101$:
+      00339F 8D 82            [24] 1208 	mov	dpl,r5
+      0033A1 8E 83            [24] 1209 	mov	dph,r6
+      0033A3 8F F0            [24] 1210 	mov	b,r7
+      0033A5 12 55 85         [24] 1211 	lcall	__gptrget
+      0033A8 FC               [12] 1212 	mov	r4,a
+      0033A9 60 27            [24] 1213 	jz	00108$
+                                   1214 ;	syntax.c:181: putchar(*string);
+      0033AB 7B 00            [12] 1215 	mov	r3,#0x00
+      0033AD 8C 82            [24] 1216 	mov	dpl, r4
+      0033AF 8B 83            [24] 1217 	mov	dph, r3
+      0033B1 C0 07            [24] 1218 	push	ar7
+      0033B3 C0 06            [24] 1219 	push	ar6
+      0033B5 C0 05            [24] 1220 	push	ar5
+      0033B7 12 30 91         [24] 1221 	lcall	_putchar
+      0033BA D0 05            [24] 1222 	pop	ar5
+      0033BC D0 06            [24] 1223 	pop	ar6
+      0033BE D0 07            [24] 1224 	pop	ar7
+                                   1225 ;	syntax.c:182: string++;
+      0033C0 0D               [12] 1226 	inc	r5
+      0033C1 BD 00 01         [24] 1227 	cjne	r5,#0x00,00120$
+      0033C4 0E               [12] 1228 	inc	r6
+      0033C5                       1229 00120$:
+      0033C5 90 06 6D         [24] 1230 	mov	dptr,#_print_prompt_string_10000_92
+      0033C8 ED               [12] 1231 	mov	a,r5
+      0033C9 F0               [24] 1232 	movx	@dptr,a
+      0033CA EE               [12] 1233 	mov	a,r6
+      0033CB A3               [24] 1234 	inc	dptr
+      0033CC F0               [24] 1235 	movx	@dptr,a
+      0033CD EF               [12] 1236 	mov	a,r7
+      0033CE A3               [24] 1237 	inc	dptr
+      0033CF F0               [24] 1238 	movx	@dptr,a
+      0033D0 80 CD            [24] 1239 	sjmp	00101$
+      0033D2                       1240 00108$:
+      0033D2 90 06 6D         [24] 1241 	mov	dptr,#_print_prompt_string_10000_92
+      0033D5 ED               [12] 1242 	mov	a,r5
+      0033D6 F0               [24] 1243 	movx	@dptr,a
+      0033D7 EE               [12] 1244 	mov	a,r6
+      0033D8 A3               [24] 1245 	inc	dptr
+      0033D9 F0               [24] 1246 	movx	@dptr,a
+      0033DA EF               [12] 1247 	mov	a,r7
+      0033DB A3               [24] 1248 	inc	dptr
+      0033DC F0               [24] 1249 	movx	@dptr,a
+                                   1250 ;	syntax.c:184: }
+      0033DD 22               [24] 1251 	ret
+                                   1252 ;------------------------------------------------------------
+                                   1253 ;Allocation info for local variables in function 'get_number'
+                                   1254 ;------------------------------------------------------------
+                                   1255 ;prompt                    Allocated with name '_get_number_prompt_10000_95'
+                                   1256 ;buffer_size               Allocated with name '_get_number_buffer_size_10000_96'
+                                   1257 ;c                         Allocated with name '_get_number_c_10000_96'
+                                   1258 ;index                     Allocated with name '_get_number_index_10000_96'
+                                   1259 ;------------------------------------------------------------
+                                   1260 ;	syntax.c:192: int get_number(const char* prompt)
+                                   1261 ;	-----------------------------------------
+                                   1262 ;	 function get_number
+                                   1263 ;	-----------------------------------------
+      0033DE                       1264 _get_number:
+      0033DE AF F0            [24] 1265 	mov	r7,b
+      0033E0 AE 83            [24] 1266 	mov	r6,dph
+      0033E2 E5 82            [12] 1267 	mov	a,dpl
+      0033E4 90 06 70         [24] 1268 	mov	dptr,#_get_number_prompt_10000_95
+      0033E7 F0               [24] 1269 	movx	@dptr,a
+      0033E8 EE               [12] 1270 	mov	a,r6
+      0033E9 A3               [24] 1271 	inc	dptr
+      0033EA F0               [24] 1272 	movx	@dptr,a
+      0033EB EF               [12] 1273 	mov	a,r7
+      0033EC A3               [24] 1274 	inc	dptr
+      0033ED F0               [24] 1275 	movx	@dptr,a
+                                   1276 ;	syntax.c:194: int buffer_size = 0;
+      0033EE 90 06 73         [24] 1277 	mov	dptr,#_get_number_buffer_size_10000_96
+      0033F1 E4               [12] 1278 	clr	a
+      0033F2 F0               [24] 1279 	movx	@dptr,a
+      0033F3 A3               [24] 1280 	inc	dptr
+      0033F4 F0               [24] 1281 	movx	@dptr,a
+                                   1282 ;	syntax.c:196: int index = 100;            // Start with highest place value for 3 digits
+      0033F5 90 06 75         [24] 1283 	mov	dptr,#_get_number_index_10000_96
+      0033F8 74 64            [12] 1284 	mov	a,#0x64
+      0033FA F0               [24] 1285 	movx	@dptr,a
+      0033FB E4               [12] 1286 	clr	a
+      0033FC A3               [24] 1287 	inc	dptr
+      0033FD F0               [24] 1288 	movx	@dptr,a
+                                   1289 ;	syntax.c:198: print_prompt("\n\r+--------------------------------------------------+");
+      0033FE 90 55 A5         [24] 1290 	mov	dptr,#___str_0
+      003401 75 F0 80         [24] 1291 	mov	b, #0x80
+      003404 12 33 84         [24] 1292 	lcall	_print_prompt
+                                   1293 ;	syntax.c:199: print_prompt(prompt);
+      003407 90 06 70         [24] 1294 	mov	dptr,#_get_number_prompt_10000_95
+      00340A E0               [24] 1295 	movx	a,@dptr
+      00340B FD               [12] 1296 	mov	r5,a
+      00340C A3               [24] 1297 	inc	dptr
+      00340D E0               [24] 1298 	movx	a,@dptr
+      00340E FE               [12] 1299 	mov	r6,a
+      00340F A3               [24] 1300 	inc	dptr
+      003410 E0               [24] 1301 	movx	a,@dptr
+      003411 FF               [12] 1302 	mov	r7,a
+      003412 8D 82            [24] 1303 	mov	dpl, r5
+      003414 8E 83            [24] 1304 	mov	dph, r6
+      003416 8F F0            [24] 1305 	mov	b, r7
+      003418 12 33 84         [24] 1306 	lcall	_print_prompt
+                                   1307 ;	syntax.c:201: while (index >= 1 && (c = getchar()) != 0x0d) {
+      00341B                       1308 00105$:
+      00341B 90 06 75         [24] 1309 	mov	dptr,#_get_number_index_10000_96
+      00341E E0               [24] 1310 	movx	a,@dptr
+      00341F FE               [12] 1311 	mov	r6,a
+      003420 A3               [24] 1312 	inc	dptr
+      003421 E0               [24] 1313 	movx	a,@dptr
+      003422 FF               [12] 1314 	mov	r7,a
+      003423 C3               [12] 1315 	clr	c
+      003424 EE               [12] 1316 	mov	a,r6
+      003425 94 01            [12] 1317 	subb	a,#0x01
+      003427 EF               [12] 1318 	mov	a,r7
+      003428 64 80            [12] 1319 	xrl	a,#0x80
+      00342A 94 80            [12] 1320 	subb	a,#0x80
+      00342C 50 03            [24] 1321 	jnc	00134$
+      00342E 02 34 EA         [24] 1322 	ljmp	00107$
+      003431                       1323 00134$:
+      003431 C0 07            [24] 1324 	push	ar7
+      003433 C0 06            [24] 1325 	push	ar6
+      003435 12 30 BA         [24] 1326 	lcall	_getchar
+      003438 AC 82            [24] 1327 	mov	r4, dpl
+      00343A D0 06            [24] 1328 	pop	ar6
+      00343C D0 07            [24] 1329 	pop	ar7
+      00343E BC 0D 03         [24] 1330 	cjne	r4,#0x0d,00135$
+      003441 02 34 EA         [24] 1331 	ljmp	00107$
+      003444                       1332 00135$:
+                                   1333 ;	syntax.c:202: if (c < '0' || c > '9') {
+      003444 BC 30 00         [24] 1334 	cjne	r4,#0x30,00136$
+      003447                       1335 00136$:
+      003447 40 05            [24] 1336 	jc	00101$
+      003449 EC               [12] 1337 	mov	a,r4
+      00344A 24 C6            [12] 1338 	add	a,#0xff - 0x39
+      00344C 50 2E            [24] 1339 	jnc	00102$
+      00344E                       1340 00101$:
+                                   1341 ;	syntax.c:203: printf("\n\r| ERROR: Invalid input - Please enter numbers only     |");
+      00344E 74 DC            [12] 1342 	mov	a,#___str_1
+      003450 C0 E0            [24] 1343 	push	acc
+      003452 74 55            [12] 1344 	mov	a,#(___str_1 >> 8)
+      003454 C0 E0            [24] 1345 	push	acc
+      003456 74 80            [12] 1346 	mov	a,#0x80
+      003458 C0 E0            [24] 1347 	push	acc
+      00345A 12 4B 63         [24] 1348 	lcall	_printf
+      00345D 15 81            [12] 1349 	dec	sp
+      00345F 15 81            [12] 1350 	dec	sp
+      003461 15 81            [12] 1351 	dec	sp
+                                   1352 ;	syntax.c:204: printf("\n\r+--------------------------------------------------+\n\r");
+      003463 74 17            [12] 1353 	mov	a,#___str_2
+      003465 C0 E0            [24] 1354 	push	acc
+      003467 74 56            [12] 1355 	mov	a,#(___str_2 >> 8)
+      003469 C0 E0            [24] 1356 	push	acc
+      00346B 74 80            [12] 1357 	mov	a,#0x80
+      00346D C0 E0            [24] 1358 	push	acc
+      00346F 12 4B 63         [24] 1359 	lcall	_printf
+      003472 15 81            [12] 1360 	dec	sp
+      003474 15 81            [12] 1361 	dec	sp
+      003476 15 81            [12] 1362 	dec	sp
+                                   1363 ;	syntax.c:205: return -1;
+      003478 90 FF FF         [24] 1364 	mov	dptr,#0xffff
+      00347B 22               [24] 1365 	ret
+      00347C                       1366 00102$:
+                                   1367 ;	syntax.c:208: putchar(c);
+      00347C 7D 00            [12] 1368 	mov	r5,#0x00
+      00347E 8C 82            [24] 1369 	mov	dpl, r4
+      003480 8D 83            [24] 1370 	mov	dph, r5
+      003482 C0 07            [24] 1371 	push	ar7
+      003484 C0 06            [24] 1372 	push	ar6
+      003486 C0 05            [24] 1373 	push	ar5
+      003488 C0 04            [24] 1374 	push	ar4
+      00348A 12 30 91         [24] 1375 	lcall	_putchar
+      00348D D0 04            [24] 1376 	pop	ar4
+      00348F D0 05            [24] 1377 	pop	ar5
+      003491 D0 06            [24] 1378 	pop	ar6
+      003493 D0 07            [24] 1379 	pop	ar7
+                                   1380 ;	syntax.c:209: buffer_size += (c - '0') * index;
+      003495 EC               [12] 1381 	mov	a,r4
+      003496 24 D0            [12] 1382 	add	a,#0xd0
+      003498 FC               [12] 1383 	mov	r4,a
+      003499 ED               [12] 1384 	mov	a,r5
+      00349A 34 FF            [12] 1385 	addc	a,#0xff
+      00349C FD               [12] 1386 	mov	r5,a
+      00349D 90 1A AA         [24] 1387 	mov	dptr,#__mulint_PARM_2
+      0034A0 EE               [12] 1388 	mov	a,r6
+      0034A1 F0               [24] 1389 	movx	@dptr,a
+      0034A2 EF               [12] 1390 	mov	a,r7
+      0034A3 A3               [24] 1391 	inc	dptr
+      0034A4 F0               [24] 1392 	movx	@dptr,a
+      0034A5 8C 82            [24] 1393 	mov	dpl, r4
+      0034A7 8D 83            [24] 1394 	mov	dph, r5
+      0034A9 C0 07            [24] 1395 	push	ar7
+      0034AB C0 06            [24] 1396 	push	ar6
+      0034AD 12 48 E3         [24] 1397 	lcall	__mulint
+      0034B0 AC 82            [24] 1398 	mov	r4, dpl
+      0034B2 AD 83            [24] 1399 	mov	r5, dph
+      0034B4 D0 06            [24] 1400 	pop	ar6
+      0034B6 D0 07            [24] 1401 	pop	ar7
+      0034B8 90 06 73         [24] 1402 	mov	dptr,#_get_number_buffer_size_10000_96
+      0034BB E0               [24] 1403 	movx	a,@dptr
+      0034BC FA               [12] 1404 	mov	r2,a
+      0034BD A3               [24] 1405 	inc	dptr
+      0034BE E0               [24] 1406 	movx	a,@dptr
+      0034BF FB               [12] 1407 	mov	r3,a
+      0034C0 90 06 73         [24] 1408 	mov	dptr,#_get_number_buffer_size_10000_96
+      0034C3 EC               [12] 1409 	mov	a,r4
+      0034C4 2A               [12] 1410 	add	a, r2
+      0034C5 F0               [24] 1411 	movx	@dptr,a
+      0034C6 ED               [12] 1412 	mov	a,r5
+      0034C7 3B               [12] 1413 	addc	a, r3
+      0034C8 A3               [24] 1414 	inc	dptr
+      0034C9 F0               [24] 1415 	movx	@dptr,a
+                                   1416 ;	syntax.c:210: index = index/10;
+      0034CA 90 1A B5         [24] 1417 	mov	dptr,#__divsint_PARM_2
+      0034CD 74 0A            [12] 1418 	mov	a,#0x0a
+      0034CF F0               [24] 1419 	movx	@dptr,a
+      0034D0 E4               [12] 1420 	clr	a
+      0034D1 A3               [24] 1421 	inc	dptr
+      0034D2 F0               [24] 1422 	movx	@dptr,a
+      0034D3 8E 82            [24] 1423 	mov	dpl, r6
+      0034D5 8F 83            [24] 1424 	mov	dph, r7
+      0034D7 12 4A 16         [24] 1425 	lcall	__divsint
+      0034DA E5 82            [12] 1426 	mov	a, dpl
+      0034DC 85 83 F0         [24] 1427 	mov	b, dph
+      0034DF 90 06 75         [24] 1428 	mov	dptr,#_get_number_index_10000_96
+      0034E2 F0               [24] 1429 	movx	@dptr,a
+      0034E3 E5 F0            [12] 1430 	mov	a,b
+      0034E5 A3               [24] 1431 	inc	dptr
+      0034E6 F0               [24] 1432 	movx	@dptr,a
+      0034E7 02 34 1B         [24] 1433 	ljmp	00105$
+      0034EA                       1434 00107$:
+                                   1435 ;	syntax.c:213: printf("\n\r| Input size: %-39d |", buffer_size);
+      0034EA 90 06 73         [24] 1436 	mov	dptr,#_get_number_buffer_size_10000_96
+      0034ED E0               [24] 1437 	movx	a,@dptr
+      0034EE FE               [12] 1438 	mov	r6,a
+      0034EF A3               [24] 1439 	inc	dptr
+      0034F0 E0               [24] 1440 	movx	a,@dptr
+      0034F1 FF               [12] 1441 	mov	r7,a
+      0034F2 C0 07            [24] 1442 	push	ar7
+      0034F4 C0 06            [24] 1443 	push	ar6
+      0034F6 C0 06            [24] 1444 	push	ar6
+      0034F8 C0 07            [24] 1445 	push	ar7
+      0034FA 74 FB            [12] 1446 	mov	a,#___str_6
+      0034FC C0 E0            [24] 1447 	push	acc
+      0034FE 74 56            [12] 1448 	mov	a,#(___str_6 >> 8)
+      003500 C0 E0            [24] 1449 	push	acc
+      003502 74 80            [12] 1450 	mov	a,#0x80
+      003504 C0 E0            [24] 1451 	push	acc
+      003506 12 4B 63         [24] 1452 	lcall	_printf
+      003509 E5 81            [12] 1453 	mov	a,sp
+      00350B 24 FB            [12] 1454 	add	a,#0xfb
+      00350D F5 81            [12] 1455 	mov	sp,a
+                                   1456 ;	syntax.c:214: printf("\n\r+--------------------------------------------------+\n\r");
+      00350F 74 17            [12] 1457 	mov	a,#___str_2
+      003511 C0 E0            [24] 1458 	push	acc
+      003513 74 56            [12] 1459 	mov	a,#(___str_2 >> 8)
+      003515 C0 E0            [24] 1460 	push	acc
+      003517 74 80            [12] 1461 	mov	a,#0x80
+      003519 C0 E0            [24] 1462 	push	acc
+      00351B 12 4B 63         [24] 1463 	lcall	_printf
+      00351E 15 81            [12] 1464 	dec	sp
+      003520 15 81            [12] 1465 	dec	sp
+      003522 15 81            [12] 1466 	dec	sp
+      003524 D0 06            [24] 1467 	pop	ar6
+      003526 D0 07            [24] 1468 	pop	ar7
+                                   1469 ;	syntax.c:216: return buffer_size;
+      003528 8E 82            [24] 1470 	mov	dpl, r6
+      00352A 8F 83            [24] 1471 	mov	dph, r7
+                                   1472 ;	syntax.c:217: }
+      00352C 22               [24] 1473 	ret
+                                   1474 ;------------------------------------------------------------
+                                   1475 ;Allocation info for local variables in function 'get_command'
+                                   1476 ;------------------------------------------------------------
+                                   1477 ;sloc0                     Allocated with name '_get_command_sloc0_1_0'
+                                   1478 ;sloc1                     Allocated with name '_get_command_sloc1_1_0'
+                                   1479 ;sloc2                     Allocated with name '_get_command_sloc2_1_0'
+                                   1480 ;command                   Allocated with name '_get_command_command_10000_99'
+                                   1481 ;temp_value                Allocated with name '_get_command_temp_value_10000_100'
+                                   1482 ;pointer                   Allocated with name '_get_command_pointer_10000_100'
+                                   1483 ;array_index_temp          Allocated with name '_get_command_array_index_temp_10000_100'
+                                   1484 ;total_buffers             Allocated with name '_get_command_total_buffers_20001_102'
+                                   1485 ;buffers_freed             Allocated with name '_get_command_buffers_freed_20001_102'
+                                   1486 ;failed_frees              Allocated with name '_get_command_failed_frees_20001_102'
+                                   1487 ;i                         Allocated with name '_get_command_i_30001_103'
+                                   1488 ;i                         Allocated with name '_get_command_i_30001_106'
+                                   1489 ;i                         Allocated with name '_get_command_i_30001_111'
+                                   1490 ;buffer_size               Allocated with name '_get_command_buffer_size_20002_115'
+                                   1491 ;node                      Allocated with name '_get_command_node_30003_120'
+                                   1492 ;------------------------------------------------------------
+                                   1493 ;	syntax.c:226: int get_command(int command)
+                                   1494 ;	-----------------------------------------
+                                   1495 ;	 function get_command
+                                   1496 ;	-----------------------------------------
+      00352D                       1497 _get_command:
+      00352D AF 83            [24] 1498 	mov	r7,dph
+      00352F E5 82            [12] 1499 	mov	a,dpl
+      003531 90 06 77         [24] 1500 	mov	dptr,#_get_command_command_10000_99
+      003534 F0               [24] 1501 	movx	@dptr,a
+      003535 EF               [12] 1502 	mov	a,r7
+      003536 A3               [24] 1503 	inc	dptr
+      003537 F0               [24] 1504 	movx	@dptr,a
+                                   1505 ;	syntax.c:232: switch(command)
+      003538 90 06 77         [24] 1506 	mov	dptr,#_get_command_command_10000_99
+      00353B E0               [24] 1507 	movx	a,@dptr
+      00353C FE               [12] 1508 	mov	r6,a
+      00353D A3               [24] 1509 	inc	dptr
+      00353E E0               [24] 1510 	movx	a,@dptr
+      00353F FF               [12] 1511 	mov	r7,a
+      003540 BE 2B 06         [24] 1512 	cjne	r6,#0x2b,00263$
+      003543 BF 00 03         [24] 1513 	cjne	r7,#0x00,00263$
+      003546 02 3B 0D         [24] 1514 	ljmp	00117$
+      003549                       1515 00263$:
+      003549 BE 2D 06         [24] 1516 	cjne	r6,#0x2d,00264$
+      00354C BF 00 03         [24] 1517 	cjne	r7,#0x00,00264$
+      00354F 02 3C 77         [24] 1518 	ljmp	00125$
+      003552                       1519 00264$:
+      003552 BE 3D 06         [24] 1520 	cjne	r6,#0x3d,00265$
+      003555 BF 00 03         [24] 1521 	cjne	r7,#0x00,00265$
+      003558 02 3D 5C         [24] 1522 	ljmp	00132$
+      00355B                       1523 00265$:
+      00355B BE 3F 06         [24] 1524 	cjne	r6,#0x3f,00266$
+      00355E BF 00 03         [24] 1525 	cjne	r7,#0x00,00266$
+      003561 02 36 C8         [24] 1526 	ljmp	00111$
+      003564                       1527 00266$:
+      003564 BE 40 05         [24] 1528 	cjne	r6,#0x40,00267$
+      003567 BF 00 02         [24] 1529 	cjne	r7,#0x00,00267$
+      00356A 80 03            [24] 1530 	sjmp	00268$
+      00356C                       1531 00267$:
+      00356C 02 3D 5F         [24] 1532 	ljmp	00133$
+      00356F                       1533 00268$:
+                                   1534 ;	syntax.c:239: printf("\n\r| BUFFER DEALLOCATION STATUS                      |");
+      00356F 74 13            [12] 1535 	mov	a,#___str_7
+      003571 C0 E0            [24] 1536 	push	acc
+      003573 74 57            [12] 1537 	mov	a,#(___str_7 >> 8)
+      003575 C0 E0            [24] 1538 	push	acc
+      003577 74 80            [12] 1539 	mov	a,#0x80
+      003579 C0 E0            [24] 1540 	push	acc
+      00357B 12 4B 63         [24] 1541 	lcall	_printf
+      00357E 15 81            [12] 1542 	dec	sp
+      003580 15 81            [12] 1543 	dec	sp
+      003582 15 81            [12] 1544 	dec	sp
+                                   1545 ;	syntax.c:240: printf("\n\r|------------------------------------------------|");
+      003584 74 49            [12] 1546 	mov	a,#___str_8
+      003586 C0 E0            [24] 1547 	push	acc
+      003588 74 57            [12] 1548 	mov	a,#(___str_8 >> 8)
+      00358A C0 E0            [24] 1549 	push	acc
+      00358C 74 80            [12] 1550 	mov	a,#0x80
+      00358E C0 E0            [24] 1551 	push	acc
+      003590 12 4B 63         [24] 1552 	lcall	_printf
+      003593 15 81            [12] 1553 	dec	sp
+      003595 15 81            [12] 1554 	dec	sp
+      003597 15 81            [12] 1555 	dec	sp
+                                   1556 ;	syntax.c:243: for(int i = 0; i < 100; i++) 
+      003599 E4               [12] 1557 	clr	a
+      00359A F5 0B            [12] 1558 	mov	_get_command_sloc0_1_0,a
+      00359C F5 0C            [12] 1559 	mov	(_get_command_sloc0_1_0 + 1),a
+      00359E FC               [12] 1560 	mov	r4,a
+      00359F FD               [12] 1561 	mov	r5,a
+      0035A0                       1562 00135$:
+      0035A0 C3               [12] 1563 	clr	c
+      0035A1 EC               [12] 1564 	mov	a,r4
+      0035A2 94 64            [12] 1565 	subb	a,#0x64
+      0035A4 ED               [12] 1566 	mov	a,r5
+      0035A5 64 80            [12] 1567 	xrl	a,#0x80
+      0035A7 94 80            [12] 1568 	subb	a,#0x80
+      0035A9 50 41            [24] 1569 	jnc	00104$
+                                   1570 ;	syntax.c:245: if(array_for_nodes[i].data_pointer != NULL)
+      0035AB 90 1A AA         [24] 1571 	mov	dptr,#__mulint_PARM_2
+      0035AE EC               [12] 1572 	mov	a,r4
+      0035AF F0               [24] 1573 	movx	@dptr,a
+      0035B0 ED               [12] 1574 	mov	a,r5
+      0035B1 A3               [24] 1575 	inc	dptr
+      0035B2 F0               [24] 1576 	movx	@dptr,a
+      0035B3 90 00 06         [24] 1577 	mov	dptr,#0x0006
+      0035B6 C0 05            [24] 1578 	push	ar5
+      0035B8 C0 04            [24] 1579 	push	ar4
+      0035BA 12 48 E3         [24] 1580 	lcall	__mulint
+      0035BD AA 82            [24] 1581 	mov	r2, dpl
+      0035BF AB 83            [24] 1582 	mov	r3, dph
+      0035C1 D0 04            [24] 1583 	pop	ar4
+      0035C3 D0 05            [24] 1584 	pop	ar5
+      0035C5 EA               [12] 1585 	mov	a,r2
+      0035C6 24 03            [12] 1586 	add	a, #_array_for_nodes
+      0035C8 FA               [12] 1587 	mov	r2,a
+      0035C9 EB               [12] 1588 	mov	a,r3
+      0035CA 34 04            [12] 1589 	addc	a, #(_array_for_nodes >> 8)
+      0035CC FB               [12] 1590 	mov	r3,a
+      0035CD 8A 82            [24] 1591 	mov	dpl,r2
+      0035CF 8B 83            [24] 1592 	mov	dph,r3
+      0035D1 A3               [24] 1593 	inc	dptr
+      0035D2 E0               [24] 1594 	movx	a,@dptr
+      0035D3 FA               [12] 1595 	mov	r2,a
+      0035D4 A3               [24] 1596 	inc	dptr
+      0035D5 E0               [24] 1597 	movx	a,@dptr
+      0035D6 FB               [12] 1598 	mov	r3,a
+      0035D7 A3               [24] 1599 	inc	dptr
+      0035D8 E0               [24] 1600 	movx	a,@dptr
+      0035D9 EA               [12] 1601 	mov	a,r2
+      0035DA 4B               [12] 1602 	orl	a,r3
+      0035DB 60 08            [24] 1603 	jz	00136$
+                                   1604 ;	syntax.c:247: total_buffers++;
+      0035DD 05 0B            [12] 1605 	inc	_get_command_sloc0_1_0
+      0035DF E4               [12] 1606 	clr	a
+      0035E0 B5 0B 02         [24] 1607 	cjne	a,_get_command_sloc0_1_0,00271$
+      0035E3 05 0C            [12] 1608 	inc	(_get_command_sloc0_1_0 + 1)
+      0035E5                       1609 00271$:
+      0035E5                       1610 00136$:
+                                   1611 ;	syntax.c:243: for(int i = 0; i < 100; i++) 
+      0035E5 0C               [12] 1612 	inc	r4
+      0035E6 BC 00 B7         [24] 1613 	cjne	r4,#0x00,00135$
+      0035E9 0D               [12] 1614 	inc	r5
+      0035EA 80 B4            [24] 1615 	sjmp	00135$
+      0035EC                       1616 00104$:
+                                   1617 ;	syntax.c:251: printf("\n\r| Buffers to Free  | %-28d |", total_buffers);
+      0035EC C0 0B            [24] 1618 	push	_get_command_sloc0_1_0
+      0035EE C0 0C            [24] 1619 	push	(_get_command_sloc0_1_0 + 1)
+      0035F0 74 7E            [12] 1620 	mov	a,#___str_9
+      0035F2 C0 E0            [24] 1621 	push	acc
+      0035F4 74 57            [12] 1622 	mov	a,#(___str_9 >> 8)
+      0035F6 C0 E0            [24] 1623 	push	acc
+      0035F8 74 80            [12] 1624 	mov	a,#0x80
+      0035FA C0 E0            [24] 1625 	push	acc
+      0035FC 12 4B 63         [24] 1626 	lcall	_printf
+      0035FF E5 81            [12] 1627 	mov	a,sp
+      003601 24 FB            [12] 1628 	add	a,#0xfb
+      003603 F5 81            [12] 1629 	mov	sp,a
+                                   1630 ;	syntax.c:254: for(int i = 0; i < 100; i++) 
+      003605 7E 00            [12] 1631 	mov	r6,#0x00
+      003607 7F 00            [12] 1632 	mov	r7,#0x00
+      003609                       1633 00138$:
+      003609 C3               [12] 1634 	clr	c
+      00360A EE               [12] 1635 	mov	a,r6
+      00360B 94 64            [12] 1636 	subb	a,#0x64
+      00360D EF               [12] 1637 	mov	a,r7
+      00360E 64 80            [12] 1638 	xrl	a,#0x80
+      003610 94 80            [12] 1639 	subb	a,#0x80
+      003612 50 75            [24] 1640 	jnc	00107$
+                                   1641 ;	syntax.c:256: if(array_for_nodes[i].data_pointer != NULL) 
+      003614 90 1A AA         [24] 1642 	mov	dptr,#__mulint_PARM_2
+      003617 EE               [12] 1643 	mov	a,r6
+      003618 F0               [24] 1644 	movx	@dptr,a
+      003619 EF               [12] 1645 	mov	a,r7
+      00361A A3               [24] 1646 	inc	dptr
+      00361B F0               [24] 1647 	movx	@dptr,a
+      00361C 90 00 06         [24] 1648 	mov	dptr,#0x0006
+      00361F C0 07            [24] 1649 	push	ar7
+      003621 C0 06            [24] 1650 	push	ar6
+      003623 12 48 E3         [24] 1651 	lcall	__mulint
+      003626 AC 82            [24] 1652 	mov	r4, dpl
+      003628 AD 83            [24] 1653 	mov	r5, dph
+      00362A D0 06            [24] 1654 	pop	ar6
+      00362C D0 07            [24] 1655 	pop	ar7
+      00362E EC               [12] 1656 	mov	a,r4
+      00362F 24 03            [12] 1657 	add	a, #_array_for_nodes
+      003631 FC               [12] 1658 	mov	r4,a
+      003632 ED               [12] 1659 	mov	a,r5
+      003633 34 04            [12] 1660 	addc	a, #(_array_for_nodes >> 8)
+      003635 FD               [12] 1661 	mov	r5,a
+      003636 0C               [12] 1662 	inc	r4
+      003637 BC 00 01         [24] 1663 	cjne	r4,#0x00,00274$
+      00363A 0D               [12] 1664 	inc	r5
+      00363B                       1665 00274$:
+      00363B 8C 82            [24] 1666 	mov	dpl,r4
+      00363D 8D 83            [24] 1667 	mov	dph,r5
+      00363F E0               [24] 1668 	movx	a,@dptr
+      003640 F5 0D            [12] 1669 	mov	_get_command_sloc1_1_0,a
+      003642 A3               [24] 1670 	inc	dptr
+      003643 E0               [24] 1671 	movx	a,@dptr
+      003644 F5 0E            [12] 1672 	mov	(_get_command_sloc1_1_0 + 1),a
+      003646 A3               [24] 1673 	inc	dptr
+      003647 E0               [24] 1674 	movx	a,@dptr
+      003648 F5 0F            [12] 1675 	mov	(_get_command_sloc1_1_0 + 2),a
+      00364A E5 0D            [12] 1676 	mov	a,_get_command_sloc1_1_0
+      00364C 45 0E            [12] 1677 	orl	a,(_get_command_sloc1_1_0 + 1)
+      00364E 60 31            [24] 1678 	jz	00139$
+                                   1679 ;	syntax.c:258: free(array_for_nodes[i].data_pointer);
+      003650 C0 06            [24] 1680 	push	ar6
+      003652 C0 07            [24] 1681 	push	ar7
+      003654 AA 0D            [24] 1682 	mov	r2,_get_command_sloc1_1_0
+      003656 AB 0E            [24] 1683 	mov	r3,(_get_command_sloc1_1_0 + 1)
+      003658 AF 0F            [24] 1684 	mov	r7,(_get_command_sloc1_1_0 + 2)
+      00365A 8A 82            [24] 1685 	mov	dpl, r2
+      00365C 8B 83            [24] 1686 	mov	dph, r3
+      00365E 8F F0            [24] 1687 	mov	b, r7
+      003660 C0 07            [24] 1688 	push	ar7
+      003662 C0 06            [24] 1689 	push	ar6
+      003664 C0 05            [24] 1690 	push	ar5
+      003666 C0 04            [24] 1691 	push	ar4
+      003668 12 45 30         [24] 1692 	lcall	_free
+      00366B D0 04            [24] 1693 	pop	ar4
+      00366D D0 05            [24] 1694 	pop	ar5
+      00366F D0 06            [24] 1695 	pop	ar6
+      003671 D0 07            [24] 1696 	pop	ar7
+                                   1697 ;	syntax.c:259: array_for_nodes[i].data_pointer = NULL;
+      003673 8C 82            [24] 1698 	mov	dpl,r4
+      003675 8D 83            [24] 1699 	mov	dph,r5
+      003677 E4               [12] 1700 	clr	a
+      003678 F0               [24] 1701 	movx	@dptr,a
+      003679 A3               [24] 1702 	inc	dptr
+      00367A F0               [24] 1703 	movx	@dptr,a
+      00367B A3               [24] 1704 	inc	dptr
+      00367C F0               [24] 1705 	movx	@dptr,a
+                                   1706 ;	syntax.c:353: return -1;
+      00367D D0 07            [24] 1707 	pop	ar7
+      00367F D0 06            [24] 1708 	pop	ar6
+                                   1709 ;	syntax.c:259: array_for_nodes[i].data_pointer = NULL;
+      003681                       1710 00139$:
+                                   1711 ;	syntax.c:254: for(int i = 0; i < 100; i++) 
+      003681 0E               [12] 1712 	inc	r6
+      003682 BE 00 01         [24] 1713 	cjne	r6,#0x00,00276$
+      003685 0F               [12] 1714 	inc	r7
+      003686                       1715 00276$:
+      003686 02 36 09         [24] 1716 	ljmp	00138$
+      003689                       1717 00107$:
+                                   1718 ;	syntax.c:263: printf("\n\r+--------------------------------------------------+\n\r");
+      003689 74 17            [12] 1719 	mov	a,#___str_2
+      00368B C0 E0            [24] 1720 	push	acc
+      00368D 74 56            [12] 1721 	mov	a,#(___str_2 >> 8)
+      00368F C0 E0            [24] 1722 	push	acc
+      003691 74 80            [12] 1723 	mov	a,#0x80
+      003693 C0 E0            [24] 1724 	push	acc
+      003695 12 4B 63         [24] 1725 	lcall	_printf
+      003698 15 81            [12] 1726 	dec	sp
+      00369A 15 81            [12] 1727 	dec	sp
+      00369C 15 81            [12] 1728 	dec	sp
+                                   1729 ;	syntax.c:267: printf("\n\r| All buffers successfully deallocated            |");
+      00369E 74 9D            [12] 1730 	mov	a,#___str_10
+      0036A0 C0 E0            [24] 1731 	push	acc
+      0036A2 74 57            [12] 1732 	mov	a,#(___str_10 >> 8)
+      0036A4 C0 E0            [24] 1733 	push	acc
+      0036A6 74 80            [12] 1734 	mov	a,#0x80
+      0036A8 C0 E0            [24] 1735 	push	acc
+      0036AA 12 4B 63         [24] 1736 	lcall	_printf
+      0036AD 15 81            [12] 1737 	dec	sp
+      0036AF 15 81            [12] 1738 	dec	sp
+      0036B1 15 81            [12] 1739 	dec	sp
+                                   1740 ;	syntax.c:271: printf("\n\r+--------------------------------------------------+\n\r");
+      0036B3 74 17            [12] 1741 	mov	a,#___str_2
+      0036B5 C0 E0            [24] 1742 	push	acc
+      0036B7 74 56            [12] 1743 	mov	a,#(___str_2 >> 8)
+      0036B9 C0 E0            [24] 1744 	push	acc
+      0036BB 74 80            [12] 1745 	mov	a,#0x80
+      0036BD C0 E0            [24] 1746 	push	acc
+      0036BF 12 4B 63         [24] 1747 	lcall	_printf
+      0036C2 15 81            [12] 1748 	dec	sp
+      0036C4 15 81            [12] 1749 	dec	sp
+      0036C6 15 81            [12] 1750 	dec	sp
+                                   1751 ;	syntax.c:279: case '?':               // Show system status
+      0036C8                       1752 00111$:
+                                   1753 ;	syntax.c:280: printf("\n\r+------------------SYSTEM STATUS-------------------+");
+      0036C8 74 09            [12] 1754 	mov	a,#___str_12
+      0036CA C0 E0            [24] 1755 	push	acc
+      0036CC 74 58            [12] 1756 	mov	a,#(___str_12 >> 8)
+      0036CE C0 E0            [24] 1757 	push	acc
+      0036D0 74 80            [12] 1758 	mov	a,#0x80
+      0036D2 C0 E0            [24] 1759 	push	acc
+      0036D4 12 4B 63         [24] 1760 	lcall	_printf
+      0036D7 15 81            [12] 1761 	dec	sp
+      0036D9 15 81            [12] 1762 	dec	sp
+      0036DB 15 81            [12] 1763 	dec	sp
+                                   1764 ;	syntax.c:281: printf("\n\r| COMMAND STATISTICS                              |");
+      0036DD 74 40            [12] 1765 	mov	a,#___str_13
+      0036DF C0 E0            [24] 1766 	push	acc
+      0036E1 74 58            [12] 1767 	mov	a,#(___str_13 >> 8)
+      0036E3 C0 E0            [24] 1768 	push	acc
+      0036E5 74 80            [12] 1769 	mov	a,#0x80
+      0036E7 C0 E0            [24] 1770 	push	acc
+      0036E9 12 4B 63         [24] 1771 	lcall	_printf
+      0036EC 15 81            [12] 1772 	dec	sp
+      0036EE 15 81            [12] 1773 	dec	sp
+      0036F0 15 81            [12] 1774 	dec	sp
+                                   1775 ;	syntax.c:282: printf("\n\r|------------------------------------------------|");
+      0036F2 74 49            [12] 1776 	mov	a,#___str_8
+      0036F4 C0 E0            [24] 1777 	push	acc
+      0036F6 74 57            [12] 1778 	mov	a,#(___str_8 >> 8)
+      0036F8 C0 E0            [24] 1779 	push	acc
+      0036FA 74 80            [12] 1780 	mov	a,#0x80
+      0036FC C0 E0            [24] 1781 	push	acc
+      0036FE 12 4B 63         [24] 1782 	lcall	_printf
+      003701 15 81            [12] 1783 	dec	sp
+      003703 15 81            [12] 1784 	dec	sp
+      003705 15 81            [12] 1785 	dec	sp
+                                   1786 ;	syntax.c:283: printf("\n\r| Total Commands   | %-28d |", total_number_of_commands);
+      003707 90 1A F8         [24] 1787 	mov	dptr,#_total_number_of_commands
+      00370A E0               [24] 1788 	movx	a,@dptr
+      00370B FF               [12] 1789 	mov	r7,a
+      00370C 7E 00            [12] 1790 	mov	r6,#0x00
+      00370E C0 07            [24] 1791 	push	ar7
+      003710 C0 06            [24] 1792 	push	ar6
+      003712 74 76            [12] 1793 	mov	a,#___str_14
+      003714 C0 E0            [24] 1794 	push	acc
+      003716 74 58            [12] 1795 	mov	a,#(___str_14 >> 8)
+      003718 C0 E0            [24] 1796 	push	acc
+      00371A 74 80            [12] 1797 	mov	a,#0x80
+      00371C C0 E0            [24] 1798 	push	acc
+      00371E 12 4B 63         [24] 1799 	lcall	_printf
+      003721 E5 81            [12] 1800 	mov	a,sp
+      003723 24 FB            [12] 1801 	add	a,#0xfb
+      003725 F5 81            [12] 1802 	mov	sp,a
+                                   1803 ;	syntax.c:284: printf("\n\r| Recent Commands  | %-28d |", recent_commands);
+      003727 90 1A FA         [24] 1804 	mov	dptr,#_recent_commands
+      00372A E0               [24] 1805 	movx	a,@dptr
+      00372B FF               [12] 1806 	mov	r7,a
+      00372C 7E 00            [12] 1807 	mov	r6,#0x00
+      00372E C0 07            [24] 1808 	push	ar7
+      003730 C0 06            [24] 1809 	push	ar6
+      003732 74 95            [12] 1810 	mov	a,#___str_15
+      003734 C0 E0            [24] 1811 	push	acc
+      003736 74 58            [12] 1812 	mov	a,#(___str_15 >> 8)
+      003738 C0 E0            [24] 1813 	push	acc
+      00373A 74 80            [12] 1814 	mov	a,#0x80
+      00373C C0 E0            [24] 1815 	push	acc
+      00373E 12 4B 63         [24] 1816 	lcall	_printf
+      003741 E5 81            [12] 1817 	mov	a,sp
+      003743 24 FB            [12] 1818 	add	a,#0xfb
+      003745 F5 81            [12] 1819 	mov	sp,a
+                                   1820 ;	syntax.c:285: printf("\n\r|------------------------------------------------|");
+      003747 74 49            [12] 1821 	mov	a,#___str_8
+      003749 C0 E0            [24] 1822 	push	acc
+      00374B 74 57            [12] 1823 	mov	a,#(___str_8 >> 8)
+      00374D C0 E0            [24] 1824 	push	acc
+      00374F 74 80            [12] 1825 	mov	a,#0x80
+      003751 C0 E0            [24] 1826 	push	acc
+      003753 12 4B 63         [24] 1827 	lcall	_printf
+      003756 15 81            [12] 1828 	dec	sp
+      003758 15 81            [12] 1829 	dec	sp
+      00375A 15 81            [12] 1830 	dec	sp
+                                   1831 ;	syntax.c:286: printf("\n\r| STORAGE STATISTICS                             |");
+      00375C 74 B4            [12] 1832 	mov	a,#___str_16
+      00375E C0 E0            [24] 1833 	push	acc
+      003760 74 58            [12] 1834 	mov	a,#(___str_16 >> 8)
+      003762 C0 E0            [24] 1835 	push	acc
+      003764 74 80            [12] 1836 	mov	a,#0x80
+      003766 C0 E0            [24] 1837 	push	acc
+      003768 12 4B 63         [24] 1838 	lcall	_printf
+      00376B 15 81            [12] 1839 	dec	sp
+      00376D 15 81            [12] 1840 	dec	sp
+      00376F 15 81            [12] 1841 	dec	sp
+                                   1842 ;	syntax.c:287: printf("\n\r|------------------------------------------------|");
+      003771 74 49            [12] 1843 	mov	a,#___str_8
+      003773 C0 E0            [24] 1844 	push	acc
+      003775 74 57            [12] 1845 	mov	a,#(___str_8 >> 8)
+      003777 C0 E0            [24] 1846 	push	acc
+      003779 74 80            [12] 1847 	mov	a,#0x80
+      00377B C0 E0            [24] 1848 	push	acc
+      00377D 12 4B 63         [24] 1849 	lcall	_printf
+      003780 15 81            [12] 1850 	dec	sp
+      003782 15 81            [12] 1851 	dec	sp
+      003784 15 81            [12] 1852 	dec	sp
+                                   1853 ;	syntax.c:288: printf("\n\r| Total Storage    | %-28d |", total_number_of_storage);
+      003786 90 1A F9         [24] 1854 	mov	dptr,#_total_number_of_storage
+      003789 E0               [24] 1855 	movx	a,@dptr
+      00378A FF               [12] 1856 	mov	r7,a
+      00378B 7E 00            [12] 1857 	mov	r6,#0x00
+      00378D C0 07            [24] 1858 	push	ar7
+      00378F C0 06            [24] 1859 	push	ar6
+      003791 74 E9            [12] 1860 	mov	a,#___str_17
+      003793 C0 E0            [24] 1861 	push	acc
+      003795 74 58            [12] 1862 	mov	a,#(___str_17 >> 8)
+      003797 C0 E0            [24] 1863 	push	acc
+      003799 74 80            [12] 1864 	mov	a,#0x80
+      00379B C0 E0            [24] 1865 	push	acc
+      00379D 12 4B 63         [24] 1866 	lcall	_printf
+      0037A0 E5 81            [12] 1867 	mov	a,sp
+      0037A2 24 FB            [12] 1868 	add	a,#0xfb
+      0037A4 F5 81            [12] 1869 	mov	sp,a
+                                   1870 ;	syntax.c:289: printf("\n\r| Recent Storage   | %-28d |", recent_storage);
+      0037A6 90 1A FB         [24] 1871 	mov	dptr,#_recent_storage
+      0037A9 E0               [24] 1872 	movx	a,@dptr
+      0037AA FF               [12] 1873 	mov	r7,a
+      0037AB 7E 00            [12] 1874 	mov	r6,#0x00
+      0037AD C0 07            [24] 1875 	push	ar7
+      0037AF C0 06            [24] 1876 	push	ar6
+      0037B1 74 08            [12] 1877 	mov	a,#___str_18
+      0037B3 C0 E0            [24] 1878 	push	acc
+      0037B5 74 59            [12] 1879 	mov	a,#(___str_18 >> 8)
+      0037B7 C0 E0            [24] 1880 	push	acc
+      0037B9 74 80            [12] 1881 	mov	a,#0x80
+      0037BB C0 E0            [24] 1882 	push	acc
+      0037BD 12 4B 63         [24] 1883 	lcall	_printf
+      0037C0 E5 81            [12] 1884 	mov	a,sp
+      0037C2 24 FB            [12] 1885 	add	a,#0xfb
+      0037C4 F5 81            [12] 1886 	mov	sp,a
+                                   1887 ;	syntax.c:290: printf("\n\r+--------------------------------------------------+");
+      0037C6 74 A5            [12] 1888 	mov	a,#___str_0
+      0037C8 C0 E0            [24] 1889 	push	acc
+      0037CA 74 55            [12] 1890 	mov	a,#(___str_0 >> 8)
+      0037CC C0 E0            [24] 1891 	push	acc
+      0037CE 74 80            [12] 1892 	mov	a,#0x80
+      0037D0 C0 E0            [24] 1893 	push	acc
+      0037D2 12 4B 63         [24] 1894 	lcall	_printf
+      0037D5 15 81            [12] 1895 	dec	sp
+      0037D7 15 81            [12] 1896 	dec	sp
+      0037D9 15 81            [12] 1897 	dec	sp
+                                   1898 ;	syntax.c:291: printf("\n\r| TOTAL BUFFERS IN HEAP                           |");
+      0037DB 74 27            [12] 1899 	mov	a,#___str_19
+      0037DD C0 E0            [24] 1900 	push	acc
+      0037DF 74 59            [12] 1901 	mov	a,#(___str_19 >> 8)
+      0037E1 C0 E0            [24] 1902 	push	acc
+      0037E3 74 80            [12] 1903 	mov	a,#0x80
+      0037E5 C0 E0            [24] 1904 	push	acc
+      0037E7 12 4B 63         [24] 1905 	lcall	_printf
+      0037EA 15 81            [12] 1906 	dec	sp
+      0037EC 15 81            [12] 1907 	dec	sp
+      0037EE 15 81            [12] 1908 	dec	sp
+                                   1909 ;	syntax.c:292: printf("\n\r|------------------------------------------------|");
+      0037F0 74 49            [12] 1910 	mov	a,#___str_8
+      0037F2 C0 E0            [24] 1911 	push	acc
+      0037F4 74 57            [12] 1912 	mov	a,#(___str_8 >> 8)
+      0037F6 C0 E0            [24] 1913 	push	acc
+      0037F8 74 80            [12] 1914 	mov	a,#0x80
+      0037FA C0 E0            [24] 1915 	push	acc
+      0037FC 12 4B 63         [24] 1916 	lcall	_printf
+      0037FF 15 81            [12] 1917 	dec	sp
+      003801 15 81            [12] 1918 	dec	sp
+      003803 15 81            [12] 1919 	dec	sp
+                                   1920 ;	syntax.c:293: printf("\n\r| Total Buffers    | %-28d |", index_of_buffers);
+      003805 90 1A F7         [24] 1921 	mov	dptr,#_index_of_buffers
+      003808 E0               [24] 1922 	movx	a,@dptr
+      003809 FF               [12] 1923 	mov	r7,a
+      00380A 7E 00            [12] 1924 	mov	r6,#0x00
+      00380C C0 07            [24] 1925 	push	ar7
+      00380E C0 06            [24] 1926 	push	ar6
+      003810 74 5D            [12] 1927 	mov	a,#___str_20
+      003812 C0 E0            [24] 1928 	push	acc
+      003814 74 59            [12] 1929 	mov	a,#(___str_20 >> 8)
+      003816 C0 E0            [24] 1930 	push	acc
+      003818 74 80            [12] 1931 	mov	a,#0x80
+      00381A C0 E0            [24] 1932 	push	acc
+      00381C 12 4B 63         [24] 1933 	lcall	_printf
+      00381F E5 81            [12] 1934 	mov	a,sp
+      003821 24 FB            [12] 1935 	add	a,#0xfb
+      003823 F5 81            [12] 1936 	mov	sp,a
+                                   1937 ;	syntax.c:294: printf("\n\r+--------------------------------------------------+");
+      003825 74 A5            [12] 1938 	mov	a,#___str_0
+      003827 C0 E0            [24] 1939 	push	acc
+      003829 74 55            [12] 1940 	mov	a,#(___str_0 >> 8)
+      00382B C0 E0            [24] 1941 	push	acc
+      00382D 74 80            [12] 1942 	mov	a,#0x80
+      00382F C0 E0            [24] 1943 	push	acc
+      003831 12 4B 63         [24] 1944 	lcall	_printf
+      003834 15 81            [12] 1945 	dec	sp
+      003836 15 81            [12] 1946 	dec	sp
+      003838 15 81            [12] 1947 	dec	sp
+                                   1948 ;	syntax.c:296: printf("\n\r+------------------BUFFER INFO--------------------+");
+      00383A 74 7C            [12] 1949 	mov	a,#___str_21
+      00383C C0 E0            [24] 1950 	push	acc
+      00383E 74 59            [12] 1951 	mov	a,#(___str_21 >> 8)
+      003840 C0 E0            [24] 1952 	push	acc
+      003842 74 80            [12] 1953 	mov	a,#0x80
+      003844 C0 E0            [24] 1954 	push	acc
+      003846 12 4B 63         [24] 1955 	lcall	_printf
+      003849 15 81            [12] 1956 	dec	sp
+      00384B 15 81            [12] 1957 	dec	sp
+      00384D 15 81            [12] 1958 	dec	sp
+                                   1959 ;	syntax.c:297: printf("\n\r| ID | Start Addr  | End Addr    | Size (bytes) |");
+      00384F 74 B2            [12] 1960 	mov	a,#___str_22
+      003851 C0 E0            [24] 1961 	push	acc
+      003853 74 59            [12] 1962 	mov	a,#(___str_22 >> 8)
+      003855 C0 E0            [24] 1963 	push	acc
+      003857 74 80            [12] 1964 	mov	a,#0x80
+      003859 C0 E0            [24] 1965 	push	acc
+      00385B 12 4B 63         [24] 1966 	lcall	_printf
+      00385E 15 81            [12] 1967 	dec	sp
+      003860 15 81            [12] 1968 	dec	sp
+      003862 15 81            [12] 1969 	dec	sp
+                                   1970 ;	syntax.c:298: printf("\n\r|----|-------------|-------------|--------------|");
+      003864 74 E6            [12] 1971 	mov	a,#___str_23
+      003866 C0 E0            [24] 1972 	push	acc
+      003868 74 59            [12] 1973 	mov	a,#(___str_23 >> 8)
+      00386A C0 E0            [24] 1974 	push	acc
+      00386C 74 80            [12] 1975 	mov	a,#0x80
+      00386E C0 E0            [24] 1976 	push	acc
+      003870 12 4B 63         [24] 1977 	lcall	_printf
+      003873 15 81            [12] 1978 	dec	sp
+      003875 15 81            [12] 1979 	dec	sp
+      003877 15 81            [12] 1980 	dec	sp
+                                   1981 ;	syntax.c:300: for(int i=1; i<100; i++){
+      003879 7E 01            [12] 1982 	mov	r6,#0x01
+      00387B 7F 00            [12] 1983 	mov	r7,#0x00
+      00387D                       1984 00141$:
+      00387D C3               [12] 1985 	clr	c
+      00387E EE               [12] 1986 	mov	a,r6
+      00387F 94 64            [12] 1987 	subb	a,#0x64
+      003881 EF               [12] 1988 	mov	a,r7
+      003882 64 80            [12] 1989 	xrl	a,#0x80
+      003884 94 80            [12] 1990 	subb	a,#0x80
+      003886 40 03            [24] 1991 	jc	00277$
+      003888 02 39 18         [24] 1992 	ljmp	00114$
+      00388B                       1993 00277$:
+                                   1994 ;	syntax.c:301: if(array_for_nodes[i]){
+      00388B 90 1A AA         [24] 1995 	mov	dptr,#__mulint_PARM_2
+      00388E EE               [12] 1996 	mov	a,r6
+      00388F F0               [24] 1997 	movx	@dptr,a
+      003890 EF               [12] 1998 	mov	a,r7
+      003891 A3               [24] 1999 	inc	dptr
+      003892 F0               [24] 2000 	movx	@dptr,a
+      003893 90 00 06         [24] 2001 	mov	dptr,#0x0006
+      003896 C0 07            [24] 2002 	push	ar7
+      003898 C0 06            [24] 2003 	push	ar6
+      00389A 12 48 E3         [24] 2004 	lcall	__mulint
+      00389D AC 82            [24] 2005 	mov	r4, dpl
+      00389F AD 83            [24] 2006 	mov	r5, dph
+      0038A1 D0 06            [24] 2007 	pop	ar6
+      0038A3 D0 07            [24] 2008 	pop	ar7
+      0038A5 EC               [12] 2009 	mov	a,r4
+      0038A6 24 03            [12] 2010 	add	a, #_array_for_nodes
+      0038A8 FC               [12] 2011 	mov	r4,a
+      0038A9 ED               [12] 2012 	mov	a,r5
+      0038AA 34 04            [12] 2013 	addc	a, #(_array_for_nodes >> 8)
+      0038AC FD               [12] 2014 	mov	r5,a
+      0038AD 8C 82            [24] 2015 	mov	dpl,r4
+      0038AF 8D 83            [24] 2016 	mov	dph,r5
+      0038B1 E0               [24] 2017 	movx	a,@dptr
+      0038B2 60 5C            [24] 2018 	jz	00142$
+                                   2019 ;	syntax.c:305: array_for_nodes[i].size);
+      0038B4 8C 82            [24] 2020 	mov	dpl,r4
+      0038B6 8D 83            [24] 2021 	mov	dph,r5
+      0038B8 A3               [24] 2022 	inc	dptr
+      0038B9 A3               [24] 2023 	inc	dptr
+      0038BA A3               [24] 2024 	inc	dptr
+      0038BB A3               [24] 2025 	inc	dptr
+      0038BC E0               [24] 2026 	movx	a,@dptr
+      0038BD F5 0D            [12] 2027 	mov	_get_command_sloc1_1_0,a
+      0038BF A3               [24] 2028 	inc	dptr
+      0038C0 E0               [24] 2029 	movx	a,@dptr
+      0038C1 F5 0E            [12] 2030 	mov	(_get_command_sloc1_1_0 + 1),a
+                                   2031 ;	syntax.c:304: array_for_nodes[i].data_pointer+array_for_nodes[i].size,
+      0038C3 8C 82            [24] 2032 	mov	dpl,r4
+      0038C5 8D 83            [24] 2033 	mov	dph,r5
+      0038C7 A3               [24] 2034 	inc	dptr
+      0038C8 E0               [24] 2035 	movx	a,@dptr
+      0038C9 F5 10            [12] 2036 	mov	_get_command_sloc2_1_0,a
+      0038CB A3               [24] 2037 	inc	dptr
+      0038CC E0               [24] 2038 	movx	a,@dptr
+      0038CD F5 11            [12] 2039 	mov	(_get_command_sloc2_1_0 + 1),a
+      0038CF A3               [24] 2040 	inc	dptr
+      0038D0 E0               [24] 2041 	movx	a,@dptr
+      0038D1 F5 12            [12] 2042 	mov	(_get_command_sloc2_1_0 + 2),a
+      0038D3 E5 0D            [12] 2043 	mov	a,_get_command_sloc1_1_0
+      0038D5 25 10            [12] 2044 	add	a, _get_command_sloc2_1_0
+      0038D7 FA               [12] 2045 	mov	r2,a
+      0038D8 E5 0E            [12] 2046 	mov	a,(_get_command_sloc1_1_0 + 1)
+      0038DA 35 11            [12] 2047 	addc	a, (_get_command_sloc2_1_0 + 1)
+      0038DC FC               [12] 2048 	mov	r4,a
+      0038DD AD 12            [24] 2049 	mov	r5,(_get_command_sloc2_1_0 + 2)
+                                   2050 ;	syntax.c:302: printf("\n\r| %-2d | %-10p | %-10p | %-11d |",
+      0038DF C0 07            [24] 2051 	push	ar7
+      0038E1 C0 06            [24] 2052 	push	ar6
+      0038E3 C0 0D            [24] 2053 	push	_get_command_sloc1_1_0
+      0038E5 C0 0E            [24] 2054 	push	(_get_command_sloc1_1_0 + 1)
+      0038E7 C0 02            [24] 2055 	push	ar2
+      0038E9 C0 04            [24] 2056 	push	ar4
+      0038EB C0 05            [24] 2057 	push	ar5
+      0038ED C0 10            [24] 2058 	push	_get_command_sloc2_1_0
+      0038EF C0 11            [24] 2059 	push	(_get_command_sloc2_1_0 + 1)
+      0038F1 C0 12            [24] 2060 	push	(_get_command_sloc2_1_0 + 2)
+      0038F3 C0 06            [24] 2061 	push	ar6
+      0038F5 C0 07            [24] 2062 	push	ar7
+      0038F7 74 1A            [12] 2063 	mov	a,#___str_24
+      0038F9 C0 E0            [24] 2064 	push	acc
+      0038FB 74 5A            [12] 2065 	mov	a,#(___str_24 >> 8)
+      0038FD C0 E0            [24] 2066 	push	acc
+      0038FF 74 80            [12] 2067 	mov	a,#0x80
+      003901 C0 E0            [24] 2068 	push	acc
+      003903 12 4B 63         [24] 2069 	lcall	_printf
+      003906 E5 81            [12] 2070 	mov	a,sp
+      003908 24 F3            [12] 2071 	add	a,#0xf3
+      00390A F5 81            [12] 2072 	mov	sp,a
+      00390C D0 06            [24] 2073 	pop	ar6
+      00390E D0 07            [24] 2074 	pop	ar7
+      003910                       2075 00142$:
+                                   2076 ;	syntax.c:300: for(int i=1; i<100; i++){
+      003910 0E               [12] 2077 	inc	r6
+      003911 BE 00 01         [24] 2078 	cjne	r6,#0x00,00279$
+      003914 0F               [12] 2079 	inc	r7
+      003915                       2080 00279$:
+      003915 02 38 7D         [24] 2081 	ljmp	00141$
+      003918                       2082 00114$:
+                                   2083 ;	syntax.c:309: printf("\n\r|------------------------------------------------|");
+      003918 74 49            [12] 2084 	mov	a,#___str_8
+      00391A C0 E0            [24] 2085 	push	acc
+      00391C 74 57            [12] 2086 	mov	a,#(___str_8 >> 8)
+      00391E C0 E0            [24] 2087 	push	acc
+      003920 74 80            [12] 2088 	mov	a,#0x80
+      003922 C0 E0            [24] 2089 	push	acc
+      003924 12 4B 63         [24] 2090 	lcall	_printf
+      003927 15 81            [12] 2091 	dec	sp
+      003929 15 81            [12] 2092 	dec	sp
+      00392B 15 81            [12] 2093 	dec	sp
+                                   2094 ;	syntax.c:311: printf("\n\r| MEMORY ALLOCATION STATUS BUFFER 0              |");
+      00392D 74 3D            [12] 2095 	mov	a,#___str_25
+      00392F C0 E0            [24] 2096 	push	acc
+      003931 74 5A            [12] 2097 	mov	a,#(___str_25 >> 8)
+      003933 C0 E0            [24] 2098 	push	acc
+      003935 74 80            [12] 2099 	mov	a,#0x80
+      003937 C0 E0            [24] 2100 	push	acc
+      003939 12 4B 63         [24] 2101 	lcall	_printf
+      00393C 15 81            [12] 2102 	dec	sp
+      00393E 15 81            [12] 2103 	dec	sp
+      003940 15 81            [12] 2104 	dec	sp
+                                   2105 ;	syntax.c:312: printf("\n\r|------------------------------------------------|");
+      003942 74 49            [12] 2106 	mov	a,#___str_8
+      003944 C0 E0            [24] 2107 	push	acc
+      003946 74 57            [12] 2108 	mov	a,#(___str_8 >> 8)
+      003948 C0 E0            [24] 2109 	push	acc
+      00394A 74 80            [12] 2110 	mov	a,#0x80
+      00394C C0 E0            [24] 2111 	push	acc
+      00394E 12 4B 63         [24] 2112 	lcall	_printf
+      003951 15 81            [12] 2113 	dec	sp
+      003953 15 81            [12] 2114 	dec	sp
+      003955 15 81            [12] 2115 	dec	sp
+                                   2116 ;	syntax.c:313: printf("\n\r| Total Space      | %-28d |", array_for_nodes[0].size);
+      003957 90 04 07         [24] 2117 	mov	dptr,#(_array_for_nodes + 0x0004)
+      00395A E0               [24] 2118 	movx	a,@dptr
+      00395B FE               [12] 2119 	mov	r6,a
+      00395C A3               [24] 2120 	inc	dptr
+      00395D E0               [24] 2121 	movx	a,@dptr
+      00395E FF               [12] 2122 	mov	r7,a
+      00395F C0 06            [24] 2123 	push	ar6
+      003961 C0 07            [24] 2124 	push	ar7
+      003963 74 72            [12] 2125 	mov	a,#___str_26
+      003965 C0 E0            [24] 2126 	push	acc
+      003967 74 5A            [12] 2127 	mov	a,#(___str_26 >> 8)
+      003969 C0 E0            [24] 2128 	push	acc
+      00396B 74 80            [12] 2129 	mov	a,#0x80
+      00396D C0 E0            [24] 2130 	push	acc
+      00396F 12 4B 63         [24] 2131 	lcall	_printf
+      003972 E5 81            [12] 2132 	mov	a,sp
+      003974 24 FB            [12] 2133 	add	a,#0xfb
+      003976 F5 81            [12] 2134 	mov	sp,a
+                                   2135 ;	syntax.c:314: printf("\n\r| Occupied Space   | %-28d |", total_number_of_storage);
+      003978 90 1A F9         [24] 2136 	mov	dptr,#_total_number_of_storage
+      00397B E0               [24] 2137 	movx	a,@dptr
+      00397C FF               [12] 2138 	mov	r7,a
+      00397D 7E 00            [12] 2139 	mov	r6,#0x00
+      00397F C0 07            [24] 2140 	push	ar7
+      003981 C0 06            [24] 2141 	push	ar6
+      003983 74 91            [12] 2142 	mov	a,#___str_27
+      003985 C0 E0            [24] 2143 	push	acc
+      003987 74 5A            [12] 2144 	mov	a,#(___str_27 >> 8)
+      003989 C0 E0            [24] 2145 	push	acc
+      00398B 74 80            [12] 2146 	mov	a,#0x80
+      00398D C0 E0            [24] 2147 	push	acc
+      00398F 12 4B 63         [24] 2148 	lcall	_printf
+      003992 E5 81            [12] 2149 	mov	a,sp
+      003994 24 FB            [12] 2150 	add	a,#0xfb
+      003996 F5 81            [12] 2151 	mov	sp,a
+                                   2152 ;	syntax.c:315: printf("\n\r| Free Space       | %-28d |", array_for_nodes[0].size - total_number_of_storage);
+      003998 90 04 07         [24] 2153 	mov	dptr,#(_array_for_nodes + 0x0004)
+      00399B E0               [24] 2154 	movx	a,@dptr
+      00399C FE               [12] 2155 	mov	r6,a
+      00399D A3               [24] 2156 	inc	dptr
+      00399E E0               [24] 2157 	movx	a,@dptr
+      00399F FF               [12] 2158 	mov	r7,a
+      0039A0 90 1A F9         [24] 2159 	mov	dptr,#_total_number_of_storage
+      0039A3 E0               [24] 2160 	movx	a,@dptr
+      0039A4 FD               [12] 2161 	mov	r5,a
+      0039A5 7C 00            [12] 2162 	mov	r4,#0x00
+      0039A7 EE               [12] 2163 	mov	a,r6
+      0039A8 C3               [12] 2164 	clr	c
+      0039A9 9D               [12] 2165 	subb	a,r5
+      0039AA FE               [12] 2166 	mov	r6,a
+      0039AB EF               [12] 2167 	mov	a,r7
+      0039AC 9C               [12] 2168 	subb	a,r4
+      0039AD FF               [12] 2169 	mov	r7,a
+      0039AE C0 06            [24] 2170 	push	ar6
+      0039B0 C0 07            [24] 2171 	push	ar7
+      0039B2 74 B0            [12] 2172 	mov	a,#___str_28
+      0039B4 C0 E0            [24] 2173 	push	acc
+      0039B6 74 5A            [12] 2174 	mov	a,#(___str_28 >> 8)
+      0039B8 C0 E0            [24] 2175 	push	acc
+      0039BA 74 80            [12] 2176 	mov	a,#0x80
+      0039BC C0 E0            [24] 2177 	push	acc
+      0039BE 12 4B 63         [24] 2178 	lcall	_printf
+      0039C1 E5 81            [12] 2179 	mov	a,sp
+      0039C3 24 FB            [12] 2180 	add	a,#0xfb
+      0039C5 F5 81            [12] 2181 	mov	sp,a
+                                   2182 ;	syntax.c:316: printf("\n\r+--------------------------------------------------+");
+      0039C7 74 A5            [12] 2183 	mov	a,#___str_0
+      0039C9 C0 E0            [24] 2184 	push	acc
+      0039CB 74 55            [12] 2185 	mov	a,#(___str_0 >> 8)
+      0039CD C0 E0            [24] 2186 	push	acc
+      0039CF 74 80            [12] 2187 	mov	a,#0x80
+      0039D1 C0 E0            [24] 2188 	push	acc
+      0039D3 12 4B 63         [24] 2189 	lcall	_printf
+      0039D6 15 81            [12] 2190 	dec	sp
+      0039D8 15 81            [12] 2191 	dec	sp
+      0039DA 15 81            [12] 2192 	dec	sp
+                                   2193 ;	syntax.c:317: printf("\n\r+--------------------------------------------------+");
+      0039DC 74 A5            [12] 2194 	mov	a,#___str_0
+      0039DE C0 E0            [24] 2195 	push	acc
+      0039E0 74 55            [12] 2196 	mov	a,#(___str_0 >> 8)
+      0039E2 C0 E0            [24] 2197 	push	acc
+      0039E4 74 80            [12] 2198 	mov	a,#0x80
+      0039E6 C0 E0            [24] 2199 	push	acc
+      0039E8 12 4B 63         [24] 2200 	lcall	_printf
+      0039EB 15 81            [12] 2201 	dec	sp
+      0039ED 15 81            [12] 2202 	dec	sp
+      0039EF 15 81            [12] 2203 	dec	sp
+                                   2204 ;	syntax.c:319: buffer0_dump();
+      0039F1 12 3D 63         [24] 2205 	lcall	_buffer0_dump
+                                   2206 ;	syntax.c:320: printf("\n\r| BUFFER 0 CLEAR STATUS                           |");
+      0039F4 74 CF            [12] 2207 	mov	a,#___str_29
+      0039F6 C0 E0            [24] 2208 	push	acc
+      0039F8 74 5A            [12] 2209 	mov	a,#(___str_29 >> 8)
+      0039FA C0 E0            [24] 2210 	push	acc
+      0039FC 74 80            [12] 2211 	mov	a,#0x80
+      0039FE C0 E0            [24] 2212 	push	acc
+      003A00 12 4B 63         [24] 2213 	lcall	_printf
+      003A03 15 81            [12] 2214 	dec	sp
+      003A05 15 81            [12] 2215 	dec	sp
+      003A07 15 81            [12] 2216 	dec	sp
+                                   2217 ;	syntax.c:321: printf("\n\r|------------------------------------------------|");
+      003A09 74 49            [12] 2218 	mov	a,#___str_8
+      003A0B C0 E0            [24] 2219 	push	acc
+      003A0D 74 57            [12] 2220 	mov	a,#(___str_8 >> 8)
+      003A0F C0 E0            [24] 2221 	push	acc
+      003A11 74 80            [12] 2222 	mov	a,#0x80
+      003A13 C0 E0            [24] 2223 	push	acc
+      003A15 12 4B 63         [24] 2224 	lcall	_printf
+      003A18 15 81            [12] 2225 	dec	sp
+      003A1A 15 81            [12] 2226 	dec	sp
+      003A1C 15 81            [12] 2227 	dec	sp
+                                   2228 ;	syntax.c:324: if(array_for_nodes[0].data_pointer == NULL) {
+      003A1E 90 04 04         [24] 2229 	mov	dptr,#(_array_for_nodes + 0x0001)
+      003A21 E0               [24] 2230 	movx	a,@dptr
+      003A22 FD               [12] 2231 	mov	r5,a
+      003A23 A3               [24] 2232 	inc	dptr
+      003A24 E0               [24] 2233 	movx	a,@dptr
+      003A25 FE               [12] 2234 	mov	r6,a
+      003A26 A3               [24] 2235 	inc	dptr
+      003A27 E0               [24] 2236 	movx	a,@dptr
+      003A28 FF               [12] 2237 	mov	r7,a
+      003A29 ED               [12] 2238 	mov	a,r5
+      003A2A 4E               [12] 2239 	orl	a,r6
+      003A2B 70 2B            [24] 2240 	jnz	00116$
+                                   2241 ;	syntax.c:325: printf("\n\r| Buffer 0 is not initialized                     |");
+      003A2D 74 05            [12] 2242 	mov	a,#___str_30
+      003A2F C0 E0            [24] 2243 	push	acc
+      003A31 74 5B            [12] 2244 	mov	a,#(___str_30 >> 8)
+      003A33 C0 E0            [24] 2245 	push	acc
+      003A35 74 80            [12] 2246 	mov	a,#0x80
+      003A37 C0 E0            [24] 2247 	push	acc
+      003A39 12 4B 63         [24] 2248 	lcall	_printf
+      003A3C 15 81            [12] 2249 	dec	sp
+      003A3E 15 81            [12] 2250 	dec	sp
+      003A40 15 81            [12] 2251 	dec	sp
+                                   2252 ;	syntax.c:326: printf("\n\r+--------------------------------------------------+\n\r");
+      003A42 74 17            [12] 2253 	mov	a,#___str_2
+      003A44 C0 E0            [24] 2254 	push	acc
+      003A46 74 56            [12] 2255 	mov	a,#(___str_2 >> 8)
+      003A48 C0 E0            [24] 2256 	push	acc
+      003A4A 74 80            [12] 2257 	mov	a,#0x80
+      003A4C C0 E0            [24] 2258 	push	acc
+      003A4E 12 4B 63         [24] 2259 	lcall	_printf
+      003A51 15 81            [12] 2260 	dec	sp
+      003A53 15 81            [12] 2261 	dec	sp
+      003A55 15 81            [12] 2262 	dec	sp
+                                   2263 ;	syntax.c:327: return;
+      003A57 22               [24] 2264 	ret
+      003A58                       2265 00116$:
+                                   2266 ;	syntax.c:330: uint16_t buffer_size = array_for_nodes[0].size;
+      003A58 90 04 07         [24] 2267 	mov	dptr,#(_array_for_nodes + 0x0004)
+      003A5B E0               [24] 2268 	movx	a,@dptr
+      003A5C FB               [12] 2269 	mov	r3,a
+      003A5D A3               [24] 2270 	inc	dptr
+      003A5E E0               [24] 2271 	movx	a,@dptr
+      003A5F FC               [12] 2272 	mov	r4,a
+                                   2273 ;	syntax.c:333: memset(array_for_nodes[0].data_pointer, 0, buffer_size);
+      003A60 8D 10            [24] 2274 	mov	_get_command_sloc2_1_0,r5
+      003A62 8E 11            [24] 2275 	mov	(_get_command_sloc2_1_0 + 1),r6
+      003A64 8F 12            [24] 2276 	mov	(_get_command_sloc2_1_0 + 2),r7
+      003A66 8B 02            [24] 2277 	mov	ar2,r3
+      003A68 8C 07            [24] 2278 	mov	ar7,r4
+      003A6A 90 1A 9E         [24] 2279 	mov	dptr,#_memset_PARM_2
+      003A6D E4               [12] 2280 	clr	a
+      003A6E F0               [24] 2281 	movx	@dptr,a
+      003A6F 90 1A 9F         [24] 2282 	mov	dptr,#_memset_PARM_3
+      003A72 EA               [12] 2283 	mov	a,r2
+      003A73 F0               [24] 2284 	movx	@dptr,a
+      003A74 EF               [12] 2285 	mov	a,r7
+      003A75 A3               [24] 2286 	inc	dptr
+      003A76 F0               [24] 2287 	movx	@dptr,a
+      003A77 85 10 82         [24] 2288 	mov	dpl, _get_command_sloc2_1_0
+      003A7A 85 11 83         [24] 2289 	mov	dph, (_get_command_sloc2_1_0 + 1)
+      003A7D 85 12 F0         [24] 2290 	mov	b, (_get_command_sloc2_1_0 + 2)
+      003A80 C0 04            [24] 2291 	push	ar4
+      003A82 C0 03            [24] 2292 	push	ar3
+      003A84 12 46 FB         [24] 2293 	lcall	_memset
+      003A87 D0 03            [24] 2294 	pop	ar3
+      003A89 D0 04            [24] 2295 	pop	ar4
+                                   2296 ;	syntax.c:334: array_for_nodes[0].index = 0;
+      003A8B 90 04 03         [24] 2297 	mov	dptr,#_array_for_nodes
+      003A8E E4               [12] 2298 	clr	a
+      003A8F F0               [24] 2299 	movx	@dptr,a
+                                   2300 ;	syntax.c:336: temp_buffer_size = buffer_size;    // Reset available space
+      003A90 78 2E            [12] 2301 	mov	r0,#_temp_buffer_size
+      003A92 A6 03            [24] 2302 	mov	@r0,ar3
+      003A94 08               [12] 2303 	inc	r0
+      003A95 A6 04            [24] 2304 	mov	@r0,ar4
+                                   2305 ;	syntax.c:337: wr = array_for_nodes[0].data_pointer;  // Reset write pointer to start
+      003A97 90 04 04         [24] 2306 	mov	dptr,#(_array_for_nodes + 0x0001)
+      003A9A E0               [24] 2307 	movx	a,@dptr
+      003A9B FD               [12] 2308 	mov	r5,a
+      003A9C A3               [24] 2309 	inc	dptr
+      003A9D E0               [24] 2310 	movx	a,@dptr
+      003A9E FE               [12] 2311 	mov	r6,a
+      003A9F A3               [24] 2312 	inc	dptr
+      003AA0 E0               [24] 2313 	movx	a,@dptr
+      003AA1 FF               [12] 2314 	mov	r7,a
+      003AA2 90 1A FD         [24] 2315 	mov	dptr,#_wr
+      003AA5 ED               [12] 2316 	mov	a,r5
+      003AA6 F0               [24] 2317 	movx	@dptr,a
+      003AA7 EE               [12] 2318 	mov	a,r6
+      003AA8 A3               [24] 2319 	inc	dptr
+      003AA9 F0               [24] 2320 	movx	@dptr,a
+      003AAA EF               [12] 2321 	mov	a,r7
+      003AAB A3               [24] 2322 	inc	dptr
+      003AAC F0               [24] 2323 	movx	@dptr,a
+                                   2324 ;	syntax.c:338: total_number_of_storage = 0;       // Reset storage counters
+      003AAD 90 1A F9         [24] 2325 	mov	dptr,#_total_number_of_storage
+      003AB0 E4               [12] 2326 	clr	a
+      003AB1 F0               [24] 2327 	movx	@dptr,a
+                                   2328 ;	syntax.c:340: printf("\n\r| Buffer Size      | %-28d |", buffer_size);
+      003AB2 C0 03            [24] 2329 	push	ar3
+      003AB4 C0 04            [24] 2330 	push	ar4
+      003AB6 74 3B            [12] 2331 	mov	a,#___str_31
+      003AB8 C0 E0            [24] 2332 	push	acc
+      003ABA 74 5B            [12] 2333 	mov	a,#(___str_31 >> 8)
+      003ABC C0 E0            [24] 2334 	push	acc
+      003ABE 74 80            [12] 2335 	mov	a,#0x80
+      003AC0 C0 E0            [24] 2336 	push	acc
+      003AC2 12 4B 63         [24] 2337 	lcall	_printf
+      003AC5 E5 81            [12] 2338 	mov	a,sp
+      003AC7 24 FB            [12] 2339 	add	a,#0xfb
+      003AC9 F5 81            [12] 2340 	mov	sp,a
+                                   2341 ;	syntax.c:341: printf("\n\r| Status          | %-28s |", "Data Erased");
+      003ACB 74 78            [12] 2342 	mov	a,#___str_33
+      003ACD C0 E0            [24] 2343 	push	acc
+      003ACF 74 5B            [12] 2344 	mov	a,#(___str_33 >> 8)
+      003AD1 C0 E0            [24] 2345 	push	acc
+      003AD3 74 80            [12] 2346 	mov	a,#0x80
+      003AD5 C0 E0            [24] 2347 	push	acc
+      003AD7 74 5A            [12] 2348 	mov	a,#___str_32
+      003AD9 C0 E0            [24] 2349 	push	acc
+      003ADB 74 5B            [12] 2350 	mov	a,#(___str_32 >> 8)
+      003ADD C0 E0            [24] 2351 	push	acc
+      003ADF 74 80            [12] 2352 	mov	a,#0x80
+      003AE1 C0 E0            [24] 2353 	push	acc
+      003AE3 12 4B 63         [24] 2354 	lcall	_printf
+      003AE6 E5 81            [12] 2355 	mov	a,sp
+      003AE8 24 FA            [12] 2356 	add	a,#0xfa
+      003AEA F5 81            [12] 2357 	mov	sp,a
+                                   2358 ;	syntax.c:342: printf("\n\r+--------------------------------------------------+\n\r");
+      003AEC 74 17            [12] 2359 	mov	a,#___str_2
+      003AEE C0 E0            [24] 2360 	push	acc
+      003AF0 74 56            [12] 2361 	mov	a,#(___str_2 >> 8)
+      003AF2 C0 E0            [24] 2362 	push	acc
+      003AF4 74 80            [12] 2363 	mov	a,#0x80
+      003AF6 C0 E0            [24] 2364 	push	acc
+      003AF8 12 4B 63         [24] 2365 	lcall	_printf
+      003AFB 15 81            [12] 2366 	dec	sp
+      003AFD 15 81            [12] 2367 	dec	sp
+      003AFF 15 81            [12] 2368 	dec	sp
+                                   2369 ;	syntax.c:343: recent_commands = 0;
+      003B01 90 1A FA         [24] 2370 	mov	dptr,#_recent_commands
+      003B04 E4               [12] 2371 	clr	a
+      003B05 F0               [24] 2372 	movx	@dptr,a
+                                   2373 ;	syntax.c:344: recent_storage = 0;
+      003B06 90 1A FB         [24] 2374 	mov	dptr,#_recent_storage
+      003B09 F0               [24] 2375 	movx	@dptr,a
+                                   2376 ;	syntax.c:345: break;
+      003B0A 02 3D 5F         [24] 2377 	ljmp	00133$
+                                   2378 ;	syntax.c:347: case '+':               // Create new buffer
+      003B0D                       2379 00117$:
+                                   2380 ;	syntax.c:348: printf("\n\r+----------------BUFFER CREATION------------------+");
+      003B0D 74 84            [12] 2381 	mov	a,#___str_34
+      003B0F C0 E0            [24] 2382 	push	acc
+      003B11 74 5B            [12] 2383 	mov	a,#(___str_34 >> 8)
+      003B13 C0 E0            [24] 2384 	push	acc
+      003B15 74 80            [12] 2385 	mov	a,#0x80
+      003B17 C0 E0            [24] 2386 	push	acc
+      003B19 12 4B 63         [24] 2387 	lcall	_printf
+      003B1C 15 81            [12] 2388 	dec	sp
+      003B1E 15 81            [12] 2389 	dec	sp
+      003B20 15 81            [12] 2390 	dec	sp
+                                   2391 ;	syntax.c:349: temp_value = get_number("\n\r| Enter buffer size (50-500): ");
+      003B22 90 5B BA         [24] 2392 	mov	dptr,#___str_35
+      003B25 75 F0 80         [24] 2393 	mov	b, #0x80
+      003B28 12 33 DE         [24] 2394 	lcall	_get_number
+      003B2B AE 82            [24] 2395 	mov	r6, dpl
+      003B2D AF 83            [24] 2396 	mov	r7, dph
+                                   2397 ;	syntax.c:350: if(temp_value < 50 || temp_value > 500)
+      003B2F C3               [12] 2398 	clr	c
+      003B30 EE               [12] 2399 	mov	a,r6
+      003B31 94 32            [12] 2400 	subb	a,#0x32
+      003B33 EF               [12] 2401 	mov	a,r7
+      003B34 64 80            [12] 2402 	xrl	a,#0x80
+      003B36 94 80            [12] 2403 	subb	a,#0x80
+      003B38 40 0E            [24] 2404 	jc	00121$
+      003B3A 74 F4            [12] 2405 	mov	a,#0xf4
+      003B3C 9E               [12] 2406 	subb	a,r6
+      003B3D 74 81            [12] 2407 	mov	a,#(0x01 ^ 0x80)
+      003B3F 8F F0            [24] 2408 	mov	b,r7
+      003B41 63 F0 80         [24] 2409 	xrl	b,#0x80
+      003B44 95 F0            [12] 2410 	subb	a,b
+      003B46 50 19            [24] 2411 	jnc	00122$
+      003B48                       2412 00121$:
+                                   2413 ;	syntax.c:352: printf("\n\r ERROR : Invalid request\n\r"); 
+      003B48 74 DB            [12] 2414 	mov	a,#___str_36
+      003B4A C0 E0            [24] 2415 	push	acc
+      003B4C 74 5B            [12] 2416 	mov	a,#(___str_36 >> 8)
+      003B4E C0 E0            [24] 2417 	push	acc
+      003B50 74 80            [12] 2418 	mov	a,#0x80
+      003B52 C0 E0            [24] 2419 	push	acc
+      003B54 12 4B 63         [24] 2420 	lcall	_printf
+      003B57 15 81            [12] 2421 	dec	sp
+      003B59 15 81            [12] 2422 	dec	sp
+      003B5B 15 81            [12] 2423 	dec	sp
+                                   2424 ;	syntax.c:353: return -1;
+      003B5D 90 FF FF         [24] 2425 	mov	dptr,#0xffff
+      003B60 22               [24] 2426 	ret
+      003B61                       2427 00122$:
+                                   2428 ;	syntax.c:357: printf("\n\r| Requested Size: %-32d |", temp_value);
+      003B61 C0 07            [24] 2429 	push	ar7
+      003B63 C0 06            [24] 2430 	push	ar6
+      003B65 C0 06            [24] 2431 	push	ar6
+      003B67 C0 07            [24] 2432 	push	ar7
+      003B69 74 F8            [12] 2433 	mov	a,#___str_37
+      003B6B C0 E0            [24] 2434 	push	acc
+      003B6D 74 5B            [12] 2435 	mov	a,#(___str_37 >> 8)
+      003B6F C0 E0            [24] 2436 	push	acc
+      003B71 74 80            [12] 2437 	mov	a,#0x80
+      003B73 C0 E0            [24] 2438 	push	acc
+      003B75 12 4B 63         [24] 2439 	lcall	_printf
+      003B78 E5 81            [12] 2440 	mov	a,sp
+      003B7A 24 FB            [12] 2441 	add	a,#0xfb
+      003B7C F5 81            [12] 2442 	mov	sp,a
+      003B7E D0 06            [24] 2443 	pop	ar6
+      003B80 D0 07            [24] 2444 	pop	ar7
+                                   2445 ;	syntax.c:359: pointer = (__xdata uint8_t *) malloc(temp_value);
+      003B82 8E 82            [24] 2446 	mov	dpl, r6
+      003B84 8F 83            [24] 2447 	mov	dph, r7
+      003B86 C0 07            [24] 2448 	push	ar7
+      003B88 C0 06            [24] 2449 	push	ar6
+      003B8A 12 47 7A         [24] 2450 	lcall	_malloc
+      003B8D AC 82            [24] 2451 	mov	r4, dpl
+      003B8F AD 83            [24] 2452 	mov	r5, dph
+      003B91 D0 06            [24] 2453 	pop	ar6
+      003B93 D0 07            [24] 2454 	pop	ar7
+                                   2455 ;	syntax.c:360: if (pointer == NULL){
+      003B95 EC               [12] 2456 	mov	a,r4
+      003B96 4D               [12] 2457 	orl	a,r5
+      003B97 70 3C            [24] 2458 	jnz	00119$
+                                   2459 ;	syntax.c:361: printf("\n\r| ERROR: Memory allocation failed                  |");
+      003B99 C0 07            [24] 2460 	push	ar7
+      003B9B C0 06            [24] 2461 	push	ar6
+      003B9D C0 05            [24] 2462 	push	ar5
+      003B9F C0 04            [24] 2463 	push	ar4
+      003BA1 74 14            [12] 2464 	mov	a,#___str_38
+      003BA3 C0 E0            [24] 2465 	push	acc
+      003BA5 74 5C            [12] 2466 	mov	a,#(___str_38 >> 8)
+      003BA7 C0 E0            [24] 2467 	push	acc
+      003BA9 74 80            [12] 2468 	mov	a,#0x80
+      003BAB C0 E0            [24] 2469 	push	acc
+      003BAD 12 4B 63         [24] 2470 	lcall	_printf
+      003BB0 15 81            [12] 2471 	dec	sp
+      003BB2 15 81            [12] 2472 	dec	sp
+      003BB4 15 81            [12] 2473 	dec	sp
+                                   2474 ;	syntax.c:362: printf("\n\r| Try smaller size with '+' command                |");
+      003BB6 74 4B            [12] 2475 	mov	a,#___str_39
+      003BB8 C0 E0            [24] 2476 	push	acc
+      003BBA 74 5C            [12] 2477 	mov	a,#(___str_39 >> 8)
+      003BBC C0 E0            [24] 2478 	push	acc
+      003BBE 74 80            [12] 2479 	mov	a,#0x80
+      003BC0 C0 E0            [24] 2480 	push	acc
+      003BC2 12 4B 63         [24] 2481 	lcall	_printf
+      003BC5 15 81            [12] 2482 	dec	sp
+      003BC7 15 81            [12] 2483 	dec	sp
+      003BC9 15 81            [12] 2484 	dec	sp
+      003BCB D0 04            [24] 2485 	pop	ar4
+      003BCD D0 05            [24] 2486 	pop	ar5
+      003BCF D0 06            [24] 2487 	pop	ar6
+      003BD1 D0 07            [24] 2488 	pop	ar7
+      003BD3 80 25            [24] 2489 	sjmp	00120$
+      003BD5                       2490 00119$:
+                                   2491 ;	syntax.c:364: printf("\n\r| SUCCESS: Buffer created successfully            |");
+      003BD5 C0 07            [24] 2492 	push	ar7
+      003BD7 C0 06            [24] 2493 	push	ar6
+      003BD9 C0 05            [24] 2494 	push	ar5
+      003BDB C0 04            [24] 2495 	push	ar4
+      003BDD 74 82            [12] 2496 	mov	a,#___str_40
+      003BDF C0 E0            [24] 2497 	push	acc
+      003BE1 74 5C            [12] 2498 	mov	a,#(___str_40 >> 8)
+      003BE3 C0 E0            [24] 2499 	push	acc
+      003BE5 74 80            [12] 2500 	mov	a,#0x80
+      003BE7 C0 E0            [24] 2501 	push	acc
+      003BE9 12 4B 63         [24] 2502 	lcall	_printf
+      003BEC 15 81            [12] 2503 	dec	sp
+      003BEE 15 81            [12] 2504 	dec	sp
+      003BF0 15 81            [12] 2505 	dec	sp
+      003BF2 D0 04            [24] 2506 	pop	ar4
+      003BF4 D0 05            [24] 2507 	pop	ar5
+      003BF6 D0 06            [24] 2508 	pop	ar6
+      003BF8 D0 07            [24] 2509 	pop	ar7
+      003BFA                       2510 00120$:
+                                   2511 ;	syntax.c:366: printf("\n\r+--------------------------------------------------+\n\r");
+      003BFA C0 07            [24] 2512 	push	ar7
+      003BFC C0 06            [24] 2513 	push	ar6
+      003BFE C0 05            [24] 2514 	push	ar5
+      003C00 C0 04            [24] 2515 	push	ar4
+      003C02 74 17            [12] 2516 	mov	a,#___str_2
+      003C04 C0 E0            [24] 2517 	push	acc
+      003C06 74 56            [12] 2518 	mov	a,#(___str_2 >> 8)
+      003C08 C0 E0            [24] 2519 	push	acc
+      003C0A 74 80            [12] 2520 	mov	a,#0x80
+      003C0C C0 E0            [24] 2521 	push	acc
+      003C0E 12 4B 63         [24] 2522 	lcall	_printf
+      003C11 15 81            [12] 2523 	dec	sp
+      003C13 15 81            [12] 2524 	dec	sp
+      003C15 15 81            [12] 2525 	dec	sp
+      003C17 D0 04            [24] 2526 	pop	ar4
+      003C19 D0 05            [24] 2527 	pop	ar5
+      003C1B D0 06            [24] 2528 	pop	ar6
+      003C1D D0 07            [24] 2529 	pop	ar7
+                                   2530 ;	syntax.c:368: node_t node = {index_of_buffers, pointer, temp_value};
+      003C1F 90 1A F7         [24] 2531 	mov	dptr,#_index_of_buffers
+      003C22 E0               [24] 2532 	movx	a,@dptr
+      003C23 90 06 79         [24] 2533 	mov	dptr,#_get_command_node_30003_120
+      003C26 F0               [24] 2534 	movx	@dptr,a
+      003C27 7B 00            [12] 2535 	mov	r3,#0x00
+      003C29 90 06 7A         [24] 2536 	mov	dptr,#(_get_command_node_30003_120 + 0x0001)
+      003C2C EC               [12] 2537 	mov	a,r4
+      003C2D F0               [24] 2538 	movx	@dptr,a
+      003C2E ED               [12] 2539 	mov	a,r5
+      003C2F A3               [24] 2540 	inc	dptr
+      003C30 F0               [24] 2541 	movx	@dptr,a
+      003C31 EB               [12] 2542 	mov	a,r3
+      003C32 A3               [24] 2543 	inc	dptr
+      003C33 F0               [24] 2544 	movx	@dptr,a
+      003C34 90 06 7D         [24] 2545 	mov	dptr,#(_get_command_node_30003_120 + 0x0004)
+      003C37 EE               [12] 2546 	mov	a,r6
+      003C38 F0               [24] 2547 	movx	@dptr,a
+      003C39 EF               [12] 2548 	mov	a,r7
+      003C3A A3               [24] 2549 	inc	dptr
+      003C3B F0               [24] 2550 	movx	@dptr,a
+                                   2551 ;	syntax.c:369: array_for_nodes[index_of_buffers] = node;
+      003C3C 90 1A F7         [24] 2552 	mov	dptr,#_index_of_buffers
+      003C3F E0               [24] 2553 	movx	a,@dptr
+      003C40 75 F0 06         [24] 2554 	mov	b,#0x06
+      003C43 A4               [48] 2555 	mul	ab
+      003C44 24 03            [12] 2556 	add	a, #_array_for_nodes
+      003C46 FE               [12] 2557 	mov	r6,a
+      003C47 74 04            [12] 2558 	mov	a,#(_array_for_nodes >> 8)
+      003C49 35 F0            [12] 2559 	addc	a, b
+      003C4B FF               [12] 2560 	mov	r7,a
+      003C4C 7D 00            [12] 2561 	mov	r5,#0x00
+      003C4E 90 1A 96         [24] 2562 	mov	dptr,#___memcpy_PARM_2
+      003C51 74 79            [12] 2563 	mov	a,#_get_command_node_30003_120
+      003C53 F0               [24] 2564 	movx	@dptr,a
+      003C54 74 06            [12] 2565 	mov	a,#(_get_command_node_30003_120 >> 8)
+      003C56 A3               [24] 2566 	inc	dptr
+      003C57 F0               [24] 2567 	movx	@dptr,a
+      003C58 E4               [12] 2568 	clr	a
+      003C59 A3               [24] 2569 	inc	dptr
+      003C5A F0               [24] 2570 	movx	@dptr,a
+      003C5B 90 1A 99         [24] 2571 	mov	dptr,#___memcpy_PARM_3
+      003C5E 74 06            [12] 2572 	mov	a,#0x06
+      003C60 F0               [24] 2573 	movx	@dptr,a
+      003C61 E4               [12] 2574 	clr	a
+      003C62 A3               [24] 2575 	inc	dptr
+      003C63 F0               [24] 2576 	movx	@dptr,a
+      003C64 8E 82            [24] 2577 	mov	dpl, r6
+      003C66 8F 83            [24] 2578 	mov	dph, r7
+      003C68 8D F0            [24] 2579 	mov	b, r5
+      003C6A 12 46 87         [24] 2580 	lcall	___memcpy
+                                   2581 ;	syntax.c:370: index_of_buffers++;
+      003C6D 90 1A F7         [24] 2582 	mov	dptr,#_index_of_buffers
+      003C70 E0               [24] 2583 	movx	a,@dptr
+      003C71 24 01            [12] 2584 	add	a, #0x01
+      003C73 F0               [24] 2585 	movx	@dptr,a
+                                   2586 ;	syntax.c:372: break;
+      003C74 02 3D 5F         [24] 2587 	ljmp	00133$
+                                   2588 ;	syntax.c:374: case '-':               // Delete buffer
+      003C77                       2589 00125$:
+                                   2590 ;	syntax.c:375: printf("\n\r+----------------BUFFER DELETION------------------+");
+      003C77 74 B8            [12] 2591 	mov	a,#___str_41
+      003C79 C0 E0            [24] 2592 	push	acc
+      003C7B 74 5C            [12] 2593 	mov	a,#(___str_41 >> 8)
+      003C7D C0 E0            [24] 2594 	push	acc
+      003C7F 74 80            [12] 2595 	mov	a,#0x80
+      003C81 C0 E0            [24] 2596 	push	acc
+      003C83 12 4B 63         [24] 2597 	lcall	_printf
+      003C86 15 81            [12] 2598 	dec	sp
+      003C88 15 81            [12] 2599 	dec	sp
+      003C8A 15 81            [12] 2600 	dec	sp
+                                   2601 ;	syntax.c:376: temp_value = get_number("\n\r| Enter buffer number (0-102): ");
+      003C8C 90 5C EE         [24] 2602 	mov	dptr,#___str_42
+      003C8F 75 F0 80         [24] 2603 	mov	b, #0x80
+      003C92 12 33 DE         [24] 2604 	lcall	_get_number
+      003C95 AE 82            [24] 2605 	mov	r6, dpl
+      003C97 AF 83            [24] 2606 	mov	r7, dph
+                                   2607 ;	syntax.c:378: if(temp_value <= 0) 
+      003C99 C3               [12] 2608 	clr	c
+      003C9A E4               [12] 2609 	clr	a
+      003C9B 9E               [12] 2610 	subb	a,r6
+      003C9C 74 80            [12] 2611 	mov	a,#(0x00 ^ 0x80)
+      003C9E 8F F0            [24] 2612 	mov	b,r7
+      003CA0 63 F0 80         [24] 2613 	xrl	b,#0x80
+      003CA3 95 F0            [12] 2614 	subb	a,b
+      003CA5 40 19            [24] 2615 	jc	00127$
+                                   2616 ;	syntax.c:380: printf("\n\r| ERROR: Cannot delete Buffer 0                    |");
+      003CA7 74 10            [12] 2617 	mov	a,#___str_43
+      003CA9 C0 E0            [24] 2618 	push	acc
+      003CAB 74 5D            [12] 2619 	mov	a,#(___str_43 >> 8)
+      003CAD C0 E0            [24] 2620 	push	acc
+      003CAF 74 80            [12] 2621 	mov	a,#0x80
+      003CB1 C0 E0            [24] 2622 	push	acc
+      003CB3 12 4B 63         [24] 2623 	lcall	_printf
+      003CB6 15 81            [12] 2624 	dec	sp
+      003CB8 15 81            [12] 2625 	dec	sp
+      003CBA 15 81            [12] 2626 	dec	sp
+                                   2627 ;	syntax.c:381: return -1;
+      003CBC 90 FF FF         [24] 2628 	mov	dptr,#0xffff
+      003CBF 22               [24] 2629 	ret
+      003CC0                       2630 00127$:
+                                   2631 ;	syntax.c:383: if(temp_value < 0 || temp_value > 102) 
+      003CC0 C3               [12] 2632 	clr	c
+      003CC1 74 66            [12] 2633 	mov	a,#0x66
+      003CC3 9E               [12] 2634 	subb	a,r6
+      003CC4 74 80            [12] 2635 	mov	a,#(0x00 ^ 0x80)
+      003CC6 8F F0            [24] 2636 	mov	b,r7
+      003CC8 63 F0 80         [24] 2637 	xrl	b,#0x80
+      003CCB 95 F0            [12] 2638 	subb	a,b
+      003CCD 50 19            [24] 2639 	jnc	00129$
+                                   2640 ;	syntax.c:385: printf("\n\r| ERROR: Invalid delete request                  |");
+      003CCF 74 47            [12] 2641 	mov	a,#___str_44
+      003CD1 C0 E0            [24] 2642 	push	acc
+      003CD3 74 5D            [12] 2643 	mov	a,#(___str_44 >> 8)
+      003CD5 C0 E0            [24] 2644 	push	acc
+      003CD7 74 80            [12] 2645 	mov	a,#0x80
+      003CD9 C0 E0            [24] 2646 	push	acc
+      003CDB 12 4B 63         [24] 2647 	lcall	_printf
+      003CDE 15 81            [12] 2648 	dec	sp
+      003CE0 15 81            [12] 2649 	dec	sp
+      003CE2 15 81            [12] 2650 	dec	sp
+                                   2651 ;	syntax.c:386: return -1;
+      003CE4 90 FF FF         [24] 2652 	mov	dptr,#0xffff
+      003CE7 22               [24] 2653 	ret
+      003CE8                       2654 00129$:
+                                   2655 ;	syntax.c:390: array_for_nodes[temp_value].size = 0;
+      003CE8 90 1A AA         [24] 2656 	mov	dptr,#__mulint_PARM_2
+      003CEB EE               [12] 2657 	mov	a,r6
+      003CEC F0               [24] 2658 	movx	@dptr,a
+      003CED EF               [12] 2659 	mov	a,r7
+      003CEE A3               [24] 2660 	inc	dptr
+      003CEF F0               [24] 2661 	movx	@dptr,a
+      003CF0 90 00 06         [24] 2662 	mov	dptr,#0x0006
+      003CF3 C0 07            [24] 2663 	push	ar7
+      003CF5 C0 06            [24] 2664 	push	ar6
+      003CF7 12 48 E3         [24] 2665 	lcall	__mulint
+      003CFA AC 82            [24] 2666 	mov	r4, dpl
+      003CFC AD 83            [24] 2667 	mov	r5, dph
+      003CFE EC               [12] 2668 	mov	a,r4
+      003CFF 24 03            [12] 2669 	add	a, #_array_for_nodes
+      003D01 FC               [12] 2670 	mov	r4,a
+      003D02 ED               [12] 2671 	mov	a,r5
+      003D03 34 04            [12] 2672 	addc	a, #(_array_for_nodes >> 8)
+      003D05 FD               [12] 2673 	mov	r5,a
+      003D06 8C 82            [24] 2674 	mov	dpl,r4
+      003D08 8D 83            [24] 2675 	mov	dph,r5
+      003D0A A3               [24] 2676 	inc	dptr
+      003D0B A3               [24] 2677 	inc	dptr
+      003D0C A3               [24] 2678 	inc	dptr
+      003D0D A3               [24] 2679 	inc	dptr
+      003D0E E4               [12] 2680 	clr	a
+      003D0F F0               [24] 2681 	movx	@dptr,a
+      003D10 A3               [24] 2682 	inc	dptr
+      003D11 F0               [24] 2683 	movx	@dptr,a
+                                   2684 ;	syntax.c:391: free(array_for_nodes[temp_value].data_pointer);
+      003D12 8C 82            [24] 2685 	mov	dpl,r4
+      003D14 8D 83            [24] 2686 	mov	dph,r5
+      003D16 A3               [24] 2687 	inc	dptr
+      003D17 E0               [24] 2688 	movx	a,@dptr
+      003D18 FB               [12] 2689 	mov	r3,a
+      003D19 A3               [24] 2690 	inc	dptr
+      003D1A E0               [24] 2691 	movx	a,@dptr
+      003D1B FC               [12] 2692 	mov	r4,a
+      003D1C A3               [24] 2693 	inc	dptr
+      003D1D E0               [24] 2694 	movx	a,@dptr
+      003D1E FD               [12] 2695 	mov	r5,a
+      003D1F 8B 82            [24] 2696 	mov	dpl, r3
+      003D21 8C 83            [24] 2697 	mov	dph, r4
+      003D23 8D F0            [24] 2698 	mov	b, r5
+      003D25 12 45 30         [24] 2699 	lcall	_free
+      003D28 D0 06            [24] 2700 	pop	ar6
+      003D2A D0 07            [24] 2701 	pop	ar7
+                                   2702 ;	syntax.c:392: printf("\n\r| SUCCESS: Buffer %-2d deleted                     |", temp_value);
+      003D2C C0 06            [24] 2703 	push	ar6
+      003D2E C0 07            [24] 2704 	push	ar7
+      003D30 74 7C            [12] 2705 	mov	a,#___str_45
+      003D32 C0 E0            [24] 2706 	push	acc
+      003D34 74 5D            [12] 2707 	mov	a,#(___str_45 >> 8)
+      003D36 C0 E0            [24] 2708 	push	acc
+      003D38 74 80            [12] 2709 	mov	a,#0x80
+      003D3A C0 E0            [24] 2710 	push	acc
+      003D3C 12 4B 63         [24] 2711 	lcall	_printf
+      003D3F E5 81            [12] 2712 	mov	a,sp
+      003D41 24 FB            [12] 2713 	add	a,#0xfb
+      003D43 F5 81            [12] 2714 	mov	sp,a
+                                   2715 ;	syntax.c:394: printf("\n\r+--------------------------------------------------+\n\r");
+      003D45 74 17            [12] 2716 	mov	a,#___str_2
+      003D47 C0 E0            [24] 2717 	push	acc
+      003D49 74 56            [12] 2718 	mov	a,#(___str_2 >> 8)
+      003D4B C0 E0            [24] 2719 	push	acc
+      003D4D 74 80            [12] 2720 	mov	a,#0x80
+      003D4F C0 E0            [24] 2721 	push	acc
+      003D51 12 4B 63         [24] 2722 	lcall	_printf
+      003D54 15 81            [12] 2723 	dec	sp
+      003D56 15 81            [12] 2724 	dec	sp
+      003D58 15 81            [12] 2725 	dec	sp
+                                   2726 ;	syntax.c:395: break;
+                                   2727 ;	syntax.c:397: case '=':               // Display Buffer 0
+      003D5A 80 03            [24] 2728 	sjmp	00133$
+      003D5C                       2729 00132$:
+                                   2730 ;	syntax.c:398: buffer0_dump();
+      003D5C 12 3D 63         [24] 2731 	lcall	_buffer0_dump
+                                   2732 ;	syntax.c:400: }
+      003D5F                       2733 00133$:
+                                   2734 ;	syntax.c:401: return 0;
+      003D5F 90 00 00         [24] 2735 	mov	dptr,#0x0000
+                                   2736 ;	syntax.c:402: }
+      003D62 22               [24] 2737 	ret
+                                   2738 ;------------------------------------------------------------
+                                   2739 ;Allocation info for local variables in function 'buffer0_dump'
+                                   2740 ;------------------------------------------------------------
+                                   2741 ;sloc0                     Allocated with name '_buffer0_dump_sloc0_1_0'
+                                   2742 ;sloc1                     Allocated with name '_buffer0_dump_sloc1_1_0'
+                                   2743 ;sloc2                     Allocated with name '_buffer0_dump_sloc2_1_0'
+                                   2744 ;rd_ptr                    Allocated with name '_buffer0_dump_rd_ptr_10001_127'
+                                   2745 ;remaining_bytes           Allocated with name '_buffer0_dump_remaining_bytes_10001_127'
+                                   2746 ;offset                    Allocated with name '_buffer0_dump_offset_20001_128'
+                                   2747 ;i                         Allocated with name '_buffer0_dump_i_40001_130'
+                                   2748 ;i                         Allocated with name '_buffer0_dump_i_40001_132'
+                                   2749 ;------------------------------------------------------------
+                                   2750 ;	syntax.c:410: void buffer0_dump(void) {
+                                   2751 ;	-----------------------------------------
+                                   2752 ;	 function buffer0_dump
+                                   2753 ;	-----------------------------------------
+      003D63                       2754 _buffer0_dump:
+                                   2755 ;	syntax.c:411: printf("\n\r+---------------BUFFER 0 CONTENTS-----------------+");
+      003D63 74 B3            [12] 2756 	mov	a,#___str_46
+      003D65 C0 E0            [24] 2757 	push	acc
+      003D67 74 5D            [12] 2758 	mov	a,#(___str_46 >> 8)
+      003D69 C0 E0            [24] 2759 	push	acc
+      003D6B 74 80            [12] 2760 	mov	a,#0x80
+      003D6D C0 E0            [24] 2761 	push	acc
+      003D6F 12 4B 63         [24] 2762 	lcall	_printf
+      003D72 15 81            [12] 2763 	dec	sp
+      003D74 15 81            [12] 2764 	dec	sp
+      003D76 15 81            [12] 2765 	dec	sp
+                                   2766 ;	syntax.c:412: printf("\n\r| Address    | Data                               |");
+      003D78 74 E9            [12] 2767 	mov	a,#___str_47
+      003D7A C0 E0            [24] 2768 	push	acc
+      003D7C 74 5D            [12] 2769 	mov	a,#(___str_47 >> 8)
+      003D7E C0 E0            [24] 2770 	push	acc
+      003D80 74 80            [12] 2771 	mov	a,#0x80
+      003D82 C0 E0            [24] 2772 	push	acc
+      003D84 12 4B 63         [24] 2773 	lcall	_printf
+      003D87 15 81            [12] 2774 	dec	sp
+      003D89 15 81            [12] 2775 	dec	sp
+      003D8B 15 81            [12] 2776 	dec	sp
+                                   2777 ;	syntax.c:413: printf("\n\r|------------|---------------------------------------|");
+      003D8D 74 1F            [12] 2778 	mov	a,#___str_48
+      003D8F C0 E0            [24] 2779 	push	acc
+      003D91 74 5E            [12] 2780 	mov	a,#(___str_48 >> 8)
+      003D93 C0 E0            [24] 2781 	push	acc
+      003D95 74 80            [12] 2782 	mov	a,#0x80
+      003D97 C0 E0            [24] 2783 	push	acc
+      003D99 12 4B 63         [24] 2784 	lcall	_printf
+      003D9C 15 81            [12] 2785 	dec	sp
+      003D9E 15 81            [12] 2786 	dec	sp
+      003DA0 15 81            [12] 2787 	dec	sp
+                                   2788 ;	syntax.c:414: printf("\n\r");
+      003DA2 74 58            [12] 2789 	mov	a,#___str_49
+      003DA4 C0 E0            [24] 2790 	push	acc
+      003DA6 74 5E            [12] 2791 	mov	a,#(___str_49 >> 8)
+      003DA8 C0 E0            [24] 2792 	push	acc
+      003DAA 74 80            [12] 2793 	mov	a,#0x80
+      003DAC C0 E0            [24] 2794 	push	acc
+      003DAE 12 4B 63         [24] 2795 	lcall	_printf
+      003DB1 15 81            [12] 2796 	dec	sp
+      003DB3 15 81            [12] 2797 	dec	sp
+      003DB5 15 81            [12] 2798 	dec	sp
+                                   2799 ;	syntax.c:416: if(array_for_nodes[0].data_pointer == NULL) 
+      003DB7 90 04 04         [24] 2800 	mov	dptr,#(_array_for_nodes + 0x0001)
+      003DBA E0               [24] 2801 	movx	a,@dptr
+      003DBB FD               [12] 2802 	mov	r5,a
+      003DBC A3               [24] 2803 	inc	dptr
+      003DBD E0               [24] 2804 	movx	a,@dptr
+      003DBE FE               [12] 2805 	mov	r6,a
+      003DBF A3               [24] 2806 	inc	dptr
+      003DC0 E0               [24] 2807 	movx	a,@dptr
+      003DC1 FF               [12] 2808 	mov	r7,a
+      003DC2 ED               [12] 2809 	mov	a,r5
+      003DC3 4E               [12] 2810 	orl	a,r6
+      003DC4 70 16            [24] 2811 	jnz	00102$
+                                   2812 ;	syntax.c:417: {printf("BUFFER 0 DOES NOT EXIST\n\r");
+      003DC6 74 5B            [12] 2813 	mov	a,#___str_50
+      003DC8 C0 E0            [24] 2814 	push	acc
+      003DCA 74 5E            [12] 2815 	mov	a,#(___str_50 >> 8)
+      003DCC C0 E0            [24] 2816 	push	acc
+      003DCE 74 80            [12] 2817 	mov	a,#0x80
+      003DD0 C0 E0            [24] 2818 	push	acc
+      003DD2 12 4B 63         [24] 2819 	lcall	_printf
+      003DD5 15 81            [12] 2820 	dec	sp
+      003DD7 15 81            [12] 2821 	dec	sp
+      003DD9 15 81            [12] 2822 	dec	sp
+                                   2823 ;	syntax.c:418: return;
+      003DDB 22               [24] 2824 	ret
+      003DDC                       2825 00102$:
+                                   2826 ;	syntax.c:421: uint16_t remaining_bytes = array_for_nodes[0].size;
+      003DDC 90 04 07         [24] 2827 	mov	dptr,#(_array_for_nodes + 0x0004)
+      003DDF E0               [24] 2828 	movx	a,@dptr
+      003DE0 FB               [12] 2829 	mov	r3,a
+      003DE1 A3               [24] 2830 	inc	dptr
+      003DE2 E0               [24] 2831 	movx	a,@dptr
+      003DE3 FC               [12] 2832 	mov	r4,a
+                                   2833 ;	syntax.c:424: for (uint16_t offset = 0; offset < total_number_of_storage; offset += 16) {
+      003DE4 90 06 7F         [24] 2834 	mov	dptr,#_buffer0_dump_offset_20001_128
+      003DE7 E4               [12] 2835 	clr	a
+      003DE8 F0               [24] 2836 	movx	@dptr,a
+      003DE9 A3               [24] 2837 	inc	dptr
+      003DEA F0               [24] 2838 	movx	@dptr,a
+      003DEB                       2839 00114$:
+      003DEB C0 05            [24] 2840 	push	ar5
+      003DED C0 06            [24] 2841 	push	ar6
+      003DEF C0 07            [24] 2842 	push	ar7
+      003DF1 90 06 7F         [24] 2843 	mov	dptr,#_buffer0_dump_offset_20001_128
+      003DF4 E0               [24] 2844 	movx	a,@dptr
+      003DF5 F9               [12] 2845 	mov	r1,a
+      003DF6 A3               [24] 2846 	inc	dptr
+      003DF7 E0               [24] 2847 	movx	a,@dptr
+      003DF8 FA               [12] 2848 	mov	r2,a
+      003DF9 90 1A F9         [24] 2849 	mov	dptr,#_total_number_of_storage
+      003DFC E0               [24] 2850 	movx	a,@dptr
+      003DFD F8               [12] 2851 	mov	r0,a
+      003DFE 7F 00            [12] 2852 	mov	r7,#0x00
+      003E00 C3               [12] 2853 	clr	c
+      003E01 E9               [12] 2854 	mov	a,r1
+      003E02 98               [12] 2855 	subb	a,r0
+      003E03 EA               [12] 2856 	mov	a,r2
+      003E04 9F               [12] 2857 	subb	a,r7
+      003E05 D0 07            [24] 2858 	pop	ar7
+      003E07 D0 06            [24] 2859 	pop	ar6
+      003E09 D0 05            [24] 2860 	pop	ar5
+      003E0B 40 03            [24] 2861 	jc	00170$
+      003E0D 02 3F 7B         [24] 2862 	ljmp	00105$
+      003E10                       2863 00170$:
+                                   2864 ;	syntax.c:426: printf("\n\r| %04X      |", (uint16_t)(uintptr_t)rd_ptr);
+      003E10 C0 03            [24] 2865 	push	ar3
+      003E12 C0 04            [24] 2866 	push	ar4
+      003E14 8D 00            [24] 2867 	mov	ar0,r5
+      003E16 8E 03            [24] 2868 	mov	ar3,r6
+      003E18 8F 04            [24] 2869 	mov	ar4,r7
+      003E1A C0 07            [24] 2870 	push	ar7
+      003E1C C0 06            [24] 2871 	push	ar6
+      003E1E C0 05            [24] 2872 	push	ar5
+      003E20 C0 04            [24] 2873 	push	ar4
+      003E22 C0 03            [24] 2874 	push	ar3
+      003E24 C0 02            [24] 2875 	push	ar2
+      003E26 C0 01            [24] 2876 	push	ar1
+      003E28 C0 00            [24] 2877 	push	ar0
+      003E2A C0 03            [24] 2878 	push	ar3
+      003E2C 74 75            [12] 2879 	mov	a,#___str_51
+      003E2E C0 E0            [24] 2880 	push	acc
+      003E30 74 5E            [12] 2881 	mov	a,#(___str_51 >> 8)
+      003E32 C0 E0            [24] 2882 	push	acc
+      003E34 74 80            [12] 2883 	mov	a,#0x80
+      003E36 C0 E0            [24] 2884 	push	acc
+      003E38 12 4B 63         [24] 2885 	lcall	_printf
+      003E3B E5 81            [12] 2886 	mov	a,sp
+      003E3D 24 FB            [12] 2887 	add	a,#0xfb
+      003E3F F5 81            [12] 2888 	mov	sp,a
+      003E41 D0 01            [24] 2889 	pop	ar1
+      003E43 D0 02            [24] 2890 	pop	ar2
+      003E45 D0 03            [24] 2891 	pop	ar3
+      003E47 D0 04            [24] 2892 	pop	ar4
+      003E49 D0 05            [24] 2893 	pop	ar5
+      003E4B D0 06            [24] 2894 	pop	ar6
+      003E4D D0 07            [24] 2895 	pop	ar7
+                                   2896 ;	syntax.c:429: for (int i = 0; i < 16 && (offset + i) < remaining_bytes; i++) {
+      003E4F 89 13            [24] 2897 	mov	_buffer0_dump_sloc0_1_0,r1
+      003E51 8A 14            [24] 2898 	mov	(_buffer0_dump_sloc0_1_0 + 1),r2
+      003E53 8D 15            [24] 2899 	mov	_buffer0_dump_sloc1_1_0,r5
+      003E55 8E 16            [24] 2900 	mov	(_buffer0_dump_sloc1_1_0 + 1),r6
+      003E57 8F 17            [24] 2901 	mov	(_buffer0_dump_sloc1_1_0 + 2),r7
+      003E59 E4               [12] 2902 	clr	a
+      003E5A F5 18            [12] 2903 	mov	_buffer0_dump_sloc2_1_0,a
+      003E5C F5 19            [12] 2904 	mov	(_buffer0_dump_sloc2_1_0 + 1),a
+                                   2905 ;	syntax.c:442: printf("\n\r+--------------------------------------------------+\n\r");
+      003E5E D0 04            [24] 2906 	pop	ar4
+      003E60 D0 03            [24] 2907 	pop	ar3
+                                   2908 ;	syntax.c:429: for (int i = 0; i < 16 && (offset + i) < remaining_bytes; i++) {
+      003E62                       2909 00108$:
+      003E62 C3               [12] 2910 	clr	c
+      003E63 E5 18            [12] 2911 	mov	a,_buffer0_dump_sloc2_1_0
+      003E65 94 10            [12] 2912 	subb	a,#0x10
+      003E67 E5 19            [12] 2913 	mov	a,(_buffer0_dump_sloc2_1_0 + 1)
+      003E69 64 80            [12] 2914 	xrl	a,#0x80
+      003E6B 94 80            [12] 2915 	subb	a,#0x80
+      003E6D 50 70            [24] 2916 	jnc	00103$
+      003E6F C0 05            [24] 2917 	push	ar5
+      003E71 C0 06            [24] 2918 	push	ar6
+      003E73 C0 07            [24] 2919 	push	ar7
+      003E75 A9 13            [24] 2920 	mov	r1,_buffer0_dump_sloc0_1_0
+      003E77 AA 14            [24] 2921 	mov	r2,(_buffer0_dump_sloc0_1_0 + 1)
+      003E79 A8 18            [24] 2922 	mov	r0,_buffer0_dump_sloc2_1_0
+      003E7B AF 19            [24] 2923 	mov	r7,(_buffer0_dump_sloc2_1_0 + 1)
+      003E7D E8               [12] 2924 	mov	a,r0
+      003E7E 29               [12] 2925 	add	a, r1
+      003E7F F9               [12] 2926 	mov	r1,a
+      003E80 EF               [12] 2927 	mov	a,r7
+      003E81 3A               [12] 2928 	addc	a, r2
+      003E82 FA               [12] 2929 	mov	r2,a
+      003E83 C3               [12] 2930 	clr	c
+      003E84 E9               [12] 2931 	mov	a,r1
+      003E85 9B               [12] 2932 	subb	a,r3
+      003E86 EA               [12] 2933 	mov	a,r2
+      003E87 9C               [12] 2934 	subb	a,r4
+      003E88 D0 07            [24] 2935 	pop	ar7
+      003E8A D0 06            [24] 2936 	pop	ar6
+      003E8C D0 05            [24] 2937 	pop	ar5
+      003E8E 50 4F            [24] 2938 	jnc	00103$
+                                   2939 ;	syntax.c:430: printf(" %02X", rd_ptr[i]);
+      003E90 E5 18            [12] 2940 	mov	a,_buffer0_dump_sloc2_1_0
+      003E92 25 15            [12] 2941 	add	a, _buffer0_dump_sloc1_1_0
+      003E94 F8               [12] 2942 	mov	r0,a
+      003E95 E5 19            [12] 2943 	mov	a,(_buffer0_dump_sloc2_1_0 + 1)
+      003E97 35 16            [12] 2944 	addc	a, (_buffer0_dump_sloc1_1_0 + 1)
+      003E99 F9               [12] 2945 	mov	r1,a
+      003E9A AA 17            [24] 2946 	mov	r2,(_buffer0_dump_sloc1_1_0 + 2)
+      003E9C 88 82            [24] 2947 	mov	dpl,r0
+      003E9E 89 83            [24] 2948 	mov	dph,r1
+      003EA0 8A F0            [24] 2949 	mov	b,r2
+      003EA2 12 55 85         [24] 2950 	lcall	__gptrget
+      003EA5 F8               [12] 2951 	mov	r0,a
+      003EA6 7A 00            [12] 2952 	mov	r2,#0x00
+      003EA8 C0 07            [24] 2953 	push	ar7
+      003EAA C0 06            [24] 2954 	push	ar6
+      003EAC C0 05            [24] 2955 	push	ar5
+      003EAE C0 04            [24] 2956 	push	ar4
+      003EB0 C0 03            [24] 2957 	push	ar3
+      003EB2 C0 00            [24] 2958 	push	ar0
+      003EB4 C0 02            [24] 2959 	push	ar2
+      003EB6 74 85            [12] 2960 	mov	a,#___str_52
+      003EB8 C0 E0            [24] 2961 	push	acc
+      003EBA 74 5E            [12] 2962 	mov	a,#(___str_52 >> 8)
+      003EBC C0 E0            [24] 2963 	push	acc
+      003EBE 74 80            [12] 2964 	mov	a,#0x80
+      003EC0 C0 E0            [24] 2965 	push	acc
+      003EC2 12 4B 63         [24] 2966 	lcall	_printf
+      003EC5 E5 81            [12] 2967 	mov	a,sp
+      003EC7 24 FB            [12] 2968 	add	a,#0xfb
+      003EC9 F5 81            [12] 2969 	mov	sp,a
+      003ECB D0 03            [24] 2970 	pop	ar3
+      003ECD D0 04            [24] 2971 	pop	ar4
+      003ECF D0 05            [24] 2972 	pop	ar5
+      003ED1 D0 06            [24] 2973 	pop	ar6
+      003ED3 D0 07            [24] 2974 	pop	ar7
+                                   2975 ;	syntax.c:429: for (int i = 0; i < 16 && (offset + i) < remaining_bytes; i++) {
+      003ED5 05 18            [12] 2976 	inc	_buffer0_dump_sloc2_1_0
+      003ED7 E4               [12] 2977 	clr	a
+      003ED8 B5 18 87         [24] 2978 	cjne	a,_buffer0_dump_sloc2_1_0,00108$
+      003EDB 05 19            [12] 2979 	inc	(_buffer0_dump_sloc2_1_0 + 1)
+      003EDD 80 83            [24] 2980 	sjmp	00108$
+      003EDF                       2981 00103$:
+                                   2982 ;	syntax.c:434: for (int i = remaining_bytes - offset; i < 16; i++) {
+      003EDF 90 06 7F         [24] 2983 	mov	dptr,#_buffer0_dump_offset_20001_128
+      003EE2 E0               [24] 2984 	movx	a,@dptr
+      003EE3 F9               [12] 2985 	mov	r1,a
+      003EE4 A3               [24] 2986 	inc	dptr
+      003EE5 E0               [24] 2987 	movx	a,@dptr
+      003EE6 FA               [12] 2988 	mov	r2,a
+      003EE7 EB               [12] 2989 	mov	a,r3
+      003EE8 C3               [12] 2990 	clr	c
+      003EE9 99               [12] 2991 	subb	a,r1
+      003EEA F9               [12] 2992 	mov	r1,a
+      003EEB EC               [12] 2993 	mov	a,r4
+      003EEC 9A               [12] 2994 	subb	a,r2
+      003EED FA               [12] 2995 	mov	r2,a
+      003EEE                       2996 00111$:
+      003EEE C3               [12] 2997 	clr	c
+      003EEF E9               [12] 2998 	mov	a,r1
+      003EF0 94 10            [12] 2999 	subb	a,#0x10
+      003EF2 EA               [12] 3000 	mov	a,r2
+      003EF3 64 80            [12] 3001 	xrl	a,#0x80
+      003EF5 94 80            [12] 3002 	subb	a,#0x80
+      003EF7 50 38            [24] 3003 	jnc	00104$
+                                   3004 ;	syntax.c:435: printf("   ");
+      003EF9 C0 07            [24] 3005 	push	ar7
+      003EFB C0 06            [24] 3006 	push	ar6
+      003EFD C0 05            [24] 3007 	push	ar5
+      003EFF C0 04            [24] 3008 	push	ar4
+      003F01 C0 03            [24] 3009 	push	ar3
+      003F03 C0 02            [24] 3010 	push	ar2
+      003F05 C0 01            [24] 3011 	push	ar1
+      003F07 74 8B            [12] 3012 	mov	a,#___str_53
+      003F09 C0 E0            [24] 3013 	push	acc
+      003F0B 74 5E            [12] 3014 	mov	a,#(___str_53 >> 8)
+      003F0D C0 E0            [24] 3015 	push	acc
+      003F0F 74 80            [12] 3016 	mov	a,#0x80
+      003F11 C0 E0            [24] 3017 	push	acc
+      003F13 12 4B 63         [24] 3018 	lcall	_printf
+      003F16 15 81            [12] 3019 	dec	sp
+      003F18 15 81            [12] 3020 	dec	sp
+      003F1A 15 81            [12] 3021 	dec	sp
+      003F1C D0 01            [24] 3022 	pop	ar1
+      003F1E D0 02            [24] 3023 	pop	ar2
+      003F20 D0 03            [24] 3024 	pop	ar3
+      003F22 D0 04            [24] 3025 	pop	ar4
+      003F24 D0 05            [24] 3026 	pop	ar5
+      003F26 D0 06            [24] 3027 	pop	ar6
+      003F28 D0 07            [24] 3028 	pop	ar7
+                                   3029 ;	syntax.c:434: for (int i = remaining_bytes - offset; i < 16; i++) {
+      003F2A 09               [12] 3030 	inc	r1
+      003F2B B9 00 C0         [24] 3031 	cjne	r1,#0x00,00111$
+      003F2E 0A               [12] 3032 	inc	r2
+      003F2F 80 BD            [24] 3033 	sjmp	00111$
+      003F31                       3034 00104$:
+                                   3035 ;	syntax.c:438: printf(" |");
+      003F31 C0 07            [24] 3036 	push	ar7
+      003F33 C0 06            [24] 3037 	push	ar6
+      003F35 C0 05            [24] 3038 	push	ar5
+      003F37 C0 04            [24] 3039 	push	ar4
+      003F39 C0 03            [24] 3040 	push	ar3
+      003F3B 74 8F            [12] 3041 	mov	a,#___str_54
+      003F3D C0 E0            [24] 3042 	push	acc
+      003F3F 74 5E            [12] 3043 	mov	a,#(___str_54 >> 8)
+      003F41 C0 E0            [24] 3044 	push	acc
+      003F43 74 80            [12] 3045 	mov	a,#0x80
+      003F45 C0 E0            [24] 3046 	push	acc
+      003F47 12 4B 63         [24] 3047 	lcall	_printf
+      003F4A 15 81            [12] 3048 	dec	sp
+      003F4C 15 81            [12] 3049 	dec	sp
+      003F4E 15 81            [12] 3050 	dec	sp
+      003F50 D0 03            [24] 3051 	pop	ar3
+      003F52 D0 04            [24] 3052 	pop	ar4
+      003F54 D0 05            [24] 3053 	pop	ar5
+      003F56 D0 06            [24] 3054 	pop	ar6
+      003F58 D0 07            [24] 3055 	pop	ar7
+                                   3056 ;	syntax.c:439: rd_ptr += 16;
+      003F5A 74 10            [12] 3057 	mov	a,#0x10
+      003F5C 2D               [12] 3058 	add	a, r5
+      003F5D FD               [12] 3059 	mov	r5,a
+      003F5E E4               [12] 3060 	clr	a
+      003F5F 3E               [12] 3061 	addc	a, r6
+      003F60 FE               [12] 3062 	mov	r6,a
+                                   3063 ;	syntax.c:424: for (uint16_t offset = 0; offset < total_number_of_storage; offset += 16) {
+      003F61 90 06 7F         [24] 3064 	mov	dptr,#_buffer0_dump_offset_20001_128
+      003F64 E0               [24] 3065 	movx	a,@dptr
+      003F65 F9               [12] 3066 	mov	r1,a
+      003F66 A3               [24] 3067 	inc	dptr
+      003F67 E0               [24] 3068 	movx	a,@dptr
+      003F68 FA               [12] 3069 	mov	r2,a
+      003F69 74 10            [12] 3070 	mov	a,#0x10
+      003F6B 29               [12] 3071 	add	a, r1
+      003F6C F9               [12] 3072 	mov	r1,a
+      003F6D E4               [12] 3073 	clr	a
+      003F6E 3A               [12] 3074 	addc	a, r2
+      003F6F FA               [12] 3075 	mov	r2,a
+      003F70 90 06 7F         [24] 3076 	mov	dptr,#_buffer0_dump_offset_20001_128
+      003F73 E9               [12] 3077 	mov	a,r1
+      003F74 F0               [24] 3078 	movx	@dptr,a
+      003F75 EA               [12] 3079 	mov	a,r2
+      003F76 A3               [24] 3080 	inc	dptr
+      003F77 F0               [24] 3081 	movx	@dptr,a
+      003F78 02 3D EB         [24] 3082 	ljmp	00114$
+      003F7B                       3083 00105$:
+                                   3084 ;	syntax.c:442: printf("\n\r+--------------------------------------------------+\n\r");
+      003F7B 74 17            [12] 3085 	mov	a,#___str_2
+      003F7D C0 E0            [24] 3086 	push	acc
+      003F7F 74 56            [12] 3087 	mov	a,#(___str_2 >> 8)
+      003F81 C0 E0            [24] 3088 	push	acc
+      003F83 74 80            [12] 3089 	mov	a,#0x80
+      003F85 C0 E0            [24] 3090 	push	acc
+      003F87 12 4B 63         [24] 3091 	lcall	_printf
+      003F8A 15 81            [12] 3092 	dec	sp
+      003F8C 15 81            [12] 3093 	dec	sp
+      003F8E 15 81            [12] 3094 	dec	sp
+                                   3095 ;	syntax.c:443: }
+      003F90 22               [24] 3096 	ret
+                                   3097 ;------------------------------------------------------------
+                                   3098 ;Allocation info for local variables in function 'main'
+                                   3099 ;------------------------------------------------------------
+                                   3100 ;sloc0                     Allocated with name '_main_sloc0_1_0'
+                                   3101 ;buffer_size               Allocated with name '_main_buffer_size_10001_136'
+                                   3102 ;node1                     Allocated with name '_main_node1_10002_140'
+                                   3103 ;node2                     Allocated with name '_main_node2_10003_141'
+                                   3104 ;wr                        Allocated with name '_main_wr_10004_142'
+                                   3105 ;ch                        Allocated with name '_main_ch_20004_143'
+                                   3106 ;cha                       Allocated with name '_main_cha_20005_146'
+                                   3107 ;temp_buffer_size          Allocated to registers 
+                                   3108 ;index_for_write           Allocated to registers 
+                                   3109 ;------------------------------------------------------------
+                                   3110 ;	syntax.c:451: void main(void)
+                                   3111 ;	-----------------------------------------
+                                   3112 ;	 function main
+                                   3113 ;	-----------------------------------------
+      003F91                       3114 _main:
+                                   3115 ;	syntax.c:454: printf("\n\r+==================================================+");
+      003F91 74 92            [12] 3116 	mov	a,#___str_55
+      003F93 C0 E0            [24] 3117 	push	acc
+      003F95 74 5E            [12] 3118 	mov	a,#(___str_55 >> 8)
+      003F97 C0 E0            [24] 3119 	push	acc
+      003F99 74 80            [12] 3120 	mov	a,#0x80
+      003F9B C0 E0            [24] 3121 	push	acc
+      003F9D 12 4B 63         [24] 3122 	lcall	_printf
+      003FA0 15 81            [12] 3123 	dec	sp
+      003FA2 15 81            [12] 3124 	dec	sp
+      003FA4 15 81            [12] 3125 	dec	sp
+                                   3126 ;	syntax.c:455: printf("\n\r|           BUFFER MANAGEMENT SYSTEM                |");
+      003FA6 74 C9            [12] 3127 	mov	a,#___str_56
+      003FA8 C0 E0            [24] 3128 	push	acc
+      003FAA 74 5E            [12] 3129 	mov	a,#(___str_56 >> 8)
+      003FAC C0 E0            [24] 3130 	push	acc
+      003FAE 74 80            [12] 3131 	mov	a,#0x80
+      003FB0 C0 E0            [24] 3132 	push	acc
+      003FB2 12 4B 63         [24] 3133 	lcall	_printf
+      003FB5 15 81            [12] 3134 	dec	sp
+      003FB7 15 81            [12] 3135 	dec	sp
+      003FB9 15 81            [12] 3136 	dec	sp
+                                   3137 ;	syntax.c:456: printf("\n\r+==================================================+");
+      003FBB 74 92            [12] 3138 	mov	a,#___str_55
+      003FBD C0 E0            [24] 3139 	push	acc
+      003FBF 74 5E            [12] 3140 	mov	a,#(___str_55 >> 8)
+      003FC1 C0 E0            [24] 3141 	push	acc
+      003FC3 74 80            [12] 3142 	mov	a,#0x80
+      003FC5 C0 E0            [24] 3143 	push	acc
+      003FC7 12 4B 63         [24] 3144 	lcall	_printf
+      003FCA 15 81            [12] 3145 	dec	sp
+      003FCC 15 81            [12] 3146 	dec	sp
+      003FCE 15 81            [12] 3147 	dec	sp
+                                   3148 ;	syntax.c:460: index_of_buffers = 0;
+      003FD0 90 1A F7         [24] 3149 	mov	dptr,#_index_of_buffers
+      003FD3 E4               [12] 3150 	clr	a
+      003FD4 F0               [24] 3151 	movx	@dptr,a
+                                   3152 ;	syntax.c:461: total_number_of_commands = 0;
+      003FD5 90 1A F8         [24] 3153 	mov	dptr,#_total_number_of_commands
+      003FD8 F0               [24] 3154 	movx	@dptr,a
+                                   3155 ;	syntax.c:462: total_number_of_storage = 0;
+      003FD9 90 1A F9         [24] 3156 	mov	dptr,#_total_number_of_storage
+      003FDC F0               [24] 3157 	movx	@dptr,a
+                                   3158 ;	syntax.c:463: recent_commands = 0;
+      003FDD 90 1A FA         [24] 3159 	mov	dptr,#_recent_commands
+      003FE0 F0               [24] 3160 	movx	@dptr,a
+                                   3161 ;	syntax.c:464: recent_storage = 0;
+      003FE1 90 1A FB         [24] 3162 	mov	dptr,#_recent_storage
+      003FE4 F0               [24] 3163 	movx	@dptr,a
+                                   3164 ;	syntax.c:465: recived_bytes = 0;
+      003FE5 90 1A FC         [24] 3165 	mov	dptr,#_recived_bytes
+      003FE8 F0               [24] 3166 	movx	@dptr,a
+                                   3167 ;	syntax.c:468: do{
+      003FE9                       3168 00108$:
+                                   3169 ;	syntax.c:470: buffer_size = get_buf_value("\n\r| Enter initial buffer size (32-5120): ", upper_default, LOWER_DEFAULT);
+      003FE9 90 06 5D         [24] 3170 	mov	dptr,#_get_buf_value_PARM_2
+      003FEC E4               [12] 3171 	clr	a
+      003FED F0               [24] 3172 	movx	@dptr,a
+      003FEE 74 14            [12] 3173 	mov	a,#0x14
+      003FF0 A3               [24] 3174 	inc	dptr
+      003FF1 F0               [24] 3175 	movx	@dptr,a
+      003FF2 90 06 5F         [24] 3176 	mov	dptr,#_get_buf_value_PARM_3
+      003FF5 74 20            [12] 3177 	mov	a,#0x20
+      003FF7 F0               [24] 3178 	movx	@dptr,a
+      003FF8 E4               [12] 3179 	clr	a
+      003FF9 A3               [24] 3180 	inc	dptr
+      003FFA F0               [24] 3181 	movx	@dptr,a
+      003FFB 90 5F 01         [24] 3182 	mov	dptr,#___str_57
+      003FFE 75 F0 80         [24] 3183 	mov	b, #0x80
+      004001 12 30 E3         [24] 3184 	lcall	_get_buf_value
+      004004 AE 82            [24] 3185 	mov	r6, dpl
+      004006 AF 83            [24] 3186 	mov	r7, dph
+                                   3187 ;	syntax.c:472: if(buffer_size == -1) continue;
+      004008 BE FF 06         [24] 3188 	cjne	r6,#0xff,00193$
+      00400B BF FF 03         [24] 3189 	cjne	r7,#0xff,00193$
+      00400E 02 41 8A         [24] 3190 	ljmp	00109$
+      004011                       3191 00193$:
+                                   3192 ;	syntax.c:475: pointer1 = (__xdata uint8_t *) malloc(buffer_size);
+      004011 8E 82            [24] 3193 	mov	dpl, r6
+      004013 8F 83            [24] 3194 	mov	dph, r7
+      004015 C0 07            [24] 3195 	push	ar7
+      004017 C0 06            [24] 3196 	push	ar6
+      004019 12 47 7A         [24] 3197 	lcall	_malloc
+      00401C AC 82            [24] 3198 	mov	r4, dpl
+      00401E AD 83            [24] 3199 	mov	r5, dph
+      004020 D0 06            [24] 3200 	pop	ar6
+      004022 D0 07            [24] 3201 	pop	ar7
+      004024 90 1B 00         [24] 3202 	mov	dptr,#_pointer1
+      004027 EC               [12] 3203 	mov	a,r4
+      004028 F0               [24] 3204 	movx	@dptr,a
+      004029 ED               [12] 3205 	mov	a,r5
+      00402A A3               [24] 3206 	inc	dptr
+      00402B F0               [24] 3207 	movx	@dptr,a
+                                   3208 ;	syntax.c:476: if (pointer1 == NULL){
+      00402C EC               [12] 3209 	mov	a,r4
+      00402D 4D               [12] 3210 	orl	a,r5
+      00402E 70 4A            [24] 3211 	jnz	00104$
+                                   3212 ;	syntax.c:477: printf("\n\r| ERROR: Buffer 1 allocation failed                |");
+      004030 C0 07            [24] 3213 	push	ar7
+      004032 C0 06            [24] 3214 	push	ar6
+      004034 74 2B            [12] 3215 	mov	a,#___str_58
+      004036 C0 E0            [24] 3216 	push	acc
+      004038 74 5F            [12] 3217 	mov	a,#(___str_58 >> 8)
+      00403A C0 E0            [24] 3218 	push	acc
+      00403C 74 80            [12] 3219 	mov	a,#0x80
+      00403E C0 E0            [24] 3220 	push	acc
+      004040 12 4B 63         [24] 3221 	lcall	_printf
+      004043 15 81            [12] 3222 	dec	sp
+      004045 15 81            [12] 3223 	dec	sp
+      004047 15 81            [12] 3224 	dec	sp
+                                   3225 ;	syntax.c:478: printf("\n\r| Try smaller size                                |");
+      004049 74 62            [12] 3226 	mov	a,#___str_59
+      00404B C0 E0            [24] 3227 	push	acc
+      00404D 74 5F            [12] 3228 	mov	a,#(___str_59 >> 8)
+      00404F C0 E0            [24] 3229 	push	acc
+      004051 74 80            [12] 3230 	mov	a,#0x80
+      004053 C0 E0            [24] 3231 	push	acc
+      004055 12 4B 63         [24] 3232 	lcall	_printf
+      004058 15 81            [12] 3233 	dec	sp
+      00405A 15 81            [12] 3234 	dec	sp
+      00405C 15 81            [12] 3235 	dec	sp
+                                   3236 ;	syntax.c:479: printf("\n\r+------------------------------------------------+\n\r");
+      00405E 74 98            [12] 3237 	mov	a,#___str_60
+      004060 C0 E0            [24] 3238 	push	acc
+      004062 74 5F            [12] 3239 	mov	a,#(___str_60 >> 8)
+      004064 C0 E0            [24] 3240 	push	acc
+      004066 74 80            [12] 3241 	mov	a,#0x80
+      004068 C0 E0            [24] 3242 	push	acc
+      00406A 12 4B 63         [24] 3243 	lcall	_printf
+      00406D 15 81            [12] 3244 	dec	sp
+      00406F 15 81            [12] 3245 	dec	sp
+      004071 15 81            [12] 3246 	dec	sp
+      004073 D0 06            [24] 3247 	pop	ar6
+      004075 D0 07            [24] 3248 	pop	ar7
+                                   3249 ;	syntax.c:480: continue;
+      004077 02 41 8A         [24] 3250 	ljmp	00109$
+      00407A                       3251 00104$:
+                                   3252 ;	syntax.c:484: pointer2 = (__xdata uint8_t *) malloc(buffer_size);
+      00407A 8E 82            [24] 3253 	mov	dpl, r6
+      00407C 8F 83            [24] 3254 	mov	dph, r7
+      00407E C0 07            [24] 3255 	push	ar7
+      004080 C0 06            [24] 3256 	push	ar6
+      004082 12 47 7A         [24] 3257 	lcall	_malloc
+      004085 AC 82            [24] 3258 	mov	r4, dpl
+      004087 AD 83            [24] 3259 	mov	r5, dph
+      004089 D0 06            [24] 3260 	pop	ar6
+      00408B D0 07            [24] 3261 	pop	ar7
+      00408D 90 1B 02         [24] 3262 	mov	dptr,#_pointer2
+      004090 EC               [12] 3263 	mov	a,r4
+      004091 F0               [24] 3264 	movx	@dptr,a
+      004092 ED               [12] 3265 	mov	a,r5
+      004093 A3               [24] 3266 	inc	dptr
+      004094 F0               [24] 3267 	movx	@dptr,a
+                                   3268 ;	syntax.c:485: if (pointer2 == NULL){
+      004095 EC               [12] 3269 	mov	a,r4
+      004096 4D               [12] 3270 	orl	a,r5
+      004097 70 5D            [24] 3271 	jnz	00106$
+                                   3272 ;	syntax.c:486: free(pointer1);
+      004099 90 1B 00         [24] 3273 	mov	dptr,#_pointer1
+      00409C E0               [24] 3274 	movx	a,@dptr
+      00409D FC               [12] 3275 	mov	r4,a
+      00409E A3               [24] 3276 	inc	dptr
+      00409F E0               [24] 3277 	movx	a,@dptr
+      0040A0 FD               [12] 3278 	mov	r5,a
+      0040A1 7B 00            [12] 3279 	mov	r3,#0x00
+      0040A3 8C 82            [24] 3280 	mov	dpl, r4
+      0040A5 8D 83            [24] 3281 	mov	dph, r5
+      0040A7 8B F0            [24] 3282 	mov	b, r3
+      0040A9 C0 07            [24] 3283 	push	ar7
+      0040AB C0 06            [24] 3284 	push	ar6
+      0040AD 12 45 30         [24] 3285 	lcall	_free
+                                   3286 ;	syntax.c:487: printf("\n\r| ERROR: Buffer 2 allocation failed                |");
+      0040B0 74 CF            [12] 3287 	mov	a,#___str_61
+      0040B2 C0 E0            [24] 3288 	push	acc
+      0040B4 74 5F            [12] 3289 	mov	a,#(___str_61 >> 8)
+      0040B6 C0 E0            [24] 3290 	push	acc
+      0040B8 74 80            [12] 3291 	mov	a,#0x80
+      0040BA C0 E0            [24] 3292 	push	acc
+      0040BC 12 4B 63         [24] 3293 	lcall	_printf
+      0040BF 15 81            [12] 3294 	dec	sp
+      0040C1 15 81            [12] 3295 	dec	sp
+      0040C3 15 81            [12] 3296 	dec	sp
+                                   3297 ;	syntax.c:488: printf("\n\r| Try smaller size                                |");
+      0040C5 74 62            [12] 3298 	mov	a,#___str_59
+      0040C7 C0 E0            [24] 3299 	push	acc
+      0040C9 74 5F            [12] 3300 	mov	a,#(___str_59 >> 8)
+      0040CB C0 E0            [24] 3301 	push	acc
+      0040CD 74 80            [12] 3302 	mov	a,#0x80
+      0040CF C0 E0            [24] 3303 	push	acc
+      0040D1 12 4B 63         [24] 3304 	lcall	_printf
+      0040D4 15 81            [12] 3305 	dec	sp
+      0040D6 15 81            [12] 3306 	dec	sp
+      0040D8 15 81            [12] 3307 	dec	sp
+                                   3308 ;	syntax.c:489: printf("\n\r+------------------------------------------------+\n\r");
+      0040DA 74 98            [12] 3309 	mov	a,#___str_60
+      0040DC C0 E0            [24] 3310 	push	acc
+      0040DE 74 5F            [12] 3311 	mov	a,#(___str_60 >> 8)
+      0040E0 C0 E0            [24] 3312 	push	acc
+      0040E2 74 80            [12] 3313 	mov	a,#0x80
+      0040E4 C0 E0            [24] 3314 	push	acc
+      0040E6 12 4B 63         [24] 3315 	lcall	_printf
+      0040E9 15 81            [12] 3316 	dec	sp
+      0040EB 15 81            [12] 3317 	dec	sp
+      0040ED 15 81            [12] 3318 	dec	sp
+      0040EF D0 06            [24] 3319 	pop	ar6
+      0040F1 D0 07            [24] 3320 	pop	ar7
+                                   3321 ;	syntax.c:490: continue;
+      0040F3 02 41 8A         [24] 3322 	ljmp	00109$
+      0040F6                       3323 00106$:
+                                   3324 ;	syntax.c:494: printf("\n\r+----------------BUFFER STATUS--------------------+");
+      0040F6 C0 07            [24] 3325 	push	ar7
+      0040F8 C0 06            [24] 3326 	push	ar6
+      0040FA 74 06            [12] 3327 	mov	a,#___str_62
+      0040FC C0 E0            [24] 3328 	push	acc
+      0040FE 74 60            [12] 3329 	mov	a,#(___str_62 >> 8)
+      004100 C0 E0            [24] 3330 	push	acc
+      004102 74 80            [12] 3331 	mov	a,#0x80
+      004104 C0 E0            [24] 3332 	push	acc
+      004106 12 4B 63         [24] 3333 	lcall	_printf
+      004109 15 81            [12] 3334 	dec	sp
+      00410B 15 81            [12] 3335 	dec	sp
+      00410D 15 81            [12] 3336 	dec	sp
+      00410F D0 06            [24] 3337 	pop	ar6
+      004111 D0 07            [24] 3338 	pop	ar7
+                                   3339 ;	syntax.c:495: printf("\n\r| Buffer 1 | Addr: %-10p | Size: %-6d   |", pointer1, buffer_size);
+      004113 90 1B 00         [24] 3340 	mov	dptr,#_pointer1
+      004116 E0               [24] 3341 	movx	a,@dptr
+      004117 FC               [12] 3342 	mov	r4,a
+      004118 A3               [24] 3343 	inc	dptr
+      004119 E0               [24] 3344 	movx	a,@dptr
+      00411A FD               [12] 3345 	mov	r5,a
+      00411B 7B 00            [12] 3346 	mov	r3,#0x00
+      00411D C0 07            [24] 3347 	push	ar7
+      00411F C0 06            [24] 3348 	push	ar6
+      004121 C0 06            [24] 3349 	push	ar6
+      004123 C0 07            [24] 3350 	push	ar7
+      004125 C0 04            [24] 3351 	push	ar4
+      004127 C0 05            [24] 3352 	push	ar5
+      004129 C0 03            [24] 3353 	push	ar3
+      00412B 74 3C            [12] 3354 	mov	a,#___str_63
+      00412D C0 E0            [24] 3355 	push	acc
+      00412F 74 60            [12] 3356 	mov	a,#(___str_63 >> 8)
+      004131 C0 E0            [24] 3357 	push	acc
+      004133 74 80            [12] 3358 	mov	a,#0x80
+      004135 C0 E0            [24] 3359 	push	acc
+      004137 12 4B 63         [24] 3360 	lcall	_printf
+      00413A E5 81            [12] 3361 	mov	a,sp
+      00413C 24 F8            [12] 3362 	add	a,#0xf8
+      00413E F5 81            [12] 3363 	mov	sp,a
+      004140 D0 06            [24] 3364 	pop	ar6
+      004142 D0 07            [24] 3365 	pop	ar7
+                                   3366 ;	syntax.c:496: printf("\n\r| Buffer 2 | Addr: %-10p | Size: %-6d   |", pointer2, buffer_size);
+      004144 90 1B 02         [24] 3367 	mov	dptr,#_pointer2
+      004147 E0               [24] 3368 	movx	a,@dptr
+      004148 FC               [12] 3369 	mov	r4,a
+      004149 A3               [24] 3370 	inc	dptr
+      00414A E0               [24] 3371 	movx	a,@dptr
+      00414B FD               [12] 3372 	mov	r5,a
+      00414C 7B 00            [12] 3373 	mov	r3,#0x00
+      00414E C0 07            [24] 3374 	push	ar7
+      004150 C0 06            [24] 3375 	push	ar6
+      004152 C0 06            [24] 3376 	push	ar6
+      004154 C0 07            [24] 3377 	push	ar7
+      004156 C0 04            [24] 3378 	push	ar4
+      004158 C0 05            [24] 3379 	push	ar5
+      00415A C0 03            [24] 3380 	push	ar3
+      00415C 74 68            [12] 3381 	mov	a,#___str_64
+      00415E C0 E0            [24] 3382 	push	acc
+      004160 74 60            [12] 3383 	mov	a,#(___str_64 >> 8)
+      004162 C0 E0            [24] 3384 	push	acc
+      004164 74 80            [12] 3385 	mov	a,#0x80
+      004166 C0 E0            [24] 3386 	push	acc
+      004168 12 4B 63         [24] 3387 	lcall	_printf
+      00416B E5 81            [12] 3388 	mov	a,sp
+      00416D 24 F8            [12] 3389 	add	a,#0xf8
+      00416F F5 81            [12] 3390 	mov	sp,a
+                                   3391 ;	syntax.c:497: printf("\n\r+------------------------------------------------+\n\r");
+      004171 74 98            [12] 3392 	mov	a,#___str_60
+      004173 C0 E0            [24] 3393 	push	acc
+      004175 74 5F            [12] 3394 	mov	a,#(___str_60 >> 8)
+      004177 C0 E0            [24] 3395 	push	acc
+      004179 74 80            [12] 3396 	mov	a,#0x80
+      00417B C0 E0            [24] 3397 	push	acc
+      00417D 12 4B 63         [24] 3398 	lcall	_printf
+      004180 15 81            [12] 3399 	dec	sp
+      004182 15 81            [12] 3400 	dec	sp
+      004184 15 81            [12] 3401 	dec	sp
+      004186 D0 06            [24] 3402 	pop	ar6
+      004188 D0 07            [24] 3403 	pop	ar7
+      00418A                       3404 00109$:
+                                   3405 ;	syntax.c:499: }while(pointer2 == NULL || pointer1 == NULL);
+      00418A 90 1B 02         [24] 3406 	mov	dptr,#_pointer2
+      00418D E0               [24] 3407 	movx	a,@dptr
+      00418E F5 F0            [12] 3408 	mov	b,a
+      004190 A3               [24] 3409 	inc	dptr
+      004191 E0               [24] 3410 	movx	a,@dptr
+      004192 45 F0            [12] 3411 	orl	a,b
+      004194 70 03            [24] 3412 	jnz	00196$
+      004196 02 3F E9         [24] 3413 	ljmp	00108$
+      004199                       3414 00196$:
+      004199 90 1B 00         [24] 3415 	mov	dptr,#_pointer1
+      00419C E0               [24] 3416 	movx	a,@dptr
+      00419D F5 F0            [12] 3417 	mov	b,a
+      00419F A3               [24] 3418 	inc	dptr
+      0041A0 E0               [24] 3419 	movx	a,@dptr
+      0041A1 45 F0            [12] 3420 	orl	a,b
+      0041A3 70 03            [24] 3421 	jnz	00197$
+      0041A5 02 3F E9         [24] 3422 	ljmp	00108$
+      0041A8                       3423 00197$:
+                                   3424 ;	syntax.c:502: index_of_buffers = 0;
+      0041A8 90 1A F7         [24] 3425 	mov	dptr,#_index_of_buffers
+      0041AB E4               [12] 3426 	clr	a
+      0041AC F0               [24] 3427 	movx	@dptr,a
+                                   3428 ;	syntax.c:505: node_t node1 = { index_of_buffers, pointer1, buffer_size};
+      0041AD 90 06 81         [24] 3429 	mov	dptr,#_main_node1_10002_140
+      0041B0 F0               [24] 3430 	movx	@dptr,a
+      0041B1 90 1B 00         [24] 3431 	mov	dptr,#_pointer1
+      0041B4 E0               [24] 3432 	movx	a,@dptr
+      0041B5 FC               [12] 3433 	mov	r4,a
+      0041B6 A3               [24] 3434 	inc	dptr
+      0041B7 E0               [24] 3435 	movx	a,@dptr
+      0041B8 FD               [12] 3436 	mov	r5,a
+      0041B9 7B 00            [12] 3437 	mov	r3,#0x00
+      0041BB 90 06 82         [24] 3438 	mov	dptr,#(_main_node1_10002_140 + 0x0001)
+      0041BE EC               [12] 3439 	mov	a,r4
+      0041BF F0               [24] 3440 	movx	@dptr,a
+      0041C0 ED               [12] 3441 	mov	a,r5
+      0041C1 A3               [24] 3442 	inc	dptr
+      0041C2 F0               [24] 3443 	movx	@dptr,a
+      0041C3 EB               [12] 3444 	mov	a,r3
+      0041C4 A3               [24] 3445 	inc	dptr
+      0041C5 F0               [24] 3446 	movx	@dptr,a
+      0041C6 90 06 85         [24] 3447 	mov	dptr,#(_main_node1_10002_140 + 0x0004)
+      0041C9 EE               [12] 3448 	mov	a,r6
+      0041CA F0               [24] 3449 	movx	@dptr,a
+      0041CB EF               [12] 3450 	mov	a,r7
+      0041CC A3               [24] 3451 	inc	dptr
+      0041CD F0               [24] 3452 	movx	@dptr,a
+                                   3453 ;	syntax.c:506: array_for_nodes[index_of_buffers] = node1;
+      0041CE 90 1A F7         [24] 3454 	mov	dptr,#_index_of_buffers
+      0041D1 E0               [24] 3455 	movx	a,@dptr
+      0041D2 75 F0 06         [24] 3456 	mov	b,#0x06
+      0041D5 A4               [48] 3457 	mul	ab
+      0041D6 24 03            [12] 3458 	add	a, #_array_for_nodes
+      0041D8 FC               [12] 3459 	mov	r4,a
+      0041D9 74 04            [12] 3460 	mov	a,#(_array_for_nodes >> 8)
+      0041DB 35 F0            [12] 3461 	addc	a, b
+      0041DD FD               [12] 3462 	mov	r5,a
+      0041DE 90 1A 96         [24] 3463 	mov	dptr,#___memcpy_PARM_2
+      0041E1 74 81            [12] 3464 	mov	a,#_main_node1_10002_140
+      0041E3 F0               [24] 3465 	movx	@dptr,a
+      0041E4 74 06            [12] 3466 	mov	a,#(_main_node1_10002_140 >> 8)
+      0041E6 A3               [24] 3467 	inc	dptr
+      0041E7 F0               [24] 3468 	movx	@dptr,a
+      0041E8 E4               [12] 3469 	clr	a
+      0041E9 A3               [24] 3470 	inc	dptr
+      0041EA F0               [24] 3471 	movx	@dptr,a
+      0041EB 90 1A 99         [24] 3472 	mov	dptr,#___memcpy_PARM_3
+      0041EE 74 06            [12] 3473 	mov	a,#0x06
+      0041F0 F0               [24] 3474 	movx	@dptr,a
+      0041F1 E4               [12] 3475 	clr	a
+      0041F2 A3               [24] 3476 	inc	dptr
+      0041F3 F0               [24] 3477 	movx	@dptr,a
+      0041F4 8C 82            [24] 3478 	mov	dpl, r4
+      0041F6 8D 83            [24] 3479 	mov	dph, r5
+      0041F8 8B F0            [24] 3480 	mov	b, r3
+      0041FA C0 07            [24] 3481 	push	ar7
+      0041FC C0 06            [24] 3482 	push	ar6
+      0041FE 12 46 87         [24] 3483 	lcall	___memcpy
+      004201 D0 06            [24] 3484 	pop	ar6
+      004203 D0 07            [24] 3485 	pop	ar7
+                                   3486 ;	syntax.c:507: index_of_buffers++;
+      004205 90 1A F7         [24] 3487 	mov	dptr,#_index_of_buffers
+      004208 E0               [24] 3488 	movx	a,@dptr
+      004209 24 01            [12] 3489 	add	a, #0x01
+      00420B F0               [24] 3490 	movx	@dptr,a
+                                   3491 ;	syntax.c:510: node_t node2 = { index_of_buffers, pointer2, buffer_size};
+      00420C E0               [24] 3492 	movx	a,@dptr
+      00420D 90 06 87         [24] 3493 	mov	dptr,#_main_node2_10003_141
+      004210 F0               [24] 3494 	movx	@dptr,a
+      004211 90 1B 02         [24] 3495 	mov	dptr,#_pointer2
+      004214 E0               [24] 3496 	movx	a,@dptr
+      004215 FC               [12] 3497 	mov	r4,a
+      004216 A3               [24] 3498 	inc	dptr
+      004217 E0               [24] 3499 	movx	a,@dptr
+      004218 FD               [12] 3500 	mov	r5,a
+      004219 7B 00            [12] 3501 	mov	r3,#0x00
+      00421B 90 06 88         [24] 3502 	mov	dptr,#(_main_node2_10003_141 + 0x0001)
+      00421E EC               [12] 3503 	mov	a,r4
+      00421F F0               [24] 3504 	movx	@dptr,a
+      004220 ED               [12] 3505 	mov	a,r5
+      004221 A3               [24] 3506 	inc	dptr
+      004222 F0               [24] 3507 	movx	@dptr,a
+      004223 EB               [12] 3508 	mov	a,r3
+      004224 A3               [24] 3509 	inc	dptr
+      004225 F0               [24] 3510 	movx	@dptr,a
+      004226 90 06 8B         [24] 3511 	mov	dptr,#(_main_node2_10003_141 + 0x0004)
+      004229 EE               [12] 3512 	mov	a,r6
+      00422A F0               [24] 3513 	movx	@dptr,a
+      00422B EF               [12] 3514 	mov	a,r7
+      00422C A3               [24] 3515 	inc	dptr
+      00422D F0               [24] 3516 	movx	@dptr,a
+                                   3517 ;	syntax.c:511: array_for_nodes[index_of_buffers] = node2;
+      00422E 90 1A F7         [24] 3518 	mov	dptr,#_index_of_buffers
+      004231 E0               [24] 3519 	movx	a,@dptr
+      004232 75 F0 06         [24] 3520 	mov	b,#0x06
+      004235 A4               [48] 3521 	mul	ab
+      004236 24 03            [12] 3522 	add	a, #_array_for_nodes
+      004238 FE               [12] 3523 	mov	r6,a
+      004239 74 04            [12] 3524 	mov	a,#(_array_for_nodes >> 8)
+      00423B 35 F0            [12] 3525 	addc	a, b
+      00423D FF               [12] 3526 	mov	r7,a
+      00423E 7D 00            [12] 3527 	mov	r5,#0x00
+      004240 90 1A 96         [24] 3528 	mov	dptr,#___memcpy_PARM_2
+      004243 74 87            [12] 3529 	mov	a,#_main_node2_10003_141
+      004245 F0               [24] 3530 	movx	@dptr,a
+      004246 74 06            [12] 3531 	mov	a,#(_main_node2_10003_141 >> 8)
+      004248 A3               [24] 3532 	inc	dptr
+      004249 F0               [24] 3533 	movx	@dptr,a
+      00424A E4               [12] 3534 	clr	a
+      00424B A3               [24] 3535 	inc	dptr
+      00424C F0               [24] 3536 	movx	@dptr,a
+      00424D 90 1A 99         [24] 3537 	mov	dptr,#___memcpy_PARM_3
+      004250 74 06            [12] 3538 	mov	a,#0x06
+      004252 F0               [24] 3539 	movx	@dptr,a
+      004253 E4               [12] 3540 	clr	a
+      004254 A3               [24] 3541 	inc	dptr
+      004255 F0               [24] 3542 	movx	@dptr,a
+      004256 8E 82            [24] 3543 	mov	dpl, r6
+      004258 8F 83            [24] 3544 	mov	dph, r7
+      00425A 8D F0            [24] 3545 	mov	b, r5
+      00425C 12 46 87         [24] 3546 	lcall	___memcpy
+                                   3547 ;	syntax.c:512: index_of_buffers++;
+      00425F 90 1A F7         [24] 3548 	mov	dptr,#_index_of_buffers
+      004262 E0               [24] 3549 	movx	a,@dptr
+      004263 24 01            [12] 3550 	add	a, #0x01
+      004265 F0               [24] 3551 	movx	@dptr,a
+                                   3552 ;	syntax.c:515: printf("\n\r+------------------COMMANDS----------------------+");
+      004266 74 94            [12] 3553 	mov	a,#___str_65
+      004268 C0 E0            [24] 3554 	push	acc
+      00426A 74 60            [12] 3555 	mov	a,#(___str_65 >> 8)
+      00426C C0 E0            [24] 3556 	push	acc
+      00426E 74 80            [12] 3557 	mov	a,#0x80
+      004270 C0 E0            [24] 3558 	push	acc
+      004272 12 4B 63         [24] 3559 	lcall	_printf
+      004275 15 81            [12] 3560 	dec	sp
+      004277 15 81            [12] 3561 	dec	sp
+      004279 15 81            [12] 3562 	dec	sp
+                                   3563 ;	syntax.c:516: printf("\n\r| [A-Z] : Store character in Buffer 0           |");
+      00427B 74 C9            [12] 3564 	mov	a,#___str_66
+      00427D C0 E0            [24] 3565 	push	acc
+      00427F 74 60            [12] 3566 	mov	a,#(___str_66 >> 8)
+      004281 C0 E0            [24] 3567 	push	acc
+      004283 74 80            [12] 3568 	mov	a,#0x80
+      004285 C0 E0            [24] 3569 	push	acc
+      004287 12 4B 63         [24] 3570 	lcall	_printf
+      00428A 15 81            [12] 3571 	dec	sp
+      00428C 15 81            [12] 3572 	dec	sp
+      00428E 15 81            [12] 3573 	dec	sp
+                                   3574 ;	syntax.c:517: printf("\n\r| +     : Create new buffer                     |");
+      004290 74 FD            [12] 3575 	mov	a,#___str_67
+      004292 C0 E0            [24] 3576 	push	acc
+      004294 74 60            [12] 3577 	mov	a,#(___str_67 >> 8)
+      004296 C0 E0            [24] 3578 	push	acc
+      004298 74 80            [12] 3579 	mov	a,#0x80
+      00429A C0 E0            [24] 3580 	push	acc
+      00429C 12 4B 63         [24] 3581 	lcall	_printf
+      00429F 15 81            [12] 3582 	dec	sp
+      0042A1 15 81            [12] 3583 	dec	sp
+      0042A3 15 81            [12] 3584 	dec	sp
+                                   3585 ;	syntax.c:518: printf("\n\r| -     : Delete buffer                         |");
+      0042A5 74 31            [12] 3586 	mov	a,#___str_68
+      0042A7 C0 E0            [24] 3587 	push	acc
+      0042A9 74 61            [12] 3588 	mov	a,#(___str_68 >> 8)
+      0042AB C0 E0            [24] 3589 	push	acc
+      0042AD 74 80            [12] 3590 	mov	a,#0x80
+      0042AF C0 E0            [24] 3591 	push	acc
+      0042B1 12 4B 63         [24] 3592 	lcall	_printf
+      0042B4 15 81            [12] 3593 	dec	sp
+      0042B6 15 81            [12] 3594 	dec	sp
+      0042B8 15 81            [12] 3595 	dec	sp
+                                   3596 ;	syntax.c:519: printf("\n\r| ?     : Show system status                    |");
+      0042BA 74 65            [12] 3597 	mov	a,#___str_69
+      0042BC C0 E0            [24] 3598 	push	acc
+      0042BE 74 61            [12] 3599 	mov	a,#(___str_69 >> 8)
+      0042C0 C0 E0            [24] 3600 	push	acc
+      0042C2 74 80            [12] 3601 	mov	a,#0x80
+      0042C4 C0 E0            [24] 3602 	push	acc
+      0042C6 12 4B 63         [24] 3603 	lcall	_printf
+      0042C9 15 81            [12] 3604 	dec	sp
+      0042CB 15 81            [12] 3605 	dec	sp
+      0042CD 15 81            [12] 3606 	dec	sp
+                                   3607 ;	syntax.c:520: printf("\n\r| =     : Display Buffer 0 contents             |");
+      0042CF 74 99            [12] 3608 	mov	a,#___str_70
+      0042D1 C0 E0            [24] 3609 	push	acc
+      0042D3 74 61            [12] 3610 	mov	a,#(___str_70 >> 8)
+      0042D5 C0 E0            [24] 3611 	push	acc
+      0042D7 74 80            [12] 3612 	mov	a,#0x80
+      0042D9 C0 E0            [24] 3613 	push	acc
+      0042DB 12 4B 63         [24] 3614 	lcall	_printf
+      0042DE 15 81            [12] 3615 	dec	sp
+      0042E0 15 81            [12] 3616 	dec	sp
+      0042E2 15 81            [12] 3617 	dec	sp
+                                   3618 ;	syntax.c:521: printf("\n\r| @     : Reset system                          |");
+      0042E4 74 CD            [12] 3619 	mov	a,#___str_71
+      0042E6 C0 E0            [24] 3620 	push	acc
+      0042E8 74 61            [12] 3621 	mov	a,#(___str_71 >> 8)
+      0042EA C0 E0            [24] 3622 	push	acc
+      0042EC 74 80            [12] 3623 	mov	a,#0x80
+      0042EE C0 E0            [24] 3624 	push	acc
+      0042F0 12 4B 63         [24] 3625 	lcall	_printf
+      0042F3 15 81            [12] 3626 	dec	sp
+      0042F5 15 81            [12] 3627 	dec	sp
+      0042F7 15 81            [12] 3628 	dec	sp
+                                   3629 ;	syntax.c:522: printf("\n\r+--------------------------------------------------+");
+      0042F9 74 A5            [12] 3630 	mov	a,#___str_0
+      0042FB C0 E0            [24] 3631 	push	acc
+      0042FD 74 55            [12] 3632 	mov	a,#(___str_0 >> 8)
+      0042FF C0 E0            [24] 3633 	push	acc
+      004301 74 80            [12] 3634 	mov	a,#0x80
+      004303 C0 E0            [24] 3635 	push	acc
+      004305 12 4B 63         [24] 3636 	lcall	_printf
+      004308 15 81            [12] 3637 	dec	sp
+      00430A 15 81            [12] 3638 	dec	sp
+      00430C 15 81            [12] 3639 	dec	sp
+                                   3640 ;	syntax.c:523: printf("\n\r| Ready for input. Enter uppercase chars (A-Z):    |\n\r"); 
+      00430E 74 01            [12] 3641 	mov	a,#___str_72
+      004310 C0 E0            [24] 3642 	push	acc
+      004312 74 62            [12] 3643 	mov	a,#(___str_72 >> 8)
+      004314 C0 E0            [24] 3644 	push	acc
+      004316 74 80            [12] 3645 	mov	a,#0x80
+      004318 C0 E0            [24] 3646 	push	acc
+      00431A 12 4B 63         [24] 3647 	lcall	_printf
+      00431D 15 81            [12] 3648 	dec	sp
+      00431F 15 81            [12] 3649 	dec	sp
+      004321 15 81            [12] 3650 	dec	sp
+                                   3651 ;	syntax.c:524: printf("\n\r+--------------------------------------------------+\n\r");
+      004323 74 17            [12] 3652 	mov	a,#___str_2
+      004325 C0 E0            [24] 3653 	push	acc
+      004327 74 56            [12] 3654 	mov	a,#(___str_2 >> 8)
+      004329 C0 E0            [24] 3655 	push	acc
+      00432B 74 80            [12] 3656 	mov	a,#0x80
+      00432D C0 E0            [24] 3657 	push	acc
+      00432F 12 4B 63         [24] 3658 	lcall	_printf
+      004332 15 81            [12] 3659 	dec	sp
+      004334 15 81            [12] 3660 	dec	sp
+      004336 15 81            [12] 3661 	dec	sp
+                                   3662 ;	syntax.c:527: __idata int temp_buffer_size = array_for_nodes[0].size;
+      004338 90 04 07         [24] 3663 	mov	dptr,#(_array_for_nodes + 0x0004)
+      00433B E0               [24] 3664 	movx	a,@dptr
+      00433C FE               [12] 3665 	mov	r6,a
+      00433D A3               [24] 3666 	inc	dptr
+      00433E E0               [24] 3667 	movx	a,@dptr
+      00433F FF               [12] 3668 	mov	r7,a
+                                   3669 ;	syntax.c:529: uint8_t * wr = array_for_nodes[0].data_pointer;
+      004340 90 04 04         [24] 3670 	mov	dptr,#(_array_for_nodes + 0x0001)
+      004343 E0               [24] 3671 	movx	a,@dptr
+      004344 FB               [12] 3672 	mov	r3,a
+      004345 A3               [24] 3673 	inc	dptr
+      004346 E0               [24] 3674 	movx	a,@dptr
+      004347 FC               [12] 3675 	mov	r4,a
+      004348 A3               [24] 3676 	inc	dptr
+      004349 E0               [24] 3677 	movx	a,@dptr
+      00434A FD               [12] 3678 	mov	r5,a
+                                   3679 ;	syntax.c:532: do{
+      00434B                       3680 00114$:
+                                   3681 ;	syntax.c:533: int ch = getchar();
+      00434B C0 07            [24] 3682 	push	ar7
+      00434D C0 06            [24] 3683 	push	ar6
+      00434F C0 05            [24] 3684 	push	ar5
+      004351 C0 04            [24] 3685 	push	ar4
+      004353 C0 03            [24] 3686 	push	ar3
+      004355 12 30 BA         [24] 3687 	lcall	_getchar
+                                   3688 ;	syntax.c:534: putchar(ch);
+      004358 A9 82            [24] 3689 	mov	r1,dpl
+      00435A AA 83            [24] 3690 	mov  r2,dph
+      00435C C0 02            [24] 3691 	push	ar2
+      00435E C0 01            [24] 3692 	push	ar1
+      004360 12 30 91         [24] 3693 	lcall	_putchar
+      004363 D0 01            [24] 3694 	pop	ar1
+      004365 D0 02            [24] 3695 	pop	ar2
+      004367 D0 03            [24] 3696 	pop	ar3
+      004369 D0 04            [24] 3697 	pop	ar4
+      00436B D0 05            [24] 3698 	pop	ar5
+      00436D D0 06            [24] 3699 	pop	ar6
+      00436F D0 07            [24] 3700 	pop	ar7
+                                   3701 ;	syntax.c:537: if(ch < 65 || ch > 90) {
+      004371 C3               [12] 3702 	clr	c
+      004372 E9               [12] 3703 	mov	a,r1
+      004373 94 41            [12] 3704 	subb	a,#0x41
+      004375 EA               [12] 3705 	mov	a,r2
+      004376 64 80            [12] 3706 	xrl	a,#0x80
+      004378 94 80            [12] 3707 	subb	a,#0x80
+      00437A 40 0E            [24] 3708 	jc	00111$
+      00437C 74 5A            [12] 3709 	mov	a,#0x5a
+      00437E 99               [12] 3710 	subb	a,r1
+      00437F 74 80            [12] 3711 	mov	a,#(0x00 ^ 0x80)
+      004381 8A F0            [24] 3712 	mov	b,r2
+      004383 63 F0 80         [24] 3713 	xrl	b,#0x80
+      004386 95 F0            [12] 3714 	subb	a,b
+      004388 50 5F            [24] 3715 	jnc	00112$
+      00438A                       3716 00111$:
+                                   3717 ;	syntax.c:538: total_number_of_commands+=1;
+      00438A 90 1A F8         [24] 3718 	mov	dptr,#_total_number_of_commands
+      00438D E0               [24] 3719 	movx	a,@dptr
+      00438E 04               [12] 3720 	inc	a
+      00438F F0               [24] 3721 	movx	@dptr,a
+                                   3722 ;	syntax.c:539: recent_commands+=1;
+      004390 90 1A FA         [24] 3723 	mov	dptr,#_recent_commands
+      004393 E0               [24] 3724 	movx	a,@dptr
+      004394 04               [12] 3725 	inc	a
+      004395 F0               [24] 3726 	movx	@dptr,a
+                                   3727 ;	syntax.c:540: printf("\n\r| Command received: %-31c |", ch);
+      004396 C0 07            [24] 3728 	push	ar7
+      004398 C0 06            [24] 3729 	push	ar6
+      00439A C0 05            [24] 3730 	push	ar5
+      00439C C0 04            [24] 3731 	push	ar4
+      00439E C0 03            [24] 3732 	push	ar3
+      0043A0 C0 02            [24] 3733 	push	ar2
+      0043A2 C0 01            [24] 3734 	push	ar1
+      0043A4 C0 01            [24] 3735 	push	ar1
+      0043A6 C0 02            [24] 3736 	push	ar2
+      0043A8 74 3A            [12] 3737 	mov	a,#___str_73
+      0043AA C0 E0            [24] 3738 	push	acc
+      0043AC 74 62            [12] 3739 	mov	a,#(___str_73 >> 8)
+      0043AE C0 E0            [24] 3740 	push	acc
+      0043B0 74 80            [12] 3741 	mov	a,#0x80
+      0043B2 C0 E0            [24] 3742 	push	acc
+      0043B4 12 4B 63         [24] 3743 	lcall	_printf
+      0043B7 E5 81            [12] 3744 	mov	a,sp
+      0043B9 24 FB            [12] 3745 	add	a,#0xfb
+      0043BB F5 81            [12] 3746 	mov	sp,a
+                                   3747 ;	syntax.c:541: printf("\n\r+--------------------------------------------------+\n\r");
+      0043BD 74 17            [12] 3748 	mov	a,#___str_2
+      0043BF C0 E0            [24] 3749 	push	acc
+      0043C1 74 56            [12] 3750 	mov	a,#(___str_2 >> 8)
+      0043C3 C0 E0            [24] 3751 	push	acc
+      0043C5 74 80            [12] 3752 	mov	a,#0x80
+      0043C7 C0 E0            [24] 3753 	push	acc
+      0043C9 12 4B 63         [24] 3754 	lcall	_printf
+      0043CC 15 81            [12] 3755 	dec	sp
+      0043CE 15 81            [12] 3756 	dec	sp
+      0043D0 15 81            [12] 3757 	dec	sp
+      0043D2 D0 01            [24] 3758 	pop	ar1
+      0043D4 D0 02            [24] 3759 	pop	ar2
+                                   3760 ;	syntax.c:542: get_command(ch);
+      0043D6 89 82            [24] 3761 	mov	dpl, r1
+      0043D8 8A 83            [24] 3762 	mov	dph, r2
+      0043DA 12 35 2D         [24] 3763 	lcall	_get_command
+      0043DD D0 03            [24] 3764 	pop	ar3
+      0043DF D0 04            [24] 3765 	pop	ar4
+      0043E1 D0 05            [24] 3766 	pop	ar5
+      0043E3 D0 06            [24] 3767 	pop	ar6
+      0043E5 D0 07            [24] 3768 	pop	ar7
+                                   3769 ;	syntax.c:543: continue;
+      0043E7 80 68            [24] 3770 	sjmp	00115$
+      0043E9                       3771 00112$:
+                                   3772 ;	syntax.c:547: total_number_of_storage = total_number_of_storage + 1;
+      0043E9 90 1A F9         [24] 3773 	mov	dptr,#_total_number_of_storage
+      0043EC E0               [24] 3774 	movx	a,@dptr
+      0043ED 04               [12] 3775 	inc	a
+      0043EE F0               [24] 3776 	movx	@dptr,a
+                                   3777 ;	syntax.c:548: recent_storage = recent_storage + 1;
+      0043EF 90 1A FB         [24] 3778 	mov	dptr,#_recent_storage
+      0043F2 E0               [24] 3779 	movx	a,@dptr
+      0043F3 04               [12] 3780 	inc	a
+      0043F4 F0               [24] 3781 	movx	@dptr,a
+                                   3782 ;	syntax.c:550: *wr = ch;
+      0043F5 8B 82            [24] 3783 	mov	dpl,r3
+      0043F7 8C 83            [24] 3784 	mov	dph,r4
+      0043F9 8D F0            [24] 3785 	mov	b,r5
+      0043FB E9               [12] 3786 	mov	a,r1
+      0043FC 12 47 23         [24] 3787 	lcall	__gptrput
+      0043FF A3               [24] 3788 	inc	dptr
+      004400 AB 82            [24] 3789 	mov	r3,dpl
+      004402 AC 83            [24] 3790 	mov	r4,dph
+                                   3791 ;	syntax.c:551: wr++;
+                                   3792 ;	syntax.c:553: total_number_of_storage, recent_storage, wr);
+      004404 90 1A FB         [24] 3793 	mov	dptr,#_recent_storage
+      004407 E0               [24] 3794 	movx	a,@dptr
+      004408 FA               [12] 3795 	mov	r2,a
+      004409 8A 1A            [24] 3796 	mov	_main_sloc0_1_0,r2
+      00440B 75 1B 00         [24] 3797 	mov	(_main_sloc0_1_0 + 1),#0x00
+      00440E 90 1A F9         [24] 3798 	mov	dptr,#_total_number_of_storage
+      004411 E0               [24] 3799 	movx	a,@dptr
+      004412 F8               [12] 3800 	mov	r0,a
+      004413 7A 00            [12] 3801 	mov	r2,#0x00
+                                   3802 ;	syntax.c:552: printf("\n\r| Storage: Total=%-4d Recent=%-4d Addr=%-10p |\n\r", 
+      004415 C0 07            [24] 3803 	push	ar7
+      004417 C0 06            [24] 3804 	push	ar6
+      004419 C0 05            [24] 3805 	push	ar5
+      00441B C0 04            [24] 3806 	push	ar4
+      00441D C0 03            [24] 3807 	push	ar3
+      00441F C0 03            [24] 3808 	push	ar3
+      004421 C0 04            [24] 3809 	push	ar4
+      004423 C0 05            [24] 3810 	push	ar5
+      004425 C0 1A            [24] 3811 	push	_main_sloc0_1_0
+      004427 C0 1B            [24] 3812 	push	(_main_sloc0_1_0 + 1)
+      004429 C0 00            [24] 3813 	push	ar0
+      00442B C0 02            [24] 3814 	push	ar2
+      00442D 74 58            [12] 3815 	mov	a,#___str_74
+      00442F C0 E0            [24] 3816 	push	acc
+      004431 74 62            [12] 3817 	mov	a,#(___str_74 >> 8)
+      004433 C0 E0            [24] 3818 	push	acc
+      004435 74 80            [12] 3819 	mov	a,#0x80
+      004437 C0 E0            [24] 3820 	push	acc
+      004439 12 4B 63         [24] 3821 	lcall	_printf
+      00443C E5 81            [12] 3822 	mov	a,sp
+      00443E 24 F6            [12] 3823 	add	a,#0xf6
+      004440 F5 81            [12] 3824 	mov	sp,a
+      004442 D0 03            [24] 3825 	pop	ar3
+      004444 D0 04            [24] 3826 	pop	ar4
+      004446 D0 05            [24] 3827 	pop	ar5
+      004448 D0 06            [24] 3828 	pop	ar6
+      00444A D0 07            [24] 3829 	pop	ar7
+                                   3830 ;	syntax.c:554: temp_buffer_size -= 1;
+      00444C 1E               [12] 3831 	dec	r6
+      00444D BE FF 01         [24] 3832 	cjne	r6,#0xff,00200$
+      004450 1F               [12] 3833 	dec	r7
+      004451                       3834 00200$:
+                                   3835 ;	syntax.c:555: index_for_write += 1;
+      004451                       3836 00115$:
+                                   3837 ;	syntax.c:556: }while(temp_buffer_size>0);
+      004451 C3               [12] 3838 	clr	c
+      004452 E4               [12] 3839 	clr	a
+      004453 9E               [12] 3840 	subb	a,r6
+      004454 74 80            [12] 3841 	mov	a,#(0x00 ^ 0x80)
+      004456 8F F0            [24] 3842 	mov	b,r7
+      004458 63 F0 80         [24] 3843 	xrl	b,#0x80
+      00445B 95 F0            [12] 3844 	subb	a,b
+      00445D 50 03            [24] 3845 	jnc	00201$
+      00445F 02 43 4B         [24] 3846 	ljmp	00114$
+      004462                       3847 00201$:
+                                   3848 ;	syntax.c:559: printf("\n\r+--------------------------------------------------+");
+      004462 74 A5            [12] 3849 	mov	a,#___str_0
+      004464 C0 E0            [24] 3850 	push	acc
+      004466 74 55            [12] 3851 	mov	a,#(___str_0 >> 8)
+      004468 C0 E0            [24] 3852 	push	acc
+      00446A 74 80            [12] 3853 	mov	a,#0x80
+      00446C C0 E0            [24] 3854 	push	acc
+      00446E 12 4B 63         [24] 3855 	lcall	_printf
+      004471 15 81            [12] 3856 	dec	sp
+      004473 15 81            [12] 3857 	dec	sp
+      004475 15 81            [12] 3858 	dec	sp
+                                   3859 ;	syntax.c:560: printf("\n\r| NOTICE: Buffer 0 is full - Storage stopped        |");
+      004477 74 8B            [12] 3860 	mov	a,#___str_75
+      004479 C0 E0            [24] 3861 	push	acc
+      00447B 74 62            [12] 3862 	mov	a,#(___str_75 >> 8)
+      00447D C0 E0            [24] 3863 	push	acc
+      00447F 74 80            [12] 3864 	mov	a,#0x80
+      004481 C0 E0            [24] 3865 	push	acc
+      004483 12 4B 63         [24] 3866 	lcall	_printf
+      004486 15 81            [12] 3867 	dec	sp
+      004488 15 81            [12] 3868 	dec	sp
+      00448A 15 81            [12] 3869 	dec	sp
+                                   3870 ;	syntax.c:561: printf("\n\r+--------------------------------------------------+\n\r");
+      00448C 74 17            [12] 3871 	mov	a,#___str_2
+      00448E C0 E0            [24] 3872 	push	acc
+      004490 74 56            [12] 3873 	mov	a,#(___str_2 >> 8)
+      004492 C0 E0            [24] 3874 	push	acc
+      004494 74 80            [12] 3875 	mov	a,#0x80
+      004496 C0 E0            [24] 3876 	push	acc
+      004498 12 4B 63         [24] 3877 	lcall	_printf
+      00449B 15 81            [12] 3878 	dec	sp
+      00449D 15 81            [12] 3879 	dec	sp
+      00449F 15 81            [12] 3880 	dec	sp
+                                   3881 ;	syntax.c:564: while(1)
+      0044A1                       3882 00122$:
+                                   3883 ;	syntax.c:566: printf("\n\r| Enter command (+, -, ?, =, @):                   |");
+      0044A1 74 C3            [12] 3884 	mov	a,#___str_76
+      0044A3 C0 E0            [24] 3885 	push	acc
+      0044A5 74 62            [12] 3886 	mov	a,#(___str_76 >> 8)
+      0044A7 C0 E0            [24] 3887 	push	acc
+      0044A9 74 80            [12] 3888 	mov	a,#0x80
+      0044AB C0 E0            [24] 3889 	push	acc
+      0044AD 12 4B 63         [24] 3890 	lcall	_printf
+      0044B0 15 81            [12] 3891 	dec	sp
+      0044B2 15 81            [12] 3892 	dec	sp
+      0044B4 15 81            [12] 3893 	dec	sp
+                                   3894 ;	syntax.c:567: printf("\n\r+--------------------------------------------------+\n\r");
+      0044B6 74 17            [12] 3895 	mov	a,#___str_2
+      0044B8 C0 E0            [24] 3896 	push	acc
+      0044BA 74 56            [12] 3897 	mov	a,#(___str_2 >> 8)
+      0044BC C0 E0            [24] 3898 	push	acc
+      0044BE 74 80            [12] 3899 	mov	a,#0x80
+      0044C0 C0 E0            [24] 3900 	push	acc
+      0044C2 12 4B 63         [24] 3901 	lcall	_printf
+      0044C5 15 81            [12] 3902 	dec	sp
+      0044C7 15 81            [12] 3903 	dec	sp
+      0044C9 15 81            [12] 3904 	dec	sp
+                                   3905 ;	syntax.c:568: int cha = getchar();
+      0044CB 12 30 BA         [24] 3906 	lcall	_getchar
+      0044CE AE 82            [24] 3907 	mov	r6, dpl
+      0044D0 AF 83            [24] 3908 	mov	r7, dph
+                                   3909 ;	syntax.c:569: if(cha < 65 || cha > 90) {
+      0044D2 C3               [12] 3910 	clr	c
+      0044D3 EE               [12] 3911 	mov	a,r6
+      0044D4 94 41            [12] 3912 	subb	a,#0x41
+      0044D6 EF               [12] 3913 	mov	a,r7
+      0044D7 64 80            [12] 3914 	xrl	a,#0x80
+      0044D9 94 80            [12] 3915 	subb	a,#0x80
+      0044DB 40 0E            [24] 3916 	jc	00117$
+      0044DD 74 5A            [12] 3917 	mov	a,#0x5a
+      0044DF 9E               [12] 3918 	subb	a,r6
+      0044E0 74 80            [12] 3919 	mov	a,#(0x00 ^ 0x80)
+      0044E2 8F F0            [24] 3920 	mov	b,r7
+      0044E4 63 F0 80         [24] 3921 	xrl	b,#0x80
+      0044E7 95 F0            [12] 3922 	subb	a,b
+      0044E9 50 2F            [24] 3923 	jnc	00118$
+      0044EB                       3924 00117$:
+                                   3925 ;	syntax.c:570: total_number_of_commands+=1;
+      0044EB 90 1A F8         [24] 3926 	mov	dptr,#_total_number_of_commands
+      0044EE E0               [24] 3927 	movx	a,@dptr
+      0044EF 04               [12] 3928 	inc	a
+      0044F0 F0               [24] 3929 	movx	@dptr,a
+                                   3930 ;	syntax.c:571: recent_commands+=1;
+      0044F1 90 1A FA         [24] 3931 	mov	dptr,#_recent_commands
+      0044F4 E0               [24] 3932 	movx	a,@dptr
+      0044F5 04               [12] 3933 	inc	a
+      0044F6 F0               [24] 3934 	movx	@dptr,a
+                                   3935 ;	syntax.c:572: printf("\n\r| Command received: %-31c |", cha);
+      0044F7 C0 07            [24] 3936 	push	ar7
+      0044F9 C0 06            [24] 3937 	push	ar6
+      0044FB C0 06            [24] 3938 	push	ar6
+      0044FD C0 07            [24] 3939 	push	ar7
+      0044FF 74 3A            [12] 3940 	mov	a,#___str_73
+      004501 C0 E0            [24] 3941 	push	acc
+      004503 74 62            [12] 3942 	mov	a,#(___str_73 >> 8)
+      004505 C0 E0            [24] 3943 	push	acc
+      004507 74 80            [12] 3944 	mov	a,#0x80
+      004509 C0 E0            [24] 3945 	push	acc
+      00450B 12 4B 63         [24] 3946 	lcall	_printf
+      00450E E5 81            [12] 3947 	mov	a,sp
+      004510 24 FB            [12] 3948 	add	a,#0xfb
+      004512 F5 81            [12] 3949 	mov	sp,a
+      004514 D0 06            [24] 3950 	pop	ar6
+      004516 D0 07            [24] 3951 	pop	ar7
+      004518 80 0C            [24] 3952 	sjmp	00119$
+      00451A                       3953 00118$:
+                                   3954 ;	syntax.c:575: total_number_of_storage = total_number_of_storage + 1;
+      00451A 90 1A F9         [24] 3955 	mov	dptr,#_total_number_of_storage
+      00451D E0               [24] 3956 	movx	a,@dptr
+      00451E 04               [12] 3957 	inc	a
+      00451F F0               [24] 3958 	movx	@dptr,a
+                                   3959 ;	syntax.c:576: recent_storage = recent_storage + 1;
+      004520 90 1A FB         [24] 3960 	mov	dptr,#_recent_storage
+      004523 E0               [24] 3961 	movx	a,@dptr
+      004524 04               [12] 3962 	inc	a
+      004525 F0               [24] 3963 	movx	@dptr,a
+      004526                       3964 00119$:
+                                   3965 ;	syntax.c:578: get_command(cha);
+      004526 8E 82            [24] 3966 	mov	dpl, r6
+      004528 8F 83            [24] 3967 	mov	dph, r7
+      00452A 12 35 2D         [24] 3968 	lcall	_get_command
+                                   3969 ;	syntax.c:580: }
+      00452D 02 44 A1         [24] 3970 	ljmp	00122$
+                                   3971 	.area CSEG    (CODE)
+                                   3972 	.area CONST   (CODE)
+                                   3973 	.area CONST   (CODE)
+      0055A5                       3974 ___str_0:
+      0055A5 0A                    3975 	.db 0x0a
+      0055A6 0D                    3976 	.db 0x0d
+      0055A7 2B 2D 2D 2D 2D 2D 2D  3977 	.ascii "+--------------------------------------------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2B
+      0055DB 00                    3978 	.db 0x00
+                                   3979 	.area CSEG    (CODE)
+                                   3980 	.area CONST   (CODE)
+      0055DC                       3981 ___str_1:
+      0055DC 0A                    3982 	.db 0x0a
+      0055DD 0D                    3983 	.db 0x0d
+      0055DE 7C 20 45 52 52 4F 52  3984 	.ascii "| ERROR: Invalid input - Please enter numbers only     |"
+             3A 20 49 6E 76 61 6C
+             69 64 20 69 6E 70 75
+             74 20 2D 20 50 6C 65
+             61 73 65 20 65 6E 74
+             65 72 20 6E 75 6D 62
+             65 72 73 20 6F 6E 6C
+             79 20 20 20 20 20 7C
+      005616 00                    3985 	.db 0x00
+                                   3986 	.area CSEG    (CODE)
+                                   3987 	.area CONST   (CODE)
+      005617                       3988 ___str_2:
+      005617 0A                    3989 	.db 0x0a
+      005618 0D                    3990 	.db 0x0d
+      005619 2B 2D 2D 2D 2D 2D 2D  3991 	.ascii "+--------------------------------------------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2B
+      00564D 0A                    3992 	.db 0x0a
+      00564E 0D                    3993 	.db 0x0d
+      00564F 00                    3994 	.db 0x00
+                                   3995 	.area CSEG    (CODE)
+                                   3996 	.area CONST   (CODE)
+      005650                       3997 ___str_3:
+      005650 0A                    3998 	.db 0x0a
+      005651 0D                    3999 	.db 0x0d
+      005652 7C 20 45 52 52 4F 52  4000 	.ascii "| ERROR: Invalid buffer size                          |"
+             3A 20 49 6E 76 61 6C
+             69 64 20 62 75 66 66
              65 72 20 73 69 7A 65
-             20 6D 75 73
-      005042 74 20 62 65 20 65 76  2806 	.ascii "t be evenly divisible by 16): "
-             65 6E 6C 79 20 64 69
-             76 69 73 69 62 6C 65
-             20 62 79 20 31 36 29
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 7C
+      005689 00                    4001 	.db 0x00
+                                   4002 	.area CSEG    (CODE)
+                                   4003 	.area CONST   (CODE)
+      00568A                       4004 ___str_4:
+      00568A 0A                    4005 	.db 0x0a
+      00568B 0D                    4006 	.db 0x0d
+      00568C 7C 20 2D 20 4D 75 73  4007 	.ascii "| - Must be between %d and %d                       |"
+             74 20 62 65 20 62 65
+             74 77 65 65 6E 20 25
+             64 20 61 6E 64 20 25
+             64 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 7C
+      0056C1 00                    4008 	.db 0x00
+                                   4009 	.area CSEG    (CODE)
+                                   4010 	.area CONST   (CODE)
+      0056C2                       4011 ___str_5:
+      0056C2 0A                    4012 	.db 0x0a
+      0056C3 0D                    4013 	.db 0x0d
+      0056C4 7C 20 2D 20 4D 75 73  4014 	.ascii "| - Must be multiple of 16                           |"
+             74 20 62 65 20 6D 75
+             6C 74 69 70 6C 65 20
+             6F 66 20 31 36 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 7C
+      0056FA 00                    4015 	.db 0x00
+                                   4016 	.area CSEG    (CODE)
+                                   4017 	.area CONST   (CODE)
+      0056FB                       4018 ___str_6:
+      0056FB 0A                    4019 	.db 0x0a
+      0056FC 0D                    4020 	.db 0x0d
+      0056FD 7C 20 49 6E 70 75 74  4021 	.ascii "| Input size: %-39d |"
+             20 73 69 7A 65 3A 20
+             25 2D 33 39 64 20 7C
+      005712 00                    4022 	.db 0x00
+                                   4023 	.area CSEG    (CODE)
+                                   4024 	.area CONST   (CODE)
+      005713                       4025 ___str_7:
+      005713 0A                    4026 	.db 0x0a
+      005714 0D                    4027 	.db 0x0d
+      005715 7C 20 42 55 46 46 45  4028 	.ascii "| BUFFER DEALLOCATION STATUS                      |"
+             52 20 44 45 41 4C 4C
+             4F 43 41 54 49 4F 4E
+             20 53 54 41 54 55 53
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 7C
+      005748 00                    4029 	.db 0x00
+                                   4030 	.area CSEG    (CODE)
+                                   4031 	.area CONST   (CODE)
+      005749                       4032 ___str_8:
+      005749 0A                    4033 	.db 0x0a
+      00574A 0D                    4034 	.db 0x0d
+      00574B 7C 2D 2D 2D 2D 2D 2D  4035 	.ascii "|------------------------------------------------|"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             7C
+      00577D 00                    4036 	.db 0x00
+                                   4037 	.area CSEG    (CODE)
+                                   4038 	.area CONST   (CODE)
+      00577E                       4039 ___str_9:
+      00577E 0A                    4040 	.db 0x0a
+      00577F 0D                    4041 	.db 0x0d
+      005780 7C 20 42 75 66 66 65  4042 	.ascii "| Buffers to Free  | %-28d |"
+             72 73 20 74 6F 20 46
+             72 65 65 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      00579C 00                    4043 	.db 0x00
+                                   4044 	.area CSEG    (CODE)
+                                   4045 	.area CONST   (CODE)
+      00579D                       4046 ___str_10:
+      00579D 0A                    4047 	.db 0x0a
+      00579E 0D                    4048 	.db 0x0d
+      00579F 7C 20 41 6C 6C 20 62  4049 	.ascii "| All buffers successfully deallocated            |"
+             75 66 66 65 72 73 20
+             73 75 63 63 65 73 73
+             66 75 6C 6C 79 20 64
+             65 61 6C 6C 6F 63 61
+             74 65 64 20 20 20 20
+             20 20 20 20 20 20 20
+             20 7C
+      0057D2 00                    4050 	.db 0x00
+                                   4051 	.area CSEG    (CODE)
+                                   4052 	.area CONST   (CODE)
+      0057D3                       4053 ___str_11:
+      0057D3 0A                    4054 	.db 0x0a
+      0057D4 0D                    4055 	.db 0x0d
+      0057D5 7C 20 57 41 52 4E 49  4056 	.ascii "| WARNING: Some buffers failed to deallocate      |"
+             4E 47 3A 20 53 6F 6D
+             65 20 62 75 66 66 65
+             72 73 20 66 61 69 6C
+             65 64 20 74 6F 20 64
+             65 61 6C 6C 6F 63 61
+             74 65 20 20 20 20 20
+             20 7C
+      005808 00                    4057 	.db 0x00
+                                   4058 	.area CSEG    (CODE)
+                                   4059 	.area CONST   (CODE)
+      005809                       4060 ___str_12:
+      005809 0A                    4061 	.db 0x0a
+      00580A 0D                    4062 	.db 0x0d
+      00580B 2B 2D 2D 2D 2D 2D 2D  4063 	.ascii "+------------------SYSTEM STATUS-------------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 53 59
+             53 54 45 4D 20 53 54
+             41 54 55 53 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2B
+      00583F 00                    4064 	.db 0x00
+                                   4065 	.area CSEG    (CODE)
+                                   4066 	.area CONST   (CODE)
+      005840                       4067 ___str_13:
+      005840 0A                    4068 	.db 0x0a
+      005841 0D                    4069 	.db 0x0d
+      005842 7C 20 43 4F 4D 4D 41  4070 	.ascii "| COMMAND STATISTICS                              |"
+             4E 44 20 53 54 41 54
+             49 53 54 49 43 53 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 7C
+      005875 00                    4071 	.db 0x00
+                                   4072 	.area CSEG    (CODE)
+                                   4073 	.area CONST   (CODE)
+      005876                       4074 ___str_14:
+      005876 0A                    4075 	.db 0x0a
+      005877 0D                    4076 	.db 0x0d
+      005878 7C 20 54 6F 74 61 6C  4077 	.ascii "| Total Commands   | %-28d |"
+             20 43 6F 6D 6D 61 6E
+             64 73 20 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      005894 00                    4078 	.db 0x00
+                                   4079 	.area CSEG    (CODE)
+                                   4080 	.area CONST   (CODE)
+      005895                       4081 ___str_15:
+      005895 0A                    4082 	.db 0x0a
+      005896 0D                    4083 	.db 0x0d
+      005897 7C 20 52 65 63 65 6E  4084 	.ascii "| Recent Commands  | %-28d |"
+             74 20 43 6F 6D 6D 61
+             6E 64 73 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      0058B3 00                    4085 	.db 0x00
+                                   4086 	.area CSEG    (CODE)
+                                   4087 	.area CONST   (CODE)
+      0058B4                       4088 ___str_16:
+      0058B4 0A                    4089 	.db 0x0a
+      0058B5 0D                    4090 	.db 0x0d
+      0058B6 7C 20 53 54 4F 52 41  4091 	.ascii "| STORAGE STATISTICS                             |"
+             47 45 20 53 54 41 54
+             49 53 54 49 43 53 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             7C
+      0058E8 00                    4092 	.db 0x00
+                                   4093 	.area CSEG    (CODE)
+                                   4094 	.area CONST   (CODE)
+      0058E9                       4095 ___str_17:
+      0058E9 0A                    4096 	.db 0x0a
+      0058EA 0D                    4097 	.db 0x0d
+      0058EB 7C 20 54 6F 74 61 6C  4098 	.ascii "| Total Storage    | %-28d |"
+             20 53 74 6F 72 61 67
+             65 20 20 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      005907 00                    4099 	.db 0x00
+                                   4100 	.area CSEG    (CODE)
+                                   4101 	.area CONST   (CODE)
+      005908                       4102 ___str_18:
+      005908 0A                    4103 	.db 0x0a
+      005909 0D                    4104 	.db 0x0d
+      00590A 7C 20 52 65 63 65 6E  4105 	.ascii "| Recent Storage   | %-28d |"
+             74 20 53 74 6F 72 61
+             67 65 20 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      005926 00                    4106 	.db 0x00
+                                   4107 	.area CSEG    (CODE)
+                                   4108 	.area CONST   (CODE)
+      005927                       4109 ___str_19:
+      005927 0A                    4110 	.db 0x0a
+      005928 0D                    4111 	.db 0x0d
+      005929 7C 20 54 4F 54 41 4C  4112 	.ascii "| TOTAL BUFFERS IN HEAP                           |"
+             20 42 55 46 46 45 52
+             53 20 49 4E 20 48 45
+             41 50 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 7C
+      00595C 00                    4113 	.db 0x00
+                                   4114 	.area CSEG    (CODE)
+                                   4115 	.area CONST   (CODE)
+      00595D                       4116 ___str_20:
+      00595D 0A                    4117 	.db 0x0a
+      00595E 0D                    4118 	.db 0x0d
+      00595F 7C 20 54 6F 74 61 6C  4119 	.ascii "| Total Buffers    | %-28d |"
+             20 42 75 66 66 65 72
+             73 20 20 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      00597B 00                    4120 	.db 0x00
+                                   4121 	.area CSEG    (CODE)
+                                   4122 	.area CONST   (CODE)
+      00597C                       4123 ___str_21:
+      00597C 0A                    4124 	.db 0x0a
+      00597D 0D                    4125 	.db 0x0d
+      00597E 2B 2D 2D 2D 2D 2D 2D  4126 	.ascii "+------------------BUFFER INFO--------------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 42 55
+             46 46 45 52 20 49 4E
+             46 4F 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2B
+      0059B1 00                    4127 	.db 0x00
+                                   4128 	.area CSEG    (CODE)
+                                   4129 	.area CONST   (CODE)
+      0059B2                       4130 ___str_22:
+      0059B2 0A                    4131 	.db 0x0a
+      0059B3 0D                    4132 	.db 0x0d
+      0059B4 7C 20 49 44 20 7C 20  4133 	.ascii "| ID | Start Addr  | End Addr    | Size (bytes) |"
+             53 74 61 72 74 20 41
+             64 64 72 20 20 7C 20
+             45 6E 64 20 41 64 64
+             72 20 20 20 20 7C 20
+             53 69 7A 65 20 28 62
+             79 74 65 73 29 20 7C
+      0059E5 00                    4134 	.db 0x00
+                                   4135 	.area CSEG    (CODE)
+                                   4136 	.area CONST   (CODE)
+      0059E6                       4137 ___str_23:
+      0059E6 0A                    4138 	.db 0x0a
+      0059E7 0D                    4139 	.db 0x0d
+      0059E8 7C 2D 2D 2D 2D 7C 2D  4140 	.ascii "|----|-------------|-------------|--------------|"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 7C 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 7C 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 7C
+      005A19 00                    4141 	.db 0x00
+                                   4142 	.area CSEG    (CODE)
+                                   4143 	.area CONST   (CODE)
+      005A1A                       4144 ___str_24:
+      005A1A 0A                    4145 	.db 0x0a
+      005A1B 0D                    4146 	.db 0x0d
+      005A1C 7C 20 25 2D 32 64 20  4147 	.ascii "| %-2d | %-10p | %-10p | %-11d |"
+             7C 20 25 2D 31 30 70
+             20 7C 20 25 2D 31 30
+             70 20 7C 20 25 2D 31
+             31 64 20 7C
+      005A3C 00                    4148 	.db 0x00
+                                   4149 	.area CSEG    (CODE)
+                                   4150 	.area CONST   (CODE)
+      005A3D                       4151 ___str_25:
+      005A3D 0A                    4152 	.db 0x0a
+      005A3E 0D                    4153 	.db 0x0d
+      005A3F 7C 20 4D 45 4D 4F 52  4154 	.ascii "| MEMORY ALLOCATION STATUS BUFFER 0              |"
+             59 20 41 4C 4C 4F 43
+             41 54 49 4F 4E 20 53
+             54 41 54 55 53 20 42
+             55 46 46 45 52 20 30
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             7C
+      005A71 00                    4155 	.db 0x00
+                                   4156 	.area CSEG    (CODE)
+                                   4157 	.area CONST   (CODE)
+      005A72                       4158 ___str_26:
+      005A72 0A                    4159 	.db 0x0a
+      005A73 0D                    4160 	.db 0x0d
+      005A74 7C 20 54 6F 74 61 6C  4161 	.ascii "| Total Space      | %-28d |"
+             20 53 70 61 63 65 20
+             20 20 20 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      005A90 00                    4162 	.db 0x00
+                                   4163 	.area CSEG    (CODE)
+                                   4164 	.area CONST   (CODE)
+      005A91                       4165 ___str_27:
+      005A91 0A                    4166 	.db 0x0a
+      005A92 0D                    4167 	.db 0x0d
+      005A93 7C 20 4F 63 63 75 70  4168 	.ascii "| Occupied Space   | %-28d |"
+             69 65 64 20 53 70 61
+             63 65 20 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      005AAF 00                    4169 	.db 0x00
+                                   4170 	.area CSEG    (CODE)
+                                   4171 	.area CONST   (CODE)
+      005AB0                       4172 ___str_28:
+      005AB0 0A                    4173 	.db 0x0a
+      005AB1 0D                    4174 	.db 0x0d
+      005AB2 7C 20 46 72 65 65 20  4175 	.ascii "| Free Space       | %-28d |"
+             53 70 61 63 65 20 20
+             20 20 20 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      005ACE 00                    4176 	.db 0x00
+                                   4177 	.area CSEG    (CODE)
+                                   4178 	.area CONST   (CODE)
+      005ACF                       4179 ___str_29:
+      005ACF 0A                    4180 	.db 0x0a
+      005AD0 0D                    4181 	.db 0x0d
+      005AD1 7C 20 42 55 46 46 45  4182 	.ascii "| BUFFER 0 CLEAR STATUS                           |"
+             52 20 30 20 43 4C 45
+             41 52 20 53 54 41 54
+             55 53 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 7C
+      005B04 00                    4183 	.db 0x00
+                                   4184 	.area CSEG    (CODE)
+                                   4185 	.area CONST   (CODE)
+      005B05                       4186 ___str_30:
+      005B05 0A                    4187 	.db 0x0a
+      005B06 0D                    4188 	.db 0x0d
+      005B07 7C 20 42 75 66 66 65  4189 	.ascii "| Buffer 0 is not initialized                     |"
+             72 20 30 20 69 73 20
+             6E 6F 74 20 69 6E 69
+             74 69 61 6C 69 7A 65
+             64 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 7C
+      005B3A 00                    4190 	.db 0x00
+                                   4191 	.area CSEG    (CODE)
+                                   4192 	.area CONST   (CODE)
+      005B3B                       4193 ___str_31:
+      005B3B 0A                    4194 	.db 0x0a
+      005B3C 0D                    4195 	.db 0x0d
+      005B3D 7C 20 42 75 66 66 65  4196 	.ascii "| Buffer Size      | %-28d |"
+             72 20 53 69 7A 65 20
+             20 20 20 20 20 7C 20
+             25 2D 32 38 64 20 7C
+      005B59 00                    4197 	.db 0x00
+                                   4198 	.area CSEG    (CODE)
+                                   4199 	.area CONST   (CODE)
+      005B5A                       4200 ___str_32:
+      005B5A 0A                    4201 	.db 0x0a
+      005B5B 0D                    4202 	.db 0x0d
+      005B5C 7C 20 53 74 61 74 75  4203 	.ascii "| Status          | %-28s |"
+             73 20 20 20 20 20 20
+             20 20 20 20 7C 20 25
+             2D 32 38 73 20 7C
+      005B77 00                    4204 	.db 0x00
+                                   4205 	.area CSEG    (CODE)
+                                   4206 	.area CONST   (CODE)
+      005B78                       4207 ___str_33:
+      005B78 44 61 74 61 20 45 72  4208 	.ascii "Data Erased"
+             61 73 65 64
+      005B83 00                    4209 	.db 0x00
+                                   4210 	.area CSEG    (CODE)
+                                   4211 	.area CONST   (CODE)
+      005B84                       4212 ___str_34:
+      005B84 0A                    4213 	.db 0x0a
+      005B85 0D                    4214 	.db 0x0d
+      005B86 2B 2D 2D 2D 2D 2D 2D  4215 	.ascii "+----------------BUFFER CREATION------------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 42 55 46 46
+             45 52 20 43 52 45 41
+             54 49 4F 4E 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2B
+      005BB9 00                    4216 	.db 0x00
+                                   4217 	.area CSEG    (CODE)
+                                   4218 	.area CONST   (CODE)
+      005BBA                       4219 ___str_35:
+      005BBA 0A                    4220 	.db 0x0a
+      005BBB 0D                    4221 	.db 0x0d
+      005BBC 7C 20 45 6E 74 65 72  4222 	.ascii "| Enter buffer size (50-500): "
+             20 62 75 66 66 65 72
+             20 73 69 7A 65 20 28
+             35 30 2D 35 30 30 29
              3A 20
-      005060 00                    2807 	.db 0x00
-                                   2808 	.area CSEG    (CODE)
-                                   2809 	.area CONST   (CODE)
-      005061                       2810 ___str_19:
-      005061 42 75 66 66 65 72 20  2811 	.ascii "Buffer you entered is : 0x"
-             79 6F 75 20 65 6E 74
-             65 72 65 64 20 69 73
-             20 3A 20 30 78
-      00507B 00                    2812 	.db 0x00
-                                   2813 	.area CSEG    (CODE)
-                                   2814 	.area CONST   (CODE)
-      00507C                       2815 ___str_20:
-      00507C 46 61 69 6C 65 64 20  2816 	.ascii "Failed to get malloc try to enter smaller size for buf 1"
-             74 6F 20 67 65 74 20
-             6D 61 6C 6C 6F 63 20
-             74 72 79 20 74 6F 20
-             65 6E 74 65 72 20 73
+      005BDA 00                    4223 	.db 0x00
+                                   4224 	.area CSEG    (CODE)
+                                   4225 	.area CONST   (CODE)
+      005BDB                       4226 ___str_36:
+      005BDB 0A                    4227 	.db 0x0a
+      005BDC 0D                    4228 	.db 0x0d
+      005BDD 20 45 52 52 4F 52 20  4229 	.ascii " ERROR : Invalid request"
+             3A 20 49 6E 76 61 6C
+             69 64 20 72 65 71 75
+             65 73 74
+      005BF5 0A                    4230 	.db 0x0a
+      005BF6 0D                    4231 	.db 0x0d
+      005BF7 00                    4232 	.db 0x00
+                                   4233 	.area CSEG    (CODE)
+                                   4234 	.area CONST   (CODE)
+      005BF8                       4235 ___str_37:
+      005BF8 0A                    4236 	.db 0x0a
+      005BF9 0D                    4237 	.db 0x0d
+      005BFA 7C 20 52 65 71 75 65  4238 	.ascii "| Requested Size: %-32d |"
+             73 74 65 64 20 53 69
+             7A 65 3A 20 25 2D 33
+             32 64 20 7C
+      005C13 00                    4239 	.db 0x00
+                                   4240 	.area CSEG    (CODE)
+                                   4241 	.area CONST   (CODE)
+      005C14                       4242 ___str_38:
+      005C14 0A                    4243 	.db 0x0a
+      005C15 0D                    4244 	.db 0x0d
+      005C16 7C 20 45 52 52 4F 52  4245 	.ascii "| ERROR: Memory allocation failed                  |"
+             3A 20 4D 65 6D 6F 72
+             79 20 61 6C 6C 6F 63
+             61 74 69 6F 6E 20 66
+             61 69 6C 65 64 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 7C
+      005C4A 00                    4246 	.db 0x00
+                                   4247 	.area CSEG    (CODE)
+                                   4248 	.area CONST   (CODE)
+      005C4B                       4249 ___str_39:
+      005C4B 0A                    4250 	.db 0x0a
+      005C4C 0D                    4251 	.db 0x0d
+      005C4D 7C 20 54 72 79 20 73  4252 	.ascii "| Try smaller size with '+' command                |"
              6D 61 6C 6C 65 72 20
-             73 69 7A 65 20 66 6F
-             72 20 62 75 66 20 31
-      0050B4 0A                    2817 	.db 0x0a
-      0050B5 0D                    2818 	.db 0x0d
-      0050B6 00                    2819 	.db 0x00
-                                   2820 	.area CSEG    (CODE)
-                                   2821 	.area CONST   (CODE)
-      0050B7                       2822 ___str_21:
-      0050B7 46 61 69 6C 65 64 20  2823 	.ascii "Failed to get malloc try to enter smaller size for buf 2"
-             74 6F 20 67 65 74 20
-             6D 61 6C 6C 6F 63 20
-             74 72 79 20 74 6F 20
-             65 6E 74 65 72 20 73
-             6D 61 6C 6C 65 72 20
-             73 69 7A 65 20 66 6F
-             72 20 62 75 66 20 32
-      0050EF 0A                    2824 	.db 0x0a
-      0050F0 0D                    2825 	.db 0x0d
-      0050F1 00                    2826 	.db 0x00
-                                   2827 	.area CSEG    (CODE)
-                                   2828 	.area CONST   (CODE)
-      0050F2                       2829 ___str_22:
-      0050F2 70 6F 69 6E 74 65 72  2830 	.ascii "pointer_value : %p %p"
-             5F 76 61 6C 75 65 20
-             3A 20 25 70 20 25 70
-      005107 0A                    2831 	.db 0x0a
-      005108 0D                    2832 	.db 0x0d
-      005109 00                    2833 	.db 0x00
-                                   2834 	.area CSEG    (CODE)
-                                   2835 	.area CONST   (CODE)
-      00510A                       2836 ___str_23:
-      00510A 70 6F 69 6E 74 65 72  2837 	.ascii "pointer location %p, size %d"
-             20 6C 6F 63 61 74 69
-             6F 6E 20 25 70 2C 20
-             73 69 7A 65 20 25 64
-      005126 0A                    2838 	.db 0x0a
-      005127 0D                    2839 	.db 0x0d
-      005128 00                    2840 	.db 0x00
-                                   2841 	.area CSEG    (CODE)
-                                   2842 	.area CONST   (CODE)
-      005129                       2843 ___str_24:
-      005129 45 6E 74 65 72 20 55  2844 	.ascii "Enter Uppercase char to save in buffer 0: "
-             70 70 65 72 63 61 73
-             65 20 63 68 61 72 20
-             74 6F 20 73 61 76 65
-             20 69 6E 20 62 75 66
-             66 65 72 20 30 3A 20
-      005153 0A                    2845 	.db 0x0a
-      005154 0D                    2846 	.db 0x0d
-      005155 00                    2847 	.db 0x00
-                                   2848 	.area CSEG    (CODE)
-                                   2849 	.area CONST   (CODE)
-      005156                       2850 ___str_25:
-      005156 43 6F 6D 6D 61 6E 64  2851 	.ascii "Command recived ! "
-             20 72 65 63 69 76 65
-             64 20 21 20
-      005168 0A                    2852 	.db 0x0a
-      005169 0D                    2853 	.db 0x0d
-      00516A 00                    2854 	.db 0x00
-                                   2855 	.area CSEG    (CODE)
-                                   2856 	.area CONST   (CODE)
-      00516B                       2857 ___str_26:
-      00516B 74 6F 74 61 6C 20 73  2858 	.ascii "total storage %d recent storage %d pointer %p "
-             74 6F 72 61 67 65 20
-             25 64 20 72 65 63 65
-             6E 74 20 73 74 6F 72
-             61 67 65 20 25 64 20
-             70 6F 69 6E 74 65 72
-             20 25 70 20
-      005199 0A                    2859 	.db 0x0a
-      00519A 0D                    2860 	.db 0x0d
-      00519B 00                    2861 	.db 0x00
-                                   2862 	.area CSEG    (CODE)
-                                   2863 	.area CONST   (CODE)
-      00519C                       2864 ___str_27:
-      00519C 62 75 66 66 65 72 30  2865 	.ascii "buffer0 got full nothing to write !"
-             20 67 6F 74 20 66 75
-             6C 6C 20 6E 6F 74 68
-             69 6E 67 20 74 6F 20
-             77 72 69 74 65 20 21
-      0051BF 00                    2866 	.db 0x00
-                                   2867 	.area CSEG    (CODE)
-                                   2868 	.area CONST   (CODE)
-      0051C0                       2869 ___str_28:
-      0051C0 50 6C 65 61 73 65 20  2870 	.ascii "Please enter An command (+) (-) (?) (=) (@): "
-             65 6E 74 65 72 20 41
-             6E 20 63 6F 6D 6D 61
-             6E 64 20 28 2B 29 20
-             28 2D 29 20 28 3F 29
-             20 28 3D 29 20 28 40
+             73 69 7A 65 20 77 69
+             74 68 20 27 2B 27 20
+             63 6F 6D 6D 61 6E 64
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 7C
+      005C81 00                    4253 	.db 0x00
+                                   4254 	.area CSEG    (CODE)
+                                   4255 	.area CONST   (CODE)
+      005C82                       4256 ___str_40:
+      005C82 0A                    4257 	.db 0x0a
+      005C83 0D                    4258 	.db 0x0d
+      005C84 7C 20 53 55 43 43 45  4259 	.ascii "| SUCCESS: Buffer created successfully            |"
+             53 53 3A 20 42 75 66
+             66 65 72 20 63 72 65
+             61 74 65 64 20 73 75
+             63 63 65 73 73 66 75
+             6C 6C 79 20 20 20 20
+             20 20 20 20 20 20 20
+             20 7C
+      005CB7 00                    4260 	.db 0x00
+                                   4261 	.area CSEG    (CODE)
+                                   4262 	.area CONST   (CODE)
+      005CB8                       4263 ___str_41:
+      005CB8 0A                    4264 	.db 0x0a
+      005CB9 0D                    4265 	.db 0x0d
+      005CBA 2B 2D 2D 2D 2D 2D 2D  4266 	.ascii "+----------------BUFFER DELETION------------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 42 55 46 46
+             45 52 20 44 45 4C 45
+             54 49 4F 4E 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2B
+      005CED 00                    4267 	.db 0x00
+                                   4268 	.area CSEG    (CODE)
+                                   4269 	.area CONST   (CODE)
+      005CEE                       4270 ___str_42:
+      005CEE 0A                    4271 	.db 0x0a
+      005CEF 0D                    4272 	.db 0x0d
+      005CF0 7C 20 45 6E 74 65 72  4273 	.ascii "| Enter buffer number (0-102): "
+             20 62 75 66 66 65 72
+             20 6E 75 6D 62 65 72
+             20 28 30 2D 31 30 32
              29 3A 20
-      0051ED 0A                    2871 	.db 0x0a
-      0051EE 00                    2872 	.db 0x00
-                                   2873 	.area CSEG    (CODE)
-                                   2874 	.area XINIT   (CODE)
-      0051FC                       2875 __xinit__index_of_buffers:
-      0051FC 00                    2876 	.db #0x00	; 0
-      0051FD                       2877 __xinit__total_number_of_commands:
-      0051FD 00                    2878 	.db #0x00	; 0
-      0051FE                       2879 __xinit__total_number_of_storage:
-      0051FE 00                    2880 	.db #0x00	; 0
-      0051FF                       2881 __xinit__recent_commands:
-      0051FF 00                    2882 	.db #0x00	; 0
-      005200                       2883 __xinit__recent_storage:
-      005200 00                    2884 	.db #0x00	; 0
-      005201                       2885 __xinit__recived_bytes:
-      005201 00                    2886 	.db #0x00	; 0
-      005202                       2887 __xinit__pointer1:
-      005202 00 00                 2888 	.byte #0x00,#0x00
-      005204                       2889 __xinit__pointer2:
-      005204 00 00                 2890 	.byte #0x00,#0x00
-                                   2891 	.area CABS    (ABS,CODE)
+      005D0F 00                    4274 	.db 0x00
+                                   4275 	.area CSEG    (CODE)
+                                   4276 	.area CONST   (CODE)
+      005D10                       4277 ___str_43:
+      005D10 0A                    4278 	.db 0x0a
+      005D11 0D                    4279 	.db 0x0d
+      005D12 7C 20 45 52 52 4F 52  4280 	.ascii "| ERROR: Cannot delete Buffer 0                    |"
+             3A 20 43 61 6E 6E 6F
+             74 20 64 65 6C 65 74
+             65 20 42 75 66 66 65
+             72 20 30 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 7C
+      005D46 00                    4281 	.db 0x00
+                                   4282 	.area CSEG    (CODE)
+                                   4283 	.area CONST   (CODE)
+      005D47                       4284 ___str_44:
+      005D47 0A                    4285 	.db 0x0a
+      005D48 0D                    4286 	.db 0x0d
+      005D49 7C 20 45 52 52 4F 52  4287 	.ascii "| ERROR: Invalid delete request                  |"
+             3A 20 49 6E 76 61 6C
+             69 64 20 64 65 6C 65
+             74 65 20 72 65 71 75
+             65 73 74 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             7C
+      005D7B 00                    4288 	.db 0x00
+                                   4289 	.area CSEG    (CODE)
+                                   4290 	.area CONST   (CODE)
+      005D7C                       4291 ___str_45:
+      005D7C 0A                    4292 	.db 0x0a
+      005D7D 0D                    4293 	.db 0x0d
+      005D7E 7C 20 53 55 43 43 45  4294 	.ascii "| SUCCESS: Buffer %-2d deleted                     |"
+             53 53 3A 20 42 75 66
+             66 65 72 20 25 2D 32
+             64 20 64 65 6C 65 74
+             65 64 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 7C
+      005DB2 00                    4295 	.db 0x00
+                                   4296 	.area CSEG    (CODE)
+                                   4297 	.area CONST   (CODE)
+      005DB3                       4298 ___str_46:
+      005DB3 0A                    4299 	.db 0x0a
+      005DB4 0D                    4300 	.db 0x0d
+      005DB5 2B 2D 2D 2D 2D 2D 2D  4301 	.ascii "+---------------BUFFER 0 CONTENTS-----------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 42 55 46 46 45
+             52 20 30 20 43 4F 4E
+             54 45 4E 54 53 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2B
+      005DE8 00                    4302 	.db 0x00
+                                   4303 	.area CSEG    (CODE)
+                                   4304 	.area CONST   (CODE)
+      005DE9                       4305 ___str_47:
+      005DE9 0A                    4306 	.db 0x0a
+      005DEA 0D                    4307 	.db 0x0d
+      005DEB 7C 20 41 64 64 72 65  4308 	.ascii "| Address    | Data                               |"
+             73 73 20 20 20 20 7C
+             20 44 61 74 61 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 7C
+      005E1E 00                    4309 	.db 0x00
+                                   4310 	.area CSEG    (CODE)
+                                   4311 	.area CONST   (CODE)
+      005E1F                       4312 ___str_48:
+      005E1F 0A                    4313 	.db 0x0a
+      005E20 0D                    4314 	.db 0x0d
+      005E21 7C 2D 2D 2D 2D 2D 2D  4315 	.ascii "|------------|---------------------------------------|"
+             2D 2D 2D 2D 2D 2D 7C
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 7C
+      005E57 00                    4316 	.db 0x00
+                                   4317 	.area CSEG    (CODE)
+                                   4318 	.area CONST   (CODE)
+      005E58                       4319 ___str_49:
+      005E58 0A                    4320 	.db 0x0a
+      005E59 0D                    4321 	.db 0x0d
+      005E5A 00                    4322 	.db 0x00
+                                   4323 	.area CSEG    (CODE)
+                                   4324 	.area CONST   (CODE)
+      005E5B                       4325 ___str_50:
+      005E5B 42 55 46 46 45 52 20  4326 	.ascii "BUFFER 0 DOES NOT EXIST"
+             30 20 44 4F 45 53 20
+             4E 4F 54 20 45 58 49
+             53 54
+      005E72 0A                    4327 	.db 0x0a
+      005E73 0D                    4328 	.db 0x0d
+      005E74 00                    4329 	.db 0x00
+                                   4330 	.area CSEG    (CODE)
+                                   4331 	.area CONST   (CODE)
+      005E75                       4332 ___str_51:
+      005E75 0A                    4333 	.db 0x0a
+      005E76 0D                    4334 	.db 0x0d
+      005E77 7C 20 25 30 34 58 20  4335 	.ascii "| %04X      |"
+             20 20 20 20 20 7C
+      005E84 00                    4336 	.db 0x00
+                                   4337 	.area CSEG    (CODE)
+                                   4338 	.area CONST   (CODE)
+      005E85                       4339 ___str_52:
+      005E85 20 25 30 32 58        4340 	.ascii " %02X"
+      005E8A 00                    4341 	.db 0x00
+                                   4342 	.area CSEG    (CODE)
+                                   4343 	.area CONST   (CODE)
+      005E8B                       4344 ___str_53:
+      005E8B 20 20 20              4345 	.ascii "   "
+      005E8E 00                    4346 	.db 0x00
+                                   4347 	.area CSEG    (CODE)
+                                   4348 	.area CONST   (CODE)
+      005E8F                       4349 ___str_54:
+      005E8F 20 7C                 4350 	.ascii " |"
+      005E91 00                    4351 	.db 0x00
+                                   4352 	.area CSEG    (CODE)
+                                   4353 	.area CONST   (CODE)
+      005E92                       4354 ___str_55:
+      005E92 0A                    4355 	.db 0x0a
+      005E93 0D                    4356 	.db 0x0d
+      005E94 2B 3D 3D 3D 3D 3D 3D  4357 	.ascii "+==================================================+"
+             3D 3D 3D 3D 3D 3D 3D
+             3D 3D 3D 3D 3D 3D 3D
+             3D 3D 3D 3D 3D 3D 3D
+             3D 3D 3D 3D 3D 3D 3D
+             3D 3D 3D 3D 3D 3D 3D
+             3D 3D 3D 3D 3D 3D 3D
+             3D 3D 2B
+      005EC8 00                    4358 	.db 0x00
+                                   4359 	.area CSEG    (CODE)
+                                   4360 	.area CONST   (CODE)
+      005EC9                       4361 ___str_56:
+      005EC9 0A                    4362 	.db 0x0a
+      005ECA 0D                    4363 	.db 0x0d
+      005ECB 7C 20 20 20 20 20 20  4364 	.ascii "|           BUFFER MANAGEMENT SYSTEM                |"
+             20 20 20 20 20 42 55
+             46 46 45 52 20 4D 41
+             4E 41 47 45 4D 45 4E
+             54 20 53 59 53 54 45
+             4D 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 7C
+      005F00 00                    4365 	.db 0x00
+                                   4366 	.area CSEG    (CODE)
+                                   4367 	.area CONST   (CODE)
+      005F01                       4368 ___str_57:
+      005F01 0A                    4369 	.db 0x0a
+      005F02 0D                    4370 	.db 0x0d
+      005F03 7C 20 45 6E 74 65 72  4371 	.ascii "| Enter initial buffer size (32-5120): "
+             20 69 6E 69 74 69 61
+             6C 20 62 75 66 66 65
+             72 20 73 69 7A 65 20
+             28 33 32 2D 35 31 32
+             30 29 3A 20
+      005F2A 00                    4372 	.db 0x00
+                                   4373 	.area CSEG    (CODE)
+                                   4374 	.area CONST   (CODE)
+      005F2B                       4375 ___str_58:
+      005F2B 0A                    4376 	.db 0x0a
+      005F2C 0D                    4377 	.db 0x0d
+      005F2D 7C 20 45 52 52 4F 52  4378 	.ascii "| ERROR: Buffer 1 allocation failed                |"
+             3A 20 42 75 66 66 65
+             72 20 31 20 61 6C 6C
+             6F 63 61 74 69 6F 6E
+             20 66 61 69 6C 65 64
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 7C
+      005F61 00                    4379 	.db 0x00
+                                   4380 	.area CSEG    (CODE)
+                                   4381 	.area CONST   (CODE)
+      005F62                       4382 ___str_59:
+      005F62 0A                    4383 	.db 0x0a
+      005F63 0D                    4384 	.db 0x0d
+      005F64 7C 20 54 72 79 20 73  4385 	.ascii "| Try smaller size                                |"
+             6D 61 6C 6C 65 72 20
+             73 69 7A 65 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 7C
+      005F97 00                    4386 	.db 0x00
+                                   4387 	.area CSEG    (CODE)
+                                   4388 	.area CONST   (CODE)
+      005F98                       4389 ___str_60:
+      005F98 0A                    4390 	.db 0x0a
+      005F99 0D                    4391 	.db 0x0d
+      005F9A 2B 2D 2D 2D 2D 2D 2D  4392 	.ascii "+------------------------------------------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2B
+      005FCC 0A                    4393 	.db 0x0a
+      005FCD 0D                    4394 	.db 0x0d
+      005FCE 00                    4395 	.db 0x00
+                                   4396 	.area CSEG    (CODE)
+                                   4397 	.area CONST   (CODE)
+      005FCF                       4398 ___str_61:
+      005FCF 0A                    4399 	.db 0x0a
+      005FD0 0D                    4400 	.db 0x0d
+      005FD1 7C 20 45 52 52 4F 52  4401 	.ascii "| ERROR: Buffer 2 allocation failed                |"
+             3A 20 42 75 66 66 65
+             72 20 32 20 61 6C 6C
+             6F 63 61 74 69 6F 6E
+             20 66 61 69 6C 65 64
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 7C
+      006005 00                    4402 	.db 0x00
+                                   4403 	.area CSEG    (CODE)
+                                   4404 	.area CONST   (CODE)
+      006006                       4405 ___str_62:
+      006006 0A                    4406 	.db 0x0a
+      006007 0D                    4407 	.db 0x0d
+      006008 2B 2D 2D 2D 2D 2D 2D  4408 	.ascii "+----------------BUFFER STATUS--------------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 42 55 46 46
+             45 52 20 53 54 41 54
+             55 53 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2B
+      00603B 00                    4409 	.db 0x00
+                                   4410 	.area CSEG    (CODE)
+                                   4411 	.area CONST   (CODE)
+      00603C                       4412 ___str_63:
+      00603C 0A                    4413 	.db 0x0a
+      00603D 0D                    4414 	.db 0x0d
+      00603E 7C 20 42 75 66 66 65  4415 	.ascii "| Buffer 1 | Addr: %-10p | Size: %-6d   |"
+             72 20 31 20 7C 20 41
+             64 64 72 3A 20 25 2D
+             31 30 70 20 7C 20 53
+             69 7A 65 3A 20 25 2D
+             36 64 20 20 20 7C
+      006067 00                    4416 	.db 0x00
+                                   4417 	.area CSEG    (CODE)
+                                   4418 	.area CONST   (CODE)
+      006068                       4419 ___str_64:
+      006068 0A                    4420 	.db 0x0a
+      006069 0D                    4421 	.db 0x0d
+      00606A 7C 20 42 75 66 66 65  4422 	.ascii "| Buffer 2 | Addr: %-10p | Size: %-6d   |"
+             72 20 32 20 7C 20 41
+             64 64 72 3A 20 25 2D
+             31 30 70 20 7C 20 53
+             69 7A 65 3A 20 25 2D
+             36 64 20 20 20 7C
+      006093 00                    4423 	.db 0x00
+                                   4424 	.area CSEG    (CODE)
+                                   4425 	.area CONST   (CODE)
+      006094                       4426 ___str_65:
+      006094 0A                    4427 	.db 0x0a
+      006095 0D                    4428 	.db 0x0d
+      006096 2B 2D 2D 2D 2D 2D 2D  4429 	.ascii "+------------------COMMANDS----------------------+"
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 43 4F
+             4D 4D 41 4E 44 53 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2D 2D 2D 2D 2D 2D 2D
+             2B
+      0060C8 00                    4430 	.db 0x00
+                                   4431 	.area CSEG    (CODE)
+                                   4432 	.area CONST   (CODE)
+      0060C9                       4433 ___str_66:
+      0060C9 0A                    4434 	.db 0x0a
+      0060CA 0D                    4435 	.db 0x0d
+      0060CB 7C 20 5B 41 2D 5A 5D  4436 	.ascii "| [A-Z] : Store character in Buffer 0           |"
+             20 3A 20 53 74 6F 72
+             65 20 63 68 61 72 61
+             63 74 65 72 20 69 6E
+             20 42 75 66 66 65 72
+             20 30 20 20 20 20 20
+             20 20 20 20 20 20 7C
+      0060FC 00                    4437 	.db 0x00
+                                   4438 	.area CSEG    (CODE)
+                                   4439 	.area CONST   (CODE)
+      0060FD                       4440 ___str_67:
+      0060FD 0A                    4441 	.db 0x0a
+      0060FE 0D                    4442 	.db 0x0d
+      0060FF 7C 20 2B 20 20 20 20  4443 	.ascii "| +     : Create new buffer                     |"
+             20 3A 20 43 72 65 61
+             74 65 20 6E 65 77 20
+             62 75 66 66 65 72 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 7C
+      006130 00                    4444 	.db 0x00
+                                   4445 	.area CSEG    (CODE)
+                                   4446 	.area CONST   (CODE)
+      006131                       4447 ___str_68:
+      006131 0A                    4448 	.db 0x0a
+      006132 0D                    4449 	.db 0x0d
+      006133 7C 20 2D 20 20 20 20  4450 	.ascii "| -     : Delete buffer                         |"
+             20 3A 20 44 65 6C 65
+             74 65 20 62 75 66 66
+             65 72 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 7C
+      006164 00                    4451 	.db 0x00
+                                   4452 	.area CSEG    (CODE)
+                                   4453 	.area CONST   (CODE)
+      006165                       4454 ___str_69:
+      006165 0A                    4455 	.db 0x0a
+      006166 0D                    4456 	.db 0x0d
+      006167 7C 20 3F 20 20 20 20  4457 	.ascii "| ?     : Show system status                    |"
+             20 3A 20 53 68 6F 77
+             20 73 79 73 74 65 6D
+             20 73 74 61 74 75 73
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 7C
+      006198 00                    4458 	.db 0x00
+                                   4459 	.area CSEG    (CODE)
+                                   4460 	.area CONST   (CODE)
+      006199                       4461 ___str_70:
+      006199 0A                    4462 	.db 0x0a
+      00619A 0D                    4463 	.db 0x0d
+      00619B 7C 20 3D 20 20 20 20  4464 	.ascii "| =     : Display Buffer 0 contents             |"
+             20 3A 20 44 69 73 70
+             6C 61 79 20 42 75 66
+             66 65 72 20 30 20 63
+             6F 6E 74 65 6E 74 73
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 7C
+      0061CC 00                    4465 	.db 0x00
+                                   4466 	.area CSEG    (CODE)
+                                   4467 	.area CONST   (CODE)
+      0061CD                       4468 ___str_71:
+      0061CD 0A                    4469 	.db 0x0a
+      0061CE 0D                    4470 	.db 0x0d
+      0061CF 7C 20 40 20 20 20 20  4471 	.ascii "| @     : Reset system                          |"
+             20 3A 20 52 65 73 65
+             74 20 73 79 73 74 65
+             6D 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 7C
+      006200 00                    4472 	.db 0x00
+                                   4473 	.area CSEG    (CODE)
+                                   4474 	.area CONST   (CODE)
+      006201                       4475 ___str_72:
+      006201 0A                    4476 	.db 0x0a
+      006202 0D                    4477 	.db 0x0d
+      006203 7C 20 52 65 61 64 79  4478 	.ascii "| Ready for input. Enter uppercase chars (A-Z):    |"
+             20 66 6F 72 20 69 6E
+             70 75 74 2E 20 45 6E
+             74 65 72 20 75 70 70
+             65 72 63 61 73 65 20
+             63 68 61 72 73 20 28
+             41 2D 5A 29 3A 20 20
+             20 20 7C
+      006237 0A                    4479 	.db 0x0a
+      006238 0D                    4480 	.db 0x0d
+      006239 00                    4481 	.db 0x00
+                                   4482 	.area CSEG    (CODE)
+                                   4483 	.area CONST   (CODE)
+      00623A                       4484 ___str_73:
+      00623A 0A                    4485 	.db 0x0a
+      00623B 0D                    4486 	.db 0x0d
+      00623C 7C 20 43 6F 6D 6D 61  4487 	.ascii "| Command received: %-31c |"
+             6E 64 20 72 65 63 65
+             69 76 65 64 3A 20 25
+             2D 33 31 63 20 7C
+      006257 00                    4488 	.db 0x00
+                                   4489 	.area CSEG    (CODE)
+                                   4490 	.area CONST   (CODE)
+      006258                       4491 ___str_74:
+      006258 0A                    4492 	.db 0x0a
+      006259 0D                    4493 	.db 0x0d
+      00625A 7C 20 53 74 6F 72 61  4494 	.ascii "| Storage: Total=%-4d Recent=%-4d Addr=%-10p |"
+             67 65 3A 20 54 6F 74
+             61 6C 3D 25 2D 34 64
+             20 52 65 63 65 6E 74
+             3D 25 2D 34 64 20 41
+             64 64 72 3D 25 2D 31
+             30 70 20 7C
+      006288 0A                    4495 	.db 0x0a
+      006289 0D                    4496 	.db 0x0d
+      00628A 00                    4497 	.db 0x00
+                                   4498 	.area CSEG    (CODE)
+                                   4499 	.area CONST   (CODE)
+      00628B                       4500 ___str_75:
+      00628B 0A                    4501 	.db 0x0a
+      00628C 0D                    4502 	.db 0x0d
+      00628D 7C 20 4E 4F 54 49 43  4503 	.ascii "| NOTICE: Buffer 0 is full - Storage stopped        |"
+             45 3A 20 42 75 66 66
+             65 72 20 30 20 69 73
+             20 66 75 6C 6C 20 2D
+             20 53 74 6F 72 61 67
+             65 20 73 74 6F 70 70
+             65 64 20 20 20 20 20
+             20 20 20 7C
+      0062C2 00                    4504 	.db 0x00
+                                   4505 	.area CSEG    (CODE)
+                                   4506 	.area CONST   (CODE)
+      0062C3                       4507 ___str_76:
+      0062C3 0A                    4508 	.db 0x0a
+      0062C4 0D                    4509 	.db 0x0d
+      0062C5 7C 20 45 6E 74 65 72  4510 	.ascii "| Enter command (+, -, ?, =, @):                   |"
+             20 63 6F 6D 6D 61 6E
+             64 20 28 2B 2C 20 2D
+             2C 20 3F 2C 20 3D 2C
+             20 40 29 3A 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 7C
+      0062F9 00                    4511 	.db 0x00
+                                   4512 	.area CSEG    (CODE)
+                                   4513 	.area XINIT   (CODE)
+      006307                       4514 __xinit__index_of_buffers:
+      006307 00                    4515 	.db #0x00	; 0
+      006308                       4516 __xinit__total_number_of_commands:
+      006308 00                    4517 	.db #0x00	; 0
+      006309                       4518 __xinit__total_number_of_storage:
+      006309 00                    4519 	.db #0x00	; 0
+      00630A                       4520 __xinit__recent_commands:
+      00630A 00                    4521 	.db #0x00	; 0
+      00630B                       4522 __xinit__recent_storage:
+      00630B 00                    4523 	.db #0x00	; 0
+      00630C                       4524 __xinit__recived_bytes:
+      00630C 00                    4525 	.db #0x00	; 0
+      00630D                       4526 __xinit__wr:
+      00630D 00 00 00              4527 	.byte #0x00,#0x00,#0x00
+      006310                       4528 __xinit__pointer1:
+      006310 00 00                 4529 	.byte #0x00,#0x00
+      006312                       4530 __xinit__pointer2:
+      006312 00 00                 4531 	.byte #0x00,#0x00
+                                   4532 	.area CABS    (ABS,CODE)

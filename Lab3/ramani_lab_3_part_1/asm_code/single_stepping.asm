@@ -3,7 +3,7 @@ LJMP 14EFH              ; jumping to STEP function address from extra.asm/extra.
 
 
 ; headers
-.equ    locat, 0x2000           ;Location for this program
+.equ    locat, 0x2060           ;Location for this program
 .org    locat
 .db     0xA5,0xE5,0xE0,0xA5     ;signiture bytes
 .db     35,255,0,0              ;id (35=prog)

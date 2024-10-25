@@ -1,6 +1,6 @@
 ;--------------------------------------------------------
-; File Created by SDCC : free open source ANSI-C Compiler
-; Version 4.0.0 #11528 (Linux)
+; File Created by SDCC : free open source ISO C Compiler 
+; Version 4.4.0 #14620 (MINGW32)
 ;--------------------------------------------------------
 	.module _heap
 	.optsdcc -mmcs51 --model-large
@@ -30,7 +30,7 @@
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
 ;--------------------------------------------------------
-; overlayable items in internal ram 
+; overlayable items in internal ram
 ;--------------------------------------------------------
 ;--------------------------------------------------------
 ; indirectly addressable internal ram data
@@ -50,17 +50,17 @@
 ;--------------------------------------------------------
 	.area PSEG    (PAG,XDATA)
 ;--------------------------------------------------------
-; external ram data
+; uninitialized external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
 ___sdcc_heap::
-	.ds 2048
+	.ds 5120
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
 	.area XABS    (ABS,XDATA)
 ;--------------------------------------------------------
-; external initialized ram data
+; initialized external ram data
 ;--------------------------------------------------------
 	.area XISEG   (XDATA)
 	.area HOME    (CODE)
@@ -92,6 +92,6 @@ ___sdcc_heap::
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___sdcc_heap_size:
-	.byte #0x00, #0x08	; 2048
+	.byte #0x00, #0x14	; 5120
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)
