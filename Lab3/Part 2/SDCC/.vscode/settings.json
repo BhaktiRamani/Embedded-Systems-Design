@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "at89c51ed2.h": "c",
+        "random": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "ranges": "c",
+        "utility": "c",
+        "stdint.h": "c",
+        "deque": "c",
+        "string": "c",
+        "vector": "c",
+        "iterator": "c"
+    }
+}
