@@ -11,6 +11,14 @@
 # Default target
 all: prog.hex
 
+# Define your variables if needed
+DEVICE = at89c51rc2
+HARDWARE = RS232
+PORT = COM4
+BAUDRATE = 57600
+HEX_FILE = syntax.hex
+
+
 
 # Compile phase
 syntax.rel : syntax.c
@@ -25,6 +33,11 @@ heap.rel:_heap.c
 prog.hex : syntax.rel heap.rel
 	sdcc --code-loc 0x3000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx syntax.rel _heap.rel
 	packihx syntax.ihx > syntax.hex
+
+
+# Define the batchisp command as a target
+flash:
+	batchisp -device $(DEVICE) -hardware $(HARDWARE) -port $(PORT) -baudrate $(BAUDRATE) -operation loadbuffer $(HEX_FILE) program verify start reset 1
 
 clean:
 	del *.rel *.lst *.rst *.hex *.mem *.map *.sym *.lnk *.ihx

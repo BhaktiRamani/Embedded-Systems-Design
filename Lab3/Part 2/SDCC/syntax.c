@@ -84,10 +84,11 @@ void init_uart(void)
 * Parameters: int chr - Character to transmit
 * Returns: 1 on successful transmission
 *******************************************************************************/
-int putchar(int chr){
+int putchar(int chr)
+{
     SBUF = chr;                 // Load character to send
     while(!TI);                 // Wait for transmission complete
-    DEBUGPORT(55);              // Debug marker for transmission
+    //DEBUGPORT(55);              // Debug marker for transmission
     TI = 0;                     // Clear transmission flag
     return 1;
 }
@@ -101,7 +102,7 @@ int putchar(int chr){
 int getchar(void){
     while(!RI);                 // Wait for character reception
     int a = SBUF;               // Get received character
-    DEBUGPORT(10);              // Debug marker for reception
+    //DEBUGPORT(10);              // Debug marker for reception
     RI = 0;                     // Clear reception flag
     recived_bytes++;            // Update received byte count
     return a;
@@ -231,7 +232,9 @@ int get_command(int command)
 
     switch(command)
     {
-        case '@':               // Reset system command
+        case '@':// Reset system command
+        {    
+            DEBUGPORT(0x05);
             int total_buffers = 0;
             int buffers_freed = 0;
             int failed_frees = 0;
@@ -274,9 +277,10 @@ int get_command(int command)
 
 
    
-
+        }
 
         case '?':               // Show system status
+            DEBUGPORT(0x04);
             printf("\n\r+------------------SYSTEM STATUS-------------------+");
             printf("\n\r| COMMAND STATISTICS                              |");
             printf("\n\r|------------------------------------------------|");
@@ -345,6 +349,7 @@ int get_command(int command)
             break;
 
         case '+':               // Create new buffer
+            DEBUGPORT(0x01);
             printf("\n\r+----------------BUFFER CREATION------------------+");
             temp_value = get_number("\n\r| Enter buffer size (50-500): ");
             if(temp_value < 50 || temp_value > 500)
@@ -372,6 +377,7 @@ int get_command(int command)
             break;
 
         case '-':               // Delete buffer
+            DEBUGPORT(0x02);
             printf("\n\r+----------------BUFFER DELETION------------------+");
             temp_value = get_number("\n\r| Enter buffer number (0-102): ");
 
@@ -395,6 +401,7 @@ int get_command(int command)
             break;
 
         case '=':               // Display Buffer 0
+            DEBUGPORT(0x03);
             buffer0_dump();
             break;
     }
@@ -567,6 +574,7 @@ void main(void)
         printf("\n\r+--------------------------------------------------+\n\r");
         int cha = getchar();
         if(cha < 65 || cha > 90) {
+            DEBUGPORT(0xAA);
             total_number_of_commands+=1;
             recent_commands+=1;
             printf("\n\r| Command received: %-31c |", cha);
