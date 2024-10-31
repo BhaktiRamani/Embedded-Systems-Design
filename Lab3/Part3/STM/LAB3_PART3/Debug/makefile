@@ -59,8 +59,8 @@ all: main-build
 main-build: LAB3_PART3.elf secondary-outputs
 
 # Tool invocations
-LAB3_PART3.elf LAB3_PART3.map: $(OBJS) $(USER_OBJS) /home/bhakti/STM32CubeIDE/workspace_1.14.0/LAB3_PART3/STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "LAB3_PART3.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/bhakti/STM32CubeIDE/workspace_1.14.0/LAB3_PART3/STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LAB3_PART3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+LAB3_PART3.elf LAB3_PART3.map: $(OBJS) $(USER_OBJS) /home/bhakti/Work/1_CU\ Boulder/ESD/ESD/Lab3/Part3/STM/LAB3_PART3/STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "LAB3_PART3.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/bhakti/Work/1_CU Boulder/ESD/ESD/Lab3/Part3/STM/LAB3_PART3/STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LAB3_PART3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

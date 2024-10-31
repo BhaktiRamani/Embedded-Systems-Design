@@ -45,25 +45,34 @@ volatile int led_toggling_enabled = 1;  // Start with toggling enabled
  * This function is called when an external interrupt occurs on line 0.
  * It toggles the LED toggling state and provides visual feedback.
  */
-//void EXTI0_IRQHandler(void) {
-//    if (EXTI->PR & (1<<0)) {
-//        EXTI->PR |= (1<<0);  // Clear the interrupt flag
-//        led_toggling_enabled = !led_toggling_enabled;  // Toggle the LED toggling state
-//
-//        if (!led_toggling_enabled) {
-//            // If toggling is disabled, ensure green LED is on and others are off
-//            gled_on();
-//            bled_off();
-//            led_on();
-//        }
-//
-//        // Visual feedback for button press
-//        led_on();
-//        Delay_ms(100);
-//        led_off();
-//    }
-//}
+void EXTI0_IRQHandler(void) {
+    if (EXTI->PR & (1<<0)) {
+        EXTI->PR |= (1<<0);  // Clear the interrupt flag
+        led_toggling_enabled = !led_toggling_enabled;  // Toggle the LED toggling state
 
+        if (!led_toggling_enabled) {
+            // If toggling is disabled, ensure green LED is on and others are off
+            gled_on();
+            bled_off();
+            led_on();
+        }
+
+        // Visual feedback for button press
+        led_on();
+        Delay_ms(100);
+        led_off();
+    }
+}
+
+
+void USART2_IRQHandler(void)
+{
+	if(USART2 -> SR & USART_SR_RXNE)
+	{
+		char recieved = getchar();
+		putchar(recieved);
+	}
+}
 /**
  * @brief Main function
  *
@@ -81,13 +90,13 @@ int main(void)
     //Interrupt_Config();
     //problem statement 2
 	_uart_tx_init();
-	char a = 'a\n\r';
+	char a = 'a';
 	putchar(a);
     while(1)
     {
-//		putchar(a);
-    	int recieved = getchar();
-    	putchar(recieved);
+    	//putchar(a);
+//    	int recieved = getchar();
+//    	putchar(recieved);
     	for(int i = 0; i<5000; i++){}
 		//Delay_ms(1000);
         //service_watchdog();
