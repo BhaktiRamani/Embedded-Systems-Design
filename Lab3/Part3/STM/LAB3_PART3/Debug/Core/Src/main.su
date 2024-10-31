@@ -1,0 +1,5 @@
+../Core/Src/main.c:75:5:main	24	static
+../Core/Src/main.c:103:6:maximize_watchdog_timeout	4	static
+../Core/Src/main.c:137:6:service_watchdog	4	static
+../Core/Src/main.c:148:6:disable_watchdog	4	static
+../Core/Src/main.c:171:5:was_watchdog_reset	4	static

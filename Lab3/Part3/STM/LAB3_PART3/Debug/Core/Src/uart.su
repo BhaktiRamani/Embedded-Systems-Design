@@ -1,0 +1,7 @@
+../Core/Src/uart.c:21:5:putchar	16	static
+../Core/Src/uart.c:27:5:getchar	16	static
+../Core/Src/uart.c:33:6:_uart_tx_init	8	static
+../Core/Src/uart.c:78:13:uart_write	16	static
+../Core/Src/uart.c:87:5:uart_read	4	static
+../Core/Src/uart.c:97:17:_compute_uart_bd	16	static
+../Core/Src/uart.c:103:13:uart_set_baudrate	16	static

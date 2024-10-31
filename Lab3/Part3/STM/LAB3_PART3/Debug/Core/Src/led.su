@@ -1,0 +1,7 @@
+../Core/Src/led.c:29:6:led_init	4	static
+../Core/Src/led.c:54:6:led_on	4	static
+../Core/Src/led.c:62:6:led_off	4	static
+../Core/Src/led.c:70:6:bled_on	4	static
+../Core/Src/led.c:78:6:bled_off	4	static
+../Core/Src/led.c:86:6:gled_on	4	static
+../Core/Src/led.c:94:6:gled_off	4	static
