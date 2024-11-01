@@ -703,8 +703,8 @@ _external_ISR:
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	pwm.c:46: CKCON0 |= 0x09;
-	orl	_CKCON0,#0x09
+;	pwm.c:46: CKCON0 |= 0x05;
+	orl	_CKCON0,#0x05
 ;	pwm.c:47: init_uart();
 	lcall	_init_uart
 ;	pwm.c:48: printf("X2 mode initialized\n\r");

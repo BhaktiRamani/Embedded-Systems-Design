@@ -43,7 +43,7 @@ void external_ISR(void) __interrupt (0)
 
 void main(void)
 {
-    CKCON0 |= 0x09;
+    CKCON0 |= 0x05;
     init_uart();
     printf("X2 mode initialized\n\r");
     pwm_init();

@@ -703,8 +703,8 @@
                                     703 ;	 function main
                                     704 ;	-----------------------------------------
       0030ED                        705 _main:
-                                    706 ;	pwm.c:46: CKCON0 |= 0x09;
-      0030ED 43 8F 09         [24]  707 	orl	_CKCON0,#0x09
+                                    706 ;	pwm.c:46: CKCON0 |= 0x05;
+      0030ED 43 8F 05         [24]  707 	orl	_CKCON0,#0x05
                                     708 ;	pwm.c:47: init_uart();
       0030F0 12 30 65         [24]  709 	lcall	_init_uart
                                     710 ;	pwm.c:48: printf("X2 mode initialized\n\r");
