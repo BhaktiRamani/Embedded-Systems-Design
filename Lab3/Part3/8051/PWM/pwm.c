@@ -16,23 +16,25 @@ void init_uart(void)
      TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
      TH1 = 0xFD;                // 9600 baud rate
      TR1 = 1;                   // Start timer 1
+     TI = 1;
 }
+
 
 int putchar(int chr)
 {
-    SBUF = chr;                 // Load character to send
-    while(!TI);                 // Wait for transmission complete
-    //DEBUGPORT(55);              // Debug marker for transmission
-    TI = 0;                     // Clear transmission flag
-    return 1;
+    while(!TI);      // Wait until TI is set
+    TI = 0;          // Clear TI flag
+    SBUF = chr;      // Load data into buffer
+    return chr;
 }
 
-int getchar(void){
-    while(!RI);                 // Wait for character reception
-    int a = SBUF;               // Get received character
-    //DEBUGPORT(10);              // Debug marker for reception
-    RI = 0;                     // Clear reception flag
-    return a;
+int getchar(void)
+{
+    char c;
+    while(!RI);      // Wait until RI is set
+    c = SBUF;        // Read received data
+    RI = 0;          // Clear RI flag
+    return c;
 }
 
 
@@ -64,11 +66,13 @@ void main(void)
     printf(" I - IDLE MODE\n\r");
     printf(" P - POWER DOWN MODE\n\r");
     
+    
     TCON = 0x01;
     IE = 0x81;
     while(1)
     {
         char command = getchar();
+        printf("COMMAND ENTERED %c\n\r", command);
         if(command == 'R')
         {
             //run pwm
