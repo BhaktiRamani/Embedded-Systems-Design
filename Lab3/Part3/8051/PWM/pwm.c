@@ -11,18 +11,12 @@ void pwm_init();
 void pwm_start();
 void freq_max();
 void freq_min();
+void HS0_mode_on();
+void HS0_mode_off();
 
 void power_down_mode();
 void idle_mode();
 
-// void init_uart(void)
-// {
-//      SCON = 0x50;    // Serial mode 1, 8-bit UART, enable receiver
-//      TMOD = 0x20;    // Timer 1, mode 2 (8-bit auto-reload)
-//      TH1 = 0xFD;     // For 9600 baud rate with 11.059MHz crystal
-//      TR1 = 1;        // Start timer 1
-//      TI = 1;         // Set TI for first transmission
-// }
 
 int putchar(int charToSend) {
     SBUF = charToSend;  // Send character to serial buffer
@@ -47,7 +41,7 @@ void main(void)
     //init_uart();
     pwm_init();
     
-    printf("PCA MODE : PWM\n\r");
+    printf("PCA DEMO\n\r");
     printf("COMMANDS :\n\r");
     printf(" R - RUN PWM\n\r");
     printf(" S - STOP PWM\n\r");
@@ -55,6 +49,8 @@ void main(void)
     printf(" M - MIN FREQUENCY MODE\n\r");
     printf(" I - IDLE MODE\n\r");
     printf(" P - POWER DOWN MODE\n\r");
+    printf(" H - HIGH SPEED MODE ON\n\r");
+    printf(" Q - HIGH SPEED MODE OFF\n\r");
     
     TCON |= 0x01;
     IE |= 0x81;
@@ -88,6 +84,11 @@ void main(void)
             case 'P':
                 power_down_mode();
                 break;
+            case 'H':
+                HS0_mode_on();
+                break;
+            case 'Q':
+                HS0_mode_off();
             default:
                 printf("Invalid Command\n\r");
         }
@@ -104,13 +105,13 @@ void main(void)
 void idle_mode()
 {
     printf("IDLE MODE\n\r");
-    PCON = 0x01;
+    PCON |= 0x01;
 }
 
 void power_down_mode()
 {
     printf("POWER DOWN MODE\n\r");
-    PCON = 0x02;
+    PCON |= 0x02;
 }
 void freq_max()
 {
@@ -121,16 +122,18 @@ void freq_max()
 void freq_min()
 {
     printf("MINIMUM FREQUENCY\n\r");
-    CKRL = 0x00;
+    CKRL = 0x01;
 }
+
 void pwm_init()
 {
+    CCAPM0 = 0x00;
     CMOD = 0X82;
     CL = 0X00;
     CH = 0X00;
     
-    CCAP0L = 0X1C;
-    CCAP0H = 0X1C;
+    CCAP0L = 0XAC;
+    CCAP0H = 0XAC;
     CCAPM0 = 0X42;
 }
 
@@ -144,4 +147,25 @@ void pwm_stop()
 {
     printf("PWM STOP\n\r");
     CCON = 0x00;
+}
+
+void HSO_mode_on()
+{
+    printf("HIGH SPEED MODE ON\n\r");
+    CCON |= 0x4C;
+    CMOD |= 0x02;     // Fclk/2 freq set for PCA mode
+    CCAPM0 = 0x4C;   // Compare mode + HSO, no interrupt
+    CL = 0x00;       // Clear PCA counter
+    CH = 0x00;
+    
+    // Load maximum frequency value
+    CCAP0L = 0xAC;   // Load compare low byte
+    CCAP0H = 0xAC;   // Load compare high byte
+}
+
+void HS0_mode_off()
+{
+    printf("HIGH SPEED MODE OFF\n\r");
+    CCAPM0 = 0x00;
+    return;
 }
