@@ -14,7 +14,7 @@ void init_uart(void)
 {
      SCON = 0x50;               // Serial mode 1, 8-bit UART, enable receiver
      TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
-     TH1 = 0x4B00;                // 119200 baud rate
+     TH1 = 184;                // 9600 baud rate
      TR1 = 1;                   // Start timer 1
 }
 
@@ -43,12 +43,13 @@ void external_ISR(void) __interrupt (0)
 
 void main(void)
 {
+    CKCON0 |= 0x01;
     init_uart();
+    printf("X2 mode initialized\n\r");
     pwm_init();
     printf("PCA MODE : PWM\n\r");
     //Entering in X2 mode
-    CKCON0 |= 0x01;
-    printf("X2 mode initialized\n\r");
+ 
    
     printf("COMMANDS :\n\r");
     printf(" R - RUN PWM\n\r");
