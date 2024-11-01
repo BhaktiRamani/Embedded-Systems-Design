@@ -577,8 +577,8 @@ _init_uart:
 	mov	_SCON,#0x50
 ;	pwm.c:16: TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
 	mov	_TMOD,#0x20
-;	pwm.c:17: TH1 = 184;                // 9600 baud rate
-	mov	_TH1,#0xb8
+;	pwm.c:17: TH1 = 0xFD;                // 9600 baud rate
+	mov	_TH1,#0xfd
 ;	pwm.c:18: TR1 = 1;                   // Start timer 1
 ;	assignBit
 	setb	_TR1
@@ -703,8 +703,8 @@ _external_ISR:
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	pwm.c:46: CKCON0 |= 0x01;
-	orl	_CKCON0,#0x01
+;	pwm.c:46: CKCON0 |= 0x09;
+	orl	_CKCON0,#0x09
 ;	pwm.c:47: init_uart();
 	lcall	_init_uart
 ;	pwm.c:48: printf("X2 mode initialized\n\r");

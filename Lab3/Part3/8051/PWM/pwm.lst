@@ -577,8 +577,8 @@
       000000 75 98 50         [24]  577 	mov	_SCON,#0x50
                                     578 ;	pwm.c:16: TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
       000003 75 89 20         [24]  579 	mov	_TMOD,#0x20
-                                    580 ;	pwm.c:17: TH1 = 184;                // 9600 baud rate
-      000006 75 8D B8         [24]  581 	mov	_TH1,#0xb8
+                                    580 ;	pwm.c:17: TH1 = 0xFD;                // 9600 baud rate
+      000006 75 8D FD         [24]  581 	mov	_TH1,#0xfd
                                     582 ;	pwm.c:18: TR1 = 1;                   // Start timer 1
                                     583 ;	assignBit
       000009 D2 8E            [12]  584 	setb	_TR1
@@ -703,8 +703,8 @@
                                     703 ;	 function main
                                     704 ;	-----------------------------------------
       000088                        705 _main:
-                                    706 ;	pwm.c:46: CKCON0 |= 0x01;
-      000088 43 8F 01         [24]  707 	orl	_CKCON0,#0x01
+                                    706 ;	pwm.c:46: CKCON0 |= 0x09;
+      000088 43 8F 09         [24]  707 	orl	_CKCON0,#0x09
                                     708 ;	pwm.c:47: init_uart();
       00008B 12r00r00         [24]  709 	lcall	_init_uart
                                     710 ;	pwm.c:48: printf("X2 mode initialized\n\r");
