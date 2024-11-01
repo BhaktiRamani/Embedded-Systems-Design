@@ -41,9 +41,14 @@ void external_ISR(void) __interrupt (0)
     printf("EXIT FROM IDEL MODE\n\r");
 }
 
+#define CKCON0_X2_BIT (1)
+#define CKCON0_TIX2_BIT (1<<2)
+
 void main(void)
 {
-    CKCON0 |= 0x05;
+    CKCON0 = 0x00;
+    CKCON0 |= CKCON0_X2_BIT;
+    CKCON0 |= CKCON0_TIX2_BIT;
     init_uart();
     printf("X2 mode initialized\n\r");
     pwm_init();

@@ -70,7 +70,7 @@ C:   0000012D  l_CONST
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   0000043B  s_XISEG                         
-C:   00000CEE  l_CSEG                          
+C:   00000CF4  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003009  s_GSINIT0                       
 C:   0000300C  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   00003062  s_GSFINAL
 C:   00003062  s_GSINIT                        
 C:   00003062  s_GSINIT5                       
 C:   00003065  s_CSEG                          
-C:   00003D53  s_CONST                         
-C:   00003E80  s_XINIT                         
+C:   00003D59  s_CONST                         
+C:   00003E86  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -476,7 +476,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003065    00000CEE =        3310. bytes (REL,CON,CODE)
+CSEG                                00003065    00000CF4 =        3316. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -485,27 +485,27 @@ C:   00003071  _putchar                           pwm
 C:   0000308E  _getchar                           pwm
 C:   0000309C  _external_ISR                      pwm
 C:   000030ED  _main                              pwm
-C:   000031FA  _idle_mode                         pwm
-C:   00003213  _power_down_mode                   pwm
-C:   0000322C  _freq_max                          pwm
-C:   00003245  _freq_min                          pwm
-C:   0000325E  _pwm_init                          pwm
-C:   00003271  _pwm_start                         pwm
-C:   0000328A  _pwm_stop                          pwm
-C:   000032B2  _vprintf                           vprintf
-C:   000032F1  _printf                            vprintf
-C:   000033FA  __print_format                     printf_large
-C:   00003CFB  _strlen                            _strlen
-C:   00003D13  __mulint                           _mulint
-C:   00003D33  __gptrget                          _gptrget
-C:   00003D4F  __sdcc_external_startup            _startup
+C:   00003200  _idle_mode                         pwm
+C:   00003219  _power_down_mode                   pwm
+C:   00003232  _freq_max                          pwm
+C:   0000324B  _freq_min                          pwm
+C:   00003264  _pwm_init                          pwm
+C:   00003277  _pwm_start                         pwm
+C:   00003290  _pwm_stop                          pwm
+C:   000032B8  _vprintf                           vprintf
+C:   000032F7  _printf                            vprintf
+C:   00003400  __print_format                     printf_large
+C:   00003D01  _strlen                            _strlen
+C:   00003D19  __mulint                           _mulint
+C:   00003D39  __gptrget                          _gptrget
+C:   00003D55  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003D53    0000012D =         301. bytes (REL,CON,CODE)
+CONST                               00003D59    0000012D =         301. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
