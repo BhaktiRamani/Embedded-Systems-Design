@@ -9,6 +9,11 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
+	.globl _external_ISR
+	.globl _getchar
+	.globl _putchar
+	.globl _init_uart
+	.globl _printf
 	.globl _TF1
 	.globl _TR1
 	.globl _TF0
@@ -218,6 +223,13 @@
 	.globl _RCAP2H
 	.globl _RCAP2L
 	.globl _T2CON
+	.globl _idle_mode
+	.globl _power_down_mode
+	.globl _freq_max
+	.globl _freq_min
+	.globl _pwm_init
+	.globl _pwm_start
+	.globl _pwm_stop
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -443,6 +455,20 @@ _TF1	=	0x008f
 	.area REG_BANK_0	(REL,OVR,DATA)
 	.ds 8
 ;--------------------------------------------------------
+; overlayable bit register bank
+;--------------------------------------------------------
+	.area BIT_BANK	(REL,OVR,DATA)
+bits:
+	.ds 1
+	b0 = bits[0]
+	b1 = bits[1]
+	b2 = bits[2]
+	b3 = bits[3]
+	b4 = bits[4]
+	b5 = bits[5]
+	b6 = bits[6]
+	b7 = bits[7]
+;--------------------------------------------------------
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
@@ -477,6 +503,8 @@ __start__stack:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
+_putchar_chr_65536_15:
+	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -501,6 +529,7 @@ __start__stack:
 	.area HOME    (CODE)
 __interrupt_vect:
 	ljmp	__sdcc_gsinit_startup
+	ljmp	_external_ISR
 ;--------------------------------------------------------
 ; global & static initialisations
 ;--------------------------------------------------------
@@ -529,13 +558,13 @@ __sdcc_program_startup:
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
+;Allocation info for local variables in function 'init_uart'
 ;------------------------------------------------------------
-;	pwm.c:4: void main(void)
+;	pwm.c:13: void init_uart(void)
 ;	-----------------------------------------
-;	 function main
+;	 function init_uart
 ;	-----------------------------------------
-_main:
+_init_uart:
 	ar7 = 0x07
 	ar6 = 0x06
 	ar5 = 0x05
@@ -544,25 +573,565 @@ _main:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	pwm.c:6: CMOD = 0X02;
-	mov	_CMOD,#0x02
-;	pwm.c:7: CL = 0X00;
-	mov	_CL,#0x00
-;	pwm.c:8: CH = 0X00;
-	mov	_CH,#0x00
-;	pwm.c:10: CCAP0L = 0X40;
-	mov	_CCAP0L,#0x40
-;	pwm.c:11: CCAP0H = 0X40;
-	mov	_CCAP0H,#0x40
-;	pwm.c:12: CCAPM0 = 0X42;
-	mov	_CCAPM0,#0x42
-;	pwm.c:14: CCON = 0x40;
-	mov	_CCON,#0x40
-;	pwm.c:17: while(1)
+;	pwm.c:15: SCON = 0x50;               // Serial mode 1, 8-bit UART, enable receiver
+	mov	_SCON,#0x50
+;	pwm.c:16: TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
+	mov	_TMOD,#0x20
+;	pwm.c:17: TH1 = 0xFD;                // 9600 baud rate
+	mov	_TH1,#0xfd
+;	pwm.c:18: TR1 = 1;                   // Start timer 1
+;	assignBit
+	setb	_TR1
+;	pwm.c:19: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'putchar'
+;------------------------------------------------------------
+;chr                       Allocated with name '_putchar_chr_65536_15'
+;------------------------------------------------------------
+;	pwm.c:21: int putchar(int chr)
+;	-----------------------------------------
+;	 function putchar
+;	-----------------------------------------
+_putchar:
+	mov	r7,dph
+	mov	a,dpl
+	mov	dptr,#_putchar_chr_65536_15
+	movx	@dptr,a
+	mov	a,r7
+	inc	dptr
+	movx	@dptr,a
+;	pwm.c:23: SBUF = chr;                 // Load character to send
+	mov	dptr,#_putchar_chr_65536_15
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	_SBUF,r6
+;	pwm.c:24: while(!TI);                 // Wait for transmission complete
+00101$:
+;	pwm.c:26: TI = 0;                     // Clear transmission flag
+;	assignBit
+	jbc	_TI,00114$
+	sjmp	00101$
+00114$:
+;	pwm.c:27: return 1;
+	mov	dptr,#0x0001
+;	pwm.c:28: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'getchar'
+;------------------------------------------------------------
+;a                         Allocated with name '_getchar_a_65537_19'
+;------------------------------------------------------------
+;	pwm.c:30: int getchar(void){
+;	-----------------------------------------
+;	 function getchar
+;	-----------------------------------------
+_getchar:
+;	pwm.c:31: while(!RI);                 // Wait for character reception
+00101$:
+	jnb	_RI,00101$
+;	pwm.c:32: int a = SBUF;               // Get received character
+	mov	r6,_SBUF
+	mov	r7,#0x00
+;	pwm.c:34: RI = 0;                     // Clear reception flag
+;	assignBit
+	clr	_RI
+;	pwm.c:35: return a;
+	mov	dpl,r6
+	mov	dph,r7
+;	pwm.c:36: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'external_ISR'
+;------------------------------------------------------------
+;	pwm.c:39: void external_ISR(void) __interrupt (0)
+;	-----------------------------------------
+;	 function external_ISR
+;	-----------------------------------------
+_external_ISR:
+	push	bits
+	push	acc
+	push	b
+	push	dpl
+	push	dph
+	push	(0+7)
+	push	(0+6)
+	push	(0+5)
+	push	(0+4)
+	push	(0+3)
+	push	(0+2)
+	push	(0+1)
+	push	(0+0)
+	push	psw
+	mov	psw,#0x00
+;	pwm.c:41: printf("EXIT FROM IDEL MODE\n\r");
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:42: }
+	pop	psw
+	pop	(0+0)
+	pop	(0+1)
+	pop	(0+2)
+	pop	(0+3)
+	pop	(0+4)
+	pop	(0+5)
+	pop	(0+6)
+	pop	(0+7)
+	pop	dph
+	pop	dpl
+	pop	b
+	pop	acc
+	pop	bits
+	reti
+;------------------------------------------------------------
+;Allocation info for local variables in function 'main'
+;------------------------------------------------------------
+;command                   Allocated with name '_main_command_131072_24'
+;------------------------------------------------------------
+;	pwm.c:44: void main(void)
+;	-----------------------------------------
+;	 function main
+;	-----------------------------------------
+_main:
+;	pwm.c:46: init_uart();
+	lcall	_init_uart
+;	pwm.c:47: pwm_init();
+	lcall	_pwm_init
+;	pwm.c:48: printf("PCA MODE : PWM\n\r");
+	mov	a,#___str_1
+	push	acc
+	mov	a,#(___str_1 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:50: CKCON0 |= 0x01;
+	orl	_CKCON0,#0x01
+;	pwm.c:51: printf("X2 mode initialized\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:53: printf("COMMANDS :\n\r");
+	mov	a,#___str_3
+	push	acc
+	mov	a,#(___str_3 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:54: printf(" R - RUN PWM\n\r");
+	mov	a,#___str_4
+	push	acc
+	mov	a,#(___str_4 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:55: printf(" S - STOP PWM\n\r");
+	mov	a,#___str_5
+	push	acc
+	mov	a,#(___str_5 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:56: printf(" F - MAX FREQUENCY MODE\n\r");
+	mov	a,#___str_6
+	push	acc
+	mov	a,#(___str_6 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:57: printf(" M - MIN FREQUENCY MODE\n\r");
+	mov	a,#___str_7
+	push	acc
+	mov	a,#(___str_7 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:58: printf(" I - IDLE MODE\n\r");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:59: printf(" P - POWER DOWN MODE\n\r");
+	mov	a,#___str_9
+	push	acc
+	mov	a,#(___str_9 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:61: TCON = 0x01;
+	mov	_TCON,#0x01
+;	pwm.c:62: IE = 0x81;
+	mov	_IE,#0x81
+;	pwm.c:63: while(1)
+00114$:
+;	pwm.c:65: char command = getchar();
+	lcall	_getchar
+	mov	r6,dpl
+	mov	r7,dph
+;	pwm.c:66: if(command == 'R')
+	cjne	r6,#0x52,00102$
+;	pwm.c:69: pwm_start();
+	push	ar6
+	lcall	_pwm_start
+	pop	ar6
 00102$:
-;	pwm.c:23: }
-	sjmp	00102$
+;	pwm.c:71: if(command == 'S')
+	cjne	r6,#0x53,00104$
+;	pwm.c:74: pwm_stop();
+	push	ar6
+	lcall	_pwm_stop
+	pop	ar6
+00104$:
+;	pwm.c:76: if(command == 'F')
+	cjne	r6,#0x46,00106$
+;	pwm.c:79: freq_max();
+	push	ar6
+	lcall	_freq_max
+	pop	ar6
+00106$:
+;	pwm.c:81: if(command == 'M')
+	cjne	r6,#0x4d,00108$
+;	pwm.c:84: freq_min();
+	push	ar6
+	lcall	_freq_min
+	pop	ar6
+00108$:
+;	pwm.c:86: if(command == 'I')
+	cjne	r6,#0x49,00110$
+;	pwm.c:88: idle_mode();
+	push	ar6
+	lcall	_idle_mode
+	pop	ar6
+00110$:
+;	pwm.c:90: if(command == 'P')
+	cjne	r6,#0x50,00114$
+;	pwm.c:92: power_down_mode();
+	lcall	_power_down_mode
+;	pwm.c:96: }
+	sjmp	00114$
+;------------------------------------------------------------
+;Allocation info for local variables in function 'idle_mode'
+;------------------------------------------------------------
+;	pwm.c:105: void idle_mode()
+;	-----------------------------------------
+;	 function idle_mode
+;	-----------------------------------------
+_idle_mode:
+;	pwm.c:107: printf("IDLE MODE\n\r");
+	mov	a,#___str_10
+	push	acc
+	mov	a,#(___str_10 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:108: PCON = 0x01;
+	mov	_PCON,#0x01
+;	pwm.c:109: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'power_down_mode'
+;------------------------------------------------------------
+;	pwm.c:111: void power_down_mode()
+;	-----------------------------------------
+;	 function power_down_mode
+;	-----------------------------------------
+_power_down_mode:
+;	pwm.c:113: printf("POWER DOWN MODE\n\r");
+	mov	a,#___str_11
+	push	acc
+	mov	a,#(___str_11 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:114: PCON = 0x02;
+	mov	_PCON,#0x02
+;	pwm.c:115: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'freq_max'
+;------------------------------------------------------------
+;	pwm.c:116: void freq_max()
+;	-----------------------------------------
+;	 function freq_max
+;	-----------------------------------------
+_freq_max:
+;	pwm.c:118: printf("MAXIMUM FREQUENCY\n\r");
+	mov	a,#___str_12
+	push	acc
+	mov	a,#(___str_12 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:119: CKRL = 0xFF;
+	mov	_CKRL,#0xff
+;	pwm.c:120: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'freq_min'
+;------------------------------------------------------------
+;	pwm.c:122: void freq_min()
+;	-----------------------------------------
+;	 function freq_min
+;	-----------------------------------------
+_freq_min:
+;	pwm.c:124: printf("MINIMUM FREQUENCY\n\r");
+	mov	a,#___str_13
+	push	acc
+	mov	a,#(___str_13 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:125: CKRL = 0x00;
+	mov	_CKRL,#0x00
+;	pwm.c:126: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'pwm_init'
+;------------------------------------------------------------
+;	pwm.c:127: void pwm_init()
+;	-----------------------------------------
+;	 function pwm_init
+;	-----------------------------------------
+_pwm_init:
+;	pwm.c:129: CMOD = 0X82;
+	mov	_CMOD,#0x82
+;	pwm.c:130: CL = 0X00;
+	mov	_CL,#0x00
+;	pwm.c:131: CH = 0X00;
+	mov	_CH,#0x00
+;	pwm.c:133: CCAP0L = 0X1C;
+	mov	_CCAP0L,#0x1c
+;	pwm.c:134: CCAP0H = 0X1C;
+	mov	_CCAP0H,#0x1c
+;	pwm.c:135: CCAPM0 = 0X42;
+	mov	_CCAPM0,#0x42
+;	pwm.c:136: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'pwm_start'
+;------------------------------------------------------------
+;	pwm.c:138: void pwm_start()
+;	-----------------------------------------
+;	 function pwm_start
+;	-----------------------------------------
+_pwm_start:
+;	pwm.c:140: printf("PWM START\n\r");
+	mov	a,#___str_14
+	push	acc
+	mov	a,#(___str_14 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:141: CCON = 0x40;
+	mov	_CCON,#0x40
+;	pwm.c:142: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'pwm_stop'
+;------------------------------------------------------------
+;	pwm.c:144: void pwm_stop()
+;	-----------------------------------------
+;	 function pwm_stop
+;	-----------------------------------------
+_pwm_stop:
+;	pwm.c:146: printf("PWM STOP\n\r");
+	mov	a,#___str_15
+	push	acc
+	mov	a,#(___str_15 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	pwm.c:147: CCON = 0x00;
+	mov	_CCON,#0x00
+;	pwm.c:148: }
+	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
+	.area CONST   (CODE)
+___str_0:
+	.ascii "EXIT FROM IDEL MODE"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_1:
+	.ascii "PCA MODE : PWM"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_2:
+	.ascii "X2 mode initialized"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_3:
+	.ascii "COMMANDS :"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_4:
+	.ascii " R - RUN PWM"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_5:
+	.ascii " S - STOP PWM"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_6:
+	.ascii " F - MAX FREQUENCY MODE"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_7:
+	.ascii " M - MIN FREQUENCY MODE"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_8:
+	.ascii " I - IDLE MODE"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_9:
+	.ascii " P - POWER DOWN MODE"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_10:
+	.ascii "IDLE MODE"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_11:
+	.ascii "POWER DOWN MODE"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_12:
+	.ascii "MAXIMUM FREQUENCY"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_13:
+	.ascii "MINIMUM FREQUENCY"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_14:
+	.ascii "PWM START"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_15:
+	.ascii "PWM STOP"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)
