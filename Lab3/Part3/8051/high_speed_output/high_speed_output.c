@@ -9,23 +9,25 @@
 #include <at89c51ed2.h> //also includes 8052.h and 8051.h
 #include <mcs51reg.h>
 
-void init_PCA_HSO(void) {
-    CMOD = 0x02;     // Fclk/2 freq set for PCA mode
+void init_PCA_HSO(void)
+{
+    CCON |= 0x4C;
+    CMOD |= 0x02;     // Fclk/2 freq set for PCA mode
     CCAPM0 = 0x4C;   // Compare mode + HSO, no interrupt
     CL = 0x00;       // Clear PCA counter
     CH = 0x00;
     
     // Load maximum frequency value
-    CCAP0L = 0xFF;   // Load compare low byte
-    CCAP0H = 0xFF;   // Load compare high byte
+    CCAP0L = 0xAC;   // Load compare low byte
+    CCAP0H = 0xAC;   // Load compare high byte
 }
 
 void main(void) {
 
-    CCON = 0x40;
+
     init_PCA_HSO();
     
-    while(1) 
+    while(1)
     {
 
     }

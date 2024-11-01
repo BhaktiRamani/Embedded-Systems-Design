@@ -4,13 +4,18 @@
  * @date October 4, 2024
  * @brief Configuration of external interrupts
  *
- * ESD Lab 2 Part 2
+ * ESD Lab 3 Part 3
  * This file contains the configuration for external interrupts,
  * specifically for EXTI line 0 on Port A.
  */
 
+
 #include "interrupt.h"
 
+#define SYSCFG_CLOCK_ENABLE (1U << 14)
+#define EXTI_LINE0_MASK     (0xFU << 4)
+#define EXTI_LINE0_ENABLE   (1U << 0)
+#define EXTI_RTSR_PORTA0    (1U << 0)
 #define EXTI_RTSR_PORTA0 (1U << 0)
 /**
  * @brief Configures the external interrupt for PA0
@@ -23,24 +28,23 @@
  * 5. Set interrupt priority
  * 6. Enable the interrupt in NVIC
  */
+
+
 void PushButoon_ISR_Config(void)
 {
-    // 1. Enable the SYSCFG clock
-    RCC->APB2ENR |= (1<<14);  // Enable SYSCFG
+    /* Enable SYSCFG clock */
+    RCC->APB2ENR |= SYSCFG_CLOCK_ENABLE;
 
-    // 2. Configure the EXTI configuration Register in SYSCFG
-    SYSCFG->EXTICR[0] &= ~(0xf<<4);  // Configure EXTI0 line for PA0
+    /* Configure EXTI0 for PA0 */
+    SYSCFG->EXTICR[0] &= ~EXTI_LINE0_MASK;
 
-    // 3. Unmask EXTI line 0
-    EXTI->IMR |= (1<<0);  // Unmask EXTI line 0
+    /* Configure EXTI line 0 */
+    EXTI->IMR |= EXTI_LINE0_ENABLE;
+    EXTI->RTSR |= EXTI_RTSR_PORTA0;
 
-    // 4. Configure for rising edge trigger
-    EXTI->RTSR |= EXTI_RTSR_PORTA0;  // Enable rising edge trigger for PA0
-
-
-
-    // 6. Enable the interrupt
-    NVIC_SetPriority(EXTI0_IRQn, 2);  // Higher priority than UART
+    /* NVIC Configuration */
+    NVIC_SetPriority(EXTI0_IRQn, 2);
     NVIC_ClearPendingIRQ(EXTI0_IRQn);
-    NVIC_EnableIRQ(EXTI0_IRQn);  // Enable EXTI0 interrupt in NVIC
+    NVIC_EnableIRQ(EXTI0_IRQn);
 }
+
