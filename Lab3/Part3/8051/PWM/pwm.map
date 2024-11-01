@@ -66,11 +66,11 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000104  l_CONST                         
+C:   00000116  l_CONST                         
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   0000043B  s_XISEG                         
-C:   00000C4F  l_CSEG                          
+C:   00000CB4  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003006  s_GSINIT0                       
 C:   00003009  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   0000305F  s_GSFINAL
 C:   0000305F  s_GSINIT                        
 C:   0000305F  s_GSINIT5                       
 C:   00003062  s_CSEG                          
-C:   00003CB1  s_CONST                         
-C:   00003DB5  s_XINIT                         
+C:   00003D16  s_CONST                         
+C:   00003E2C  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -467,34 +467,34 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003062    00000C4F =        3151. bytes (REL,CON,CODE)
+CSEG                                00003062    00000CB4 =        3252. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00003062  _putchar                           pwm
 C:   00003081  _getchar                           pwm
 C:   0000308F  _main                              pwm
-C:   00003158  _idle_mode                         pwm
-C:   00003171  _power_down_mode                   pwm
-C:   0000318A  _freq_max                          pwm
-C:   000031A3  _freq_min                          pwm
-C:   000031BC  _pwm_init                          pwm
-C:   000031CF  _pwm_start                         pwm
-C:   000031E8  _pwm_stop                          pwm
-C:   00003210  _vprintf                           vprintf
-C:   0000324F  _printf                            vprintf
-C:   00003358  __print_format                     printf_large
-C:   00003C59  _strlen                            _strlen
-C:   00003C71  __mulint                           _mulint
-C:   00003C91  __gptrget                          _gptrget
-C:   00003CAD  __sdcc_external_startup            _startup
+C:   000031BD  _idle_mode                         pwm
+C:   000031D6  _power_down_mode                   pwm
+C:   000031EF  _freq_max                          pwm
+C:   00003208  _freq_min                          pwm
+C:   00003221  _pwm_init                          pwm
+C:   00003234  _pwm_start                         pwm
+C:   0000324D  _pwm_stop                          pwm
+C:   00003275  _vprintf                           vprintf
+C:   000032B4  _printf                            vprintf
+C:   000033BD  __print_format                     printf_large
+C:   00003CBE  _strlen                            _strlen
+C:   00003CD6  __mulint                           _mulint
+C:   00003CF6  __gptrget                          _gptrget
+C:   00003D12  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003CB1    00000104 =         260. bytes (REL,CON,CODE)
+CONST                               00003D16    00000116 =         278. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
