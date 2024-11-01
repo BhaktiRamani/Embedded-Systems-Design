@@ -617,8 +617,6 @@ _getchar:
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	pwm.c:48: pwm_init();
-	lcall	_pwm_init
 ;	pwm.c:50: printf("PCA MODE : PWM\n\r");
 	mov	a,#___str_0
 	push	acc
@@ -707,21 +705,13 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:59: TCON = 0x01;
-	mov	_TCON,#0x01
-;	pwm.c:60: IE = 0x81;
-	mov	_IE,#0x81
 ;	pwm.c:62: while(1)
-00110$:
+00102$:
 ;	pwm.c:65: command = getchar();    // Wait for input
 	lcall	_getchar
-	mov	r6,dpl
 ;	pwm.c:68: putchar(command);
-	mov	ar5,r6
 	mov	r7,#0x00
-	mov	dpl,r5
 	mov	dph,r7
-	push	ar6
 	lcall	_putchar
 ;	pwm.c:69: printf("\n\r");        // New line after command
 	mov	a,#___str_8
@@ -734,77 +724,8 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-	pop	ar6
-;	pwm.c:71: switch(command)
-	cjne	r6,#0x46,00142$
-	sjmp	00103$
-00142$:
-	cjne	r6,#0x49,00143$
-	sjmp	00105$
-00143$:
-	cjne	r6,#0x4d,00144$
-	sjmp	00104$
-00144$:
-	cjne	r6,#0x50,00145$
-	sjmp	00106$
-00145$:
-	cjne	r6,#0x52,00146$
-	sjmp	00101$
-00146$:
-;	pwm.c:73: case 'R':
-	cjne	r6,#0x53,00107$
-	sjmp	00102$
-00101$:
-;	pwm.c:74: pwm_start();
-	lcall	_pwm_start
-;	pwm.c:75: break;
-;	pwm.c:76: case 'S':
-	sjmp	00110$
-00102$:
-;	pwm.c:77: pwm_stop();
-	lcall	_pwm_stop
-;	pwm.c:78: break;
-;	pwm.c:79: case 'F':
-	sjmp	00110$
-00103$:
-;	pwm.c:80: freq_max();
-	lcall	_freq_max
-;	pwm.c:81: break;
-;	pwm.c:82: case 'M':
-	sjmp	00110$
-00104$:
-;	pwm.c:83: freq_min();
-	lcall	_freq_min
-;	pwm.c:84: break;
-;	pwm.c:85: case 'I':
-	sjmp	00110$
-00105$:
-;	pwm.c:86: idle_mode();
-	lcall	_idle_mode
-;	pwm.c:87: break;
-;	pwm.c:88: case 'P':
-	sjmp	00110$
-00106$:
-;	pwm.c:89: power_down_mode();
-	lcall	_power_down_mode
-;	pwm.c:90: break;
-;	pwm.c:91: default:
-	sjmp	00110$
-00107$:
-;	pwm.c:92: printf("Invalid Command\n\r");
-	mov	a,#___str_9
-	push	acc
-	mov	a,#(___str_9 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	pwm.c:93: }
 ;	pwm.c:95: }
-	ljmp	00110$
+	sjmp	00102$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'idle_mode'
 ;------------------------------------------------------------
@@ -814,9 +735,9 @@ _main:
 ;	-----------------------------------------
 _idle_mode:
 ;	pwm.c:106: printf("IDLE MODE\n\r");
-	mov	a,#___str_10
+	mov	a,#___str_9
 	push	acc
-	mov	a,#(___str_10 >> 8)
+	mov	a,#(___str_9 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -837,9 +758,9 @@ _idle_mode:
 ;	-----------------------------------------
 _power_down_mode:
 ;	pwm.c:112: printf("POWER DOWN MODE\n\r");
-	mov	a,#___str_11
+	mov	a,#___str_10
 	push	acc
-	mov	a,#(___str_11 >> 8)
+	mov	a,#(___str_10 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -860,9 +781,9 @@ _power_down_mode:
 ;	-----------------------------------------
 _freq_max:
 ;	pwm.c:117: printf("MAXIMUM FREQUENCY\n\r");
-	mov	a,#___str_12
+	mov	a,#___str_11
 	push	acc
-	mov	a,#(___str_12 >> 8)
+	mov	a,#(___str_11 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -883,9 +804,9 @@ _freq_max:
 ;	-----------------------------------------
 _freq_min:
 ;	pwm.c:123: printf("MINIMUM FREQUENCY\n\r");
-	mov	a,#___str_13
+	mov	a,#___str_12
 	push	acc
-	mov	a,#(___str_13 >> 8)
+	mov	a,#(___str_12 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -928,9 +849,9 @@ _pwm_init:
 ;	-----------------------------------------
 _pwm_start:
 ;	pwm.c:139: printf("PWM START\n\r");
-	mov	a,#___str_14
+	mov	a,#___str_13
 	push	acc
-	mov	a,#(___str_14 >> 8)
+	mov	a,#(___str_13 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -951,9 +872,9 @@ _pwm_start:
 ;	-----------------------------------------
 _pwm_stop:
 ;	pwm.c:145: printf("PWM STOP\n\r");
-	mov	a,#___str_15
+	mov	a,#___str_14
 	push	acc
-	mov	a,#(___str_15 >> 8)
+	mov	a,#(___str_14 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1031,48 +952,41 @@ ___str_8:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_9:
-	.ascii "Invalid Command"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_10:
 	.ascii "IDLE MODE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_11:
+___str_10:
 	.ascii "POWER DOWN MODE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_12:
+___str_11:
 	.ascii "MAXIMUM FREQUENCY"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_13:
+___str_12:
 	.ascii "MINIMUM FREQUENCY"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_14:
+___str_13:
 	.ascii "PWM START"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_15:
+___str_14:
 	.ascii "PWM STOP"
 	.db 0x0a
 	.db 0x0d

@@ -45,7 +45,7 @@ int getchar(void)
 void main(void)
 {
     //init_uart();
-    pwm_init();
+    //pwm_init();
     
     printf("PCA MODE : PWM\n\r");
     printf("COMMANDS :\n\r");
@@ -56,8 +56,8 @@ void main(void)
     printf(" I - IDLE MODE\n\r");
     printf(" P - POWER DOWN MODE\n\r");
     
-    TCON = 0x01;
-    IE = 0x81;
+    //TCON |= 0x01;
+    //IE |= 0x81;
 
     while(1)
     {
@@ -68,29 +68,29 @@ void main(void)
         putchar(command);
         printf("\n\r");        // New line after command
         
-        switch(command)
-        {
-            case 'R':
-                pwm_start();
-                break;
-            case 'S':
-                pwm_stop();
-                break;
-            case 'F':
-                freq_max();
-                break;
-            case 'M':
-                freq_min();
-                break;
-            case 'I':
-                idle_mode();
-                break;
-            case 'P':
-                power_down_mode();
-                break;
-            default:
-                printf("Invalid Command\n\r");
-        }
+        // switch(command)
+        // {
+        //     case 'R':
+        //         pwm_start();
+        //         break;
+        //     case 'S':
+        //         pwm_stop();
+        //         break;
+        //     case 'F':
+        //         freq_max();
+        //         break;
+        //     case 'M':
+        //         freq_min();
+        //         break;
+        //     case 'I':
+        //         idle_mode();
+        //         break;
+        //     case 'P':
+        //         power_down_mode();
+        //         break;
+        //     default:
+        //         printf("Invalid Command\n\r");
+        // }
     }
 }
 // Formula for Clock Division:
