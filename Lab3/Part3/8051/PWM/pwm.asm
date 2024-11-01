@@ -1047,9 +1047,9 @@ _pwm_init:
 ;	pwm.c:179: CH = PCA_COUNTER_INIT;             // Initialize counter high byte
 	mov	_CH,#0x00
 ;	pwm.c:181: CCAP0L = PCA_PWM_COMPARE_VALUE;    // Set PWM compare value low byte
-	mov	_CCAP0L,#0xac
+	mov	_CCAP0L,#0xff
 ;	pwm.c:182: CCAP0H = PCA_PWM_COMPARE_VALUE;    // Set PWM compare value high byte
-	mov	_CCAP0H,#0xac
+	mov	_CCAP0H,#0xff
 ;	pwm.c:183: CCAPM0 = 0X42;                     // Enable PWM mode
 	mov	_CCAPM0,#0x42
 ;	pwm.c:184: }
@@ -1073,8 +1073,8 @@ _pwm_start:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:191: CCON = PCA_PWM_START_VALUE;
-	mov	_CCON,#0x40
+;	pwm.c:191: CCON |= PCA_PWM_START_VALUE;
+	orl	_CCON,#0x40
 ;	pwm.c:192: }
 	ret
 ;------------------------------------------------------------
@@ -1096,8 +1096,8 @@ _pwm_stop:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:199: CCON = PCA_COUNTER_INIT;
-	mov	_CCON,#0x00
+;	pwm.c:199: CCON |= PCA_COUNTER_INIT;
+	mov	_CCON,_CCON
 ;	pwm.c:200: }
 	ret
 ;------------------------------------------------------------
@@ -1130,9 +1130,9 @@ _HS0_mode_on:
 ;	pwm.c:212: CH = PCA_COUNTER_INIT;
 	mov	_CH,#0x00
 ;	pwm.c:215: CCAP0L = PCA_PWM_COMPARE_VALUE;    // Load compare low byte
-	mov	_CCAP0L,#0xac
+	mov	_CCAP0L,#0xff
 ;	pwm.c:216: CCAP0H = PCA_PWM_COMPARE_VALUE;    // Load compare high byte
-	mov	_CCAP0H,#0xac
+	mov	_CCAP0H,#0xff
 ;	pwm.c:217: }
 	ret
 ;------------------------------------------------------------

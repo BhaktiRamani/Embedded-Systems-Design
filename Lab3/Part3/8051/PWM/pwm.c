@@ -24,7 +24,7 @@
 #define PCON_POWERDOWN_BIT (0x02)   // Power-down mode bit in PCON
 
 /* PCA Control Values */
-#define PCA_PWM_COMPARE_VALUE (0xAC) // PWM compare value for 50% duty cycle
+#define PCA_PWM_COMPARE_VALUE (0xFF) // PWM compare value for 50% duty cycle
 #define PCA_COUNTER_INIT     (0x00)  // Initial counter value
 #define PCA_PWM_START_VALUE  (0x40)  // Value to start PWM
 #define PCA_HSO_START_VALUE  (0x4C)  // Value for High-Speed Output mode
@@ -188,7 +188,7 @@ void pwm_init(void) {
  */
 void pwm_start(void) {
     printf("PWM START\n\r");
-    CCON = PCA_PWM_START_VALUE;
+    CCON |= PCA_PWM_START_VALUE;
 }
 
 /**
@@ -196,7 +196,7 @@ void pwm_start(void) {
  */
 void pwm_stop(void) {
     printf("PWM STOP\n\r");
-    CCON = PCA_COUNTER_INIT;
+    CCON |= PCA_COUNTER_INIT;
 }
 
 /**
