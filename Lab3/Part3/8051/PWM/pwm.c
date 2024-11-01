@@ -11,8 +11,8 @@ void pwm_init();
 void pwm_start();
 void freq_max();
 void freq_min();
-void HS0_mode_on();
-void HS0_mode_off();
+void HS0_mode_on(void);
+void HS0_mode_off(void);
 
 void power_down_mode();
 void idle_mode();
@@ -149,7 +149,7 @@ void pwm_stop()
     CCON = 0x00;
 }
 
-void HSO_mode_on()
+void HS0_mode_on(void)
 {
     printf("HIGH SPEED MODE ON\n\r");
     CCON |= 0x4C;
@@ -163,7 +163,7 @@ void HSO_mode_on()
     CCAP0H = 0xAC;   // Load compare high byte
 }
 
-void HS0_mode_off()
+void HS0_mode_off(void)
 {
     printf("HIGH SPEED MODE OFF\n\r");
     CCAPM0 = 0x00;

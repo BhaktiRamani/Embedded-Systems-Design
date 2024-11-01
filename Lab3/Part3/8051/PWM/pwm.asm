@@ -8,11 +8,9 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _HSO_mode_on
 	.globl _main
 	.globl _getchar
 	.globl _putchar
-	.globl _HS0_mode_on
 	.globl _printf
 	.globl _TF1
 	.globl _TR1
@@ -230,6 +228,7 @@
 	.globl _pwm_init
 	.globl _pwm_start
 	.globl _pwm_stop
+	.globl _HS0_mode_on
 	.globl _HS0_mode_off
 ;--------------------------------------------------------
 ; special function registers
@@ -490,7 +489,7 @@ __start__stack:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-_putchar_charToSend_65536_72:
+_putchar_charToSend_65536_74:
 	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -546,7 +545,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar'
 ;------------------------------------------------------------
-;charToSend                Allocated with name '_putchar_charToSend_65536_72'
+;charToSend                Allocated with name '_putchar_charToSend_65536_74'
 ;------------------------------------------------------------
 ;	pwm.c:21: int putchar(int charToSend) {
 ;	-----------------------------------------
@@ -563,13 +562,13 @@ _putchar:
 	ar0 = 0x00
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_putchar_charToSend_65536_72
+	mov	dptr,#_putchar_charToSend_65536_74
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
 ;	pwm.c:22: SBUF = charToSend;  // Send character to serial buffer
-	mov	dptr,#_putchar_charToSend_65536_72
+	mov	dptr,#_putchar_charToSend_65536_74
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -613,7 +612,7 @@ _getchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;command                   Allocated with name '_main_command_131072_78'
+;command                   Allocated with name '_main_command_131072_80'
 ;------------------------------------------------------------
 ;	pwm.c:39: void main(void)
 ;	-----------------------------------------
@@ -1009,13 +1008,13 @@ _pwm_stop:
 ;	pwm.c:150: }
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'HSO_mode_on'
+;Allocation info for local variables in function 'HS0_mode_on'
 ;------------------------------------------------------------
-;	pwm.c:152: void HSO_mode_on()
+;	pwm.c:152: void HS0_mode_on(void)
 ;	-----------------------------------------
-;	 function HSO_mode_on
+;	 function HS0_mode_on
 ;	-----------------------------------------
-_HSO_mode_on:
+_HS0_mode_on:
 ;	pwm.c:154: printf("HIGH SPEED MODE ON\n\r");
 	mov	a,#___str_18
 	push	acc
@@ -1046,7 +1045,7 @@ _HSO_mode_on:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'HS0_mode_off'
 ;------------------------------------------------------------
-;	pwm.c:166: void HS0_mode_off()
+;	pwm.c:166: void HS0_mode_off(void)
 ;	-----------------------------------------
 ;	 function HS0_mode_off
 ;	-----------------------------------------

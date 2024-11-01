@@ -7,7 +7,6 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000000  _HS0_mode_on                    
 C:   00000000  l_BIT_BANK                      
 C:   00000000  l_BSEG                          
 C:   00000000  l_BSEG_BYTES                    
@@ -57,6 +56,7 @@ C:   0000002A  l_GSINIT4
 C:   0000003B  l_XSEG                          
 C:   00000080  l_DSEG                          
 C:   000000EC  l_SSEG                          
+C:   00000100  l_IRAM                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -66,7 +66,6 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000100  l_IRAM                          
 C:   00000170  l_CONST                         
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
@@ -482,7 +481,7 @@ C:   00003244  _freq_min                          pwm
 C:   0000325D  _pwm_init                          pwm
 C:   00003273  _pwm_start                         pwm
 C:   0000328C  _pwm_stop                          pwm
-C:   000032A5  _HSO_mode_on                       pwm
+C:   000032A5  _HS0_mode_on                       pwm
 C:   000032D0  _HS0_mode_off                      pwm
 C:   000032F8  _vprintf                           vprintf
 C:   00003337  _printf                            vprintf
@@ -546,4 +545,3 @@ ISEG = 0x0000
 BSEG = 0x0000
 
 
-?ASlink-Warning-Undefined Global '_HS0_mode_on' referenced by module 'pwm'
