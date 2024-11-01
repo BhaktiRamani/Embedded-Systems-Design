@@ -33,69 +33,7 @@ int getchar(void)
  */
 
 /**
- * @file pca_watchdog.c
- * @brief Watchdog Timer Implementation with System Reset
- *
- * Demonstrates watchdog reset functionality using PCA timer.
- * Main program enters infinite loop, watchdog ISR triggers
- * system reset if timer overflows.
- *
- * @author Bhakti Ramani
- * @date 1/11/2024
- */
 
-
-
-/* PCA Configuration */
-#define PCA_WDT_ENABLE    0x40    // Enable PCA
-#define PCA_WDTE         0x40    // Enable WDT
-#define SYSCLK_DIV_4     0x82    // System clock/4
-#define WDT_TIMEOUT      0xFF    // Watchdog timeout value
-
-/**
- * @brief Initialize PCA watchdog timer
- */
-void wdt_init(void)
-{
-    printf("Initializing Watchdog Timer...\n\r");
-
-    // Configure PCA for watchdog operation
-    CH = 0;
-    CL = 0;
-    CMOD = SYSCLK_DIV_4;        // Set clock source as Sysclk/4
-    CCON = PCA_WDT_ENABLE;      // Enable PCA module
-
-    // Enable PCA interrupt
-    EA = 1;                     // Global interrupt enable
-    EC = 1;                     // PCA interrupt enable
-
-    // Configure and enable watchdog
-    WDTRST = WDT_TIMEOUT;       // Set timeout period
-    CMOD |= PCA_WDTE;          // Enable watchdog
-
-    printf("Watchdog Timer Initialized\n\r");
-}
-
-/**
- * @brief PCA Interrupt Service Routine
- * Handles watchdog timeout by triggering system reset
- */
-void pca_isr(void) __interrupt(6)
-{
-    if (CF)              // PCA overflow - watchdog timeout
-    {
-        printf("Watchdog Timer Overflow! Resetting System...\n\r");
-
-        // Add some delay to allow UART to send message
-        for(int i = 0; i < 1000; i++);
-
-        // Force system reset by entering infinite loop
-        // This will cause the watchdog to reset the system
-        while(1);
-    }
-
-    CF = 0;              // Clear overflow flag
-}
 
 /**
  * @brief Main program
@@ -103,20 +41,25 @@ void pca_isr(void) __interrupt(6)
 void main(void)
 {
 
+    CKCON0=0x01;
+    IEN0|=0x80;
+    TMOD |= 0x20; //TIMER 1, MODE 2
+    SCON |= 0x50; //8 BIT, 1 STOP , REN ENABLED
+    TCON |= 0x40; 	//START TIMER1
+    TH1 = 0xFD;
+    TI = 1;
 
-    printf("Starting Watchdog Demo...\n\r");
+        CCAP4L = 0x00;
+        CCAP4H = 0xFF;
+        CMOD |= 0x40;
+        CCON = 0x40;
+        CCAPM4 |= 0x4C;
 
-    // Initialize watchdog
-    wdt_init();
-
-    printf("Entering infinite loop...\n\r");
-
-    // Enter infinite loop - will trigger watchdog reset
     while(1)
     {
-        // Infinite loop without feeding the watchdog
-        // This will cause watchdog timeout
+
     }
+
 }
 
 
