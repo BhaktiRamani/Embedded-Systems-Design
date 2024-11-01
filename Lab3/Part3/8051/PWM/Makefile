@@ -31,7 +31,7 @@ pwm.rel : pwm.c
 
 # Link phase
 prog.hex : pwm.rel
-	sdcc --code-loc 0x0000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx pwm.rel
+	sdcc --code-loc 0x3000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx pwm.rel
 	packihx pwm.ihx > pwm.hex
 
 

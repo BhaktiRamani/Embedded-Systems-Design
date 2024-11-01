@@ -1,6 +1,11 @@
 #include <at89c51ed2.h> //also includes 8052.h and 8051.h
 #include <mcs51reg.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
 void pwm_stop();
 void pwm_init();
 void pwm_start();
@@ -10,37 +15,36 @@ void freq_min();
 void power_down_mode();
 void idle_mode();
 
-void init_uart(void)
-{
-     SCON = 0x50;    // Serial mode 1, 8-bit UART, enable receiver
-     TMOD = 0x20;    // Timer 1, mode 2 (8-bit auto-reload)
-     TH1 = 0xFD;     // For 9600 baud rate with 11.059MHz crystal
-     TR1 = 1;        // Start timer 1
-     TI = 1;         // Set TI for first transmission
+// void init_uart(void)
+// {
+//      SCON = 0x50;    // Serial mode 1, 8-bit UART, enable receiver
+//      TMOD = 0x20;    // Timer 1, mode 2 (8-bit auto-reload)
+//      TH1 = 0xFD;     // For 9600 baud rate with 11.059MHz crystal
+//      TR1 = 1;        // Start timer 1
+//      TI = 1;         // Set TI for first transmission
+// }
+
+int putchar(int charToSend) {
+    SBUF = charToSend;  // Send character to serial buffer
+    while (!TI);        // Wait for transmission to complete
+    TI = 0;            // Clear transmission interrupt flag
+    return charToSend;
 }
 
-// Modified putchar function
-int putchar(int chr)
-{
-    while(!TI);      // Wait until TI is set
-    TI = 0;          // Clear TI flag
-    SBUF = chr;      // Load data into buffer
-    return chr;
-}
+/*
+* This function receives a character via UART
+*/
 
-// Modified getchar function
-int getchar(void)
+int getchar(void) 
 {
-    char c;
-    while(!RI);      // Wait until RI is set
-    c = SBUF;        // Read received data
-    RI = 0;          // Clear RI flag
-    return c;
+    while (!RI);        // Wait for reception to complete
+    RI = 0;            // Clear reception interrupt flag
+    return SBUF;       // Return received character
 }
 
 void main(void)
 {
-    init_uart();
+    //init_uart();
     pwm_init();
     
     printf("PCA MODE : PWM\n\r");
