@@ -8,8 +8,8 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _PCA_ISR
 	.globl _main
+	.globl _enable_wdt
 	.globl _getchar
 	.globl _putchar
 	.globl _printf
@@ -222,7 +222,6 @@
 	.globl _RCAP2H
 	.globl _RCAP2L
 	.globl _T2CON
-	.globl _refresh_wdt
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -448,20 +447,6 @@ _TF1	=	0x008f
 	.area REG_BANK_0	(REL,OVR,DATA)
 	.ds 8
 ;--------------------------------------------------------
-; overlayable bit register bank
-;--------------------------------------------------------
-	.area BIT_BANK	(REL,OVR,DATA)
-bits:
-	.ds 1
-	b0 = bits[0]
-	b1 = bits[1]
-	b2 = bits[2]
-	b3 = bits[3]
-	b4 = bits[4]
-	b5 = bits[5]
-	b6 = bits[6]
-	b7 = bits[7]
-;--------------------------------------------------------
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
@@ -498,6 +483,8 @@ __start__stack:
 	.area XSEG    (XDATA)
 _putchar_charToSend_65536_13:
 	.ds 2
+_main_i_196608_21:
+	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -522,19 +509,6 @@ _putchar_charToSend_65536_13:
 	.area HOME    (CODE)
 __interrupt_vect:
 	ljmp	__sdcc_gsinit_startup
-	reti
-	.ds	7
-	reti
-	.ds	7
-	reti
-	.ds	7
-	reti
-	.ds	7
-	reti
-	.ds	7
-	reti
-	.ds	7
-	ljmp	_PCA_ISR
 ;--------------------------------------------------------
 ; global & static initialisations
 ;--------------------------------------------------------
@@ -567,7 +541,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;charToSend                Allocated with name '_putchar_charToSend_65536_13'
 ;------------------------------------------------------------
-;	watchdog.c:8: int putchar(int charToSend) {
+;	watchdog.c:38: int putchar(int charToSend) {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
@@ -587,7 +561,7 @@ _putchar:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	watchdog.c:9: SBUF = charToSend;  // Send character to serial buffer
+;	watchdog.c:39: SBUF = charToSend;  // Send character to serial buffer
 	mov	dptr,#_putchar_charToSend_65536_13
 	movx	a,@dptr
 	mov	r6,a
@@ -595,51 +569,49 @@ _putchar:
 	movx	a,@dptr
 	mov	r7,a
 	mov	_SBUF,r6
-;	watchdog.c:10: while (!TI);        // Wait for transmission to complete
+;	watchdog.c:40: while (!TI);        // Wait for transmission to complete
 00101$:
-;	watchdog.c:11: TI = 0;            // Clear transmission interrupt flag
+;	watchdog.c:41: TI = 0;            // Clear transmission interrupt flag
 ;	assignBit
 	jbc	_TI,00114$
 	sjmp	00101$
 00114$:
-;	watchdog.c:12: return charToSend;
+;	watchdog.c:42: return charToSend;
 	mov	dpl,r6
 	mov	dph,r7
-;	watchdog.c:13: }
+;	watchdog.c:43: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	watchdog.c:19: int getchar(void)
+;	watchdog.c:49: int getchar(void)
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
-;	watchdog.c:21: while (!RI);        // Wait for reception to complete
+;	watchdog.c:51: while (!RI);        // Wait for reception to complete
 00101$:
-;	watchdog.c:22: RI = 0;            // Clear reception interrupt flag
+;	watchdog.c:52: RI = 0;            // Clear reception interrupt flag
 ;	assignBit
 	jbc	_RI,00114$
 	sjmp	00101$
 00114$:
-;	watchdog.c:23: return SBUF;       // Return received character
+;	watchdog.c:53: return SBUF;       // Return received character
 	mov	r6,_SBUF
 	mov	r7,#0x00
 	mov	dpl,r6
 	mov	dph,r7
-;	watchdog.c:24: }
+;	watchdog.c:54: }
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
+;Allocation info for local variables in function 'enable_wdt'
 ;------------------------------------------------------------
-;i                         Allocated with name '_main_i_196608_20'
-;------------------------------------------------------------
-;	watchdog.c:28: void main(void)
+;	watchdog.c:55: void enable_wdt()
 ;	-----------------------------------------
-;	 function main
+;	 function enable_wdt
 ;	-----------------------------------------
-_main:
-;	watchdog.c:30: printf("WATCHDOG TIMER MODE\n\r");
+_enable_wdt:
+;	watchdog.c:57: printf("WARCHDOG\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -650,23 +622,25 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	watchdog.c:32: CMOD |= 0x42;       // PCA counter is clocked by Fosc/6, enable watchdog mode
-	orl	_CMOD,#0x42
-;	watchdog.c:34: CCAPM4 = 0x4C;      // Enable WDT mode and interrupt for PCA Module 4
-	mov	_CCAPM4,#0x4c
-;	watchdog.c:35: CCAP4L = 0xFF;      // Set low byte of compare/capture register
-	mov	_CCAP4L,#0xff
-;	watchdog.c:36: CCAP4H = 0xFF;      // Set high byte of compare/capture register
-	mov	_CCAP4H,#0xff
-;	watchdog.c:39: EA = 1;             // Enable global interrupts
-;	assignBit
-	setb	_EA
-;	watchdog.c:40: EC = 1;             // Enable PCA interrupt
-;	assignBit
-	setb	_EC
-;	watchdog.c:42: while (1)
-00103$:
-;	watchdog.c:45: printf("- - - - ");
+;	watchdog.c:59: WDTRST = 0x1E;
+	mov	_WDTRST,#0x1e
+;	watchdog.c:60: WDTRST = 0xE1;
+	mov	_WDTRST,#0xe1
+;	watchdog.c:61: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'main'
+;------------------------------------------------------------
+;i                         Allocated with name '_main_i_196608_21'
+;------------------------------------------------------------
+;	watchdog.c:63: void main(void)
+;	-----------------------------------------
+;	 function main
+;	-----------------------------------------
+_main:
+;	watchdog.c:65: enable_wdt();  // Start the WDT
+	lcall	_enable_wdt
+;	watchdog.c:69: printf("- - - -");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -677,117 +651,41 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	watchdog.c:46: for (int i = 0; i < 10000; i++) {}
-	mov	r6,#0x00
-	mov	r7,#0x00
-00106$:
-	clr	c
-	mov	a,r6
-	subb	a,#0x10
-	mov	a,r7
-	xrl	a,#0x80
-	subb	a,#0xa7
-	jnc	00103$
-	inc	r6
-	cjne	r6,#0x00,00106$
-	inc	r7
-;	watchdog.c:52: }
-	sjmp	00106$
-;------------------------------------------------------------
-;Allocation info for local variables in function 'refresh_wdt'
-;------------------------------------------------------------
-;	watchdog.c:55: void refresh_wdt()
-;	-----------------------------------------
-;	 function refresh_wdt
-;	-----------------------------------------
-_refresh_wdt:
-;	watchdog.c:58: CCAP4L = 0x00;
-	mov	_CCAP4L,#0x00
-;	watchdog.c:59: CCAP4H = 0x00;
-	mov	_CCAP4H,#0x00
-;	watchdog.c:60: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'PCA_ISR'
-;------------------------------------------------------------
-;	watchdog.c:63: void PCA_ISR(void) __interrupt 6
-;	-----------------------------------------
-;	 function PCA_ISR
-;	-----------------------------------------
-_PCA_ISR:
-	push	bits
-	push	acc
-	push	b
-	push	dpl
-	push	dph
-	push	(0+7)
-	push	(0+6)
-	push	(0+5)
-	push	(0+4)
-	push	(0+3)
-	push	(0+2)
-	push	(0+1)
-	push	(0+0)
-	push	psw
-	mov	psw,#0x00
-;	watchdog.c:65: if (CCF4) {           // Check if the interrupt is from Module 4 (WDT)
-;	watchdog.c:66: CCF4 = 0;         // Clear the interrupt flag for Module 4
-;	assignBit
-	jbc	_CCF4,00109$
-	sjmp	00103$
-00109$:
-;	watchdog.c:71: CCAP4L = 0x00;
-;	watchdog.c:72: CCAP4H = 0x00;
-;	watchdog.c:73: printf("WATCHDOG TRIGGERED\n\r");
+;	watchdog.c:71: for ( volatile int i = 0; i < 50000; i++) {}  // Simulate delay
+	mov	dptr,#_main_i_196608_21
 	clr	a
-	mov	_CCAP4L,a
-	mov	_CCAP4H,a
-	mov	a,#___str_2
-	push	acc
-	mov	a,#(___str_2 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-00103$:
-;	watchdog.c:75: }
-	pop	psw
-	pop	(0+0)
-	pop	(0+1)
-	pop	(0+2)
-	pop	(0+3)
-	pop	(0+4)
-	pop	(0+5)
-	pop	(0+6)
-	pop	(0+7)
-	pop	dph
-	pop	dpl
-	pop	b
-	pop	acc
-	pop	bits
-	reti
+	movx	@dptr,a
+	inc	dptr
+	movx	@dptr,a
+00105$:
+	mov	dptr,#_main_i_196608_21
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
+	mov	dptr,#_main_i_196608_21
+	mov	a,#0x01
+	add	a,r6
+	movx	@dptr,a
+	clr	a
+	addc	a,r7
+	inc	dptr
+	movx	@dptr,a
+;	watchdog.c:76: }
+	sjmp	00105$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
-	.ascii "WATCHDOG TIMER MODE"
+	.ascii "WARCHDOG"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "- - - - "
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_2:
-	.ascii "WATCHDOG TRIGGERED"
-	.db 0x0a
-	.db 0x0d
+	.ascii "- - - -"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)
