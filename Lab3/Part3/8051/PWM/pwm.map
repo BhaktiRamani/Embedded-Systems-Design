@@ -66,11 +66,11 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000170  l_CONST                         
+C:   00000192  l_CONST                         
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   0000043B  s_XISEG                         
-C:   00000D37  l_CSEG                          
+C:   00000D6E  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003006  s_GSINIT0                       
 C:   00003009  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   0000305F  s_GSFINAL
 C:   0000305F  s_GSINIT                        
 C:   0000305F  s_GSINIT5                       
 C:   00003062  s_CSEG                          
-C:   00003D99  s_CONST                         
-C:   00003F09  s_XINIT                         
+C:   00003DD0  s_CONST                         
+C:   00003F62  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -467,36 +467,37 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003062    00000D37 =        3383. bytes (REL,CON,CODE)
+CSEG                                00003062    00000D6E =        3438. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00003062  _putchar                           pwm
 C:   00003081  _getchar                           pwm
 C:   0000308F  _main                              pwm
-C:   000031F9  _idle_mode                         pwm
-C:   00003212  _power_down_mode                   pwm
-C:   0000322B  _freq_max                          pwm
-C:   00003244  _freq_min                          pwm
-C:   0000325D  _pwm_init                          pwm
-C:   00003273  _pwm_start                         pwm
-C:   0000328C  _pwm_stop                          pwm
-C:   000032A5  _HS0_mode_on                       pwm
-C:   000032D0  _HS0_mode_off                      pwm
-C:   000032F8  _vprintf                           vprintf
-C:   00003337  _printf                            vprintf
-C:   00003440  __print_format                     printf_large
-C:   00003D41  _strlen                            _strlen
-C:   00003D59  __mulint                           _mulint
-C:   00003D79  __gptrget                          _gptrget
-C:   00003D95  __sdcc_external_startup            _startup
+C:   00003226  _set_x2_mode                       pwm
+C:   00003230  _idle_mode                         pwm
+C:   00003249  _power_down_mode                   pwm
+C:   00003262  _freq_max                          pwm
+C:   0000327B  _freq_min                          pwm
+C:   00003294  _pwm_init                          pwm
+C:   000032AA  _pwm_start                         pwm
+C:   000032C3  _pwm_stop                          pwm
+C:   000032DC  _HS0_mode_on                       pwm
+C:   00003307  _HS0_mode_off                      pwm
+C:   0000332F  _vprintf                           vprintf
+C:   0000336E  _printf                            vprintf
+C:   00003477  __print_format                     printf_large
+C:   00003D78  _strlen                            _strlen
+C:   00003D90  __mulint                           _mulint
+C:   00003DB0  __gptrget                          _gptrget
+C:   00003DCC  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003D99    00000170 =         368. bytes (REL,CON,CODE)
+CONST                               00003DD0    00000192 =         402. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

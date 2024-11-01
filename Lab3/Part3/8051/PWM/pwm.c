@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define CKCON0_X2_BIT (1)
+#define CKCON0_TIX2_BIT (1<<2)
+
 void pwm_stop();
 void pwm_init();
 void pwm_start();
@@ -13,6 +16,8 @@ void freq_max();
 void freq_min();
 void HS0_mode_on(void);
 void HS0_mode_off(void);
+void set_x2_mode(void);
+
 
 void power_down_mode();
 void idle_mode();
@@ -42,7 +47,10 @@ void main(void)
     pwm_init();
     
     printf("PCA DEMO\n\r");
-    printf("COMMANDS :\n\r");
+    set_x2_mode();
+    printf("in X2 MODE\n\r");
+    printf("ENTER COMMANDS\n\r");
+    printf("COMMAND MENU :\n\r");
     printf(" R - RUN PWM\n\r");
     printf(" S - STOP PWM\n\r");
     printf(" F - MAX FREQUENCY MODE\n\r");
@@ -51,7 +59,7 @@ void main(void)
     printf(" P - POWER DOWN MODE\n\r");
     printf(" H - HIGH SPEED MODE ON\n\r");
     printf(" Q - HIGH SPEED MODE OFF\n\r");
-    
+
     TCON |= 0x01;
     IE |= 0x81;
 
@@ -101,6 +109,12 @@ void main(void)
 // CKRL = 0x00;   // Maximum division: Fosc/12 (default)
 // CKRL = 0xFF;   // Minimum division: Fosc/12/1 = Fosc/12
 // CKRL = 0xF0;   // Division: Fosc/12/16
+void set_x2_mode(void)
+{
+    CKCON0 = 0x00;
+    CKCON0 |= CKCON0_X2_BIT;
+    CKCON0 |= CKCON0_TIX2_BIT;
+}
 
 void idle_mode()
 {
