@@ -46,6 +46,16 @@ void power_down_mode(void);
 void idle_mode(void);
 
 /**
+ * @brief External interrupt for EXTI0
+ * @param none
+ * @return return to main loop
+ */
+void external_ISR(void) __interrupt (0)
+{
+    printf("EXIT FROM IDEL MODE\n\r");
+    return;
+}
+/**
  * @brief Sends a character through UART
  * @param charToSend Character to be transmitted
  * @return The transmitted character
