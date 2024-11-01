@@ -63,23 +63,28 @@ void _uart_tx_init(void)
 	//USART2->BRR = 0x0FA0;
 
 	/*Enable UART module*/
+	USART2 -> CR1 = 0;
 	USART2 -> CR1 |= USART_CR1_UE;
 
 	/*Enable USART Tx and Rx*/
 	USART2->CR1 |= USART_CR1_TE | USART_CR1_RE;
 
 	/*Enable USART2 interrupts for Tx and Rx both*/
-	USART2 -> CR1 |= USART_CR1_RXNEIE | USART_CR1_TXEIE;
+	USART2 -> CR1 |= USART_CR1_RXNEIE;
 
 	/*Configure PA2 and PA3 as external interrupts */
-	SYSCFG -> EXTICR[0] |= SYSCFG_EXTICR1_EXTI2_PA | SYSCFG_EXTICR1_EXTI3_PA;
+	//SYSCFG -> EXTICR[0] |= SYSCFG_EXTICR1_EXTI2_PA | SYSCFG_EXTICR1_EXTI3_PA;
 
 	/*Enable Interrupt for PA2(tx) and PA3(rx) */
-	EXTI -> IMR |= EXTI_IMR_MR2 | EXTI_IMR_MR3;
-	EXTI -> EMR |= EXTI_EMR_MR2 | EXTI_EMR_MR3;
+//	EXTI -> IMR |= EXTI_IMR_MR2 | EXTI_IMR_MR3;
+//	EXTI -> EMR |= EXTI_EMR_MR2 | EXTI_EMR_MR3;
 
-	NVIC_ClearPendingIRQ(38);
+    NVIC_SetPriority(USART2_IRQn, 3);  // Lower priority than button
+    NVIC_ClearPendingIRQ(USART2_IRQn);
 	NVIC_EnableIRQ(USART2_IRQn);
+
+
+
 
 }
 

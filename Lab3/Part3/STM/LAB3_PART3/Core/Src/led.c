@@ -30,7 +30,7 @@ void led_init(void)
 {
     // Enable clock access for Port A and D
     RCC->AHB1ENR |= GPIODEN;
-    RCC->AHB1ENR |= GPIOAEN;
+    //RCC->AHB1ENR |= GPIOAEN;
 
     // Configure PD13 as output
     GPIOD->MODER |= (1U << 26);

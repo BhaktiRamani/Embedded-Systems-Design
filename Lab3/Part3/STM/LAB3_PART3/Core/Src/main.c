@@ -15,6 +15,7 @@
 #include "interrupt.h"
 #include "stm32f4xx.h"
 #include "uart.h"
+#include "pwm.h"
 #include <stdio.h>
 
 // Function prototypes for watchdog-related functions
@@ -25,7 +26,9 @@ int was_watchdog_reset(void);
 
 volatile int timer_interrupt_occurred = 0;
 volatile int led_toggling_enabled = 1;  // Start with toggling enabled
-
+volatile char recieved_command;
+volatile int button_interrupt_flag = 0;
+volatile int usart2_interrupt_flag = 0;
 /**
  * @brief Timer 3 Interrupt Handler
  *
@@ -48,19 +51,10 @@ volatile int led_toggling_enabled = 1;  // Start with toggling enabled
 void EXTI0_IRQHandler(void) {
     if (EXTI->PR & (1<<0)) {
         EXTI->PR |= (1<<0);  // Clear the interrupt flag
-        led_toggling_enabled = !led_toggling_enabled;  // Toggle the LED toggling state
+//        DUTY_CYCLE = DUTY_CYCLE + 17;
+        bled_on();
+        button_interrupt_flag = 1;
 
-        if (!led_toggling_enabled) {
-            // If toggling is disabled, ensure green LED is on and others are off
-            gled_on();
-            bled_off();
-            led_on();
-        }
-
-        // Visual feedback for button press
-        led_on();
-        Delay_ms(100);
-        led_off();
     }
 }
 
@@ -70,8 +64,12 @@ void USART2_IRQHandler(void)
 	if(USART2 -> SR & USART_SR_RXNE)
 	{
 		char recieved = getchar();
+		recieved_command = recieved;
 		putchar(recieved);
+		usart2_interrupt_flag = 1;
+		gled_on();
 	}
+
 }
 /**
  * @brief Main function
@@ -85,22 +83,68 @@ int main(void)
 {
 
     clock_config();
-    //led_init();
+    PWM_init();
+    led_init();
 //    TIM3Config();
-    //Interrupt_Config();
-    //problem statement 2
+    PushButoon_ISR_Config();
 	_uart_tx_init();
-	char a = 'a';
-	putchar(a);
+//	char a = 'a';
+//	putchar(a);
+//   int hundreds = DUTY_CYCLE / 100;
+//   int tens = (DUTY_CYCLE / 10) % 10;
+//   int units = DUTY_CYCLE % 10;
+
+
     while(1)
     {
-    	//putchar(a);
-//    	int recieved = getchar();
-//    	putchar(recieved);
-    	for(int i = 0; i<5000; i++){}
-		//Delay_ms(1000);
-        //service_watchdog();
+
+        pwm_timer_execution();
+
+
+        if(button_interrupt_flag)
+        {
+        	 DUTY_CYCLE = DUTY_CYCLE + DUTY_CYCLE*0.1;
+        	 bled_on();
+        	 for(int i = 0; i<1000000; i++){}
+        	 bled_off();
+        	 button_interrupt_flag = 0;
+        }
+        if(usart2_interrupt_flag)
+        {
+    		gled_on();
+    		for(int i = 0; i<1000000; i++){}
+    		gled_off();
+        	usart2_interrupt_flag = 0;
+        	if(recieved_command == 'P')
+        	{
+        		//print DUTY_CYCLE
+        	    // Convert each digit to its ASCII character and print with putchar
+        		putchar('Z');
+        	    putchar('\r');
+        	    putchar('\n');
+                putchar(DUTY_CYCLE/100 + '0');
+                putchar((DUTY_CYCLE/10)%10 + '0');
+                putchar(DUTY_CYCLE%10 + '0');
+                putchar('\r');
+                putchar('\n');
+
+        	}
+        	if(recieved_command == 'A')
+        	{
+        		DUTY_CYCLE = DUTY_CYCLE + DUTY_CYCLE*0.05;
+        		if(DUTY_CYCLE >= 255) DUTY_CYCLE = 12;
+        	    if(DUTY_CYCLE <= 0) DUTY_CYCLE = 12;
+        	}
+        	if(recieved_command == 'B')
+        	{
+        		DUTY_CYCLE = DUTY_CYCLE - DUTY_CYCLE*0.05;
+        		if(DUTY_CYCLE >= 255) DUTY_CYCLE = 12;
+        	    if(DUTY_CYCLE <= 0) DUTY_CYCLE = 12;
+        	}
+        }
     }
+
+
 
 
     return 0;

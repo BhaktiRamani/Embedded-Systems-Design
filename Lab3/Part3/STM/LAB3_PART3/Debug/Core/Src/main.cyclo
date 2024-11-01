@@ -1,7 +1,7 @@
-../Core/Src/main.c:48:6:EXTI0_IRQHandler	3
-../Core/Src/main.c:68:6:USART2_IRQHandler	2
-../Core/Src/main.c:85:5:main	2
-../Core/Src/main.c:113:6:maximize_watchdog_timeout	2
-../Core/Src/main.c:147:6:service_watchdog	1
-../Core/Src/main.c:158:6:disable_watchdog	2
-../Core/Src/main.c:181:5:was_watchdog_reset	2
+../Core/Src/main.c:51:6:EXTI0_IRQHandler	2
+../Core/Src/main.c:62:6:USART2_IRQHandler	2
+../Core/Src/main.c:82:5:main	12
+../Core/Src/main.c:156:6:maximize_watchdog_timeout	2
+../Core/Src/main.c:190:6:service_watchdog	1
+../Core/Src/main.c:201:6:disable_watchdog	2
+../Core/Src/main.c:224:5:was_watchdog_reset	2

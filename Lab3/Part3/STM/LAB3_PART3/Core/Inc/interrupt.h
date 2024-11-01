@@ -22,6 +22,6 @@ extern int isr_flag;
 /**
  * @brief Configure external interrupt for PA0
  */
-void Interrupt_Config(void);
+void PushButoon_ISR_Config(void);
 
 #endif /* _INTERRUPT_H_ */

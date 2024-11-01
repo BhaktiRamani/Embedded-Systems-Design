@@ -3,6 +3,7 @@
 "./Core/Src/interrupt.o"
 "./Core/Src/led.o"
 "./Core/Src/main.o"
+"./Core/Src/pwm.o"
 "./Core/Src/syscalls.o"
 "./Core/Src/sysmem.o"
 "./Core/Src/uart.o"

@@ -23,13 +23,13 @@
  * 5. Set interrupt priority
  * 6. Enable the interrupt in NVIC
  */
-void Interrupt_Config(void)
+void PushButoon_ISR_Config(void)
 {
     // 1. Enable the SYSCFG clock
     RCC->APB2ENR |= (1<<14);  // Enable SYSCFG
 
     // 2. Configure the EXTI configuration Register in SYSCFG
-    SYSCFG->EXTICR[1] &= ~(0xf<<4);  // Configure EXTI0 line for PA0
+    SYSCFG->EXTICR[0] &= ~(0xf<<4);  // Configure EXTI0 line for PA0
 
     // 3. Unmask EXTI line 0
     EXTI->IMR |= (1<<0);  // Unmask EXTI line 0
@@ -37,9 +37,10 @@ void Interrupt_Config(void)
     // 4. Configure for rising edge trigger
     EXTI->RTSR |= EXTI_RTSR_PORTA0;  // Enable rising edge trigger for PA0
 
-    // 5. Set interrupt priority
-    NVIC_SetPriority(EXTI0_IRQn, 1);  // Set priority for EXTI0 interrupt
+
 
     // 6. Enable the interrupt
+    NVIC_SetPriority(EXTI0_IRQn, 2);  // Higher priority than UART
+    NVIC_ClearPendingIRQ(EXTI0_IRQn);
     NVIC_EnableIRQ(EXTI0_IRQn);  // Enable EXTI0 interrupt in NVIC
 }

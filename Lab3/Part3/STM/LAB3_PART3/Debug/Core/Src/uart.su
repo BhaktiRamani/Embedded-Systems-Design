@@ -1,9 +1,10 @@
 ../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	16	static,ignoring_inline_asm
 ../Drivers/CMSIS/Include/core_cm4.h:1775:22:__NVIC_ClearPendingIRQ	16	static
+../Drivers/CMSIS/Include/core_cm4.h:1814:22:__NVIC_SetPriority	16	static
 ../Core/Src/uart.c:21:5:putchar	16	static
 ../Core/Src/uart.c:27:5:getchar	16	static
 ../Core/Src/uart.c:33:6:_uart_tx_init	8	static
-../Core/Src/uart.c:87:13:uart_write	16	static
-../Core/Src/uart.c:96:5:uart_read	4	static
-../Core/Src/uart.c:106:17:_compute_uart_bd	16	static
-../Core/Src/uart.c:112:13:uart_set_baudrate	16	static
+../Core/Src/uart.c:92:13:uart_write	16	static
+../Core/Src/uart.c:101:5:uart_read	4	static
+../Core/Src/uart.c:111:17:_compute_uart_bd	16	static
+../Core/Src/uart.c:117:13:uart_set_baudrate	16	static

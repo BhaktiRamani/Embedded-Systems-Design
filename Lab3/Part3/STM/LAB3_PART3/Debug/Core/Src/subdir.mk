@@ -10,6 +10,7 @@ C_SRCS += \
 ../Core/Src/interrupt.c \
 ../Core/Src/led.c \
 ../Core/Src/main.c \
+../Core/Src/pwm.c \
 ../Core/Src/syscalls.c \
 ../Core/Src/sysmem.c \
 ../Core/Src/uart.c 
@@ -20,6 +21,7 @@ OBJS += \
 ./Core/Src/interrupt.o \
 ./Core/Src/led.o \
 ./Core/Src/main.o \
+./Core/Src/pwm.o \
 ./Core/Src/syscalls.o \
 ./Core/Src/sysmem.o \
 ./Core/Src/uart.o 
@@ -30,6 +32,7 @@ C_DEPS += \
 ./Core/Src/interrupt.d \
 ./Core/Src/led.d \
 ./Core/Src/main.d \
+./Core/Src/pwm.d \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
 ./Core/Src/uart.d 
@@ -42,7 +45,7 @@ Core/Src/%.o Core/Src/%.su Core/Src/%.cyclo: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/clock_config.cyclo ./Core/Src/clock_config.d ./Core/Src/clock_config.o ./Core/Src/clock_config.su ./Core/Src/delay.cyclo ./Core/Src/delay.d ./Core/Src/delay.o ./Core/Src/delay.su ./Core/Src/interrupt.cyclo ./Core/Src/interrupt.d ./Core/Src/interrupt.o ./Core/Src/interrupt.su ./Core/Src/led.cyclo ./Core/Src/led.d ./Core/Src/led.o ./Core/Src/led.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/uart.cyclo ./Core/Src/uart.d ./Core/Src/uart.o ./Core/Src/uart.su
+	-$(RM) ./Core/Src/clock_config.cyclo ./Core/Src/clock_config.d ./Core/Src/clock_config.o ./Core/Src/clock_config.su ./Core/Src/delay.cyclo ./Core/Src/delay.d ./Core/Src/delay.o ./Core/Src/delay.su ./Core/Src/interrupt.cyclo ./Core/Src/interrupt.d ./Core/Src/interrupt.o ./Core/Src/interrupt.su ./Core/Src/led.cyclo ./Core/Src/led.d ./Core/Src/led.o ./Core/Src/led.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/pwm.cyclo ./Core/Src/pwm.d ./Core/Src/pwm.o ./Core/Src/pwm.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/uart.cyclo ./Core/Src/uart.d ./Core/Src/uart.o ./Core/Src/uart.su
 
 .PHONY: clean-Core-2f-Src
 
