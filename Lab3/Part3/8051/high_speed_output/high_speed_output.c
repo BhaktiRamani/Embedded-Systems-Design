@@ -25,12 +25,8 @@ void main(void) {
     CCON = 0x40;
     init_PCA_HSO();
     
-    while(1) {
-      
-        if(CCAP0L != 0xFF)
-        {
-            CCAP0L = 0xFF;
-            CCAP0H = 0xFF;
-        }
+    while(1) 
+    {
+
     }
 }

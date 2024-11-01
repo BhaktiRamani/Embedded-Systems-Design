@@ -571,19 +571,10 @@ _main:
 	mov	_CCON,#0x40
 ;	high_speed_output.c:26: init_PCA_HSO();
 	lcall	_init_PCA_HSO
-;	high_speed_output.c:28: while(1) {
-00104$:
-;	high_speed_output.c:30: if(CCAP0L != 0xFF)
-	mov	a,#0xff
-	cjne	a,_CCAP0L,00116$
-	sjmp	00104$
-00116$:
-;	high_speed_output.c:32: CCAP0L = 0xFF;
-	mov	_CCAP0L,#0xff
-;	high_speed_output.c:33: CCAP0H = 0xFF;
-	mov	_CCAP0H,#0xff
-;	high_speed_output.c:36: }
-	sjmp	00104$
+;	high_speed_output.c:28: while(1) 
+00102$:
+;	high_speed_output.c:32: }
+	sjmp	00102$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)

@@ -571,20 +571,11 @@
       000013 75 D8 40         [24]  571 	mov	_CCON,#0x40
                                     572 ;	high_speed_output.c:26: init_PCA_HSO();
       000016 12r00r00         [24]  573 	lcall	_init_PCA_HSO
-                                    574 ;	high_speed_output.c:28: while(1) {
-      000019                        575 00104$:
-                                    576 ;	high_speed_output.c:30: if(CCAP0L != 0xFF)
-      000019 74 FF            [12]  577 	mov	a,#0xff
-      00001B B5 EA 02         [24]  578 	cjne	a,_CCAP0L,00116$
-      00001E 80 F9            [24]  579 	sjmp	00104$
-      000020                        580 00116$:
-                                    581 ;	high_speed_output.c:32: CCAP0L = 0xFF;
-      000020 75 EA FF         [24]  582 	mov	_CCAP0L,#0xff
-                                    583 ;	high_speed_output.c:33: CCAP0H = 0xFF;
-      000023 75 FA FF         [24]  584 	mov	_CCAP0H,#0xff
-                                    585 ;	high_speed_output.c:36: }
-      000026 80 F1            [24]  586 	sjmp	00104$
-                                    587 	.area CSEG    (CODE)
-                                    588 	.area CONST   (CODE)
-                                    589 	.area XINIT   (CODE)
-                                    590 	.area CABS    (ABS,CODE)
+                                    574 ;	high_speed_output.c:28: while(1) 
+      000019                        575 00102$:
+                                    576 ;	high_speed_output.c:32: }
+      000019 80 FE            [24]  577 	sjmp	00102$
+                                    578 	.area CSEG    (CODE)
+                                    579 	.area CONST   (CODE)
+                                    580 	.area XINIT   (CODE)
+                                    581 	.area CABS    (ABS,CODE)

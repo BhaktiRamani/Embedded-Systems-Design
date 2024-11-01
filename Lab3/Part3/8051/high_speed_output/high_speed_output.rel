@@ -241,7 +241,7 @@ A GSINIT4 size 0 flags 20 addr 0
 A GSINIT5 size 0 flags 20 addr 0
 A GSINIT size 0 flags 20 addr 0
 A GSFINAL size 3 flags 20 addr 0
-A CSEG size 28 flags 20 addr 0
+A CSEG size 1B flags 20 addr 0
 S _main Def000013
 S _init_PCA_HSO Def000000
 A CONST size 0 flags 20 addr 0
@@ -279,9 +279,5 @@ T 00 00 13 75 D8 40 12 00 00
 R 00 00 00 17 00 07 00 17
 T 00 00 19
 R 00 00 00 17
-T 00 00 19 74 FF B5 EA 02 80 F9
-R 00 00 00 17
-T 00 00 20
-R 00 00 00 17
-T 00 00 20 75 EA FF 75 FA FF 80 F1
+T 00 00 19 80 FE
 R 00 00 00 17

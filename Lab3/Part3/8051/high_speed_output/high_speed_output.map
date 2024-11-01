@@ -51,11 +51,11 @@ C:   00000010  s_REG_BANK_2
 C:   00000018  s_BIT_BANK                      
 C:   00000018  s_OSEG                          
 C:   00000018  s_REG_BANK_3                    
+C:   0000001F  l_CSEG                          
 C:   00000020  s_BSEG_BYTES                    
 C:   00000020  s__CODE                         
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
-C:   0000002C  l_CSEG                          
 C:   00000080  l_DSEG                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
@@ -81,8 +81,8 @@ C:   0000405F  s_GSFINAL
 C:   0000405F  s_GSINIT                        
 C:   0000405F  s_GSINIT5                       
 C:   00004062  s_CSEG                          
-C:   0000408E  s_CONST                         
-C:   0000408E  s_XINIT                         
+C:   00004081  s_CONST                         
+C:   00004081  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -438,13 +438,13 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00004062    0000002C =          44. bytes (REL,CON,CODE)
+CSEG                                00004062    0000001F =          31. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00004062  _init_PCA_HSO                      high_speed_output
 C:   00004075  _main                              high_speed_output
-C:   0000408A  __sdcc_external_startup            _startup
+C:   0000407D  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 
 Files Linked                              [ module(s) ]
