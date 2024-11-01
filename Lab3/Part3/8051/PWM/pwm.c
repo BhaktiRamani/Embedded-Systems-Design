@@ -12,14 +12,14 @@ void idle_mode();
 
 void init_uart(void)
 {
-     SCON = 0x50;               // Serial mode 1, 8-bit UART, enable receiver
-     TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
-     TH1 = 0xFD;                // 9600 baud rate
-     TR1 = 1;                   // Start timer 1
-     TI = 1;
+     SCON = 0x50;    // Serial mode 1, 8-bit UART, enable receiver
+     TMOD = 0x20;    // Timer 1, mode 2 (8-bit auto-reload)
+     TH1 = 0xFD;     // For 9600 baud rate with 11.059MHz crystal
+     TR1 = 1;        // Start timer 1
+     TI = 1;         // Set TI for first transmission
 }
 
-
+// Modified putchar function
 int putchar(int chr)
 {
     while(!TI);      // Wait until TI is set
@@ -28,6 +28,7 @@ int putchar(int chr)
     return chr;
 }
 
+// Modified getchar function
 int getchar(void)
 {
     char c;
@@ -37,27 +38,12 @@ int getchar(void)
     return c;
 }
 
-
-void external_ISR(void) __interrupt (0)
-{
-    printf("EXIT FROM IDEL MODE\n\r");
-}
-
-#define CKCON0_X2_BIT (1)
-#define CKCON0_TIX2_BIT (1<<2)
-
 void main(void)
 {
-    // CKCON0 = 0x00;
-    // CKCON0 |= CKCON0_X2_BIT;
-    // CKCON0 |= CKCON0_TIX2_BIT;
     init_uart();
-    //printf("X2 mode initialized\n\r");
     pwm_init();
+    
     printf("PCA MODE : PWM\n\r");
-    //Entering in X2 mode
- 
-   
     printf("COMMANDS :\n\r");
     printf(" R - RUN PWM\n\r");
     printf(" S - STOP PWM\n\r");
@@ -66,43 +52,42 @@ void main(void)
     printf(" I - IDLE MODE\n\r");
     printf(" P - POWER DOWN MODE\n\r");
     
-    
     TCON = 0x01;
     IE = 0x81;
+
     while(1)
     {
-        char command = getchar();
-        printf("COMMAND ENTERED %c\n\r", command);
-        if(command == 'R')
+        char command;
+        command = getchar();    // Wait for input
+        
+        // Echo the received character
+        putchar(command);
+        printf("\n\r");        // New line after command
+        
+        switch(command)
         {
-            //run pwm
-            pwm_start();
-        }
-        if(command == 'S')
-        {
-            //stop pwm
-            pwm_stop();
-        }
-        if(command == 'F')
-        {
-            //freq = fast
-            freq_max();
-        }
-        if(command == 'M')
-        {
-            //freq = fast
-            freq_min();
-        }
-        if(command == 'I')
-        {
-            idle_mode();
-        }
-        if(command == 'P')
-        {
-            power_down_mode();
+            case 'R':
+                pwm_start();
+                break;
+            case 'S':
+                pwm_stop();
+                break;
+            case 'F':
+                freq_max();
+                break;
+            case 'M':
+                freq_min();
+                break;
+            case 'I':
+                idle_mode();
+                break;
+            case 'P':
+                power_down_mode();
+                break;
+            default:
+                printf("Invalid Command\n\r");
         }
     }
-
 }
 // Formula for Clock Division:
 // System Clock = Oscillator Clock / (12 * (256-CKRL))
