@@ -10,6 +10,7 @@
 ;--------------------------------------------------------
 	.globl _main
 	.globl _pca_isr
+	.globl _wdt_init
 	.globl _getchar
 	.globl _putchar
 	.globl _printf
@@ -222,9 +223,6 @@
 	.globl _RCAP2H
 	.globl _RCAP2L
 	.globl _T2CON
-	.globl _wdt_init
-	.globl _wdt_feed
-	.globl _wdt_disable
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -634,59 +632,59 @@ _getchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'wdt_init'
 ;------------------------------------------------------------
-;	watchdog.c:54: void wdt_init(void)
+;	watchdog.c:58: void wdt_init(void)
 ;	-----------------------------------------
 ;	 function wdt_init
 ;	-----------------------------------------
 _wdt_init:
-;	watchdog.c:57: CH = 0;
+;	watchdog.c:60: printf("Initializing Watchdog Timer...\n\r");
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	watchdog.c:63: CH = 0;
 	mov	_CH,#0x00
-;	watchdog.c:58: CL = 0;
+;	watchdog.c:64: CL = 0;
 	mov	_CL,#0x00
-;	watchdog.c:61: CMOD = SYSCLK_DIV_4;     // Set PCA clock source as Sysclk/4
+;	watchdog.c:65: CMOD = SYSCLK_DIV_4;        // Set clock source as Sysclk/4
 	mov	_CMOD,#0x82
-;	watchdog.c:64: CCON = PCA_WDT_ENABLE;   // Enable PCA module
+;	watchdog.c:66: CCON = PCA_WDT_ENABLE;      // Enable PCA module
 	mov	_CCON,#0x40
-;	watchdog.c:67: EA = 1;                  // Enable global interrupts
+;	watchdog.c:69: EA = 1;                     // Global interrupt enable
 ;	assignBit
 	setb	_EA
-;	watchdog.c:68: EC = 1;                  // Enable PCA interrupt
+;	watchdog.c:70: EC = 1;                     // PCA interrupt enable
 ;	assignBit
 	setb	_EC
-;	watchdog.c:71: WDTRST = WDT_TIMEOUT;    // Set watchdog timeout period
+;	watchdog.c:73: WDTRST = WDT_TIMEOUT;       // Set timeout period
 	mov	_WDTRST,#0xff
-;	watchdog.c:72: CMOD |= PCA_WDTE;        // Enable watchdog timer
+;	watchdog.c:74: CMOD |= PCA_WDTE;          // Enable watchdog
 	orl	_CMOD,#0x40
-;	watchdog.c:73: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'wdt_feed'
-;------------------------------------------------------------
-;	watchdog.c:79: void wdt_feed(void)
-;	-----------------------------------------
-;	 function wdt_feed
-;	-----------------------------------------
-_wdt_feed:
-;	watchdog.c:82: CR = !CR;
-	cpl	_CR
-;	watchdog.c:83: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'wdt_disable'
-;------------------------------------------------------------
-;	watchdog.c:88: void wdt_disable(void)
-;	-----------------------------------------
-;	 function wdt_disable
-;	-----------------------------------------
-_wdt_disable:
-;	watchdog.c:90: CMOD &= ~PCA_WDTE;       // Disable watchdog timer
-	anl	_CMOD,#0xbf
-;	watchdog.c:91: }
+;	watchdog.c:76: printf("Watchdog Timer Initialized\n\r");
+	mov	a,#___str_1
+	push	acc
+	mov	a,#(___str_1 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	watchdog.c:77: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'pca_isr'
 ;------------------------------------------------------------
-;	watchdog.c:97: void pca_isr(void) __interrupt(6)
+;i                         Allocated with name '_pca_isr_i_196608_22'
+;------------------------------------------------------------
+;	watchdog.c:83: void pca_isr(void) __interrupt(6)
 ;	-----------------------------------------
 ;	 function pca_isr
 ;	-----------------------------------------
@@ -706,16 +704,12 @@ _pca_isr:
 	push	(0+0)
 	push	psw
 	mov	psw,#0x00
-;	watchdog.c:99: if (CF)                  // Check for PCA overflow
-;	watchdog.c:101: CF = 0;              // Clear overflow flag
-;	assignBit
-	jbc	_CF,00115$
-	sjmp	00102$
-00115$:
-;	watchdog.c:102: printf("WATCHDOG\n\r");
-	mov	a,#___str_0
+;	watchdog.c:85: if (CF)              // PCA overflow - watchdog timeout
+	jnb	_CF,00106$
+;	watchdog.c:87: printf("Watchdog Timer Overflow! Resetting System...\n\r");
+	mov	a,#___str_2
 	push	acc
-	mov	a,#(___str_0 >> 8)
+	mov	a,#(___str_2 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -723,26 +717,29 @@ _pca_isr:
 	dec	sp
 	dec	sp
 	dec	sp
-00102$:
-;	watchdog.c:105: if (CCF0)               // Check module 0 interrupt
-;	watchdog.c:107: CCF0 = 0;           // Clear module 0 interrupt flag
+;	watchdog.c:90: for(int i = 0; i < 1000; i++);
+	mov	r6,#0x00
+	mov	r7,#0x00
+00108$:
+	clr	c
+	mov	a,r6
+	subb	a,#0xe8
+	mov	a,r7
+	xrl	a,#0x80
+	subb	a,#0x83
+	jnc	00103$
+	inc	r6
+;	watchdog.c:94: while(1);
+	cjne	r6,#0x00,00108$
+	inc	r7
+	sjmp	00108$
+00103$:
+	sjmp	00103$
+00106$:
+;	watchdog.c:97: CF = 0;              // Clear overflow flag
 ;	assignBit
-	jbc	_CCF0,00116$
-	sjmp	00105$
-00116$:
-;	watchdog.c:108: printf("CCF\n\r");
-	mov	a,#___str_1
-	push	acc
-	mov	a,#(___str_1 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-00105$:
-;	watchdog.c:110: }
+	clr	_CF
+;	watchdog.c:98: }
 	pop	psw
 	pop	(0+0)
 	pop	(0+1)
@@ -761,23 +758,15 @@ _pca_isr:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;i                         Allocated with name '_main_i_196608_33'
-;------------------------------------------------------------
-;	watchdog.c:114: void main(void)
+;	watchdog.c:103: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	watchdog.c:116: wdt_init();             // Initialize watchdog
-	lcall	_wdt_init
-;	watchdog.c:118: while(1)
-00103$:
-;	watchdog.c:122: wdt_feed();         // Feed watchdog periodically
-	lcall	_wdt_feed
-;	watchdog.c:123: printf("- - -");
-	mov	a,#___str_2
+;	watchdog.c:107: printf("Starting Watchdog Demo...\n\r");
+	mov	a,#___str_3
 	push	acc
-	mov	a,#(___str_2 >> 8)
+	mov	a,#(___str_3 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -785,41 +774,58 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	watchdog.c:124: for(int i = 0; i<10000; i++){}
-	mov	r6,#0x00
-	mov	r7,#0x00
-00106$:
-	clr	c
-	mov	a,r6
-	subb	a,#0x10
-	mov	a,r7
-	xrl	a,#0x80
-	subb	a,#0xa7
-	jnc	00103$
-	inc	r6
-	cjne	r6,#0x00,00106$
-	inc	r7
-;	watchdog.c:129: }
-	sjmp	00106$
+;	watchdog.c:110: wdt_init();
+	lcall	_wdt_init
+;	watchdog.c:112: printf("Entering infinite loop...\n\r");
+	mov	a,#___str_4
+	push	acc
+	mov	a,#(___str_4 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	watchdog.c:115: while(1)
+00102$:
+;	watchdog.c:120: }
+	sjmp	00102$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
-	.ascii "WATCHDOG"
+	.ascii "Initializing Watchdog Timer..."
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "CCF"
+	.ascii "Watchdog Timer Initialized"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_2:
-	.ascii "- - -"
+	.ascii "Watchdog Timer Overflow! Resetting System..."
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_3:
+	.ascii "Starting Watchdog Demo..."
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_4:
+	.ascii "Entering infinite loop..."
+	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)

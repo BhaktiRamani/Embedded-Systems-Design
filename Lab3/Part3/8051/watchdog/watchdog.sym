@@ -428,8 +428,10 @@ Symbol Table
     _WDTRST                                                     =  0000A6 G
     _WR                                                         =  0000B6 G
  19 ___str_0                                                       000000 R
- 19 ___str_1                                                       00000B R
- 19 ___str_2                                                       000011 R
+ 19 ___str_1                                                       000021 R
+ 19 ___str_2                                                       00003E R
+ 19 ___str_3                                                       00006D R
+ 19 ___str_4                                                       000089 R
   F __interrupt_vect                                               000000 R
     __mcs51_genRAMCLEAR                                            ****** GX
     __mcs51_genXINIT                                               ****** GX
@@ -438,13 +440,11 @@ Symbol Table
   F __sdcc_program_startup                                         000036 GR
   7 __start__stack                                                 000000 GR
  18 _getchar                                                       00001F GR
- 18 _main                                                          0000BB GR
- 18 _pca_isr                                                       00004B GR
+ 18 _main                                                          0000DC GR
+ 18 _pca_isr                                                       00006E GR
     _printf                                                        ****** GX
  18 _putchar                                                       000000 GR
   C _putchar_charToSend_65536_13                                   000000 R
- 18 _wdt_disable                                                   000047 GR
- 18 _wdt_feed                                                      000044 GR
  18 _wdt_init                                                      00002D GR
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -685,8 +685,8 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size     EC   flags   20
-  19 CONST                                      size     17   flags   20
+  18 CSEG                                       size    10B   flags   20
+  19 CONST                                      size     A5   flags   20
   1A XINIT                                      size      0   flags   20
   1B CABS                                       size      0   flags   28
 

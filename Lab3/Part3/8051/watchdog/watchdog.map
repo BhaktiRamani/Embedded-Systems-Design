@@ -50,12 +50,12 @@ C:   00000020  s_BIT_BANK
 C:   00000020  s_BSEG_BYTES                    
 C:   00000020  s__CODE                         
 C:   00000021  s_SSEG                          
-C:   00000022  l_CONST                         
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
 C:   00000039  l_HOME                          
 C:   0000003B  l_XSEG                          
 C:   00000074  l_DSEG                          
+C:   000000B0  l_CONST                         
 C:   000000DF  l_SSEG                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
@@ -70,7 +70,7 @@ C:   00000100  l_IRAM
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   0000043B  s_XISEG                         
-C:   00000B9C  l_CSEG                          
+C:   00000BBB  l_CSEG                          
 C:   00005000  s_HOME                          
 C:   00005039  s_GSINIT0                       
 C:   0000503C  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   00005092  s_GSFINAL
 C:   00005092  s_GSINIT                        
 C:   00005092  s_GSINIT5                       
 C:   00005095  s_CSEG                          
-C:   00005C31  s_CONST                         
-C:   00005C53  s_XINIT                         
+C:   00005C50  s_CONST                         
+C:   00005D00  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -476,31 +476,28 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00005095    00000B9C =        2972. bytes (REL,CON,CODE)
+CSEG                                00005095    00000BBB =        3003. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00005095  _putchar                           watchdog
 C:   000050B4  _getchar                           watchdog
 C:   000050C2  _wdt_init                          watchdog
-C:   000050D9  _wdt_feed                          watchdog
-C:   000050DC  _wdt_disable                       watchdog
-C:   000050E0  _pca_isr                           watchdog
-C:   00005150  _main                              watchdog
-C:   00005190  _vprintf                           vprintf
-C:   000051CF  _printf                            vprintf
-C:   000052D8  __print_format                     printf_large
-C:   00005BD9  _strlen                            _strlen
-C:   00005BF1  __mulint                           _mulint
-C:   00005C11  __gptrget                          _gptrget
-C:   00005C2D  __sdcc_external_startup            _startup
-
+C:   00005103  _pca_isr                           watchdog
+C:   00005171  _main                              watchdog
+C:   000051AF  _vprintf                           vprintf
+C:   000051EE  _printf                            vprintf
+C:   000052F7  __print_format                     printf_large
+C:   00005BF8  _strlen                            _strlen
+C:   00005C10  __mulint                           _mulint
+C:   00005C30  __gptrget                          _gptrget
+C:   00005C4C  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00005C31    00000022 =          34. bytes (REL,CON,CODE)
+CONST                               00005C50    000000B0 =         176. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

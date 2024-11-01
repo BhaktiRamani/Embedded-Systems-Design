@@ -32,99 +32,90 @@ int getchar(void)
  * @date 1/11/2024
  */
 
+/**
+ * @file pca_watchdog.c
+ * @brief Watchdog Timer Implementation with System Reset
+ *
+ * Demonstrates watchdog reset functionality using PCA timer.
+ * Main program enters infinite loop, watchdog ISR triggers
+ * system reset if timer overflows.
+ *
+ * @author Bhakti Ramani
+ * @date 1/11/2024
+ */
 
 
-/* PCA Configuration Constants */
-#define PCA_WDT_ENABLE    0x40    // Enable bit for PCA WDT
-#define PCA_INT_ENABLE    0x02    // Enable PCA interrupt
-#define PCA_WDTE         0x40    // PCA watchdog timer enable
-#define SYSCLK_DIV_12    0x00    // System clock/12
+
+/* PCA Configuration */
+#define PCA_WDT_ENABLE    0x40    // Enable PCA
+#define PCA_WDTE         0x40    // Enable WDT
 #define SYSCLK_DIV_4     0x82    // System clock/4
 #define WDT_TIMEOUT      0xFF    // Watchdog timeout value
 
-/* Function Prototypes */
-void wdt_init(void);
-void wdt_feed(void);
-void wdt_disable(void);
-
 /**
  * @brief Initialize PCA watchdog timer
- * Configures PCA for watchdog operation with interrupt
  */
 void wdt_init(void)
 {
-    // Clear PCA counter
+    printf("Initializing Watchdog Timer...\n\r");
+
+    // Configure PCA for watchdog operation
     CH = 0;
     CL = 0;
+    CMOD = SYSCLK_DIV_4;        // Set clock source as Sysclk/4
+    CCON = PCA_WDT_ENABLE;      // Enable PCA module
 
-    // Configure PCA module
-    CMOD = SYSCLK_DIV_4;     // Set PCA clock source as Sysclk/4
+    // Enable PCA interrupt
+    EA = 1;                     // Global interrupt enable
+    EC = 1;                     // PCA interrupt enable
 
-    // Enable watchdog and configure for interrupt mode
-    CCON = PCA_WDT_ENABLE;   // Enable PCA module
+    // Configure and enable watchdog
+    WDTRST = WDT_TIMEOUT;       // Set timeout period
+    CMOD |= PCA_WDTE;          // Enable watchdog
 
-    // Enable interrupts
-    EA = 1;                  // Enable global interrupts
-    EC = 1;                  // Enable PCA interrupt
-
-    // Enable watchdog timer
-    WDTRST = WDT_TIMEOUT;    // Set watchdog timeout period
-    CMOD |= PCA_WDTE;        // Enable watchdog timer
-}
-
-/**
- * @brief Feed/Service the watchdog timer
- * Resets the watchdog timer to prevent system reset
- */
-void wdt_feed(void)
-{
-    // Clear watchdog by toggling CR
-    CR = !CR;
-}
-
-/**
- * @brief Disable watchdog timer
- */
-void wdt_disable(void)
-{
-    CMOD &= ~PCA_WDTE;       // Disable watchdog timer
+    printf("Watchdog Timer Initialized\n\r");
 }
 
 /**
  * @brief PCA Interrupt Service Routine
- * Handles watchdog timer overflow
+ * Handles watchdog timeout by triggering system reset
  */
 void pca_isr(void) __interrupt(6)
 {
-    if (CF)                  // Check for PCA overflow
+    if (CF)              // PCA overflow - watchdog timeout
     {
-        CF = 0;              // Clear overflow flag
-        printf("WATCHDOG\n\r");
+        printf("Watchdog Timer Overflow! Resetting System...\n\r");
+
+        // Add some delay to allow UART to send message
+        for(int i = 0; i < 1000; i++);
+
+        // Force system reset by entering infinite loop
+        // This will cause the watchdog to reset the system
+        while(1);
     }
 
-    if (CCF0)               // Check module 0 interrupt
-    {
-        CCF0 = 0;           // Clear module 0 interrupt flag
-        printf("CCF\n\r");
-    }
+    CF = 0;              // Clear overflow flag
 }
 
-// Example usage in main program:
-
+/**
+ * @brief Main program
+ */
 void main(void)
 {
-    wdt_init();             // Initialize watchdog
 
+
+    printf("Starting Watchdog Demo...\n\r");
+
+    // Initialize watchdog
+    wdt_init();
+
+    printf("Entering infinite loop...\n\r");
+
+    // Enter infinite loop - will trigger watchdog reset
     while(1)
     {
-        // Your main program code
-
-        wdt_feed();         // Feed watchdog periodically
-        printf("- - -");
-        for(int i = 0; i<10000; i++){}
-
-        // If watchdog is not fed in time,
-        // pca_isr will be called
+        // Infinite loop without feeding the watchdog
+        // This will cause watchdog timeout
     }
 }
 

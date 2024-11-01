@@ -10,818 +10,842 @@
                                      10 ;--------------------------------------------------------
                                      11 	.globl _main
                                      12 	.globl _pca_isr
-                                     13 	.globl _getchar
-                                     14 	.globl _putchar
-                                     15 	.globl _printf
-                                     16 	.globl _TF1
-                                     17 	.globl _TR1
-                                     18 	.globl _TF0
-                                     19 	.globl _TR0
-                                     20 	.globl _IE1
-                                     21 	.globl _IT1
-                                     22 	.globl _IE0
-                                     23 	.globl _IT0
-                                     24 	.globl _SM0
-                                     25 	.globl _SM1
-                                     26 	.globl _SM2
-                                     27 	.globl _REN
-                                     28 	.globl _TB8
-                                     29 	.globl _RB8
-                                     30 	.globl _TI
-                                     31 	.globl _RI
-                                     32 	.globl _CY
-                                     33 	.globl _AC
-                                     34 	.globl _F0
-                                     35 	.globl _RS1
-                                     36 	.globl _RS0
-                                     37 	.globl _OV
-                                     38 	.globl _F1
-                                     39 	.globl _P
-                                     40 	.globl _RD
-                                     41 	.globl _WR
-                                     42 	.globl _T1
-                                     43 	.globl _T0
-                                     44 	.globl _INT1
-                                     45 	.globl _INT0
-                                     46 	.globl _TXD0
-                                     47 	.globl _TXD
-                                     48 	.globl _RXD0
-                                     49 	.globl _RXD
-                                     50 	.globl _P3_7
-                                     51 	.globl _P3_6
-                                     52 	.globl _P3_5
-                                     53 	.globl _P3_4
-                                     54 	.globl _P3_3
-                                     55 	.globl _P3_2
-                                     56 	.globl _P3_1
-                                     57 	.globl _P3_0
-                                     58 	.globl _P2_7
-                                     59 	.globl _P2_6
-                                     60 	.globl _P2_5
-                                     61 	.globl _P2_4
-                                     62 	.globl _P2_3
-                                     63 	.globl _P2_2
-                                     64 	.globl _P2_1
-                                     65 	.globl _P2_0
-                                     66 	.globl _P1_7
-                                     67 	.globl _P1_6
-                                     68 	.globl _P1_5
-                                     69 	.globl _P1_4
-                                     70 	.globl _P1_3
-                                     71 	.globl _P1_2
-                                     72 	.globl _P1_1
-                                     73 	.globl _P1_0
-                                     74 	.globl _P0_7
-                                     75 	.globl _P0_6
-                                     76 	.globl _P0_5
-                                     77 	.globl _P0_4
-                                     78 	.globl _P0_3
-                                     79 	.globl _P0_2
-                                     80 	.globl _P0_1
-                                     81 	.globl _P0_0
-                                     82 	.globl _PS
-                                     83 	.globl _PT1
-                                     84 	.globl _PX1
-                                     85 	.globl _PT0
-                                     86 	.globl _PX0
-                                     87 	.globl _EA
-                                     88 	.globl _ES
-                                     89 	.globl _ET1
-                                     90 	.globl _EX1
-                                     91 	.globl _ET0
-                                     92 	.globl _EX0
-                                     93 	.globl _BREG_F7
-                                     94 	.globl _BREG_F6
-                                     95 	.globl _BREG_F5
-                                     96 	.globl _BREG_F4
-                                     97 	.globl _BREG_F3
-                                     98 	.globl _BREG_F2
-                                     99 	.globl _BREG_F1
-                                    100 	.globl _BREG_F0
-                                    101 	.globl _P5_7
-                                    102 	.globl _P5_6
-                                    103 	.globl _P5_5
-                                    104 	.globl _P5_4
-                                    105 	.globl _P5_3
-                                    106 	.globl _P5_2
-                                    107 	.globl _P5_1
-                                    108 	.globl _P5_0
-                                    109 	.globl _P4_7
-                                    110 	.globl _P4_6
-                                    111 	.globl _P4_5
-                                    112 	.globl _P4_4
-                                    113 	.globl _P4_3
-                                    114 	.globl _P4_2
-                                    115 	.globl _P4_1
-                                    116 	.globl _P4_0
-                                    117 	.globl _PX0L
-                                    118 	.globl _PT0L
-                                    119 	.globl _PX1L
-                                    120 	.globl _PT1L
-                                    121 	.globl _PSL
-                                    122 	.globl _PT2L
-                                    123 	.globl _PPCL
-                                    124 	.globl _EC
-                                    125 	.globl _CCF0
-                                    126 	.globl _CCF1
-                                    127 	.globl _CCF2
-                                    128 	.globl _CCF3
-                                    129 	.globl _CCF4
-                                    130 	.globl _CR
-                                    131 	.globl _CF
-                                    132 	.globl _TF2
-                                    133 	.globl _EXF2
-                                    134 	.globl _RCLK
-                                    135 	.globl _TCLK
-                                    136 	.globl _EXEN2
-                                    137 	.globl _TR2
-                                    138 	.globl _C_T2
-                                    139 	.globl _CP_RL2
-                                    140 	.globl _T2CON_7
-                                    141 	.globl _T2CON_6
-                                    142 	.globl _T2CON_5
-                                    143 	.globl _T2CON_4
-                                    144 	.globl _T2CON_3
-                                    145 	.globl _T2CON_2
-                                    146 	.globl _T2CON_1
-                                    147 	.globl _T2CON_0
-                                    148 	.globl _PT2
-                                    149 	.globl _ET2
-                                    150 	.globl _TMOD
-                                    151 	.globl _TL1
-                                    152 	.globl _TL0
-                                    153 	.globl _TH1
-                                    154 	.globl _TH0
-                                    155 	.globl _TCON
-                                    156 	.globl _SP
-                                    157 	.globl _SCON
-                                    158 	.globl _SBUF0
-                                    159 	.globl _SBUF
-                                    160 	.globl _PSW
-                                    161 	.globl _PCON
-                                    162 	.globl _P3
-                                    163 	.globl _P2
-                                    164 	.globl _P1
-                                    165 	.globl _P0
-                                    166 	.globl _IP
-                                    167 	.globl _IE
-                                    168 	.globl _DP0L
-                                    169 	.globl _DPL
-                                    170 	.globl _DP0H
-                                    171 	.globl _DPH
-                                    172 	.globl _B
-                                    173 	.globl _ACC
-                                    174 	.globl _EECON
-                                    175 	.globl _KBF
-                                    176 	.globl _KBE
-                                    177 	.globl _KBLS
-                                    178 	.globl _BRL
-                                    179 	.globl _BDRCON
-                                    180 	.globl _T2MOD
-                                    181 	.globl _SPDAT
-                                    182 	.globl _SPSTA
-                                    183 	.globl _SPCON
-                                    184 	.globl _SADEN
-                                    185 	.globl _SADDR
-                                    186 	.globl _WDTPRG
-                                    187 	.globl _WDTRST
-                                    188 	.globl _P5
-                                    189 	.globl _P4
-                                    190 	.globl _IPH1
-                                    191 	.globl _IPL1
-                                    192 	.globl _IPH0
-                                    193 	.globl _IPL0
-                                    194 	.globl _IEN1
-                                    195 	.globl _IEN0
-                                    196 	.globl _CMOD
-                                    197 	.globl _CL
-                                    198 	.globl _CH
-                                    199 	.globl _CCON
-                                    200 	.globl _CCAPM4
-                                    201 	.globl _CCAPM3
-                                    202 	.globl _CCAPM2
-                                    203 	.globl _CCAPM1
-                                    204 	.globl _CCAPM0
-                                    205 	.globl _CCAP4L
-                                    206 	.globl _CCAP3L
-                                    207 	.globl _CCAP2L
-                                    208 	.globl _CCAP1L
-                                    209 	.globl _CCAP0L
-                                    210 	.globl _CCAP4H
-                                    211 	.globl _CCAP3H
-                                    212 	.globl _CCAP2H
-                                    213 	.globl _CCAP1H
-                                    214 	.globl _CCAP0H
-                                    215 	.globl _CKCON1
-                                    216 	.globl _CKCON0
-                                    217 	.globl _CKRL
-                                    218 	.globl _AUXR1
-                                    219 	.globl _AUXR
-                                    220 	.globl _TH2
-                                    221 	.globl _TL2
-                                    222 	.globl _RCAP2H
-                                    223 	.globl _RCAP2L
-                                    224 	.globl _T2CON
-                                    225 	.globl _wdt_init
-                                    226 	.globl _wdt_feed
-                                    227 	.globl _wdt_disable
+                                     13 	.globl _wdt_init
+                                     14 	.globl _getchar
+                                     15 	.globl _putchar
+                                     16 	.globl _printf
+                                     17 	.globl _TF1
+                                     18 	.globl _TR1
+                                     19 	.globl _TF0
+                                     20 	.globl _TR0
+                                     21 	.globl _IE1
+                                     22 	.globl _IT1
+                                     23 	.globl _IE0
+                                     24 	.globl _IT0
+                                     25 	.globl _SM0
+                                     26 	.globl _SM1
+                                     27 	.globl _SM2
+                                     28 	.globl _REN
+                                     29 	.globl _TB8
+                                     30 	.globl _RB8
+                                     31 	.globl _TI
+                                     32 	.globl _RI
+                                     33 	.globl _CY
+                                     34 	.globl _AC
+                                     35 	.globl _F0
+                                     36 	.globl _RS1
+                                     37 	.globl _RS0
+                                     38 	.globl _OV
+                                     39 	.globl _F1
+                                     40 	.globl _P
+                                     41 	.globl _RD
+                                     42 	.globl _WR
+                                     43 	.globl _T1
+                                     44 	.globl _T0
+                                     45 	.globl _INT1
+                                     46 	.globl _INT0
+                                     47 	.globl _TXD0
+                                     48 	.globl _TXD
+                                     49 	.globl _RXD0
+                                     50 	.globl _RXD
+                                     51 	.globl _P3_7
+                                     52 	.globl _P3_6
+                                     53 	.globl _P3_5
+                                     54 	.globl _P3_4
+                                     55 	.globl _P3_3
+                                     56 	.globl _P3_2
+                                     57 	.globl _P3_1
+                                     58 	.globl _P3_0
+                                     59 	.globl _P2_7
+                                     60 	.globl _P2_6
+                                     61 	.globl _P2_5
+                                     62 	.globl _P2_4
+                                     63 	.globl _P2_3
+                                     64 	.globl _P2_2
+                                     65 	.globl _P2_1
+                                     66 	.globl _P2_0
+                                     67 	.globl _P1_7
+                                     68 	.globl _P1_6
+                                     69 	.globl _P1_5
+                                     70 	.globl _P1_4
+                                     71 	.globl _P1_3
+                                     72 	.globl _P1_2
+                                     73 	.globl _P1_1
+                                     74 	.globl _P1_0
+                                     75 	.globl _P0_7
+                                     76 	.globl _P0_6
+                                     77 	.globl _P0_5
+                                     78 	.globl _P0_4
+                                     79 	.globl _P0_3
+                                     80 	.globl _P0_2
+                                     81 	.globl _P0_1
+                                     82 	.globl _P0_0
+                                     83 	.globl _PS
+                                     84 	.globl _PT1
+                                     85 	.globl _PX1
+                                     86 	.globl _PT0
+                                     87 	.globl _PX0
+                                     88 	.globl _EA
+                                     89 	.globl _ES
+                                     90 	.globl _ET1
+                                     91 	.globl _EX1
+                                     92 	.globl _ET0
+                                     93 	.globl _EX0
+                                     94 	.globl _BREG_F7
+                                     95 	.globl _BREG_F6
+                                     96 	.globl _BREG_F5
+                                     97 	.globl _BREG_F4
+                                     98 	.globl _BREG_F3
+                                     99 	.globl _BREG_F2
+                                    100 	.globl _BREG_F1
+                                    101 	.globl _BREG_F0
+                                    102 	.globl _P5_7
+                                    103 	.globl _P5_6
+                                    104 	.globl _P5_5
+                                    105 	.globl _P5_4
+                                    106 	.globl _P5_3
+                                    107 	.globl _P5_2
+                                    108 	.globl _P5_1
+                                    109 	.globl _P5_0
+                                    110 	.globl _P4_7
+                                    111 	.globl _P4_6
+                                    112 	.globl _P4_5
+                                    113 	.globl _P4_4
+                                    114 	.globl _P4_3
+                                    115 	.globl _P4_2
+                                    116 	.globl _P4_1
+                                    117 	.globl _P4_0
+                                    118 	.globl _PX0L
+                                    119 	.globl _PT0L
+                                    120 	.globl _PX1L
+                                    121 	.globl _PT1L
+                                    122 	.globl _PSL
+                                    123 	.globl _PT2L
+                                    124 	.globl _PPCL
+                                    125 	.globl _EC
+                                    126 	.globl _CCF0
+                                    127 	.globl _CCF1
+                                    128 	.globl _CCF2
+                                    129 	.globl _CCF3
+                                    130 	.globl _CCF4
+                                    131 	.globl _CR
+                                    132 	.globl _CF
+                                    133 	.globl _TF2
+                                    134 	.globl _EXF2
+                                    135 	.globl _RCLK
+                                    136 	.globl _TCLK
+                                    137 	.globl _EXEN2
+                                    138 	.globl _TR2
+                                    139 	.globl _C_T2
+                                    140 	.globl _CP_RL2
+                                    141 	.globl _T2CON_7
+                                    142 	.globl _T2CON_6
+                                    143 	.globl _T2CON_5
+                                    144 	.globl _T2CON_4
+                                    145 	.globl _T2CON_3
+                                    146 	.globl _T2CON_2
+                                    147 	.globl _T2CON_1
+                                    148 	.globl _T2CON_0
+                                    149 	.globl _PT2
+                                    150 	.globl _ET2
+                                    151 	.globl _TMOD
+                                    152 	.globl _TL1
+                                    153 	.globl _TL0
+                                    154 	.globl _TH1
+                                    155 	.globl _TH0
+                                    156 	.globl _TCON
+                                    157 	.globl _SP
+                                    158 	.globl _SCON
+                                    159 	.globl _SBUF0
+                                    160 	.globl _SBUF
+                                    161 	.globl _PSW
+                                    162 	.globl _PCON
+                                    163 	.globl _P3
+                                    164 	.globl _P2
+                                    165 	.globl _P1
+                                    166 	.globl _P0
+                                    167 	.globl _IP
+                                    168 	.globl _IE
+                                    169 	.globl _DP0L
+                                    170 	.globl _DPL
+                                    171 	.globl _DP0H
+                                    172 	.globl _DPH
+                                    173 	.globl _B
+                                    174 	.globl _ACC
+                                    175 	.globl _EECON
+                                    176 	.globl _KBF
+                                    177 	.globl _KBE
+                                    178 	.globl _KBLS
+                                    179 	.globl _BRL
+                                    180 	.globl _BDRCON
+                                    181 	.globl _T2MOD
+                                    182 	.globl _SPDAT
+                                    183 	.globl _SPSTA
+                                    184 	.globl _SPCON
+                                    185 	.globl _SADEN
+                                    186 	.globl _SADDR
+                                    187 	.globl _WDTPRG
+                                    188 	.globl _WDTRST
+                                    189 	.globl _P5
+                                    190 	.globl _P4
+                                    191 	.globl _IPH1
+                                    192 	.globl _IPL1
+                                    193 	.globl _IPH0
+                                    194 	.globl _IPL0
+                                    195 	.globl _IEN1
+                                    196 	.globl _IEN0
+                                    197 	.globl _CMOD
+                                    198 	.globl _CL
+                                    199 	.globl _CH
+                                    200 	.globl _CCON
+                                    201 	.globl _CCAPM4
+                                    202 	.globl _CCAPM3
+                                    203 	.globl _CCAPM2
+                                    204 	.globl _CCAPM1
+                                    205 	.globl _CCAPM0
+                                    206 	.globl _CCAP4L
+                                    207 	.globl _CCAP3L
+                                    208 	.globl _CCAP2L
+                                    209 	.globl _CCAP1L
+                                    210 	.globl _CCAP0L
+                                    211 	.globl _CCAP4H
+                                    212 	.globl _CCAP3H
+                                    213 	.globl _CCAP2H
+                                    214 	.globl _CCAP1H
+                                    215 	.globl _CCAP0H
+                                    216 	.globl _CKCON1
+                                    217 	.globl _CKCON0
+                                    218 	.globl _CKRL
+                                    219 	.globl _AUXR1
+                                    220 	.globl _AUXR
+                                    221 	.globl _TH2
+                                    222 	.globl _TL2
+                                    223 	.globl _RCAP2H
+                                    224 	.globl _RCAP2L
+                                    225 	.globl _T2CON
+                                    226 ;--------------------------------------------------------
+                                    227 ; special function registers
                                     228 ;--------------------------------------------------------
-                                    229 ; special function registers
-                                    230 ;--------------------------------------------------------
-                                    231 	.area RSEG    (ABS,DATA)
-      000000                        232 	.org 0x0000
-                           0000C8   233 _T2CON	=	0x00c8
-                           0000CA   234 _RCAP2L	=	0x00ca
-                           0000CB   235 _RCAP2H	=	0x00cb
-                           0000CC   236 _TL2	=	0x00cc
-                           0000CD   237 _TH2	=	0x00cd
-                           00008E   238 _AUXR	=	0x008e
-                           0000A2   239 _AUXR1	=	0x00a2
-                           000097   240 _CKRL	=	0x0097
-                           00008F   241 _CKCON0	=	0x008f
-                           0000AF   242 _CKCON1	=	0x00af
-                           0000FA   243 _CCAP0H	=	0x00fa
-                           0000FB   244 _CCAP1H	=	0x00fb
-                           0000FC   245 _CCAP2H	=	0x00fc
-                           0000FD   246 _CCAP3H	=	0x00fd
-                           0000FE   247 _CCAP4H	=	0x00fe
-                           0000EA   248 _CCAP0L	=	0x00ea
-                           0000EB   249 _CCAP1L	=	0x00eb
-                           0000EC   250 _CCAP2L	=	0x00ec
-                           0000ED   251 _CCAP3L	=	0x00ed
-                           0000EE   252 _CCAP4L	=	0x00ee
-                           0000DA   253 _CCAPM0	=	0x00da
-                           0000DB   254 _CCAPM1	=	0x00db
-                           0000DC   255 _CCAPM2	=	0x00dc
-                           0000DD   256 _CCAPM3	=	0x00dd
-                           0000DE   257 _CCAPM4	=	0x00de
-                           0000D8   258 _CCON	=	0x00d8
-                           0000F9   259 _CH	=	0x00f9
-                           0000E9   260 _CL	=	0x00e9
-                           0000D9   261 _CMOD	=	0x00d9
-                           0000A8   262 _IEN0	=	0x00a8
-                           0000B1   263 _IEN1	=	0x00b1
-                           0000B8   264 _IPL0	=	0x00b8
-                           0000B7   265 _IPH0	=	0x00b7
-                           0000B2   266 _IPL1	=	0x00b2
-                           0000B3   267 _IPH1	=	0x00b3
-                           0000C0   268 _P4	=	0x00c0
-                           0000E8   269 _P5	=	0x00e8
-                           0000A6   270 _WDTRST	=	0x00a6
-                           0000A7   271 _WDTPRG	=	0x00a7
-                           0000A9   272 _SADDR	=	0x00a9
-                           0000B9   273 _SADEN	=	0x00b9
-                           0000C3   274 _SPCON	=	0x00c3
-                           0000C4   275 _SPSTA	=	0x00c4
-                           0000C5   276 _SPDAT	=	0x00c5
-                           0000C9   277 _T2MOD	=	0x00c9
-                           00009B   278 _BDRCON	=	0x009b
-                           00009A   279 _BRL	=	0x009a
-                           00009C   280 _KBLS	=	0x009c
-                           00009D   281 _KBE	=	0x009d
-                           00009E   282 _KBF	=	0x009e
-                           0000D2   283 _EECON	=	0x00d2
-                           0000E0   284 _ACC	=	0x00e0
-                           0000F0   285 _B	=	0x00f0
-                           000083   286 _DPH	=	0x0083
-                           000083   287 _DP0H	=	0x0083
-                           000082   288 _DPL	=	0x0082
-                           000082   289 _DP0L	=	0x0082
-                           0000A8   290 _IE	=	0x00a8
-                           0000B8   291 _IP	=	0x00b8
-                           000080   292 _P0	=	0x0080
-                           000090   293 _P1	=	0x0090
-                           0000A0   294 _P2	=	0x00a0
-                           0000B0   295 _P3	=	0x00b0
-                           000087   296 _PCON	=	0x0087
-                           0000D0   297 _PSW	=	0x00d0
-                           000099   298 _SBUF	=	0x0099
-                           000099   299 _SBUF0	=	0x0099
-                           000098   300 _SCON	=	0x0098
-                           000081   301 _SP	=	0x0081
-                           000088   302 _TCON	=	0x0088
-                           00008C   303 _TH0	=	0x008c
-                           00008D   304 _TH1	=	0x008d
-                           00008A   305 _TL0	=	0x008a
-                           00008B   306 _TL1	=	0x008b
-                           000089   307 _TMOD	=	0x0089
+                                    229 	.area RSEG    (ABS,DATA)
+      000000                        230 	.org 0x0000
+                           0000C8   231 _T2CON	=	0x00c8
+                           0000CA   232 _RCAP2L	=	0x00ca
+                           0000CB   233 _RCAP2H	=	0x00cb
+                           0000CC   234 _TL2	=	0x00cc
+                           0000CD   235 _TH2	=	0x00cd
+                           00008E   236 _AUXR	=	0x008e
+                           0000A2   237 _AUXR1	=	0x00a2
+                           000097   238 _CKRL	=	0x0097
+                           00008F   239 _CKCON0	=	0x008f
+                           0000AF   240 _CKCON1	=	0x00af
+                           0000FA   241 _CCAP0H	=	0x00fa
+                           0000FB   242 _CCAP1H	=	0x00fb
+                           0000FC   243 _CCAP2H	=	0x00fc
+                           0000FD   244 _CCAP3H	=	0x00fd
+                           0000FE   245 _CCAP4H	=	0x00fe
+                           0000EA   246 _CCAP0L	=	0x00ea
+                           0000EB   247 _CCAP1L	=	0x00eb
+                           0000EC   248 _CCAP2L	=	0x00ec
+                           0000ED   249 _CCAP3L	=	0x00ed
+                           0000EE   250 _CCAP4L	=	0x00ee
+                           0000DA   251 _CCAPM0	=	0x00da
+                           0000DB   252 _CCAPM1	=	0x00db
+                           0000DC   253 _CCAPM2	=	0x00dc
+                           0000DD   254 _CCAPM3	=	0x00dd
+                           0000DE   255 _CCAPM4	=	0x00de
+                           0000D8   256 _CCON	=	0x00d8
+                           0000F9   257 _CH	=	0x00f9
+                           0000E9   258 _CL	=	0x00e9
+                           0000D9   259 _CMOD	=	0x00d9
+                           0000A8   260 _IEN0	=	0x00a8
+                           0000B1   261 _IEN1	=	0x00b1
+                           0000B8   262 _IPL0	=	0x00b8
+                           0000B7   263 _IPH0	=	0x00b7
+                           0000B2   264 _IPL1	=	0x00b2
+                           0000B3   265 _IPH1	=	0x00b3
+                           0000C0   266 _P4	=	0x00c0
+                           0000E8   267 _P5	=	0x00e8
+                           0000A6   268 _WDTRST	=	0x00a6
+                           0000A7   269 _WDTPRG	=	0x00a7
+                           0000A9   270 _SADDR	=	0x00a9
+                           0000B9   271 _SADEN	=	0x00b9
+                           0000C3   272 _SPCON	=	0x00c3
+                           0000C4   273 _SPSTA	=	0x00c4
+                           0000C5   274 _SPDAT	=	0x00c5
+                           0000C9   275 _T2MOD	=	0x00c9
+                           00009B   276 _BDRCON	=	0x009b
+                           00009A   277 _BRL	=	0x009a
+                           00009C   278 _KBLS	=	0x009c
+                           00009D   279 _KBE	=	0x009d
+                           00009E   280 _KBF	=	0x009e
+                           0000D2   281 _EECON	=	0x00d2
+                           0000E0   282 _ACC	=	0x00e0
+                           0000F0   283 _B	=	0x00f0
+                           000083   284 _DPH	=	0x0083
+                           000083   285 _DP0H	=	0x0083
+                           000082   286 _DPL	=	0x0082
+                           000082   287 _DP0L	=	0x0082
+                           0000A8   288 _IE	=	0x00a8
+                           0000B8   289 _IP	=	0x00b8
+                           000080   290 _P0	=	0x0080
+                           000090   291 _P1	=	0x0090
+                           0000A0   292 _P2	=	0x00a0
+                           0000B0   293 _P3	=	0x00b0
+                           000087   294 _PCON	=	0x0087
+                           0000D0   295 _PSW	=	0x00d0
+                           000099   296 _SBUF	=	0x0099
+                           000099   297 _SBUF0	=	0x0099
+                           000098   298 _SCON	=	0x0098
+                           000081   299 _SP	=	0x0081
+                           000088   300 _TCON	=	0x0088
+                           00008C   301 _TH0	=	0x008c
+                           00008D   302 _TH1	=	0x008d
+                           00008A   303 _TL0	=	0x008a
+                           00008B   304 _TL1	=	0x008b
+                           000089   305 _TMOD	=	0x0089
+                                    306 ;--------------------------------------------------------
+                                    307 ; special function bits
                                     308 ;--------------------------------------------------------
-                                    309 ; special function bits
-                                    310 ;--------------------------------------------------------
-                                    311 	.area RSEG    (ABS,DATA)
-      000000                        312 	.org 0x0000
-                           0000AD   313 _ET2	=	0x00ad
-                           0000BD   314 _PT2	=	0x00bd
-                           0000C8   315 _T2CON_0	=	0x00c8
-                           0000C9   316 _T2CON_1	=	0x00c9
-                           0000CA   317 _T2CON_2	=	0x00ca
-                           0000CB   318 _T2CON_3	=	0x00cb
-                           0000CC   319 _T2CON_4	=	0x00cc
-                           0000CD   320 _T2CON_5	=	0x00cd
-                           0000CE   321 _T2CON_6	=	0x00ce
-                           0000CF   322 _T2CON_7	=	0x00cf
-                           0000C8   323 _CP_RL2	=	0x00c8
-                           0000C9   324 _C_T2	=	0x00c9
-                           0000CA   325 _TR2	=	0x00ca
-                           0000CB   326 _EXEN2	=	0x00cb
-                           0000CC   327 _TCLK	=	0x00cc
-                           0000CD   328 _RCLK	=	0x00cd
-                           0000CE   329 _EXF2	=	0x00ce
-                           0000CF   330 _TF2	=	0x00cf
-                           0000DF   331 _CF	=	0x00df
-                           0000DE   332 _CR	=	0x00de
-                           0000DC   333 _CCF4	=	0x00dc
-                           0000DB   334 _CCF3	=	0x00db
-                           0000DA   335 _CCF2	=	0x00da
-                           0000D9   336 _CCF1	=	0x00d9
-                           0000D8   337 _CCF0	=	0x00d8
-                           0000AE   338 _EC	=	0x00ae
-                           0000BE   339 _PPCL	=	0x00be
-                           0000BD   340 _PT2L	=	0x00bd
-                           0000BC   341 _PSL	=	0x00bc
-                           0000BB   342 _PT1L	=	0x00bb
-                           0000BA   343 _PX1L	=	0x00ba
-                           0000B9   344 _PT0L	=	0x00b9
-                           0000B8   345 _PX0L	=	0x00b8
-                           0000C0   346 _P4_0	=	0x00c0
-                           0000C1   347 _P4_1	=	0x00c1
-                           0000C2   348 _P4_2	=	0x00c2
-                           0000C3   349 _P4_3	=	0x00c3
-                           0000C4   350 _P4_4	=	0x00c4
-                           0000C5   351 _P4_5	=	0x00c5
-                           0000C6   352 _P4_6	=	0x00c6
-                           0000C7   353 _P4_7	=	0x00c7
-                           0000E8   354 _P5_0	=	0x00e8
-                           0000E9   355 _P5_1	=	0x00e9
-                           0000EA   356 _P5_2	=	0x00ea
-                           0000EB   357 _P5_3	=	0x00eb
-                           0000EC   358 _P5_4	=	0x00ec
-                           0000ED   359 _P5_5	=	0x00ed
-                           0000EE   360 _P5_6	=	0x00ee
-                           0000EF   361 _P5_7	=	0x00ef
-                           0000F0   362 _BREG_F0	=	0x00f0
-                           0000F1   363 _BREG_F1	=	0x00f1
-                           0000F2   364 _BREG_F2	=	0x00f2
-                           0000F3   365 _BREG_F3	=	0x00f3
-                           0000F4   366 _BREG_F4	=	0x00f4
-                           0000F5   367 _BREG_F5	=	0x00f5
-                           0000F6   368 _BREG_F6	=	0x00f6
-                           0000F7   369 _BREG_F7	=	0x00f7
-                           0000A8   370 _EX0	=	0x00a8
-                           0000A9   371 _ET0	=	0x00a9
-                           0000AA   372 _EX1	=	0x00aa
-                           0000AB   373 _ET1	=	0x00ab
-                           0000AC   374 _ES	=	0x00ac
-                           0000AF   375 _EA	=	0x00af
-                           0000B8   376 _PX0	=	0x00b8
-                           0000B9   377 _PT0	=	0x00b9
-                           0000BA   378 _PX1	=	0x00ba
-                           0000BB   379 _PT1	=	0x00bb
-                           0000BC   380 _PS	=	0x00bc
-                           000080   381 _P0_0	=	0x0080
-                           000081   382 _P0_1	=	0x0081
-                           000082   383 _P0_2	=	0x0082
-                           000083   384 _P0_3	=	0x0083
-                           000084   385 _P0_4	=	0x0084
-                           000085   386 _P0_5	=	0x0085
-                           000086   387 _P0_6	=	0x0086
-                           000087   388 _P0_7	=	0x0087
-                           000090   389 _P1_0	=	0x0090
-                           000091   390 _P1_1	=	0x0091
-                           000092   391 _P1_2	=	0x0092
-                           000093   392 _P1_3	=	0x0093
-                           000094   393 _P1_4	=	0x0094
-                           000095   394 _P1_5	=	0x0095
-                           000096   395 _P1_6	=	0x0096
-                           000097   396 _P1_7	=	0x0097
-                           0000A0   397 _P2_0	=	0x00a0
-                           0000A1   398 _P2_1	=	0x00a1
-                           0000A2   399 _P2_2	=	0x00a2
-                           0000A3   400 _P2_3	=	0x00a3
-                           0000A4   401 _P2_4	=	0x00a4
-                           0000A5   402 _P2_5	=	0x00a5
-                           0000A6   403 _P2_6	=	0x00a6
-                           0000A7   404 _P2_7	=	0x00a7
-                           0000B0   405 _P3_0	=	0x00b0
-                           0000B1   406 _P3_1	=	0x00b1
-                           0000B2   407 _P3_2	=	0x00b2
-                           0000B3   408 _P3_3	=	0x00b3
-                           0000B4   409 _P3_4	=	0x00b4
-                           0000B5   410 _P3_5	=	0x00b5
-                           0000B6   411 _P3_6	=	0x00b6
-                           0000B7   412 _P3_7	=	0x00b7
-                           0000B0   413 _RXD	=	0x00b0
-                           0000B0   414 _RXD0	=	0x00b0
-                           0000B1   415 _TXD	=	0x00b1
-                           0000B1   416 _TXD0	=	0x00b1
-                           0000B2   417 _INT0	=	0x00b2
-                           0000B3   418 _INT1	=	0x00b3
-                           0000B4   419 _T0	=	0x00b4
-                           0000B5   420 _T1	=	0x00b5
-                           0000B6   421 _WR	=	0x00b6
-                           0000B7   422 _RD	=	0x00b7
-                           0000D0   423 _P	=	0x00d0
-                           0000D1   424 _F1	=	0x00d1
-                           0000D2   425 _OV	=	0x00d2
-                           0000D3   426 _RS0	=	0x00d3
-                           0000D4   427 _RS1	=	0x00d4
-                           0000D5   428 _F0	=	0x00d5
-                           0000D6   429 _AC	=	0x00d6
-                           0000D7   430 _CY	=	0x00d7
-                           000098   431 _RI	=	0x0098
-                           000099   432 _TI	=	0x0099
-                           00009A   433 _RB8	=	0x009a
-                           00009B   434 _TB8	=	0x009b
-                           00009C   435 _REN	=	0x009c
-                           00009D   436 _SM2	=	0x009d
-                           00009E   437 _SM1	=	0x009e
-                           00009F   438 _SM0	=	0x009f
-                           000088   439 _IT0	=	0x0088
-                           000089   440 _IE0	=	0x0089
-                           00008A   441 _IT1	=	0x008a
-                           00008B   442 _IE1	=	0x008b
-                           00008C   443 _TR0	=	0x008c
-                           00008D   444 _TF0	=	0x008d
-                           00008E   445 _TR1	=	0x008e
-                           00008F   446 _TF1	=	0x008f
+                                    309 	.area RSEG    (ABS,DATA)
+      000000                        310 	.org 0x0000
+                           0000AD   311 _ET2	=	0x00ad
+                           0000BD   312 _PT2	=	0x00bd
+                           0000C8   313 _T2CON_0	=	0x00c8
+                           0000C9   314 _T2CON_1	=	0x00c9
+                           0000CA   315 _T2CON_2	=	0x00ca
+                           0000CB   316 _T2CON_3	=	0x00cb
+                           0000CC   317 _T2CON_4	=	0x00cc
+                           0000CD   318 _T2CON_5	=	0x00cd
+                           0000CE   319 _T2CON_6	=	0x00ce
+                           0000CF   320 _T2CON_7	=	0x00cf
+                           0000C8   321 _CP_RL2	=	0x00c8
+                           0000C9   322 _C_T2	=	0x00c9
+                           0000CA   323 _TR2	=	0x00ca
+                           0000CB   324 _EXEN2	=	0x00cb
+                           0000CC   325 _TCLK	=	0x00cc
+                           0000CD   326 _RCLK	=	0x00cd
+                           0000CE   327 _EXF2	=	0x00ce
+                           0000CF   328 _TF2	=	0x00cf
+                           0000DF   329 _CF	=	0x00df
+                           0000DE   330 _CR	=	0x00de
+                           0000DC   331 _CCF4	=	0x00dc
+                           0000DB   332 _CCF3	=	0x00db
+                           0000DA   333 _CCF2	=	0x00da
+                           0000D9   334 _CCF1	=	0x00d9
+                           0000D8   335 _CCF0	=	0x00d8
+                           0000AE   336 _EC	=	0x00ae
+                           0000BE   337 _PPCL	=	0x00be
+                           0000BD   338 _PT2L	=	0x00bd
+                           0000BC   339 _PSL	=	0x00bc
+                           0000BB   340 _PT1L	=	0x00bb
+                           0000BA   341 _PX1L	=	0x00ba
+                           0000B9   342 _PT0L	=	0x00b9
+                           0000B8   343 _PX0L	=	0x00b8
+                           0000C0   344 _P4_0	=	0x00c0
+                           0000C1   345 _P4_1	=	0x00c1
+                           0000C2   346 _P4_2	=	0x00c2
+                           0000C3   347 _P4_3	=	0x00c3
+                           0000C4   348 _P4_4	=	0x00c4
+                           0000C5   349 _P4_5	=	0x00c5
+                           0000C6   350 _P4_6	=	0x00c6
+                           0000C7   351 _P4_7	=	0x00c7
+                           0000E8   352 _P5_0	=	0x00e8
+                           0000E9   353 _P5_1	=	0x00e9
+                           0000EA   354 _P5_2	=	0x00ea
+                           0000EB   355 _P5_3	=	0x00eb
+                           0000EC   356 _P5_4	=	0x00ec
+                           0000ED   357 _P5_5	=	0x00ed
+                           0000EE   358 _P5_6	=	0x00ee
+                           0000EF   359 _P5_7	=	0x00ef
+                           0000F0   360 _BREG_F0	=	0x00f0
+                           0000F1   361 _BREG_F1	=	0x00f1
+                           0000F2   362 _BREG_F2	=	0x00f2
+                           0000F3   363 _BREG_F3	=	0x00f3
+                           0000F4   364 _BREG_F4	=	0x00f4
+                           0000F5   365 _BREG_F5	=	0x00f5
+                           0000F6   366 _BREG_F6	=	0x00f6
+                           0000F7   367 _BREG_F7	=	0x00f7
+                           0000A8   368 _EX0	=	0x00a8
+                           0000A9   369 _ET0	=	0x00a9
+                           0000AA   370 _EX1	=	0x00aa
+                           0000AB   371 _ET1	=	0x00ab
+                           0000AC   372 _ES	=	0x00ac
+                           0000AF   373 _EA	=	0x00af
+                           0000B8   374 _PX0	=	0x00b8
+                           0000B9   375 _PT0	=	0x00b9
+                           0000BA   376 _PX1	=	0x00ba
+                           0000BB   377 _PT1	=	0x00bb
+                           0000BC   378 _PS	=	0x00bc
+                           000080   379 _P0_0	=	0x0080
+                           000081   380 _P0_1	=	0x0081
+                           000082   381 _P0_2	=	0x0082
+                           000083   382 _P0_3	=	0x0083
+                           000084   383 _P0_4	=	0x0084
+                           000085   384 _P0_5	=	0x0085
+                           000086   385 _P0_6	=	0x0086
+                           000087   386 _P0_7	=	0x0087
+                           000090   387 _P1_0	=	0x0090
+                           000091   388 _P1_1	=	0x0091
+                           000092   389 _P1_2	=	0x0092
+                           000093   390 _P1_3	=	0x0093
+                           000094   391 _P1_4	=	0x0094
+                           000095   392 _P1_5	=	0x0095
+                           000096   393 _P1_6	=	0x0096
+                           000097   394 _P1_7	=	0x0097
+                           0000A0   395 _P2_0	=	0x00a0
+                           0000A1   396 _P2_1	=	0x00a1
+                           0000A2   397 _P2_2	=	0x00a2
+                           0000A3   398 _P2_3	=	0x00a3
+                           0000A4   399 _P2_4	=	0x00a4
+                           0000A5   400 _P2_5	=	0x00a5
+                           0000A6   401 _P2_6	=	0x00a6
+                           0000A7   402 _P2_7	=	0x00a7
+                           0000B0   403 _P3_0	=	0x00b0
+                           0000B1   404 _P3_1	=	0x00b1
+                           0000B2   405 _P3_2	=	0x00b2
+                           0000B3   406 _P3_3	=	0x00b3
+                           0000B4   407 _P3_4	=	0x00b4
+                           0000B5   408 _P3_5	=	0x00b5
+                           0000B6   409 _P3_6	=	0x00b6
+                           0000B7   410 _P3_7	=	0x00b7
+                           0000B0   411 _RXD	=	0x00b0
+                           0000B0   412 _RXD0	=	0x00b0
+                           0000B1   413 _TXD	=	0x00b1
+                           0000B1   414 _TXD0	=	0x00b1
+                           0000B2   415 _INT0	=	0x00b2
+                           0000B3   416 _INT1	=	0x00b3
+                           0000B4   417 _T0	=	0x00b4
+                           0000B5   418 _T1	=	0x00b5
+                           0000B6   419 _WR	=	0x00b6
+                           0000B7   420 _RD	=	0x00b7
+                           0000D0   421 _P	=	0x00d0
+                           0000D1   422 _F1	=	0x00d1
+                           0000D2   423 _OV	=	0x00d2
+                           0000D3   424 _RS0	=	0x00d3
+                           0000D4   425 _RS1	=	0x00d4
+                           0000D5   426 _F0	=	0x00d5
+                           0000D6   427 _AC	=	0x00d6
+                           0000D7   428 _CY	=	0x00d7
+                           000098   429 _RI	=	0x0098
+                           000099   430 _TI	=	0x0099
+                           00009A   431 _RB8	=	0x009a
+                           00009B   432 _TB8	=	0x009b
+                           00009C   433 _REN	=	0x009c
+                           00009D   434 _SM2	=	0x009d
+                           00009E   435 _SM1	=	0x009e
+                           00009F   436 _SM0	=	0x009f
+                           000088   437 _IT0	=	0x0088
+                           000089   438 _IE0	=	0x0089
+                           00008A   439 _IT1	=	0x008a
+                           00008B   440 _IE1	=	0x008b
+                           00008C   441 _TR0	=	0x008c
+                           00008D   442 _TF0	=	0x008d
+                           00008E   443 _TR1	=	0x008e
+                           00008F   444 _TF1	=	0x008f
+                                    445 ;--------------------------------------------------------
+                                    446 ; overlayable register banks
                                     447 ;--------------------------------------------------------
-                                    448 ; overlayable register banks
-                                    449 ;--------------------------------------------------------
-                                    450 	.area REG_BANK_0	(REL,OVR,DATA)
-      000000                        451 	.ds 8
+                                    448 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        449 	.ds 8
+                                    450 ;--------------------------------------------------------
+                                    451 ; overlayable bit register bank
                                     452 ;--------------------------------------------------------
-                                    453 ; overlayable bit register bank
-                                    454 ;--------------------------------------------------------
-                                    455 	.area BIT_BANK	(REL,OVR,DATA)
-      000020                        456 bits:
-      000020                        457 	.ds 1
-                           008000   458 	b0 = bits[0]
-                           008100   459 	b1 = bits[1]
-                           008200   460 	b2 = bits[2]
-                           008300   461 	b3 = bits[3]
-                           008400   462 	b4 = bits[4]
-                           008500   463 	b5 = bits[5]
-                           008600   464 	b6 = bits[6]
-                           008700   465 	b7 = bits[7]
+                                    453 	.area BIT_BANK	(REL,OVR,DATA)
+      000020                        454 bits:
+      000020                        455 	.ds 1
+                           008000   456 	b0 = bits[0]
+                           008100   457 	b1 = bits[1]
+                           008200   458 	b2 = bits[2]
+                           008300   459 	b3 = bits[3]
+                           008400   460 	b4 = bits[4]
+                           008500   461 	b5 = bits[5]
+                           008600   462 	b6 = bits[6]
+                           008700   463 	b7 = bits[7]
+                                    464 ;--------------------------------------------------------
+                                    465 ; internal ram data
                                     466 ;--------------------------------------------------------
-                                    467 ; internal ram data
+                                    467 	.area DSEG    (DATA)
                                     468 ;--------------------------------------------------------
-                                    469 	.area DSEG    (DATA)
+                                    469 ; overlayable items in internal ram 
                                     470 ;--------------------------------------------------------
-                                    471 ; overlayable items in internal ram 
-                                    472 ;--------------------------------------------------------
+                                    471 ;--------------------------------------------------------
+                                    472 ; Stack segment in internal ram 
                                     473 ;--------------------------------------------------------
-                                    474 ; Stack segment in internal ram 
-                                    475 ;--------------------------------------------------------
-                                    476 	.area	SSEG
-      000021                        477 __start__stack:
-      000021                        478 	.ds	1
-                                    479 
+                                    474 	.area	SSEG
+      000021                        475 __start__stack:
+      000021                        476 	.ds	1
+                                    477 
+                                    478 ;--------------------------------------------------------
+                                    479 ; indirectly addressable internal ram data
                                     480 ;--------------------------------------------------------
-                                    481 ; indirectly addressable internal ram data
+                                    481 	.area ISEG    (DATA)
                                     482 ;--------------------------------------------------------
-                                    483 	.area ISEG    (DATA)
+                                    483 ; absolute internal ram data
                                     484 ;--------------------------------------------------------
-                                    485 ; absolute internal ram data
-                                    486 ;--------------------------------------------------------
-                                    487 	.area IABS    (ABS,DATA)
-                                    488 	.area IABS    (ABS,DATA)
+                                    485 	.area IABS    (ABS,DATA)
+                                    486 	.area IABS    (ABS,DATA)
+                                    487 ;--------------------------------------------------------
+                                    488 ; bit data
                                     489 ;--------------------------------------------------------
-                                    490 ; bit data
+                                    490 	.area BSEG    (BIT)
                                     491 ;--------------------------------------------------------
-                                    492 	.area BSEG    (BIT)
+                                    492 ; paged external ram data
                                     493 ;--------------------------------------------------------
-                                    494 ; paged external ram data
+                                    494 	.area PSEG    (PAG,XDATA)
                                     495 ;--------------------------------------------------------
-                                    496 	.area PSEG    (PAG,XDATA)
+                                    496 ; external ram data
                                     497 ;--------------------------------------------------------
-                                    498 ; external ram data
-                                    499 ;--------------------------------------------------------
-                                    500 	.area XSEG    (XDATA)
-      000400                        501 _putchar_charToSend_65536_13:
-      000400                        502 	.ds 2
+                                    498 	.area XSEG    (XDATA)
+      000400                        499 _putchar_charToSend_65536_13:
+      000400                        500 	.ds 2
+                                    501 ;--------------------------------------------------------
+                                    502 ; absolute external ram data
                                     503 ;--------------------------------------------------------
-                                    504 ; absolute external ram data
+                                    504 	.area XABS    (ABS,XDATA)
                                     505 ;--------------------------------------------------------
-                                    506 	.area XABS    (ABS,XDATA)
+                                    506 ; external initialized ram data
                                     507 ;--------------------------------------------------------
-                                    508 ; external initialized ram data
-                                    509 ;--------------------------------------------------------
-                                    510 	.area XISEG   (XDATA)
-                                    511 	.area HOME    (CODE)
-                                    512 	.area GSINIT0 (CODE)
-                                    513 	.area GSINIT1 (CODE)
-                                    514 	.area GSINIT2 (CODE)
-                                    515 	.area GSINIT3 (CODE)
-                                    516 	.area GSINIT4 (CODE)
-                                    517 	.area GSINIT5 (CODE)
-                                    518 	.area GSINIT  (CODE)
-                                    519 	.area GSFINAL (CODE)
-                                    520 	.area CSEG    (CODE)
+                                    508 	.area XISEG   (XDATA)
+                                    509 	.area HOME    (CODE)
+                                    510 	.area GSINIT0 (CODE)
+                                    511 	.area GSINIT1 (CODE)
+                                    512 	.area GSINIT2 (CODE)
+                                    513 	.area GSINIT3 (CODE)
+                                    514 	.area GSINIT4 (CODE)
+                                    515 	.area GSINIT5 (CODE)
+                                    516 	.area GSINIT  (CODE)
+                                    517 	.area GSFINAL (CODE)
+                                    518 	.area CSEG    (CODE)
+                                    519 ;--------------------------------------------------------
+                                    520 ; interrupt vector 
                                     521 ;--------------------------------------------------------
-                                    522 ; interrupt vector 
-                                    523 ;--------------------------------------------------------
-                                    524 	.area HOME    (CODE)
-      005000                        525 __interrupt_vect:
-      005000 02 50 39         [24]  526 	ljmp	__sdcc_gsinit_startup
-      005003 32               [24]  527 	reti
-      005004                        528 	.ds	7
-      00500B 32               [24]  529 	reti
-      00500C                        530 	.ds	7
-      005013 32               [24]  531 	reti
-      005014                        532 	.ds	7
-      00501B 32               [24]  533 	reti
-      00501C                        534 	.ds	7
-      005023 32               [24]  535 	reti
-      005024                        536 	.ds	7
-      00502B 32               [24]  537 	reti
-      00502C                        538 	.ds	7
-      005033 02 50 E0         [24]  539 	ljmp	_pca_isr
+                                    522 	.area HOME    (CODE)
+      005000                        523 __interrupt_vect:
+      005000 02 50 39         [24]  524 	ljmp	__sdcc_gsinit_startup
+      005003 32               [24]  525 	reti
+      005004                        526 	.ds	7
+      00500B 32               [24]  527 	reti
+      00500C                        528 	.ds	7
+      005013 32               [24]  529 	reti
+      005014                        530 	.ds	7
+      00501B 32               [24]  531 	reti
+      00501C                        532 	.ds	7
+      005023 32               [24]  533 	reti
+      005024                        534 	.ds	7
+      00502B 32               [24]  535 	reti
+      00502C                        536 	.ds	7
+      005033 02 51 03         [24]  537 	ljmp	_pca_isr
+                                    538 ;--------------------------------------------------------
+                                    539 ; global & static initialisations
                                     540 ;--------------------------------------------------------
-                                    541 ; global & static initialisations
-                                    542 ;--------------------------------------------------------
-                                    543 	.area HOME    (CODE)
+                                    541 	.area HOME    (CODE)
+                                    542 	.area GSINIT  (CODE)
+                                    543 	.area GSFINAL (CODE)
                                     544 	.area GSINIT  (CODE)
-                                    545 	.area GSFINAL (CODE)
-                                    546 	.area GSINIT  (CODE)
-                                    547 	.globl __sdcc_gsinit_startup
-                                    548 	.globl __sdcc_program_startup
-                                    549 	.globl __start__stack
-                                    550 	.globl __mcs51_genXINIT
-                                    551 	.globl __mcs51_genXRAMCLEAR
-                                    552 	.globl __mcs51_genRAMCLEAR
-                                    553 	.area GSFINAL (CODE)
-      005092 02 50 36         [24]  554 	ljmp	__sdcc_program_startup
+                                    545 	.globl __sdcc_gsinit_startup
+                                    546 	.globl __sdcc_program_startup
+                                    547 	.globl __start__stack
+                                    548 	.globl __mcs51_genXINIT
+                                    549 	.globl __mcs51_genXRAMCLEAR
+                                    550 	.globl __mcs51_genRAMCLEAR
+                                    551 	.area GSFINAL (CODE)
+      005092 02 50 36         [24]  552 	ljmp	__sdcc_program_startup
+                                    553 ;--------------------------------------------------------
+                                    554 ; Home
                                     555 ;--------------------------------------------------------
-                                    556 ; Home
-                                    557 ;--------------------------------------------------------
-                                    558 	.area HOME    (CODE)
-                                    559 	.area HOME    (CODE)
-      005036                        560 __sdcc_program_startup:
-      005036 02 51 50         [24]  561 	ljmp	_main
-                                    562 ;	return from main will return to caller
+                                    556 	.area HOME    (CODE)
+                                    557 	.area HOME    (CODE)
+      005036                        558 __sdcc_program_startup:
+      005036 02 51 71         [24]  559 	ljmp	_main
+                                    560 ;	return from main will return to caller
+                                    561 ;--------------------------------------------------------
+                                    562 ; code
                                     563 ;--------------------------------------------------------
-                                    564 ; code
-                                    565 ;--------------------------------------------------------
-                                    566 	.area CSEG    (CODE)
+                                    564 	.area CSEG    (CODE)
+                                    565 ;------------------------------------------------------------
+                                    566 ;Allocation info for local variables in function 'putchar'
                                     567 ;------------------------------------------------------------
-                                    568 ;Allocation info for local variables in function 'putchar'
+                                    568 ;charToSend                Allocated with name '_putchar_charToSend_65536_13'
                                     569 ;------------------------------------------------------------
-                                    570 ;charToSend                Allocated with name '_putchar_charToSend_65536_13'
-                                    571 ;------------------------------------------------------------
-                                    572 ;	watchdog.c:7: int putchar(int charToSend) {
+                                    570 ;	watchdog.c:7: int putchar(int charToSend) {
+                                    571 ;	-----------------------------------------
+                                    572 ;	 function putchar
                                     573 ;	-----------------------------------------
-                                    574 ;	 function putchar
-                                    575 ;	-----------------------------------------
-      005095                        576 _putchar:
-                           000007   577 	ar7 = 0x07
-                           000006   578 	ar6 = 0x06
-                           000005   579 	ar5 = 0x05
-                           000004   580 	ar4 = 0x04
-                           000003   581 	ar3 = 0x03
-                           000002   582 	ar2 = 0x02
-                           000001   583 	ar1 = 0x01
-                           000000   584 	ar0 = 0x00
-      005095 AF 83            [24]  585 	mov	r7,dph
-      005097 E5 82            [12]  586 	mov	a,dpl
-      005099 90 04 00         [24]  587 	mov	dptr,#_putchar_charToSend_65536_13
-      00509C F0               [24]  588 	movx	@dptr,a
-      00509D EF               [12]  589 	mov	a,r7
-      00509E A3               [24]  590 	inc	dptr
-      00509F F0               [24]  591 	movx	@dptr,a
-                                    592 ;	watchdog.c:8: SBUF = charToSend;  // Send character to serial buffer
-      0050A0 90 04 00         [24]  593 	mov	dptr,#_putchar_charToSend_65536_13
-      0050A3 E0               [24]  594 	movx	a,@dptr
-      0050A4 FE               [12]  595 	mov	r6,a
-      0050A5 A3               [24]  596 	inc	dptr
-      0050A6 E0               [24]  597 	movx	a,@dptr
-      0050A7 FF               [12]  598 	mov	r7,a
-      0050A8 8E 99            [24]  599 	mov	_SBUF,r6
-                                    600 ;	watchdog.c:9: while (!TI);        // Wait for transmission to complete
-      0050AA                        601 00101$:
-                                    602 ;	watchdog.c:10: TI = 0;            // Clear transmission interrupt flag
-                                    603 ;	assignBit
-      0050AA 10 99 02         [24]  604 	jbc	_TI,00114$
-      0050AD 80 FB            [24]  605 	sjmp	00101$
-      0050AF                        606 00114$:
-                                    607 ;	watchdog.c:11: return charToSend;
-      0050AF 8E 82            [24]  608 	mov	dpl,r6
-      0050B1 8F 83            [24]  609 	mov	dph,r7
-                                    610 ;	watchdog.c:12: }
-      0050B3 22               [24]  611 	ret
+      005095                        574 _putchar:
+                           000007   575 	ar7 = 0x07
+                           000006   576 	ar6 = 0x06
+                           000005   577 	ar5 = 0x05
+                           000004   578 	ar4 = 0x04
+                           000003   579 	ar3 = 0x03
+                           000002   580 	ar2 = 0x02
+                           000001   581 	ar1 = 0x01
+                           000000   582 	ar0 = 0x00
+      005095 AF 83            [24]  583 	mov	r7,dph
+      005097 E5 82            [12]  584 	mov	a,dpl
+      005099 90 04 00         [24]  585 	mov	dptr,#_putchar_charToSend_65536_13
+      00509C F0               [24]  586 	movx	@dptr,a
+      00509D EF               [12]  587 	mov	a,r7
+      00509E A3               [24]  588 	inc	dptr
+      00509F F0               [24]  589 	movx	@dptr,a
+                                    590 ;	watchdog.c:8: SBUF = charToSend;  // Send character to serial buffer
+      0050A0 90 04 00         [24]  591 	mov	dptr,#_putchar_charToSend_65536_13
+      0050A3 E0               [24]  592 	movx	a,@dptr
+      0050A4 FE               [12]  593 	mov	r6,a
+      0050A5 A3               [24]  594 	inc	dptr
+      0050A6 E0               [24]  595 	movx	a,@dptr
+      0050A7 FF               [12]  596 	mov	r7,a
+      0050A8 8E 99            [24]  597 	mov	_SBUF,r6
+                                    598 ;	watchdog.c:9: while (!TI);        // Wait for transmission to complete
+      0050AA                        599 00101$:
+                                    600 ;	watchdog.c:10: TI = 0;            // Clear transmission interrupt flag
+                                    601 ;	assignBit
+      0050AA 10 99 02         [24]  602 	jbc	_TI,00114$
+      0050AD 80 FB            [24]  603 	sjmp	00101$
+      0050AF                        604 00114$:
+                                    605 ;	watchdog.c:11: return charToSend;
+      0050AF 8E 82            [24]  606 	mov	dpl,r6
+      0050B1 8F 83            [24]  607 	mov	dph,r7
+                                    608 ;	watchdog.c:12: }
+      0050B3 22               [24]  609 	ret
+                                    610 ;------------------------------------------------------------
+                                    611 ;Allocation info for local variables in function 'getchar'
                                     612 ;------------------------------------------------------------
-                                    613 ;Allocation info for local variables in function 'getchar'
-                                    614 ;------------------------------------------------------------
-                                    615 ;	watchdog.c:18: int getchar(void)
+                                    613 ;	watchdog.c:18: int getchar(void)
+                                    614 ;	-----------------------------------------
+                                    615 ;	 function getchar
                                     616 ;	-----------------------------------------
-                                    617 ;	 function getchar
-                                    618 ;	-----------------------------------------
-      0050B4                        619 _getchar:
-                                    620 ;	watchdog.c:20: while (!RI);        // Wait for reception to complete
-      0050B4                        621 00101$:
-                                    622 ;	watchdog.c:21: RI = 0;            // Clear reception interrupt flag
-                                    623 ;	assignBit
-      0050B4 10 98 02         [24]  624 	jbc	_RI,00114$
-      0050B7 80 FB            [24]  625 	sjmp	00101$
-      0050B9                        626 00114$:
-                                    627 ;	watchdog.c:22: return SBUF;       // Return received character
-      0050B9 AE 99            [24]  628 	mov	r6,_SBUF
-      0050BB 7F 00            [12]  629 	mov	r7,#0x00
-      0050BD 8E 82            [24]  630 	mov	dpl,r6
-      0050BF 8F 83            [24]  631 	mov	dph,r7
-                                    632 ;	watchdog.c:23: }
-      0050C1 22               [24]  633 	ret
+      0050B4                        617 _getchar:
+                                    618 ;	watchdog.c:20: while (!RI);        // Wait for reception to complete
+      0050B4                        619 00101$:
+                                    620 ;	watchdog.c:21: RI = 0;            // Clear reception interrupt flag
+                                    621 ;	assignBit
+      0050B4 10 98 02         [24]  622 	jbc	_RI,00114$
+      0050B7 80 FB            [24]  623 	sjmp	00101$
+      0050B9                        624 00114$:
+                                    625 ;	watchdog.c:22: return SBUF;       // Return received character
+      0050B9 AE 99            [24]  626 	mov	r6,_SBUF
+      0050BB 7F 00            [12]  627 	mov	r7,#0x00
+      0050BD 8E 82            [24]  628 	mov	dpl,r6
+      0050BF 8F 83            [24]  629 	mov	dph,r7
+                                    630 ;	watchdog.c:23: }
+      0050C1 22               [24]  631 	ret
+                                    632 ;------------------------------------------------------------
+                                    633 ;Allocation info for local variables in function 'wdt_init'
                                     634 ;------------------------------------------------------------
-                                    635 ;Allocation info for local variables in function 'wdt_init'
-                                    636 ;------------------------------------------------------------
-                                    637 ;	watchdog.c:54: void wdt_init(void)
+                                    635 ;	watchdog.c:58: void wdt_init(void)
+                                    636 ;	-----------------------------------------
+                                    637 ;	 function wdt_init
                                     638 ;	-----------------------------------------
-                                    639 ;	 function wdt_init
-                                    640 ;	-----------------------------------------
-      0050C2                        641 _wdt_init:
-                                    642 ;	watchdog.c:57: CH = 0;
-      0050C2 75 F9 00         [24]  643 	mov	_CH,#0x00
-                                    644 ;	watchdog.c:58: CL = 0;
-      0050C5 75 E9 00         [24]  645 	mov	_CL,#0x00
-                                    646 ;	watchdog.c:61: CMOD = SYSCLK_DIV_4;     // Set PCA clock source as Sysclk/4
-      0050C8 75 D9 82         [24]  647 	mov	_CMOD,#0x82
-                                    648 ;	watchdog.c:64: CCON = PCA_WDT_ENABLE;   // Enable PCA module
-      0050CB 75 D8 40         [24]  649 	mov	_CCON,#0x40
-                                    650 ;	watchdog.c:67: EA = 1;                  // Enable global interrupts
-                                    651 ;	assignBit
-      0050CE D2 AF            [12]  652 	setb	_EA
-                                    653 ;	watchdog.c:68: EC = 1;                  // Enable PCA interrupt
-                                    654 ;	assignBit
-      0050D0 D2 AE            [12]  655 	setb	_EC
-                                    656 ;	watchdog.c:71: WDTRST = WDT_TIMEOUT;    // Set watchdog timeout period
-      0050D2 75 A6 FF         [24]  657 	mov	_WDTRST,#0xff
-                                    658 ;	watchdog.c:72: CMOD |= PCA_WDTE;        // Enable watchdog timer
-      0050D5 43 D9 40         [24]  659 	orl	_CMOD,#0x40
-                                    660 ;	watchdog.c:73: }
-      0050D8 22               [24]  661 	ret
-                                    662 ;------------------------------------------------------------
-                                    663 ;Allocation info for local variables in function 'wdt_feed'
-                                    664 ;------------------------------------------------------------
-                                    665 ;	watchdog.c:79: void wdt_feed(void)
-                                    666 ;	-----------------------------------------
-                                    667 ;	 function wdt_feed
-                                    668 ;	-----------------------------------------
-      0050D9                        669 _wdt_feed:
-                                    670 ;	watchdog.c:82: CR = !CR;
-      0050D9 B2 DE            [12]  671 	cpl	_CR
-                                    672 ;	watchdog.c:83: }
-      0050DB 22               [24]  673 	ret
-                                    674 ;------------------------------------------------------------
-                                    675 ;Allocation info for local variables in function 'wdt_disable'
-                                    676 ;------------------------------------------------------------
-                                    677 ;	watchdog.c:88: void wdt_disable(void)
-                                    678 ;	-----------------------------------------
-                                    679 ;	 function wdt_disable
-                                    680 ;	-----------------------------------------
-      0050DC                        681 _wdt_disable:
-                                    682 ;	watchdog.c:90: CMOD &= ~PCA_WDTE;       // Disable watchdog timer
-      0050DC 53 D9 BF         [24]  683 	anl	_CMOD,#0xbf
-                                    684 ;	watchdog.c:91: }
-      0050DF 22               [24]  685 	ret
+      0050C2                        639 _wdt_init:
+                                    640 ;	watchdog.c:60: printf("Initializing Watchdog Timer...\n\r");
+      0050C2 74 50            [12]  641 	mov	a,#___str_0
+      0050C4 C0 E0            [24]  642 	push	acc
+      0050C6 74 5C            [12]  643 	mov	a,#(___str_0 >> 8)
+      0050C8 C0 E0            [24]  644 	push	acc
+      0050CA 74 80            [12]  645 	mov	a,#0x80
+      0050CC C0 E0            [24]  646 	push	acc
+      0050CE 12 51 EE         [24]  647 	lcall	_printf
+      0050D1 15 81            [12]  648 	dec	sp
+      0050D3 15 81            [12]  649 	dec	sp
+      0050D5 15 81            [12]  650 	dec	sp
+                                    651 ;	watchdog.c:63: CH = 0;
+      0050D7 75 F9 00         [24]  652 	mov	_CH,#0x00
+                                    653 ;	watchdog.c:64: CL = 0;
+      0050DA 75 E9 00         [24]  654 	mov	_CL,#0x00
+                                    655 ;	watchdog.c:65: CMOD = SYSCLK_DIV_4;        // Set clock source as Sysclk/4
+      0050DD 75 D9 82         [24]  656 	mov	_CMOD,#0x82
+                                    657 ;	watchdog.c:66: CCON = PCA_WDT_ENABLE;      // Enable PCA module
+      0050E0 75 D8 40         [24]  658 	mov	_CCON,#0x40
+                                    659 ;	watchdog.c:69: EA = 1;                     // Global interrupt enable
+                                    660 ;	assignBit
+      0050E3 D2 AF            [12]  661 	setb	_EA
+                                    662 ;	watchdog.c:70: EC = 1;                     // PCA interrupt enable
+                                    663 ;	assignBit
+      0050E5 D2 AE            [12]  664 	setb	_EC
+                                    665 ;	watchdog.c:73: WDTRST = WDT_TIMEOUT;       // Set timeout period
+      0050E7 75 A6 FF         [24]  666 	mov	_WDTRST,#0xff
+                                    667 ;	watchdog.c:74: CMOD |= PCA_WDTE;          // Enable watchdog
+      0050EA 43 D9 40         [24]  668 	orl	_CMOD,#0x40
+                                    669 ;	watchdog.c:76: printf("Watchdog Timer Initialized\n\r");
+      0050ED 74 71            [12]  670 	mov	a,#___str_1
+      0050EF C0 E0            [24]  671 	push	acc
+      0050F1 74 5C            [12]  672 	mov	a,#(___str_1 >> 8)
+      0050F3 C0 E0            [24]  673 	push	acc
+      0050F5 74 80            [12]  674 	mov	a,#0x80
+      0050F7 C0 E0            [24]  675 	push	acc
+      0050F9 12 51 EE         [24]  676 	lcall	_printf
+      0050FC 15 81            [12]  677 	dec	sp
+      0050FE 15 81            [12]  678 	dec	sp
+      005100 15 81            [12]  679 	dec	sp
+                                    680 ;	watchdog.c:77: }
+      005102 22               [24]  681 	ret
+                                    682 ;------------------------------------------------------------
+                                    683 ;Allocation info for local variables in function 'pca_isr'
+                                    684 ;------------------------------------------------------------
+                                    685 ;i                         Allocated with name '_pca_isr_i_196608_22'
                                     686 ;------------------------------------------------------------
-                                    687 ;Allocation info for local variables in function 'pca_isr'
-                                    688 ;------------------------------------------------------------
-                                    689 ;	watchdog.c:97: void pca_isr(void) __interrupt(6)
+                                    687 ;	watchdog.c:83: void pca_isr(void) __interrupt(6)
+                                    688 ;	-----------------------------------------
+                                    689 ;	 function pca_isr
                                     690 ;	-----------------------------------------
-                                    691 ;	 function pca_isr
-                                    692 ;	-----------------------------------------
-      0050E0                        693 _pca_isr:
-      0050E0 C0 20            [24]  694 	push	bits
-      0050E2 C0 E0            [24]  695 	push	acc
-      0050E4 C0 F0            [24]  696 	push	b
-      0050E6 C0 82            [24]  697 	push	dpl
-      0050E8 C0 83            [24]  698 	push	dph
-      0050EA C0 07            [24]  699 	push	(0+7)
-      0050EC C0 06            [24]  700 	push	(0+6)
-      0050EE C0 05            [24]  701 	push	(0+5)
-      0050F0 C0 04            [24]  702 	push	(0+4)
-      0050F2 C0 03            [24]  703 	push	(0+3)
-      0050F4 C0 02            [24]  704 	push	(0+2)
-      0050F6 C0 01            [24]  705 	push	(0+1)
-      0050F8 C0 00            [24]  706 	push	(0+0)
-      0050FA C0 D0            [24]  707 	push	psw
-      0050FC 75 D0 00         [24]  708 	mov	psw,#0x00
-                                    709 ;	watchdog.c:99: if (CF)                  // Check for PCA overflow
-                                    710 ;	watchdog.c:101: CF = 0;              // Clear overflow flag
-                                    711 ;	assignBit
-      0050FF 10 DF 02         [24]  712 	jbc	_CF,00115$
-      005102 80 15            [24]  713 	sjmp	00102$
-      005104                        714 00115$:
-                                    715 ;	watchdog.c:102: printf("WATCHDOG\n\r");
-      005104 74 31            [12]  716 	mov	a,#___str_0
-      005106 C0 E0            [24]  717 	push	acc
-      005108 74 5C            [12]  718 	mov	a,#(___str_0 >> 8)
-      00510A C0 E0            [24]  719 	push	acc
-      00510C 74 80            [12]  720 	mov	a,#0x80
-      00510E C0 E0            [24]  721 	push	acc
-      005110 12 51 CF         [24]  722 	lcall	_printf
-      005113 15 81            [12]  723 	dec	sp
-      005115 15 81            [12]  724 	dec	sp
-      005117 15 81            [12]  725 	dec	sp
-      005119                        726 00102$:
-                                    727 ;	watchdog.c:105: if (CCF0)               // Check module 0 interrupt
-                                    728 ;	watchdog.c:107: CCF0 = 0;           // Clear module 0 interrupt flag
-                                    729 ;	assignBit
-      005119 10 D8 02         [24]  730 	jbc	_CCF0,00116$
-      00511C 80 15            [24]  731 	sjmp	00105$
-      00511E                        732 00116$:
-                                    733 ;	watchdog.c:108: printf("CCF\n\r");
-      00511E 74 3C            [12]  734 	mov	a,#___str_1
-      005120 C0 E0            [24]  735 	push	acc
-      005122 74 5C            [12]  736 	mov	a,#(___str_1 >> 8)
-      005124 C0 E0            [24]  737 	push	acc
-      005126 74 80            [12]  738 	mov	a,#0x80
-      005128 C0 E0            [24]  739 	push	acc
-      00512A 12 51 CF         [24]  740 	lcall	_printf
-      00512D 15 81            [12]  741 	dec	sp
-      00512F 15 81            [12]  742 	dec	sp
-      005131 15 81            [12]  743 	dec	sp
-      005133                        744 00105$:
-                                    745 ;	watchdog.c:110: }
-      005133 D0 D0            [24]  746 	pop	psw
-      005135 D0 00            [24]  747 	pop	(0+0)
-      005137 D0 01            [24]  748 	pop	(0+1)
-      005139 D0 02            [24]  749 	pop	(0+2)
-      00513B D0 03            [24]  750 	pop	(0+3)
-      00513D D0 04            [24]  751 	pop	(0+4)
-      00513F D0 05            [24]  752 	pop	(0+5)
-      005141 D0 06            [24]  753 	pop	(0+6)
-      005143 D0 07            [24]  754 	pop	(0+7)
-      005145 D0 83            [24]  755 	pop	dph
-      005147 D0 82            [24]  756 	pop	dpl
-      005149 D0 F0            [24]  757 	pop	b
-      00514B D0 E0            [24]  758 	pop	acc
-      00514D D0 20            [24]  759 	pop	bits
-      00514F 32               [24]  760 	reti
-                                    761 ;------------------------------------------------------------
-                                    762 ;Allocation info for local variables in function 'main'
-                                    763 ;------------------------------------------------------------
-                                    764 ;i                         Allocated with name '_main_i_196608_33'
-                                    765 ;------------------------------------------------------------
-                                    766 ;	watchdog.c:114: void main(void)
-                                    767 ;	-----------------------------------------
-                                    768 ;	 function main
-                                    769 ;	-----------------------------------------
-      005150                        770 _main:
-                                    771 ;	watchdog.c:116: wdt_init();             // Initialize watchdog
-      005150 12 50 C2         [24]  772 	lcall	_wdt_init
-                                    773 ;	watchdog.c:118: while(1)
-      005153                        774 00103$:
-                                    775 ;	watchdog.c:122: wdt_feed();         // Feed watchdog periodically
-      005153 12 50 D9         [24]  776 	lcall	_wdt_feed
-                                    777 ;	watchdog.c:123: printf("- - -");
-      005156 74 42            [12]  778 	mov	a,#___str_2
-      005158 C0 E0            [24]  779 	push	acc
-      00515A 74 5C            [12]  780 	mov	a,#(___str_2 >> 8)
-      00515C C0 E0            [24]  781 	push	acc
-      00515E 74 80            [12]  782 	mov	a,#0x80
-      005160 C0 E0            [24]  783 	push	acc
-      005162 12 51 CF         [24]  784 	lcall	_printf
-      005165 15 81            [12]  785 	dec	sp
-      005167 15 81            [12]  786 	dec	sp
-      005169 15 81            [12]  787 	dec	sp
-                                    788 ;	watchdog.c:124: for(int i = 0; i<10000; i++){}
-      00516B 7E 00            [12]  789 	mov	r6,#0x00
-      00516D 7F 00            [12]  790 	mov	r7,#0x00
-      00516F                        791 00106$:
-      00516F C3               [12]  792 	clr	c
-      005170 EE               [12]  793 	mov	a,r6
-      005171 94 10            [12]  794 	subb	a,#0x10
-      005173 EF               [12]  795 	mov	a,r7
-      005174 64 80            [12]  796 	xrl	a,#0x80
-      005176 94 A7            [12]  797 	subb	a,#0xa7
-      005178 50 D9            [24]  798 	jnc	00103$
-      00517A 0E               [12]  799 	inc	r6
-      00517B BE 00 F1         [24]  800 	cjne	r6,#0x00,00106$
-      00517E 0F               [12]  801 	inc	r7
-                                    802 ;	watchdog.c:129: }
-      00517F 80 EE            [24]  803 	sjmp	00106$
-                                    804 	.area CSEG    (CODE)
-                                    805 	.area CONST   (CODE)
-                                    806 	.area CONST   (CODE)
-      005C31                        807 ___str_0:
-      005C31 57 41 54 43 48 44 4F   808 	.ascii "WATCHDOG"
-             47
-      005C39 0A                     809 	.db 0x0a
-      005C3A 0D                     810 	.db 0x0d
-      005C3B 00                     811 	.db 0x00
-                                    812 	.area CSEG    (CODE)
-                                    813 	.area CONST   (CODE)
-      005C3C                        814 ___str_1:
-      005C3C 43 43 46               815 	.ascii "CCF"
-      005C3F 0A                     816 	.db 0x0a
-      005C40 0D                     817 	.db 0x0d
-      005C41 00                     818 	.db 0x00
-                                    819 	.area CSEG    (CODE)
-                                    820 	.area CONST   (CODE)
-      005C42                        821 ___str_2:
-      005C42 2D 20 2D 20 2D         822 	.ascii "- - -"
-      005C47 00                     823 	.db 0x00
-                                    824 	.area CSEG    (CODE)
-                                    825 	.area XINIT   (CODE)
-                                    826 	.area CABS    (ABS,CODE)
+      005103                        691 _pca_isr:
+      005103 C0 20            [24]  692 	push	bits
+      005105 C0 E0            [24]  693 	push	acc
+      005107 C0 F0            [24]  694 	push	b
+      005109 C0 82            [24]  695 	push	dpl
+      00510B C0 83            [24]  696 	push	dph
+      00510D C0 07            [24]  697 	push	(0+7)
+      00510F C0 06            [24]  698 	push	(0+6)
+      005111 C0 05            [24]  699 	push	(0+5)
+      005113 C0 04            [24]  700 	push	(0+4)
+      005115 C0 03            [24]  701 	push	(0+3)
+      005117 C0 02            [24]  702 	push	(0+2)
+      005119 C0 01            [24]  703 	push	(0+1)
+      00511B C0 00            [24]  704 	push	(0+0)
+      00511D C0 D0            [24]  705 	push	psw
+      00511F 75 D0 00         [24]  706 	mov	psw,#0x00
+                                    707 ;	watchdog.c:85: if (CF)              // PCA overflow - watchdog timeout
+      005122 30 DF 2D         [24]  708 	jnb	_CF,00106$
+                                    709 ;	watchdog.c:87: printf("Watchdog Timer Overflow! Resetting System...\n\r");
+      005125 74 8E            [12]  710 	mov	a,#___str_2
+      005127 C0 E0            [24]  711 	push	acc
+      005129 74 5C            [12]  712 	mov	a,#(___str_2 >> 8)
+      00512B C0 E0            [24]  713 	push	acc
+      00512D 74 80            [12]  714 	mov	a,#0x80
+      00512F C0 E0            [24]  715 	push	acc
+      005131 12 51 EE         [24]  716 	lcall	_printf
+      005134 15 81            [12]  717 	dec	sp
+      005136 15 81            [12]  718 	dec	sp
+      005138 15 81            [12]  719 	dec	sp
+                                    720 ;	watchdog.c:90: for(int i = 0; i < 1000; i++);
+      00513A 7E 00            [12]  721 	mov	r6,#0x00
+      00513C 7F 00            [12]  722 	mov	r7,#0x00
+      00513E                        723 00108$:
+      00513E C3               [12]  724 	clr	c
+      00513F EE               [12]  725 	mov	a,r6
+      005140 94 E8            [12]  726 	subb	a,#0xe8
+      005142 EF               [12]  727 	mov	a,r7
+      005143 64 80            [12]  728 	xrl	a,#0x80
+      005145 94 83            [12]  729 	subb	a,#0x83
+      005147 50 07            [24]  730 	jnc	00103$
+      005149 0E               [12]  731 	inc	r6
+                                    732 ;	watchdog.c:94: while(1);
+      00514A BE 00 F1         [24]  733 	cjne	r6,#0x00,00108$
+      00514D 0F               [12]  734 	inc	r7
+      00514E 80 EE            [24]  735 	sjmp	00108$
+      005150                        736 00103$:
+      005150 80 FE            [24]  737 	sjmp	00103$
+      005152                        738 00106$:
+                                    739 ;	watchdog.c:97: CF = 0;              // Clear overflow flag
+                                    740 ;	assignBit
+      005152 C2 DF            [12]  741 	clr	_CF
+                                    742 ;	watchdog.c:98: }
+      005154 D0 D0            [24]  743 	pop	psw
+      005156 D0 00            [24]  744 	pop	(0+0)
+      005158 D0 01            [24]  745 	pop	(0+1)
+      00515A D0 02            [24]  746 	pop	(0+2)
+      00515C D0 03            [24]  747 	pop	(0+3)
+      00515E D0 04            [24]  748 	pop	(0+4)
+      005160 D0 05            [24]  749 	pop	(0+5)
+      005162 D0 06            [24]  750 	pop	(0+6)
+      005164 D0 07            [24]  751 	pop	(0+7)
+      005166 D0 83            [24]  752 	pop	dph
+      005168 D0 82            [24]  753 	pop	dpl
+      00516A D0 F0            [24]  754 	pop	b
+      00516C D0 E0            [24]  755 	pop	acc
+      00516E D0 20            [24]  756 	pop	bits
+      005170 32               [24]  757 	reti
+                                    758 ;------------------------------------------------------------
+                                    759 ;Allocation info for local variables in function 'main'
+                                    760 ;------------------------------------------------------------
+                                    761 ;	watchdog.c:103: void main(void)
+                                    762 ;	-----------------------------------------
+                                    763 ;	 function main
+                                    764 ;	-----------------------------------------
+      005171                        765 _main:
+                                    766 ;	watchdog.c:107: printf("Starting Watchdog Demo...\n\r");
+      005171 74 BD            [12]  767 	mov	a,#___str_3
+      005173 C0 E0            [24]  768 	push	acc
+      005175 74 5C            [12]  769 	mov	a,#(___str_3 >> 8)
+      005177 C0 E0            [24]  770 	push	acc
+      005179 74 80            [12]  771 	mov	a,#0x80
+      00517B C0 E0            [24]  772 	push	acc
+      00517D 12 51 EE         [24]  773 	lcall	_printf
+      005180 15 81            [12]  774 	dec	sp
+      005182 15 81            [12]  775 	dec	sp
+      005184 15 81            [12]  776 	dec	sp
+                                    777 ;	watchdog.c:110: wdt_init();
+      005186 12 50 C2         [24]  778 	lcall	_wdt_init
+                                    779 ;	watchdog.c:112: printf("Entering infinite loop...\n\r");
+      005189 74 D9            [12]  780 	mov	a,#___str_4
+      00518B C0 E0            [24]  781 	push	acc
+      00518D 74 5C            [12]  782 	mov	a,#(___str_4 >> 8)
+      00518F C0 E0            [24]  783 	push	acc
+      005191 74 80            [12]  784 	mov	a,#0x80
+      005193 C0 E0            [24]  785 	push	acc
+      005195 12 51 EE         [24]  786 	lcall	_printf
+      005198 15 81            [12]  787 	dec	sp
+      00519A 15 81            [12]  788 	dec	sp
+      00519C 15 81            [12]  789 	dec	sp
+                                    790 ;	watchdog.c:115: while(1)
+      00519E                        791 00102$:
+                                    792 ;	watchdog.c:120: }
+      00519E 80 FE            [24]  793 	sjmp	00102$
+                                    794 	.area CSEG    (CODE)
+                                    795 	.area CONST   (CODE)
+                                    796 	.area CONST   (CODE)
+      005C50                        797 ___str_0:
+      005C50 49 6E 69 74 69 61 6C   798 	.ascii "Initializing Watchdog Timer..."
+             69 7A 69 6E 67 20 57
+             61 74 63 68 64 6F 67
+             20 54 69 6D 65 72 2E
+             2E 2E
+      005C6E 0A                     799 	.db 0x0a
+      005C6F 0D                     800 	.db 0x0d
+      005C70 00                     801 	.db 0x00
+                                    802 	.area CSEG    (CODE)
+                                    803 	.area CONST   (CODE)
+      005C71                        804 ___str_1:
+      005C71 57 61 74 63 68 64 6F   805 	.ascii "Watchdog Timer Initialized"
+             67 20 54 69 6D 65 72
+             20 49 6E 69 74 69 61
+             6C 69 7A 65 64
+      005C8B 0A                     806 	.db 0x0a
+      005C8C 0D                     807 	.db 0x0d
+      005C8D 00                     808 	.db 0x00
+                                    809 	.area CSEG    (CODE)
+                                    810 	.area CONST   (CODE)
+      005C8E                        811 ___str_2:
+      005C8E 57 61 74 63 68 64 6F   812 	.ascii "Watchdog Timer Overflow! Resetting System..."
+             67 20 54 69 6D 65 72
+             20 4F 76 65 72 66 6C
+             6F 77 21 20 52 65 73
+             65 74 74 69 6E 67 20
+             53 79 73 74 65 6D 2E
+             2E 2E
+      005CBA 0A                     813 	.db 0x0a
+      005CBB 0D                     814 	.db 0x0d
+      005CBC 00                     815 	.db 0x00
+                                    816 	.area CSEG    (CODE)
+                                    817 	.area CONST   (CODE)
+      005CBD                        818 ___str_3:
+      005CBD 53 74 61 72 74 69 6E   819 	.ascii "Starting Watchdog Demo..."
+             67 20 57 61 74 63 68
+             64 6F 67 20 44 65 6D
+             6F 2E 2E 2E
+      005CD6 0A                     820 	.db 0x0a
+      005CD7 0D                     821 	.db 0x0d
+      005CD8 00                     822 	.db 0x00
+                                    823 	.area CSEG    (CODE)
+                                    824 	.area CONST   (CODE)
+      005CD9                        825 ___str_4:
+      005CD9 45 6E 74 65 72 69 6E   826 	.ascii "Entering infinite loop..."
+             67 20 69 6E 66 69 6E
+             69 74 65 20 6C 6F 6F
+             70 2E 2E 2E
+      005CF2 0A                     827 	.db 0x0a
+      005CF3 0D                     828 	.db 0x0d
+      005CF4 00                     829 	.db 0x00
+                                    830 	.area CSEG    (CODE)
+                                    831 	.area XINIT   (CODE)
+                                    832 	.area CABS    (ABS,CODE)
