@@ -577,8 +577,8 @@ _init_uart:
 	mov	_SCON,#0x50
 ;	pwm.c:16: TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
 	mov	_TMOD,#0x20
-;	pwm.c:17: TH1 = 0xFD;                // 9600 baud rate
-	mov	_TH1,#0xfd
+;	pwm.c:17: TH1 = 0x4B00;                // 9600 baud rate
+	mov	_TH1,#0x00
 ;	pwm.c:18: TR1 = 1;                   // Start timer 1
 ;	assignBit
 	setb	_TR1
