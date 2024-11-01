@@ -66,11 +66,11 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   0000012D  l_CONST                         
+C:   00000117  l_CONST                         
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   0000043B  s_XISEG                         
-C:   00000CF4  l_CSEG                          
+C:   00000CD6  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003009  s_GSINIT0                       
 C:   0000300C  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   00003062  s_GSFINAL
 C:   00003062  s_GSINIT                        
 C:   00003062  s_GSINIT5                       
 C:   00003065  s_CSEG                          
-C:   00003D59  s_CONST                         
-C:   00003E86  s_XINIT                         
+C:   00003D3B  s_CONST                         
+C:   00003E52  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -476,7 +476,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003065    00000CF4 =        3316. bytes (REL,CON,CODE)
+CSEG                                00003065    00000CD6 =        3286. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -485,27 +485,27 @@ C:   00003071  _putchar                           pwm
 C:   0000308E  _getchar                           pwm
 C:   0000309C  _external_ISR                      pwm
 C:   000030ED  _main                              pwm
-C:   00003200  _idle_mode                         pwm
-C:   00003219  _power_down_mode                   pwm
-C:   00003232  _freq_max                          pwm
-C:   0000324B  _freq_min                          pwm
-C:   00003264  _pwm_init                          pwm
-C:   00003277  _pwm_start                         pwm
-C:   00003290  _pwm_stop                          pwm
-C:   000032B8  _vprintf                           vprintf
-C:   000032F7  _printf                            vprintf
-C:   00003400  __print_format                     printf_large
-C:   00003D01  _strlen                            _strlen
-C:   00003D19  __mulint                           _mulint
-C:   00003D39  __gptrget                          _gptrget
-C:   00003D55  __sdcc_external_startup            _startup
+C:   000031E2  _idle_mode                         pwm
+C:   000031FB  _power_down_mode                   pwm
+C:   00003214  _freq_max                          pwm
+C:   0000322D  _freq_min                          pwm
+C:   00003246  _pwm_init                          pwm
+C:   00003259  _pwm_start                         pwm
+C:   00003272  _pwm_stop                          pwm
+C:   0000329A  _vprintf                           vprintf
+C:   000032D9  _printf                            vprintf
+C:   000033E2  __print_format                     printf_large
+C:   00003CE3  _strlen                            _strlen
+C:   00003CFB  __mulint                           _mulint
+C:   00003D1B  __gptrget                          _gptrget
+C:   00003D37  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003D59    0000012D =         301. bytes (REL,CON,CODE)
+CONST                               00003D3B    00000117 =         279. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

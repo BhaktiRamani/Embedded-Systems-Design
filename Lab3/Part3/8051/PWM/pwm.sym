@@ -429,20 +429,19 @@ Symbol Table
     _WR                                                         =  0000B6 G
  19 ___str_0                                                       000000 R
  19 ___str_1                                                       000016 R
- 19 ___str_10                                                      0000C5 R
- 19 ___str_11                                                      0000D1 R
- 19 ___str_12                                                      0000E3 R
- 19 ___str_13                                                      0000F7 R
- 19 ___str_14                                                      00010B R
- 19 ___str_15                                                      000117 R
- 19 ___str_2                                                       00002C R
- 19 ___str_3                                                       00003D R
- 19 ___str_4                                                       00004A R
- 19 ___str_5                                                       000059 R
- 19 ___str_6                                                       000069 R
- 19 ___str_7                                                       000083 R
- 19 ___str_8                                                       00009D R
- 19 ___str_9                                                       0000AE R
+ 19 ___str_10                                                      0000BB R
+ 19 ___str_11                                                      0000CD R
+ 19 ___str_12                                                      0000E1 R
+ 19 ___str_13                                                      0000F5 R
+ 19 ___str_14                                                      000101 R
+ 19 ___str_2                                                       000027 R
+ 19 ___str_3                                                       000034 R
+ 19 ___str_4                                                       000043 R
+ 19 ___str_5                                                       000053 R
+ 19 ___str_6                                                       00006D R
+ 19 ___str_7                                                       000087 R
+ 19 ___str_8                                                       000098 R
+ 19 ___str_9                                                       0000AF R
   F __interrupt_vect                                               000000 R
     __mcs51_genRAMCLEAR                                            ****** GX
     __mcs51_genXINIT                                               ****** GX
@@ -451,19 +450,19 @@ Symbol Table
   F __sdcc_program_startup                                         000006 GR
   7 __start__stack                                                 000000 GR
  18 _external_ISR                                                  000037 GR
- 18 _freq_max                                                      0001CD GR
- 18 _freq_min                                                      0001E6 GR
+ 18 _freq_max                                                      0001AF GR
+ 18 _freq_min                                                      0001C8 GR
  18 _getchar                                                       000029 GR
- 18 _idle_mode                                                     00019B GR
+ 18 _idle_mode                                                     00017D GR
  18 _init_uart                                                     000000 GR
  18 _main                                                          000088 GR
- 18 _power_down_mode                                               0001B4 GR
+ 18 _power_down_mode                                               000196 GR
     _printf                                                        ****** GX
  18 _putchar                                                       00000C GR
   C _putchar_chr_65536_15                                          000000 R
- 18 _pwm_init                                                      0001FF GR
- 18 _pwm_start                                                     000212 GR
- 18 _pwm_stop                                                      00022B GR
+ 18 _pwm_init                                                      0001E1 GR
+ 18 _pwm_start                                                     0001F4 GR
+ 18 _pwm_stop                                                      00020D GR
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
     a.1                                                         =  0000E1 L
@@ -478,12 +477,12 @@ Symbol Table
     acc.0                                                       =  0000E0 L
     acc.1                                                       =  0000E1 L
     acc.2                                                       =  0000E2 L
+    acc.3                                                       =  0000E3 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    acc.3                                                       =  0000E3 L
     acc.4                                                       =  0000E4 L
     acc.5                                                       =  0000E5 L
     acc.6                                                       =  0000E6 L
@@ -538,12 +537,12 @@ Symbol Table
     ie.5                                                        =  0000AD L
     ie.7                                                        =  0000AF L
     ie0                                                         =  000089 L
+    ie1                                                         =  00008B L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 10.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    ie1                                                         =  00008B L
     int0                                                        =  0000B2 L
     int1                                                        =  0000B3 L
     ip                                                          =  0000B8 L
@@ -598,12 +597,12 @@ Symbol Table
     psw                                                         =  0000D0 L
     psw.0                                                       =  0000D0 L
     psw.1                                                       =  0000D1 L
+    psw.2                                                       =  0000D2 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 11.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    psw.2                                                       =  0000D2 L
     psw.3                                                       =  0000D3 L
     psw.4                                                       =  0000D4 L
     psw.5                                                       =  0000D5 L
@@ -658,12 +657,12 @@ Symbol Table
     tcon.6                                                      =  00008E L
     tcon.7                                                      =  00008F L
     tf0                                                         =  00008D L
+    tf1                                                         =  00008F L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 12.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    tf1                                                         =  00008F L
     tf2                                                         =  0000CF L
     th0                                                         =  00008C L
     th1                                                         =  00008D L
@@ -677,7 +676,6 @@ Symbol Table
     tr1                                                         =  00008E L
     tr2                                                         =  0000CA L
     txd                                                         =  0000B1 L
-
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 13.
 Hexadecimal [24-Bits]
@@ -708,8 +706,8 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    244   flags   20
-  19 CONST                                      size    122   flags   20
+  18 CSEG                                       size    226   flags   20
+  19 CONST                                      size    10C   flags   20
   1A XINIT                                      size      0   flags   20
   1B CABS                                       size      0   flags   28
 

@@ -703,15 +703,11 @@ _external_ISR:
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	pwm.c:49: CKCON0 = 0x00;
-	mov	_CKCON0,#0x00
-;	pwm.c:50: CKCON0 |= CKCON0_X2_BIT;
-	orl	_CKCON0,#0x01
-;	pwm.c:51: CKCON0 |= CKCON0_TIX2_BIT;
-	orl	_CKCON0,#0x04
 ;	pwm.c:52: init_uart();
 	lcall	_init_uart
-;	pwm.c:53: printf("X2 mode initialized\n\r");
+;	pwm.c:54: pwm_init();
+	lcall	_pwm_init
+;	pwm.c:55: printf("PCA MODE : PWM\n\r");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -722,9 +718,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:54: pwm_init();
-	lcall	_pwm_init
-;	pwm.c:55: printf("PCA MODE : PWM\n\r");
+;	pwm.c:59: printf("COMMANDS :\n\r");
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -735,7 +729,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:59: printf("COMMANDS :\n\r");
+;	pwm.c:60: printf(" R - RUN PWM\n\r");
 	mov	a,#___str_3
 	push	acc
 	mov	a,#(___str_3 >> 8)
@@ -746,7 +740,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:60: printf(" R - RUN PWM\n\r");
+;	pwm.c:61: printf(" S - STOP PWM\n\r");
 	mov	a,#___str_4
 	push	acc
 	mov	a,#(___str_4 >> 8)
@@ -757,7 +751,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:61: printf(" S - STOP PWM\n\r");
+;	pwm.c:62: printf(" F - MAX FREQUENCY MODE\n\r");
 	mov	a,#___str_5
 	push	acc
 	mov	a,#(___str_5 >> 8)
@@ -768,7 +762,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:62: printf(" F - MAX FREQUENCY MODE\n\r");
+;	pwm.c:63: printf(" M - MIN FREQUENCY MODE\n\r");
 	mov	a,#___str_6
 	push	acc
 	mov	a,#(___str_6 >> 8)
@@ -779,7 +773,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:63: printf(" M - MIN FREQUENCY MODE\n\r");
+;	pwm.c:64: printf(" I - IDLE MODE\n\r");
 	mov	a,#___str_7
 	push	acc
 	mov	a,#(___str_7 >> 8)
@@ -790,21 +784,10 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	pwm.c:64: printf(" I - IDLE MODE\n\r");
+;	pwm.c:65: printf(" P - POWER DOWN MODE\n\r");
 	mov	a,#___str_8
 	push	acc
 	mov	a,#(___str_8 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	pwm.c:65: printf(" P - POWER DOWN MODE\n\r");
-	mov	a,#___str_9
-	push	acc
-	mov	a,#(___str_9 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -872,9 +855,9 @@ _main:
 ;	-----------------------------------------
 _idle_mode:
 ;	pwm.c:113: printf("IDLE MODE\n\r");
-	mov	a,#___str_10
+	mov	a,#___str_9
 	push	acc
-	mov	a,#(___str_10 >> 8)
+	mov	a,#(___str_9 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -895,9 +878,9 @@ _idle_mode:
 ;	-----------------------------------------
 _power_down_mode:
 ;	pwm.c:119: printf("POWER DOWN MODE\n\r");
-	mov	a,#___str_11
+	mov	a,#___str_10
 	push	acc
-	mov	a,#(___str_11 >> 8)
+	mov	a,#(___str_10 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -918,9 +901,9 @@ _power_down_mode:
 ;	-----------------------------------------
 _freq_max:
 ;	pwm.c:124: printf("MAXIMUM FREQUENCY\n\r");
-	mov	a,#___str_12
+	mov	a,#___str_11
 	push	acc
-	mov	a,#(___str_12 >> 8)
+	mov	a,#(___str_11 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -941,9 +924,9 @@ _freq_max:
 ;	-----------------------------------------
 _freq_min:
 ;	pwm.c:130: printf("MINIMUM FREQUENCY\n\r");
-	mov	a,#___str_13
+	mov	a,#___str_12
 	push	acc
-	mov	a,#(___str_13 >> 8)
+	mov	a,#(___str_12 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -986,9 +969,9 @@ _pwm_init:
 ;	-----------------------------------------
 _pwm_start:
 ;	pwm.c:146: printf("PWM START\n\r");
-	mov	a,#___str_14
+	mov	a,#___str_13
 	push	acc
-	mov	a,#(___str_14 >> 8)
+	mov	a,#(___str_13 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1009,9 +992,9 @@ _pwm_start:
 ;	-----------------------------------------
 _pwm_stop:
 ;	pwm.c:152: printf("PWM STOP\n\r");
-	mov	a,#___str_15
+	mov	a,#___str_14
 	push	acc
-	mov	a,#(___str_15 >> 8)
+	mov	a,#(___str_14 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1034,104 +1017,97 @@ ___str_0:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "X2 mode initialized"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_2:
 	.ascii "PCA MODE : PWM"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_3:
+___str_2:
 	.ascii "COMMANDS :"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_4:
+___str_3:
 	.ascii " R - RUN PWM"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_5:
+___str_4:
 	.ascii " S - STOP PWM"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_6:
+___str_5:
 	.ascii " F - MAX FREQUENCY MODE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_7:
+___str_6:
 	.ascii " M - MIN FREQUENCY MODE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_8:
+___str_7:
 	.ascii " I - IDLE MODE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_9:
+___str_8:
 	.ascii " P - POWER DOWN MODE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_10:
+___str_9:
 	.ascii "IDLE MODE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_11:
+___str_10:
 	.ascii "POWER DOWN MODE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_12:
+___str_11:
 	.ascii "MAXIMUM FREQUENCY"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_13:
+___str_12:
 	.ascii "MINIMUM FREQUENCY"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_14:
+___str_13:
 	.ascii "PWM START"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_15:
+___str_14:
 	.ascii "PWM STOP"
 	.db 0x0a
 	.db 0x0d

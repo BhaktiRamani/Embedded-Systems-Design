@@ -46,11 +46,11 @@ void external_ISR(void) __interrupt (0)
 
 void main(void)
 {
-    CKCON0 = 0x00;
-    CKCON0 |= CKCON0_X2_BIT;
-    CKCON0 |= CKCON0_TIX2_BIT;
+    // CKCON0 = 0x00;
+    // CKCON0 |= CKCON0_X2_BIT;
+    // CKCON0 |= CKCON0_TIX2_BIT;
     init_uart();
-    printf("X2 mode initialized\n\r");
+    //printf("X2 mode initialized\n\r");
     pwm_init();
     printf("PCA MODE : PWM\n\r");
     //Entering in X2 mode
