@@ -527,9 +527,9 @@
                                     527 ; interrupt vector 
                                     528 ;--------------------------------------------------------
                                     529 	.area HOME    (CODE)
-      003000                        530 __interrupt_vect:
-      003000 02 30 09         [24]  531 	ljmp	__sdcc_gsinit_startup
-      003003 02 30 9C         [24]  532 	ljmp	_external_ISR
+      000000                        530 __interrupt_vect:
+      000000 02 00 09         [24]  531 	ljmp	__sdcc_gsinit_startup
+      000003 02 00 9C         [24]  532 	ljmp	_external_ISR
                                     533 ;--------------------------------------------------------
                                     534 ; global & static initialisations
                                     535 ;--------------------------------------------------------
@@ -544,14 +544,14 @@
                                     544 	.globl __mcs51_genXRAMCLEAR
                                     545 	.globl __mcs51_genRAMCLEAR
                                     546 	.area GSFINAL (CODE)
-      003062 02 30 06         [24]  547 	ljmp	__sdcc_program_startup
+      000062 02 00 06         [24]  547 	ljmp	__sdcc_program_startup
                                     548 ;--------------------------------------------------------
                                     549 ; Home
                                     550 ;--------------------------------------------------------
                                     551 	.area HOME    (CODE)
                                     552 	.area HOME    (CODE)
-      003006                        553 __sdcc_program_startup:
-      003006 02 30 ED         [24]  554 	ljmp	_main
+      000006                        553 __sdcc_program_startup:
+      000006 02 00 ED         [24]  554 	ljmp	_main
                                     555 ;	return from main will return to caller
                                     556 ;--------------------------------------------------------
                                     557 ; code
@@ -564,7 +564,7 @@
                                     564 ;	-----------------------------------------
                                     565 ;	 function init_uart
                                     566 ;	-----------------------------------------
-      003065                        567 _init_uart:
+      000065                        567 _init_uart:
                            000007   568 	ar7 = 0x07
                            000006   569 	ar6 = 0x06
                            000005   570 	ar5 = 0x05
@@ -574,16 +574,16 @@
                            000001   574 	ar1 = 0x01
                            000000   575 	ar0 = 0x00
                                     576 ;	pwm.c:15: SCON = 0x50;               // Serial mode 1, 8-bit UART, enable receiver
-      003065 75 98 50         [24]  577 	mov	_SCON,#0x50
+      000065 75 98 50         [24]  577 	mov	_SCON,#0x50
                                     578 ;	pwm.c:16: TMOD = 0x20;               // Timer 1, mode 2 (8-bit auto-reload)
-      003068 75 89 20         [24]  579 	mov	_TMOD,#0x20
+      000068 75 89 20         [24]  579 	mov	_TMOD,#0x20
                                     580 ;	pwm.c:17: TH1 = 0xFD;                // 9600 baud rate
-      00306B 75 8D FD         [24]  581 	mov	_TH1,#0xfd
+      00006B 75 8D FD         [24]  581 	mov	_TH1,#0xfd
                                     582 ;	pwm.c:18: TR1 = 1;                   // Start timer 1
                                     583 ;	assignBit
-      00306E D2 8E            [12]  584 	setb	_TR1
+      00006E D2 8E            [12]  584 	setb	_TR1
                                     585 ;	pwm.c:19: }
-      003070 22               [24]  586 	ret
+      000070 22               [24]  586 	ret
                                     587 ;------------------------------------------------------------
                                     588 ;Allocation info for local variables in function 'putchar'
                                     589 ;------------------------------------------------------------
@@ -593,32 +593,32 @@
                                     593 ;	-----------------------------------------
                                     594 ;	 function putchar
                                     595 ;	-----------------------------------------
-      003071                        596 _putchar:
-      003071 AF 83            [24]  597 	mov	r7,dph
-      003073 E5 82            [12]  598 	mov	a,dpl
-      003075 90 04 00         [24]  599 	mov	dptr,#_putchar_chr_65536_15
-      003078 F0               [24]  600 	movx	@dptr,a
-      003079 EF               [12]  601 	mov	a,r7
-      00307A A3               [24]  602 	inc	dptr
-      00307B F0               [24]  603 	movx	@dptr,a
+      000071                        596 _putchar:
+      000071 AF 83            [24]  597 	mov	r7,dph
+      000073 E5 82            [12]  598 	mov	a,dpl
+      000075 90 04 00         [24]  599 	mov	dptr,#_putchar_chr_65536_15
+      000078 F0               [24]  600 	movx	@dptr,a
+      000079 EF               [12]  601 	mov	a,r7
+      00007A A3               [24]  602 	inc	dptr
+      00007B F0               [24]  603 	movx	@dptr,a
                                     604 ;	pwm.c:23: SBUF = chr;                 // Load character to send
-      00307C 90 04 00         [24]  605 	mov	dptr,#_putchar_chr_65536_15
-      00307F E0               [24]  606 	movx	a,@dptr
-      003080 FE               [12]  607 	mov	r6,a
-      003081 A3               [24]  608 	inc	dptr
-      003082 E0               [24]  609 	movx	a,@dptr
-      003083 8E 99            [24]  610 	mov	_SBUF,r6
+      00007C 90 04 00         [24]  605 	mov	dptr,#_putchar_chr_65536_15
+      00007F E0               [24]  606 	movx	a,@dptr
+      000080 FE               [12]  607 	mov	r6,a
+      000081 A3               [24]  608 	inc	dptr
+      000082 E0               [24]  609 	movx	a,@dptr
+      000083 8E 99            [24]  610 	mov	_SBUF,r6
                                     611 ;	pwm.c:24: while(!TI);                 // Wait for transmission complete
-      003085                        612 00101$:
+      000085                        612 00101$:
                                     613 ;	pwm.c:26: TI = 0;                     // Clear transmission flag
                                     614 ;	assignBit
-      003085 10 99 02         [24]  615 	jbc	_TI,00114$
-      003088 80 FB            [24]  616 	sjmp	00101$
-      00308A                        617 00114$:
+      000085 10 99 02         [24]  615 	jbc	_TI,00114$
+      000088 80 FB            [24]  616 	sjmp	00101$
+      00008A                        617 00114$:
                                     618 ;	pwm.c:27: return 1;
-      00308A 90 00 01         [24]  619 	mov	dptr,#0x0001
+      00008A 90 00 01         [24]  619 	mov	dptr,#0x0001
                                     620 ;	pwm.c:28: }
-      00308D 22               [24]  621 	ret
+      00008D 22               [24]  621 	ret
                                     622 ;------------------------------------------------------------
                                     623 ;Allocation info for local variables in function 'getchar'
                                     624 ;------------------------------------------------------------
@@ -628,21 +628,21 @@
                                     628 ;	-----------------------------------------
                                     629 ;	 function getchar
                                     630 ;	-----------------------------------------
-      00308E                        631 _getchar:
+      00008E                        631 _getchar:
                                     632 ;	pwm.c:31: while(!RI);                 // Wait for character reception
-      00308E                        633 00101$:
-      00308E 30 98 FD         [24]  634 	jnb	_RI,00101$
+      00008E                        633 00101$:
+      00008E 30 98 FD         [24]  634 	jnb	_RI,00101$
                                     635 ;	pwm.c:32: int a = SBUF;               // Get received character
-      003091 AE 99            [24]  636 	mov	r6,_SBUF
-      003093 7F 00            [12]  637 	mov	r7,#0x00
+      000091 AE 99            [24]  636 	mov	r6,_SBUF
+      000093 7F 00            [12]  637 	mov	r7,#0x00
                                     638 ;	pwm.c:34: RI = 0;                     // Clear reception flag
                                     639 ;	assignBit
-      003095 C2 98            [12]  640 	clr	_RI
+      000095 C2 98            [12]  640 	clr	_RI
                                     641 ;	pwm.c:35: return a;
-      003097 8E 82            [24]  642 	mov	dpl,r6
-      003099 8F 83            [24]  643 	mov	dph,r7
+      000097 8E 82            [24]  642 	mov	dpl,r6
+      000099 8F 83            [24]  643 	mov	dph,r7
                                     644 ;	pwm.c:36: }
-      00309B 22               [24]  645 	ret
+      00009B 22               [24]  645 	ret
                                     646 ;------------------------------------------------------------
                                     647 ;Allocation info for local variables in function 'external_ISR'
                                     648 ;------------------------------------------------------------
@@ -650,49 +650,49 @@
                                     650 ;	-----------------------------------------
                                     651 ;	 function external_ISR
                                     652 ;	-----------------------------------------
-      00309C                        653 _external_ISR:
-      00309C C0 20            [24]  654 	push	bits
-      00309E C0 E0            [24]  655 	push	acc
-      0030A0 C0 F0            [24]  656 	push	b
-      0030A2 C0 82            [24]  657 	push	dpl
-      0030A4 C0 83            [24]  658 	push	dph
-      0030A6 C0 07            [24]  659 	push	(0+7)
-      0030A8 C0 06            [24]  660 	push	(0+6)
-      0030AA C0 05            [24]  661 	push	(0+5)
-      0030AC C0 04            [24]  662 	push	(0+4)
-      0030AE C0 03            [24]  663 	push	(0+3)
-      0030B0 C0 02            [24]  664 	push	(0+2)
-      0030B2 C0 01            [24]  665 	push	(0+1)
-      0030B4 C0 00            [24]  666 	push	(0+0)
-      0030B6 C0 D0            [24]  667 	push	psw
-      0030B8 75 D0 00         [24]  668 	mov	psw,#0x00
+      00009C                        653 _external_ISR:
+      00009C C0 20            [24]  654 	push	bits
+      00009E C0 E0            [24]  655 	push	acc
+      0000A0 C0 F0            [24]  656 	push	b
+      0000A2 C0 82            [24]  657 	push	dpl
+      0000A4 C0 83            [24]  658 	push	dph
+      0000A6 C0 07            [24]  659 	push	(0+7)
+      0000A8 C0 06            [24]  660 	push	(0+6)
+      0000AA C0 05            [24]  661 	push	(0+5)
+      0000AC C0 04            [24]  662 	push	(0+4)
+      0000AE C0 03            [24]  663 	push	(0+3)
+      0000B0 C0 02            [24]  664 	push	(0+2)
+      0000B2 C0 01            [24]  665 	push	(0+1)
+      0000B4 C0 00            [24]  666 	push	(0+0)
+      0000B6 C0 D0            [24]  667 	push	psw
+      0000B8 75 D0 00         [24]  668 	mov	psw,#0x00
                                     669 ;	pwm.c:41: printf("EXIT FROM IDEL MODE\n\r");
-      0030BB 74 3B            [12]  670 	mov	a,#___str_0
-      0030BD C0 E0            [24]  671 	push	acc
-      0030BF 74 3D            [12]  672 	mov	a,#(___str_0 >> 8)
-      0030C1 C0 E0            [24]  673 	push	acc
-      0030C3 74 80            [12]  674 	mov	a,#0x80
-      0030C5 C0 E0            [24]  675 	push	acc
-      0030C7 12 32 D9         [24]  676 	lcall	_printf
-      0030CA 15 81            [12]  677 	dec	sp
-      0030CC 15 81            [12]  678 	dec	sp
-      0030CE 15 81            [12]  679 	dec	sp
+      0000BB 74 3B            [12]  670 	mov	a,#___str_0
+      0000BD C0 E0            [24]  671 	push	acc
+      0000BF 74 0D            [12]  672 	mov	a,#(___str_0 >> 8)
+      0000C1 C0 E0            [24]  673 	push	acc
+      0000C3 74 80            [12]  674 	mov	a,#0x80
+      0000C5 C0 E0            [24]  675 	push	acc
+      0000C7 12 02 D9         [24]  676 	lcall	_printf
+      0000CA 15 81            [12]  677 	dec	sp
+      0000CC 15 81            [12]  678 	dec	sp
+      0000CE 15 81            [12]  679 	dec	sp
                                     680 ;	pwm.c:42: }
-      0030D0 D0 D0            [24]  681 	pop	psw
-      0030D2 D0 00            [24]  682 	pop	(0+0)
-      0030D4 D0 01            [24]  683 	pop	(0+1)
-      0030D6 D0 02            [24]  684 	pop	(0+2)
-      0030D8 D0 03            [24]  685 	pop	(0+3)
-      0030DA D0 04            [24]  686 	pop	(0+4)
-      0030DC D0 05            [24]  687 	pop	(0+5)
-      0030DE D0 06            [24]  688 	pop	(0+6)
-      0030E0 D0 07            [24]  689 	pop	(0+7)
-      0030E2 D0 83            [24]  690 	pop	dph
-      0030E4 D0 82            [24]  691 	pop	dpl
-      0030E6 D0 F0            [24]  692 	pop	b
-      0030E8 D0 E0            [24]  693 	pop	acc
-      0030EA D0 20            [24]  694 	pop	bits
-      0030EC 32               [24]  695 	reti
+      0000D0 D0 D0            [24]  681 	pop	psw
+      0000D2 D0 00            [24]  682 	pop	(0+0)
+      0000D4 D0 01            [24]  683 	pop	(0+1)
+      0000D6 D0 02            [24]  684 	pop	(0+2)
+      0000D8 D0 03            [24]  685 	pop	(0+3)
+      0000DA D0 04            [24]  686 	pop	(0+4)
+      0000DC D0 05            [24]  687 	pop	(0+5)
+      0000DE D0 06            [24]  688 	pop	(0+6)
+      0000E0 D0 07            [24]  689 	pop	(0+7)
+      0000E2 D0 83            [24]  690 	pop	dph
+      0000E4 D0 82            [24]  691 	pop	dpl
+      0000E6 D0 F0            [24]  692 	pop	b
+      0000E8 D0 E0            [24]  693 	pop	acc
+      0000EA D0 20            [24]  694 	pop	bits
+      0000EC 32               [24]  695 	reti
                                     696 ;------------------------------------------------------------
                                     697 ;Allocation info for local variables in function 'main'
                                     698 ;------------------------------------------------------------
@@ -702,150 +702,150 @@
                                     702 ;	-----------------------------------------
                                     703 ;	 function main
                                     704 ;	-----------------------------------------
-      0030ED                        705 _main:
+      0000ED                        705 _main:
                                     706 ;	pwm.c:52: init_uart();
-      0030ED 12 30 65         [24]  707 	lcall	_init_uart
+      0000ED 12 00 65         [24]  707 	lcall	_init_uart
                                     708 ;	pwm.c:54: pwm_init();
-      0030F0 12 32 46         [24]  709 	lcall	_pwm_init
+      0000F0 12 02 46         [24]  709 	lcall	_pwm_init
                                     710 ;	pwm.c:55: printf("PCA MODE : PWM\n\r");
-      0030F3 74 51            [12]  711 	mov	a,#___str_1
-      0030F5 C0 E0            [24]  712 	push	acc
-      0030F7 74 3D            [12]  713 	mov	a,#(___str_1 >> 8)
-      0030F9 C0 E0            [24]  714 	push	acc
-      0030FB 74 80            [12]  715 	mov	a,#0x80
-      0030FD C0 E0            [24]  716 	push	acc
-      0030FF 12 32 D9         [24]  717 	lcall	_printf
-      003102 15 81            [12]  718 	dec	sp
-      003104 15 81            [12]  719 	dec	sp
-      003106 15 81            [12]  720 	dec	sp
+      0000F3 74 51            [12]  711 	mov	a,#___str_1
+      0000F5 C0 E0            [24]  712 	push	acc
+      0000F7 74 0D            [12]  713 	mov	a,#(___str_1 >> 8)
+      0000F9 C0 E0            [24]  714 	push	acc
+      0000FB 74 80            [12]  715 	mov	a,#0x80
+      0000FD C0 E0            [24]  716 	push	acc
+      0000FF 12 02 D9         [24]  717 	lcall	_printf
+      000102 15 81            [12]  718 	dec	sp
+      000104 15 81            [12]  719 	dec	sp
+      000106 15 81            [12]  720 	dec	sp
                                     721 ;	pwm.c:59: printf("COMMANDS :\n\r");
-      003108 74 62            [12]  722 	mov	a,#___str_2
-      00310A C0 E0            [24]  723 	push	acc
-      00310C 74 3D            [12]  724 	mov	a,#(___str_2 >> 8)
-      00310E C0 E0            [24]  725 	push	acc
-      003110 74 80            [12]  726 	mov	a,#0x80
-      003112 C0 E0            [24]  727 	push	acc
-      003114 12 32 D9         [24]  728 	lcall	_printf
-      003117 15 81            [12]  729 	dec	sp
-      003119 15 81            [12]  730 	dec	sp
-      00311B 15 81            [12]  731 	dec	sp
+      000108 74 62            [12]  722 	mov	a,#___str_2
+      00010A C0 E0            [24]  723 	push	acc
+      00010C 74 0D            [12]  724 	mov	a,#(___str_2 >> 8)
+      00010E C0 E0            [24]  725 	push	acc
+      000110 74 80            [12]  726 	mov	a,#0x80
+      000112 C0 E0            [24]  727 	push	acc
+      000114 12 02 D9         [24]  728 	lcall	_printf
+      000117 15 81            [12]  729 	dec	sp
+      000119 15 81            [12]  730 	dec	sp
+      00011B 15 81            [12]  731 	dec	sp
                                     732 ;	pwm.c:60: printf(" R - RUN PWM\n\r");
-      00311D 74 6F            [12]  733 	mov	a,#___str_3
-      00311F C0 E0            [24]  734 	push	acc
-      003121 74 3D            [12]  735 	mov	a,#(___str_3 >> 8)
-      003123 C0 E0            [24]  736 	push	acc
-      003125 74 80            [12]  737 	mov	a,#0x80
-      003127 C0 E0            [24]  738 	push	acc
-      003129 12 32 D9         [24]  739 	lcall	_printf
-      00312C 15 81            [12]  740 	dec	sp
-      00312E 15 81            [12]  741 	dec	sp
-      003130 15 81            [12]  742 	dec	sp
+      00011D 74 6F            [12]  733 	mov	a,#___str_3
+      00011F C0 E0            [24]  734 	push	acc
+      000121 74 0D            [12]  735 	mov	a,#(___str_3 >> 8)
+      000123 C0 E0            [24]  736 	push	acc
+      000125 74 80            [12]  737 	mov	a,#0x80
+      000127 C0 E0            [24]  738 	push	acc
+      000129 12 02 D9         [24]  739 	lcall	_printf
+      00012C 15 81            [12]  740 	dec	sp
+      00012E 15 81            [12]  741 	dec	sp
+      000130 15 81            [12]  742 	dec	sp
                                     743 ;	pwm.c:61: printf(" S - STOP PWM\n\r");
-      003132 74 7E            [12]  744 	mov	a,#___str_4
-      003134 C0 E0            [24]  745 	push	acc
-      003136 74 3D            [12]  746 	mov	a,#(___str_4 >> 8)
-      003138 C0 E0            [24]  747 	push	acc
-      00313A 74 80            [12]  748 	mov	a,#0x80
-      00313C C0 E0            [24]  749 	push	acc
-      00313E 12 32 D9         [24]  750 	lcall	_printf
-      003141 15 81            [12]  751 	dec	sp
-      003143 15 81            [12]  752 	dec	sp
-      003145 15 81            [12]  753 	dec	sp
+      000132 74 7E            [12]  744 	mov	a,#___str_4
+      000134 C0 E0            [24]  745 	push	acc
+      000136 74 0D            [12]  746 	mov	a,#(___str_4 >> 8)
+      000138 C0 E0            [24]  747 	push	acc
+      00013A 74 80            [12]  748 	mov	a,#0x80
+      00013C C0 E0            [24]  749 	push	acc
+      00013E 12 02 D9         [24]  750 	lcall	_printf
+      000141 15 81            [12]  751 	dec	sp
+      000143 15 81            [12]  752 	dec	sp
+      000145 15 81            [12]  753 	dec	sp
                                     754 ;	pwm.c:62: printf(" F - MAX FREQUENCY MODE\n\r");
-      003147 74 8E            [12]  755 	mov	a,#___str_5
-      003149 C0 E0            [24]  756 	push	acc
-      00314B 74 3D            [12]  757 	mov	a,#(___str_5 >> 8)
-      00314D C0 E0            [24]  758 	push	acc
-      00314F 74 80            [12]  759 	mov	a,#0x80
-      003151 C0 E0            [24]  760 	push	acc
-      003153 12 32 D9         [24]  761 	lcall	_printf
-      003156 15 81            [12]  762 	dec	sp
-      003158 15 81            [12]  763 	dec	sp
-      00315A 15 81            [12]  764 	dec	sp
+      000147 74 8E            [12]  755 	mov	a,#___str_5
+      000149 C0 E0            [24]  756 	push	acc
+      00014B 74 0D            [12]  757 	mov	a,#(___str_5 >> 8)
+      00014D C0 E0            [24]  758 	push	acc
+      00014F 74 80            [12]  759 	mov	a,#0x80
+      000151 C0 E0            [24]  760 	push	acc
+      000153 12 02 D9         [24]  761 	lcall	_printf
+      000156 15 81            [12]  762 	dec	sp
+      000158 15 81            [12]  763 	dec	sp
+      00015A 15 81            [12]  764 	dec	sp
                                     765 ;	pwm.c:63: printf(" M - MIN FREQUENCY MODE\n\r");
-      00315C 74 A8            [12]  766 	mov	a,#___str_6
-      00315E C0 E0            [24]  767 	push	acc
-      003160 74 3D            [12]  768 	mov	a,#(___str_6 >> 8)
-      003162 C0 E0            [24]  769 	push	acc
-      003164 74 80            [12]  770 	mov	a,#0x80
-      003166 C0 E0            [24]  771 	push	acc
-      003168 12 32 D9         [24]  772 	lcall	_printf
-      00316B 15 81            [12]  773 	dec	sp
-      00316D 15 81            [12]  774 	dec	sp
-      00316F 15 81            [12]  775 	dec	sp
+      00015C 74 A8            [12]  766 	mov	a,#___str_6
+      00015E C0 E0            [24]  767 	push	acc
+      000160 74 0D            [12]  768 	mov	a,#(___str_6 >> 8)
+      000162 C0 E0            [24]  769 	push	acc
+      000164 74 80            [12]  770 	mov	a,#0x80
+      000166 C0 E0            [24]  771 	push	acc
+      000168 12 02 D9         [24]  772 	lcall	_printf
+      00016B 15 81            [12]  773 	dec	sp
+      00016D 15 81            [12]  774 	dec	sp
+      00016F 15 81            [12]  775 	dec	sp
                                     776 ;	pwm.c:64: printf(" I - IDLE MODE\n\r");
-      003171 74 C2            [12]  777 	mov	a,#___str_7
-      003173 C0 E0            [24]  778 	push	acc
-      003175 74 3D            [12]  779 	mov	a,#(___str_7 >> 8)
-      003177 C0 E0            [24]  780 	push	acc
-      003179 74 80            [12]  781 	mov	a,#0x80
-      00317B C0 E0            [24]  782 	push	acc
-      00317D 12 32 D9         [24]  783 	lcall	_printf
-      003180 15 81            [12]  784 	dec	sp
-      003182 15 81            [12]  785 	dec	sp
-      003184 15 81            [12]  786 	dec	sp
+      000171 74 C2            [12]  777 	mov	a,#___str_7
+      000173 C0 E0            [24]  778 	push	acc
+      000175 74 0D            [12]  779 	mov	a,#(___str_7 >> 8)
+      000177 C0 E0            [24]  780 	push	acc
+      000179 74 80            [12]  781 	mov	a,#0x80
+      00017B C0 E0            [24]  782 	push	acc
+      00017D 12 02 D9         [24]  783 	lcall	_printf
+      000180 15 81            [12]  784 	dec	sp
+      000182 15 81            [12]  785 	dec	sp
+      000184 15 81            [12]  786 	dec	sp
                                     787 ;	pwm.c:65: printf(" P - POWER DOWN MODE\n\r");
-      003186 74 D3            [12]  788 	mov	a,#___str_8
-      003188 C0 E0            [24]  789 	push	acc
-      00318A 74 3D            [12]  790 	mov	a,#(___str_8 >> 8)
-      00318C C0 E0            [24]  791 	push	acc
-      00318E 74 80            [12]  792 	mov	a,#0x80
-      003190 C0 E0            [24]  793 	push	acc
-      003192 12 32 D9         [24]  794 	lcall	_printf
-      003195 15 81            [12]  795 	dec	sp
-      003197 15 81            [12]  796 	dec	sp
-      003199 15 81            [12]  797 	dec	sp
+      000186 74 D3            [12]  788 	mov	a,#___str_8
+      000188 C0 E0            [24]  789 	push	acc
+      00018A 74 0D            [12]  790 	mov	a,#(___str_8 >> 8)
+      00018C C0 E0            [24]  791 	push	acc
+      00018E 74 80            [12]  792 	mov	a,#0x80
+      000190 C0 E0            [24]  793 	push	acc
+      000192 12 02 D9         [24]  794 	lcall	_printf
+      000195 15 81            [12]  795 	dec	sp
+      000197 15 81            [12]  796 	dec	sp
+      000199 15 81            [12]  797 	dec	sp
                                     798 ;	pwm.c:67: TCON = 0x01;
-      00319B 75 88 01         [24]  799 	mov	_TCON,#0x01
+      00019B 75 88 01         [24]  799 	mov	_TCON,#0x01
                                     800 ;	pwm.c:68: IE = 0x81;
-      00319E 75 A8 81         [24]  801 	mov	_IE,#0x81
+      00019E 75 A8 81         [24]  801 	mov	_IE,#0x81
                                     802 ;	pwm.c:69: while(1)
-      0031A1                        803 00114$:
+      0001A1                        803 00114$:
                                     804 ;	pwm.c:71: char command = getchar();
-      0031A1 12 30 8E         [24]  805 	lcall	_getchar
-      0031A4 AE 82            [24]  806 	mov	r6,dpl
-      0031A6 AF 83            [24]  807 	mov	r7,dph
+      0001A1 12 00 8E         [24]  805 	lcall	_getchar
+      0001A4 AE 82            [24]  806 	mov	r6,dpl
+      0001A6 AF 83            [24]  807 	mov	r7,dph
                                     808 ;	pwm.c:72: if(command == 'R')
-      0031A8 BE 52 07         [24]  809 	cjne	r6,#0x52,00102$
+      0001A8 BE 52 07         [24]  809 	cjne	r6,#0x52,00102$
                                     810 ;	pwm.c:75: pwm_start();
-      0031AB C0 06            [24]  811 	push	ar6
-      0031AD 12 32 59         [24]  812 	lcall	_pwm_start
-      0031B0 D0 06            [24]  813 	pop	ar6
-      0031B2                        814 00102$:
+      0001AB C0 06            [24]  811 	push	ar6
+      0001AD 12 02 59         [24]  812 	lcall	_pwm_start
+      0001B0 D0 06            [24]  813 	pop	ar6
+      0001B2                        814 00102$:
                                     815 ;	pwm.c:77: if(command == 'S')
-      0031B2 BE 53 07         [24]  816 	cjne	r6,#0x53,00104$
+      0001B2 BE 53 07         [24]  816 	cjne	r6,#0x53,00104$
                                     817 ;	pwm.c:80: pwm_stop();
-      0031B5 C0 06            [24]  818 	push	ar6
-      0031B7 12 32 72         [24]  819 	lcall	_pwm_stop
-      0031BA D0 06            [24]  820 	pop	ar6
-      0031BC                        821 00104$:
+      0001B5 C0 06            [24]  818 	push	ar6
+      0001B7 12 02 72         [24]  819 	lcall	_pwm_stop
+      0001BA D0 06            [24]  820 	pop	ar6
+      0001BC                        821 00104$:
                                     822 ;	pwm.c:82: if(command == 'F')
-      0031BC BE 46 07         [24]  823 	cjne	r6,#0x46,00106$
+      0001BC BE 46 07         [24]  823 	cjne	r6,#0x46,00106$
                                     824 ;	pwm.c:85: freq_max();
-      0031BF C0 06            [24]  825 	push	ar6
-      0031C1 12 32 14         [24]  826 	lcall	_freq_max
-      0031C4 D0 06            [24]  827 	pop	ar6
-      0031C6                        828 00106$:
+      0001BF C0 06            [24]  825 	push	ar6
+      0001C1 12 02 14         [24]  826 	lcall	_freq_max
+      0001C4 D0 06            [24]  827 	pop	ar6
+      0001C6                        828 00106$:
                                     829 ;	pwm.c:87: if(command == 'M')
-      0031C6 BE 4D 07         [24]  830 	cjne	r6,#0x4d,00108$
+      0001C6 BE 4D 07         [24]  830 	cjne	r6,#0x4d,00108$
                                     831 ;	pwm.c:90: freq_min();
-      0031C9 C0 06            [24]  832 	push	ar6
-      0031CB 12 32 2D         [24]  833 	lcall	_freq_min
-      0031CE D0 06            [24]  834 	pop	ar6
-      0031D0                        835 00108$:
+      0001C9 C0 06            [24]  832 	push	ar6
+      0001CB 12 02 2D         [24]  833 	lcall	_freq_min
+      0001CE D0 06            [24]  834 	pop	ar6
+      0001D0                        835 00108$:
                                     836 ;	pwm.c:92: if(command == 'I')
-      0031D0 BE 49 07         [24]  837 	cjne	r6,#0x49,00110$
+      0001D0 BE 49 07         [24]  837 	cjne	r6,#0x49,00110$
                                     838 ;	pwm.c:94: idle_mode();
-      0031D3 C0 06            [24]  839 	push	ar6
-      0031D5 12 31 E2         [24]  840 	lcall	_idle_mode
-      0031D8 D0 06            [24]  841 	pop	ar6
-      0031DA                        842 00110$:
+      0001D3 C0 06            [24]  839 	push	ar6
+      0001D5 12 01 E2         [24]  840 	lcall	_idle_mode
+      0001D8 D0 06            [24]  841 	pop	ar6
+      0001DA                        842 00110$:
                                     843 ;	pwm.c:96: if(command == 'P')
-      0031DA BE 50 C4         [24]  844 	cjne	r6,#0x50,00114$
+      0001DA BE 50 C4         [24]  844 	cjne	r6,#0x50,00114$
                                     845 ;	pwm.c:98: power_down_mode();
-      0031DD 12 31 FB         [24]  846 	lcall	_power_down_mode
+      0001DD 12 01 FB         [24]  846 	lcall	_power_down_mode
                                     847 ;	pwm.c:102: }
-      0031E0 80 BF            [24]  848 	sjmp	00114$
+      0001E0 80 BF            [24]  848 	sjmp	00114$
                                     849 ;------------------------------------------------------------
                                     850 ;Allocation info for local variables in function 'idle_mode'
                                     851 ;------------------------------------------------------------
@@ -853,22 +853,22 @@
                                     853 ;	-----------------------------------------
                                     854 ;	 function idle_mode
                                     855 ;	-----------------------------------------
-      0031E2                        856 _idle_mode:
+      0001E2                        856 _idle_mode:
                                     857 ;	pwm.c:113: printf("IDLE MODE\n\r");
-      0031E2 74 EA            [12]  858 	mov	a,#___str_9
-      0031E4 C0 E0            [24]  859 	push	acc
-      0031E6 74 3D            [12]  860 	mov	a,#(___str_9 >> 8)
-      0031E8 C0 E0            [24]  861 	push	acc
-      0031EA 74 80            [12]  862 	mov	a,#0x80
-      0031EC C0 E0            [24]  863 	push	acc
-      0031EE 12 32 D9         [24]  864 	lcall	_printf
-      0031F1 15 81            [12]  865 	dec	sp
-      0031F3 15 81            [12]  866 	dec	sp
-      0031F5 15 81            [12]  867 	dec	sp
+      0001E2 74 EA            [12]  858 	mov	a,#___str_9
+      0001E4 C0 E0            [24]  859 	push	acc
+      0001E6 74 0D            [12]  860 	mov	a,#(___str_9 >> 8)
+      0001E8 C0 E0            [24]  861 	push	acc
+      0001EA 74 80            [12]  862 	mov	a,#0x80
+      0001EC C0 E0            [24]  863 	push	acc
+      0001EE 12 02 D9         [24]  864 	lcall	_printf
+      0001F1 15 81            [12]  865 	dec	sp
+      0001F3 15 81            [12]  866 	dec	sp
+      0001F5 15 81            [12]  867 	dec	sp
                                     868 ;	pwm.c:114: PCON = 0x01;
-      0031F7 75 87 01         [24]  869 	mov	_PCON,#0x01
+      0001F7 75 87 01         [24]  869 	mov	_PCON,#0x01
                                     870 ;	pwm.c:115: }
-      0031FA 22               [24]  871 	ret
+      0001FA 22               [24]  871 	ret
                                     872 ;------------------------------------------------------------
                                     873 ;Allocation info for local variables in function 'power_down_mode'
                                     874 ;------------------------------------------------------------
@@ -876,22 +876,22 @@
                                     876 ;	-----------------------------------------
                                     877 ;	 function power_down_mode
                                     878 ;	-----------------------------------------
-      0031FB                        879 _power_down_mode:
+      0001FB                        879 _power_down_mode:
                                     880 ;	pwm.c:119: printf("POWER DOWN MODE\n\r");
-      0031FB 74 F6            [12]  881 	mov	a,#___str_10
-      0031FD C0 E0            [24]  882 	push	acc
-      0031FF 74 3D            [12]  883 	mov	a,#(___str_10 >> 8)
-      003201 C0 E0            [24]  884 	push	acc
-      003203 74 80            [12]  885 	mov	a,#0x80
-      003205 C0 E0            [24]  886 	push	acc
-      003207 12 32 D9         [24]  887 	lcall	_printf
-      00320A 15 81            [12]  888 	dec	sp
-      00320C 15 81            [12]  889 	dec	sp
-      00320E 15 81            [12]  890 	dec	sp
+      0001FB 74 F6            [12]  881 	mov	a,#___str_10
+      0001FD C0 E0            [24]  882 	push	acc
+      0001FF 74 0D            [12]  883 	mov	a,#(___str_10 >> 8)
+      000201 C0 E0            [24]  884 	push	acc
+      000203 74 80            [12]  885 	mov	a,#0x80
+      000205 C0 E0            [24]  886 	push	acc
+      000207 12 02 D9         [24]  887 	lcall	_printf
+      00020A 15 81            [12]  888 	dec	sp
+      00020C 15 81            [12]  889 	dec	sp
+      00020E 15 81            [12]  890 	dec	sp
                                     891 ;	pwm.c:120: PCON = 0x02;
-      003210 75 87 02         [24]  892 	mov	_PCON,#0x02
+      000210 75 87 02         [24]  892 	mov	_PCON,#0x02
                                     893 ;	pwm.c:121: }
-      003213 22               [24]  894 	ret
+      000213 22               [24]  894 	ret
                                     895 ;------------------------------------------------------------
                                     896 ;Allocation info for local variables in function 'freq_max'
                                     897 ;------------------------------------------------------------
@@ -899,22 +899,22 @@
                                     899 ;	-----------------------------------------
                                     900 ;	 function freq_max
                                     901 ;	-----------------------------------------
-      003214                        902 _freq_max:
+      000214                        902 _freq_max:
                                     903 ;	pwm.c:124: printf("MAXIMUM FREQUENCY\n\r");
-      003214 74 08            [12]  904 	mov	a,#___str_11
-      003216 C0 E0            [24]  905 	push	acc
-      003218 74 3E            [12]  906 	mov	a,#(___str_11 >> 8)
-      00321A C0 E0            [24]  907 	push	acc
-      00321C 74 80            [12]  908 	mov	a,#0x80
-      00321E C0 E0            [24]  909 	push	acc
-      003220 12 32 D9         [24]  910 	lcall	_printf
-      003223 15 81            [12]  911 	dec	sp
-      003225 15 81            [12]  912 	dec	sp
-      003227 15 81            [12]  913 	dec	sp
+      000214 74 08            [12]  904 	mov	a,#___str_11
+      000216 C0 E0            [24]  905 	push	acc
+      000218 74 0E            [12]  906 	mov	a,#(___str_11 >> 8)
+      00021A C0 E0            [24]  907 	push	acc
+      00021C 74 80            [12]  908 	mov	a,#0x80
+      00021E C0 E0            [24]  909 	push	acc
+      000220 12 02 D9         [24]  910 	lcall	_printf
+      000223 15 81            [12]  911 	dec	sp
+      000225 15 81            [12]  912 	dec	sp
+      000227 15 81            [12]  913 	dec	sp
                                     914 ;	pwm.c:125: CKRL = 0xFF;
-      003229 75 97 FF         [24]  915 	mov	_CKRL,#0xff
+      000229 75 97 FF         [24]  915 	mov	_CKRL,#0xff
                                     916 ;	pwm.c:126: }
-      00322C 22               [24]  917 	ret
+      00022C 22               [24]  917 	ret
                                     918 ;------------------------------------------------------------
                                     919 ;Allocation info for local variables in function 'freq_min'
                                     920 ;------------------------------------------------------------
@@ -922,22 +922,22 @@
                                     922 ;	-----------------------------------------
                                     923 ;	 function freq_min
                                     924 ;	-----------------------------------------
-      00322D                        925 _freq_min:
+      00022D                        925 _freq_min:
                                     926 ;	pwm.c:130: printf("MINIMUM FREQUENCY\n\r");
-      00322D 74 1C            [12]  927 	mov	a,#___str_12
-      00322F C0 E0            [24]  928 	push	acc
-      003231 74 3E            [12]  929 	mov	a,#(___str_12 >> 8)
-      003233 C0 E0            [24]  930 	push	acc
-      003235 74 80            [12]  931 	mov	a,#0x80
-      003237 C0 E0            [24]  932 	push	acc
-      003239 12 32 D9         [24]  933 	lcall	_printf
-      00323C 15 81            [12]  934 	dec	sp
-      00323E 15 81            [12]  935 	dec	sp
-      003240 15 81            [12]  936 	dec	sp
+      00022D 74 1C            [12]  927 	mov	a,#___str_12
+      00022F C0 E0            [24]  928 	push	acc
+      000231 74 0E            [12]  929 	mov	a,#(___str_12 >> 8)
+      000233 C0 E0            [24]  930 	push	acc
+      000235 74 80            [12]  931 	mov	a,#0x80
+      000237 C0 E0            [24]  932 	push	acc
+      000239 12 02 D9         [24]  933 	lcall	_printf
+      00023C 15 81            [12]  934 	dec	sp
+      00023E 15 81            [12]  935 	dec	sp
+      000240 15 81            [12]  936 	dec	sp
                                     937 ;	pwm.c:131: CKRL = 0x00;
-      003242 75 97 00         [24]  938 	mov	_CKRL,#0x00
+      000242 75 97 00         [24]  938 	mov	_CKRL,#0x00
                                     939 ;	pwm.c:132: }
-      003245 22               [24]  940 	ret
+      000245 22               [24]  940 	ret
                                     941 ;------------------------------------------------------------
                                     942 ;Allocation info for local variables in function 'pwm_init'
                                     943 ;------------------------------------------------------------
@@ -945,21 +945,21 @@
                                     945 ;	-----------------------------------------
                                     946 ;	 function pwm_init
                                     947 ;	-----------------------------------------
-      003246                        948 _pwm_init:
+      000246                        948 _pwm_init:
                                     949 ;	pwm.c:135: CMOD = 0X82;
-      003246 75 D9 82         [24]  950 	mov	_CMOD,#0x82
+      000246 75 D9 82         [24]  950 	mov	_CMOD,#0x82
                                     951 ;	pwm.c:136: CL = 0X00;
-      003249 75 E9 00         [24]  952 	mov	_CL,#0x00
+      000249 75 E9 00         [24]  952 	mov	_CL,#0x00
                                     953 ;	pwm.c:137: CH = 0X00;
-      00324C 75 F9 00         [24]  954 	mov	_CH,#0x00
+      00024C 75 F9 00         [24]  954 	mov	_CH,#0x00
                                     955 ;	pwm.c:139: CCAP0L = 0X1C;
-      00324F 75 EA 1C         [24]  956 	mov	_CCAP0L,#0x1c
+      00024F 75 EA 1C         [24]  956 	mov	_CCAP0L,#0x1c
                                     957 ;	pwm.c:140: CCAP0H = 0X1C;
-      003252 75 FA 1C         [24]  958 	mov	_CCAP0H,#0x1c
+      000252 75 FA 1C         [24]  958 	mov	_CCAP0H,#0x1c
                                     959 ;	pwm.c:141: CCAPM0 = 0X42;
-      003255 75 DA 42         [24]  960 	mov	_CCAPM0,#0x42
+      000255 75 DA 42         [24]  960 	mov	_CCAPM0,#0x42
                                     961 ;	pwm.c:142: }
-      003258 22               [24]  962 	ret
+      000258 22               [24]  962 	ret
                                     963 ;------------------------------------------------------------
                                     964 ;Allocation info for local variables in function 'pwm_start'
                                     965 ;------------------------------------------------------------
@@ -967,22 +967,22 @@
                                     967 ;	-----------------------------------------
                                     968 ;	 function pwm_start
                                     969 ;	-----------------------------------------
-      003259                        970 _pwm_start:
+      000259                        970 _pwm_start:
                                     971 ;	pwm.c:146: printf("PWM START\n\r");
-      003259 74 30            [12]  972 	mov	a,#___str_13
-      00325B C0 E0            [24]  973 	push	acc
-      00325D 74 3E            [12]  974 	mov	a,#(___str_13 >> 8)
-      00325F C0 E0            [24]  975 	push	acc
-      003261 74 80            [12]  976 	mov	a,#0x80
-      003263 C0 E0            [24]  977 	push	acc
-      003265 12 32 D9         [24]  978 	lcall	_printf
-      003268 15 81            [12]  979 	dec	sp
-      00326A 15 81            [12]  980 	dec	sp
-      00326C 15 81            [12]  981 	dec	sp
+      000259 74 30            [12]  972 	mov	a,#___str_13
+      00025B C0 E0            [24]  973 	push	acc
+      00025D 74 0E            [12]  974 	mov	a,#(___str_13 >> 8)
+      00025F C0 E0            [24]  975 	push	acc
+      000261 74 80            [12]  976 	mov	a,#0x80
+      000263 C0 E0            [24]  977 	push	acc
+      000265 12 02 D9         [24]  978 	lcall	_printf
+      000268 15 81            [12]  979 	dec	sp
+      00026A 15 81            [12]  980 	dec	sp
+      00026C 15 81            [12]  981 	dec	sp
                                     982 ;	pwm.c:147: CCON = 0x40;
-      00326E 75 D8 40         [24]  983 	mov	_CCON,#0x40
+      00026E 75 D8 40         [24]  983 	mov	_CCON,#0x40
                                     984 ;	pwm.c:148: }
-      003271 22               [24]  985 	ret
+      000271 22               [24]  985 	ret
                                     986 ;------------------------------------------------------------
                                     987 ;Allocation info for local variables in function 'pwm_stop'
                                     988 ;------------------------------------------------------------
@@ -990,152 +990,152 @@
                                     990 ;	-----------------------------------------
                                     991 ;	 function pwm_stop
                                     992 ;	-----------------------------------------
-      003272                        993 _pwm_stop:
+      000272                        993 _pwm_stop:
                                     994 ;	pwm.c:152: printf("PWM STOP\n\r");
-      003272 74 3C            [12]  995 	mov	a,#___str_14
-      003274 C0 E0            [24]  996 	push	acc
-      003276 74 3E            [12]  997 	mov	a,#(___str_14 >> 8)
-      003278 C0 E0            [24]  998 	push	acc
-      00327A 74 80            [12]  999 	mov	a,#0x80
-      00327C C0 E0            [24] 1000 	push	acc
-      00327E 12 32 D9         [24] 1001 	lcall	_printf
-      003281 15 81            [12] 1002 	dec	sp
-      003283 15 81            [12] 1003 	dec	sp
-      003285 15 81            [12] 1004 	dec	sp
+      000272 74 3C            [12]  995 	mov	a,#___str_14
+      000274 C0 E0            [24]  996 	push	acc
+      000276 74 0E            [12]  997 	mov	a,#(___str_14 >> 8)
+      000278 C0 E0            [24]  998 	push	acc
+      00027A 74 80            [12]  999 	mov	a,#0x80
+      00027C C0 E0            [24] 1000 	push	acc
+      00027E 12 02 D9         [24] 1001 	lcall	_printf
+      000281 15 81            [12] 1002 	dec	sp
+      000283 15 81            [12] 1003 	dec	sp
+      000285 15 81            [12] 1004 	dec	sp
                                    1005 ;	pwm.c:153: CCON = 0x00;
-      003287 75 D8 00         [24] 1006 	mov	_CCON,#0x00
+      000287 75 D8 00         [24] 1006 	mov	_CCON,#0x00
                                    1007 ;	pwm.c:154: }
-      00328A 22               [24] 1008 	ret
+      00028A 22               [24] 1008 	ret
                                    1009 	.area CSEG    (CODE)
                                    1010 	.area CONST   (CODE)
                                    1011 	.area CONST   (CODE)
-      003D3B                       1012 ___str_0:
-      003D3B 45 58 49 54 20 46 52  1013 	.ascii "EXIT FROM IDEL MODE"
+      000D3B                       1012 ___str_0:
+      000D3B 45 58 49 54 20 46 52  1013 	.ascii "EXIT FROM IDEL MODE"
              4F 4D 20 49 44 45 4C
              20 4D 4F 44 45
-      003D4E 0A                    1014 	.db 0x0a
-      003D4F 0D                    1015 	.db 0x0d
-      003D50 00                    1016 	.db 0x00
+      000D4E 0A                    1014 	.db 0x0a
+      000D4F 0D                    1015 	.db 0x0d
+      000D50 00                    1016 	.db 0x00
                                    1017 	.area CSEG    (CODE)
                                    1018 	.area CONST   (CODE)
-      003D51                       1019 ___str_1:
-      003D51 50 43 41 20 4D 4F 44  1020 	.ascii "PCA MODE : PWM"
+      000D51                       1019 ___str_1:
+      000D51 50 43 41 20 4D 4F 44  1020 	.ascii "PCA MODE : PWM"
              45 20 3A 20 50 57 4D
-      003D5F 0A                    1021 	.db 0x0a
-      003D60 0D                    1022 	.db 0x0d
-      003D61 00                    1023 	.db 0x00
+      000D5F 0A                    1021 	.db 0x0a
+      000D60 0D                    1022 	.db 0x0d
+      000D61 00                    1023 	.db 0x00
                                    1024 	.area CSEG    (CODE)
                                    1025 	.area CONST   (CODE)
-      003D62                       1026 ___str_2:
-      003D62 43 4F 4D 4D 41 4E 44  1027 	.ascii "COMMANDS :"
+      000D62                       1026 ___str_2:
+      000D62 43 4F 4D 4D 41 4E 44  1027 	.ascii "COMMANDS :"
              53 20 3A
-      003D6C 0A                    1028 	.db 0x0a
-      003D6D 0D                    1029 	.db 0x0d
-      003D6E 00                    1030 	.db 0x00
+      000D6C 0A                    1028 	.db 0x0a
+      000D6D 0D                    1029 	.db 0x0d
+      000D6E 00                    1030 	.db 0x00
                                    1031 	.area CSEG    (CODE)
                                    1032 	.area CONST   (CODE)
-      003D6F                       1033 ___str_3:
-      003D6F 20 52 20 2D 20 52 55  1034 	.ascii " R - RUN PWM"
+      000D6F                       1033 ___str_3:
+      000D6F 20 52 20 2D 20 52 55  1034 	.ascii " R - RUN PWM"
              4E 20 50 57 4D
-      003D7B 0A                    1035 	.db 0x0a
-      003D7C 0D                    1036 	.db 0x0d
-      003D7D 00                    1037 	.db 0x00
+      000D7B 0A                    1035 	.db 0x0a
+      000D7C 0D                    1036 	.db 0x0d
+      000D7D 00                    1037 	.db 0x00
                                    1038 	.area CSEG    (CODE)
                                    1039 	.area CONST   (CODE)
-      003D7E                       1040 ___str_4:
-      003D7E 20 53 20 2D 20 53 54  1041 	.ascii " S - STOP PWM"
+      000D7E                       1040 ___str_4:
+      000D7E 20 53 20 2D 20 53 54  1041 	.ascii " S - STOP PWM"
              4F 50 20 50 57 4D
-      003D8B 0A                    1042 	.db 0x0a
-      003D8C 0D                    1043 	.db 0x0d
-      003D8D 00                    1044 	.db 0x00
+      000D8B 0A                    1042 	.db 0x0a
+      000D8C 0D                    1043 	.db 0x0d
+      000D8D 00                    1044 	.db 0x00
                                    1045 	.area CSEG    (CODE)
                                    1046 	.area CONST   (CODE)
-      003D8E                       1047 ___str_5:
-      003D8E 20 46 20 2D 20 4D 41  1048 	.ascii " F - MAX FREQUENCY MODE"
+      000D8E                       1047 ___str_5:
+      000D8E 20 46 20 2D 20 4D 41  1048 	.ascii " F - MAX FREQUENCY MODE"
              58 20 46 52 45 51 55
              45 4E 43 59 20 4D 4F
              44 45
-      003DA5 0A                    1049 	.db 0x0a
-      003DA6 0D                    1050 	.db 0x0d
-      003DA7 00                    1051 	.db 0x00
+      000DA5 0A                    1049 	.db 0x0a
+      000DA6 0D                    1050 	.db 0x0d
+      000DA7 00                    1051 	.db 0x00
                                    1052 	.area CSEG    (CODE)
                                    1053 	.area CONST   (CODE)
-      003DA8                       1054 ___str_6:
-      003DA8 20 4D 20 2D 20 4D 49  1055 	.ascii " M - MIN FREQUENCY MODE"
+      000DA8                       1054 ___str_6:
+      000DA8 20 4D 20 2D 20 4D 49  1055 	.ascii " M - MIN FREQUENCY MODE"
              4E 20 46 52 45 51 55
              45 4E 43 59 20 4D 4F
              44 45
-      003DBF 0A                    1056 	.db 0x0a
-      003DC0 0D                    1057 	.db 0x0d
-      003DC1 00                    1058 	.db 0x00
+      000DBF 0A                    1056 	.db 0x0a
+      000DC0 0D                    1057 	.db 0x0d
+      000DC1 00                    1058 	.db 0x00
                                    1059 	.area CSEG    (CODE)
                                    1060 	.area CONST   (CODE)
-      003DC2                       1061 ___str_7:
-      003DC2 20 49 20 2D 20 49 44  1062 	.ascii " I - IDLE MODE"
+      000DC2                       1061 ___str_7:
+      000DC2 20 49 20 2D 20 49 44  1062 	.ascii " I - IDLE MODE"
              4C 45 20 4D 4F 44 45
-      003DD0 0A                    1063 	.db 0x0a
-      003DD1 0D                    1064 	.db 0x0d
-      003DD2 00                    1065 	.db 0x00
+      000DD0 0A                    1063 	.db 0x0a
+      000DD1 0D                    1064 	.db 0x0d
+      000DD2 00                    1065 	.db 0x00
                                    1066 	.area CSEG    (CODE)
                                    1067 	.area CONST   (CODE)
-      003DD3                       1068 ___str_8:
-      003DD3 20 50 20 2D 20 50 4F  1069 	.ascii " P - POWER DOWN MODE"
+      000DD3                       1068 ___str_8:
+      000DD3 20 50 20 2D 20 50 4F  1069 	.ascii " P - POWER DOWN MODE"
              57 45 52 20 44 4F 57
              4E 20 4D 4F 44 45
-      003DE7 0A                    1070 	.db 0x0a
-      003DE8 0D                    1071 	.db 0x0d
-      003DE9 00                    1072 	.db 0x00
+      000DE7 0A                    1070 	.db 0x0a
+      000DE8 0D                    1071 	.db 0x0d
+      000DE9 00                    1072 	.db 0x00
                                    1073 	.area CSEG    (CODE)
                                    1074 	.area CONST   (CODE)
-      003DEA                       1075 ___str_9:
-      003DEA 49 44 4C 45 20 4D 4F  1076 	.ascii "IDLE MODE"
+      000DEA                       1075 ___str_9:
+      000DEA 49 44 4C 45 20 4D 4F  1076 	.ascii "IDLE MODE"
              44 45
-      003DF3 0A                    1077 	.db 0x0a
-      003DF4 0D                    1078 	.db 0x0d
-      003DF5 00                    1079 	.db 0x00
+      000DF3 0A                    1077 	.db 0x0a
+      000DF4 0D                    1078 	.db 0x0d
+      000DF5 00                    1079 	.db 0x00
                                    1080 	.area CSEG    (CODE)
                                    1081 	.area CONST   (CODE)
-      003DF6                       1082 ___str_10:
-      003DF6 50 4F 57 45 52 20 44  1083 	.ascii "POWER DOWN MODE"
+      000DF6                       1082 ___str_10:
+      000DF6 50 4F 57 45 52 20 44  1083 	.ascii "POWER DOWN MODE"
              4F 57 4E 20 4D 4F 44
              45
-      003E05 0A                    1084 	.db 0x0a
-      003E06 0D                    1085 	.db 0x0d
-      003E07 00                    1086 	.db 0x00
+      000E05 0A                    1084 	.db 0x0a
+      000E06 0D                    1085 	.db 0x0d
+      000E07 00                    1086 	.db 0x00
                                    1087 	.area CSEG    (CODE)
                                    1088 	.area CONST   (CODE)
-      003E08                       1089 ___str_11:
-      003E08 4D 41 58 49 4D 55 4D  1090 	.ascii "MAXIMUM FREQUENCY"
+      000E08                       1089 ___str_11:
+      000E08 4D 41 58 49 4D 55 4D  1090 	.ascii "MAXIMUM FREQUENCY"
              20 46 52 45 51 55 45
              4E 43 59
-      003E19 0A                    1091 	.db 0x0a
-      003E1A 0D                    1092 	.db 0x0d
-      003E1B 00                    1093 	.db 0x00
+      000E19 0A                    1091 	.db 0x0a
+      000E1A 0D                    1092 	.db 0x0d
+      000E1B 00                    1093 	.db 0x00
                                    1094 	.area CSEG    (CODE)
                                    1095 	.area CONST   (CODE)
-      003E1C                       1096 ___str_12:
-      003E1C 4D 49 4E 49 4D 55 4D  1097 	.ascii "MINIMUM FREQUENCY"
+      000E1C                       1096 ___str_12:
+      000E1C 4D 49 4E 49 4D 55 4D  1097 	.ascii "MINIMUM FREQUENCY"
              20 46 52 45 51 55 45
              4E 43 59
-      003E2D 0A                    1098 	.db 0x0a
-      003E2E 0D                    1099 	.db 0x0d
-      003E2F 00                    1100 	.db 0x00
+      000E2D 0A                    1098 	.db 0x0a
+      000E2E 0D                    1099 	.db 0x0d
+      000E2F 00                    1100 	.db 0x00
                                    1101 	.area CSEG    (CODE)
                                    1102 	.area CONST   (CODE)
-      003E30                       1103 ___str_13:
-      003E30 50 57 4D 20 53 54 41  1104 	.ascii "PWM START"
+      000E30                       1103 ___str_13:
+      000E30 50 57 4D 20 53 54 41  1104 	.ascii "PWM START"
              52 54
-      003E39 0A                    1105 	.db 0x0a
-      003E3A 0D                    1106 	.db 0x0d
-      003E3B 00                    1107 	.db 0x00
+      000E39 0A                    1105 	.db 0x0a
+      000E3A 0D                    1106 	.db 0x0d
+      000E3B 00                    1107 	.db 0x00
                                    1108 	.area CSEG    (CODE)
                                    1109 	.area CONST   (CODE)
-      003E3C                       1110 ___str_14:
-      003E3C 50 57 4D 20 53 54 4F  1111 	.ascii "PWM STOP"
+      000E3C                       1110 ___str_14:
+      000E3C 50 57 4D 20 53 54 4F  1111 	.ascii "PWM STOP"
              50
-      003E44 0A                    1112 	.db 0x0a
-      003E45 0D                    1113 	.db 0x0d
-      003E46 00                    1114 	.db 0x00
+      000E44 0A                    1112 	.db 0x0a
+      000E45 0D                    1113 	.db 0x0d
+      000E46 00                    1114 	.db 0x00
                                    1115 	.area CSEG    (CODE)
                                    1116 	.area XINIT   (CODE)
                                    1117 	.area CABS    (ABS,CODE)
