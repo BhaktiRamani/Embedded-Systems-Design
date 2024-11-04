@@ -57,6 +57,15 @@ void USART2_IRQHandler(void)
     }
 }
 
+void print_string(const char *ch) {
+    while (*ch) {
+        while (!(USART2->SR & USART_SR_TXE)) {
+            // Wait until TXE (Transmit Data Register Empty) flag is set
+        }
+        USART2->DR = *ch++; // Transmit character
+    }
+}
+
 /**
  * @brief Main program entry
  */
@@ -68,6 +77,19 @@ int main(void)
     led_init();
     PushButoon_ISR_Config();
     _uart_tx_init();
+
+     print_string("\r\n**** STM32 PWM UART MODES ****\r\n");
+     print_string("---------------------------\r\n");
+     print_string("Current Settings:\r\n");
+     print_string("- Initial duty cycle: 153 (60% of 255)\r\n");
+     print_string("- Maximum duty cycle: 255 (100%)\r\n");
+     print_string("\r\nControl Commands:\r\n");
+     print_string("P: Print current duty cycle\r\n");
+     print_string("A: Increase duty cycle by 5%\r\n");
+     print_string("B: Decrease duty cycle by 5%\r\n");
+     print_string("\r\nHardware Control:\r\n");
+     print_string("Button Press: Increase duty cycle by 10%\r\n");
+     print_string("---------------------------\r\n");
 
     while(1)
     {

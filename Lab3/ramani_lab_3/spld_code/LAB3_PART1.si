@@ -1,0 +1,22 @@
+Name     Lab3_Part1;
+PartNo   00;
+Date     10/7/2024;
+Revision 01;
+Designer Engineer;
+Company  ITLP;
+Assembly None;
+Location ;
+Device   g16v8a;
+
+
+ORDER: A15, A10, RD, WR, CE; 
+
+
+VECTORS:
+0010*
+1001*
+1110*
+0001*
+0110*
+0100*
+0111*

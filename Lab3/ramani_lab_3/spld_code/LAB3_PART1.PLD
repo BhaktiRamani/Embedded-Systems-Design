@@ -1,0 +1,36 @@
+/********************************************************
+* File:    Lab3_Part1.pld
+* Author:  Bhakti Ramani
+* Class:   ECEN 5613 - Embedded System Design
+* Project: Lab 3 - External Memory Interface
+* Create:  October 7, 2024
+* Brief:   CUPL code for NVSRAM memory interface
+*          Controls chip select logic for 0x4000-0x7FFF
+********************************************************/
+
+Name     Lab3_Part1;
+PartNo   00;
+Date     10/7/2024;
+Revision 01;
+Designer Bhakti Ramani;
+Company  University of Colorado Boulder;
+Assembly None;
+Location;
+Device   g16v8a;
+
+/* *************** INPUT PINS *********************/
+PIN   2 = A15;    /* Address line 15 - Used for chip selection */
+PIN   6 = WR;     /* Write strobe from 8051 (active low) */
+PIN   7 = RD;     /* Read strobe from 8051 (active low) */
+PIN   8 = A10;    /* Address line 10 - Not used in current logic */
+
+/* *************** OUTPUT PINS *********************/
+PIN   12 = CE;    /* Chip Enable for NVSRAM (active low) */
+PIN   13 = OE;    /* Output Enable for NVSRAM (active low) */
+PIN   14 = WE;    /* Write Enable for NVSRAM (active low) */
+
+/* *************** LOGIC EQUATIONS *********************/
+/* Memory mapped from 0x4000-0x7FFF */
+CE = A15;         /* Active when accessing upper 32K */
+OE = RD;          /* Connected to 8051 read strobe */
+WE = WR;          /* Connected to 8051 write strobe */

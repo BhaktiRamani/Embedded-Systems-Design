@@ -1,0 +1,24 @@
+Name     SPLD;
+PartNo   00;
+Date     9/23/2024;
+Revision 01;
+Designer Engineer;
+Company  University of Colorado Boulder;
+Assembly None;
+Location;
+Device   g16v8a;
+
+/* *************** INPUT PINS *********************/
+PIN  3 = EA;    /* External Access control          */
+PIN  2 = A15;   /* Address line 15                  */
+PIN  7 = RD;    /* Read control signal              */
+PIN  6 = WR;    /* Write control signal             */
+PIN  8 = PSEN;  /* Program Store Enable             */
+
+/* *************** OUTPUT PINS *********************/
+PIN 12 = CE;    /* Chip Enable for memory           */
+PIN 13 = OE;    /* Output Enable                    */
+
+/* *************** LOGIC EQUATIONS *****************/
+CE = (EA & A15) # (RD $ WR);
+OE = PSEN;
