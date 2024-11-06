@@ -720,9 +720,9 @@
       003149 15 81            [12]  720 	dec	sp
       00314B 15 81            [12]  721 	dec	sp
       00314D                        722 00104$:
-                                    723 ;	8051_i2c_eeprom.c:80: return 0;
+                                    723 ;	8051_i2c_eeprom.c:70: return 0;
       00314D 90 00 00         [24]  724 	mov	dptr,#0x0000
-                                    725 ;	8051_i2c_eeprom.c:81: }
+                                    725 ;	8051_i2c_eeprom.c:71: }
       003150 22               [24]  726 	ret
                                     727 ;------------------------------------------------------------
                                     728 ;Allocation info for local variables in function 'eeprom_write'
@@ -731,7 +731,7 @@
                                     731 ;address                   Allocated with name '_eeprom_write_address_65536_30'
                                     732 ;i                         Allocated with name '_eeprom_write_i_131072_35'
                                     733 ;------------------------------------------------------------
-                                    734 ;	8051_i2c_eeprom.c:83: int eeprom_write(unsigned int address, unsigned char data) {
+                                    734 ;	8051_i2c_eeprom.c:73: int eeprom_write(unsigned int address, unsigned char data) {
                                     735 ;	-----------------------------------------
                                     736 ;	 function eeprom_write
                                     737 ;	-----------------------------------------
@@ -743,16 +743,16 @@
       003159 EF               [12]  743 	mov	a,r7
       00315A A3               [24]  744 	inc	dptr
       00315B F0               [24]  745 	movx	@dptr,a
-                                    746 ;	8051_i2c_eeprom.c:84: i2c_start();
+                                    746 ;	8051_i2c_eeprom.c:74: i2c_start();
       00315C 12 33 C0         [24]  747 	lcall	_i2c_start
-                                    748 ;	8051_i2c_eeprom.c:87: if(!i2c_write(EEPROM_ID | WRITE)) {
+                                    748 ;	8051_i2c_eeprom.c:77: if(!i2c_write(EEPROM_ID | WRITE)) {
       00315F 75 82 A0         [24]  749 	mov	dpl,#0xa0
       003162 12 32 BF         [24]  750 	lcall	_i2c_write
       003165 E5 82            [12]  751 	mov	a,dpl
       003167 85 83 F0         [24]  752 	mov	b,dph
       00316A 45 F0            [12]  753 	orl	a,b
       00316C 70 1C            [24]  754 	jnz	00102$
-                                    755 ;	8051_i2c_eeprom.c:88: printf("Error: No ACK for device address (write)\n\r");
+                                    755 ;	8051_i2c_eeprom.c:78: printf("Error: No ACK for device address (write)\n\r");
       00316E 74 33            [12]  756 	mov	a,#___str_4
       003170 C0 E0            [24]  757 	push	acc
       003172 74 3F            [12]  758 	mov	a,#(___str_4 >> 8)
@@ -763,13 +763,13 @@
       00317D 15 81            [12]  763 	dec	sp
       00317F 15 81            [12]  764 	dec	sp
       003181 15 81            [12]  765 	dec	sp
-                                    766 ;	8051_i2c_eeprom.c:89: i2c_stop();
+                                    766 ;	8051_i2c_eeprom.c:79: i2c_stop();
       003183 12 33 D5         [24]  767 	lcall	_i2c_stop
-                                    768 ;	8051_i2c_eeprom.c:90: return 0;
+                                    768 ;	8051_i2c_eeprom.c:80: return 0;
       003186 90 00 00         [24]  769 	mov	dptr,#0x0000
       003189 22               [24]  770 	ret
       00318A                        771 00102$:
-                                    772 ;	8051_i2c_eeprom.c:94: if(!i2c_write((unsigned char)address)) {
+                                    772 ;	8051_i2c_eeprom.c:84: if(!i2c_write((unsigned char)address)) {
       00318A 90 04 05         [24]  773 	mov	dptr,#_eeprom_write_address_65536_30
       00318D E0               [24]  774 	movx	a,@dptr
       00318E FE               [12]  775 	mov	r6,a
@@ -781,7 +781,7 @@
       003198 85 83 F0         [24]  781 	mov	b,dph
       00319B 45 F0            [12]  782 	orl	a,b
       00319D 70 1C            [24]  783 	jnz	00104$
-                                    784 ;	8051_i2c_eeprom.c:95: printf("Error: No ACK for memory address\n\r");
+                                    784 ;	8051_i2c_eeprom.c:85: printf("Error: No ACK for memory address\n\r");
       00319F 74 5E            [12]  785 	mov	a,#___str_5
       0031A1 C0 E0            [24]  786 	push	acc
       0031A3 74 3F            [12]  787 	mov	a,#(___str_5 >> 8)
@@ -792,13 +792,13 @@
       0031AE 15 81            [12]  792 	dec	sp
       0031B0 15 81            [12]  793 	dec	sp
       0031B2 15 81            [12]  794 	dec	sp
-                                    795 ;	8051_i2c_eeprom.c:96: i2c_stop();
+                                    795 ;	8051_i2c_eeprom.c:86: i2c_stop();
       0031B4 12 33 D5         [24]  796 	lcall	_i2c_stop
-                                    797 ;	8051_i2c_eeprom.c:97: return 0;
+                                    797 ;	8051_i2c_eeprom.c:87: return 0;
       0031B7 90 00 00         [24]  798 	mov	dptr,#0x0000
       0031BA 22               [24]  799 	ret
       0031BB                        800 00104$:
-                                    801 ;	8051_i2c_eeprom.c:101: if(!i2c_write(data)) {
+                                    801 ;	8051_i2c_eeprom.c:91: if(!i2c_write(data)) {
       0031BB 90 04 04         [24]  802 	mov	dptr,#_eeprom_write_PARM_2
       0031BE E0               [24]  803 	movx	a,@dptr
       0031BF F5 82            [12]  804 	mov	dpl,a
@@ -807,7 +807,7 @@
       0031C6 85 83 F0         [24]  807 	mov	b,dph
       0031C9 45 F0            [12]  808 	orl	a,b
       0031CB 70 1C            [24]  809 	jnz	00106$
-                                    810 ;	8051_i2c_eeprom.c:102: printf("Error: No ACK for data\n\r");
+                                    810 ;	8051_i2c_eeprom.c:92: printf("Error: No ACK for data\n\r");
       0031CD 74 81            [12]  811 	mov	a,#___str_6
       0031CF C0 E0            [24]  812 	push	acc
       0031D1 74 3F            [12]  813 	mov	a,#(___str_6 >> 8)
@@ -818,15 +818,15 @@
       0031DC 15 81            [12]  818 	dec	sp
       0031DE 15 81            [12]  819 	dec	sp
       0031E0 15 81            [12]  820 	dec	sp
-                                    821 ;	8051_i2c_eeprom.c:103: i2c_stop();
+                                    821 ;	8051_i2c_eeprom.c:93: i2c_stop();
       0031E2 12 33 D5         [24]  822 	lcall	_i2c_stop
-                                    823 ;	8051_i2c_eeprom.c:104: return 0;
+                                    823 ;	8051_i2c_eeprom.c:94: return 0;
       0031E5 90 00 00         [24]  824 	mov	dptr,#0x0000
       0031E8 22               [24]  825 	ret
       0031E9                        826 00106$:
-                                    827 ;	8051_i2c_eeprom.c:107: i2c_stop();
+                                    827 ;	8051_i2c_eeprom.c:97: i2c_stop();
       0031E9 12 33 D5         [24]  828 	lcall	_i2c_stop
-                                    829 ;	8051_i2c_eeprom.c:109: for(int i = 0; i<100; i++)
+                                    829 ;	8051_i2c_eeprom.c:99: for(int i = 0; i<100; i++)
       0031EC 7E 00            [12]  830 	mov	r6,#0x00
       0031EE 7F 00            [12]  831 	mov	r7,#0x00
       0031F0                        832 00109$:
@@ -837,21 +837,21 @@
       0031F5 64 80            [12]  837 	xrl	a,#0x80
       0031F7 94 80            [12]  838 	subb	a,#0x80
       0031F9 50 12            [24]  839 	jnc	00107$
-                                    840 ;	8051_i2c_eeprom.c:111: i2c_delay();
+                                    840 ;	8051_i2c_eeprom.c:101: i2c_delay();
       0031FB C0 07            [24]  841 	push	ar7
       0031FD C0 06            [24]  842 	push	ar6
       0031FF 12 33 E2         [24]  843 	lcall	_i2c_delay
       003202 D0 06            [24]  844 	pop	ar6
       003204 D0 07            [24]  845 	pop	ar7
-                                    846 ;	8051_i2c_eeprom.c:109: for(int i = 0; i<100; i++)
+                                    846 ;	8051_i2c_eeprom.c:99: for(int i = 0; i<100; i++)
       003206 0E               [12]  847 	inc	r6
       003207 BE 00 E6         [24]  848 	cjne	r6,#0x00,00109$
       00320A 0F               [12]  849 	inc	r7
       00320B 80 E3            [24]  850 	sjmp	00109$
       00320D                        851 00107$:
-                                    852 ;	8051_i2c_eeprom.c:113: return 1;  // Success
+                                    852 ;	8051_i2c_eeprom.c:103: return 1;  // Success
       00320D 90 00 01         [24]  853 	mov	dptr,#0x0001
-                                    854 ;	8051_i2c_eeprom.c:114: }
+                                    854 ;	8051_i2c_eeprom.c:104: }
       003210 22               [24]  855 	ret
                                     856 ;------------------------------------------------------------
                                     857 ;Allocation info for local variables in function 'eeprom_read'
@@ -859,7 +859,7 @@
                                     859 ;address                   Allocated with name '_eeprom_read_address_65536_37'
                                     860 ;result                    Allocated with name '_eeprom_read_result_65536_38'
                                     861 ;------------------------------------------------------------
-                                    862 ;	8051_i2c_eeprom.c:116: int eeprom_read(unsigned int address) {
+                                    862 ;	8051_i2c_eeprom.c:106: int eeprom_read(unsigned int address) {
                                     863 ;	-----------------------------------------
                                     864 ;	 function eeprom_read
                                     865 ;	-----------------------------------------
@@ -871,16 +871,16 @@
       003219 EF               [12]  871 	mov	a,r7
       00321A A3               [24]  872 	inc	dptr
       00321B F0               [24]  873 	movx	@dptr,a
-                                    874 ;	8051_i2c_eeprom.c:120: i2c_start();
+                                    874 ;	8051_i2c_eeprom.c:110: i2c_start();
       00321C 12 33 C0         [24]  875 	lcall	_i2c_start
-                                    876 ;	8051_i2c_eeprom.c:123: if(!i2c_write(EEPROM_ID | WRITE)) {
+                                    876 ;	8051_i2c_eeprom.c:113: if(!i2c_write(EEPROM_ID | WRITE)) {
       00321F 75 82 A0         [24]  877 	mov	dpl,#0xa0
       003222 12 32 BF         [24]  878 	lcall	_i2c_write
       003225 E5 82            [12]  879 	mov	a,dpl
       003227 85 83 F0         [24]  880 	mov	b,dph
       00322A 45 F0            [12]  881 	orl	a,b
       00322C 70 1C            [24]  882 	jnz	00102$
-                                    883 ;	8051_i2c_eeprom.c:124: printf("Error: No ACK for device address (write mode)\n\r");
+                                    883 ;	8051_i2c_eeprom.c:114: printf("Error: No ACK for device address (write mode)\n\r");
       00322E 74 9A            [12]  884 	mov	a,#___str_7
       003230 C0 E0            [24]  885 	push	acc
       003232 74 3F            [12]  886 	mov	a,#(___str_7 >> 8)
@@ -891,13 +891,13 @@
       00323D 15 81            [12]  891 	dec	sp
       00323F 15 81            [12]  892 	dec	sp
       003241 15 81            [12]  893 	dec	sp
-                                    894 ;	8051_i2c_eeprom.c:125: i2c_stop();
+                                    894 ;	8051_i2c_eeprom.c:115: i2c_stop();
       003243 12 33 D5         [24]  895 	lcall	_i2c_stop
-                                    896 ;	8051_i2c_eeprom.c:126: return -1;
+                                    896 ;	8051_i2c_eeprom.c:116: return -1;
       003246 90 FF FF         [24]  897 	mov	dptr,#0xffff
       003249 22               [24]  898 	ret
       00324A                        899 00102$:
-                                    900 ;	8051_i2c_eeprom.c:130: if(!i2c_write((unsigned char)address)) {
+                                    900 ;	8051_i2c_eeprom.c:120: if(!i2c_write((unsigned char)address)) {
       00324A 90 04 07         [24]  901 	mov	dptr,#_eeprom_read_address_65536_37
       00324D E0               [24]  902 	movx	a,@dptr
       00324E FE               [12]  903 	mov	r6,a
@@ -909,7 +909,7 @@
       003258 85 83 F0         [24]  909 	mov	b,dph
       00325B 45 F0            [12]  910 	orl	a,b
       00325D 70 1C            [24]  911 	jnz	00104$
-                                    912 ;	8051_i2c_eeprom.c:131: printf("Error: No ACK for memory address\n\r");
+                                    912 ;	8051_i2c_eeprom.c:121: printf("Error: No ACK for memory address\n\r");
       00325F 74 5E            [12]  913 	mov	a,#___str_5
       003261 C0 E0            [24]  914 	push	acc
       003263 74 3F            [12]  915 	mov	a,#(___str_5 >> 8)
@@ -920,22 +920,22 @@
       00326E 15 81            [12]  920 	dec	sp
       003270 15 81            [12]  921 	dec	sp
       003272 15 81            [12]  922 	dec	sp
-                                    923 ;	8051_i2c_eeprom.c:132: i2c_stop();
+                                    923 ;	8051_i2c_eeprom.c:122: i2c_stop();
       003274 12 33 D5         [24]  924 	lcall	_i2c_stop
-                                    925 ;	8051_i2c_eeprom.c:133: return -1;
+                                    925 ;	8051_i2c_eeprom.c:123: return -1;
       003277 90 FF FF         [24]  926 	mov	dptr,#0xffff
       00327A 22               [24]  927 	ret
       00327B                        928 00104$:
-                                    929 ;	8051_i2c_eeprom.c:137: i2c_start();
+                                    929 ;	8051_i2c_eeprom.c:127: i2c_start();
       00327B 12 33 C0         [24]  930 	lcall	_i2c_start
-                                    931 ;	8051_i2c_eeprom.c:140: if(!i2c_write(EEPROM_ID | READ)) {
+                                    931 ;	8051_i2c_eeprom.c:130: if(!i2c_write(EEPROM_ID | READ)) {
       00327E 75 82 A1         [24]  932 	mov	dpl,#0xa1
       003281 12 32 BF         [24]  933 	lcall	_i2c_write
       003284 E5 82            [12]  934 	mov	a,dpl
       003286 85 83 F0         [24]  935 	mov	b,dph
       003289 45 F0            [12]  936 	orl	a,b
       00328B 70 1C            [24]  937 	jnz	00106$
-                                    938 ;	8051_i2c_eeprom.c:141: printf("Error: No ACK for device address (read mode)\n\r");
+                                    938 ;	8051_i2c_eeprom.c:131: printf("Error: No ACK for device address (read mode)\n\r");
       00328D 74 CA            [12]  939 	mov	a,#___str_8
       00328F C0 E0            [24]  940 	push	acc
       003291 74 3F            [12]  941 	mov	a,#(___str_8 >> 8)
@@ -946,25 +946,25 @@
       00329C 15 81            [12]  946 	dec	sp
       00329E 15 81            [12]  947 	dec	sp
       0032A0 15 81            [12]  948 	dec	sp
-                                    949 ;	8051_i2c_eeprom.c:142: i2c_stop();
+                                    949 ;	8051_i2c_eeprom.c:132: i2c_stop();
       0032A2 12 33 D5         [24]  950 	lcall	_i2c_stop
-                                    951 ;	8051_i2c_eeprom.c:143: return -1;
+                                    951 ;	8051_i2c_eeprom.c:133: return -1;
       0032A5 90 FF FF         [24]  952 	mov	dptr,#0xffff
       0032A8 22               [24]  953 	ret
       0032A9                        954 00106$:
-                                    955 ;	8051_i2c_eeprom.c:147: result = i2c_read(0);  // 0 means send NACK
+                                    955 ;	8051_i2c_eeprom.c:137: result = i2c_read(0);  // 0 means send NACK
       0032A9 90 00 00         [24]  956 	mov	dptr,#0x0000
       0032AC 12 33 3C         [24]  957 	lcall	_i2c_read
       0032AF AE 82            [24]  958 	mov	r6,dpl
-                                    959 ;	8051_i2c_eeprom.c:149: i2c_stop();
+                                    959 ;	8051_i2c_eeprom.c:139: i2c_stop();
       0032B1 C0 06            [24]  960 	push	ar6
       0032B3 12 33 D5         [24]  961 	lcall	_i2c_stop
       0032B6 D0 06            [24]  962 	pop	ar6
-                                    963 ;	8051_i2c_eeprom.c:150: return result;
+                                    963 ;	8051_i2c_eeprom.c:140: return result;
       0032B8 7F 00            [12]  964 	mov	r7,#0x00
       0032BA 8E 82            [24]  965 	mov	dpl,r6
       0032BC 8F 83            [24]  966 	mov	dph,r7
-                                    967 ;	8051_i2c_eeprom.c:151: }
+                                    967 ;	8051_i2c_eeprom.c:141: }
       0032BE 22               [24]  968 	ret
                                     969 ;------------------------------------------------------------
                                     970 ;Allocation info for local variables in function 'i2c_write'
@@ -972,7 +972,7 @@
                                     972 ;data                      Allocated with name '_i2c_write_data_65536_42'
                                     973 ;i                         Allocated with name '_i2c_write_i_65536_43'
                                     974 ;------------------------------------------------------------
-                                    975 ;	8051_i2c_eeprom.c:182: int i2c_write(unsigned char data)
+                                    975 ;	8051_i2c_eeprom.c:172: int i2c_write(unsigned char data)
                                     976 ;	-----------------------------------------
                                     977 ;	 function i2c_write
                                     978 ;	-----------------------------------------
@@ -980,11 +980,11 @@
       0032BF E5 82            [12]  980 	mov	a,dpl
       0032C1 90 04 09         [24]  981 	mov	dptr,#_i2c_write_data_65536_42
       0032C4 F0               [24]  982 	movx	@dptr,a
-                                    983 ;	8051_i2c_eeprom.c:186: for(i=0;i<=7;i++)
+                                    983 ;	8051_i2c_eeprom.c:176: for(i=0;i<=7;i++)
       0032C5 7E 00            [12]  984 	mov	r6,#0x00
       0032C7 7F 00            [12]  985 	mov	r7,#0x00
       0032C9                        986 00104$:
-                                    987 ;	8051_i2c_eeprom.c:188: SDA = (data & 0x80) ? 1 : 0;    //msb first
+                                    987 ;	8051_i2c_eeprom.c:178: SDA = (data & 0x80) ? 1 : 0;    //msb first
       0032C9 90 04 09         [24]  988 	mov	dptr,#_i2c_write_data_65536_42
       0032CC E0               [24]  989 	movx	a,@dptr
       0032CD FD               [12]  990 	mov	r5,a
@@ -992,28 +992,28 @@
       0032CF 54 01            [12]  992 	anl	a,#0x01
       0032D1 24 FF            [12]  993 	add	a,#0xff
       0032D3 92 94            [24]  994 	mov	_P1_4,c
-                                    995 ;	8051_i2c_eeprom.c:189: i2c_delay();        // Setup time for data
+                                    995 ;	8051_i2c_eeprom.c:179: i2c_delay();        // Setup time for data
       0032D5 C0 07            [24]  996 	push	ar7
       0032D7 C0 06            [24]  997 	push	ar6
       0032D9 C0 05            [24]  998 	push	ar5
       0032DB 12 33 E2         [24]  999 	lcall	_i2c_delay
-                                   1000 ;	8051_i2c_eeprom.c:190: SCL=1;
+                                   1000 ;	8051_i2c_eeprom.c:180: SCL=1;
                                    1001 ;	assignBit
       0032DE D2 93            [12] 1002 	setb	_P1_3
-                                   1003 ;	8051_i2c_eeprom.c:191: i2c_delay();        // Hold time for clock
+                                   1003 ;	8051_i2c_eeprom.c:181: i2c_delay();        // Hold time for clock
       0032E0 12 33 E2         [24] 1004 	lcall	_i2c_delay
       0032E3 D0 05            [24] 1005 	pop	ar5
       0032E5 D0 06            [24] 1006 	pop	ar6
       0032E7 D0 07            [24] 1007 	pop	ar7
-                                   1008 ;	8051_i2c_eeprom.c:192: SCL=0;
+                                   1008 ;	8051_i2c_eeprom.c:182: SCL=0;
                                    1009 ;	assignBit
       0032E9 C2 93            [12] 1010 	clr	_P1_3
-                                   1011 ;	8051_i2c_eeprom.c:193: data = data << 1;
+                                   1011 ;	8051_i2c_eeprom.c:183: data = data << 1;
       0032EB ED               [12] 1012 	mov	a,r5
       0032EC 2D               [12] 1013 	add	a,r5
       0032ED 90 04 09         [24] 1014 	mov	dptr,#_i2c_write_data_65536_42
       0032F0 F0               [24] 1015 	movx	@dptr,a
-                                   1016 ;	8051_i2c_eeprom.c:186: for(i=0;i<=7;i++)
+                                   1016 ;	8051_i2c_eeprom.c:176: for(i=0;i<=7;i++)
       0032F1 0E               [12] 1017 	inc	r6
       0032F2 BE 00 01         [24] 1018 	cjne	r6,#0x00,00121$
       0032F5 0F               [12] 1019 	inc	r7
@@ -1024,17 +1024,17 @@
       0032FA E4               [12] 1024 	clr	a
       0032FB 9F               [12] 1025 	subb	a,r7
       0032FC 50 CB            [24] 1026 	jnc	00104$
-                                   1027 ;	8051_i2c_eeprom.c:197: SDA = 1;            // Release SDA for slave
+                                   1027 ;	8051_i2c_eeprom.c:187: SDA = 1;            // Release SDA for slave
                                    1028 ;	assignBit
       0032FE D2 94            [12] 1029 	setb	_P1_4
-                                   1030 ;	8051_i2c_eeprom.c:198: SCL = 1;            // 9th clock pulse for ACK
+                                   1030 ;	8051_i2c_eeprom.c:188: SCL = 1;            // 9th clock pulse for ACK
                                    1031 ;	assignBit
       003300 D2 93            [12] 1032 	setb	_P1_3
-                                   1033 ;	8051_i2c_eeprom.c:199: i2c_delay();
+                                   1033 ;	8051_i2c_eeprom.c:189: i2c_delay();
       003302 12 33 E2         [24] 1034 	lcall	_i2c_delay
-                                   1035 ;	8051_i2c_eeprom.c:200: if(SDA == 1)        // If SDA is still high, no ACK received
+                                   1035 ;	8051_i2c_eeprom.c:190: if(SDA == 1)        // If SDA is still high, no ACK received
       003305 30 94 19         [24] 1036 	jnb	_P1_4,00103$
-                                   1037 ;	8051_i2c_eeprom.c:203: printf("ACK DID NOT ARRIVE\n\r");
+                                   1037 ;	8051_i2c_eeprom.c:193: printf("ACK DID NOT ARRIVE\n\r");
       003308 74 F9            [12] 1038 	mov	a,#___str_9
       00330A C0 E0            [24] 1039 	push	acc
       00330C 74 3F            [12] 1040 	mov	a,#(___str_9 >> 8)
@@ -1045,14 +1045,14 @@
       003317 15 81            [12] 1045 	dec	sp
       003319 15 81            [12] 1046 	dec	sp
       00331B 15 81            [12] 1047 	dec	sp
-                                   1048 ;	8051_i2c_eeprom.c:204: return 0;       // Error
+                                   1048 ;	8051_i2c_eeprom.c:194: return 0;       // Error
       00331D 90 00 00         [24] 1049 	mov	dptr,#0x0000
       003320 22               [24] 1050 	ret
       003321                       1051 00103$:
-                                   1052 ;	8051_i2c_eeprom.c:206: SCL = 0;
+                                   1052 ;	8051_i2c_eeprom.c:196: SCL = 0;
                                    1053 ;	assignBit
       003321 C2 93            [12] 1054 	clr	_P1_3
-                                   1055 ;	8051_i2c_eeprom.c:207: printf("Transmission successfull\n\r");
+                                   1055 ;	8051_i2c_eeprom.c:197: printf("Transmission successfull\n\r");
       003323 74 0E            [12] 1056 	mov	a,#___str_10
       003325 C0 E0            [24] 1057 	push	acc
       003327 74 40            [12] 1058 	mov	a,#(___str_10 >> 8)
@@ -1063,9 +1063,9 @@
       003332 15 81            [12] 1063 	dec	sp
       003334 15 81            [12] 1064 	dec	sp
       003336 15 81            [12] 1065 	dec	sp
-                                   1066 ;	8051_i2c_eeprom.c:208: return 1;           // Success
+                                   1066 ;	8051_i2c_eeprom.c:198: return 1;           // Success
       003338 90 00 01         [24] 1067 	mov	dptr,#0x0001
-                                   1068 ;	8051_i2c_eeprom.c:210: }
+                                   1068 ;	8051_i2c_eeprom.c:200: }
       00333B 22               [24] 1069 	ret
                                    1070 ;------------------------------------------------------------
                                    1071 ;Allocation info for local variables in function 'i2c_read'
@@ -1074,7 +1074,7 @@
                                    1074 ;buff                      Allocated with name '_i2c_read_buff_65536_48'
                                    1075 ;i                         Allocated with name '_i2c_read_i_131072_49'
                                    1076 ;------------------------------------------------------------
-                                   1077 ;	8051_i2c_eeprom.c:211: int i2c_read(int ACK)
+                                   1077 ;	8051_i2c_eeprom.c:201: int i2c_read(int ACK)
                                    1078 ;	-----------------------------------------
                                    1079 ;	 function i2c_read
                                    1080 ;	-----------------------------------------
@@ -1086,11 +1086,11 @@
       003344 EF               [12] 1086 	mov	a,r7
       003345 A3               [24] 1087 	inc	dptr
       003346 F0               [24] 1088 	movx	@dptr,a
-                                   1089 ;	8051_i2c_eeprom.c:213: unsigned char buff=0;
+                                   1089 ;	8051_i2c_eeprom.c:203: unsigned char buff=0;
       003347 90 04 0C         [24] 1090 	mov	dptr,#_i2c_read_buff_65536_48
       00334A E4               [12] 1091 	clr	a
       00334B F0               [24] 1092 	movx	@dptr,a
-                                   1093 ;	8051_i2c_eeprom.c:215: for(int i=0;i<8;i++)
+                                   1093 ;	8051_i2c_eeprom.c:205: for(int i=0;i<8;i++)
       00334C 7E 00            [12] 1094 	mov	r6,#0x00
       00334E 7F 00            [12] 1095 	mov	r7,#0x00
       003350                       1096 00105$:
@@ -1101,59 +1101,59 @@
       003355 64 80            [12] 1101 	xrl	a,#0x80
       003357 94 80            [12] 1102 	subb	a,#0x80
       003359 50 41            [24] 1103 	jnc	00103$
-                                   1104 ;	8051_i2c_eeprom.c:217: SDA = 1;
+                                   1104 ;	8051_i2c_eeprom.c:207: SDA = 1;
                                    1105 ;	assignBit
       00335B D2 94            [12] 1106 	setb	_P1_4
-                                   1107 ;	8051_i2c_eeprom.c:218: SCL = 1;
+                                   1107 ;	8051_i2c_eeprom.c:208: SCL = 1;
                                    1108 ;	assignBit
       00335D D2 93            [12] 1109 	setb	_P1_3
-                                   1110 ;	8051_i2c_eeprom.c:219: i2c_delay();
+                                   1110 ;	8051_i2c_eeprom.c:209: i2c_delay();
       00335F C0 07            [24] 1111 	push	ar7
       003361 C0 06            [24] 1112 	push	ar6
       003363 12 33 E2         [24] 1113 	lcall	_i2c_delay
       003366 D0 06            [24] 1114 	pop	ar6
       003368 D0 07            [24] 1115 	pop	ar7
-                                   1116 ;	8051_i2c_eeprom.c:220: buff = buff << 1;
-      00336A 90 04 0C         [24] 1117 	mov	dptr,#_i2c_read_buff_65536_48
-      00336D E0               [24] 1118 	movx	a,@dptr
-      00336E 25 E0            [12] 1119 	add	a,acc
-      003370 F0               [24] 1120 	movx	@dptr,a
-                                   1121 ;	8051_i2c_eeprom.c:221: if(SDA) buff |=0x80>>i;
-      003371 30 94 1F         [24] 1122 	jnb	_P1_4,00102$
-      003374 8E F0            [24] 1123 	mov	b,r6
-      003376 05 F0            [12] 1124 	inc	b
-      003378 7C 80            [12] 1125 	mov	r4,#0x80
-      00337A E4               [12] 1126 	clr	a
-      00337B FD               [12] 1127 	mov	r5,a
-      00337C 33               [12] 1128 	rlc	a
-      00337D 92 D2            [24] 1129 	mov	ov,c
-      00337F 80 08            [24] 1130 	sjmp	00125$
-      003381                       1131 00124$:
-      003381 A2 D2            [12] 1132 	mov	c,ov
-      003383 ED               [12] 1133 	mov	a,r5
-      003384 13               [12] 1134 	rrc	a
-      003385 FD               [12] 1135 	mov	r5,a
-      003386 EC               [12] 1136 	mov	a,r4
-      003387 13               [12] 1137 	rrc	a
-      003388 FC               [12] 1138 	mov	r4,a
-      003389                       1139 00125$:
-      003389 D5 F0 F5         [24] 1140 	djnz	b,00124$
-      00338C 90 04 0C         [24] 1141 	mov	dptr,#_i2c_read_buff_65536_48
-      00338F E0               [24] 1142 	movx	a,@dptr
-      003390 FB               [12] 1143 	mov	r3,a
-      003391 4C               [12] 1144 	orl	a,r4
-      003392 F0               [24] 1145 	movx	@dptr,a
-      003393                       1146 00102$:
-                                   1147 ;	8051_i2c_eeprom.c:222: SCL=0;
+                                   1116 ;	8051_i2c_eeprom.c:210: if(SDA) buff |=0x80>>i;
+      00336A 30 94 1F         [24] 1117 	jnb	_P1_4,00102$
+      00336D 8E F0            [24] 1118 	mov	b,r6
+      00336F 05 F0            [12] 1119 	inc	b
+      003371 7C 80            [12] 1120 	mov	r4,#0x80
+      003373 E4               [12] 1121 	clr	a
+      003374 FD               [12] 1122 	mov	r5,a
+      003375 33               [12] 1123 	rlc	a
+      003376 92 D2            [24] 1124 	mov	ov,c
+      003378 80 08            [24] 1125 	sjmp	00125$
+      00337A                       1126 00124$:
+      00337A A2 D2            [12] 1127 	mov	c,ov
+      00337C ED               [12] 1128 	mov	a,r5
+      00337D 13               [12] 1129 	rrc	a
+      00337E FD               [12] 1130 	mov	r5,a
+      00337F EC               [12] 1131 	mov	a,r4
+      003380 13               [12] 1132 	rrc	a
+      003381 FC               [12] 1133 	mov	r4,a
+      003382                       1134 00125$:
+      003382 D5 F0 F5         [24] 1135 	djnz	b,00124$
+      003385 90 04 0C         [24] 1136 	mov	dptr,#_i2c_read_buff_65536_48
+      003388 E0               [24] 1137 	movx	a,@dptr
+      003389 FB               [12] 1138 	mov	r3,a
+      00338A 4C               [12] 1139 	orl	a,r4
+      00338B F0               [24] 1140 	movx	@dptr,a
+      00338C                       1141 00102$:
+                                   1142 ;	8051_i2c_eeprom.c:211: buff = buff << 1;
+      00338C 90 04 0C         [24] 1143 	mov	dptr,#_i2c_read_buff_65536_48
+      00338F E0               [24] 1144 	movx	a,@dptr
+      003390 25 E0            [12] 1145 	add	a,acc
+      003392 F0               [24] 1146 	movx	@dptr,a
+                                   1147 ;	8051_i2c_eeprom.c:212: SCL=0;
                                    1148 ;	assignBit
       003393 C2 93            [12] 1149 	clr	_P1_3
-                                   1150 ;	8051_i2c_eeprom.c:215: for(int i=0;i<8;i++)
+                                   1150 ;	8051_i2c_eeprom.c:205: for(int i=0;i<8;i++)
       003395 0E               [12] 1151 	inc	r6
       003396 BE 00 B7         [24] 1152 	cjne	r6,#0x00,00105$
       003399 0F               [12] 1153 	inc	r7
       00339A 80 B4            [24] 1154 	sjmp	00105$
       00339C                       1155 00103$:
-                                   1156 ;	8051_i2c_eeprom.c:226: SDA = !ACK;         // ACK = 0, NACK = 1
+                                   1156 ;	8051_i2c_eeprom.c:216: SDA = !ACK;         // ACK = 0, NACK = 1
       00339C 90 04 0A         [24] 1157 	mov	dptr,#_i2c_read_ACK_65536_47
       00339F E0               [24] 1158 	movx	a,@dptr
       0033A0 FE               [12] 1159 	mov	r6,a
@@ -1166,87 +1166,87 @@
       0033A8 33               [12] 1166 	rlc	a
       0033A9 24 FF            [12] 1167 	add	a,#0xff
       0033AB 92 94            [24] 1168 	mov	_P1_4,c
-                                   1169 ;	8051_i2c_eeprom.c:227: SCL = 1;
+                                   1169 ;	8051_i2c_eeprom.c:217: SCL = 1;
                                    1170 ;	assignBit
       0033AD D2 93            [12] 1171 	setb	_P1_3
-                                   1172 ;	8051_i2c_eeprom.c:228: i2c_delay();
+                                   1172 ;	8051_i2c_eeprom.c:218: i2c_delay();
       0033AF 12 33 E2         [24] 1173 	lcall	_i2c_delay
-                                   1174 ;	8051_i2c_eeprom.c:229: SCL = 0;
+                                   1174 ;	8051_i2c_eeprom.c:219: SCL = 0;
                                    1175 ;	assignBit
       0033B2 C2 93            [12] 1176 	clr	_P1_3
-                                   1177 ;	8051_i2c_eeprom.c:231: return buff;
+                                   1177 ;	8051_i2c_eeprom.c:221: return buff;
       0033B4 90 04 0C         [24] 1178 	mov	dptr,#_i2c_read_buff_65536_48
       0033B7 E0               [24] 1179 	movx	a,@dptr
       0033B8 FF               [12] 1180 	mov	r7,a
       0033B9 7E 00            [12] 1181 	mov	r6,#0x00
       0033BB 8F 82            [24] 1182 	mov	dpl,r7
       0033BD 8E 83            [24] 1183 	mov	dph,r6
-                                   1184 ;	8051_i2c_eeprom.c:232: }
+                                   1184 ;	8051_i2c_eeprom.c:222: }
       0033BF 22               [24] 1185 	ret
                                    1186 ;------------------------------------------------------------
                                    1187 ;Allocation info for local variables in function 'i2c_start'
                                    1188 ;------------------------------------------------------------
-                                   1189 ;	8051_i2c_eeprom.c:233: void i2c_start(void)
+                                   1189 ;	8051_i2c_eeprom.c:223: void i2c_start(void)
                                    1190 ;	-----------------------------------------
                                    1191 ;	 function i2c_start
                                    1192 ;	-----------------------------------------
       0033C0                       1193 _i2c_start:
-                                   1194 ;	8051_i2c_eeprom.c:235: i2c_delay();
+                                   1194 ;	8051_i2c_eeprom.c:225: i2c_delay();
       0033C0 12 33 E2         [24] 1195 	lcall	_i2c_delay
-                                   1196 ;	8051_i2c_eeprom.c:236: SDA = 1;
+                                   1196 ;	8051_i2c_eeprom.c:226: SDA = 1;
                                    1197 ;	assignBit
       0033C3 D2 94            [12] 1198 	setb	_P1_4
-                                   1199 ;	8051_i2c_eeprom.c:237: i2c_delay();
+                                   1199 ;	8051_i2c_eeprom.c:227: i2c_delay();
       0033C5 12 33 E2         [24] 1200 	lcall	_i2c_delay
-                                   1201 ;	8051_i2c_eeprom.c:238: SCL = 1;
+                                   1201 ;	8051_i2c_eeprom.c:228: SCL = 1;
                                    1202 ;	assignBit
       0033C8 D2 93            [12] 1203 	setb	_P1_3
-                                   1204 ;	8051_i2c_eeprom.c:239: i2c_delay();
+                                   1204 ;	8051_i2c_eeprom.c:229: i2c_delay();
       0033CA 12 33 E2         [24] 1205 	lcall	_i2c_delay
-                                   1206 ;	8051_i2c_eeprom.c:240: SDA = 0;
+                                   1206 ;	8051_i2c_eeprom.c:230: SDA = 0;
                                    1207 ;	assignBit
       0033CD C2 94            [12] 1208 	clr	_P1_4
-                                   1209 ;	8051_i2c_eeprom.c:241: i2c_delay();
+                                   1209 ;	8051_i2c_eeprom.c:231: i2c_delay();
       0033CF 12 33 E2         [24] 1210 	lcall	_i2c_delay
-                                   1211 ;	8051_i2c_eeprom.c:242: SCL = 0;
+                                   1211 ;	8051_i2c_eeprom.c:232: SCL = 0;
                                    1212 ;	assignBit
       0033D2 C2 93            [12] 1213 	clr	_P1_3
-                                   1214 ;	8051_i2c_eeprom.c:243: }
+                                   1214 ;	8051_i2c_eeprom.c:233: }
       0033D4 22               [24] 1215 	ret
                                    1216 ;------------------------------------------------------------
                                    1217 ;Allocation info for local variables in function 'i2c_stop'
                                    1218 ;------------------------------------------------------------
-                                   1219 ;	8051_i2c_eeprom.c:245: void i2c_stop(void)
+                                   1219 ;	8051_i2c_eeprom.c:235: void i2c_stop(void)
                                    1220 ;	-----------------------------------------
                                    1221 ;	 function i2c_stop
                                    1222 ;	-----------------------------------------
       0033D5                       1223 _i2c_stop:
-                                   1224 ;	8051_i2c_eeprom.c:247: SDA = 0;
+                                   1224 ;	8051_i2c_eeprom.c:237: SDA = 0;
                                    1225 ;	assignBit
       0033D5 C2 94            [12] 1226 	clr	_P1_4
-                                   1227 ;	8051_i2c_eeprom.c:248: i2c_delay();
+                                   1227 ;	8051_i2c_eeprom.c:238: i2c_delay();
       0033D7 12 33 E2         [24] 1228 	lcall	_i2c_delay
-                                   1229 ;	8051_i2c_eeprom.c:249: SCL = 1;
+                                   1229 ;	8051_i2c_eeprom.c:239: SCL = 1;
                                    1230 ;	assignBit
       0033DA D2 93            [12] 1231 	setb	_P1_3
-                                   1232 ;	8051_i2c_eeprom.c:250: i2c_delay();
+                                   1232 ;	8051_i2c_eeprom.c:240: i2c_delay();
       0033DC 12 33 E2         [24] 1233 	lcall	_i2c_delay
-                                   1234 ;	8051_i2c_eeprom.c:251: SDA = 1; 
+                                   1234 ;	8051_i2c_eeprom.c:241: SDA = 1; 
                                    1235 ;	assignBit
       0033DF D2 94            [12] 1236 	setb	_P1_4
-                                   1237 ;	8051_i2c_eeprom.c:252: }
+                                   1237 ;	8051_i2c_eeprom.c:242: }
       0033E1 22               [24] 1238 	ret
                                    1239 ;------------------------------------------------------------
                                    1240 ;Allocation info for local variables in function 'i2c_delay'
                                    1241 ;------------------------------------------------------------
                                    1242 ;i                         Allocated with name '_i2c_delay_i_131072_56'
                                    1243 ;------------------------------------------------------------
-                                   1244 ;	8051_i2c_eeprom.c:254: void i2c_delay() 
+                                   1244 ;	8051_i2c_eeprom.c:244: void i2c_delay() 
                                    1245 ;	-----------------------------------------
                                    1246 ;	 function i2c_delay
                                    1247 ;	-----------------------------------------
       0033E2                       1248 _i2c_delay:
-                                   1249 ;	8051_i2c_eeprom.c:262: for(int i = 0; i<500; i++);
+                                   1249 ;	8051_i2c_eeprom.c:252: for(int i = 0; i<500; i++);
       0033E2 7E 00            [12] 1250 	mov	r6,#0x00
       0033E4 7F 00            [12] 1251 	mov	r7,#0x00
       0033E6                       1252 00103$:
@@ -1262,7 +1262,7 @@
       0033F5 0F               [12] 1262 	inc	r7
       0033F6 80 EE            [24] 1263 	sjmp	00103$
       0033F8                       1264 00105$:
-                                   1265 ;	8051_i2c_eeprom.c:263: }
+                                   1265 ;	8051_i2c_eeprom.c:253: }
       0033F8 22               [24] 1266 	ret
                                    1267 	.area CSEG    (CODE)
                                    1268 	.area CONST   (CODE)
