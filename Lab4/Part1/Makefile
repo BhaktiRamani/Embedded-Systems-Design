@@ -40,7 +40,7 @@ prog.hex : 8051_i2c_eeprom.rel
 # 	batchisp -device $(DEVICE) -hardware $(HARDWARE) -port $(PORT) -baudrate $(BAUDRATE) -operation loadbuffer $(HEX_FILE) program verify start reset 1
 
 clean:
-	rm *.rel *.lst *.rst *.hex *.mem *.map *.sym *.lnk *.ihx *.hex *.asm *.Ik
+	rm *.rel *.lst *.rst *.hex *.mem *.map *.sym *.lnk *.ihx *.hex *.asm *.lk
 
 
 

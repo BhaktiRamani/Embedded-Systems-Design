@@ -41,6 +41,13 @@ int main()
   P1 &= ~(1<<4);  // Set P1.4 as output
   i2c_start();
   i2c_delay();
+  //i2c_stop();
+  int i = 30;
+  while(i--)
+  {
+    i2c_write(0xA0);
+    
+  }
   i2c_stop();
 //   eeprom_write(0x48, 00);
 //   int read_value_int = eeprom_read(0x48);
@@ -78,10 +85,9 @@ int eeprom_write(unsigned int address, unsigned char data)
 {
     i2c_start();
     i2c_write(EEPROM_ID | WRITE);
-    i2c_write((unsigned char)(address >> 8));  // Address MSB (if needed)
-    i2c_write((unsigned char)address);         // Address LSB
-    i2c_start();
-    i2c_write(data);
+    i2c_write((unsigned char)(address >> 8));
+    i2c_write((unsigned char)address);
+    i2c_write(data);    // No start condition here
     i2c_stop();
     return 0;
 }
@@ -94,8 +100,9 @@ int i2c_write(unsigned char data)
   for(i=0;i<=7;i++)
   {
     SDA = (data & 0x80) ? 1 : 0;
+    i2c_delay();        // Setup time for data
     SCL=1;
-    i2c_delay();
+    i2c_delay();        // Hold time for clock
     SCL=0;
     data = data << 1;
   }
@@ -134,7 +141,6 @@ int i2c_read(int ACK)
     SCL = 1;
     i2c_delay();
     SCL = 0;
-    
     
 	return buff;
 }
