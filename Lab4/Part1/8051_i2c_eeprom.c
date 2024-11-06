@@ -39,15 +39,17 @@ int main()
 
   P1 &= ~(1<<3);  // Set P1.3 as output
   P1 &= ~(1<<4);  // Set P1.4 as output
-  eeprom_write(0x48, 32);
+  eeprom_write(0x48, 00);
   int read_value_int = eeprom_read(0x48);
   unsigned char read_value_char = eeprom_read(0x48);
   printf("address 0x48 read_value_int %d\n\r", read_value_int);
   printf("address 0x48 read_value_char %c\n\r", read_value_char);
   
-  eeprom_write(00, 32);
+  eeprom_write(00, 'A');
   int read_value = eeprom_read(00);
+  unsigned char read_value_c = eeprom_read(00);
   printf("address 00 read_value %d\n\r", read_value);
+  printf("address 00 read_value_c %d\n\r", read_value_c);
   
   return 0;
 }
