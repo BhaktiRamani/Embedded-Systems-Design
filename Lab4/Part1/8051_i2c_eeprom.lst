@@ -787,10 +787,10 @@
       00012D 23               [12]  787 	rl	a
       00012E 54 01            [12]  788 	anl	a,#0x01
       000130 24 FF            [12]  789 	add	a,#0xff
-      000132 92 90            [24]  790 	mov	_P1_0,c
+      000132 92 94            [24]  790 	mov	_P1_4,c
                                     791 ;	8051_i2c_eeprom.c:84: SCL=1;
                                     792 ;	assignBit
-      000134 D2 91            [12]  793 	setb	_P1_1
+      000134 D2 93            [12]  793 	setb	_P1_3
                                     794 ;	8051_i2c_eeprom.c:85: i2c_delay();
       000136 C0 07            [24]  795 	push	ar7
       000138 C0 06            [24]  796 	push	ar6
@@ -801,7 +801,7 @@
       000143 D0 07            [24]  801 	pop	ar7
                                     802 ;	8051_i2c_eeprom.c:86: SCL=0;
                                     803 ;	assignBit
-      000145 C2 91            [12]  804 	clr	_P1_1
+      000145 C2 93            [12]  804 	clr	_P1_3
                                     805 ;	8051_i2c_eeprom.c:87: data = data << 1;
       000147 ED               [12]  806 	mov	a,r5
       000148 2D               [12]  807 	add	a,r5
@@ -848,10 +848,10 @@
       00016D 50 41            [24]  848 	jnc	00103$
                                     849 ;	8051_i2c_eeprom.c:100: SDA = 1;
                                     850 ;	assignBit
-      00016F D2 90            [12]  851 	setb	_P1_0
+      00016F D2 94            [12]  851 	setb	_P1_4
                                     852 ;	8051_i2c_eeprom.c:101: SCL = 1;
                                     853 ;	assignBit
-      000171 D2 91            [12]  854 	setb	_P1_1
+      000171 D2 93            [12]  854 	setb	_P1_3
                                     855 ;	8051_i2c_eeprom.c:102: i2c_delay();
       000173 C0 07            [24]  856 	push	ar7
       000175 C0 06            [24]  857 	push	ar6
@@ -864,7 +864,7 @@
       000182 25 E0            [12]  864 	add	a,acc
       000184 F0               [24]  865 	movx	@dptr,a
                                     866 ;	8051_i2c_eeprom.c:104: if(SDA) buff |=0x80>>i;
-      000185 30 90 1F         [24]  867 	jnb	_P1_0,00102$
+      000185 30 94 1F         [24]  867 	jnb	_P1_4,00102$
       000188 8E F0            [24]  868 	mov	b,r6
       00018A 05 F0            [12]  869 	inc	b
       00018C 7C 80            [12]  870 	mov	r4,#0x80
@@ -891,7 +891,7 @@
       0001A7                        891 00102$:
                                     892 ;	8051_i2c_eeprom.c:105: SCL=0;
                                     893 ;	assignBit
-      0001A7 C2 91            [12]  894 	clr	_P1_1
+      0001A7 C2 93            [12]  894 	clr	_P1_3
                                     895 ;	8051_i2c_eeprom.c:98: for(int i=0;i<8;i++)
       0001A9 0E               [12]  896 	inc	r6
       0001AA BE 00 B7         [24]  897 	cjne	r6,#0x00,00105$
@@ -917,20 +917,20 @@
       0001BC                        917 _i2c_start:
                                     918 ;	8051_i2c_eeprom.c:111: SDA = 1;
                                     919 ;	assignBit
-      0001BC D2 90            [12]  920 	setb	_P1_0
+      0001BC D2 94            [12]  920 	setb	_P1_4
                                     921 ;	8051_i2c_eeprom.c:112: SCL = 1;
                                     922 ;	assignBit
-      0001BE D2 91            [12]  923 	setb	_P1_1
+      0001BE D2 93            [12]  923 	setb	_P1_3
                                     924 ;	8051_i2c_eeprom.c:113: i2c_delay();
       0001C0 12r01rD8         [24]  925 	lcall	_i2c_delay
                                     926 ;	8051_i2c_eeprom.c:114: SDA = 0;
                                     927 ;	assignBit
-      0001C3 C2 90            [12]  928 	clr	_P1_0
+      0001C3 C2 94            [12]  928 	clr	_P1_4
                                     929 ;	8051_i2c_eeprom.c:115: i2c_delay();
       0001C5 12r01rD8         [24]  930 	lcall	_i2c_delay
                                     931 ;	8051_i2c_eeprom.c:116: SCL = 0;
                                     932 ;	assignBit
-      0001C8 C2 91            [12]  933 	clr	_P1_1
+      0001C8 C2 93            [12]  933 	clr	_P1_3
                                     934 ;	8051_i2c_eeprom.c:117: }
       0001CA 22               [24]  935 	ret
                                     936 ;------------------------------------------------------------
@@ -943,17 +943,17 @@
       0001CB                        943 _i2c_stop:
                                     944 ;	8051_i2c_eeprom.c:121: SDA = 0;
                                     945 ;	assignBit
-      0001CB C2 90            [12]  946 	clr	_P1_0
+      0001CB C2 94            [12]  946 	clr	_P1_4
                                     947 ;	8051_i2c_eeprom.c:122: i2c_delay();
       0001CD 12r01rD8         [24]  948 	lcall	_i2c_delay
                                     949 ;	8051_i2c_eeprom.c:123: SCL = 1;
                                     950 ;	assignBit
-      0001D0 D2 91            [12]  951 	setb	_P1_1
+      0001D0 D2 93            [12]  951 	setb	_P1_3
                                     952 ;	8051_i2c_eeprom.c:124: i2c_delay();
       0001D2 12r01rD8         [24]  953 	lcall	_i2c_delay
                                     954 ;	8051_i2c_eeprom.c:125: SDA = 1; 
                                     955 ;	assignBit
-      0001D5 D2 90            [12]  956 	setb	_P1_0
+      0001D5 D2 94            [12]  956 	setb	_P1_4
                                     957 ;	8051_i2c_eeprom.c:126: }
       0001D7 22               [24]  958 	ret
                                     959 ;------------------------------------------------------------

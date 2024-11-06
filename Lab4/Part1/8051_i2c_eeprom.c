@@ -6,8 +6,8 @@
 #define WRITE 0x00
 #define EEPROM_ID 0xA0    // Device identifier of the eeprom (X24C02)
 
-#define SDA P1_0
-#define SCL P1_1
+#define SDA P1_4
+#define SCL P1_3
 
 int eeprom_write(unsigned char address, unsigned char data);
 int eeprom_read(unsigned int address);

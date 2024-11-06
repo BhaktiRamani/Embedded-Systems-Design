@@ -787,10 +787,10 @@ _i2c_write:
 	rl	a
 	anl	a,#0x01
 	add	a,#0xff
-	mov	_P1_0,c
+	mov	_P1_4,c
 ;	8051_i2c_eeprom.c:84: SCL=1;
 ;	assignBit
-	setb	_P1_1
+	setb	_P1_3
 ;	8051_i2c_eeprom.c:85: i2c_delay();
 	push	ar7
 	push	ar6
@@ -801,7 +801,7 @@ _i2c_write:
 	pop	ar7
 ;	8051_i2c_eeprom.c:86: SCL=0;
 ;	assignBit
-	clr	_P1_1
+	clr	_P1_3
 ;	8051_i2c_eeprom.c:87: data = data << 1;
 	mov	a,r5
 	add	a,r5
@@ -848,10 +848,10 @@ _i2c_read:
 	jnc	00103$
 ;	8051_i2c_eeprom.c:100: SDA = 1;
 ;	assignBit
-	setb	_P1_0
+	setb	_P1_4
 ;	8051_i2c_eeprom.c:101: SCL = 1;
 ;	assignBit
-	setb	_P1_1
+	setb	_P1_3
 ;	8051_i2c_eeprom.c:102: i2c_delay();
 	push	ar7
 	push	ar6
@@ -864,7 +864,7 @@ _i2c_read:
 	add	a,acc
 	movx	@dptr,a
 ;	8051_i2c_eeprom.c:104: if(SDA) buff |=0x80>>i;
-	jnb	_P1_0,00102$
+	jnb	_P1_4,00102$
 	mov	b,r6
 	inc	b
 	mov	r4,#0x80
@@ -891,7 +891,7 @@ _i2c_read:
 00102$:
 ;	8051_i2c_eeprom.c:105: SCL=0;
 ;	assignBit
-	clr	_P1_1
+	clr	_P1_3
 ;	8051_i2c_eeprom.c:98: for(int i=0;i<8;i++)
 	inc	r6
 	cjne	r6,#0x00,00105$
@@ -917,20 +917,20 @@ _i2c_read:
 _i2c_start:
 ;	8051_i2c_eeprom.c:111: SDA = 1;
 ;	assignBit
-	setb	_P1_0
+	setb	_P1_4
 ;	8051_i2c_eeprom.c:112: SCL = 1;
 ;	assignBit
-	setb	_P1_1
+	setb	_P1_3
 ;	8051_i2c_eeprom.c:113: i2c_delay();
 	lcall	_i2c_delay
 ;	8051_i2c_eeprom.c:114: SDA = 0;
 ;	assignBit
-	clr	_P1_0
+	clr	_P1_4
 ;	8051_i2c_eeprom.c:115: i2c_delay();
 	lcall	_i2c_delay
 ;	8051_i2c_eeprom.c:116: SCL = 0;
 ;	assignBit
-	clr	_P1_1
+	clr	_P1_3
 ;	8051_i2c_eeprom.c:117: }
 	ret
 ;------------------------------------------------------------
@@ -943,17 +943,17 @@ _i2c_start:
 _i2c_stop:
 ;	8051_i2c_eeprom.c:121: SDA = 0;
 ;	assignBit
-	clr	_P1_0
+	clr	_P1_4
 ;	8051_i2c_eeprom.c:122: i2c_delay();
 	lcall	_i2c_delay
 ;	8051_i2c_eeprom.c:123: SCL = 1;
 ;	assignBit
-	setb	_P1_1
+	setb	_P1_3
 ;	8051_i2c_eeprom.c:124: i2c_delay();
 	lcall	_i2c_delay
 ;	8051_i2c_eeprom.c:125: SDA = 1; 
 ;	assignBit
-	setb	_P1_0
+	setb	_P1_4
 ;	8051_i2c_eeprom.c:126: }
 	ret
 ;------------------------------------------------------------
