@@ -49,9 +49,7 @@ int main()
     printf("Writing 0x%02X to address 0x%02X\n\r", test_data, address);
     eeprom_write(address, test_data);
     
-    // Small delay to ensure write completes
     for(int i = 0; i<100; i++)
-    // EEPROM needs time to complete write
     {
         i2c_delay();
     }
@@ -81,33 +79,103 @@ int main()
   return 0;
 }
 
-int eeprom_read(unsigned int address)
-{
-      unsigned char result = 0;
-      
-      i2c_start();
-      
-      i2c_write(EEPROM_ID|WRITE);
-      i2c_write(address);
-      
-      i2c_start();
-      i2c_write(EEPROM_ID|READ);
-      result = i2c_read(0);
-      
-      i2c_stop();
-      return result;
+int eeprom_write(unsigned int address, unsigned char data) {
+    i2c_start();
+    
+    // Send device address with write bit
+    if(!i2c_write(EEPROM_ID | WRITE)) {
+        printf("Error: No ACK for device address (write)\n\r");
+        i2c_stop();
+        return 0;
+    }
+    
+    // Send memory address
+    if(!i2c_write((unsigned char)address)) {
+        printf("Error: No ACK for memory address\n\r");
+        i2c_stop();
+        return 0;
+    }
+    
+    // Send data
+    if(!i2c_write(data)) {
+        printf("Error: No ACK for data\n\r");
+        i2c_stop();
+        return 0;
+    }
+    
+    i2c_stop();
+    //delay_ms(5);  // Wait for write to complete
+       for(int i = 0; i<100; i++)
+    {
+        i2c_delay();
+    }
+    return 1;  // Success
 }
 
-int eeprom_write(unsigned int address, unsigned char data)
-{
+int eeprom_read(unsigned int address) {
+    unsigned char result;
+    
+    // Start for address setting
     i2c_start();
-    i2c_write(EEPROM_ID | WRITE);
-    i2c_write((unsigned char)(address >> 8));
-    i2c_write((unsigned char)address);
-    i2c_write(data);    // No start condition here
+    
+    // Send device address with write bit
+    if(!i2c_write(EEPROM_ID | WRITE)) {
+        printf("Error: No ACK for device address (write mode)\n\r");
+        i2c_stop();
+        return -1;
+    }
+    
+    // Send memory address
+    if(!i2c_write((unsigned char)address)) {
+        printf("Error: No ACK for memory address\n\r");
+        i2c_stop();
+        return -1;
+    }
+    
+    // Repeated start for reading
+    i2c_start();
+    
+    // Send device address with read bit
+    if(!i2c_write(EEPROM_ID | READ)) {
+        printf("Error: No ACK for device address (read mode)\n\r");
+        i2c_stop();
+        return -1;
+    }
+    
+    // Read data (send NACK after as it's the last byte)
+    result = i2c_read(0);  // 0 means send NACK
+    
     i2c_stop();
-    return 0;
+    return result;
 }
+
+// int eeprom_read(unsigned int address)
+// {
+//       unsigned char result = 0;
+      
+//       i2c_start();
+      
+//       i2c_write(EEPROM_ID|WRITE);
+//       i2c_write(address);
+      
+//       i2c_start();
+//       i2c_write(EEPROM_ID|READ);
+//       result = i2c_read(0);
+      
+//       i2c_stop();
+//       return result;
+// }
+
+// int eeprom_write(unsigned int address, unsigned char data)
+// {
+//     i2c_start();
+//     i2c_write(EEPROM_ID | WRITE);
+//     i2c_write((unsigned char)(address >> 8));
+//     i2c_write((unsigned char)address);
+//     i2c_write(data);    // No start condition here
+//     i2c_stop();
+//     return 0;
+// }
 
 
 int i2c_write(unsigned char data)
