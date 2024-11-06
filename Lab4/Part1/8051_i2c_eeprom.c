@@ -9,13 +9,13 @@
 #define SDA P1_4
 #define SCL P1_3
 
-int eeprom_write(unsigned char address, unsigned char data);
-int eeprom_read(unsigned int address);
-void i2c_write(unsigned char data);
-int i2c_read();
 void i2c_start(void);
 void i2c_stop(void);
 void i2c_delay();
+void i2c_write(unsigned char data);
+int  i2c_read();
+int eeprom_write(unsigned int address, unsigned char data);
+int eeprom_read(unsigned int address);
 
 
 int putchar(int charToSend) {
@@ -63,16 +63,17 @@ int eeprom_read(unsigned int address)
       return result;
 }
 
-int eeprom_write(unsigned char address, unsigned char data)
+int eeprom_write(unsigned int address, unsigned char data)
 {
     i2c_start();
     i2c_write(EEPROM_ID | WRITE);
-    i2c_write(address);
+    i2c_write((unsigned char)(address >> 8));  // Address MSB (if needed)
+    i2c_write((unsigned char)address);         // Address LSB
     i2c_write(data);
     i2c_stop();
     return 0;
-    
 }
+
 
 void i2c_write(unsigned char data)
 {
