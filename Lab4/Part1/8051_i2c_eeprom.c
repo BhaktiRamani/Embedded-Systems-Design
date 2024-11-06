@@ -50,21 +50,21 @@ int main()
     eeprom_write(address, test_data);
     i2c_stop();
     
-    // for(int i = 0; i<100; i++)
-    // {
-    //     i2c_delay();
-    // }
+    for(int i = 0; i<100; i++)
+    {
+        i2c_delay();
+    }
     
-    // // Read back
-    // unsigned char read_data = eeprom_read(address);
-    // printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
+    // Read back
+    unsigned char read_data = eeprom_read(address);
+    printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
     
-    // // Verify
-    // if(read_data == test_data) {
-    //     printf("MATCH - Write/Read successful!\n\r");
-    // } else {
-    //     printf("ERROR - Data mismatch!\n\r");
-    // }
+    // Verify
+    if(read_data == test_data) {
+        printf("MATCH - Write/Read successful!\n\r");
+    } else {
+        printf("ERROR - Data mismatch!\n\r");
+    }
 //   eeprom_write(0x48, 00);
 //   int read_value_int = eeprom_read(0x48);
 //   unsigned char read_value_char = eeprom_read(0x48);
