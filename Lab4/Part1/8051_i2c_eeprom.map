@@ -70,7 +70,7 @@ C:   0000018B  l_CONST
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   00000446  s_XISEG                         
-C:   00000E33  l_CSEG                          
+C:   00000E48  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003006  s_GSINIT0                       
 C:   00003009  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   0000305F  s_GSFINAL
 C:   0000305F  s_GSINIT                        
 C:   0000305F  s_GSINIT5                       
 C:   00003062  s_CSEG                          
-C:   00003E95  s_CONST                         
-C:   00004020  s_XINIT                         
+C:   00003EAA  s_CONST                         
+C:   00004035  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -446,7 +446,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003062    00000E33 =        3635. bytes (REL,CON,CODE)
+CSEG                                00003062    00000E48 =        3656. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -457,23 +457,23 @@ C:   00003151  _eeprom_write                      8051_i2c_eeprom
 C:   00003211  _eeprom_read                       8051_i2c_eeprom
 C:   000032BF  _i2c_write                         8051_i2c_eeprom
 C:   0000333C  _i2c_read                          8051_i2c_eeprom
-C:   000033AC  _i2c_start                         8051_i2c_eeprom
-C:   000033C1  _i2c_stop                          8051_i2c_eeprom
-C:   000033CE  _i2c_delay                         8051_i2c_eeprom
-C:   000033F4  _vprintf                           vprintf
-C:   00003433  _printf                            vprintf
-C:   0000353C  __print_format                     printf_large
-C:   00003E3D  _strlen                            _strlen
-C:   00003E55  __mulint                           _mulint
-C:   00003E75  __gptrget                          _gptrget
-C:   00003E91  __sdcc_external_startup            _startup
+C:   000033C1  _i2c_start                         8051_i2c_eeprom
+C:   000033D6  _i2c_stop                          8051_i2c_eeprom
+C:   000033E3  _i2c_delay                         8051_i2c_eeprom
+C:   00003409  _vprintf                           vprintf
+C:   00003448  _printf                            vprintf
+C:   00003551  __print_format                     printf_large
+C:   00003E52  _strlen                            _strlen
+C:   00003E6A  __mulint                           _mulint
+C:   00003E8A  __gptrget                          _gptrget
+C:   00003EA6  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003E95    0000018B =         395. bytes (REL,CON,CODE)
+CONST                               00003EAA    0000018B =         395. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
