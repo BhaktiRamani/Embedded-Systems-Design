@@ -42,13 +42,30 @@ int main()
   i2c_start();
   i2c_delay();
   //i2c_stop();
-  int i = 30;
-  while(i--)
-  {
-    i2c_write(0xA0);
+    unsigned char test_data = 0x55;  // Easy bit pattern to verify (0101 0101)
+    unsigned char address = 0x00;    // Start with first address
     
-  }
-  i2c_stop();
+    // Write data
+    printf("Writing 0x%02X to address 0x%02X\n\r", test_data, address);
+    eeprom_write(address, test_data);
+    
+    // Small delay to ensure write completes
+    for(int i = 0; i<100; i++)
+    // EEPROM needs time to complete write
+    {
+        i2c_delay();
+    }
+    
+    // Read back
+    unsigned char read_data = eeprom_read(address);
+    printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
+    
+    // Verify
+    if(read_data == test_data) {
+        printf("MATCH - Write/Read successful!\n\r");
+    } else {
+        printf("ERROR - Data mismatch!\n\r");
+    }
 //   eeprom_write(0x48, 00);
 //   int read_value_int = eeprom_read(0x48);
 //   unsigned char read_value_char = eeprom_read(0x48);
