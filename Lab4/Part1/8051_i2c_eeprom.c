@@ -15,7 +15,7 @@ int ACK;
 void i2c_start(void);
 void i2c_stop(void);
 void i2c_delay();
-void i2c_write(unsigned char data);
+int i2c_write(unsigned char data);
 int  i2c_read(int ACK);
 int eeprom_write(unsigned int address, unsigned char data);
 int eeprom_read(unsigned int address);
@@ -84,7 +84,7 @@ int eeprom_write(unsigned int address, unsigned char data)
 }
 
 
-void i2c_write(unsigned char data)
+int i2c_write(unsigned char data)
 {
     
   unsigned int i;
@@ -105,11 +105,11 @@ void i2c_write(unsigned char data)
     {
         // Handle no ACK error
         printf("ACK DID NOT ARRIVE\n\r");
-        //return 0;       // Error
+        return 0;       // Error
     }
     SCL = 0;
     printf("Transmission successfull\n\r");
-    //return 1;           // Success
+    return 1;           // Success
 
 }
 int i2c_read(int ACK)

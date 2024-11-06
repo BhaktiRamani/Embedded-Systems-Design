@@ -818,7 +818,7 @@ _eeprom_write:
 ;data                      Allocated with name '_i2c_write_data_65536_30'
 ;i                         Allocated with name '_i2c_write_i_65536_31'
 ;------------------------------------------------------------
-;	8051_i2c_eeprom.c:87: void i2c_write(unsigned char data)
+;	8051_i2c_eeprom.c:87: int i2c_write(unsigned char data)
 ;	-----------------------------------------
 ;	 function i2c_write
 ;	-----------------------------------------
@@ -889,6 +889,9 @@ _i2c_write:
 	dec	sp
 	dec	sp
 	dec	sp
+;	8051_i2c_eeprom.c:108: return 0;       // Error
+	mov	dptr,#0x0000
+	ret
 00103$:
 ;	8051_i2c_eeprom.c:110: SCL = 0;
 ;	assignBit
@@ -904,6 +907,8 @@ _i2c_write:
 	dec	sp
 	dec	sp
 	dec	sp
+;	8051_i2c_eeprom.c:112: return 1;           // Success
+	mov	dptr,#0x0001
 ;	8051_i2c_eeprom.c:114: }
 	ret
 ;------------------------------------------------------------
