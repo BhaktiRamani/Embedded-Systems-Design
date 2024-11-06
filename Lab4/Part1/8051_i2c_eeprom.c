@@ -42,28 +42,29 @@ int main()
   i2c_start();
   i2c_delay();
   //i2c_stop();
-    unsigned char test_data = 0x55;  // Easy bit pattern to verify (0101 0101)
-    unsigned char address = 0x00;    // Start with first address
+    unsigned char test_data = 0x26;  // Easy bit pattern to verify (0101 0101)
+    unsigned char address = 0x02;    // Start with first address
     
     // Write data
-    printf("Writing 0x%02X to address 0x%02X\n\r", test_data, address);
+    printf("Writing data 0x%02X to address 0x%02X\n\r", test_data, address);
     eeprom_write(address, test_data);
+    i2c_stop();
     
-    for(int i = 0; i<100; i++)
-    {
-        i2c_delay();
-    }
+    // for(int i = 0; i<100; i++)
+    // {
+    //     i2c_delay();
+    // }
     
-    // Read back
-    unsigned char read_data = eeprom_read(address);
-    printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
+    // // Read back
+    // unsigned char read_data = eeprom_read(address);
+    // printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
     
-    // Verify
-    if(read_data == test_data) {
-        printf("MATCH - Write/Read successful!\n\r");
-    } else {
-        printf("ERROR - Data mismatch!\n\r");
-    }
+    // // Verify
+    // if(read_data == test_data) {
+    //     printf("MATCH - Write/Read successful!\n\r");
+    // } else {
+    //     printf("ERROR - Data mismatch!\n\r");
+    // }
 //   eeprom_write(0x48, 00);
 //   int read_value_int = eeprom_read(0x48);
 //   unsigned char read_value_char = eeprom_read(0x48);
@@ -105,7 +106,7 @@ int eeprom_write(unsigned int address, unsigned char data) {
     
     i2c_stop();
     //delay_ms(5);  // Wait for write to complete
-       for(int i = 0; i<100; i++)
+    for(int i = 0; i<100; i++)
     {
         i2c_delay();
     }
@@ -184,7 +185,7 @@ int i2c_write(unsigned char data)
   unsigned int i;
   for(i=0;i<=7;i++)
   {
-    SDA = (data & 0x80) ? 1 : 0;
+    SDA = (data & 0x80) ? 1 : 0;    //msb first
     i2c_delay();        // Setup time for data
     SCL=1;
     i2c_delay();        // Hold time for clock
