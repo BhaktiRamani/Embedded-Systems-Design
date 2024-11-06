@@ -201,14 +201,17 @@ int i2c_write(unsigned char data)
 int i2c_read(int ACK)
 {
 	 unsigned char buff=0;
-	 
+	 SCL = 0;
 	 for(int i=0;i<8;i++)
 	 {
-	   SDA = 1;
+	   //SDA = 1;
 	   SCL = 1;
 	   i2c_delay();
-	   if(SDA) buff |=0x80>>i;
+	//    if(SDA) buff |=0x80>>i;
+	//    buff = buff << 1;
+	   buff = buff | SDA;
 	   buff = buff << 1;
+	   i2c_delay();
 	   SCL=0;
 	 }
     

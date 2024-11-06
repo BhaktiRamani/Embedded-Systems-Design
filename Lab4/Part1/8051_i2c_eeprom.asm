@@ -1090,20 +1090,20 @@ _i2c_read:
 	mov	dptr,#_i2c_read_buff_65536_48
 	clr	a
 	movx	@dptr,a
+;	8051_i2c_eeprom.c:204: SCL = 0;
+;	assignBit
+	clr	_P1_3
 ;	8051_i2c_eeprom.c:205: for(int i=0;i<8;i++)
 	mov	r6,#0x00
 	mov	r7,#0x00
-00105$:
+00103$:
 	clr	c
 	mov	a,r6
 	subb	a,#0x08
 	mov	a,r7
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	00103$
-;	8051_i2c_eeprom.c:207: SDA = 1;
-;	assignBit
-	setb	_P1_4
+	jnc	00101$
 ;	8051_i2c_eeprom.c:208: SCL = 1;
 ;	assignBit
 	setb	_P1_3
@@ -1111,142 +1111,127 @@ _i2c_read:
 	push	ar7
 	push	ar6
 	lcall	_i2c_delay
-	pop	ar6
-	pop	ar7
-;	8051_i2c_eeprom.c:210: if(SDA) buff |=0x80>>i;
-	jnb	_P1_4,00102$
-	mov	b,r6
-	inc	b
-	mov	r4,#0x80
-	clr	a
-	mov	r5,a
-	rlc	a
-	mov	ov,c
-	sjmp	00125$
-00124$:
-	mov	c,ov
-	mov	a,r5
-	rrc	a
-	mov	r5,a
-	mov	a,r4
-	rrc	a
-	mov	r4,a
-00125$:
-	djnz	b,00124$
+;	8051_i2c_eeprom.c:212: buff = buff | SDA;
 	mov	dptr,#_i2c_read_buff_65536_48
 	movx	a,@dptr
-	mov	r3,a
-	orl	a,r4
-	movx	@dptr,a
-00102$:
-;	8051_i2c_eeprom.c:211: buff = buff << 1;
+	mov	r5,a
+	mov	c,_P1_4
+	clr	a
+	rlc	a
 	mov	dptr,#_i2c_read_buff_65536_48
+	orl	a,r5
+	movx	@dptr,a
+;	8051_i2c_eeprom.c:213: buff = buff << 1;
 	movx	a,@dptr
 	add	a,acc
 	movx	@dptr,a
-;	8051_i2c_eeprom.c:212: SCL=0;
+;	8051_i2c_eeprom.c:214: i2c_delay();
+	lcall	_i2c_delay
+	pop	ar6
+	pop	ar7
+;	8051_i2c_eeprom.c:215: SCL=0;
 ;	assignBit
 	clr	_P1_3
 ;	8051_i2c_eeprom.c:205: for(int i=0;i<8;i++)
 	inc	r6
-	cjne	r6,#0x00,00105$
+	cjne	r6,#0x00,00103$
 	inc	r7
-	sjmp	00105$
-00103$:
-;	8051_i2c_eeprom.c:216: SDA = !ACK;         // ACK = 0, NACK = 1
+	sjmp	00103$
+00101$:
+;	8051_i2c_eeprom.c:219: SDA = !ACK;         // ACK = 0, NACK = 1
 	mov	dptr,#_i2c_read_ACK_65536_47
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,r6
-	cjne	a,#0x01,00127$
-00127$:
+	cjne	a,#0x01,00118$
+00118$:
 	clr	a
 	rlc	a
 	add	a,#0xff
 	mov	_P1_4,c
-;	8051_i2c_eeprom.c:217: SCL = 1;
+;	8051_i2c_eeprom.c:220: SCL = 1;
 ;	assignBit
 	setb	_P1_3
-;	8051_i2c_eeprom.c:218: i2c_delay();
+;	8051_i2c_eeprom.c:221: i2c_delay();
 	lcall	_i2c_delay
-;	8051_i2c_eeprom.c:219: SCL = 0;
+;	8051_i2c_eeprom.c:222: SCL = 0;
 ;	assignBit
 	clr	_P1_3
-;	8051_i2c_eeprom.c:221: return buff;
+;	8051_i2c_eeprom.c:224: return buff;
 	mov	dptr,#_i2c_read_buff_65536_48
 	movx	a,@dptr
 	mov	r7,a
 	mov	r6,#0x00
 	mov	dpl,r7
 	mov	dph,r6
-;	8051_i2c_eeprom.c:222: }
+;	8051_i2c_eeprom.c:225: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'i2c_start'
 ;------------------------------------------------------------
-;	8051_i2c_eeprom.c:223: void i2c_start(void)
+;	8051_i2c_eeprom.c:226: void i2c_start(void)
 ;	-----------------------------------------
 ;	 function i2c_start
 ;	-----------------------------------------
 _i2c_start:
-;	8051_i2c_eeprom.c:225: i2c_delay();
+;	8051_i2c_eeprom.c:228: i2c_delay();
 	lcall	_i2c_delay
-;	8051_i2c_eeprom.c:226: SDA = 1;
+;	8051_i2c_eeprom.c:229: SDA = 1;
 ;	assignBit
 	setb	_P1_4
-;	8051_i2c_eeprom.c:227: i2c_delay();
+;	8051_i2c_eeprom.c:230: i2c_delay();
 	lcall	_i2c_delay
-;	8051_i2c_eeprom.c:228: SCL = 1;
+;	8051_i2c_eeprom.c:231: SCL = 1;
 ;	assignBit
 	setb	_P1_3
-;	8051_i2c_eeprom.c:229: i2c_delay();
+;	8051_i2c_eeprom.c:232: i2c_delay();
 	lcall	_i2c_delay
-;	8051_i2c_eeprom.c:230: SDA = 0;
+;	8051_i2c_eeprom.c:233: SDA = 0;
 ;	assignBit
 	clr	_P1_4
-;	8051_i2c_eeprom.c:231: i2c_delay();
+;	8051_i2c_eeprom.c:234: i2c_delay();
 	lcall	_i2c_delay
-;	8051_i2c_eeprom.c:232: SCL = 0;
+;	8051_i2c_eeprom.c:235: SCL = 0;
 ;	assignBit
 	clr	_P1_3
-;	8051_i2c_eeprom.c:233: }
+;	8051_i2c_eeprom.c:236: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'i2c_stop'
 ;------------------------------------------------------------
-;	8051_i2c_eeprom.c:235: void i2c_stop(void)
+;	8051_i2c_eeprom.c:238: void i2c_stop(void)
 ;	-----------------------------------------
 ;	 function i2c_stop
 ;	-----------------------------------------
 _i2c_stop:
-;	8051_i2c_eeprom.c:237: SDA = 0;
+;	8051_i2c_eeprom.c:240: SDA = 0;
 ;	assignBit
 	clr	_P1_4
-;	8051_i2c_eeprom.c:238: i2c_delay();
+;	8051_i2c_eeprom.c:241: i2c_delay();
 	lcall	_i2c_delay
-;	8051_i2c_eeprom.c:239: SCL = 1;
+;	8051_i2c_eeprom.c:242: SCL = 1;
 ;	assignBit
 	setb	_P1_3
-;	8051_i2c_eeprom.c:240: i2c_delay();
+;	8051_i2c_eeprom.c:243: i2c_delay();
 	lcall	_i2c_delay
-;	8051_i2c_eeprom.c:241: SDA = 1; 
+;	8051_i2c_eeprom.c:244: SDA = 1; 
 ;	assignBit
 	setb	_P1_4
-;	8051_i2c_eeprom.c:242: }
+;	8051_i2c_eeprom.c:245: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'i2c_delay'
 ;------------------------------------------------------------
 ;i                         Allocated with name '_i2c_delay_i_131072_56'
 ;------------------------------------------------------------
-;	8051_i2c_eeprom.c:244: void i2c_delay() 
+;	8051_i2c_eeprom.c:247: void i2c_delay() 
 ;	-----------------------------------------
 ;	 function i2c_delay
 ;	-----------------------------------------
 _i2c_delay:
-;	8051_i2c_eeprom.c:252: for(int i = 0; i<500; i++);
+;	8051_i2c_eeprom.c:255: for(int i = 0; i<500; i++);
 	mov	r6,#0x00
 	mov	r7,#0x00
 00103$:
@@ -1262,7 +1247,7 @@ _i2c_delay:
 	inc	r7
 	sjmp	00103$
 00105$:
-;	8051_i2c_eeprom.c:253: }
+;	8051_i2c_eeprom.c:256: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
