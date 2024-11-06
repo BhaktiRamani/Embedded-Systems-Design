@@ -18,7 +18,25 @@ all: prog.hex
 # BAUDRATE = 57600
 # HEX_FILE = syntax.hex
 
+# Basic git operations
+git-add:
+	git add .
 
+# Commit with a message (usage: make git-commit m="your message")
+git-commit:
+	@if [ "$(m)" = "" ]; then \
+		echo "Please provide a commit message using m=\"your message\""; \
+		exit 1; \
+	else \
+		git commit -m "$(m)"; \
+	fi
+
+# Push to current branch
+git-push:
+	git push origin $$(git rev-parse --abbrev-ref HEAD)
+
+# Combined target for all operations (usage: make git-all m="your message")
+git-all: git-add git-commit git-push
 
 # Compile phase
 8051_i2c_eeprom.rel : 8051_i2c_eeprom.c

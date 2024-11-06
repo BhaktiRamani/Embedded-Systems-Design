@@ -207,10 +207,6 @@ int i2c_read(int ACK)
 	   //SDA = 1;
 	   SCL = 1;
 	   i2c_delay();
-	//    if(SDA) buff |=0x80>>i;
-	//    buff = buff << 1;
-	//    buff = buff | SDA;
-	//    buff = buff << 1;
 	   buff |= (SDA << (7 - i));
 	   i2c_delay();
 	   SCL=0;
