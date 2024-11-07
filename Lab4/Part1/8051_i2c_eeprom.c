@@ -103,6 +103,11 @@ int main()
                 printf("\n┌─────────────── READ OPERATION ───────────────┐\n\r");
                 unsigned int addr;
                 addr = take_address(); 
+                if(!address_range_flag) 
+                {
+                    address_range_flag = 1;
+                    break;
+                }
                 printf("| Reading from Address 0x%03X           |\n\r", addr);
                 eeprom_read(addr);
                 break;
