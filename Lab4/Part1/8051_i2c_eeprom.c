@@ -95,6 +95,7 @@ int main()
                     data_range_flag = 1;
                     break;
                 }
+                printf("check point 1 \n\r");
                 eeprom_write(addr, data);
                 break;
             }
@@ -242,9 +243,10 @@ unsigned char take_data()
 
 int eeprom_write(unsigned int address, unsigned char data) 
 {
+    printf("check point 2\n\r");
     if(address_range_flag & data_range_flag)
     {
-        
+        printf("checkpoint 3\n\r");
         i2c_start();
         
         // Send device address with write bit
@@ -274,11 +276,13 @@ int eeprom_write(unsigned int address, unsigned char data)
         {
             i2c_delay();
         }
+        printf("checkpoint 4\n\r");
         printf("| Writing at Address 0x%03X Data 0x%02X          |\n\r", address, data);
         printf("│ Write successful!                             │\n\r");
         printf("└───────────────────────────────────────────────┘\n\r");
         return 1;  // Success
     }
+    printf("checkpoint 5\n\r");
     return 0;
     // else
     // {
