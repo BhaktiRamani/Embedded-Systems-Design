@@ -10,6 +10,7 @@
 #define SCL P1_3
 #define SDA P1_4
 
+static unsigned int block = 0;
 int ACK;
 //ACK = 0;
 
@@ -77,21 +78,21 @@ int main()
             case 'W':
             {
                 printf("\n┌─────────────── WRITE OPERATION ──────────────┐\n\r");
-                unsigned int address;
-                address = take_address(); 
+                unsigned int addr;
+                addr = take_address(); 
                 unsigned char data; 
                 data = take_data();
-                printf("|Writing at Address 0x%03X Data 0x%02X          |\n\r", address, data);
-                eeprom_write(address, data);
+                printf("|Writing at Address 0x%03X Data 0x%02X          |\n\r", addr, data);
+                eeprom_write(addr, data);
                 break;
             }
             case 'R':
             {
                 printf("\n┌─────────────── READ OPERATION ───────────────┐\n\r");
-                unsigned int address;
-                address = take_address(); 
-                printf("|Reading from Address 0x%03X           |\n\r", address);
-                eeprom_read(address);
+                unsigned int addr;
+                addr = take_address(); 
+                printf("|Reading from Address 0x%03X           |\n\r", addr);
+                eeprom_read(addr);
                 break;
             }
 
@@ -156,6 +157,11 @@ unsigned int take_address()
         printf("Address out of Range\n\r");
         return 0;
     }
+    unsigned int block = address/256;       //block address
+    printf("Block number %d\n\r", block);
+    address = address%256;     //word address
+    printf("address now  0x%03X\n\r", address);
+
     return address;
 }
 
@@ -218,7 +224,7 @@ int eeprom_write(unsigned int address, unsigned char data)
     i2c_start();
     
     // Send device address with write bit
-    if(!i2c_write(EEPROM_ID | WRITE)) {
+    if(!i2c_write(EEPROM_ID | block | WRITE)) {
         printf("Error: No ACK for device address (write)\n\r");
         i2c_stop();
         return 0;
