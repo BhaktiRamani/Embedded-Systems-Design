@@ -19,7 +19,8 @@ int i2c_write(unsigned char data);
 int  i2c_read(int ACK);
 int eeprom_write(unsigned int address, unsigned char data);
 int eeprom_read(unsigned int address);
-
+int take_data();
+int take_address();
 
 int putchar(int charToSend) {
     SBUF = charToSend;  // Send character to serial buffer
@@ -34,43 +35,105 @@ int getchar(void) {
     return SBUF;       // Return received character
 }
 
+void ui()
+{
+    printf("\n╔════════════════════════════════════════════════════════╗\n\r");
+    printf("║           I2C Memory Management System v1.0             ║\n\r");
+    printf("╚════════════════════════════════════════════════════════╝\n\r");
+
+}
+
+void command_menu()
+{
+    printf("\n\r┌────────────┬────────────────────────────────────────────┐\n\r");
+    printf("│  Command   │               Description                   │\n\r");
+    printf("├────────────┼────────────────────────────────────────────┤\n\r");
+    printf("│     R      │ Read from address                          │\n\r");
+    printf("│     W      │ Write data to address                      │\n\r");
+    printf("│     H      │ Display hex dump                           │\n\r");
+    printf("│     X      │ Reset memory system                        │\n\r");
+    printf("│     ?      │ Display this help menu                     │\n\r");
+    printf("│     Q      │ Quit program                              │\n\r");
+    printf("└────────────┴────────────────────────────────────────────┘\n\r");
+
+
+}
 int main()
 {
 
   P1 &= ~(1<<3);  // Set P1.3 as output
   P1 &= ~(1<<4);  // Set P1.4 as output
-  i2c_start();
-  i2c_delay();
-  //i2c_stop();
-    unsigned char test_data = 0x26;  // Easy bit pattern to verify (0101 0101)
-    unsigned char address = 0x02;    // Start with first address
-    
-    // Write data
-    printf("Writing data 0x%02X to address 0x%02X\n\r", test_data, address);
-    eeprom_write(address, test_data);
-    i2c_stop();
-    
-    for(int i = 0; i<100; i++)
-    {
-        i2c_delay();
-    }
-    
-    // Read back
-    unsigned char read_data = eeprom_read(address);
-    printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
-    
-    // Verify
-    if(read_data == test_data) {
-        printf("MATCH - Write/Read successful!\n\r");
-    } else {
-        printf("ERROR - Data mismatch!\n\r");
-    }
+  ui();
+  command_menu();
+  while(1)
+  {
+      char user_input = getchar();
+      printf("$ %c\n\r", user_input);
+      switch(user_input)
+      {
+            case 'W':
+            {
+                printf("\n┌─────────────── WRITE OPERATION ──────────────┐\n");
+                unsigned int address;
+                address = take_address(); 
+                unsigned char data; 
+                data = (unsigned char)take_data();
+                printf("| Writing at Address 0x%02X Data 0x%02X          |\n\r", address, data);
+                eeprom_write(address, data);
+                break;
+            }
+            case 'R':
+            {
+                unsigned int address;
+                address = take_address(); 
+                eeprom_read(address);
+                break;
+            }
 
+            case '?':
+                 command_menu();
+                 break;
+            
+            default:
+                printf("INVALID INPUT\n\r");
+                break;
+      }
+  }
   
   return 0;
 }
 
-int eeprom_write(unsigned int address, unsigned char data) {
+int take_address()
+{
+    printf("│ Enter address (hex): ");
+    unsigned char input[3];
+    int i = 0;
+    while(i<3)
+    {
+        input[i] = getchar();
+        i++;
+    }
+    unsigned int address = input[0] - '0' + input[1] - '0' + input[2] - '0';
+    return address;
+}
+int take_data()
+{
+    printf("│ Enter data (hex): ");
+    unsigned char input[3];
+    int i = 0;
+    while(i<3)
+    {
+        input[i] = getchar();
+        i++;
+    }
+    unsigned int data = input[0] - '0' + input[1] - '0' + input[2] - '0';
+    return data; 
+
+}
+
+int eeprom_write(unsigned int address, unsigned char data) 
+{
+    
     i2c_start();
     
     // Send device address with write bit
@@ -100,10 +163,16 @@ int eeprom_write(unsigned int address, unsigned char data) {
     {
         i2c_delay();
     }
+    printf("| Writing at Address 0x%02X Data 0x%02X          |\n\r", address, data);
+    printf("│ Write successful!                             │\n");
+    printf("└───────────────────────────────────────────────┘\n");
     return 1;  // Success
+
 }
 
-int eeprom_read(unsigned int address) {
+int eeprom_read(unsigned int address) 
+{
+    
     unsigned char result;
     
     // Start for address setting
@@ -139,34 +208,6 @@ int eeprom_read(unsigned int address) {
     i2c_stop();
     return result;
 }
-
-// int eeprom_read(unsigned int address)
-// {
-//       unsigned char result = 0;
-      
-//       i2c_start();
-      
-//       i2c_write(EEPROM_ID|WRITE);
-//       i2c_write(address);
-      
-//       i2c_start();
-//       i2c_write(EEPROM_ID|READ);
-//       result = i2c_read(0);
-      
-//       i2c_stop();
-//       return result;
-// }
-
-// int eeprom_write(unsigned int address, unsigned char data)
-// {
-//     i2c_start();
-//     i2c_write(EEPROM_ID | WRITE);
-//     i2c_write((unsigned char)(address >> 8));
-//     i2c_write((unsigned char)address);
-//     i2c_write(data);    // No start condition here
-//     i2c_stop();
-//     return 0;
-// }
 
 
 int i2c_write(unsigned char data)
@@ -204,7 +245,6 @@ int i2c_read(int ACK)
 	 SCL = 0;
 	 for(int i=0;i<8;i++)
 	 {
-	   //SDA = 1;
 	   SCL = 1;
 	   i2c_delay();
 	   buff |= (SDA << (7 - i));
@@ -252,3 +292,34 @@ void i2c_delay()
     for(int i = 0; i<500; i++);
 }
 
+void test_function()
+{
+      i2c_start();
+  i2c_delay();
+  //i2c_stop();
+    unsigned char test_data = 0x26;  // Easy bit pattern to verify (0101 0101)
+    unsigned char address = 0x02;    // Start with first address
+    
+    // Write data
+    printf("Writing data 0x%02X to address 0x%02X\n\r", test_data, address);
+    eeprom_write(address, test_data);
+    i2c_stop();
+    
+    for(int i = 0; i<100; i++)
+    {
+        i2c_delay();
+    }
+    
+    // Read back
+    unsigned char read_data = eeprom_read(address);
+    printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
+    
+    // Verify
+    if(read_data == test_data) {
+        printf("MATCH - Write/Read successful!\n\r");
+    } else {
+        printf("ERROR - Data mismatch!\n\r");
+    }
+
+
+}

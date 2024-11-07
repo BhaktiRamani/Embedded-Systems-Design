@@ -53,7 +53,7 @@ C:   00000020  s_BSEG_BYTES
 C:   00000020  s__CODE                         
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
-C:   00000046  l_XSEG                          
+C:   0000004C  l_XSEG                          
 C:   00000080  l_DSEG                          
 C:   000000EC  l_SSEG                          
 C:   00000100  l_IRAM                          
@@ -66,11 +66,11 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   0000018B  l_CONST                         
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
-C:   00000446  s_XISEG                         
-C:   00000E48  l_CSEG                          
+C:   0000044C  s_XISEG                         
+C:   000008E4  l_CONST                         
+C:   00001184  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003006  s_GSINIT0                       
 C:   00003009  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   0000305F  s_GSFINAL
 C:   0000305F  s_GSINIT                        
 C:   0000305F  s_GSINIT5                       
 C:   00003062  s_CSEG                          
-C:   00003EAA  s_CONST                         
-C:   00004035  s_XINIT                         
+C:   000041E6  s_CONST                         
+C:   00004ACA  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -366,17 +366,17 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00000400    00000046 =          70. bytes (REL,CON,XDATA)
+XSEG                                00000400    0000004C =          76. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 D:   00000400  _ACK                               8051_i2c_eeprom
-D:   00000404  _eeprom_write_PARM_2               8051_i2c_eeprom
-D:   0000040D  _vprintf_PARM_2                    vprintf
-D:   00000422  __print_format_PARM_2              printf_large
-D:   00000425  __print_format_PARM_3              printf_large
-D:   00000428  __print_format_PARM_4              printf_large
-D:   00000444  __mulint_PARM_2                    _mulint
+D:   0000040A  _eeprom_write_PARM_2               8051_i2c_eeprom
+D:   00000413  _vprintf_PARM_2                    vprintf
+D:   00000428  __print_format_PARM_2              printf_large
+D:   0000042B  __print_format_PARM_3              printf_large
+D:   0000042E  __print_format_PARM_4              printf_large
+D:   0000044A  __mulint_PARM_2                    _mulint
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
@@ -446,34 +446,39 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003062    00000E48 =        3656. bytes (REL,CON,CODE)
+CSEG                                00003062    00001184 =        4484. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00003062  _putchar                           8051_i2c_eeprom
 C:   00003081  _getchar                           8051_i2c_eeprom
-C:   0000308F  _main                              8051_i2c_eeprom
-C:   00003151  _eeprom_write                      8051_i2c_eeprom
-C:   00003211  _eeprom_read                       8051_i2c_eeprom
-C:   000032BF  _i2c_write                         8051_i2c_eeprom
-C:   0000333C  _i2c_read                          8051_i2c_eeprom
-C:   000033C1  _i2c_start                         8051_i2c_eeprom
-C:   000033D6  _i2c_stop                          8051_i2c_eeprom
-C:   000033E3  _i2c_delay                         8051_i2c_eeprom
-C:   00003409  _vprintf                           vprintf
-C:   00003448  _printf                            vprintf
-C:   00003551  __print_format                     printf_large
-C:   00003E52  _strlen                            _strlen
-C:   00003E6A  __mulint                           _mulint
-C:   00003E8A  __gptrget                          _gptrget
-C:   00003EA6  __sdcc_external_startup            _startup
+C:   0000308F  _ui                                8051_i2c_eeprom
+C:   000030CF  _command_menu                      8051_i2c_eeprom
+C:   000031A2  _main                              8051_i2c_eeprom
+C:   0000326E  _take_address                      8051_i2c_eeprom
+C:   000032E5  _take_data                         8051_i2c_eeprom
+C:   0000335C  _eeprom_write                      8051_i2c_eeprom
+C:   00003495  _eeprom_read                       8051_i2c_eeprom
+C:   00003543  _i2c_write                         8051_i2c_eeprom
+C:   000035C0  _i2c_read                          8051_i2c_eeprom
+C:   00003645  _i2c_start                         8051_i2c_eeprom
+C:   0000365A  _i2c_stop                          8051_i2c_eeprom
+C:   00003667  _i2c_delay                         8051_i2c_eeprom
+C:   0000367E  _test_function                     8051_i2c_eeprom
+C:   00003745  _vprintf                           vprintf
+C:   00003784  _printf                            vprintf
+C:   0000388D  __print_format                     printf_large
+C:   0000418E  _strlen                            _strlen
+C:   000041A6  __mulint                           _mulint
+C:   000041C6  __gptrget                          _gptrget
+C:   000041E2  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003EAA    0000018B =         395. bytes (REL,CON,CODE)
+CONST                               000041E6    000008E4 =        2276. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
