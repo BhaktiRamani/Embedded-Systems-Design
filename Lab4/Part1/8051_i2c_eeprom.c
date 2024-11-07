@@ -67,6 +67,7 @@ int main()
   P1 &= ~(1<<4);  // Set P1.4 as output
   ui();
   command_menu();
+  i2c_start();
   while(1)
   {
       char user_input = getchar();
@@ -80,14 +81,16 @@ int main()
                 address = take_address(); 
                 unsigned char data; 
                 data = take_data();
-                printf("| Writing at Address %d Data %c          |\n\r", address, data);
+                printf("|Writing at Address 0x%03X Data 0x%02X          |\n\r", address, data);
                 eeprom_write(address, data);
                 break;
             }
             case 'R':
             {
+                printf("\n┌─────────────── READ OPERATION ───────────────┐\n\r");
                 unsigned int address;
                 address = take_address(); 
+                printf("|Reading from Address 0x%03X           |\n\r", address);
                 eeprom_read(address);
                 break;
             }
@@ -241,9 +244,9 @@ int eeprom_write(unsigned int address, unsigned char data)
     {
         i2c_delay();
     }
-    printf("| Writing at Address 0x%02X Data 0x%02X          |\n\r", address, data);
-    printf("│ Write successful!                             │\n");
-    printf("└───────────────────────────────────────────────┘\n");
+    printf("| Writing at Address 0x%03X Data 0x%02X          |\n\r", address, data);
+    printf("│ Write successful!                             │\n\r");
+    printf("└───────────────────────────────────────────────┘\n\r");
     return 1;  // Success
 
 }
@@ -282,7 +285,9 @@ int eeprom_read(unsigned int address)
     
     // Read data (send NACK after as it's the last byte)
     result = i2c_read(0);  // 0 means send NACK
-    
+    printf("│ Reading from Adress: 0x%03X Data: 0x%02X                    \n\r", address);
+    printf("│ Read successful !                  │\n\r");
+    printf("└───────────────────────────────────────────────┘\n\r");
     i2c_stop();
     return result;
 }
