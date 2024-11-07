@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include <mcs51/8051.h>
 #include <at89c51ed2.h>
+#include<stdlib.h>
 
 #define READ 0x01
 #define WRITE 0x00
@@ -29,7 +30,8 @@ int putchar(int charToSend) {
     return charToSend;
 }
 
-int getchar(void) {
+int getchar(void) 
+{
     while (!RI);        // Wait for reception to complete
     RI = 0;            // Clear reception interrupt flag
     return SBUF;       // Return received character
@@ -73,7 +75,7 @@ int main()
       {
             case 'W':
             {
-                printf("\n┌─────────────── WRITE OPERATION ──────────────┐\n");
+                printf("\n┌─────────────── WRITE OPERATION ──────────────┐\n\r");
                 unsigned int address;
                 address = take_address(); 
                 unsigned char data; 
@@ -102,33 +104,43 @@ int main()
  
 }
 
-int take_address()
-{
-    printf("│ Enter address (hex): \n\r");
-    unsigned char input[3];
+int take_address() {
+    printf("│ Enter address (hex, up to 3 characters): \n\r|");
+    char input[4] = {0};  // Array to store hex input + null terminator
     int i = 0;
-    while(i<3)
-    {
+
+    // Read up to 3 characters
+    while (i < 3) {
         input[i] = getchar();
-        putchar(input[i]);
+        printf("$ %c", putchar(input[i]));
         i++;
     }
-    unsigned int address = input[0] - '0' + input[1] - '0' + input[2] - '0';
+    input[i] = '\0';  // Null-terminate the string
+
+    // Convert the input string to an integer using hexadecimal base
+    unsigned int address = (unsigned int)strtol(input, NULL, 16);
+    printf("address %d\n\r", address);
     return address;
 }
+
 int take_data()
 {
-    printf("│ Enter data (hex): \n\r");
-    unsigned char input[3];
+    char input[3] = {0};  // Array to store up to 2 hex characters + null terminator
     int i = 0;
-    while(i<3)
-    {
+    
+    printf("|Enter a 2-digit hexadecimal value: \n\r|");
+    while (i < 2) {
         input[i] = getchar();
-        putchar(input[i]);
+        printf("$ %c", putchar(input[i]));
+          // Echo back input
         i++;
     }
-    unsigned int data = input[0] - '0' + input[1] - '0' + input[2] - '0';
-    return data; 
+    input[i] = '\0';  // Null-terminate the string
+    
+    // Convert the input string to an unsigned char using hexadecimal base
+    unsigned char value = (unsigned char)strtol(input, NULL, 16);
+    printf("data %c\n\r", value);
+    return value;
 
 }
 
@@ -295,7 +307,7 @@ void i2c_delay()
 
 void test_function()
 {
-      i2c_start();
+  i2c_start();
   i2c_delay();
   //i2c_stop();
     unsigned char test_data = 0x26;  // Easy bit pattern to verify (0101 0101)
