@@ -20,8 +20,8 @@ int i2c_write(unsigned char data);
 int  i2c_read(int ACK);
 int eeprom_write(unsigned int address, unsigned char data);
 int eeprom_read(unsigned int address);
-int take_data();
-int take_address();
+unsigned char take_data();
+unsigned int take_address();
 
 int putchar(int charToSend) {
     SBUF = charToSend;  // Send character to serial buffer
@@ -79,7 +79,7 @@ int main()
                 unsigned int address;
                 address = take_address(); 
                 unsigned char data; 
-                data = (unsigned char)take_data();
+                data = take_data();
                 printf("| Writing at Address %d Data %c          |\n\r", address, data);
                 eeprom_write(address, data);
                 break;
@@ -104,43 +104,108 @@ int main()
  
 }
 
-int take_address() {
+unsigned int take_address() 
+{
     printf("│ Enter address (hex, up to 3 characters): \n\r|");
-    char input[4] = {0};  // Array to store hex input + null terminator
+    char input[4] = {0};  // Array for 3 hex chars + null terminator
     int i = 0;
+    char c;
 
-    // Read up to 3 characters
+    printf("$ ");
+    // Read characters until Enter/Return is pressed or buffer is full
     while (i < 3) {
-        input[i] = getchar();
-        printf("$ %c", putchar(input[i]));
-        i++;
+    
+        c = getchar();
+        
+        // Check for Enter/Return key
+        if (c == '\r' || c == '\n') {
+            break;
+        }
+        
+        // Check if character is valid hex
+        if ((c >= '0' && c <= '9') || 
+            (c >= 'a' && c <= 'f') || 
+            (c >= 'A' && c <= 'F')) {
+            
+            input[i] = c;
+            putchar(c);  // Echo character back
+            i++;
+        }
     }
+    
     input[i] = '\0';  // Null-terminate the string
 
-    // Convert the input string to an integer using hexadecimal base
-    unsigned int address = (unsigned int)strtol(input, NULL, 16);
-    printf("address %d\n\r", address);
+    // Convert hex string to integer
+    unsigned int address = 0;
+    for(i = 0; input[i] != '\0'; i++) {
+        address = address * 16;
+        if(input[i] >= '0' && input[i] <= '9')
+            address += input[i] - '0';
+        else if(input[i] >= 'A' && input[i] <= 'F')
+            address += input[i] - 'A' + 10;
+        else if(input[i] >= 'a' && input[i] <= 'f')
+            address += input[i] - 'a' + 10;
+    }
+
+    printf("\n\r│ Entered address: 0x%03X\n\r", address);
+    if(address > 0x7ff) 
+    {
+        printf("Address out of Range\n\r");
+        return 0;
+    }
     return address;
 }
 
-int take_data()
+unsigned char take_data()
 {
-    char input[3] = {0};  // Array to store up to 2 hex characters + null terminator
+    printf("│ Enter data (hex, up to 2 characters): \n\r|");
+    char input[4] = {0};  // Array for 3 hex chars + null terminator
     int i = 0;
+    char c;
+
+    printf("$ ");
+    // Read characters until Enter/Return is pressed or buffer is full
+    while (i < 3) {
     
-    printf("|Enter a 2-digit hexadecimal value: \n\r|");
-    while (i < 2) {
-        input[i] = getchar();
-        printf("$ %c", putchar(input[i]));
-          // Echo back input
-        i++;
+        c = getchar();
+        
+        // Check for Enter/Return key
+        if (c == '\r' || c == '\n') {
+            break;
+        }
+        
+        // Check if character is valid hex
+        if ((c >= '0' && c <= '9') || 
+            (c >= 'a' && c <= 'f') || 
+            (c >= 'A' && c <= 'F')) {
+            
+            input[i] = c;
+            putchar(c);  // Echo character back
+            i++;
+        }
     }
+        
     input[i] = '\0';  // Null-terminate the string
-    
-    // Convert the input string to an unsigned char using hexadecimal base
-    unsigned char value = (unsigned char)strtol(input, NULL, 16);
-    printf("data %c\n\r", value);
-    return value;
+
+    // Convert hex string to an unsigned char
+    unsigned char data = 0;
+    for (i = 0; input[i] != '\0'; i++) {
+        data = data * 16;
+        if (input[i] >= '0' && input[i] <= '9')
+            data += input[i] - '0';
+        else if (input[i] >= 'A' && input[i] <= 'F')
+            data += input[i] - 'A' + 10;
+        else if (input[i] >= 'a' && input[i] <= 'f')
+            data += input[i] - 'a' + 10;
+    }
+
+    printf("\n\r│ Entered data: 0x%02X\n\r", data);
+    if(data > 254) 
+    {
+        printf("Data out of Range\n\r");
+        return 0;
+    }
+    return data;
 
 }
 
