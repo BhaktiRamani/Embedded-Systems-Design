@@ -274,8 +274,12 @@ int eeprom_write(unsigned int address, unsigned char data)
         printf("└───────────────────────────────────────────────┘\n\r");
         return 1;  // Success
     }
-    printf("| CAN NOT WRITE                   |\n\r", address);
     return 0;
+    // else
+    // {
+    //     printf("| CAN NOT WRITE                   |\n\r", address);
+    //     return 0;
+    // }
 
 }
 
@@ -321,17 +325,16 @@ int eeprom_read(unsigned int address)
         i2c_stop();
         return result;
     }
-    else
-    {
+    return 0;
+    // else
+    // {
     
-        printf("╔══════════════════════════════════════════╗\n\r");
-        printf("║          ! MEMORY READ ERROR !           ║\n\r");
-        printf("║      Cannot Read at Address 0x%03X       ║\n\r", address);
-        printf("╚══════════════════════════════════════════╝\n\r");
-        return 0;
-    
-    
-    }
+    //     printf("╔══════════════════════════════════════════╗\n\r");
+    //     printf("║          ! MEMORY READ ERROR !           ║\n\r");
+    //     printf("║      Cannot Read at Address 0x%03X       ║\n\r", address);
+    //     printf("╚══════════════════════════════════════════╝\n\r");
+    //     return 0;
+    // }
 }
 
 
