@@ -193,7 +193,7 @@ unsigned char take_data()
     int i = 0;
     char c;
 
-    printf("$ ");
+    printf("| $ ");
     // Read characters until Enter/Return is pressed or buffer is full
     while (i < 3) {
     
@@ -229,8 +229,8 @@ unsigned char take_data()
             data += input[i] - 'a' + 10;
     }
 
-    printf("\n\r│ Entered data: 0x%02X\n\r", data);
-    if(data > 254) 
+    printf("\n\r│ Entered data: 0x%03X\n\r", data);
+    if(data > 0xFE) 
     {
         printf("Data out of Range\n\r");
         data_range_flag = 0;

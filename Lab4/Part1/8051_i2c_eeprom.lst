@@ -1398,10 +1398,10 @@
       0004A6 F0               [24] 1398 	movx	@dptr,a
       0004A7 90r00r0D         [24] 1399 	mov	dptr,#(_take_data_input_65537_76 + 0x0003)
       0004AA F0               [24] 1400 	movx	@dptr,a
-                                   1401 ;	8051_i2c_eeprom.c:196: printf("$ ");
-      0004AB 74rBD            [12] 1402 	mov	a,#___str_26
+                                   1401 ;	8051_i2c_eeprom.c:196: printf("| $ ");
+      0004AB 74rFA            [12] 1402 	mov	a,#___str_19
       0004AD C0 E0            [24] 1403 	push	acc
-      0004AF 74s08            [12] 1404 	mov	a,#(___str_26 >> 8)
+      0004AF 74s06            [12] 1404 	mov	a,#(___str_19 >> 8)
       0004B1 C0 E0            [24] 1405 	push	acc
       0004B3 74 80            [12] 1406 	mov	a,#0x80
       0004B5 C0 E0            [24] 1407 	push	acc
@@ -1586,7 +1586,7 @@
       0005AE                       1586 00222$:
       0005AE 02r05r3E         [24] 1587 	ljmp	00129$
       0005B1                       1588 00125$:
-                                   1589 ;	8051_i2c_eeprom.c:232: printf("\n\r│ Entered data: 0x%02X\n\r", data);
+                                   1589 ;	8051_i2c_eeprom.c:232: printf("\n\r│ Entered data: 0x%03X\n\r", data);
       0005B1 90r00r0E         [24] 1590 	mov	dptr,#_take_data_data_65538_80
       0005B4 E0               [24] 1591 	movx	a,@dptr
       0005B5 FF               [12] 1592 	mov	r7,a
@@ -1595,9 +1595,9 @@
       0005B9 C0 07            [24] 1595 	push	ar7
       0005BB C0 05            [24] 1596 	push	ar5
       0005BD C0 06            [24] 1597 	push	ar6
-      0005BF 74rC0            [12] 1598 	mov	a,#___str_27
+      0005BF 74rBD            [12] 1598 	mov	a,#___str_26
       0005C1 C0 E0            [24] 1599 	push	acc
-      0005C3 74s08            [12] 1600 	mov	a,#(___str_27 >> 8)
+      0005C3 74s08            [12] 1600 	mov	a,#(___str_26 >> 8)
       0005C5 C0 E0            [24] 1601 	push	acc
       0005C7 74 80            [12] 1602 	mov	a,#0x80
       0005C9 C0 E0            [24] 1603 	push	acc
@@ -1606,14 +1606,14 @@
       0005D0 24 FB            [12] 1606 	add	a,#0xfb
       0005D2 F5 81            [12] 1607 	mov	sp,a
       0005D4 D0 07            [24] 1608 	pop	ar7
-                                   1609 ;	8051_i2c_eeprom.c:233: if(data > 254) 
+                                   1609 ;	8051_i2c_eeprom.c:233: if(data > 0xFE) 
       0005D6 EF               [12] 1610 	mov	a,r7
       0005D7 24 01            [12] 1611 	add	a,#0xff - 0xfe
       0005D9 50 20            [24] 1612 	jnc	00127$
                                    1613 ;	8051_i2c_eeprom.c:235: printf("Data out of Range\n\r");
-      0005DB 74rDD            [12] 1614 	mov	a,#___str_28
+      0005DB 74rDA            [12] 1614 	mov	a,#___str_27
       0005DD C0 E0            [24] 1615 	push	acc
-      0005DF 74s08            [12] 1616 	mov	a,#(___str_28 >> 8)
+      0005DF 74s08            [12] 1616 	mov	a,#(___str_27 >> 8)
       0005E1 C0 E0            [24] 1617 	push	acc
       0005E3 74 80            [12] 1618 	mov	a,#0x80
       0005E5 C0 E0            [24] 1619 	push	acc
@@ -1692,9 +1692,9 @@
       00063D 45 F0            [12] 1692 	orl	a,b
       00063F 70 1C            [24] 1693 	jnz	00102$
                                    1694 ;	8051_i2c_eeprom.c:252: printf("Error: No ACK for device address (write)\n\r");
-      000641 74rF1            [12] 1695 	mov	a,#___str_29
+      000641 74rEE            [12] 1695 	mov	a,#___str_28
       000643 C0 E0            [24] 1696 	push	acc
-      000645 74s08            [12] 1697 	mov	a,#(___str_29 >> 8)
+      000645 74s08            [12] 1697 	mov	a,#(___str_28 >> 8)
       000647 C0 E0            [24] 1698 	push	acc
       000649 74 80            [12] 1699 	mov	a,#0x80
       00064B C0 E0            [24] 1700 	push	acc
@@ -1727,9 +1727,9 @@
       000679 45 F0            [12] 1727 	orl	a,b
       00067B 70 1C            [24] 1728 	jnz	00104$
                                    1729 ;	8051_i2c_eeprom.c:259: printf("Error: No ACK for memory address\n\r");
-      00067D 74r1C            [12] 1730 	mov	a,#___str_30
+      00067D 74r19            [12] 1730 	mov	a,#___str_29
       00067F C0 E0            [24] 1731 	push	acc
-      000681 74s09            [12] 1732 	mov	a,#(___str_30 >> 8)
+      000681 74s09            [12] 1732 	mov	a,#(___str_29 >> 8)
       000683 C0 E0            [24] 1733 	push	acc
       000685 74 80            [12] 1734 	mov	a,#0x80
       000687 C0 E0            [24] 1735 	push	acc
@@ -1760,9 +1760,9 @@
       0006B4 45 F0            [12] 1760 	orl	a,b
       0006B6 70 1C            [24] 1761 	jnz	00106$
                                    1762 ;	8051_i2c_eeprom.c:266: printf("Error: No ACK for data\n\r");
-      0006B8 74r3F            [12] 1763 	mov	a,#___str_31
+      0006B8 74r3C            [12] 1763 	mov	a,#___str_30
       0006BA C0 E0            [24] 1764 	push	acc
-      0006BC 74s09            [12] 1765 	mov	a,#(___str_31 >> 8)
+      0006BC 74s09            [12] 1765 	mov	a,#(___str_30 >> 8)
       0006BE C0 E0            [24] 1766 	push	acc
       0006C0 74 80            [12] 1767 	mov	a,#0x80
       0006C2 C0 E0            [24] 1768 	push	acc
@@ -1819,9 +1819,9 @@
       000714 C0 04            [24] 1819 	push	ar4
       000716 C0 06            [24] 1820 	push	ar6
       000718 C0 07            [24] 1821 	push	ar7
-      00071A 74r58            [12] 1822 	mov	a,#___str_32
+      00071A 74r55            [12] 1822 	mov	a,#___str_31
       00071C C0 E0            [24] 1823 	push	acc
-      00071E 74s09            [12] 1824 	mov	a,#(___str_32 >> 8)
+      00071E 74s09            [12] 1824 	mov	a,#(___str_31 >> 8)
       000720 C0 E0            [24] 1825 	push	acc
       000722 74 80            [12] 1826 	mov	a,#0x80
       000724 C0 E0            [24] 1827 	push	acc
@@ -1830,9 +1830,9 @@
       00072B 24 F9            [12] 1830 	add	a,#0xf9
       00072D F5 81            [12] 1831 	mov	sp,a
                                    1832 ;	8051_i2c_eeprom.c:278: printf("│ Write successful!                             │\n\r");
-      00072F 74r8D            [12] 1833 	mov	a,#___str_33
+      00072F 74r8A            [12] 1833 	mov	a,#___str_32
       000731 C0 E0            [24] 1834 	push	acc
-      000733 74s09            [12] 1835 	mov	a,#(___str_33 >> 8)
+      000733 74s09            [12] 1835 	mov	a,#(___str_32 >> 8)
       000735 C0 E0            [24] 1836 	push	acc
       000737 74 80            [12] 1837 	mov	a,#0x80
       000739 C0 E0            [24] 1838 	push	acc
@@ -1841,9 +1841,9 @@
       000740 15 81            [12] 1841 	dec	sp
       000742 15 81            [12] 1842 	dec	sp
                                    1843 ;	8051_i2c_eeprom.c:279: printf("└───────────────────────────────────────────────┘\n\r");
-      000744 74rC5            [12] 1844 	mov	a,#___str_34
+      000744 74rC2            [12] 1844 	mov	a,#___str_33
       000746 C0 E0            [24] 1845 	push	acc
-      000748 74s09            [12] 1846 	mov	a,#(___str_34 >> 8)
+      000748 74s09            [12] 1846 	mov	a,#(___str_33 >> 8)
       00074A C0 E0            [24] 1847 	push	acc
       00074C 74 80            [12] 1848 	mov	a,#0x80
       00074E C0 E0            [24] 1849 	push	acc
@@ -1897,9 +1897,9 @@
       000789 45 F0            [12] 1897 	orl	a,b
       00078B 70 1C            [24] 1898 	jnz	00102$
                                    1899 ;	8051_i2c_eeprom.c:302: printf("Error: No ACK for device address (write mode)\n\r");
-      00078D 74r5B            [12] 1900 	mov	a,#___str_35
+      00078D 74r58            [12] 1900 	mov	a,#___str_34
       00078F C0 E0            [24] 1901 	push	acc
-      000791 74s0A            [12] 1902 	mov	a,#(___str_35 >> 8)
+      000791 74s0A            [12] 1902 	mov	a,#(___str_34 >> 8)
       000793 C0 E0            [24] 1903 	push	acc
       000795 74 80            [12] 1904 	mov	a,#0x80
       000797 C0 E0            [24] 1905 	push	acc
@@ -1932,9 +1932,9 @@
       0007C5 45 F0            [12] 1932 	orl	a,b
       0007C7 70 1C            [24] 1933 	jnz	00104$
                                    1934 ;	8051_i2c_eeprom.c:309: printf("Error: No ACK for memory address\n\r");
-      0007C9 74r1C            [12] 1935 	mov	a,#___str_30
+      0007C9 74r19            [12] 1935 	mov	a,#___str_29
       0007CB C0 E0            [24] 1936 	push	acc
-      0007CD 74s09            [12] 1937 	mov	a,#(___str_30 >> 8)
+      0007CD 74s09            [12] 1937 	mov	a,#(___str_29 >> 8)
       0007CF C0 E0            [24] 1938 	push	acc
       0007D1 74 80            [12] 1939 	mov	a,#0x80
       0007D3 C0 E0            [24] 1940 	push	acc
@@ -1962,9 +1962,9 @@
       0007FB 45 F0            [12] 1962 	orl	a,b
       0007FD 70 1C            [24] 1963 	jnz	00106$
                                    1964 ;	8051_i2c_eeprom.c:319: printf("Error: No ACK for device address (read mode)\n\r");
-      0007FF 74r8B            [12] 1965 	mov	a,#___str_36
+      0007FF 74r88            [12] 1965 	mov	a,#___str_35
       000801 C0 E0            [24] 1966 	push	acc
-      000803 74s0A            [12] 1967 	mov	a,#(___str_36 >> 8)
+      000803 74s0A            [12] 1967 	mov	a,#(___str_35 >> 8)
       000805 C0 E0            [24] 1968 	push	acc
       000807 74 80            [12] 1969 	mov	a,#0x80
       000809 C0 E0            [24] 1970 	push	acc
@@ -1996,9 +1996,9 @@
       000837 C0 05            [24] 1996 	push	ar5
       000839 C0 06            [24] 1997 	push	ar6
       00083B C0 07            [24] 1998 	push	ar7
-      00083D 74rBA            [12] 1999 	mov	a,#___str_37
+      00083D 74rB7            [12] 1999 	mov	a,#___str_36
       00083F C0 E0            [24] 2000 	push	acc
-      000841 74s0A            [12] 2001 	mov	a,#(___str_37 >> 8)
+      000841 74s0A            [12] 2001 	mov	a,#(___str_36 >> 8)
       000843 C0 E0            [24] 2002 	push	acc
       000845 74 80            [12] 2003 	mov	a,#0x80
       000847 C0 E0            [24] 2004 	push	acc
@@ -2017,9 +2017,9 @@
       000860 C0 05            [24] 2017 	push	ar5
       000862 C0 06            [24] 2018 	push	ar6
       000864 C0 07            [24] 2019 	push	ar7
-      000866 74rFD            [12] 2020 	mov	a,#___str_38
+      000866 74rFA            [12] 2020 	mov	a,#___str_37
       000868 C0 E0            [24] 2021 	push	acc
-      00086A 74s0A            [12] 2022 	mov	a,#(___str_38 >> 8)
+      00086A 74s0A            [12] 2022 	mov	a,#(___str_37 >> 8)
       00086C C0 E0            [24] 2023 	push	acc
       00086E 74 80            [12] 2024 	mov	a,#0x80
       000870 C0 E0            [24] 2025 	push	acc
@@ -2028,9 +2028,9 @@
       000877 24 F9            [12] 2028 	add	a,#0xf9
       000879 F5 81            [12] 2029 	mov	sp,a
                                    2030 ;	8051_i2c_eeprom.c:328: printf("│ Read successful!                 │\n\r");
-      00087B 74r12            [12] 2031 	mov	a,#___str_39
+      00087B 74r0F            [12] 2031 	mov	a,#___str_38
       00087D C0 E0            [24] 2032 	push	acc
-      00087F 74s0B            [12] 2033 	mov	a,#(___str_39 >> 8)
+      00087F 74s0B            [12] 2033 	mov	a,#(___str_38 >> 8)
       000881 C0 E0            [24] 2034 	push	acc
       000883 74 80            [12] 2035 	mov	a,#0x80
       000885 C0 E0            [24] 2036 	push	acc
@@ -2039,9 +2039,9 @@
       00088C 15 81            [12] 2039 	dec	sp
       00088E 15 81            [12] 2040 	dec	sp
                                    2041 ;	8051_i2c_eeprom.c:329: printf("└───────────────────────────────────────────────┘\n\r");
-      000890 74rC5            [12] 2042 	mov	a,#___str_34
+      000890 74rC2            [12] 2042 	mov	a,#___str_33
       000892 C0 E0            [24] 2043 	push	acc
-      000894 74s09            [12] 2044 	mov	a,#(___str_34 >> 8)
+      000894 74s09            [12] 2044 	mov	a,#(___str_33 >> 8)
       000896 C0 E0            [24] 2045 	push	acc
       000898 74 80            [12] 2046 	mov	a,#0x80
       00089A C0 E0            [24] 2047 	push	acc
@@ -2131,9 +2131,9 @@
                                    2131 ;	8051_i2c_eeprom.c:364: if(SDA == 1)        // If SDA is still high, no ACK received
       0008FB 30 94 19         [24] 2132 	jnb	_P1_4,00103$
                                    2133 ;	8051_i2c_eeprom.c:367: printf("ACK DID NOT ARRIVE\n\r");
-      0008FE 74r3D            [12] 2134 	mov	a,#___str_40
+      0008FE 74r3A            [12] 2134 	mov	a,#___str_39
       000900 C0 E0            [24] 2135 	push	acc
-      000902 74s0B            [12] 2136 	mov	a,#(___str_40 >> 8)
+      000902 74s0B            [12] 2136 	mov	a,#(___str_39 >> 8)
       000904 C0 E0            [24] 2137 	push	acc
       000906 74 80            [12] 2138 	mov	a,#0x80
       000908 C0 E0            [24] 2139 	push	acc
@@ -2373,9 +2373,9 @@
       0009EA C0 E0            [24] 2373 	push	acc
       0009EC E4               [12] 2374 	clr	a
       0009ED C0 E0            [24] 2375 	push	acc
-      0009EF 74r52            [12] 2376 	mov	a,#___str_41
+      0009EF 74r4F            [12] 2376 	mov	a,#___str_40
       0009F1 C0 E0            [24] 2377 	push	acc
-      0009F3 74s0B            [12] 2378 	mov	a,#(___str_41 >> 8)
+      0009F3 74s0B            [12] 2378 	mov	a,#(___str_40 >> 8)
       0009F5 C0 E0            [24] 2379 	push	acc
       0009F7 74 80            [12] 2380 	mov	a,#0x80
       0009F9 C0 E0            [24] 2381 	push	acc
@@ -2428,9 +2428,9 @@
       000A48 C0 E0            [24] 2428 	push	acc
       000A4A E4               [12] 2429 	clr	a
       000A4B C0 E0            [24] 2430 	push	acc
-      000A4D 74r7A            [12] 2431 	mov	a,#___str_42
+      000A4D 74r77            [12] 2431 	mov	a,#___str_41
       000A4F C0 E0            [24] 2432 	push	acc
-      000A51 74s0B            [12] 2433 	mov	a,#(___str_42 >> 8)
+      000A51 74s0B            [12] 2433 	mov	a,#(___str_41 >> 8)
       000A53 C0 E0            [24] 2434 	push	acc
       000A55 74 80            [12] 2435 	mov	a,#0x80
       000A57 C0 E0            [24] 2436 	push	acc
@@ -2442,9 +2442,9 @@
                                    2442 ;	8051_i2c_eeprom.c:451: if(read_data == test_data) {
       000A64 BE 26 16         [24] 2443 	cjne	r6,#0x26,00103$
                                    2444 ;	8051_i2c_eeprom.c:452: printf("MATCH - Write/Read successful!\n\r");
-      000A67 74rA2            [12] 2445 	mov	a,#___str_43
+      000A67 74r9F            [12] 2445 	mov	a,#___str_42
       000A69 C0 E0            [24] 2446 	push	acc
-      000A6B 74s0B            [12] 2447 	mov	a,#(___str_43 >> 8)
+      000A6B 74s0B            [12] 2447 	mov	a,#(___str_42 >> 8)
       000A6D C0 E0            [24] 2448 	push	acc
       000A6F 74 80            [12] 2449 	mov	a,#0x80
       000A71 C0 E0            [24] 2450 	push	acc
@@ -2455,9 +2455,9 @@
       000A7C 22               [24] 2455 	ret
       000A7D                       2456 00103$:
                                    2457 ;	8051_i2c_eeprom.c:454: printf("ERROR - Data mismatch!\n\r");
-      000A7D 74rC3            [12] 2458 	mov	a,#___str_44
+      000A7D 74rC0            [12] 2458 	mov	a,#___str_43
       000A7F C0 E0            [24] 2459 	push	acc
-      000A81 74s0B            [12] 2460 	mov	a,#(___str_44 >> 8)
+      000A81 74s0B            [12] 2460 	mov	a,#(___str_43 >> 8)
       000A83 C0 E0            [24] 2461 	push	acc
       000A85 74 80            [12] 2462 	mov	a,#0x80
       000A87 C0 E0            [24] 2463 	push	acc
@@ -4171,68 +4171,63 @@
                                    4082 	.area CSEG    (CODE)
                                    4083 	.area CONST   (CODE)
       0008BD                       4084 ___str_26:
-      0008BD 24 20                 4085 	.ascii "$ "
-      0008BF 00                    4086 	.db 0x00
-                                   4087 	.area CSEG    (CODE)
-                                   4088 	.area CONST   (CODE)
-      0008C0                       4089 ___str_27:
-      0008C0 0A                    4090 	.db 0x0a
-      0008C1 0D                    4091 	.db 0x0d
-      0008C2 E2                    4092 	.db 0xe2
-      0008C3 94                    4093 	.db 0x94
-      0008C4 82                    4094 	.db 0x82
-      0008C5 20 45 6E 74 65 72 65  4095 	.ascii " Entered data: 0x%02X"
+      0008BD 0A                    4085 	.db 0x0a
+      0008BE 0D                    4086 	.db 0x0d
+      0008BF E2                    4087 	.db 0xe2
+      0008C0 94                    4088 	.db 0x94
+      0008C1 82                    4089 	.db 0x82
+      0008C2 20 45 6E 74 65 72 65  4090 	.ascii " Entered data: 0x%03X"
              64 20 64 61 74 61 3A
-             20 30 78 25 30 32 58
-      0008DA 0A                    4096 	.db 0x0a
-      0008DB 0D                    4097 	.db 0x0d
-      0008DC 00                    4098 	.db 0x00
-                                   4099 	.area CSEG    (CODE)
-                                   4100 	.area CONST   (CODE)
-      0008DD                       4101 ___str_28:
-      0008DD 44 61 74 61 20 6F 75  4102 	.ascii "Data out of Range"
+             20 30 78 25 30 33 58
+      0008D7 0A                    4091 	.db 0x0a
+      0008D8 0D                    4092 	.db 0x0d
+      0008D9 00                    4093 	.db 0x00
+                                   4094 	.area CSEG    (CODE)
+                                   4095 	.area CONST   (CODE)
+      0008DA                       4096 ___str_27:
+      0008DA 44 61 74 61 20 6F 75  4097 	.ascii "Data out of Range"
              74 20 6F 66 20 52 61
              6E 67 65
-      0008EE 0A                    4103 	.db 0x0a
-      0008EF 0D                    4104 	.db 0x0d
-      0008F0 00                    4105 	.db 0x00
-                                   4106 	.area CSEG    (CODE)
-                                   4107 	.area CONST   (CODE)
-      0008F1                       4108 ___str_29:
-      0008F1 45 72 72 6F 72 3A 20  4109 	.ascii "Error: No ACK for device address (write)"
+      0008EB 0A                    4098 	.db 0x0a
+      0008EC 0D                    4099 	.db 0x0d
+      0008ED 00                    4100 	.db 0x00
+                                   4101 	.area CSEG    (CODE)
+                                   4102 	.area CONST   (CODE)
+      0008EE                       4103 ___str_28:
+      0008EE 45 72 72 6F 72 3A 20  4104 	.ascii "Error: No ACK for device address (write)"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 65 76
              69 63 65 20 61 64 64
              72 65 73 73 20 28 77
              72 69 74 65 29
-      000919 0A                    4110 	.db 0x0a
-      00091A 0D                    4111 	.db 0x0d
-      00091B 00                    4112 	.db 0x00
-                                   4113 	.area CSEG    (CODE)
-                                   4114 	.area CONST   (CODE)
-      00091C                       4115 ___str_30:
-      00091C 45 72 72 6F 72 3A 20  4116 	.ascii "Error: No ACK for memory address"
+      000916 0A                    4105 	.db 0x0a
+      000917 0D                    4106 	.db 0x0d
+      000918 00                    4107 	.db 0x00
+                                   4108 	.area CSEG    (CODE)
+                                   4109 	.area CONST   (CODE)
+      000919                       4110 ___str_29:
+      000919 45 72 72 6F 72 3A 20  4111 	.ascii "Error: No ACK for memory address"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 6D 65 6D
              6F 72 79 20 61 64 64
              72 65 73 73
-      00093C 0A                    4117 	.db 0x0a
-      00093D 0D                    4118 	.db 0x0d
-      00093E 00                    4119 	.db 0x00
-                                   4120 	.area CSEG    (CODE)
-                                   4121 	.area CONST   (CODE)
-      00093F                       4122 ___str_31:
-      00093F 45 72 72 6F 72 3A 20  4123 	.ascii "Error: No ACK for data"
+      000939 0A                    4112 	.db 0x0a
+      00093A 0D                    4113 	.db 0x0d
+      00093B 00                    4114 	.db 0x00
+                                   4115 	.area CSEG    (CODE)
+                                   4116 	.area CONST   (CODE)
+      00093C                       4117 ___str_30:
+      00093C 45 72 72 6F 72 3A 20  4118 	.ascii "Error: No ACK for data"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 61 74
              61
-      000955 0A                    4124 	.db 0x0a
-      000956 0D                    4125 	.db 0x0d
-      000957 00                    4126 	.db 0x00
-                                   4127 	.area CSEG    (CODE)
-                                   4128 	.area CONST   (CODE)
-      000958                       4129 ___str_32:
-      000958 7C 20 57 72 69 74 69  4130 	.ascii "| Writing at Address 0x%03X Data 0x%02X          |"
+      000952 0A                    4119 	.db 0x0a
+      000953 0D                    4120 	.db 0x0d
+      000954 00                    4121 	.db 0x00
+                                   4122 	.area CSEG    (CODE)
+                                   4123 	.area CONST   (CODE)
+      000955                       4124 ___str_31:
+      000955 7C 20 57 72 69 74 69  4125 	.ascii "| Writing at Address 0x%03X Data 0x%02X          |"
              6E 67 20 61 74 20 41
              64 64 72 65 73 73 20
              30 78 25 30 33 58 20
@@ -4240,214 +4235,214 @@
              25 30 32 58 20 20 20
              20 20 20 20 20 20 20
              7C
-      00098A 0A                    4131 	.db 0x0a
-      00098B 0D                    4132 	.db 0x0d
-      00098C 00                    4133 	.db 0x00
-                                   4134 	.area CSEG    (CODE)
-                                   4135 	.area CONST   (CODE)
-      00098D                       4136 ___str_33:
-      00098D E2                    4137 	.db 0xe2
-      00098E 94                    4138 	.db 0x94
-      00098F 82                    4139 	.db 0x82
-      000990 20 57 72 69 74 65 20  4140 	.ascii " Write successful!                             "
+      000987 0A                    4126 	.db 0x0a
+      000988 0D                    4127 	.db 0x0d
+      000989 00                    4128 	.db 0x00
+                                   4129 	.area CSEG    (CODE)
+                                   4130 	.area CONST   (CODE)
+      00098A                       4131 ___str_32:
+      00098A E2                    4132 	.db 0xe2
+      00098B 94                    4133 	.db 0x94
+      00098C 82                    4134 	.db 0x82
+      00098D 20 57 72 69 74 65 20  4135 	.ascii " Write successful!                             "
              73 75 63 63 65 73 73
              66 75 6C 21 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20
-      0009BF E2                    4141 	.db 0xe2
-      0009C0 94                    4142 	.db 0x94
-      0009C1 82                    4143 	.db 0x82
-      0009C2 0A                    4144 	.db 0x0a
-      0009C3 0D                    4145 	.db 0x0d
-      0009C4 00                    4146 	.db 0x00
-                                   4147 	.area CSEG    (CODE)
-                                   4148 	.area CONST   (CODE)
-      0009C5                       4149 ___str_34:
-      0009C5 E2                    4150 	.db 0xe2
-      0009C6 94                    4151 	.db 0x94
-      0009C7 94                    4152 	.db 0x94
-      0009C8 E2                    4153 	.db 0xe2
-      0009C9 94                    4154 	.db 0x94
-      0009CA 80                    4155 	.db 0x80
-      0009CB E2                    4156 	.db 0xe2
-      0009CC 94                    4157 	.db 0x94
-      0009CD 80                    4158 	.db 0x80
-      0009CE E2                    4159 	.db 0xe2
-      0009CF 94                    4160 	.db 0x94
-      0009D0 80                    4161 	.db 0x80
-      0009D1 E2                    4162 	.db 0xe2
-      0009D2 94                    4163 	.db 0x94
-      0009D3 80                    4164 	.db 0x80
-      0009D4 E2                    4165 	.db 0xe2
-      0009D5 94                    4166 	.db 0x94
-      0009D6 80                    4167 	.db 0x80
-      0009D7 E2                    4168 	.db 0xe2
-      0009D8 94                    4169 	.db 0x94
-      0009D9 80                    4170 	.db 0x80
-      0009DA E2                    4171 	.db 0xe2
-      0009DB 94                    4172 	.db 0x94
-      0009DC 80                    4173 	.db 0x80
-      0009DD E2                    4174 	.db 0xe2
-      0009DE 94                    4175 	.db 0x94
-      0009DF 80                    4176 	.db 0x80
-      0009E0 E2                    4177 	.db 0xe2
-      0009E1 94                    4178 	.db 0x94
-      0009E2 80                    4179 	.db 0x80
-      0009E3 E2                    4180 	.db 0xe2
-      0009E4 94                    4181 	.db 0x94
-      0009E5 80                    4182 	.db 0x80
-      0009E6 E2                    4183 	.db 0xe2
-      0009E7 94                    4184 	.db 0x94
-      0009E8 80                    4185 	.db 0x80
-      0009E9 E2                    4186 	.db 0xe2
-      0009EA 94                    4187 	.db 0x94
-      0009EB 80                    4188 	.db 0x80
-      0009EC E2                    4189 	.db 0xe2
-      0009ED 94                    4190 	.db 0x94
-      0009EE 80                    4191 	.db 0x80
-      0009EF E2                    4192 	.db 0xe2
-      0009F0 94                    4193 	.db 0x94
-      0009F1 80                    4194 	.db 0x80
-      0009F2 E2                    4195 	.db 0xe2
-      0009F3 94                    4196 	.db 0x94
-      0009F4 80                    4197 	.db 0x80
-      0009F5 E2                    4198 	.db 0xe2
-      0009F6 94                    4199 	.db 0x94
-      0009F7 80                    4200 	.db 0x80
-      0009F8 E2                    4201 	.db 0xe2
-      0009F9 94                    4202 	.db 0x94
-      0009FA 80                    4203 	.db 0x80
-      0009FB E2                    4204 	.db 0xe2
-      0009FC 94                    4205 	.db 0x94
-      0009FD 80                    4206 	.db 0x80
-      0009FE E2                    4207 	.db 0xe2
-      0009FF 94                    4208 	.db 0x94
-      000A00 80                    4209 	.db 0x80
-      000A01 E2                    4210 	.db 0xe2
-      000A02 94                    4211 	.db 0x94
-      000A03 80                    4212 	.db 0x80
-      000A04 E2                    4213 	.db 0xe2
-      000A05 94                    4214 	.db 0x94
-      000A06 80                    4215 	.db 0x80
-      000A07 E2                    4216 	.db 0xe2
-      000A08 94                    4217 	.db 0x94
-      000A09 80                    4218 	.db 0x80
-      000A0A E2                    4219 	.db 0xe2
-      000A0B 94                    4220 	.db 0x94
-      000A0C 80                    4221 	.db 0x80
-      000A0D E2                    4222 	.db 0xe2
-      000A0E 94                    4223 	.db 0x94
-      000A0F 80                    4224 	.db 0x80
-      000A10 E2                    4225 	.db 0xe2
-      000A11 94                    4226 	.db 0x94
-      000A12 80                    4227 	.db 0x80
-      000A13 E2                    4228 	.db 0xe2
-      000A14 94                    4229 	.db 0x94
-      000A15 80                    4230 	.db 0x80
-      000A16 E2                    4231 	.db 0xe2
-      000A17 94                    4232 	.db 0x94
-      000A18 80                    4233 	.db 0x80
-      000A19 E2                    4234 	.db 0xe2
-      000A1A 94                    4235 	.db 0x94
-      000A1B 80                    4236 	.db 0x80
-      000A1C E2                    4237 	.db 0xe2
-      000A1D 94                    4238 	.db 0x94
-      000A1E 80                    4239 	.db 0x80
-      000A1F E2                    4240 	.db 0xe2
-      000A20 94                    4241 	.db 0x94
-      000A21 80                    4242 	.db 0x80
-      000A22 E2                    4243 	.db 0xe2
-      000A23 94                    4244 	.db 0x94
-      000A24 80                    4245 	.db 0x80
-      000A25 E2                    4246 	.db 0xe2
-      000A26 94                    4247 	.db 0x94
-      000A27 80                    4248 	.db 0x80
-      000A28 E2                    4249 	.db 0xe2
-      000A29 94                    4250 	.db 0x94
-      000A2A 80                    4251 	.db 0x80
-      000A2B E2                    4252 	.db 0xe2
-      000A2C 94                    4253 	.db 0x94
-      000A2D 80                    4254 	.db 0x80
-      000A2E E2                    4255 	.db 0xe2
-      000A2F 94                    4256 	.db 0x94
-      000A30 80                    4257 	.db 0x80
-      000A31 E2                    4258 	.db 0xe2
-      000A32 94                    4259 	.db 0x94
-      000A33 80                    4260 	.db 0x80
-      000A34 E2                    4261 	.db 0xe2
-      000A35 94                    4262 	.db 0x94
-      000A36 80                    4263 	.db 0x80
-      000A37 E2                    4264 	.db 0xe2
-      000A38 94                    4265 	.db 0x94
-      000A39 80                    4266 	.db 0x80
-      000A3A E2                    4267 	.db 0xe2
-      000A3B 94                    4268 	.db 0x94
-      000A3C 80                    4269 	.db 0x80
-      000A3D E2                    4270 	.db 0xe2
-      000A3E 94                    4271 	.db 0x94
-      000A3F 80                    4272 	.db 0x80
-      000A40 E2                    4273 	.db 0xe2
-      000A41 94                    4274 	.db 0x94
-      000A42 80                    4275 	.db 0x80
-      000A43 E2                    4276 	.db 0xe2
-      000A44 94                    4277 	.db 0x94
-      000A45 80                    4278 	.db 0x80
-      000A46 E2                    4279 	.db 0xe2
-      000A47 94                    4280 	.db 0x94
-      000A48 80                    4281 	.db 0x80
-      000A49 E2                    4282 	.db 0xe2
-      000A4A 94                    4283 	.db 0x94
-      000A4B 80                    4284 	.db 0x80
-      000A4C E2                    4285 	.db 0xe2
-      000A4D 94                    4286 	.db 0x94
-      000A4E 80                    4287 	.db 0x80
-      000A4F E2                    4288 	.db 0xe2
-      000A50 94                    4289 	.db 0x94
-      000A51 80                    4290 	.db 0x80
-      000A52 E2                    4291 	.db 0xe2
-      000A53 94                    4292 	.db 0x94
-      000A54 80                    4293 	.db 0x80
-      000A55 E2                    4294 	.db 0xe2
-      000A56 94                    4295 	.db 0x94
-      000A57 98                    4296 	.db 0x98
-      000A58 0A                    4297 	.db 0x0a
-      000A59 0D                    4298 	.db 0x0d
-      000A5A 00                    4299 	.db 0x00
-                                   4300 	.area CSEG    (CODE)
-                                   4301 	.area CONST   (CODE)
-      000A5B                       4302 ___str_35:
-      000A5B 45 72 72 6F 72 3A 20  4303 	.ascii "Error: No ACK for device address (write mode)"
+      0009BC E2                    4136 	.db 0xe2
+      0009BD 94                    4137 	.db 0x94
+      0009BE 82                    4138 	.db 0x82
+      0009BF 0A                    4139 	.db 0x0a
+      0009C0 0D                    4140 	.db 0x0d
+      0009C1 00                    4141 	.db 0x00
+                                   4142 	.area CSEG    (CODE)
+                                   4143 	.area CONST   (CODE)
+      0009C2                       4144 ___str_33:
+      0009C2 E2                    4145 	.db 0xe2
+      0009C3 94                    4146 	.db 0x94
+      0009C4 94                    4147 	.db 0x94
+      0009C5 E2                    4148 	.db 0xe2
+      0009C6 94                    4149 	.db 0x94
+      0009C7 80                    4150 	.db 0x80
+      0009C8 E2                    4151 	.db 0xe2
+      0009C9 94                    4152 	.db 0x94
+      0009CA 80                    4153 	.db 0x80
+      0009CB E2                    4154 	.db 0xe2
+      0009CC 94                    4155 	.db 0x94
+      0009CD 80                    4156 	.db 0x80
+      0009CE E2                    4157 	.db 0xe2
+      0009CF 94                    4158 	.db 0x94
+      0009D0 80                    4159 	.db 0x80
+      0009D1 E2                    4160 	.db 0xe2
+      0009D2 94                    4161 	.db 0x94
+      0009D3 80                    4162 	.db 0x80
+      0009D4 E2                    4163 	.db 0xe2
+      0009D5 94                    4164 	.db 0x94
+      0009D6 80                    4165 	.db 0x80
+      0009D7 E2                    4166 	.db 0xe2
+      0009D8 94                    4167 	.db 0x94
+      0009D9 80                    4168 	.db 0x80
+      0009DA E2                    4169 	.db 0xe2
+      0009DB 94                    4170 	.db 0x94
+      0009DC 80                    4171 	.db 0x80
+      0009DD E2                    4172 	.db 0xe2
+      0009DE 94                    4173 	.db 0x94
+      0009DF 80                    4174 	.db 0x80
+      0009E0 E2                    4175 	.db 0xe2
+      0009E1 94                    4176 	.db 0x94
+      0009E2 80                    4177 	.db 0x80
+      0009E3 E2                    4178 	.db 0xe2
+      0009E4 94                    4179 	.db 0x94
+      0009E5 80                    4180 	.db 0x80
+      0009E6 E2                    4181 	.db 0xe2
+      0009E7 94                    4182 	.db 0x94
+      0009E8 80                    4183 	.db 0x80
+      0009E9 E2                    4184 	.db 0xe2
+      0009EA 94                    4185 	.db 0x94
+      0009EB 80                    4186 	.db 0x80
+      0009EC E2                    4187 	.db 0xe2
+      0009ED 94                    4188 	.db 0x94
+      0009EE 80                    4189 	.db 0x80
+      0009EF E2                    4190 	.db 0xe2
+      0009F0 94                    4191 	.db 0x94
+      0009F1 80                    4192 	.db 0x80
+      0009F2 E2                    4193 	.db 0xe2
+      0009F3 94                    4194 	.db 0x94
+      0009F4 80                    4195 	.db 0x80
+      0009F5 E2                    4196 	.db 0xe2
+      0009F6 94                    4197 	.db 0x94
+      0009F7 80                    4198 	.db 0x80
+      0009F8 E2                    4199 	.db 0xe2
+      0009F9 94                    4200 	.db 0x94
+      0009FA 80                    4201 	.db 0x80
+      0009FB E2                    4202 	.db 0xe2
+      0009FC 94                    4203 	.db 0x94
+      0009FD 80                    4204 	.db 0x80
+      0009FE E2                    4205 	.db 0xe2
+      0009FF 94                    4206 	.db 0x94
+      000A00 80                    4207 	.db 0x80
+      000A01 E2                    4208 	.db 0xe2
+      000A02 94                    4209 	.db 0x94
+      000A03 80                    4210 	.db 0x80
+      000A04 E2                    4211 	.db 0xe2
+      000A05 94                    4212 	.db 0x94
+      000A06 80                    4213 	.db 0x80
+      000A07 E2                    4214 	.db 0xe2
+      000A08 94                    4215 	.db 0x94
+      000A09 80                    4216 	.db 0x80
+      000A0A E2                    4217 	.db 0xe2
+      000A0B 94                    4218 	.db 0x94
+      000A0C 80                    4219 	.db 0x80
+      000A0D E2                    4220 	.db 0xe2
+      000A0E 94                    4221 	.db 0x94
+      000A0F 80                    4222 	.db 0x80
+      000A10 E2                    4223 	.db 0xe2
+      000A11 94                    4224 	.db 0x94
+      000A12 80                    4225 	.db 0x80
+      000A13 E2                    4226 	.db 0xe2
+      000A14 94                    4227 	.db 0x94
+      000A15 80                    4228 	.db 0x80
+      000A16 E2                    4229 	.db 0xe2
+      000A17 94                    4230 	.db 0x94
+      000A18 80                    4231 	.db 0x80
+      000A19 E2                    4232 	.db 0xe2
+      000A1A 94                    4233 	.db 0x94
+      000A1B 80                    4234 	.db 0x80
+      000A1C E2                    4235 	.db 0xe2
+      000A1D 94                    4236 	.db 0x94
+      000A1E 80                    4237 	.db 0x80
+      000A1F E2                    4238 	.db 0xe2
+      000A20 94                    4239 	.db 0x94
+      000A21 80                    4240 	.db 0x80
+      000A22 E2                    4241 	.db 0xe2
+      000A23 94                    4242 	.db 0x94
+      000A24 80                    4243 	.db 0x80
+      000A25 E2                    4244 	.db 0xe2
+      000A26 94                    4245 	.db 0x94
+      000A27 80                    4246 	.db 0x80
+      000A28 E2                    4247 	.db 0xe2
+      000A29 94                    4248 	.db 0x94
+      000A2A 80                    4249 	.db 0x80
+      000A2B E2                    4250 	.db 0xe2
+      000A2C 94                    4251 	.db 0x94
+      000A2D 80                    4252 	.db 0x80
+      000A2E E2                    4253 	.db 0xe2
+      000A2F 94                    4254 	.db 0x94
+      000A30 80                    4255 	.db 0x80
+      000A31 E2                    4256 	.db 0xe2
+      000A32 94                    4257 	.db 0x94
+      000A33 80                    4258 	.db 0x80
+      000A34 E2                    4259 	.db 0xe2
+      000A35 94                    4260 	.db 0x94
+      000A36 80                    4261 	.db 0x80
+      000A37 E2                    4262 	.db 0xe2
+      000A38 94                    4263 	.db 0x94
+      000A39 80                    4264 	.db 0x80
+      000A3A E2                    4265 	.db 0xe2
+      000A3B 94                    4266 	.db 0x94
+      000A3C 80                    4267 	.db 0x80
+      000A3D E2                    4268 	.db 0xe2
+      000A3E 94                    4269 	.db 0x94
+      000A3F 80                    4270 	.db 0x80
+      000A40 E2                    4271 	.db 0xe2
+      000A41 94                    4272 	.db 0x94
+      000A42 80                    4273 	.db 0x80
+      000A43 E2                    4274 	.db 0xe2
+      000A44 94                    4275 	.db 0x94
+      000A45 80                    4276 	.db 0x80
+      000A46 E2                    4277 	.db 0xe2
+      000A47 94                    4278 	.db 0x94
+      000A48 80                    4279 	.db 0x80
+      000A49 E2                    4280 	.db 0xe2
+      000A4A 94                    4281 	.db 0x94
+      000A4B 80                    4282 	.db 0x80
+      000A4C E2                    4283 	.db 0xe2
+      000A4D 94                    4284 	.db 0x94
+      000A4E 80                    4285 	.db 0x80
+      000A4F E2                    4286 	.db 0xe2
+      000A50 94                    4287 	.db 0x94
+      000A51 80                    4288 	.db 0x80
+      000A52 E2                    4289 	.db 0xe2
+      000A53 94                    4290 	.db 0x94
+      000A54 98                    4291 	.db 0x98
+      000A55 0A                    4292 	.db 0x0a
+      000A56 0D                    4293 	.db 0x0d
+      000A57 00                    4294 	.db 0x00
+                                   4295 	.area CSEG    (CODE)
+                                   4296 	.area CONST   (CODE)
+      000A58                       4297 ___str_34:
+      000A58 45 72 72 6F 72 3A 20  4298 	.ascii "Error: No ACK for device address (write mode)"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 65 76
              69 63 65 20 61 64 64
              72 65 73 73 20 28 77
              72 69 74 65 20 6D 6F
              64 65 29
-      000A88 0A                    4304 	.db 0x0a
-      000A89 0D                    4305 	.db 0x0d
-      000A8A 00                    4306 	.db 0x00
-                                   4307 	.area CSEG    (CODE)
-                                   4308 	.area CONST   (CODE)
-      000A8B                       4309 ___str_36:
-      000A8B 45 72 72 6F 72 3A 20  4310 	.ascii "Error: No ACK for device address (read mode)"
+      000A85 0A                    4299 	.db 0x0a
+      000A86 0D                    4300 	.db 0x0d
+      000A87 00                    4301 	.db 0x00
+                                   4302 	.area CSEG    (CODE)
+                                   4303 	.area CONST   (CODE)
+      000A88                       4304 ___str_35:
+      000A88 45 72 72 6F 72 3A 20  4305 	.ascii "Error: No ACK for device address (read mode)"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 65 76
              69 63 65 20 61 64 64
              72 65 73 73 20 28 72
              65 61 64 20 6D 6F 64
              65 29
-      000AB7 0A                    4311 	.db 0x0a
-      000AB8 0D                    4312 	.db 0x0d
-      000AB9 00                    4313 	.db 0x00
-                                   4314 	.area CSEG    (CODE)
-                                   4315 	.area CONST   (CODE)
-      000ABA                       4316 ___str_37:
-      000ABA E2                    4317 	.db 0xe2
-      000ABB 94                    4318 	.db 0x94
-      000ABC 82                    4319 	.db 0x82
-      000ABD 20 52 65 61 64 69 6E  4320 	.ascii " Reading from Adress: 0x%03X Data: 0x%02X                   "
+      000AB4 0A                    4306 	.db 0x0a
+      000AB5 0D                    4307 	.db 0x0d
+      000AB6 00                    4308 	.db 0x00
+                                   4309 	.area CSEG    (CODE)
+                                   4310 	.area CONST   (CODE)
+      000AB7                       4311 ___str_36:
+      000AB7 E2                    4312 	.db 0xe2
+      000AB8 94                    4313 	.db 0x94
+      000AB9 82                    4314 	.db 0x82
+      000ABA 20 52 65 61 64 69 6E  4315 	.ascii " Reading from Adress: 0x%03X Data: 0x%02X                   "
              67 20 66 72 6F 6D 20
              41 64 72 65 73 73 3A
              20 30 78 25 30 33 58
@@ -4456,96 +4451,96 @@
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20
-      000AF9 20                    4321 	.ascii " "
-      000AFA 0A                    4322 	.db 0x0a
-      000AFB 0D                    4323 	.db 0x0d
-      000AFC 00                    4324 	.db 0x00
-                                   4325 	.area CSEG    (CODE)
-                                   4326 	.area CONST   (CODE)
-      000AFD                       4327 ___str_38:
-      000AFD 7C 20 30 78 25 30 33  4328 	.ascii "| 0x%03X : 0x%02X "
+      000AF6 20                    4316 	.ascii " "
+      000AF7 0A                    4317 	.db 0x0a
+      000AF8 0D                    4318 	.db 0x0d
+      000AF9 00                    4319 	.db 0x00
+                                   4320 	.area CSEG    (CODE)
+                                   4321 	.area CONST   (CODE)
+      000AFA                       4322 ___str_37:
+      000AFA 7C 20 30 78 25 30 33  4323 	.ascii "| 0x%03X : 0x%02X "
              58 20 3A 20 30 78 25
              30 32 58 20
-      000B0F 0A                    4329 	.db 0x0a
-      000B10 0D                    4330 	.db 0x0d
-      000B11 00                    4331 	.db 0x00
-                                   4332 	.area CSEG    (CODE)
-                                   4333 	.area CONST   (CODE)
-      000B12                       4334 ___str_39:
-      000B12 E2                    4335 	.db 0xe2
-      000B13 94                    4336 	.db 0x94
-      000B14 82                    4337 	.db 0x82
-      000B15 20 52 65 61 64 20 73  4338 	.ascii " Read successful!                 "
+      000B0C 0A                    4324 	.db 0x0a
+      000B0D 0D                    4325 	.db 0x0d
+      000B0E 00                    4326 	.db 0x00
+                                   4327 	.area CSEG    (CODE)
+                                   4328 	.area CONST   (CODE)
+      000B0F                       4329 ___str_38:
+      000B0F E2                    4330 	.db 0xe2
+      000B10 94                    4331 	.db 0x94
+      000B11 82                    4332 	.db 0x82
+      000B12 20 52 65 61 64 20 73  4333 	.ascii " Read successful!                 "
              75 63 63 65 73 73 66
              75 6C 21 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20
-      000B37 E2                    4339 	.db 0xe2
-      000B38 94                    4340 	.db 0x94
-      000B39 82                    4341 	.db 0x82
-      000B3A 0A                    4342 	.db 0x0a
-      000B3B 0D                    4343 	.db 0x0d
-      000B3C 00                    4344 	.db 0x00
-                                   4345 	.area CSEG    (CODE)
-                                   4346 	.area CONST   (CODE)
-      000B3D                       4347 ___str_40:
-      000B3D 41 43 4B 20 44 49 44  4348 	.ascii "ACK DID NOT ARRIVE"
+      000B34 E2                    4334 	.db 0xe2
+      000B35 94                    4335 	.db 0x94
+      000B36 82                    4336 	.db 0x82
+      000B37 0A                    4337 	.db 0x0a
+      000B38 0D                    4338 	.db 0x0d
+      000B39 00                    4339 	.db 0x00
+                                   4340 	.area CSEG    (CODE)
+                                   4341 	.area CONST   (CODE)
+      000B3A                       4342 ___str_39:
+      000B3A 41 43 4B 20 44 49 44  4343 	.ascii "ACK DID NOT ARRIVE"
              20 4E 4F 54 20 41 52
              52 49 56 45
-      000B4F 0A                    4349 	.db 0x0a
-      000B50 0D                    4350 	.db 0x0d
-      000B51 00                    4351 	.db 0x00
-                                   4352 	.area CSEG    (CODE)
-                                   4353 	.area CONST   (CODE)
-      000B52                       4354 ___str_41:
-      000B52 57 72 69 74 69 6E 67  4355 	.ascii "Writing data 0x%02X to address 0x%02X"
+      000B4C 0A                    4344 	.db 0x0a
+      000B4D 0D                    4345 	.db 0x0d
+      000B4E 00                    4346 	.db 0x00
+                                   4347 	.area CSEG    (CODE)
+                                   4348 	.area CONST   (CODE)
+      000B4F                       4349 ___str_40:
+      000B4F 57 72 69 74 69 6E 67  4350 	.ascii "Writing data 0x%02X to address 0x%02X"
              20 64 61 74 61 20 30
              78 25 30 32 58 20 74
              6F 20 61 64 64 72 65
              73 73 20 30 78 25 30
              32 58
-      000B77 0A                    4356 	.db 0x0a
-      000B78 0D                    4357 	.db 0x0d
-      000B79 00                    4358 	.db 0x00
-                                   4359 	.area CSEG    (CODE)
-                                   4360 	.area CONST   (CODE)
-      000B7A                       4361 ___str_42:
-      000B7A 52 65 61 64 20 62 61  4362 	.ascii "Read back from address 0x%02X: 0x%02X"
+      000B74 0A                    4351 	.db 0x0a
+      000B75 0D                    4352 	.db 0x0d
+      000B76 00                    4353 	.db 0x00
+                                   4354 	.area CSEG    (CODE)
+                                   4355 	.area CONST   (CODE)
+      000B77                       4356 ___str_41:
+      000B77 52 65 61 64 20 62 61  4357 	.ascii "Read back from address 0x%02X: 0x%02X"
              63 6B 20 66 72 6F 6D
              20 61 64 64 72 65 73
              73 20 30 78 25 30 32
              58 3A 20 30 78 25 30
              32 58
-      000B9F 0A                    4363 	.db 0x0a
-      000BA0 0D                    4364 	.db 0x0d
-      000BA1 00                    4365 	.db 0x00
-                                   4366 	.area CSEG    (CODE)
-                                   4367 	.area CONST   (CODE)
-      000BA2                       4368 ___str_43:
-      000BA2 4D 41 54 43 48 20 2D  4369 	.ascii "MATCH - Write/Read successful!"
+      000B9C 0A                    4358 	.db 0x0a
+      000B9D 0D                    4359 	.db 0x0d
+      000B9E 00                    4360 	.db 0x00
+                                   4361 	.area CSEG    (CODE)
+                                   4362 	.area CONST   (CODE)
+      000B9F                       4363 ___str_42:
+      000B9F 4D 41 54 43 48 20 2D  4364 	.ascii "MATCH - Write/Read successful!"
              20 57 72 69 74 65 2F
              52 65 61 64 20 73 75
              63 63 65 73 73 66 75
              6C 21
-      000BC0 0A                    4370 	.db 0x0a
-      000BC1 0D                    4371 	.db 0x0d
-      000BC2 00                    4372 	.db 0x00
-                                   4373 	.area CSEG    (CODE)
-                                   4374 	.area CONST   (CODE)
-      000BC3                       4375 ___str_44:
-      000BC3 45 52 52 4F 52 20 2D  4376 	.ascii "ERROR - Data mismatch!"
+      000BBD 0A                    4365 	.db 0x0a
+      000BBE 0D                    4366 	.db 0x0d
+      000BBF 00                    4367 	.db 0x00
+                                   4368 	.area CSEG    (CODE)
+                                   4369 	.area CONST   (CODE)
+      000BC0                       4370 ___str_43:
+      000BC0 45 52 52 4F 52 20 2D  4371 	.ascii "ERROR - Data mismatch!"
              20 44 61 74 61 20 6D
              69 73 6D 61 74 63 68
              21
-      000BD9 0A                    4377 	.db 0x0a
-      000BDA 0D                    4378 	.db 0x0d
-      000BDB 00                    4379 	.db 0x00
-                                   4380 	.area CSEG    (CODE)
-                                   4381 	.area XINIT   (CODE)
-      000000                       4382 __xinit__address_range_flag:
-      000000 01 00                 4383 	.byte #0x01, #0x00	;  1
-      000002                       4384 __xinit__data_range_flag:
-      000002 01 00                 4385 	.byte #0x01, #0x00	;  1
-      000004                       4386 __xinit__block:
-      000004 00 00                 4387 	.byte #0x00, #0x00	; 0
-                                   4388 	.area CABS    (ABS,CODE)
+      000BD6 0A                    4372 	.db 0x0a
+      000BD7 0D                    4373 	.db 0x0d
+      000BD8 00                    4374 	.db 0x00
+                                   4375 	.area CSEG    (CODE)
+                                   4376 	.area XINIT   (CODE)
+      000000                       4377 __xinit__address_range_flag:
+      000000 01 00                 4378 	.byte #0x01, #0x00	;  1
+      000002                       4379 __xinit__data_range_flag:
+      000002 01 00                 4380 	.byte #0x01, #0x00	;  1
+      000004                       4381 __xinit__block:
+      000004 00 00                 4382 	.byte #0x00, #0x00	; 0
+                                   4383 	.area CABS    (ABS,CODE)
