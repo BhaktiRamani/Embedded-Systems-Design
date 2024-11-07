@@ -483,19 +483,19 @@ Hexadecimal [24-Bits]
 
 Symbol Table
 
- 17 _eeprom_read                                                   0007E3 GR
+ 17 _eeprom_read                                                   0007E4 GR
   B _eeprom_read_address_65536_92                                  000012 R
  17 _eeprom_write                                                  000620 GR
   B _eeprom_write_PARM_2                                           00000F GR
   B _eeprom_write_address_65536_84                                 000010 R
  17 _getchar                                                       00001F GR
- 17 _i2c_delay                                                     000A46 GR
- 17 _i2c_read                                                      00099F GR
+ 17 _i2c_delay                                                     000A47 GR
+ 17 _i2c_read                                                      0009A0 GR
   B _i2c_read_ACK_65536_103                                        000015 R
   B _i2c_read_buff_65536_104                                       000017 R
- 17 _i2c_start                                                     000A24 GR
- 17 _i2c_stop                                                      000A39 GR
- 17 _i2c_write                                                     000937 GR
+ 17 _i2c_start                                                     000A25 GR
+ 17 _i2c_stop                                                      000A3A GR
+ 17 _i2c_write                                                     000938 GR
   B _i2c_write_data_65536_98                                       000014 R
  17 _main                                                          000140 GR
     _printf                                                        ****** GX
@@ -507,7 +507,7 @@ Symbol Table
  17 _take_data                                                     0004A7 GR
   B _take_data_data_65538_80                                       00000E R
   B _take_data_input_65537_76                                      00000A R
- 17 _test_function                                                 000A5D GR
+ 17 _test_function                                                 000A5E GR
  17 _ui                                                            00002D GR
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -738,7 +738,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size    B15   flags   20
+  17 CSEG                                       size    B16   flags   20
   18 CONST                                      size    C27   flags   20
   19 XINIT                                      size      6   flags   20
   1A CABS                                       size      0   flags   28

@@ -1682,28 +1682,25 @@ _eeprom_write:
 	dec	sp
 	dec	sp
 	dec	sp
-;	8051_i2c_eeprom.c:247: if(address_range_flag & data_range_flag)
+;	8051_i2c_eeprom.c:247: if(address_range_flag && data_range_flag)
 	mov	dptr,#_address_range_flag
 	movx	a,@dptr
-	mov	r6,a
+	mov	b,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r7,a
+	orl	a,b
+	jnz	00145$
+	ljmp	00109$
+00145$:
 	mov	dptr,#_data_range_flag
 	movx	a,@dptr
-	mov	r4,a
+	mov	b,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r5,a
-	mov	a,r4
-	anl	ar6,a
-	mov	a,r5
-	anl	ar7,a
-	mov	a,r6
-	orl	a,r7
-	jnz	00140$
+	orl	a,b
+	jnz	00146$
 	ljmp	00109$
-00140$:
+00146$:
 ;	8051_i2c_eeprom.c:249: printf("checkpoint 3\n\r");
 	mov	a,#___str_30
 	push	acc
@@ -1826,7 +1823,7 @@ _eeprom_write:
 ;	8051_i2c_eeprom.c:275: for(int i = 0; i<100; i++)
 	mov	r3,#0x00
 	mov	r4,#0x00
-00111$:
+00112$:
 	clr	c
 	mov	a,r3
 	subb	a,#0x64
@@ -1848,9 +1845,9 @@ _eeprom_write:
 	pop	ar7
 ;	8051_i2c_eeprom.c:275: for(int i = 0; i<100; i++)
 	inc	r3
-	cjne	r3,#0x00,00111$
+	cjne	r3,#0x00,00112$
 	inc	r4
-	sjmp	00111$
+	sjmp	00112$
 00107$:
 ;	8051_i2c_eeprom.c:279: printf("checkpoint 4\n\r");
 	push	ar7

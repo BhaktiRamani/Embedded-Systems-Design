@@ -244,7 +244,7 @@ unsigned char take_data()
 int eeprom_write(unsigned int address, unsigned char data) 
 {
     printf("check point 2\n\r");
-    if(address_range_flag & data_range_flag)
+    if(address_range_flag && data_range_flag)
     {
         printf("checkpoint 3\n\r");
         i2c_start();
