@@ -78,7 +78,7 @@ int main()
                 address = take_address(); 
                 unsigned char data; 
                 data = (unsigned char)take_data();
-                printf("| Writing at Address 0x%02X Data 0x%02X          |\n\r", address, data);
+                printf("| Writing at Address %d Data %c          |\n\r", address, data);
                 eeprom_write(address, data);
                 break;
             }
@@ -104,12 +104,13 @@ int main()
 
 int take_address()
 {
-    printf("│ Enter address (hex): ");
+    printf("│ Enter address (hex): \n\r");
     unsigned char input[3];
     int i = 0;
     while(i<3)
     {
         input[i] = getchar();
+        putchar(input[i]);
         i++;
     }
     unsigned int address = input[0] - '0' + input[1] - '0' + input[2] - '0';
@@ -117,12 +118,13 @@ int take_address()
 }
 int take_data()
 {
-    printf("│ Enter data (hex): ");
+    printf("│ Enter data (hex): \n\r");
     unsigned char input[3];
     int i = 0;
     while(i<3)
     {
         input[i] = getchar();
+        putchar(input[i]);
         i++;
     }
     unsigned int data = input[0] - '0' + input[1] - '0' + input[2] - '0';
