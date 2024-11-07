@@ -285,8 +285,9 @@ int eeprom_read(unsigned int address)
     
     // Read data (send NACK after as it's the last byte)
     result = i2c_read(0);  // 0 means send NACK
-    printf("│ Reading from Adress: 0x%03X Data: 0x%02X                    \n\r", address);
-    printf("│ Read successful !                  │\n\r");
+    printf("│ Reading from Adress: 0x%03X Data: 0x%02X                    \n\r", address, result);
+    printf("| 0x%03X : 0x%02X \n\r", address, result);
+    printf("│ Read successful!                 │\n\r");
     printf("└───────────────────────────────────────────────┘\n\r");
     i2c_stop();
     return result;
@@ -318,7 +319,7 @@ int i2c_write(unsigned char data)
         return 0;       // Error
     }
     SCL = 0;
-    printf("Transmission successfull\n\r");
+    //printf("Transmission successfull\n\r");
     return 1;           // Success
 
 }

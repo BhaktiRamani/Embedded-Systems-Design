@@ -69,8 +69,8 @@ CABS                                00000000    00000000 =           0. bytes (A
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   00000451  s_XISEG                         
-C:   00000AC3  l_CONST                         
-C:   00001470  l_CSEG                          
+C:   00000ABB  l_CONST                         
+C:   00001490  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003006  s_GSINIT0                       
 C:   00003009  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   0000305F  s_GSFINAL
 C:   0000305F  s_GSINIT                        
 C:   0000305F  s_GSINIT5                       
 C:   00003062  s_CSEG                          
-C:   000044D2  s_CONST                         
-C:   00004F95  s_XINIT                         
+C:   000044F2  s_CONST                         
+C:   00004FAD  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -446,7 +446,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003062    00001470 =        5232. bytes (REL,CON,CODE)
+CSEG                                00003062    00001490 =        5264. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -459,26 +459,26 @@ C:   000032B4  _take_address                      8051_i2c_eeprom
 C:   00003478  _take_data                         8051_i2c_eeprom
 C:   000035EA  _eeprom_write                      8051_i2c_eeprom
 C:   00003723  _eeprom_read                       8051_i2c_eeprom
-C:   0000382F  _i2c_write                         8051_i2c_eeprom
-C:   000038AC  _i2c_read                          8051_i2c_eeprom
-C:   00003931  _i2c_start                         8051_i2c_eeprom
-C:   00003946  _i2c_stop                          8051_i2c_eeprom
-C:   00003953  _i2c_delay                         8051_i2c_eeprom
-C:   0000396A  _test_function                     8051_i2c_eeprom
-C:   00003A31  _vprintf                           vprintf
-C:   00003A70  _printf                            vprintf
-C:   00003B79  __print_format                     printf_large
-C:   0000447A  _strlen                            _strlen
-C:   00004492  __mulint                           _mulint
-C:   000044B2  __gptrget                          _gptrget
-C:   000044CE  __sdcc_external_startup            _startup
+C:   00003864  _i2c_write                         8051_i2c_eeprom
+C:   000038CC  _i2c_read                          8051_i2c_eeprom
+C:   00003951  _i2c_start                         8051_i2c_eeprom
+C:   00003966  _i2c_stop                          8051_i2c_eeprom
+C:   00003973  _i2c_delay                         8051_i2c_eeprom
+C:   0000398A  _test_function                     8051_i2c_eeprom
+C:   00003A51  _vprintf                           vprintf
+C:   00003A90  _printf                            vprintf
+C:   00003B99  __print_format                     printf_large
+C:   0000449A  _strlen                            _strlen
+C:   000044B2  __mulint                           _mulint
+C:   000044D2  __gptrget                          _gptrget
+C:   000044EE  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000044D2    00000AC3 =        2755. bytes (REL,CON,CODE)
+CONST                               000044F2    00000ABB =        2747. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
