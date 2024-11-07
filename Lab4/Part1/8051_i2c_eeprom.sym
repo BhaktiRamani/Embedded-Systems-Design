@@ -442,9 +442,9 @@ Symbol Table
  18 ___str_30                                                      00092A R
  18 ___str_31                                                      00094D R
  18 ___str_32                                                      000966 R
- 18 ___str_33                                                      000975 R
- 18 ___str_34                                                      0009AA R
- 18 ___str_35                                                      0009E2 R
+ 18 ___str_33                                                      00099B R
+ 18 ___str_34                                                      0009D3 R
+ 18 ___str_35                                                      000A69 R
  18 ___str_36                                                      000A78 R
  18 ___str_37                                                      000AA8 R
  18 ___str_38                                                      000AD7 R
@@ -475,36 +475,36 @@ Symbol Table
   D _block                                                         000004 R
  17 _command_menu                                                  00006D GR
   D _data_range_flag                                               000002 R
- 17 _eeprom_read                                                   0007A5 GR
-  B _eeprom_read_address_65536_92                                  000012 R
- 17 _eeprom_write                                                  000620 GR
+ 17 _eeprom_read                                                   00076C GR
+  B _eeprom_read_address_65536_91                                  000012 R
+ 17 _eeprom_write                                                  000608 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
   B _eeprom_write_PARM_2                                           00000F GR
-  B _eeprom_write_address_65536_84                                 000010 R
+  B _eeprom_write_address_65536_83                                 000010 R
  17 _getchar                                                       00001F GR
- 17 _i2c_delay                                                     0009F5 GR
- 17 _i2c_read                                                      00094E GR
+ 17 _i2c_delay                                                     0009D1 GR
+ 17 _i2c_read                                                      00092A GR
   B _i2c_read_ACK_65536_102                                        000015 R
   B _i2c_read_buff_65536_103                                       000017 R
- 17 _i2c_start                                                     0009D3 GR
- 17 _i2c_stop                                                      0009E8 GR
- 17 _i2c_write                                                     0008E6 GR
+ 17 _i2c_start                                                     0009AF GR
+ 17 _i2c_stop                                                      0009C4 GR
+ 17 _i2c_write                                                     0008C2 GR
   B _i2c_write_data_65536_97                                       000014 R
  17 _main                                                          000140 GR
     _printf                                                        ****** GX
  17 _putchar                                                       000000 GR
   B _putchar_charToSend_65536_48                                   000002 R
- 17 _take_address                                                  00028E GR
-  B _take_address_address_65538_70                                 000008 R
-  B _take_address_input_65537_66                                   000004 R
- 17 _take_data                                                     0004A7 GR
-  B _take_data_data_65538_80                                       00000E R
-  B _take_data_input_65537_76                                      00000A R
- 17 _test_function                                                 000A0C GR
+ 17 _take_address                                                  000276 GR
+  B _take_address_address_65538_69                                 000008 R
+  B _take_address_input_65537_65                                   000004 R
+ 17 _take_data                                                     00048F GR
+  B _take_data_data_65538_79                                       00000E R
+  B _take_data_input_65537_75                                      00000A R
+ 17 _test_function                                                 0009E8 GR
  17 _ui                                                            00002D GR
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -735,7 +735,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size    AC4   flags   20
+  17 CSEG                                       size    AA0   flags   20
   18 CONST                                      size    BF9   flags   20
   19 XINIT                                      size      6   flags   20
   1A CABS                                       size      0   flags   28

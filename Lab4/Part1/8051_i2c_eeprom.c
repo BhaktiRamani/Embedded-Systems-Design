@@ -104,11 +104,11 @@ int main()
                 printf("\n┌─────────────── READ OPERATION ───────────────┐\n\r");
                 unsigned int addr;
                 addr = take_address(); 
-                if(!address_range_flag) 
-                {
-                    address_range_flag = 1;
-                    break;
-                }
+                // if(!address_range_flag) 
+                // {
+                //     address_range_flag = 1;
+                //     break;
+                // }
                 printf("| Reading from Address 0x%03X           |\n\r", addr);
                 eeprom_read(addr);
                 break;
@@ -272,11 +272,11 @@ int eeprom_write(unsigned int address, unsigned char data)
         
         i2c_stop();
         //delay_ms(5);  // Wait for write to complete
-        for(int i = 0; i<100; i++)
+        for(int i = 0; i<10; i++)
         {
             i2c_delay();
         }
-        printf("checkpoint 4\n\r");
+        //printf("checkpoint 4\n\r");
         printf("| Writing at Address 0x%03X Data 0x%02X          |\n\r", address, data);
         printf("│ Write successful!                             │\n\r");
         printf("└───────────────────────────────────────────────┘\n\r");
@@ -296,6 +296,7 @@ int eeprom_read(unsigned int address)
 {
     // if(address_range_flag)
     // {
+        printf("checkpoint 2\n\r");
         unsigned char result;
         
         // Start for address setting
