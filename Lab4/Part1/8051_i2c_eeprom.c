@@ -75,16 +75,26 @@ int main()
   while(1)
   {
       char user_input = getchar();
-      printf("$ %c\n\r", user_input);
+      printf("| $ %c\n\r", user_input);
       switch(user_input)
       {
             case 'W':
             {
                 printf("\n┌─────────────── WRITE OPERATION ──────────────┐\n\r");
                 unsigned int addr;
-                addr = take_address(); 
+                addr = take_address();
+                if(!address_range_flag) 
+                {
+                    address_range_flag = 1;
+                    break;
+                }
                 unsigned char data; 
                 data = take_data();
+                if(!data_range_flag) 
+                {
+                    data_range_flag = 1;
+                    break;
+                }
                 eeprom_write(addr, data);
                 break;
             }
@@ -117,7 +127,7 @@ unsigned int take_address()
     int i = 0;
     char c;
 
-    printf("$ ");
+    printf("| $ ");
     // Read characters until Enter/Return is pressed or buffer is full
     while (i < 3) {
     
@@ -156,14 +166,17 @@ unsigned int take_address()
     printf("\n\r│ Entered address: 0x%03X\n\r", address);
     if(address > 0x7ff) 
     {
-        printf("|           Address out of Range                  |\n\r");
-        address_range_flag = 0;
-        return 0;
+       printf("╔══════════════════════════════════════════╗\n\r");
+       printf("║       ! ADDRESS OUT OF RANGE !         ║\n\r");
+       printf("║     Please Enter Valid Address         ║\n\r");
+       printf("╚══════════════════════════════════════════╝\n\r");
+       address_range_flag = 0;
+       return 0;
     }
     unsigned int block = address/256;       //block address
-    printf("Block number %d\n\r", block);
+    //printf("Block number %d\n\r", block);
     address = address%256;     //word address
-    printf("address now  0x%03X\n\r", address);
+    //printf("address now  0x%03X\n\r", address);
 
     return address;
 }
@@ -308,8 +321,17 @@ int eeprom_read(unsigned int address)
         i2c_stop();
         return result;
     }
-    printf("| CAN NOT READ AT ADDRESS 0x%03X  |\n\r", address);
-    return 0;
+    else
+    {
+    
+        printf("╔══════════════════════════════════════════╗\n\r");
+        printf("║          ! MEMORY READ ERROR !           ║\n\r");
+        printf("║      Cannot Read at Address 0x%03X       ║\n\r", address);
+        printf("╚══════════════════════════════════════════╝\n\r");
+        return 0;
+    
+    
+    }
 }
 
 
