@@ -13,7 +13,7 @@ A ISEG size 0 flags 0 addr 0
 A IABS size 0 flags 8 addr 0
 A BSEG size 0 flags 80 addr 0
 A PSEG size 0 flags 50 addr 0
-A XSEG size 1400 flags 40 addr 0
+A XSEG size 15E0 flags 40 addr 0
 S ___sdcc_heap Def000000
 A XABS size 0 flags 48 addr 0
 A XISEG size 0 flags 40 addr 0
@@ -43,5 +43,5 @@ T 00 00 00
 R 00 00 00 0A
 T 00 00 00
 R 00 00 00 17
-T 00 00 00 00 14
+T 00 00 00 E0 15
 R 00 00 00 17

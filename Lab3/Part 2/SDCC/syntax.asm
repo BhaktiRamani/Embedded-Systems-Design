@@ -499,41 +499,41 @@ _temp_buffer_size::
 	.area XSEG    (XDATA)
 _dataout_PARM_2:
 	.ds 1
-_dataout_address_65536_65:
+_dataout_address_65536_68:
 	.ds 2
 _array_for_nodes::
 	.ds 600
-_putchar_chr_65536_75:
+_putchar_chr_65536_78:
 	.ds 2
 _get_buf_value_PARM_2:
 	.ds 2
 _get_buf_value_PARM_3:
 	.ds 2
-_get_buf_value_string_65536_80:
+_get_buf_value_string_65536_83:
 	.ds 3
-_get_buf_value_buffer_size_65536_81:
+_get_buf_value_buffer_size_65536_84:
 	.ds 2
-_get_buf_value_input_65536_81:
+_get_buf_value_input_65536_84:
 	.ds 5
-_get_buf_value_valid_input_65536_81:
+_get_buf_value_valid_input_65536_84:
 	.ds 2
-_print_prompt_string_65536_88:
+_print_prompt_string_65536_91:
 	.ds 3
-_get_number_prompt_65536_91:
+_get_number_prompt_65536_94:
 	.ds 3
-_get_number_buffer_size_65536_92:
+_get_number_buffer_size_65536_95:
 	.ds 2
-_get_number_index_65536_92:
+_get_number_index_65536_95:
 	.ds 2
-_get_command_command_65536_95:
+_get_command_command_65536_98:
 	.ds 2
-_get_command_node_196610_117:
+_get_command_node_196610_120:
 	.ds 6
-_buffer0_dump_offset_131073_125:
+_buffer0_dump_offset_131073_128:
 	.ds 2
-_main_node1_65538_137:
+_main_node1_65538_140:
 	.ds 6
-_main_node2_65539_138:
+_main_node2_65539_141:
 	.ds 6
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -614,8 +614,8 @@ __sdcc_program_startup:
 ;Allocation info for local variables in function 'dataout'
 ;------------------------------------------------------------
 ;value                     Allocated with name '_dataout_PARM_2'
-;address                   Allocated with name '_dataout_address_65536_65'
-;debug_add                 Allocated with name '_dataout_debug_add_65536_66'
+;address                   Allocated with name '_dataout_address_65536_68'
+;debug_add                 Allocated with name '_dataout_debug_add_65536_69'
 ;------------------------------------------------------------
 ;	syntax.c:27: void dataout(uint16_t address, uint8_t value)
 ;	-----------------------------------------
@@ -632,13 +632,13 @@ _dataout:
 	ar0 = 0x00
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_dataout_address_65536_65
+	mov	dptr,#_dataout_address_65536_68
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:29: __xdata unsigned char * debug_add = (__xdata unsigned char*)address;
-	mov	dptr,#_dataout_address_65536_65
+	mov	dptr,#_dataout_address_65536_68
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -674,7 +674,7 @@ _init_uart:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar'
 ;------------------------------------------------------------
-;chr                       Allocated with name '_putchar_chr_65536_75'
+;chr                       Allocated with name '_putchar_chr_65536_78'
 ;------------------------------------------------------------
 ;	syntax.c:87: int putchar(int chr)
 ;	-----------------------------------------
@@ -683,13 +683,13 @@ _init_uart:
 _putchar:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_putchar_chr_65536_75
+	mov	dptr,#_putchar_chr_65536_78
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:89: SBUF = chr;                 // Load character to send
-	mov	dptr,#_putchar_chr_65536_75
+	mov	dptr,#_putchar_chr_65536_78
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -709,7 +709,7 @@ _putchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;a                         Allocated with name '_getchar_a_65537_79'
+;a                         Allocated with name '_getchar_a_65537_82'
 ;------------------------------------------------------------
 ;	syntax.c:102: int getchar(void){
 ;	-----------------------------------------
@@ -742,13 +742,13 @@ _getchar:
 ;sloc1                     Allocated with name '_get_buf_value_sloc1_1_0'
 ;UPPER                     Allocated with name '_get_buf_value_PARM_2'
 ;LOWER                     Allocated with name '_get_buf_value_PARM_3'
-;string                    Allocated with name '_get_buf_value_string_65536_80'
-;buffer_size               Allocated with name '_get_buf_value_buffer_size_65536_81'
-;input                     Allocated with name '_get_buf_value_input_65536_81'
-;valid_input               Allocated with name '_get_buf_value_valid_input_65536_81'
-;digit_count               Allocated with name '_get_buf_value_digit_count_131073_83'
-;i                         Allocated with name '_get_buf_value_i_131073_83'
-;c                         Allocated with name '_get_buf_value_c_131073_83'
+;string                    Allocated with name '_get_buf_value_string_65536_83'
+;buffer_size               Allocated with name '_get_buf_value_buffer_size_65536_84'
+;input                     Allocated with name '_get_buf_value_input_65536_84'
+;valid_input               Allocated with name '_get_buf_value_valid_input_65536_84'
+;digit_count               Allocated with name '_get_buf_value_digit_count_131073_86'
+;i                         Allocated with name '_get_buf_value_i_131073_86'
+;c                         Allocated with name '_get_buf_value_c_131073_86'
 ;------------------------------------------------------------
 ;	syntax.c:120: int get_buf_value(const char* string, int UPPER, int LOWER) {
 ;	-----------------------------------------
@@ -758,7 +758,7 @@ _get_buf_value:
 	mov	r7,b
 	mov	r6,dph
 	mov	a,dpl
-	mov	dptr,#_get_buf_value_string_65536_80
+	mov	dptr,#_get_buf_value_string_65536_83
 	movx	@dptr,a
 	mov	a,r6
 	inc	dptr
@@ -767,13 +767,13 @@ _get_buf_value:
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:121: int buffer_size = 0;
-	mov	dptr,#_get_buf_value_buffer_size_65536_81
+	mov	dptr,#_get_buf_value_buffer_size_65536_84
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:123: int valid_input = 0;
-	mov	dptr,#_get_buf_value_valid_input_65536_81
+	mov	dptr,#_get_buf_value_valid_input_65536_84
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
@@ -791,7 +791,7 @@ _get_buf_value:
 	movx	a,@dptr
 	mov	(_get_buf_value_sloc1_1_0 + 1),a
 00117$:
-	mov	dptr,#_get_buf_value_valid_input_65536_81
+	mov	dptr,#_get_buf_value_valid_input_65536_84
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
@@ -807,7 +807,7 @@ _get_buf_value:
 	push	ar6
 	lcall	_print_prompt
 ;	syntax.c:127: print_prompt(string);
-	mov	dptr,#_get_buf_value_string_65536_80
+	mov	dptr,#_get_buf_value_string_65536_83
 	movx	a,@dptr
 	mov	r1,a
 	inc	dptr
@@ -823,7 +823,7 @@ _get_buf_value:
 	pop	ar6
 	pop	ar7
 ;	syntax.c:130: buffer_size = 0;
-	mov	dptr,#_get_buf_value_buffer_size_65536_81
+	mov	dptr,#_get_buf_value_buffer_size_65536_84
 	clr	a
 	movx	@dptr,a
 	inc	dptr
@@ -916,7 +916,7 @@ _get_buf_value:
 	pop	ar7
 	pop	ar6
 ;	syntax.c:143: buffer_size = -1;
-	mov	dptr,#_get_buf_value_buffer_size_65536_81
+	mov	dptr,#_get_buf_value_buffer_size_65536_84
 	mov	a,#0xff
 	movx	@dptr,a
 	inc	dptr
@@ -946,10 +946,10 @@ _get_buf_value:
 	pop	ar7
 ;	syntax.c:148: input[i++] = c;
 	mov	a,r2
-	add	a,#_get_buf_value_input_65536_81
+	add	a,#_get_buf_value_input_65536_84
 	mov	dpl,a
 	mov	a,r3
-	addc	a,#(_get_buf_value_input_65536_81 >> 8)
+	addc	a,#(_get_buf_value_input_65536_84 >> 8)
 	mov	dph,a
 	inc	r2
 	cjne	r2,#0x00,00173$
@@ -963,7 +963,7 @@ _get_buf_value:
 	inc	r1
 00174$:
 ;	syntax.c:150: buffer_size = buffer_size * 10 + (c - '0');
-	mov	dptr,#_get_buf_value_buffer_size_65536_81
+	mov	dptr,#_get_buf_value_buffer_size_65536_84
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -997,7 +997,7 @@ _get_buf_value:
 	mov	a,r7
 	addc	a,#0xff
 	mov	r7,a
-	mov	dptr,#_get_buf_value_buffer_size_65536_81
+	mov	dptr,#_get_buf_value_buffer_size_65536_84
 	mov	a,r6
 	add	a,r4
 	movx	@dptr,a
@@ -1010,7 +1010,7 @@ _get_buf_value:
 	ljmp	00108$
 00110$:
 ;	syntax.c:154: if (buffer_size == -1) {
-	mov	dptr,#_get_buf_value_buffer_size_65536_81
+	mov	dptr,#_get_buf_value_buffer_size_65536_84
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1148,7 +1148,7 @@ _get_buf_value:
 	pop	ar6
 	pop	ar7
 ;	syntax.c:168: valid_input = 1;
-	mov	dptr,#_get_buf_value_valid_input_65536_81
+	mov	dptr,#_get_buf_value_valid_input_65536_84
 	mov	a,#0x01
 	movx	@dptr,a
 	clr	a
@@ -1157,7 +1157,7 @@ _get_buf_value:
 	ljmp	00117$
 00119$:
 ;	syntax.c:171: return buffer_size;
-	mov	dptr,#_get_buf_value_buffer_size_65536_81
+	mov	dptr,#_get_buf_value_buffer_size_65536_84
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -1169,7 +1169,7 @@ _get_buf_value:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'print_prompt'
 ;------------------------------------------------------------
-;string                    Allocated with name '_print_prompt_string_65536_88'
+;string                    Allocated with name '_print_prompt_string_65536_91'
 ;------------------------------------------------------------
 ;	syntax.c:180: void print_prompt(const char * string){
 ;	-----------------------------------------
@@ -1179,7 +1179,7 @@ _print_prompt:
 	mov	r7,b
 	mov	r6,dph
 	mov	a,dpl
-	mov	dptr,#_print_prompt_string_65536_88
+	mov	dptr,#_print_prompt_string_65536_91
 	movx	@dptr,a
 	mov	a,r6
 	inc	dptr
@@ -1188,7 +1188,7 @@ _print_prompt:
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:181: while(*string != '\0'){
-	mov	dptr,#_print_prompt_string_65536_88
+	mov	dptr,#_print_prompt_string_65536_91
 	movx	a,@dptr
 	mov	r5,a
 	inc	dptr
@@ -1220,7 +1220,7 @@ _print_prompt:
 	cjne	r5,#0x00,00116$
 	inc	r6
 00116$:
-	mov	dptr,#_print_prompt_string_65536_88
+	mov	dptr,#_print_prompt_string_65536_91
 	mov	a,r5
 	movx	@dptr,a
 	mov	a,r6
@@ -1231,7 +1231,7 @@ _print_prompt:
 	movx	@dptr,a
 	sjmp	00101$
 00108$:
-	mov	dptr,#_print_prompt_string_65536_88
+	mov	dptr,#_print_prompt_string_65536_91
 	mov	a,r5
 	movx	@dptr,a
 	mov	a,r6
@@ -1245,10 +1245,10 @@ _print_prompt:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'get_number'
 ;------------------------------------------------------------
-;prompt                    Allocated with name '_get_number_prompt_65536_91'
-;buffer_size               Allocated with name '_get_number_buffer_size_65536_92'
-;c                         Allocated with name '_get_number_c_65536_92'
-;index                     Allocated with name '_get_number_index_65536_92'
+;prompt                    Allocated with name '_get_number_prompt_65536_94'
+;buffer_size               Allocated with name '_get_number_buffer_size_65536_95'
+;c                         Allocated with name '_get_number_c_65536_95'
+;index                     Allocated with name '_get_number_index_65536_95'
 ;------------------------------------------------------------
 ;	syntax.c:193: int get_number(const char* prompt)
 ;	-----------------------------------------
@@ -1258,7 +1258,7 @@ _get_number:
 	mov	r7,b
 	mov	r6,dph
 	mov	a,dpl
-	mov	dptr,#_get_number_prompt_65536_91
+	mov	dptr,#_get_number_prompt_65536_94
 	movx	@dptr,a
 	mov	a,r6
 	inc	dptr
@@ -1267,13 +1267,13 @@ _get_number:
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:195: int buffer_size = 0;
-	mov	dptr,#_get_number_buffer_size_65536_92
+	mov	dptr,#_get_number_buffer_size_65536_95
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:197: int index = 100;            // Start with highest place value for 3 digits
-	mov	dptr,#_get_number_index_65536_92
+	mov	dptr,#_get_number_index_65536_95
 	mov	a,#0x64
 	movx	@dptr,a
 	clr	a
@@ -1284,7 +1284,7 @@ _get_number:
 	mov	b,#0x80
 	lcall	_print_prompt
 ;	syntax.c:200: print_prompt(prompt);
-	mov	dptr,#_get_number_prompt_65536_91
+	mov	dptr,#_get_number_prompt_65536_94
 	movx	a,@dptr
 	mov	r5,a
 	inc	dptr
@@ -1299,7 +1299,7 @@ _get_number:
 	lcall	_print_prompt
 ;	syntax.c:202: while (index >= 1 && (c = getchar()) != 0x0d) {
 00105$:
-	mov	dptr,#_get_number_index_65536_92
+	mov	dptr,#_get_number_index_65536_95
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -1393,13 +1393,13 @@ _get_number:
 	mov	r5,dph
 	pop	ar6
 	pop	ar7
-	mov	dptr,#_get_number_buffer_size_65536_92
+	mov	dptr,#_get_number_buffer_size_65536_95
 	movx	a,@dptr
 	mov	r2,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r3,a
-	mov	dptr,#_get_number_buffer_size_65536_92
+	mov	dptr,#_get_number_buffer_size_65536_95
 	mov	a,r4
 	add	a,r2
 	movx	@dptr,a
@@ -1419,7 +1419,7 @@ _get_number:
 	lcall	__divsint
 	mov	a,dpl
 	mov	b,dph
-	mov	dptr,#_get_number_index_65536_92
+	mov	dptr,#_get_number_index_65536_95
 	movx	@dptr,a
 	mov	a,b
 	inc	dptr
@@ -1427,7 +1427,7 @@ _get_number:
 	ljmp	00105$
 00107$:
 ;	syntax.c:214: printf("\n\r| Input size: %-39d |", buffer_size);
-	mov	dptr,#_get_number_buffer_size_65536_92
+	mov	dptr,#_get_number_buffer_size_65536_95
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -1471,18 +1471,18 @@ _get_number:
 ;sloc0                     Allocated with name '_get_command_sloc0_1_0'
 ;sloc1                     Allocated with name '_get_command_sloc1_1_0'
 ;sloc2                     Allocated with name '_get_command_sloc2_1_0'
-;command                   Allocated with name '_get_command_command_65536_95'
-;temp_value                Allocated with name '_get_command_temp_value_65536_96'
-;pointer                   Allocated with name '_get_command_pointer_65536_96'
-;array_index_temp          Allocated with name '_get_command_array_index_temp_65536_96'
-;total_buffers             Allocated with name '_get_command_total_buffers_196609_99'
-;buffers_freed             Allocated with name '_get_command_buffers_freed_196609_99'
-;failed_frees              Allocated with name '_get_command_failed_frees_196609_99'
-;i                         Allocated with name '_get_command_i_262145_100'
+;command                   Allocated with name '_get_command_command_65536_98'
+;temp_value                Allocated with name '_get_command_temp_value_65536_99'
+;pointer                   Allocated with name '_get_command_pointer_65536_99'
+;array_index_temp          Allocated with name '_get_command_array_index_temp_65536_99'
+;total_buffers             Allocated with name '_get_command_total_buffers_196609_102'
+;buffers_freed             Allocated with name '_get_command_buffers_freed_196609_102'
+;failed_frees              Allocated with name '_get_command_failed_frees_196609_102'
 ;i                         Allocated with name '_get_command_i_262145_103'
-;i                         Allocated with name '_get_command_i_196608_108'
-;buffer_size               Allocated with name '_get_command_buffer_size_131073_112'
-;node                      Allocated with name '_get_command_node_196610_117'
+;i                         Allocated with name '_get_command_i_262145_106'
+;i                         Allocated with name '_get_command_i_196608_111'
+;buffer_size               Allocated with name '_get_command_buffer_size_131073_115'
+;node                      Allocated with name '_get_command_node_196610_120'
 ;------------------------------------------------------------
 ;	syntax.c:227: int get_command(int command)
 ;	-----------------------------------------
@@ -1491,13 +1491,13 @@ _get_number:
 _get_command:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_get_command_command_65536_95
+	mov	dptr,#_get_command_command_65536_98
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
 ;	syntax.c:233: switch(command)
-	mov	dptr,#_get_command_command_65536_95
+	mov	dptr,#_get_command_command_65536_98
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -2542,10 +2542,10 @@ _get_command:
 ;	syntax.c:373: node_t node = {index_of_buffers, pointer, temp_value};
 	mov	dptr,#_index_of_buffers
 	movx	a,@dptr
-	mov	dptr,#_get_command_node_196610_117
+	mov	dptr,#_get_command_node_196610_120
 	movx	@dptr,a
 	mov	r3,#0x00
-	mov	dptr,#(_get_command_node_196610_117 + 0x0001)
+	mov	dptr,#(_get_command_node_196610_120 + 0x0001)
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -2554,7 +2554,7 @@ _get_command:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#(_get_command_node_196610_117 + 0x0004)
+	mov	dptr,#(_get_command_node_196610_120 + 0x0004)
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
@@ -2572,9 +2572,9 @@ _get_command:
 	mov	r7,a
 	mov	r5,#0x00
 	mov	dptr,#___memcpy_PARM_2
-	mov	a,#_get_command_node_196610_117
+	mov	a,#_get_command_node_196610_120
 	movx	@dptr,a
-	mov	a,#(_get_command_node_196610_117 >> 8)
+	mov	a,#(_get_command_node_196610_120 >> 8)
 	inc	dptr
 	movx	@dptr,a
 	clr	a
@@ -2768,11 +2768,11 @@ _get_command:
 ;sloc0                     Allocated with name '_buffer0_dump_sloc0_1_0'
 ;sloc1                     Allocated with name '_buffer0_dump_sloc1_1_0'
 ;sloc2                     Allocated with name '_buffer0_dump_sloc2_1_0'
-;rd_ptr                    Allocated with name '_buffer0_dump_rd_ptr_65537_124'
-;remaining_bytes           Allocated with name '_buffer0_dump_remaining_bytes_65537_124'
-;offset                    Allocated with name '_buffer0_dump_offset_131073_125'
-;i                         Allocated with name '_buffer0_dump_i_262145_127'
-;i                         Allocated with name '_buffer0_dump_i_262145_129'
+;rd_ptr                    Allocated with name '_buffer0_dump_rd_ptr_65537_127'
+;remaining_bytes           Allocated with name '_buffer0_dump_remaining_bytes_65537_127'
+;offset                    Allocated with name '_buffer0_dump_offset_131073_128'
+;i                         Allocated with name '_buffer0_dump_i_262145_130'
+;i                         Allocated with name '_buffer0_dump_i_262145_132'
 ;------------------------------------------------------------
 ;	syntax.c:417: void buffer0_dump(void) {
 ;	-----------------------------------------
@@ -2858,7 +2858,7 @@ _buffer0_dump:
 	movx	a,@dptr
 	mov	r4,a
 ;	syntax.c:431: for (uint16_t offset = 0; offset < total_number_of_storage; offset += 16) {
-	mov	dptr,#_buffer0_dump_offset_131073_125
+	mov	dptr,#_buffer0_dump_offset_131073_128
 	clr	a
 	movx	@dptr,a
 	inc	dptr
@@ -2867,7 +2867,7 @@ _buffer0_dump:
 	push	ar5
 	push	ar6
 	push	ar7
-	mov	dptr,#_buffer0_dump_offset_131073_125
+	mov	dptr,#_buffer0_dump_offset_131073_128
 	movx	a,@dptr
 	mov	r1,a
 	inc	dptr
@@ -3007,7 +3007,7 @@ _buffer0_dump:
 	sjmp	00108$
 00103$:
 ;	syntax.c:441: for (int i = remaining_bytes - offset; i < 16; i++) {
-	mov	dptr,#_buffer0_dump_offset_131073_125
+	mov	dptr,#_buffer0_dump_offset_131073_128
 	movx	a,@dptr
 	mov	r1,a
 	inc	dptr
@@ -3088,7 +3088,7 @@ _buffer0_dump:
 	addc	a,r6
 	mov	r6,a
 ;	syntax.c:431: for (uint16_t offset = 0; offset < total_number_of_storage; offset += 16) {
-	mov	dptr,#_buffer0_dump_offset_131073_125
+	mov	dptr,#_buffer0_dump_offset_131073_128
 	movx	a,@dptr
 	mov	r1,a
 	inc	dptr
@@ -3100,7 +3100,7 @@ _buffer0_dump:
 	clr	a
 	addc	a,r2
 	mov	r2,a
-	mov	dptr,#_buffer0_dump_offset_131073_125
+	mov	dptr,#_buffer0_dump_offset_131073_128
 	mov	a,r1
 	movx	@dptr,a
 	mov	a,r2
@@ -3125,12 +3125,12 @@ _buffer0_dump:
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;sloc0                     Allocated with name '_main_sloc0_1_0'
-;buffer_size               Allocated with name '_main_buffer_size_65537_133'
-;node1                     Allocated with name '_main_node1_65538_137'
-;node2                     Allocated with name '_main_node2_65539_138'
-;wr                        Allocated with name '_main_wr_65540_139'
-;ch                        Allocated with name '_main_ch_131076_140'
-;cha                       Allocated with name '_main_cha_131077_143'
+;buffer_size               Allocated with name '_main_buffer_size_65537_136'
+;node1                     Allocated with name '_main_node1_65538_140'
+;node2                     Allocated with name '_main_node2_65539_141'
+;wr                        Allocated with name '_main_wr_65540_142'
+;ch                        Allocated with name '_main_ch_131076_143'
+;cha                       Allocated with name '_main_cha_131077_146'
 ;temp_buffer_size          Allocated to registers 
 ;index_for_write           Allocated to registers 
 ;------------------------------------------------------------
@@ -3195,9 +3195,9 @@ _main:
 00108$:
 ;	syntax.c:477: buffer_size = get_buf_value("\n\r| Enter initial buffer size (32-5120): ", upper_default, LOWER_DEFAULT);
 	mov	dptr,#_get_buf_value_PARM_2
-	clr	a
+	mov	a,#0xe0
 	movx	@dptr,a
-	mov	a,#0x14
+	mov	a,#0x15
 	inc	dptr
 	movx	@dptr,a
 	mov	dptr,#_get_buf_value_PARM_3
@@ -3453,7 +3453,7 @@ _main:
 	clr	a
 	movx	@dptr,a
 ;	syntax.c:512: node_t node1 = { index_of_buffers, pointer1, buffer_size};
-	mov	dptr,#_main_node1_65538_137
+	mov	dptr,#_main_node1_65538_140
 	movx	@dptr,a
 	mov	dptr,#_pointer1
 	movx	a,@dptr
@@ -3462,7 +3462,7 @@ _main:
 	movx	a,@dptr
 	mov	r5,a
 	mov	r3,#0x00
-	mov	dptr,#(_main_node1_65538_137 + 0x0001)
+	mov	dptr,#(_main_node1_65538_140 + 0x0001)
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -3471,7 +3471,7 @@ _main:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#(_main_node1_65538_137 + 0x0004)
+	mov	dptr,#(_main_node1_65538_140 + 0x0004)
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
@@ -3489,9 +3489,9 @@ _main:
 	mov	r5,a
 	mov	r3,#0x00
 	mov	dptr,#___memcpy_PARM_2
-	mov	a,#_main_node1_65538_137
+	mov	a,#_main_node1_65538_140
 	movx	@dptr,a
-	mov	a,#(_main_node1_65538_137 >> 8)
+	mov	a,#(_main_node1_65538_140 >> 8)
 	inc	dptr
 	movx	@dptr,a
 	clr	a
@@ -3518,7 +3518,7 @@ _main:
 	movx	@dptr,a
 ;	syntax.c:517: node_t node2 = { index_of_buffers, pointer2, buffer_size};
 	movx	a,@dptr
-	mov	dptr,#_main_node2_65539_138
+	mov	dptr,#_main_node2_65539_141
 	movx	@dptr,a
 	mov	dptr,#_pointer2
 	movx	a,@dptr
@@ -3527,7 +3527,7 @@ _main:
 	movx	a,@dptr
 	mov	r5,a
 	mov	r3,#0x00
-	mov	dptr,#(_main_node2_65539_138 + 0x0001)
+	mov	dptr,#(_main_node2_65539_141 + 0x0001)
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -3536,7 +3536,7 @@ _main:
 	mov	a,r3
 	inc	dptr
 	movx	@dptr,a
-	mov	dptr,#(_main_node2_65539_138 + 0x0004)
+	mov	dptr,#(_main_node2_65539_141 + 0x0004)
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
@@ -3554,9 +3554,9 @@ _main:
 	mov	r7,a
 	mov	r5,#0x00
 	mov	dptr,#___memcpy_PARM_2
-	mov	a,#_main_node2_65539_138
+	mov	a,#_main_node2_65539_141
 	movx	@dptr,a
-	mov	a,#(_main_node2_65539_138 >> 8)
+	mov	a,#(_main_node2_65539_141 >> 8)
 	inc	dptr
 	movx	@dptr,a
 	clr	a

@@ -14,10 +14,10 @@
 #include <string.h>
 
 /* Buffer size constraints */
-#define upper_default 5120        // Maximum default buffer size
+#define upper_default 5600        // Maximum default buffer size
 #define LOWER_DEFAULT 32          // Minimum default buffer size
-#define HEAP_SIZE 5120           // Total heap size available
-#define UPPER_SMALL_BUFFERS 500  // Upper limit for small buffer allocation
+#define HEAP_SIZE 5600           // Total heap size available
+#define UPPER_SMALL_BUFFERS 800  // Upper limit for small buffer allocation
 #define LOWER_SMALL_BUFFERS 50   // Lower limit for small buffer allocation
 
 /* Debug configuration for development use */

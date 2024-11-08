@@ -408,7 +408,7 @@ Area Table
    7 IABS                                       size      0   flags    8
    8 BSEG                                       size      0   flags   80
    9 PSEG                                       size      0   flags   50
-   A XSEG                                       size   1400   flags   40
+   A XSEG                                       size   15E0   flags   40
    B XABS                                       size      0   flags   48
    C XISEG                                      size      0   flags   40
    D HOME                                       size      0   flags   20

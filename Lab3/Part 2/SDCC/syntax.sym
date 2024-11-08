@@ -525,19 +525,19 @@ Symbol Table
  19 __xinit__wr                                                    000006 R
   B _array_for_nodes                                               000003 GR
  17 _buffer0_dump                                                  000D2C GR
-  B _buffer0_dump_offset_131073_125                                00027F R
+  B _buffer0_dump_offset_131073_128                                00027F R
   5 _buffer0_dump_sloc0_1_0                                        00000B R
   5 _buffer0_dump_sloc1_1_0                                        00000D R
   5 _buffer0_dump_sloc2_1_0                                        000010 R
  17 _dataout                                                       000000 GR
   B _dataout_PARM_2                                                000000 GR
-  B _dataout_address_65536_65                                      000001 R
+  B _dataout_address_65536_68                                      000001 R
     _free                                                          ****** GX
  17 _get_buf_value                                                 00005B GR
   B _get_buf_value_PARM_2                                          00025D GR
   B _get_buf_value_PARM_3                                          00025F GR
-  B _get_buf_value_buffer_size_65536_81                            000264 R
-  B _get_buf_value_input_65536_81                                  000266 R
+  B _get_buf_value_buffer_size_65536_84                            000264 R
+  B _get_buf_value_input_65536_84                                  000266 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 10.
 Hexadecimal [24-Bits]
 
@@ -545,24 +545,24 @@ Symbol Table
 
   5 _get_buf_value_sloc0_1_0                                       000000 R
   5 _get_buf_value_sloc1_1_0                                       000001 R
-  B _get_buf_value_string_65536_80                                 000261 R
-  B _get_buf_value_valid_input_65536_81                            00026B R
+  B _get_buf_value_string_65536_83                                 000261 R
+  B _get_buf_value_valid_input_65536_84                            00026B R
  17 _get_command                                                   0004B6 GR
-  B _get_command_command_65536_95                                  000277 R
-  B _get_command_node_196610_117                                   000279 R
+  B _get_command_command_65536_98                                  000277 R
+  B _get_command_node_196610_120                                   000279 R
   5 _get_command_sloc0_1_0                                         000003 R
   5 _get_command_sloc1_1_0                                         000005 R
   5 _get_command_sloc2_1_0                                         000008 R
  17 _get_number                                                    000365 GR
-  B _get_number_buffer_size_65536_92                               000273 R
-  B _get_number_index_65536_92                                     000275 R
-  B _get_number_prompt_65536_91                                    000270 R
+  B _get_number_buffer_size_65536_95                               000273 R
+  B _get_number_index_65536_95                                     000275 R
+  B _get_number_prompt_65536_94                                    000270 R
  17 _getchar                                                       000046 GR
   D _index_of_buffers                                              000000 R
  17 _init_uart                                                     00001D GR
  17 _main                                                          000F5A GR
-  B _main_node1_65538_137                                          000281 R
-  B _main_node2_65539_138                                          000287 R
+  B _main_node1_65538_140                                          000281 R
+  B _main_node2_65539_141                                          000287 R
   5 _main_sloc0_1_0                                                000012 R
     _malloc                                                        ****** GX
     _memset                                                        ****** GX
@@ -571,10 +571,10 @@ Symbol Table
   D _pointer1                                                      000009 GR
   D _pointer2                                                      00000B GR
  17 _print_prompt                                                  00030B GR
-  B _print_prompt_string_65536_88                                  00026D R
+  B _print_prompt_string_65536_91                                  00026D R
     _printf                                                        ****** GX
  17 _putchar                                                       000029 GR
-  B _putchar_chr_65536_75                                          00025B R
+  B _putchar_chr_65536_78                                          00025B R
   D _recent_commands                                               000003 GR
   D _recent_storage                                                000004 GR
   D _recived_bytes                                                 000005 GR
@@ -816,7 +816,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      6   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size   1510   flags   20
+  17 CSEG                                       size   1511   flags   20
   18 CONST                                      size    D55   flags   20
   19 XINIT                                      size      D   flags   20
   1A CABS                                       size      0   flags   28
