@@ -2,6 +2,7 @@
 #include <mcs51/8051.h>
 #include <at89c51ed2.h>
 #include<stdlib.h>
+#include<stdint.h>
 
 #define READ 0x01
 #define WRITE 0x00
@@ -27,6 +28,7 @@ int eeprom_read(unsigned int address);
 unsigned char take_data();
 unsigned int take_address();
 void eeprom_reset();
+void eeprom_hex_dump(unsigned int start_location, unsigned int end_location);
 
 int putchar(int charToSend) {
     SBUF = charToSend;  // Send character to serial buffer
@@ -77,6 +79,7 @@ int main()
   {
       char user_input = getchar();
       printf("| $ %c\n\r", user_input);
+      printf("\n\r");
       switch(user_input)
       {
             case 'W':
@@ -120,8 +123,17 @@ int main()
                  break;
             
             case 'X':
+                printf("\n┌─────────────── RESET OPERATION ───────────┐\n\r");
                 eeprom_reset();
                 break;
+                
+            case 'H':
+                printf("\n┌───────────── HEX DUMP OPERATION ───────────────┐\n\r");
+                unsigned int start_add;
+                start_add = take_address(); 
+                unsigned int end_add;
+                end_add = take_address(); 
+                eeprom_hex_dump(start_add, end_add );
             
             default:
                 printf("INVALID INPUT\n\r");
@@ -330,8 +342,8 @@ int eeprom_read(unsigned int address)
 
     // Read data (send NACK after as it's the last byte)
     result = i2c_read(0);  // 0 means send NACK
-    printf("│ Reading from Adress: 0x%03X Data: 0x%02X                    \n\r", address, result);
-    printf("| 0x%03X : 0x%02X \n\r", address, result);
+    //printf("│ Reading from Adress: 0x%03X Data: 0x%02X                    \n\r", address, result);
+    //printf("| 0x%03X : 0x%02X \n\r", address, result);
     printf("│ Read successful!                 │\n\r");
     printf("└───────────────────────────────────────────────┘\n\r");
     i2c_stop();
@@ -399,6 +411,33 @@ void i2c_start(void)
     SDA = 0;
     i2c_delay();
     SCL = 0;
+}
+void eeprom_hex_dump(unsigned int start_location, unsigned int end_location) {
+    uint8_t *ptr = (uint8_t *)start_location;
+    uint16_t offset = 0;
+    size_t total_bytes = end_location - start_location;
+
+    while ((unsigned int)ptr < end_location) {
+        // Print address in AAAA format
+        printf("\n\r| %04X      |", (unsigned int)ptr);
+
+        // Display up to 16 bytes in hex format
+        for (int i = 0; i < 16 && ((unsigned int)(ptr + i)) < end_location; i++) {
+            printf(" %02X", ptr[i]);
+        }
+
+        // Pad remaining space if less than 16 bytes
+        for (int i = (end_location - (unsigned int)ptr); i < 16; i++) {
+            printf("   ");
+        }
+
+        printf(" |");
+        ptr += 16;
+        offset += 16;
+    }
+    printf("│ Hex Dump successful!                 │\n\r");
+    printf("└───────────────────────────────────────────────┘\n\r");
+    printf("\n");
 }
 
 void i2c_stop(void)
