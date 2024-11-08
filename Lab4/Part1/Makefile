@@ -49,7 +49,7 @@ git-all: git-add git-commit git-push
 
 # Link phase
 prog.hex : 8051_i2c_eeprom.rel
-	sdcc --code-loc 0x3000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx 8051_i2c_eeprom.rel
+	sdcc --code-loc 0x7000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx 8051_i2c_eeprom.rel
 	packihx 8051_i2c_eeprom.ihx > 8051_i2c_eeprom.hex
 
 
