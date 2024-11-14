@@ -67,7 +67,7 @@ CABS                                00000000    00000000 =           0. bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00000100  l_IRAM                          
-C:   00000144  l_CSEG                          
+C:   00000138  l_CSEG                          
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   00000408  s_XISEG                         
@@ -81,8 +81,8 @@ C:   0000305F  s_GSFINAL
 C:   0000305F  s_GSINIT                        
 C:   0000305F  s_GSINIT5                       
 C:   00003062  s_CSEG                          
-C:   000031A6  s_CONST                         
-C:   000031A6  s_XINIT                         
+C:   0000319A  s_CONST                         
+C:   0000319A  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -98,10 +98,8 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000080  _P0_0                              lcd
      00000081  _P0_1                              lcd
      00000081  _SP                                lcd
-     00000082  _DP0L                              lcd
      00000082  _DPL                               lcd
      00000082  _P0_2                              lcd
-     00000083  _DP0H                              lcd
      00000083  _DPH                               lcd
      00000083  _P0_3                              lcd
      00000084  _P0_4                              lcd
@@ -121,9 +119,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000008C  _TR0                               lcd
      0000008D  _TF0                               lcd
      0000008D  _TH1                               lcd
-     0000008E  _AUXR                              lcd
      0000008E  _TR1                               lcd
-     0000008F  _CKCON0                            lcd
      0000008F  _TF1                               lcd
      00000090  _P1                                lcd
      00000090  _P1_0                              lcd
@@ -133,16 +129,20 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000094  _P1_4                              lcd
      00000095  _P1_5                              lcd
      00000096  _P1_6                              lcd
-     00000097  _CKRL                              lcd
      00000097  _P1_7                              lcd
      00000098  _RI                                lcd
      00000098  _SCON                              lcd
      00000099  _SBUF                              lcd
-     00000099  _SBUF0                             lcd
      00000099  _TI                                lcd
-     0000009A  _BRL                               lcd
      0000009A  _RB8                               lcd
-     0000009B  _BDRCON                            lcd
+     0000009B  _TB8                               lcd
+     0000009C  _REN                               lcd
+     0000009D  _SM2                               lcd
+     0000009E  _SM1                               lcd
+     0000009F  _SM0                               lcd
+     000000A0  _P2                                lcd
+     000000A0  _P2_0                              lcd
+     000000A0  __XPAGE                            
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -152,199 +152,59 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000009B  _TB8                               lcd
-     0000009C  _KBLS                              lcd
-     0000009C  _REN                               lcd
-     0000009D  _KBE                               lcd
-     0000009D  _SM2                               lcd
-     0000009E  _KBF                               lcd
-     0000009E  _SM1                               lcd
-     0000009F  _SM0                               lcd
-     000000A0  _P2                                lcd
-     000000A0  _P2_0                              lcd
-     000000A0  __XPAGE                            
      000000A1  _P2_1                              lcd
-     000000A2  _AUXR1                             lcd
      000000A2  _P2_2                              lcd
      000000A3  _P2_3                              lcd
      000000A4  _P2_4                              lcd
      000000A5  _P2_5                              lcd
      000000A6  _P2_6                              lcd
-     000000A6  _WDTRST                            lcd
      000000A7  _P2_7                              lcd
-     000000A7  _WDTPRG                            lcd
      000000A8  _EX0                               lcd
      000000A8  _IE                                lcd
-     000000A8  _IEN0                              lcd
      000000A9  _ET0                               lcd
-     000000A9  _SADDR                             lcd
      000000AA  _EX1                               lcd
      000000AB  _ET1                               lcd
      000000AC  _ES                                lcd
-     000000AD  _ET2                               lcd
-     000000AE  _EC                                lcd
-     000000AF  _CKCON1                            lcd
      000000AF  _EA                                lcd
      000000B0  _P3                                lcd
      000000B0  _P3_0                              lcd
      000000B0  _RXD                               lcd
-     000000B0  _RXD0                              lcd
-     000000B1  _IEN1                              lcd
      000000B1  _P3_1                              lcd
      000000B1  _TXD                               lcd
-     000000B1  _TXD0                              lcd
      000000B2  _INT0                              lcd
-     000000B2  _IPL1                              lcd
      000000B2  _P3_2                              lcd
      000000B3  _INT1                              lcd
-     000000B3  _IPH1                              lcd
      000000B3  _P3_3                              lcd
      000000B4  _P3_4                              lcd
      000000B4  _T0                                lcd
      000000B5  _P3_5                              lcd
      000000B5  _T1                                lcd
-ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
-Hexadecimal  [32-Bits]
-
-Area                                    Addr        Size        Decimal Bytes (Attributes)
---------------------------------        ----        ----        ------- ----- ------------
-.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
-
-      Value  Global                              Global Defined In Module
-      -----  --------------------------------   ------------------------
      000000B6  _P3_6                              lcd
      000000B6  _WR                                lcd
-     000000B7  _IPH0                              lcd
      000000B7  _P3_7                              lcd
      000000B7  _RD                                lcd
      000000B8  _IP                                lcd
-     000000B8  _IPL0                              lcd
      000000B8  _PX0                               lcd
-     000000B8  _PX0L                              lcd
      000000B9  _PT0                               lcd
-     000000B9  _PT0L                              lcd
-     000000B9  _SADEN                             lcd
      000000BA  _PX1                               lcd
-     000000BA  _PX1L                              lcd
      000000BB  _PT1                               lcd
-     000000BB  _PT1L                              lcd
      000000BC  _PS                                lcd
-     000000BC  _PSL                               lcd
-     000000BD  _PT2                               lcd
-     000000BD  _PT2L                              lcd
-     000000BE  _PPCL                              lcd
-     000000C0  _P4                                lcd
-     000000C0  _P4_0                              lcd
-     000000C1  _P4_1                              lcd
-     000000C2  _P4_2                              lcd
-     000000C3  _P4_3                              lcd
-     000000C3  _SPCON                             lcd
-     000000C4  _P4_4                              lcd
-     000000C4  _SPSTA                             lcd
-     000000C5  _P4_5                              lcd
-     000000C5  _SPDAT                             lcd
-     000000C6  _P4_6                              lcd
-     000000C7  _P4_7                              lcd
-     000000C8  _CP_RL2                            lcd
-     000000C8  _T2CON                             lcd
-     000000C8  _T2CON_0                           lcd
-     000000C9  _C_T2                              lcd
-     000000C9  _T2CON_1                           lcd
-     000000C9  _T2MOD                             lcd
-     000000CA  _RCAP2L                            lcd
-     000000CA  _T2CON_2                           lcd
-     000000CA  _TR2                               lcd
-     000000CB  _EXEN2                             lcd
-     000000CB  _RCAP2H                            lcd
-     000000CB  _T2CON_3                           lcd
-     000000CC  _T2CON_4                           lcd
-     000000CC  _TCLK                              lcd
-     000000CC  _TL2                               lcd
-     000000CD  _RCLK                              lcd
-     000000CD  _T2CON_5                           lcd
-     000000CD  _TH2                               lcd
-ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
-Hexadecimal  [32-Bits]
-
-Area                                    Addr        Size        Decimal Bytes (Attributes)
---------------------------------        ----        ----        ------- ----- ------------
-.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
-
-      Value  Global                              Global Defined In Module
-      -----  --------------------------------   ------------------------
-     000000CE  _EXF2                              lcd
-     000000CE  _T2CON_6                           lcd
-     000000CF  _T2CON_7                           lcd
-     000000CF  _TF2                               lcd
      000000D0  _P                                 lcd
      000000D0  _PSW                               lcd
      000000D1  _F1                                lcd
-     000000D2  _EECON                             lcd
      000000D2  _OV                                lcd
      000000D3  _RS0                               lcd
      000000D4  _RS1                               lcd
      000000D5  _F0                                lcd
      000000D6  _AC                                lcd
      000000D7  _CY                                lcd
-     000000D8  _CCF0                              lcd
-     000000D8  _CCON                              lcd
-     000000D9  _CCF1                              lcd
-     000000D9  _CMOD                              lcd
-     000000DA  _CCAPM0                            lcd
-     000000DA  _CCF2                              lcd
-     000000DB  _CCAPM1                            lcd
-     000000DB  _CCF3                              lcd
-     000000DC  _CCAPM2                            lcd
-     000000DC  _CCF4                              lcd
-     000000DD  _CCAPM3                            lcd
-     000000DE  _CCAPM4                            lcd
-     000000DE  _CR                                lcd
-     000000DF  _CF                                lcd
      000000E0  _ACC                               lcd
-     000000E8  _P5                                lcd
-     000000E8  _P5_0                              lcd
-     000000E9  _CL                                lcd
-     000000E9  _P5_1                              lcd
-     000000EA  _CCAP0L                            lcd
-     000000EA  _P5_2                              lcd
-     000000EB  _CCAP1L                            lcd
-     000000EB  _P5_3                              lcd
-     000000EC  _CCAP2L                            lcd
-     000000EC  _P5_4                              lcd
-     000000ED  _CCAP3L                            lcd
-     000000ED  _P5_5                              lcd
-     000000EE  _CCAP4L                            lcd
-     000000EE  _P5_6                              lcd
-     000000EF  _P5_7                              lcd
      000000F0  _B                                 lcd
-     000000F0  _BREG_F0                           lcd
-     000000F1  _BREG_F1                           lcd
-     000000F2  _BREG_F2                           lcd
-     000000F3  _BREG_F3                           lcd
-     000000F4  _BREG_F4                           lcd
-     000000F5  _BREG_F5                           lcd
-ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
-Hexadecimal  [32-Bits]
-
-Area                                    Addr        Size        Decimal Bytes (Attributes)
---------------------------------        ----        ----        ------- ----- ------------
-.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
-
-      Value  Global                              Global Defined In Module
-      -----  --------------------------------   ------------------------
      000000F5  _B_5                               _gptrget
-     000000F6  _BREG_F6                           lcd
      000000F6  _B_6                               _gptrget
-     000000F7  _BREG_F7                           lcd
      000000F7  _B_7                               _gptrget
-     000000F9  _CH                                lcd
-     000000FA  _CCAP0H                            lcd
-     000000FB  _CCAP1H                            lcd
-     000000FC  _CCAP2H                            lcd
-     000000FD  _CCAP3H                            lcd
-     000000FE  _CCAP4H                            lcd
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -353,7 +213,7 @@ REG_BANK_0                          00000000    00000008 =           8. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -362,7 +222,7 @@ DSEG                                00000000    00000080 =         128. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -373,7 +233,7 @@ SSEG                                00000008    000000F8 =         248. bytes (R
       -----  --------------------------------   ------------------------
      00000008  __start__stack                     lcd
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -382,7 +242,7 @@ XSEG                                00000400    00000008 =           8. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -393,7 +253,7 @@ HOME                                00003000    00000006 =           6. bytes (R
       -----  --------------------------------   ------------------------
 C:   00003003  __sdcc_program_startup             lcd
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -404,7 +264,7 @@ GSINIT0                             00003006    00000003 =           3. bytes (R
       -----  --------------------------------   ------------------------
 C:   00003006  __sdcc_gsinit_startup              
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -413,7 +273,7 @@ GSINIT2                             00003009    0000000A =          10. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -424,7 +284,7 @@ GSINIT3                             00003013    00000022 =          34. bytes (R
       -----  --------------------------------   ------------------------
 C:   00003013  __mcs51_genXINIT                   
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -436,7 +296,7 @@ GSINIT4                             00003035    0000002A =          42. bytes (R
 C:   00003035  __mcs51_genRAMCLEAR                
 C:   0000303B  __mcs51_genXRAMCLEAR               
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -445,25 +305,25 @@ GSFINAL                             0000305F    00000003 =           3. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003062    00000144 =         324. bytes (REL,CON,CODE)
+CSEG                                00003062    00000138 =         312. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00003062  _delay_ms                          lcd
 C:   00003095  _lcd_wait                          lcd
 C:   000030BF  _lcd_instruction                   lcd
-C:   000030DD  _print_char                        lcd
-C:   000030FB  _print_string                      lcd
-C:   00003151  _lcd_init                          lcd
-C:   00003175  _main                              lcd
-C:   00003186  __gptrget                          _gptrget
-C:   000031A2  __sdcc_external_startup            _startup
-ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
+C:   000030D7  _print_char                        lcd
+C:   000030EF  _print_string                      lcd
+C:   00003145  _lcd_init                          lcd
+C:   00003169  _main                              lcd
+C:   0000317A  __gptrget                          _gptrget
+C:   00003196  __sdcc_external_startup            _startup
+ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
 
 Files Linked                              [ module(s) ]
 
@@ -487,7 +347,7 @@ Libraries Linked                          [ object file ]
 /usr/bin/../share/sdcc/lib/large/libsdcc.lib
                                           [ _startup.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 
 User Base Address Definitions
 

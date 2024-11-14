@@ -11,8 +11,9 @@
 
 #include <string.h>
 #include <stdint.h>
-#include "at89c51ed2.h"
-#include <mcs51reg.h>
+// #include "at89c51ed2.h"
+// #include <mcs51reg.h>
+#include <mcs51/8051.h>
 
 // Pin definitions for LCD interface
 
@@ -66,7 +67,7 @@ void lcd_wait(void) {
 // Function to send instruction to LCD
 void lcd_instruction(unsigned char command)
 {
-    lcd_wait();               // Wait until LCD is ready
+    //lcd_wait();               // Wait until LCD is ready
     P0 = command;       // Send command
     LCD_RS = 0;              // Select command register
     LCD_RW = 0;              // Write mode
@@ -79,7 +80,7 @@ void lcd_instruction(unsigned char command)
 
 // Function to print character on LCD
 void print_char(unsigned char c) {
-    lcd_wait();               // Wait until LCD is ready
+    //lcd_wait();               // Wait until LCD is ready
     P0 =  c;            // Send character
     LCD_RS = 1;              // Select data register
     LCD_RW = 0;              // Write mode
