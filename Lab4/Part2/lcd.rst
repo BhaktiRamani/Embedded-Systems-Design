@@ -543,7 +543,7 @@
                                     543 	.area HOME    (CODE)
                                     544 	.area HOME    (CODE)
       003003                        545 __sdcc_program_startup:
-      003003 02 31 7A         [24]  546 	ljmp	_main
+      003003 02 31 6D         [24]  546 	ljmp	_main
                                     547 ;	return from main will return to caller
                                     548 ;--------------------------------------------------------
                                     549 ; code
@@ -616,54 +616,54 @@
                                     616 ;------------------------------------------------------------
                                     617 ;busy                      Allocated with name '_lcd_wait_busy_65536_32'
                                     618 ;------------------------------------------------------------
-                                    619 ;	lcd.c:54: void lcd_wait(void) {
+                                    619 ;	lcd.c:49: void lcd_wait(void) {
                                     620 ;	-----------------------------------------
                                     621 ;	 function lcd_wait
                                     622 ;	-----------------------------------------
       003095                        623 _lcd_wait:
-                                    624 ;	lcd.c:58: LCD_DATA = 0xFF;           // Set LCD data port as input
+                                    624 ;	lcd.c:53: LCD_DATA = 0xFF;           // Set LCD data port as input
       003095 75 80 FF         [24]  625 	mov	_P0,#0xff
-                                    626 ;	lcd.c:61: LCD_RS = 0;               // Command mode
+                                    626 ;	lcd.c:56: LCD_RS = 0;               // Command mode
                                     627 ;	assignBit
       003098 C2 95            [12]  628 	clr	_P1_5
-                                    629 ;	lcd.c:62: LCD_RW = 1;               // Read mode
+                                    629 ;	lcd.c:57: LCD_RW = 1;               // Read mode
                                     630 ;	assignBit
       00309A D2 96            [12]  631 	setb	_P1_6
-                                    632 ;	lcd.c:64: do {
+                                    632 ;	lcd.c:59: do {
       00309C                        633 00101$:
-                                    634 ;	lcd.c:65: LCD_EN = 1;           // Enable high
+                                    634 ;	lcd.c:60: LCD_EN = 1;           // Enable high
                                     635 ;	assignBit
       00309C D2 97            [12]  636 	setb	_P1_7
-                                    637 ;	lcd.c:66: delay_ms(1);          // Small delay
+                                    637 ;	lcd.c:61: delay_ms(1);          // Small delay
       00309E 90 00 01         [24]  638 	mov	dptr,#0x0001
       0030A1 12 30 62         [24]  639 	lcall	_delay_ms
-                                    640 ;	lcd.c:67: busy = LCD_DATA;      // Read busy flag
+                                    640 ;	lcd.c:62: busy = LCD_DATA;      // Read busy flag
       0030A4 90 04 02         [24]  641 	mov	dptr,#_lcd_wait_busy_65536_32
       0030A7 E5 80            [12]  642 	mov	a,_P0
       0030A9 F0               [24]  643 	movx	@dptr,a
-                                    644 ;	lcd.c:68: LCD_EN = 0;           // Enable low
+                                    644 ;	lcd.c:63: LCD_EN = 0;           // Enable low
                                     645 ;	assignBit
       0030AA C2 97            [12]  646 	clr	_P1_7
-                                    647 ;	lcd.c:69: delay_ms(1);          // Small delay
+                                    647 ;	lcd.c:64: delay_ms(1);          // Small delay
       0030AC 90 00 01         [24]  648 	mov	dptr,#0x0001
       0030AF 12 30 62         [24]  649 	lcall	_delay_ms
-                                    650 ;	lcd.c:70: } while (busy & 0x80);    // Check busy flag
+                                    650 ;	lcd.c:65: } while (busy & 0x80);    // Check busy flag
       0030B2 90 04 02         [24]  651 	mov	dptr,#_lcd_wait_busy_65536_32
       0030B5 E0               [24]  652 	movx	a,@dptr
       0030B6 20 E7 E3         [24]  653 	jb	acc.7,00101$
-                                    654 ;	lcd.c:72: LCD_DATA = 0x00;
+                                    654 ;	lcd.c:67: LCD_DATA = 0x00;
       0030B9 75 80 00         [24]  655 	mov	_P0,#0x00
-                                    656 ;	lcd.c:73: LCD_RW = 0;               // Write mode
+                                    656 ;	lcd.c:68: LCD_RW = 0;               // Write mode
                                     657 ;	assignBit
       0030BC C2 96            [12]  658 	clr	_P1_6
-                                    659 ;	lcd.c:74: }
+                                    659 ;	lcd.c:69: }
       0030BE 22               [24]  660 	ret
                                     661 ;------------------------------------------------------------
                                     662 ;Allocation info for local variables in function 'lcd_instruction'
                                     663 ;------------------------------------------------------------
                                     664 ;command                   Allocated with name '_lcd_instruction_command_65536_34'
                                     665 ;------------------------------------------------------------
-                                    666 ;	lcd.c:77: void lcd_instruction(unsigned char command)
+                                    666 ;	lcd.c:72: void lcd_instruction(unsigned char command)
                                     667 ;	-----------------------------------------
                                     668 ;	 function lcd_instruction
                                     669 ;	-----------------------------------------
@@ -671,192 +671,181 @@
       0030BF E5 82            [12]  671 	mov	a,dpl
       0030C1 90 04 03         [24]  672 	mov	dptr,#_lcd_instruction_command_65536_34
       0030C4 F0               [24]  673 	movx	@dptr,a
-                                    674 ;	lcd.c:79: lcd_wait();               // Wait until LCD is ready
+                                    674 ;	lcd.c:74: lcd_wait();               // Wait until LCD is ready
       0030C5 12 30 95         [24]  675 	lcall	_lcd_wait
-                                    676 ;	lcd.c:80: LCD_RS = 0;              // Select command register
+                                    676 ;	lcd.c:75: LCD_RS = 0;              // Select command register
                                     677 ;	assignBit
       0030C8 C2 95            [12]  678 	clr	_P1_5
-                                    679 ;	lcd.c:81: LCD_RW = 0;              // Write mode
+                                    679 ;	lcd.c:76: LCD_RW = 0;              // Write mode
                                     680 ;	assignBit
       0030CA C2 96            [12]  681 	clr	_P1_6
-                                    682 ;	lcd.c:82:  lcd_ptr = command;       // Send command
+                                    682 ;	lcd.c:77: P0 = command;       // Send command
       0030CC 90 04 03         [24]  683 	mov	dptr,#_lcd_instruction_command_65536_34
       0030CF E0               [24]  684 	movx	a,@dptr
-      0030D0 90 F0 00         [24]  685 	mov	dptr,#_lcd_ptr
-      0030D3 F0               [24]  686 	movx	@dptr,a
-                                    687 ;	lcd.c:83: LCD_EN = 0;              // Enable high
-                                    688 ;	assignBit
-      0030D4 C2 97            [12]  689 	clr	_P1_7
-                                    690 ;	lcd.c:84: LCD_EN = 1;              // Enable high
-                                    691 ;	assignBit
-      0030D6 D2 97            [12]  692 	setb	_P1_7
-                                    693 ;	lcd.c:86: LCD_EN = 0;              // Enable low
-                                    694 ;	assignBit
-      0030D8 C2 97            [12]  695 	clr	_P1_7
-                                    696 ;	lcd.c:88: }
-      0030DA 22               [24]  697 	ret
-                                    698 ;------------------------------------------------------------
-                                    699 ;Allocation info for local variables in function 'print_char'
-                                    700 ;------------------------------------------------------------
-                                    701 ;c                         Allocated with name '_print_char_c_65536_36'
-                                    702 ;------------------------------------------------------------
-                                    703 ;	lcd.c:91: void print_char(unsigned char c) {
-                                    704 ;	-----------------------------------------
-                                    705 ;	 function print_char
-                                    706 ;	-----------------------------------------
-      0030DB                        707 _print_char:
-      0030DB E5 82            [12]  708 	mov	a,dpl
-      0030DD 90 04 04         [24]  709 	mov	dptr,#_print_char_c_65536_36
-      0030E0 F0               [24]  710 	movx	@dptr,a
-                                    711 ;	lcd.c:92: lcd_wait();               // Wait until LCD is ready
-      0030E1 12 30 95         [24]  712 	lcall	_lcd_wait
-                                    713 ;	lcd.c:93: LCD_RS = 1;              // Select data register
-                                    714 ;	assignBit
-      0030E4 D2 95            [12]  715 	setb	_P1_5
-                                    716 ;	lcd.c:94: LCD_RW = 0;              // Write mode
-                                    717 ;	assignBit
-      0030E6 C2 96            [12]  718 	clr	_P1_6
-                                    719 ;	lcd.c:95:  lcd_ptr =  c;            // Send character
-      0030E8 90 04 04         [24]  720 	mov	dptr,#_print_char_c_65536_36
-      0030EB E0               [24]  721 	movx	a,@dptr
-      0030EC 90 F0 00         [24]  722 	mov	dptr,#_lcd_ptr
-      0030EF F0               [24]  723 	movx	@dptr,a
-                                    724 ;	lcd.c:96: LCD_EN = 1;              // Enable high
-                                    725 ;	assignBit
-      0030F0 D2 97            [12]  726 	setb	_P1_7
-                                    727 ;	lcd.c:97: delay_ms(1);             // Small delay
-      0030F2 90 00 01         [24]  728 	mov	dptr,#0x0001
-      0030F5 12 30 62         [24]  729 	lcall	_delay_ms
-                                    730 ;	lcd.c:98: LCD_EN = 0;              // Enable low
-                                    731 ;	assignBit
-      0030F8 C2 97            [12]  732 	clr	_P1_7
-                                    733 ;	lcd.c:99: delay_ms(1);             // Small delay
-      0030FA 90 00 01         [24]  734 	mov	dptr,#0x0001
-                                    735 ;	lcd.c:100: }
-      0030FD 02 30 62         [24]  736 	ljmp	_delay_ms
+      0030D0 F5 80            [12]  685 	mov	_P0,a
+                                    686 ;	lcd.c:78: LCD_EN = 0;              // Enable high
+                                    687 ;	assignBit
+      0030D2 C2 97            [12]  688 	clr	_P1_7
+                                    689 ;	lcd.c:79: LCD_EN = 1;              // Enable high
+                                    690 ;	assignBit
+      0030D4 D2 97            [12]  691 	setb	_P1_7
+                                    692 ;	lcd.c:81: LCD_EN = 0;              // Enable low
+                                    693 ;	assignBit
+      0030D6 C2 97            [12]  694 	clr	_P1_7
+                                    695 ;	lcd.c:83: }
+      0030D8 22               [24]  696 	ret
+                                    697 ;------------------------------------------------------------
+                                    698 ;Allocation info for local variables in function 'print_char'
+                                    699 ;------------------------------------------------------------
+                                    700 ;c                         Allocated with name '_print_char_c_65536_36'
+                                    701 ;------------------------------------------------------------
+                                    702 ;	lcd.c:86: void print_char(unsigned char c) {
+                                    703 ;	-----------------------------------------
+                                    704 ;	 function print_char
+                                    705 ;	-----------------------------------------
+      0030D9                        706 _print_char:
+      0030D9 E5 82            [12]  707 	mov	a,dpl
+      0030DB 90 04 04         [24]  708 	mov	dptr,#_print_char_c_65536_36
+      0030DE F0               [24]  709 	movx	@dptr,a
+                                    710 ;	lcd.c:87: lcd_wait();               // Wait until LCD is ready
+      0030DF 12 30 95         [24]  711 	lcall	_lcd_wait
+                                    712 ;	lcd.c:88: LCD_RS = 1;              // Select data register
+                                    713 ;	assignBit
+      0030E2 D2 95            [12]  714 	setb	_P1_5
+                                    715 ;	lcd.c:89: LCD_RW = 0;              // Write mode
+                                    716 ;	assignBit
+      0030E4 C2 96            [12]  717 	clr	_P1_6
+                                    718 ;	lcd.c:90: P0 =  c;            // Send character
+      0030E6 90 04 04         [24]  719 	mov	dptr,#_print_char_c_65536_36
+      0030E9 E0               [24]  720 	movx	a,@dptr
+      0030EA F5 80            [12]  721 	mov	_P0,a
+                                    722 ;	lcd.c:91: LCD_EN = 0;
+                                    723 ;	assignBit
+      0030EC C2 97            [12]  724 	clr	_P1_7
+                                    725 ;	lcd.c:92: LCD_EN = 1;              // Enable high
+                                    726 ;	assignBit
+      0030EE D2 97            [12]  727 	setb	_P1_7
+                                    728 ;	lcd.c:94: LCD_EN = 0;              // Enable low
+                                    729 ;	assignBit
+      0030F0 C2 97            [12]  730 	clr	_P1_7
+                                    731 ;	lcd.c:96: }
+      0030F2 22               [24]  732 	ret
+                                    733 ;------------------------------------------------------------
+                                    734 ;Allocation info for local variables in function 'print_string'
+                                    735 ;------------------------------------------------------------
+                                    736 ;str                       Allocated with name '_print_string_str_65536_38'
                                     737 ;------------------------------------------------------------
-                                    738 ;Allocation info for local variables in function 'print_string'
-                                    739 ;------------------------------------------------------------
-                                    740 ;str                       Allocated with name '_print_string_str_65536_38'
-                                    741 ;------------------------------------------------------------
-                                    742 ;	lcd.c:103: void print_string(char *str)
-                                    743 ;	-----------------------------------------
-                                    744 ;	 function print_string
-                                    745 ;	-----------------------------------------
-      003100                        746 _print_string:
-      003100 AF F0            [24]  747 	mov	r7,b
-      003102 AE 83            [24]  748 	mov	r6,dph
-      003104 E5 82            [12]  749 	mov	a,dpl
-      003106 90 04 05         [24]  750 	mov	dptr,#_print_string_str_65536_38
-      003109 F0               [24]  751 	movx	@dptr,a
-      00310A EE               [12]  752 	mov	a,r6
-      00310B A3               [24]  753 	inc	dptr
-      00310C F0               [24]  754 	movx	@dptr,a
-      00310D EF               [12]  755 	mov	a,r7
-      00310E A3               [24]  756 	inc	dptr
-      00310F F0               [24]  757 	movx	@dptr,a
-                                    758 ;	lcd.c:105: while (*str) print_char(*str++);
-      003110 90 04 05         [24]  759 	mov	dptr,#_print_string_str_65536_38
-      003113 E0               [24]  760 	movx	a,@dptr
-      003114 FD               [12]  761 	mov	r5,a
-      003115 A3               [24]  762 	inc	dptr
-      003116 E0               [24]  763 	movx	a,@dptr
-      003117 FE               [12]  764 	mov	r6,a
-      003118 A3               [24]  765 	inc	dptr
-      003119 E0               [24]  766 	movx	a,@dptr
-      00311A FF               [12]  767 	mov	r7,a
-      00311B                        768 00101$:
-      00311B 8D 82            [24]  769 	mov	dpl,r5
-      00311D 8E 83            [24]  770 	mov	dph,r6
-      00311F 8F F0            [24]  771 	mov	b,r7
-      003121 12 31 86         [24]  772 	lcall	__gptrget
-      003124 FC               [12]  773 	mov	r4,a
-      003125 60 23            [24]  774 	jz	00108$
-      003127 0D               [12]  775 	inc	r5
-      003128 BD 00 01         [24]  776 	cjne	r5,#0x00,00116$
-      00312B 0E               [12]  777 	inc	r6
-      00312C                        778 00116$:
-      00312C 90 04 05         [24]  779 	mov	dptr,#_print_string_str_65536_38
-      00312F ED               [12]  780 	mov	a,r5
-      003130 F0               [24]  781 	movx	@dptr,a
-      003131 EE               [12]  782 	mov	a,r6
-      003132 A3               [24]  783 	inc	dptr
-      003133 F0               [24]  784 	movx	@dptr,a
-      003134 EF               [12]  785 	mov	a,r7
-      003135 A3               [24]  786 	inc	dptr
-      003136 F0               [24]  787 	movx	@dptr,a
-      003137 8C 82            [24]  788 	mov	dpl,r4
-      003139 C0 07            [24]  789 	push	ar7
-      00313B C0 06            [24]  790 	push	ar6
-      00313D C0 05            [24]  791 	push	ar5
-      00313F 12 30 DB         [24]  792 	lcall	_print_char
-      003142 D0 05            [24]  793 	pop	ar5
-      003144 D0 06            [24]  794 	pop	ar6
-      003146 D0 07            [24]  795 	pop	ar7
-      003148 80 D1            [24]  796 	sjmp	00101$
-      00314A                        797 00108$:
-      00314A 90 04 05         [24]  798 	mov	dptr,#_print_string_str_65536_38
-      00314D ED               [12]  799 	mov	a,r5
-      00314E F0               [24]  800 	movx	@dptr,a
-      00314F EE               [12]  801 	mov	a,r6
-      003150 A3               [24]  802 	inc	dptr
-      003151 F0               [24]  803 	movx	@dptr,a
-      003152 EF               [12]  804 	mov	a,r7
-      003153 A3               [24]  805 	inc	dptr
-      003154 F0               [24]  806 	movx	@dptr,a
-                                    807 ;	lcd.c:106: }
-      003155 22               [24]  808 	ret
-                                    809 ;------------------------------------------------------------
-                                    810 ;Allocation info for local variables in function 'lcd_init'
-                                    811 ;------------------------------------------------------------
-                                    812 ;	lcd.c:109: void lcd_init(void) {
-                                    813 ;	-----------------------------------------
-                                    814 ;	 function lcd_init
-                                    815 ;	-----------------------------------------
-      003156                        816 _lcd_init:
-                                    817 ;	lcd.c:110: delay_ms(20);            // Power-on delay
-      003156 90 00 14         [24]  818 	mov	dptr,#0x0014
-      003159 12 30 62         [24]  819 	lcall	_delay_ms
-                                    820 ;	lcd.c:112: lcd_instruction(LCD_CLEAR);           // Clear display
-      00315C 75 82 01         [24]  821 	mov	dpl,#0x01
-      00315F 12 30 BF         [24]  822 	lcall	_lcd_instruction
-                                    823 ;	lcd.c:113: lcd_instruction(LCD_FUNCTION_SET);    // 8-bit mode, 2 lines, 5x7 dots
-      003162 75 82 38         [24]  824 	mov	dpl,#0x38
-      003165 12 30 BF         [24]  825 	lcall	_lcd_instruction
-                                    826 ;	lcd.c:119: lcd_instruction(LCD_DISPLAY_ON);      // Display ON, cursor ON, blink ON
-      003168 75 82 0F         [24]  827 	mov	dpl,#0x0f
-      00316B 12 30 BF         [24]  828 	lcall	_lcd_instruction
-                                    829 ;	lcd.c:120: lcd_instruction(LCD_ENTRY_MODE);      // Entry mode set
-      00316E 75 82 06         [24]  830 	mov	dpl,#0x06
-      003171 12 30 BF         [24]  831 	lcall	_lcd_instruction
-                                    832 ;	lcd.c:121: lcd_instruction(LCD_CLEAR);           // Clear display
-      003174 75 82 01         [24]  833 	mov	dpl,#0x01
-                                    834 ;	lcd.c:123: }
-      003177 02 30 BF         [24]  835 	ljmp	_lcd_instruction
-                                    836 ;------------------------------------------------------------
-                                    837 ;Allocation info for local variables in function 'main'
-                                    838 ;------------------------------------------------------------
-                                    839 ;	lcd.c:126: void main(void) {
-                                    840 ;	-----------------------------------------
-                                    841 ;	 function main
-                                    842 ;	-----------------------------------------
-      00317A                        843 _main:
-                                    844 ;	lcd.c:128: lcd_init();
-      00317A 12 31 56         [24]  845 	lcall	_lcd_init
-                                    846 ;	lcd.c:131: print_string("Hello World!");
-      00317D 90 31 A6         [24]  847 	mov	dptr,#___str_0
-      003180 75 F0 80         [24]  848 	mov	b,#0x80
-                                    849 ;	lcd.c:137: }
-      003183 02 31 00         [24]  850 	ljmp	_print_string
-                                    851 	.area CSEG    (CODE)
-                                    852 	.area CONST   (CODE)
-                                    853 	.area CONST   (CODE)
-      0031A6                        854 ___str_0:
-      0031A6 48 65 6C 6C 6F 20 57   855 	.ascii "Hello World!"
-             6F 72 6C 64 21
-      0031B2 00                     856 	.db 0x00
-                                    857 	.area CSEG    (CODE)
-                                    858 	.area XINIT   (CODE)
-      0031B3                        859 __xinit__LCD_LOCATION:
-      0031B3 00 80                  860 	.byte #0x00,#0x80
-                                    861 	.area CABS    (ABS,CODE)
+                                    738 ;	lcd.c:99: void print_string(char *str)
+                                    739 ;	-----------------------------------------
+                                    740 ;	 function print_string
+                                    741 ;	-----------------------------------------
+      0030F3                        742 _print_string:
+      0030F3 AF F0            [24]  743 	mov	r7,b
+      0030F5 AE 83            [24]  744 	mov	r6,dph
+      0030F7 E5 82            [12]  745 	mov	a,dpl
+      0030F9 90 04 05         [24]  746 	mov	dptr,#_print_string_str_65536_38
+      0030FC F0               [24]  747 	movx	@dptr,a
+      0030FD EE               [12]  748 	mov	a,r6
+      0030FE A3               [24]  749 	inc	dptr
+      0030FF F0               [24]  750 	movx	@dptr,a
+      003100 EF               [12]  751 	mov	a,r7
+      003101 A3               [24]  752 	inc	dptr
+      003102 F0               [24]  753 	movx	@dptr,a
+                                    754 ;	lcd.c:101: while (*str) print_char(*str++);
+      003103 90 04 05         [24]  755 	mov	dptr,#_print_string_str_65536_38
+      003106 E0               [24]  756 	movx	a,@dptr
+      003107 FD               [12]  757 	mov	r5,a
+      003108 A3               [24]  758 	inc	dptr
+      003109 E0               [24]  759 	movx	a,@dptr
+      00310A FE               [12]  760 	mov	r6,a
+      00310B A3               [24]  761 	inc	dptr
+      00310C E0               [24]  762 	movx	a,@dptr
+      00310D FF               [12]  763 	mov	r7,a
+      00310E                        764 00101$:
+      00310E 8D 82            [24]  765 	mov	dpl,r5
+      003110 8E 83            [24]  766 	mov	dph,r6
+      003112 8F F0            [24]  767 	mov	b,r7
+      003114 12 31 76         [24]  768 	lcall	__gptrget
+      003117 FC               [12]  769 	mov	r4,a
+      003118 60 23            [24]  770 	jz	00108$
+      00311A 0D               [12]  771 	inc	r5
+      00311B BD 00 01         [24]  772 	cjne	r5,#0x00,00116$
+      00311E 0E               [12]  773 	inc	r6
+      00311F                        774 00116$:
+      00311F 90 04 05         [24]  775 	mov	dptr,#_print_string_str_65536_38
+      003122 ED               [12]  776 	mov	a,r5
+      003123 F0               [24]  777 	movx	@dptr,a
+      003124 EE               [12]  778 	mov	a,r6
+      003125 A3               [24]  779 	inc	dptr
+      003126 F0               [24]  780 	movx	@dptr,a
+      003127 EF               [12]  781 	mov	a,r7
+      003128 A3               [24]  782 	inc	dptr
+      003129 F0               [24]  783 	movx	@dptr,a
+      00312A 8C 82            [24]  784 	mov	dpl,r4
+      00312C C0 07            [24]  785 	push	ar7
+      00312E C0 06            [24]  786 	push	ar6
+      003130 C0 05            [24]  787 	push	ar5
+      003132 12 30 D9         [24]  788 	lcall	_print_char
+      003135 D0 05            [24]  789 	pop	ar5
+      003137 D0 06            [24]  790 	pop	ar6
+      003139 D0 07            [24]  791 	pop	ar7
+      00313B 80 D1            [24]  792 	sjmp	00101$
+      00313D                        793 00108$:
+      00313D 90 04 05         [24]  794 	mov	dptr,#_print_string_str_65536_38
+      003140 ED               [12]  795 	mov	a,r5
+      003141 F0               [24]  796 	movx	@dptr,a
+      003142 EE               [12]  797 	mov	a,r6
+      003143 A3               [24]  798 	inc	dptr
+      003144 F0               [24]  799 	movx	@dptr,a
+      003145 EF               [12]  800 	mov	a,r7
+      003146 A3               [24]  801 	inc	dptr
+      003147 F0               [24]  802 	movx	@dptr,a
+                                    803 ;	lcd.c:102: }
+      003148 22               [24]  804 	ret
+                                    805 ;------------------------------------------------------------
+                                    806 ;Allocation info for local variables in function 'lcd_init'
+                                    807 ;------------------------------------------------------------
+                                    808 ;	lcd.c:105: void lcd_init(void) {
+                                    809 ;	-----------------------------------------
+                                    810 ;	 function lcd_init
+                                    811 ;	-----------------------------------------
+      003149                        812 _lcd_init:
+                                    813 ;	lcd.c:106: delay_ms(20);            // Power-on delay
+      003149 90 00 14         [24]  814 	mov	dptr,#0x0014
+      00314C 12 30 62         [24]  815 	lcall	_delay_ms
+                                    816 ;	lcd.c:108: lcd_instruction(LCD_CLEAR);           // Clear display
+      00314F 75 82 01         [24]  817 	mov	dpl,#0x01
+      003152 12 30 BF         [24]  818 	lcall	_lcd_instruction
+                                    819 ;	lcd.c:109: lcd_instruction(LCD_FUNCTION_SET);    // 8-bit mode, 2 lines, 5x7 dots
+      003155 75 82 38         [24]  820 	mov	dpl,#0x38
+      003158 12 30 BF         [24]  821 	lcall	_lcd_instruction
+                                    822 ;	lcd.c:115: lcd_instruction(LCD_DISPLAY_ON);      // Display ON, cursor ON, blink ON
+      00315B 75 82 0F         [24]  823 	mov	dpl,#0x0f
+      00315E 12 30 BF         [24]  824 	lcall	_lcd_instruction
+                                    825 ;	lcd.c:116: lcd_instruction(LCD_ENTRY_MODE);      // Entry mode set
+      003161 75 82 06         [24]  826 	mov	dpl,#0x06
+      003164 12 30 BF         [24]  827 	lcall	_lcd_instruction
+                                    828 ;	lcd.c:117: lcd_instruction(LCD_CLEAR);           // Clear display
+      003167 75 82 01         [24]  829 	mov	dpl,#0x01
+                                    830 ;	lcd.c:119: }
+      00316A 02 30 BF         [24]  831 	ljmp	_lcd_instruction
+                                    832 ;------------------------------------------------------------
+                                    833 ;Allocation info for local variables in function 'main'
+                                    834 ;------------------------------------------------------------
+                                    835 ;	lcd.c:122: void main(void) {
+                                    836 ;	-----------------------------------------
+                                    837 ;	 function main
+                                    838 ;	-----------------------------------------
+      00316D                        839 _main:
+                                    840 ;	lcd.c:124: lcd_init();
+      00316D 12 31 49         [24]  841 	lcall	_lcd_init
+                                    842 ;	lcd.c:126: print_char('H');
+      003170 75 82 48         [24]  843 	mov	dpl,#0x48
+                                    844 ;	lcd.c:134: }
+      003173 02 30 D9         [24]  845 	ljmp	_print_char
+                                    846 	.area CSEG    (CODE)
+                                    847 	.area CONST   (CODE)
+                                    848 	.area XINIT   (CODE)
+      003196                        849 __xinit__LCD_LOCATION:
+      003196 00 80                  850 	.byte #0x00,#0x80
+                                    851 	.area CABS    (ABS,CODE)

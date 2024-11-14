@@ -43,12 +43,7 @@ volatile uint8_t __at(LCD_COMMAND_READ_ADDRESS) lcd_ptr;
 #define LCD_FUNCTION_SET    0x38    // 8-bit mode, 2 lines, 5x7 dots
 #define LCD_SET_CURSOR      0x80    // Set DDRAM address command
 
-// // Delay function (approximately 1ms at 12MHz)
-// void delay_ms(unsigned int ms) {
-//     unsigned int i, j;
-//     for (i = 0; i < ms; i++)
-//         for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
-// }
+
 
 // Function to check if LCD is busy
 void lcd_wait(void) {
@@ -79,7 +74,7 @@ void lcd_instruction(unsigned char command)
     lcd_wait();               // Wait until LCD is ready
     LCD_RS = 0;              // Select command register
     LCD_RW = 0;              // Write mode
-     lcd_ptr = command;       // Send command
+    P0 = command;       // Send command
     LCD_EN = 0;              // Enable high
     LCD_EN = 1;              // Enable high
     // delay_ms(1);             // Small delay
@@ -92,11 +87,12 @@ void print_char(unsigned char c) {
     lcd_wait();               // Wait until LCD is ready
     LCD_RS = 1;              // Select data register
     LCD_RW = 0;              // Write mode
-     lcd_ptr =  c;            // Send character
+    P0 =  c;            // Send character
+    LCD_EN = 0;
     LCD_EN = 1;              // Enable high
-    delay_ms(1);             // Small delay
+    //delay_ms(1);             // Small delay
     LCD_EN = 0;              // Enable low
-    delay_ms(1);             // Small delay
+    //delay_ms(1);             // Small delay
 }
 
 // Function to print string on LCD
@@ -126,9 +122,10 @@ void lcd_init(void) {
 void main(void) {
     // Initialize LCD
     lcd_init();
-
+    
+    print_char('H');
     // Print "Hello World!"
-    print_string("Hello World!");
+    // print_string("Hello World!");
 
     // Main loop
     // while(1) {
