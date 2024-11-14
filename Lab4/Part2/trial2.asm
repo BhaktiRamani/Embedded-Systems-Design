@@ -2,19 +2,13 @@
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 4.0.0 #11528 (Linux)
 ;--------------------------------------------------------
-	.module lcd
+	.module trial2
 	.optsdcc -mmcs51 --model-large
 	
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
-	.globl _lcd_init
-	.globl _print_string
-	.globl _print_char
-	.globl _lcd_instruction
-	.globl _lcd_wait
-	.globl _delay_ms
 	.globl _CY
 	.globl _AC
 	.globl _F0
@@ -111,6 +105,11 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
+	.globl _delay
+	.globl _lcd_command
+	.globl _lcd_data
+	.globl _lcd_init
+	.globl _lcd_string
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -257,16 +256,16 @@ __start__stack:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-_delay_ms_ms_65536_27:
+_delay_count_65536_6:
 	.ds 2
-_lcd_wait_busy_65536_32:
+_lcd_command_command_65536_10:
 	.ds 1
-_lcd_instruction_command_65536_34:
+_lcd_data_dat_65536_12:
 	.ds 1
-_print_char_c_65536_36:
-	.ds 1
-_print_string_str_65536_38:
+_lcd_string_str_65536_16:
 	.ds 3
+_main_testStr_65536_20:
+	.ds 9
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -319,17 +318,17 @@ __sdcc_program_startup:
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'delay_ms'
+;Allocation info for local variables in function 'delay'
 ;------------------------------------------------------------
-;ms                        Allocated with name '_delay_ms_ms_65536_27'
-;i                         Allocated with name '_delay_ms_i_65536_28'
-;j                         Allocated with name '_delay_ms_j_65536_28'
+;count                     Allocated with name '_delay_count_65536_6'
+;i                         Allocated with name '_delay_i_65536_7'
+;j                         Allocated with name '_delay_j_65536_7'
 ;------------------------------------------------------------
-;	lcd.c:27: void delay_ms(unsigned int ms) {
+;	trial2.c:17: void delay(unsigned int count) {
 ;	-----------------------------------------
-;	 function delay_ms
+;	 function delay
 ;	-----------------------------------------
-_delay_ms:
+_delay:
 	ar7 = 0x07
 	ar6 = 0x06
 	ar5 = 0x05
@@ -340,13 +339,13 @@ _delay_ms:
 	ar0 = 0x00
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_delay_ms_ms_65536_27
+	mov	dptr,#_delay_count_65536_6
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	lcd.c:29: for (i = 0; i < ms; i++)
-	mov	dptr,#_delay_ms_ms_65536_27
+;	trial2.c:19: for(i = 0; i < count; i++)
+	mov	dptr,#_delay_count_65536_6
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -361,7 +360,7 @@ _delay_ms:
 	mov	a,r5
 	subb	a,r7
 	jnc	00109$
-;	lcd.c:30: for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
+;	trial2.c:20: for(j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
 	mov	r2,#0x7b
 	mov	r3,#0x00
 00105$:
@@ -372,159 +371,170 @@ _delay_ms:
 	mov	a,r2
 	orl	a,r3
 	jnz	00105$
-;	lcd.c:29: for (i = 0; i < ms; i++)
+;	trial2.c:19: for(i = 0; i < count; i++)
 	inc	r4
 	cjne	r4,#0x00,00107$
 	inc	r5
 	sjmp	00107$
 00109$:
-;	lcd.c:31: }
+;	trial2.c:21: }
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_wait'
+;Allocation info for local variables in function 'lcd_command'
 ;------------------------------------------------------------
-;busy                      Allocated with name '_lcd_wait_busy_65536_32'
+;command                   Allocated with name '_lcd_command_command_65536_10'
 ;------------------------------------------------------------
-;	lcd.c:45: void lcd_wait(void) {
+;	trial2.c:24: void lcd_command(unsigned char command) {
 ;	-----------------------------------------
-;	 function lcd_wait
+;	 function lcd_command
 ;	-----------------------------------------
-_lcd_wait:
-;	lcd.c:49: LCD_DATA = 0xFF;           // Set LCD data port as input
-	mov	_P0,#0xff
-;	lcd.c:52: LCD_RS = 0;               // Command mode
-;	assignBit
-	clr	_P1_5
-;	lcd.c:53: LCD_RW = 1;               // Read mode
-;	assignBit
-	setb	_P1_6
-;	lcd.c:55: do {
-00101$:
-;	lcd.c:56: LCD_EN = 1;           // Enable high
-;	assignBit
-	setb	_P1_7
-;	lcd.c:57: delay_ms(1);          // Small delay
-	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:58: busy = LCD_DATA;      // Read busy flag
-	mov	dptr,#_lcd_wait_busy_65536_32
-	mov	a,_P0
-	movx	@dptr,a
-;	lcd.c:59: LCD_EN = 0;           // Enable low
-;	assignBit
-	clr	_P1_7
-;	lcd.c:60: delay_ms(1);          // Small delay
-	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:61: } while (busy & 0x80);    // Check busy flag
-	mov	dptr,#_lcd_wait_busy_65536_32
-	movx	a,@dptr
-	jb	acc.7,00101$
-;	lcd.c:63: LCD_DATA = 0x00;
-	mov	_P0,#0x00
-;	lcd.c:64: LCD_RW = 0;               // Write mode
-;	assignBit
-	clr	_P1_6
-;	lcd.c:65: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_instruction'
-;------------------------------------------------------------
-;command                   Allocated with name '_lcd_instruction_command_65536_34'
-;------------------------------------------------------------
-;	lcd.c:67: void lcd_instruction(unsigned char command) 
-;	-----------------------------------------
-;	 function lcd_instruction
-;	-----------------------------------------
-_lcd_instruction:
+_lcd_command:
 	mov	a,dpl
-	mov	dptr,#_lcd_instruction_command_65536_34
+	mov	dptr,#_lcd_command_command_65536_10
 	movx	@dptr,a
-;	lcd.c:69: LCD_RS = 0;              // Command mode
+;	trial2.c:25: RS = 0;                // Command mode
 ;	assignBit
 	clr	_P1_5
-;	lcd.c:70: LCD_RW = 0;              // Write mode
+;	trial2.c:26: RW = 0;                // Write mode
 ;	assignBit
 	clr	_P1_6
-;	lcd.c:71: LCD_EN = 0;              // Ensure EN is low
+;	trial2.c:27: EN = 0;                // Enable low
 ;	assignBit
 	clr	_P1_7
-;	lcd.c:72: P0 = command;            // Put command on data bus
-	mov	dptr,#_lcd_instruction_command_65536_34
+;	trial2.c:29: LCD_DATA = command;    // Put command on data bus
+	mov	dptr,#_lcd_command_command_65536_10
 	movx	a,@dptr
 	mov	_P0,a
-;	lcd.c:73: delay_ms(1);             // Wait for data to stabilize
+;	trial2.c:30: delay(1);              // Wait for data to stabilize
 	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:74: LCD_EN = 1;              // Enable high
+	lcall	_delay
+;	trial2.c:32: EN = 1;                // Enable pulse
 ;	assignBit
 	setb	_P1_7
-;	lcd.c:75: delay_ms(1);             // Wait
+;	trial2.c:33: delay(1);              // Wait
 	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:76: LCD_EN = 0;              // Enable low
+	lcall	_delay
+;	trial2.c:34: EN = 0;                // Complete Enable pulse
 ;	assignBit
 	clr	_P1_7
-;	lcd.c:77: delay_ms(1);             // Wait for LCD to process
-	mov	dptr,#0x0001
-;	lcd.c:78: }
-	ljmp	_delay_ms
+;	trial2.c:35: delay(2);              // Wait for command to complete
+	mov	dptr,#0x0002
+;	trial2.c:36: }
+	ljmp	_delay
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'print_char'
+;Allocation info for local variables in function 'lcd_data'
 ;------------------------------------------------------------
-;c                         Allocated with name '_print_char_c_65536_36'
+;dat                       Allocated with name '_lcd_data_dat_65536_12'
 ;------------------------------------------------------------
-;	lcd.c:81: void print_char(unsigned char c) {
+;	trial2.c:39: void lcd_data(unsigned char dat) {
 ;	-----------------------------------------
-;	 function print_char
+;	 function lcd_data
 ;	-----------------------------------------
-_print_char:
+_lcd_data:
 	mov	a,dpl
-	mov	dptr,#_print_char_c_65536_36
+	mov	dptr,#_lcd_data_dat_65536_12
 	movx	@dptr,a
-;	lcd.c:82: LCD_RS = 1;              // Data mode
+;	trial2.c:40: RS = 1;                // Data mode
 ;	assignBit
 	setb	_P1_5
-;	lcd.c:83: LCD_RW = 0;              // Write mode
+;	trial2.c:41: RW = 0;                // Write mode
 ;	assignBit
 	clr	_P1_6
-;	lcd.c:84: LCD_EN = 0;              // Ensure EN is low
+;	trial2.c:42: EN = 0;                // Enable low
 ;	assignBit
 	clr	_P1_7
-;	lcd.c:85: P0 = c;                  // Put data on bus
-	mov	dptr,#_print_char_c_65536_36
+;	trial2.c:44: LCD_DATA = dat;        // Put data on data bus
+	mov	dptr,#_lcd_data_dat_65536_12
 	movx	a,@dptr
 	mov	_P0,a
-;	lcd.c:86: delay_ms(1);             // Wait for data to stabilize
+;	trial2.c:45: delay(1);              // Wait for data to stabilize
 	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:87: LCD_EN = 1;              // Enable high
+	lcall	_delay
+;	trial2.c:47: EN = 1;                // Enable pulse
 ;	assignBit
 	setb	_P1_7
-;	lcd.c:88: delay_ms(1);             // Wait
+;	trial2.c:48: delay(1);              // Wait
 	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:89: LCD_EN = 0;              // Enable low
+	lcall	_delay
+;	trial2.c:49: EN = 0;                // Complete Enable pulse
 ;	assignBit
 	clr	_P1_7
-;	lcd.c:90: delay_ms(1);             // Wait for LCD to process
+;	trial2.c:50: delay(2);              // Wait for data to complete
+	mov	dptr,#0x0002
+;	trial2.c:51: }
+	ljmp	_delay
+;------------------------------------------------------------
+;Allocation info for local variables in function 'lcd_init'
+;------------------------------------------------------------
+;	trial2.c:54: void lcd_init(void) {
+;	-----------------------------------------
+;	 function lcd_init
+;	-----------------------------------------
+_lcd_init:
+;	trial2.c:56: P0 = 0x00;            // Set P0 as output for data
+	mov	_P0,#0x00
+;	trial2.c:57: P1 = 0x00;            // Set P1 as output for control
+	mov	_P1,#0x00
+;	trial2.c:59: delay(20);            // Wait after power-up
+	mov	dptr,#0x0014
+	lcall	_delay
+;	trial2.c:63: lcd_command(0x38);    // 8-bit mode, 2 lines, 5x7 dots
+	mov	dpl,#0x38
+	lcall	_lcd_command
+;	trial2.c:64: delay(5);
+	mov	dptr,#0x0005
+	lcall	_delay
+;	trial2.c:67: lcd_command(0x38);    // 8-bit mode, 2 lines, 5x7 dots
+	mov	dpl,#0x38
+	lcall	_lcd_command
+;	trial2.c:68: delay(1);
 	mov	dptr,#0x0001
-;	lcd.c:91: }
-	ljmp	_delay_ms
+	lcall	_delay
+;	trial2.c:71: lcd_command(0x38);    // 8-bit mode, 2 lines, 5x7 dots
+	mov	dpl,#0x38
+	lcall	_lcd_command
+;	trial2.c:72: delay(1);
+	mov	dptr,#0x0001
+	lcall	_delay
+;	trial2.c:74: lcd_command(0x0C);    // Display ON, cursor OFF
+	mov	dpl,#0x0c
+	lcall	_lcd_command
+;	trial2.c:75: delay(1);
+	mov	dptr,#0x0001
+	lcall	_delay
+;	trial2.c:77: lcd_command(0x01);    // Clear display
+	mov	dpl,#0x01
+	lcall	_lcd_command
+;	trial2.c:78: delay(2);
+	mov	dptr,#0x0002
+	lcall	_delay
+;	trial2.c:80: lcd_command(0x06);    // Entry mode: increment cursor, no shift
+	mov	dpl,#0x06
+	lcall	_lcd_command
+;	trial2.c:81: delay(2);
+	mov	dptr,#0x0002
+	lcall	_delay
+;	trial2.c:83: lcd_command(0x80);    // Set cursor to beginning of first line
+	mov	dpl,#0x80
+	lcall	_lcd_command
+;	trial2.c:84: delay(2);
+	mov	dptr,#0x0002
+;	trial2.c:85: }
+	ljmp	_delay
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'print_string'
+;Allocation info for local variables in function 'lcd_string'
 ;------------------------------------------------------------
-;str                       Allocated with name '_print_string_str_65536_38'
+;str                       Allocated with name '_lcd_string_str_65536_16'
 ;------------------------------------------------------------
-;	lcd.c:94: void print_string(char *str)
+;	trial2.c:88: void lcd_string(char *str) {
 ;	-----------------------------------------
-;	 function print_string
+;	 function lcd_string
 ;	-----------------------------------------
-_print_string:
+_lcd_string:
 	mov	r7,b
 	mov	r6,dph
 	mov	a,dpl
-	mov	dptr,#_print_string_str_65536_38
+	mov	dptr,#_lcd_string_str_65536_16
 	movx	@dptr,a
 	mov	a,r6
 	inc	dptr
@@ -532,8 +542,8 @@ _print_string:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	lcd.c:96: while (*str) print_char(*str++);
-	mov	dptr,#_print_string_str_65536_38
+;	trial2.c:89: while(*str) {
+	mov	dptr,#_lcd_string_str_65536_16
 	movx	a,@dptr
 	mov	r5,a
 	inc	dptr
@@ -549,11 +559,12 @@ _print_string:
 	lcall	__gptrget
 	mov	r4,a
 	jz	00108$
+;	trial2.c:90: lcd_data(*str++);
 	inc	r5
 	cjne	r5,#0x00,00116$
 	inc	r6
 00116$:
-	mov	dptr,#_print_string_str_65536_38
+	mov	dptr,#_lcd_string_str_65536_16
 	mov	a,r5
 	movx	@dptr,a
 	mov	a,r6
@@ -566,13 +577,16 @@ _print_string:
 	push	ar7
 	push	ar6
 	push	ar5
-	lcall	_print_char
+	lcall	_lcd_data
+;	trial2.c:91: delay(1);
+	mov	dptr,#0x0001
+	lcall	_delay
 	pop	ar5
 	pop	ar6
 	pop	ar7
 	sjmp	00101$
 00108$:
-	mov	dptr,#_print_string_str_65536_38
+	mov	dptr,#_lcd_string_str_65536_16
 	mov	a,r5
 	movx	@dptr,a
 	mov	a,r6
@@ -581,86 +595,127 @@ _print_string:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	lcd.c:97: }
+;	trial2.c:93: }
 	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_init'
-;------------------------------------------------------------
-;	lcd.c:117: void lcd_init(void) {
-;	-----------------------------------------
-;	 function lcd_init
-;	-----------------------------------------
-_lcd_init:
-;	lcd.c:118: delay_ms(20);    // Wait for power stability
-	mov	dptr,#0x0014
-	lcall	_delay_ms
-;	lcd.c:121: lcd_instruction(0x38);    // Function set: 8-bit, 2 lines, 5x7 dots
-	mov	dpl,#0x38
-	lcall	_lcd_instruction
-;	lcd.c:122: delay_ms(5);             // Wait >4.1ms
-	mov	dptr,#0x0005
-	lcall	_delay_ms
-;	lcd.c:125: lcd_instruction(0x38);    
-	mov	dpl,#0x38
-	lcall	_lcd_instruction
-;	lcd.c:126: delay_ms(1);             // Wait >100us
-	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:129: lcd_instruction(0x38);    
-	mov	dpl,#0x38
-	lcall	_lcd_instruction
-;	lcd.c:130: delay_ms(1);
-	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:133: lcd_instruction(0x0F);    // Display ON, cursor ON, blink ON
-	mov	dpl,#0x0f
-	lcall	_lcd_instruction
-;	lcd.c:134: delay_ms(1);
-	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:136: lcd_instruction(0x01);    // Clear display
-	mov	dpl,#0x01
-	lcall	_lcd_instruction
-;	lcd.c:137: delay_ms(2);             // Clear needs 1.6ms
-	mov	dptr,#0x0002
-	lcall	_delay_ms
-;	lcd.c:139: lcd_instruction(0x06);    // Entry mode set
-	mov	dpl,#0x06
-	lcall	_lcd_instruction
-;	lcd.c:140: delay_ms(1);
-	mov	dptr,#0x0001
-	lcall	_delay_ms
-;	lcd.c:142: lcd_instruction(0x80);    // Set cursor position
-	mov	dpl,#0x80
-	lcall	_lcd_instruction
-;	lcd.c:143: delay_ms(1);
-	mov	dptr,#0x0001
-;	lcd.c:144: }
-	ljmp	_delay_ms
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;	lcd.c:147: void main(void) 
+;testStr                   Allocated with name '_main_testStr_65536_20'
+;i                         Allocated with name '_main_i_65536_20'
+;------------------------------------------------------------
+;	trial2.c:96: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	lcd.c:150: P0 = 0x00;    // Set P0 as output for LCD data
-	mov	_P0,#0x00
-;	lcd.c:151: P1 = 0x00;    // Set P1 control pins as output
-	mov	_P1,#0x00
-;	lcd.c:152: delay_ms(40);
-	mov	dptr,#0x0028
-	lcall	_delay_ms
-;	lcd.c:155: lcd_init();
+;	trial2.c:97: char testStr[] = "LCD Test";
+	mov	dptr,#_main_testStr_65536_20
+	mov	a,#0x4c
+	movx	@dptr,a
+	mov	dptr,#(_main_testStr_65536_20 + 0x0001)
+	mov	a,#0x43
+	movx	@dptr,a
+	mov	dptr,#(_main_testStr_65536_20 + 0x0002)
+	inc	a
+	movx	@dptr,a
+	mov	dptr,#(_main_testStr_65536_20 + 0x0003)
+	mov	a,#0x20
+	movx	@dptr,a
+	mov	dptr,#(_main_testStr_65536_20 + 0x0004)
+	mov	a,#0x54
+	movx	@dptr,a
+	mov	dptr,#(_main_testStr_65536_20 + 0x0005)
+	mov	a,#0x65
+	movx	@dptr,a
+	mov	dptr,#(_main_testStr_65536_20 + 0x0006)
+	mov	a,#0x73
+	movx	@dptr,a
+	mov	dptr,#(_main_testStr_65536_20 + 0x0007)
+	inc	a
+	movx	@dptr,a
+	mov	dptr,#(_main_testStr_65536_20 + 0x0008)
+	clr	a
+	movx	@dptr,a
+;	trial2.c:101: delay(100);
+	mov	dptr,#0x0064
+	lcall	_delay
+;	trial2.c:104: lcd_init();
 	lcall	_lcd_init
-;	lcd.c:157: print_char('H');
-	mov	dpl,#0x48
-	lcall	_print_char
-;	lcd.c:162: while(1) 
-00102$:
-;	lcd.c:166: }
-	sjmp	00102$
+;	trial2.c:105: delay(10);
+	mov	dptr,#0x000a
+	lcall	_delay
+;	trial2.c:108: lcd_data('A');
+	mov	dpl,#0x41
+	lcall	_lcd_data
+;	trial2.c:109: delay(200);
+	mov	dptr,#0x00c8
+	lcall	_delay
+;	trial2.c:110: lcd_data('B');
+	mov	dpl,#0x42
+	lcall	_lcd_data
+;	trial2.c:111: delay(200);
+	mov	dptr,#0x00c8
+	lcall	_delay
+;	trial2.c:112: lcd_data('C');
+	mov	dpl,#0x43
+	lcall	_lcd_data
+;	trial2.c:113: delay(1000);
+	mov	dptr,#0x03e8
+	lcall	_delay
+;	trial2.c:116: lcd_command(0x01);    // Clear display
+	mov	dpl,#0x01
+	lcall	_lcd_command
+;	trial2.c:117: delay(10);
+	mov	dptr,#0x000a
+	lcall	_delay
+;	trial2.c:120: lcd_string(testStr);
+	mov	dptr,#_main_testStr_65536_20
+	mov	b,#0x00
+	lcall	_lcd_string
+;	trial2.c:121: delay(1000);
+	mov	dptr,#0x03e8
+	lcall	_delay
+;	trial2.c:124: lcd_command(0xC0);    // Move to second line
+	mov	dpl,#0xc0
+	lcall	_lcd_command
+;	trial2.c:125: delay(2);
+	mov	dptr,#0x0002
+	lcall	_delay
+;	trial2.c:128: for(i = 0; i < 10; i++) {
+	mov	r7,#0x00
+00105$:
+;	trial2.c:129: lcd_data('0' + i);
+	mov	ar6,r7
+	mov	a,#0x30
+	add	a,r6
+	mov	dpl,a
+	push	ar7
+	lcall	_lcd_data
+;	trial2.c:130: delay(200);
+	mov	dptr,#0x00c8
+	lcall	_delay
+	pop	ar7
+;	trial2.c:128: for(i = 0; i < 10; i++) {
+	inc	r7
+	cjne	r7,#0x0a,00118$
+00118$:
+	jc	00105$
+;	trial2.c:134: while(1) {
+00103$:
+;	trial2.c:136: lcd_command(0x08);    // Display OFF
+	mov	dpl,#0x08
+	lcall	_lcd_command
+;	trial2.c:137: delay(500);
+	mov	dptr,#0x01f4
+	lcall	_delay
+;	trial2.c:138: lcd_command(0x0C);    // Display ON
+	mov	dpl,#0x0c
+	lcall	_lcd_command
+;	trial2.c:139: delay(500);
+	mov	dptr,#0x01f4
+	lcall	_delay
+;	trial2.c:141: }
+	sjmp	00103$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)

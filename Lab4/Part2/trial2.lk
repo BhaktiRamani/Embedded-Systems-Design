@@ -1,5 +1,5 @@
 -muwx
--i lcd.ihx
+-i trial2.ihx
 -M
 -Y
 -X 0x7bff
@@ -16,6 +16,6 @@
 -l libint
 -l liblong
 -l libfloat
-lcd.rel
+trial2.rel
 
 -e

@@ -7,16 +7,14 @@
 #       A tab character must be at the beginning of every command line!
 ################################################################################
 
-
 # Default target
 all: prog.hex
 
-# # Define your variables if needed
-# DEVICE = at89c51rc2
-# HARDWARE = RS232
-# PORT = COM4
-# BAUDRATE = 57600
-# HEX_FILE = syntax.hex
+# Define your variables
+SRC = trial2.c
+OBJ = $(SRC:.c=.rel)
+HEX = prog.hex
+IHX = $(SRC:.c=.ihx)
 
 # Basic git operations
 git-add:
@@ -39,33 +37,15 @@ git-push:
 git-all: git-add git-commit git-push
 
 # Compile phase
-lcd.rel : lcd.c
-	sdcc -I/home/bhakti/Downloads/sdcc/share/sdcc/include -c -mmcs51 --std-sdcc99 --verbose --model-large lcd.c
-
-# 	# Compile heap.c
-# heap.rel:_heap.c
-# 	sdcc --model-large -c _heap.c -D HEAP_SIZE=5120
-
+$(OBJ): $(SRC)
+	sdcc -I/home/bhakti/Downloads/sdcc/share/sdcc/include -c -mmcs51 --std-sdcc99 --verbose --model-large $<
 
 # Link phase
-prog.hex : lcd.rel
-	sdcc --code-loc 0x3000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx lcd.rel
-	packihx lcd.ihx > lcd.hex
+$(HEX): $(OBJ)
+	sdcc --code-loc 0x3000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx $(OBJ)
+	packihx $(IHX) > $(HEX)
 
-
-# # Define the batchisp command as a target
-# flash:
-# 	batchisp -device $(DEVICE) -hardware $(HARDWARE) -port $(PORT) -baudrate $(BAUDRATE) -operation loadbuffer $(HEX_FILE) program verify start reset 1
-
+# Clean generated files
 clean:
-	rm *.rel *.lst *.rst *.hex *.mem *.map *.sym *.lnk *.ihx *.hex *.asm *.lk
-
-
-
-
-
-
-
-
-
+	rm -f *.rel *.lst *.rst *.hex *.mem *.map *.sym *.lnk *.ihx *.asm *.lk
 
