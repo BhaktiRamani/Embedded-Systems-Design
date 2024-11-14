@@ -67,7 +67,7 @@ CABS                                00000000    00000000 =           0. bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00000100  l_IRAM                          
-C:   0000014E  l_CSEG                          
+C:   00000138  l_CSEG                          
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   00000408  s_XISEG                         
@@ -81,8 +81,8 @@ C:   0000305F  s_GSFINAL
 C:   0000305F  s_GSINIT                        
 C:   0000305F  s_GSINIT5                       
 C:   00003062  s_CSEG                          
-C:   000031B0  s_CONST                         
-C:   000031B0  s_XINIT                         
+C:   0000319A  s_CONST                         
+C:   0000319A  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -462,25 +462,25 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003062    0000014E =         334. bytes (REL,CON,CODE)
+CSEG                                00003062    00000138 =         312. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00003062  _delay_ms                          lcd
 C:   00003095  _lcd_wait                          lcd
 C:   000030BF  _lcd_instruction                   lcd
-C:   000030E2  _print_char                        lcd
-C:   00003105  _print_string                      lcd
-C:   0000315B  _lcd_init                          lcd
-C:   0000317F  _main                              lcd
-C:   00003190  __gptrget                          _gptrget
-C:   000031AC  __sdcc_external_startup            _startup
+C:   000030D7  _print_char                        lcd
+C:   000030EF  _print_string                      lcd
+C:   00003145  _lcd_init                          lcd
+C:   00003169  _main                              lcd
+C:   0000317A  __gptrget                          _gptrget
+C:   00003196  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               000031B0    00000002 =           2. bytes (REL,CON,CODE)
+XINIT                               0000319A    00000002 =           2. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

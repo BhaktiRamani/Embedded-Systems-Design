@@ -71,29 +71,31 @@ void lcd_wait(void) {
 // Function to send instruction to LCD
 void lcd_instruction(unsigned char command)
 {
-    lcd_wait();               // Wait until LCD is ready
+    //lcd_wait();               // Wait until LCD is ready
+    P0 = command;       // Send command
     LCD_RS = 0;              // Select command register
     LCD_RW = 0;              // Write mode
     LCD_EN = 1; 
     delay_ms(1);
-    P0 = command;       // Send command
+
     LCD_EN = 0;              // Enable low
-    delay_ms(5);             // Small delay
+
     // delay_ms(1);             // Small delay
 }
 
 // Function to print character on LCD
 void print_char(unsigned char c) {
-    lcd_wait();               // Wait until LCD is ready
+    //lcd_wait();               // Wait until LCD is ready
+        P0 =  c;            // Send character
     LCD_RS = 1;              // Select data register
     LCD_RW = 0;              // Write mode
-    P0 =  c;            // Send character
+
     //LCD_EN = 0;
     
     LCD_EN = 1;              // Enable high
     delay_ms(1);             // Small delay
     LCD_EN = 0;              // Enable low
-    delay_ms(5);             // Small delay
+    //delay_ms(5);             // Small delay
 }
 
 // Function to print string on LCD
@@ -122,7 +124,7 @@ void lcd_init(void) {
 
 // Main function example
 void main(void) {
-    delay_ms(50);
+    delay_ms(40);
     // Initialize LCD
     lcd_init();
     
