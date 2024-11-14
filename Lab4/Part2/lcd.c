@@ -28,12 +28,7 @@ void delay_ms(unsigned int ms) {
     for (i = 0; i < ms; i++)
         for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
 }
-//uint16_t  *LCD_LOCATION = (uint16_t *)0x8000;
-__xdata uint8_t *LCD_LOCATION = (__xdata uint8_t *)0x8000;
 
-// The address used to read LCD commands
-#define LCD_COMMAND_READ_ADDRESS    (uint8_t *)0xF000
-volatile uint8_t __at(LCD_COMMAND_READ_ADDRESS) lcd_ptr;
 
 // LCD commands
 #define LCD_CLEAR           0x01    // Clear display
@@ -71,13 +66,12 @@ void lcd_wait(void) {
 // Function to send instruction to LCD
 void lcd_instruction(unsigned char command)
 {
-    //lcd_wait();               // Wait until LCD is ready
+    lcd_wait();               // Wait until LCD is ready
     P0 = command;       // Send command
     LCD_RS = 0;              // Select command register
     LCD_RW = 0;              // Write mode
     LCD_EN = 1; 
     delay_ms(1);
-
     LCD_EN = 0;              // Enable low
 
     // delay_ms(1);             // Small delay
@@ -85,8 +79,8 @@ void lcd_instruction(unsigned char command)
 
 // Function to print character on LCD
 void print_char(unsigned char c) {
-    //lcd_wait();               // Wait until LCD is ready
-        P0 =  c;            // Send character
+    lcd_wait();               // Wait until LCD is ready
+    P0 =  c;            // Send character
     LCD_RS = 1;              // Select data register
     LCD_RW = 0;              // Write mode
 
