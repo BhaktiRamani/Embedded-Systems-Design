@@ -439,16 +439,16 @@ Symbol Table
  19 __xinit__LCD_LOCATION                                          000000 R
  17 _delay_ms                                                      000000 GR
   B _delay_ms_ms_65536_27                                          000000 R
- 17 _lcd_init                                                      0000E7 GR
+ 17 _lcd_init                                                      0000F9 GR
  17 _lcd_instruction                                               00005D GR
   B _lcd_instruction_command_65536_34                              000003 R
     _lcd_ptr                                                    =  00F000 G
  17 _lcd_wait                                                      000033 GR
   B _lcd_wait_busy_65536_32                                        000002 R
- 17 _main                                                          00010B GR
- 17 _print_char                                                    000077 GR
+ 17 _main                                                          00011D GR
+ 17 _print_char                                                    000080 GR
   B _print_char_c_65536_36                                         000004 R
- 17 _print_string                                                  000091 GR
+ 17 _print_string                                                  0000A3 GR
   B _print_string_str_65536_38                                     000005 R
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -679,7 +679,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size    114   flags   20
+  17 CSEG                                       size    12E   flags   20
   18 CONST                                      size      0   flags   20
   19 XINIT                                      size      2   flags   20
   1A CABS                                       size      0   flags   28

@@ -74,11 +74,11 @@ void lcd_instruction(unsigned char command)
     lcd_wait();               // Wait until LCD is ready
     LCD_RS = 0;              // Select command register
     LCD_RW = 0;              // Write mode
+    LCD_EN = 1; 
+    delay_ms(1);
     P0 = command;       // Send command
-    LCD_EN = 0;              // Enable high
-    LCD_EN = 1;              // Enable high
-    // delay_ms(1);             // Small delay
     LCD_EN = 0;              // Enable low
+    delay_ms(5);             // Small delay
     // delay_ms(1);             // Small delay
 }
 
@@ -88,11 +88,12 @@ void print_char(unsigned char c) {
     LCD_RS = 1;              // Select data register
     LCD_RW = 0;              // Write mode
     P0 =  c;            // Send character
-    LCD_EN = 0;
+    //LCD_EN = 0;
+    
     LCD_EN = 1;              // Enable high
-    //delay_ms(1);             // Small delay
+    delay_ms(1);             // Small delay
     LCD_EN = 0;              // Enable low
-    //delay_ms(1);             // Small delay
+    delay_ms(5);             // Small delay
 }
 
 // Function to print string on LCD
@@ -105,7 +106,7 @@ void print_string(char *str)
 void lcd_init(void) {
     delay_ms(20);            // Power-on delay
 
-    lcd_instruction(LCD_CLEAR);           // Clear display
+    //lcd_instruction(LCD_CLEAR);           // Clear display
     lcd_instruction(LCD_FUNCTION_SET);    // 8-bit mode, 2 lines, 5x7 dots
     // delay_ms(5);
     // lcd_instruction(LCD_FUNCTION_SET);    // Repeat command
@@ -115,11 +116,13 @@ void lcd_init(void) {
     lcd_instruction(LCD_DISPLAY_ON);      // Display ON, cursor ON, blink ON
     lcd_instruction(LCD_ENTRY_MODE);      // Entry mode set
     lcd_instruction(LCD_CLEAR);           // Clear display
+    lcd_instruction(LCD_SET_CURSOR);
 
 }
 
 // Main function example
 void main(void) {
+    delay_ms(50);
     // Initialize LCD
     lcd_init();
     
@@ -128,7 +131,8 @@ void main(void) {
     // print_string("Hello World!");
 
     // Main loop
-    // while(1) {
-    //     // Your main program loop here
-    // }
+    while(1) 
+    {
+        // Your main program loop here
+    }
 }

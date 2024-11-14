@@ -679,21 +679,23 @@ _lcd_instruction:
 ;	lcd.c:76: LCD_RW = 0;              // Write mode
 ;	assignBit
 	clr	_P1_6
-;	lcd.c:77: P0 = command;       // Send command
+;	lcd.c:77: LCD_EN = 1; 
+;	assignBit
+	setb	_P1_7
+;	lcd.c:78: delay_ms(1);
+	mov	dptr,#0x0001
+	lcall	_delay_ms
+;	lcd.c:79: P0 = command;       // Send command
 	mov	dptr,#_lcd_instruction_command_65536_34
 	movx	a,@dptr
 	mov	_P0,a
-;	lcd.c:78: LCD_EN = 0;              // Enable high
+;	lcd.c:80: LCD_EN = 0;              // Enable low
 ;	assignBit
 	clr	_P1_7
-;	lcd.c:79: LCD_EN = 1;              // Enable high
-;	assignBit
-	setb	_P1_7
-;	lcd.c:81: LCD_EN = 0;              // Enable low
-;	assignBit
-	clr	_P1_7
+;	lcd.c:81: delay_ms(5);             // Small delay
+	mov	dptr,#0x0005
 ;	lcd.c:83: }
-	ret
+	ljmp	_delay_ms
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'print_char'
 ;------------------------------------------------------------
@@ -719,23 +721,25 @@ _print_char:
 	mov	dptr,#_print_char_c_65536_36
 	movx	a,@dptr
 	mov	_P0,a
-;	lcd.c:91: LCD_EN = 0;
-;	assignBit
-	clr	_P1_7
-;	lcd.c:92: LCD_EN = 1;              // Enable high
+;	lcd.c:93: LCD_EN = 1;              // Enable high
 ;	assignBit
 	setb	_P1_7
-;	lcd.c:94: LCD_EN = 0;              // Enable low
+;	lcd.c:94: delay_ms(1);             // Small delay
+	mov	dptr,#0x0001
+	lcall	_delay_ms
+;	lcd.c:95: LCD_EN = 0;              // Enable low
 ;	assignBit
 	clr	_P1_7
-;	lcd.c:96: }
-	ret
+;	lcd.c:96: delay_ms(5);             // Small delay
+	mov	dptr,#0x0005
+;	lcd.c:97: }
+	ljmp	_delay_ms
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'print_string'
 ;------------------------------------------------------------
 ;str                       Allocated with name '_print_string_str_65536_38'
 ;------------------------------------------------------------
-;	lcd.c:99: void print_string(char *str)
+;	lcd.c:100: void print_string(char *str)
 ;	-----------------------------------------
 ;	 function print_string
 ;	-----------------------------------------
@@ -751,7 +755,7 @@ _print_string:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	lcd.c:101: while (*str) print_char(*str++);
+;	lcd.c:102: while (*str) print_char(*str++);
 	mov	dptr,#_print_string_str_65536_38
 	movx	a,@dptr
 	mov	r5,a
@@ -800,49 +804,55 @@ _print_string:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	lcd.c:102: }
+;	lcd.c:103: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_init'
 ;------------------------------------------------------------
-;	lcd.c:105: void lcd_init(void) {
+;	lcd.c:106: void lcd_init(void) {
 ;	-----------------------------------------
 ;	 function lcd_init
 ;	-----------------------------------------
 _lcd_init:
-;	lcd.c:106: delay_ms(20);            // Power-on delay
+;	lcd.c:107: delay_ms(20);            // Power-on delay
 	mov	dptr,#0x0014
 	lcall	_delay_ms
-;	lcd.c:108: lcd_instruction(LCD_CLEAR);           // Clear display
-	mov	dpl,#0x01
-	lcall	_lcd_instruction
-;	lcd.c:109: lcd_instruction(LCD_FUNCTION_SET);    // 8-bit mode, 2 lines, 5x7 dots
+;	lcd.c:110: lcd_instruction(LCD_FUNCTION_SET);    // 8-bit mode, 2 lines, 5x7 dots
 	mov	dpl,#0x38
 	lcall	_lcd_instruction
-;	lcd.c:115: lcd_instruction(LCD_DISPLAY_ON);      // Display ON, cursor ON, blink ON
+;	lcd.c:116: lcd_instruction(LCD_DISPLAY_ON);      // Display ON, cursor ON, blink ON
 	mov	dpl,#0x0f
 	lcall	_lcd_instruction
-;	lcd.c:116: lcd_instruction(LCD_ENTRY_MODE);      // Entry mode set
+;	lcd.c:117: lcd_instruction(LCD_ENTRY_MODE);      // Entry mode set
 	mov	dpl,#0x06
 	lcall	_lcd_instruction
-;	lcd.c:117: lcd_instruction(LCD_CLEAR);           // Clear display
+;	lcd.c:118: lcd_instruction(LCD_CLEAR);           // Clear display
 	mov	dpl,#0x01
-;	lcd.c:119: }
+	lcall	_lcd_instruction
+;	lcd.c:119: lcd_instruction(LCD_SET_CURSOR);
+	mov	dpl,#0x80
+;	lcd.c:121: }
 	ljmp	_lcd_instruction
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;	lcd.c:122: void main(void) {
+;	lcd.c:124: void main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	lcd.c:124: lcd_init();
+;	lcd.c:125: delay_ms(50);
+	mov	dptr,#0x0032
+	lcall	_delay_ms
+;	lcd.c:127: lcd_init();
 	lcall	_lcd_init
-;	lcd.c:126: print_char('H');
+;	lcd.c:129: print_char('H');
 	mov	dpl,#0x48
-;	lcd.c:134: }
-	ljmp	_print_char
+	lcall	_print_char
+;	lcd.c:134: while(1) 
+00102$:
+;	lcd.c:138: }
+	sjmp	00102$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)
