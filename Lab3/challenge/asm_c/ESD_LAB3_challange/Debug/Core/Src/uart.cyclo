@@ -1,0 +1,10 @@
+../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	2
+../Drivers/CMSIS/Include/core_cm4.h:1775:22:__NVIC_ClearPendingIRQ	2
+../Drivers/CMSIS/Include/core_cm4.h:1814:22:__NVIC_SetPriority	2
+../Core/Src/uart.c:43:5:putchar	1
+../Core/Src/uart.c:53:5:getchar	1
+../Core/Src/uart.c:62:6:_uart_tx_init	1
+../Core/Src/uart.c:110:13:uart_write	2
+../Core/Src/uart.c:120:5:uart_read	2
+../Core/Src/uart.c:132:17:_compute_uart_bd	1
+../Core/Src/uart.c:142:13:uart_set_baudrate	1

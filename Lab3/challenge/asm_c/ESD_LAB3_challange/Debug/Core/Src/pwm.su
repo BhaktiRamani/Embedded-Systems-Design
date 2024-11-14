@@ -1,0 +1,4 @@
+../Core/Src/pwm.c:28:6:PWM_init	4	static
+../Core/Src/pwm.c:60:6:pwm_timer_start	4	static
+../Core/Src/pwm.c:66:6:pwm_timer_stop	4	static
+../Core/Src/pwm.c:72:6:pwm_timer_execution	16	static

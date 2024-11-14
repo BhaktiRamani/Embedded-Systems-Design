@@ -28,7 +28,8 @@ int eeprom_read(unsigned int address);
 unsigned char take_data();
 unsigned int take_address();
 void eeprom_reset();
-void eeprom_hex_dump(unsigned int start_location, unsigned int end_location);
+void handler_EEPROM_hexdump(void);
+void EEPROM_hexump(uint16_t start_address, uint16_t end_address);
 
 int putchar(int charToSend) {
     SBUF = charToSend;  // Send character to serial buffer
@@ -99,7 +100,7 @@ int main()
                     data_range_flag = 1;
                     break;
                 }
-                printf("check point 1 \n\r");
+                //printf("check point 1 \n\r");
                 eeprom_write(addr, data);
                 break;
             }
@@ -133,7 +134,8 @@ int main()
                 start_add = take_address(); 
                 unsigned int end_add;
                 end_add = take_address(); 
-                eeprom_hex_dump(start_add, end_add );
+                //eeprom_hex_dump(start_add, end_add );
+                handler_EEPROM_hexdump(start_add, end_add);
             
             default:
                 printf("INVALID INPUT\n\r");
@@ -343,7 +345,7 @@ int eeprom_read(unsigned int address)
     // Read data (send NACK after as it's the last byte)
     result = i2c_read(0);  // 0 means send NACK
     //printf("│ Reading from Adress: 0x%03X Data: 0x%02X                    \n\r", address, result);
-    //printf("| 0x%03X : 0x%02X \n\r", address, result);
+    printf("| 0x%03X : 0x%02X \n\r", address, result);
     printf("│ Read successful!                 │\n\r");
     printf("└───────────────────────────────────────────────┘\n\r");
     i2c_stop();
@@ -412,34 +414,63 @@ void i2c_start(void)
     i2c_delay();
     SCL = 0;
 }
-void eeprom_hex_dump(unsigned int start_location, unsigned int end_location) {
-    uint8_t *ptr = (uint8_t *)start_location;
-    uint16_t offset = 0;
-    size_t total_bytes = end_location - start_location;
+void EEPROM_hexump(uint16_t start_address, uint16_t end_address)
+{
+    printf_tiny("\033[1;34m\n\rI2C EEPROM DUMP!!\r\n");
 
-    while ((unsigned int)ptr < end_location) {
-        // Print address in AAAA format
-        printf("\n\r| %04X      |", (unsigned int)ptr);
+    __xdata uint8_t count = 0, i = 0, temp_storage = 0, data_byte = 0;
+    __xdata uint16_t address = start_address;
 
-        // Display up to 16 bytes in hex format
-        for (int i = 0; i < 16 && ((unsigned int)(ptr + i)) < end_location; i++) {
-            printf(" %02X", ptr[i]);
+    while (address <= end_address) {
+        if (count % DIVIDE_BY_16 == 0) {
+            putchar('\n');
+            putchar('\r');
+            print_hex_number(address, 3);
+            putchar(':');
         }
+        putchar(ASCII_SPACE);//space
+        data_byte = i2c_eeprom_read(address);
+        print_hex_number(data_byte, 2);
 
-        // Pad remaining space if less than 16 bytes
-        for (int i = (end_location - (unsigned int)ptr); i < 16; i++) {
-            printf("   ");
-        }
-
-        printf(" |");
-        ptr += 16;
-        offset += 16;
+        address++;
+        count++;
     }
-    printf("│ Hex Dump successful!                 │\n\r");
-    printf("└───────────────────────────────────────────────┘\n\r");
-    printf("\n");
+    printf("\033[0m\r\n");
+    return;
 }
 
+
+void handler_EEPROM_hexdump(void)
+{
+    __xdata uint16_t start_addr = 0;
+    printf_tiny("\033[1;33m\n\rEnter Start Address for HEX Dump\r\n");
+    start_addr = parse_user_input(HEX_BASE);
+
+    if(start_addr >= 0 && start_addr <= ADDR_MAX)
+    {
+        // correct address range
+    }
+    else{
+        printf("\033[1;31m\n\rInvalid Start Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
+        return;
+    }
+
+    __xdata uint16_t end_addr = 0;
+
+    printf_tiny("\033[1;33m\n\rEnter End Address for HEX Dump\r\n");
+    end_addr = parse_user_input(HEX_BASE);
+
+    if(end_addr >= 0 && end_addr <= ADDR_MAX)
+    {
+        // correct address range
+    }
+    else{
+        printf("\033[1;31m\n\rInvalid End Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
+        return;
+    }
+
+    EEPROM_hexump(start_addr,end_addr);
+}
 void i2c_stop(void)
 {
     SDA = 0;

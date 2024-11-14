@@ -1,10 +1,22 @@
-/******************************************************************************
-* File Name: syntax.c
-* Description: Buffer Management System implementation for ESD Lab 3 Part 2
-* Author: Bhakti Ramani
-* Tools: SDCC, VS Code
-* Date: October 25, 2024
-*******************************************************************************/
+/*********************************************************************
+ * File Name: syntax.c
+ *
+ * Purpose:
+ *     Buffer Management System implementation for ESD Lab 3 Part 2.
+ *     Provides dynamic buffer allocation, management and monitoring
+ *     capabilities with UART interface.
+ *
+ * Features:
+ *     - Dynamic buffer creation/deletion
+ *     - Memory allocation tracking
+ *     - Resource usage statistics
+ *     - UART-based user interface
+ *     - Debug capability via port 0xFEFE
+ *
+ * Author: Bhakti Ramani
+ * Tools: SDCC, VS Code
+ * Date: October 25, 2024
+ *********************************************************************/
 
 #include <mcs51/8051.h>
 #include <at89c51ed2.h>
@@ -71,14 +83,6 @@ void dataout(uint16_t address, uint8_t value)
 #define DEBUGPORT(x)
 #endif
 
-/* Global tracking variables */
-static uint8_t index_of_buffers = 0;
-uint8_t total_number_of_commands = 0;
-uint8_t total_number_of_storage = 0;
-uint8_t recent_commands = 0;
-uint8_t recent_storage = 0;
-uint8_t recived_bytes = 0;
-
 /* Function prototypes */
 void print_prompt(const char * string);
 int getchar(void);
@@ -90,57 +94,138 @@ void init_uart(void);
 __idata int temp_buffer_size = 0;
 uint8_t * wr = 0;
 
-/* Node structure for buffer management */
-typedef struct node_s{
-    uint8_t index;
-    uint8_t * data_pointer;
-    int size;
-}node_t;
+/**
+ * @struct node_s
+ * @brief Buffer node structure for managing allocated buffers
+ *
+ * @param index        Unique identifier for the buffer
+ * @param data_pointer Pointer to allocated memory
+ * @param size         Size of allocated buffer in bytes
+ */
+typedef struct node_s {
+    uint8_t index;           /* Buffer identifier */
+    uint8_t * data_pointer; /* Pointer to buffer memory */
+    int size;               /* Buffer size in bytes */
+} node_t;
+
+/* Global tracking variables */
+static uint8_t index_of_buffers = 0;        /* Current buffer count */
+uint8_t total_number_of_commands = 0;       /* Total commands processed */
+uint8_t total_number_of_storage = 0;        /* Total bytes stored */
+uint8_t recent_commands = 0;                /* Recent command count */
+uint8_t recent_storage = 0;                 /* Recent storage count */
+uint8_t recived_bytes = 0;                  /* Bytes received via UART */
 
 /* Buffer management arrays and pointers */
 node_t array_for_nodes[MAX_BUFFERS];
 __xdata uint8_t* pointer1 = NULL;
 __xdata uint8_t* pointer2 = NULL;
+
+
 /*******************************************************************************
 * Function: init_uart
-* Description: Initializes UART with 9600 baud rate
+*
+* Purpose:
+*     Initializes the UART interface with specific settings for serial
+*     communication.
+*
+* Parameters:
+*     None
+*
+* Returns:
+*     None
+*
+* Configuration:
+*     - Mode: UART Mode 1 (8-bit UART)
+*     - Timer: Mode 2 (8-bit auto-reload)
+*     - Baud Rate: 9600 bps
+*
+* Notes:
+*     - Uses Timer 1 for baud rate generation
+*     - Must be called before any UART communication
 *******************************************************************************/
 void init_uart(void)
 {
-     SCON = UART_MODE_1;
-     TMOD = TIMER_MODE_2;
-     TH1 = BAUD_9600;
-     TR1 = 1;
+     SCON = UART_MODE_1;    /* Set UART mode 1 - 8-bit UART */
+     TMOD = TIMER_MODE_2;   /* Set Timer 1 mode 2 for baud rate generation */
+     TH1 = BAUD_9600;       /* Load timer value for 9600 baud */
+     TR1 = 1;               /* Start Timer 1 */
 }
 
 /*******************************************************************************
 * Function: putchar
-* Description: Transmits a character through UART
+*
+* Purpose:
+*     Transmits a single character through UART
+*
+* Parameters:
+*     chr: Character to transmit
+*
+* Returns:
+*     1: Always returns 1 to indicate successful transmission
+*
+* Notes:
+*     - Blocks until transmission is complete
+*     - Used by printf for string output
 *******************************************************************************/
 int putchar(int chr)
 {
-    SBUF = chr;
-    while(!TI);
-    TI = 0;
+    DEBUGPORT(DBG_TX);      /* Signal transmission start */
+    SBUF = chr;             /* Load character into transmit buffer */
+    while(!TI);             /* Wait for transmission complete */
+    TI = 0;                 /* Clear transmit interrupt flag */
     return 1;
 }
 
 /*******************************************************************************
 * Function: getchar
-* Description: Receives a character through UART
+*
+* Purpose:
+*     Receives a single character through UART
+*
+* Parameters:
+*     None
+*
+* Returns:
+*     int: Received character
+*
+* Side Effects:
+*     - Increments recived_bytes counter
+*     - Blocks until character is received
 *******************************************************************************/
 int getchar(void)
 {
-    while(!RI);
-    int a = SBUF;
-    RI = 0;
-    recived_bytes++;
+    DEBUGPORT(DBG_RX);      /* Signal receive start */
+    while(!RI);             /* Wait for character reception */
+    int a = SBUF;           /* Read received character */
+    RI = 0;                 /* Clear receive interrupt flag */
+    recived_bytes++;        /* Update received byte count */
     return a;
 }
 
 /*******************************************************************************
 * Function: get_buf_value
-* Description: Gets and validates buffer size from user input
+*
+* Purpose:
+*     Gets and validates a buffer size from user input
+*
+* Parameters:
+*     string: Prompt message to display
+*     UPPER: Maximum allowed value
+*     LOWER: Minimum allowed value
+*
+* Returns:
+*     int: Validated buffer size or -1 if invalid
+*
+* Constraints:
+*     - Input must be numeric
+*     - Value must be within UPPER and LOWER bounds
+*     - Value must be multiple of BUFFER_ALIGN
+*
+* Error Handling:
+*     - Invalid characters trigger error message
+*     - Out of range values trigger error message
+*     - Misaligned values trigger error message
 *******************************************************************************/
 int get_buf_value(const char* string, int UPPER, int LOWER) {
     int buffer_size = 0;
@@ -156,33 +241,43 @@ int get_buf_value(const char* string, int UPPER, int LOWER) {
         int i = 0;
         char c;
 
+        /* Process input digits */
         while ((c = getchar()) != ASCII_ENTER && digit_count < MAX_INPUT_DIGITS) {
+            /* Validate numeric input */
             if (c < ASCII_CHAR_0 || c > ASCII_CHAR_9) {
                 printf("\n\r| ERROR: Invalid input - Please enter numbers only     |");
                 printf("\n\r+--------------------------------------------------+\n\r");
-
-                while (getchar() != ASCII_ENTER);
+                while (getchar() != ASCII_ENTER); /* Clear input buffer */
                 buffer_size = -1;
                 break;
             }
 
-            putchar(c);
-            input[i++] = c;
+            putchar(c);                 /* Echo character */
+            input[i++] = c;             /* Store digit */
             digit_count++;
+            /* Build number from digits */
             buffer_size = buffer_size * DECIMAL_BASE + (c - ASCII_CHAR_0);
         }
 
+        /* Handle invalid input */
         if (buffer_size == -1) {
             continue;
         }
 
-        if ((buffer_size % BUFFER_ALIGN) != 0 || (buffer_size < LOWER) || (buffer_size > UPPER)) {
+        /* Validate range and alignment */
+        if ((buffer_size % BUFFER_ALIGN) != 0 ||
+            (buffer_size < LOWER) ||
+            (buffer_size > UPPER)) {
             printf("\n\r| ERROR: Invalid buffer size                          |");
-            printf("\n\r| - Must be between %d and %d                       |", LOWER, UPPER);
-            printf("\n\r| - Must be multiple of %d                          |", BUFFER_ALIGN);
+            printf("\n\r| - Must be between %d and %d                       |",
+                   LOWER, UPPER);
+            printf("\n\r| - Must be multiple of %d                          |",
+                   BUFFER_ALIGN);
             printf("\n\r+--------------------------------------------------+\n\r");
             continue;
         }
+
+        /* Display final value */
         printf("\n\r| Input size: %-39d |", buffer_size);
         printf("\n\r+--------------------------------------------------+\n\r");
         valid_input = 1;
@@ -190,7 +285,6 @@ int get_buf_value(const char* string, int UPPER, int LOWER) {
 
     return buffer_size;
 }
-
 
 /*******************************************************************************
 * Function: print_prompt
@@ -238,51 +332,30 @@ int get_number(const char* prompt)
     return buffer_size;
 }
 
-/*******************************************************************************
-* Function: print_prompt
-* Description: Displays a string message through UART
-*******************************************************************************/
-void print_prompt(const char * string) {
-   while(*string != '\0') {
-       putchar(*string);
-       string++;
-   }
-}
 
-/*******************************************************************************
-* Function: get_number
-* Description: Gets and validates a number from user input
-*******************************************************************************/
-int get_number(const char* prompt)
-{
-    int buffer_size = 0;
-    char c;
-    int index = 100;
-
-    print_prompt("\n\r+--------------------------------------------------+");
-    print_prompt(prompt);
-
-    while (index >= 1 && (c = getchar()) != ASCII_ENTER) {
-        if (c < ASCII_CHAR_0 || c > ASCII_CHAR_9) {
-            printf("\n\r| ERROR: Invalid input - Please enter numbers only     |");
-            printf("\n\r+--------------------------------------------------+\n\r");
-            return -1;
-        }
-
-        putchar(c);
-        buffer_size += (c - ASCII_CHAR_0) * index;
-        index = index/DECIMAL_BASE;
-    }
-
-    printf("\n\r| Input size: %-39d |", buffer_size);
-    printf("\n\r+--------------------------------------------------+\n\r");
-
-    return buffer_size;
-}
 
 /*******************************************************************************
 * Function: get_command
-* Description: Processes user commands for buffer operations
+*
+* Purpose:
+*     Processes user commands for buffer operations and system control
+*
+* Parameters:
+*     command: Character representing the command to execute
+*
+* Returns:
+*     0: Command executed successfully
+*     -1: Command execution failed or invalid input
+*
+* Supported Commands:
+*     '@' (CMD_RESET): Reset system and deallocate buffers
+*     '?' (CMD_STATUS): Display system status and buffer info
+*     '+' (CMD_CREATE): Create new buffer
+*     '-' (CMD_DELETE): Delete existing buffer
+*     '=' (CMD_DISPLAY): Display Buffer 0 contents
+*
+* Notes:
+*     - Uses pragma less_pedantic for compiler optimization
 *******************************************************************************/
 #pragma less_pedantic
 int get_command(int command)
@@ -297,13 +370,14 @@ int get_command(int command)
             printf("\n\r| BUFFER DEALLOCATION STATUS                      |");
             printf("\n\r|------------------------------------------------|");
 
+              /* Count total active buffers */
             int total_buffers = 0;
             for(int i = 0; i < MAX_BUFFERS; i++) {
                 if(array_for_nodes[i].data_pointer != NULL) {
                     total_buffers++;
                 }
             }
-
+            /* Free all allocated buffers */
             printf("\n\r| Buffers to Free  | %-28d |", total_buffers);
 
             for(int i = 0; i < MAX_BUFFERS; i++) {
@@ -384,12 +458,13 @@ int get_command(int command)
         case CMD_CREATE:
             DEBUGPORT(DBG_CREATE);
             printf("\n\r+----------------BUFFER CREATION------------------+");
+           /* Get and validate buffer size */
             temp_value = get_number("\n\r| Enter buffer size (50-500): ");
             if(temp_value < SMALL_BUFFER_MIN || temp_value > SMALL_BUFFER_MAX) {
                 printf("\n\r ERROR : Invalid request\n\r");
                 return -1;
             }
-            else {
+            else {/* Attempt buffer allocation */
                 printf("\n\r| Requested Size: %-32d |", temp_value);
                 pointer = (__xdata uint8_t *) malloc(temp_value);
                 if (pointer == NULL) {
@@ -399,7 +474,7 @@ int get_command(int command)
                     printf("\n\r| SUCCESS: Buffer created successfully            |");
                 }
                 printf("\n\r+--------------------------------------------------+\n\r");
-
+             /* Update buffer tracking */
                 node_t node = {index_of_buffers, pointer, temp_value};
                 array_for_nodes[index_of_buffers] = node;
                 index_of_buffers++;
@@ -437,7 +512,24 @@ int get_command(int command)
 
 /*******************************************************************************
 * Function: buffer0_dump
-* Description: Displays contents of Buffer 0 in hexadecimal format
+*
+* Purpose:
+*     Displays contents of Buffer 0 in hexadecimal format with addressing
+*
+* Parameters:
+*     None
+*
+* Returns:
+*     None
+*
+* Display Format:
+*     - Shows 16 bytes per line with corresponding address
+*     - Displays in hexadecimal format
+*     - Handles partial lines at end of buffer
+*
+* Notes:
+*     - Checks for NULL buffer before display
+*     - Uses formatted output for clean display
 *******************************************************************************/
 void buffer0_dump(void) {
     printf("\n\r+---------------BUFFER 0 CONTENTS-----------------+");
@@ -449,21 +541,24 @@ void buffer0_dump(void) {
         printf("BUFFER 0 DOES NOT EXIST\n\r");
         return;
     }
-
+     /* Setup pointers and counters */
     uint8_t *rd_ptr = array_for_nodes[BUFFER_0_INDEX].data_pointer;
     uint16_t remaining_bytes = array_for_nodes[BUFFER_0_INDEX].size;
 
+     /* Display buffer contents */
     for (uint16_t offset = 0; offset < total_number_of_storage; offset += BYTES_PER_LINE) {
         printf("\n\r| %04X      |", (uint16_t)(uintptr_t)rd_ptr);
 
+        /* Display address */
         for (int i = 0; i < BYTES_PER_LINE && (offset + i) < remaining_bytes; i++) {
             printf(" %02X", rd_ptr[i]);
         }
 
+        /* Display hex values */
         for (int i = remaining_bytes - offset; i < BYTES_PER_LINE; i++) {
             printf("   ");
         }
-
+        /* Pad partial lines */
         printf(" |");
         rd_ptr += BYTES_PER_LINE;
     }
