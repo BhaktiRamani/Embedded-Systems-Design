@@ -64,33 +64,30 @@ void lcd_wait(void) {
     LCD_RW = 0;               // Write mode
 }
 
-// Function to send instruction to LCD
-void lcd_instruction(unsigned char command)
+void lcd_instruction(unsigned char command) 
 {
-    //lcd_wait();               // Wait until LCD is ready
-    P0 = command;       // Send command
-    LCD_RS = 0;              // Select command register
+    LCD_RS = 0;              // Command mode
     LCD_RW = 0;              // Write mode
-    LCD_EN = 1; 
-    delay_ms(1);
+    LCD_EN = 0;              // Ensure EN is low
+    P0 = command;            // Put command on data bus
+    delay_ms(1);             // Wait for data to stabilize
+    LCD_EN = 1;              // Enable high
+    delay_ms(1);             // Wait
     LCD_EN = 0;              // Enable low
-
-    // delay_ms(1);             // Small delay
+    delay_ms(1);             // Wait for LCD to process
 }
 
 // Function to print character on LCD
 void print_char(unsigned char c) {
-    //lcd_wait();               // Wait until LCD is ready
-    P0 =  c;            // Send character
-    LCD_RS = 1;              // Select data register
+    LCD_RS = 1;              // Data mode
     LCD_RW = 0;              // Write mode
-
-    //LCD_EN = 0;
-    
+    LCD_EN = 0;              // Ensure EN is low
+    P0 = c;                  // Put data on bus
+    delay_ms(1);             // Wait for data to stabilize
     LCD_EN = 1;              // Enable high
-    delay_ms(1);             // Small delay
+    delay_ms(1);             // Wait
     LCD_EN = 0;              // Enable low
-    //delay_ms(5);             // Small delay
+    delay_ms(1);             // Wait for LCD to process
 }
 
 // Function to print string on LCD
@@ -100,26 +97,60 @@ void print_string(char *str)
 }
 
 // Function to initialize LCD
+// void lcd_init(void) {
+//     delay_ms(20);            // Power-on delay
+
+//     //lcd_instruction(LCD_CLEAR);           // Clear display
+//     lcd_instruction(LCD_FUNCTION_SET);    // 8-bit mode, 2 lines, 5x7 dots
+//     // delay_ms(5);
+//     // lcd_instruction(LCD_FUNCTION_SET);    // Repeat command
+//     // delay_ms(1);
+//     // lcd_instruction(LCD_FUNCTION_SET);    // Repeat command
+
+//     lcd_instruction(LCD_DISPLAY_ON);      // Display ON, cursor ON, blink ON
+//     lcd_instruction(LCD_ENTRY_MODE);      // Entry mode set
+//     lcd_instruction(LCD_CLEAR);           // Clear display
+//     lcd_instruction(LCD_SET_CURSOR);
+
+// }
+
 void lcd_init(void) {
-    delay_ms(20);            // Power-on delay
-
-    //lcd_instruction(LCD_CLEAR);           // Clear display
-    lcd_instruction(LCD_FUNCTION_SET);    // 8-bit mode, 2 lines, 5x7 dots
-    // delay_ms(5);
-    // lcd_instruction(LCD_FUNCTION_SET);    // Repeat command
-    // delay_ms(1);
-    // lcd_instruction(LCD_FUNCTION_SET);    // Repeat command
-
-    lcd_instruction(LCD_DISPLAY_ON);      // Display ON, cursor ON, blink ON
-    lcd_instruction(LCD_ENTRY_MODE);      // Entry mode set
-    lcd_instruction(LCD_CLEAR);           // Clear display
-    lcd_instruction(LCD_SET_CURSOR);
-
+    delay_ms(20);    // Wait for power stability
+    
+    // First Function Set
+    lcd_instruction(0x38);    // Function set: 8-bit, 2 lines, 5x7 dots
+    delay_ms(5);             // Wait >4.1ms
+    
+    // Second Function Set
+    lcd_instruction(0x38);    
+    delay_ms(1);             // Wait >100us
+    
+    // Third Function Set
+    lcd_instruction(0x38);    
+    delay_ms(1);
+    
+    // Now set display, mode etc
+    lcd_instruction(0x0F);    // Display ON, cursor ON, blink ON
+    delay_ms(1);
+    
+    lcd_instruction(0x01);    // Clear display
+    delay_ms(2);             // Clear needs 1.6ms
+    
+    lcd_instruction(0x06);    // Entry mode set
+    delay_ms(1);
+    
+    lcd_instruction(0x80);    // Set cursor position
+    delay_ms(1);
 }
 
 // Main function example
-void main(void) {
+void main(void) 
+{
+    // Initialize ports first
+    P0 = 0x00;    // Set P0 as output for LCD data
+    P1 = 0x00;    // Set P1 control pins as output
     delay_ms(40);
+    
     // Initialize LCD
     lcd_init();
     
