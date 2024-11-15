@@ -567,7 +567,7 @@
                                     567 ;------------------------------------------------------------
                                     568 ;charToSend                Allocated with name '_putchar_charToSend_65536_50'
                                     569 ;------------------------------------------------------------
-                                    570 ;	8051_i2c_eeprom.c:39: int putchar(int charToSend) {
+                                    570 ;	8051_i2c_eeprom.c:64: int putchar(int charToSend) {
                                     571 ;	-----------------------------------------
                                     572 ;	 function putchar
                                     573 ;	-----------------------------------------
@@ -587,7 +587,7 @@
       00306A EF               [12]  587 	mov	a,r7
       00306B A3               [24]  588 	inc	dptr
       00306C F0               [24]  589 	movx	@dptr,a
-                                    590 ;	8051_i2c_eeprom.c:40: SBUF = charToSend;  // Send character to serial buffer
+                                    590 ;	8051_i2c_eeprom.c:65: SBUF = charToSend;       /* Load character into serial buffer */
       00306D 90 04 02         [24]  591 	mov	dptr,#_putchar_charToSend_65536_50
       003070 E0               [24]  592 	movx	a,@dptr
       003071 FE               [12]  593 	mov	r6,a
@@ -595,202 +595,202 @@
       003073 E0               [24]  595 	movx	a,@dptr
       003074 FF               [12]  596 	mov	r7,a
       003075 8E 99            [24]  597 	mov	_SBUF,r6
-                                    598 ;	8051_i2c_eeprom.c:41: while (!TI);        // Wait for transmission to complete
+                                    598 ;	8051_i2c_eeprom.c:66: while (!TI);             /* Wait for transmission completion */
       003077                        599 00101$:
-                                    600 ;	8051_i2c_eeprom.c:42: TI = 0;            // Clear transmission interrupt flag
+                                    600 ;	8051_i2c_eeprom.c:67: TI = 0;                  /* Clear transmission flag */
                                     601 ;	assignBit
       003077 10 99 02         [24]  602 	jbc	_TI,00114$
       00307A 80 FB            [24]  603 	sjmp	00101$
       00307C                        604 00114$:
-                                    605 ;	8051_i2c_eeprom.c:43: return charToSend;
+                                    605 ;	8051_i2c_eeprom.c:68: return charToSend;
       00307C 8E 82            [24]  606 	mov	dpl,r6
       00307E 8F 83            [24]  607 	mov	dph,r7
-                                    608 ;	8051_i2c_eeprom.c:44: }
+                                    608 ;	8051_i2c_eeprom.c:69: }
       003080 22               [24]  609 	ret
                                     610 ;------------------------------------------------------------
                                     611 ;Allocation info for local variables in function 'getchar'
                                     612 ;------------------------------------------------------------
-                                    613 ;	8051_i2c_eeprom.c:46: int getchar(void) 
+                                    613 ;	8051_i2c_eeprom.c:75: int getchar(void) {
                                     614 ;	-----------------------------------------
                                     615 ;	 function getchar
                                     616 ;	-----------------------------------------
       003081                        617 _getchar:
-                                    618 ;	8051_i2c_eeprom.c:48: while (!RI);        // Wait for reception to complete
+                                    618 ;	8051_i2c_eeprom.c:76: while (!RI);             /* Wait for reception completion */
       003081                        619 00101$:
-                                    620 ;	8051_i2c_eeprom.c:49: RI = 0;            // Clear reception interrupt flag
+                                    620 ;	8051_i2c_eeprom.c:77: RI = 0;                  /* Clear reception flag */
                                     621 ;	assignBit
       003081 10 98 02         [24]  622 	jbc	_RI,00114$
       003084 80 FB            [24]  623 	sjmp	00101$
       003086                        624 00114$:
-                                    625 ;	8051_i2c_eeprom.c:50: return SBUF;       // Return received character
+                                    625 ;	8051_i2c_eeprom.c:78: return SBUF;             /* Return received character */
       003086 AE 99            [24]  626 	mov	r6,_SBUF
       003088 7F 00            [12]  627 	mov	r7,#0x00
       00308A 8E 82            [24]  628 	mov	dpl,r6
       00308C 8F 83            [24]  629 	mov	dph,r7
-                                    630 ;	8051_i2c_eeprom.c:51: }
+                                    630 ;	8051_i2c_eeprom.c:79: }
       00308E 22               [24]  631 	ret
                                     632 ;------------------------------------------------------------
                                     633 ;Allocation info for local variables in function 'ui'
                                     634 ;------------------------------------------------------------
-                                    635 ;	8051_i2c_eeprom.c:53: void ui()
+                                    635 ;	8051_i2c_eeprom.c:84: void ui()
                                     636 ;	-----------------------------------------
                                     637 ;	 function ui
                                     638 ;	-----------------------------------------
       00308F                        639 _ui:
-                                    640 ;	8051_i2c_eeprom.c:55: printf("\n╔════════════════════════════════════════════════════════╗\n\r");
-      00308F 74 12            [12]  641 	mov	a,#___str_0
+                                    640 ;	8051_i2c_eeprom.c:86: printf("\n╔════════════════════════════════════════════════════════╗\n\r");
+      00308F 74 B8            [12]  641 	mov	a,#___str_0
       003091 C0 E0            [24]  642 	push	acc
       003093 74 49            [12]  643 	mov	a,#(___str_0 >> 8)
       003095 C0 E0            [24]  644 	push	acc
       003097 74 80            [12]  645 	mov	a,#0x80
       003099 C0 E0            [24]  646 	push	acc
-      00309B 12 3E B0         [24]  647 	lcall	_printf
+      00309B 12 3F 56         [24]  647 	lcall	_printf
       00309E 15 81            [12]  648 	dec	sp
       0030A0 15 81            [12]  649 	dec	sp
       0030A2 15 81            [12]  650 	dec	sp
-                                    651 ;	8051_i2c_eeprom.c:56: printf("║           I2C Memory Management System v1.0            ║\n\r");
-      0030A4 74 C4            [12]  652 	mov	a,#___str_1
+                                    651 ;	8051_i2c_eeprom.c:87: printf("║           I2C Memory Management System v1.0            ║\n\r");
+      0030A4 74 6A            [12]  652 	mov	a,#___str_1
       0030A6 C0 E0            [24]  653 	push	acc
-      0030A8 74 49            [12]  654 	mov	a,#(___str_1 >> 8)
+      0030A8 74 4A            [12]  654 	mov	a,#(___str_1 >> 8)
       0030AA C0 E0            [24]  655 	push	acc
       0030AC 74 80            [12]  656 	mov	a,#0x80
       0030AE C0 E0            [24]  657 	push	acc
-      0030B0 12 3E B0         [24]  658 	lcall	_printf
+      0030B0 12 3F 56         [24]  658 	lcall	_printf
       0030B3 15 81            [12]  659 	dec	sp
       0030B5 15 81            [12]  660 	dec	sp
       0030B7 15 81            [12]  661 	dec	sp
-                                    662 ;	8051_i2c_eeprom.c:57: printf("╚════════════════════════════════════════════════════════╝\n\r");
-      0030B9 74 05            [12]  663 	mov	a,#___str_2
+                                    662 ;	8051_i2c_eeprom.c:88: printf("╚════════════════════════════════════════════════════════╝\n\r");
+      0030B9 74 AB            [12]  663 	mov	a,#___str_2
       0030BB C0 E0            [24]  664 	push	acc
       0030BD 74 4A            [12]  665 	mov	a,#(___str_2 >> 8)
       0030BF C0 E0            [24]  666 	push	acc
       0030C1 74 80            [12]  667 	mov	a,#0x80
       0030C3 C0 E0            [24]  668 	push	acc
-      0030C5 12 3E B0         [24]  669 	lcall	_printf
+      0030C5 12 3F 56         [24]  669 	lcall	_printf
       0030C8 15 81            [12]  670 	dec	sp
       0030CA 15 81            [12]  671 	dec	sp
       0030CC 15 81            [12]  672 	dec	sp
-                                    673 ;	8051_i2c_eeprom.c:59: }
+                                    673 ;	8051_i2c_eeprom.c:90: }
       0030CE 22               [24]  674 	ret
                                     675 ;------------------------------------------------------------
                                     676 ;Allocation info for local variables in function 'command_menu'
                                     677 ;------------------------------------------------------------
-                                    678 ;	8051_i2c_eeprom.c:61: void command_menu()
+                                    678 ;	8051_i2c_eeprom.c:95: void command_menu()
                                     679 ;	-----------------------------------------
                                     680 ;	 function command_menu
                                     681 ;	-----------------------------------------
       0030CF                        682 _command_menu:
-                                    683 ;	8051_i2c_eeprom.c:63: printf("\n\r┌────────────┬────────────────────────────────────────────┐\n\r");
-      0030CF 74 B6            [12]  684 	mov	a,#___str_3
+                                    683 ;	8051_i2c_eeprom.c:97: printf("\n\r┌────────────┬────────────────────────────────────────────┐\n\r");
+      0030CF 74 5C            [12]  684 	mov	a,#___str_3
       0030D1 C0 E0            [24]  685 	push	acc
-      0030D3 74 4A            [12]  686 	mov	a,#(___str_3 >> 8)
+      0030D3 74 4B            [12]  686 	mov	a,#(___str_3 >> 8)
       0030D5 C0 E0            [24]  687 	push	acc
       0030D7 74 80            [12]  688 	mov	a,#0x80
       0030D9 C0 E0            [24]  689 	push	acc
-      0030DB 12 3E B0         [24]  690 	lcall	_printf
+      0030DB 12 3F 56         [24]  690 	lcall	_printf
       0030DE 15 81            [12]  691 	dec	sp
       0030E0 15 81            [12]  692 	dec	sp
       0030E2 15 81            [12]  693 	dec	sp
-                                    694 ;	8051_i2c_eeprom.c:64: printf("│  Command   │               Description                  │\n\r");
-      0030E4 74 6C            [12]  695 	mov	a,#___str_4
+                                    694 ;	8051_i2c_eeprom.c:98: printf("│  Command   │               Description                  │\n\r");
+      0030E4 74 12            [12]  695 	mov	a,#___str_4
       0030E6 C0 E0            [24]  696 	push	acc
-      0030E8 74 4B            [12]  697 	mov	a,#(___str_4 >> 8)
+      0030E8 74 4C            [12]  697 	mov	a,#(___str_4 >> 8)
       0030EA C0 E0            [24]  698 	push	acc
       0030EC 74 80            [12]  699 	mov	a,#0x80
       0030EE C0 E0            [24]  700 	push	acc
-      0030F0 12 3E B0         [24]  701 	lcall	_printf
+      0030F0 12 3F 56         [24]  701 	lcall	_printf
       0030F3 15 81            [12]  702 	dec	sp
       0030F5 15 81            [12]  703 	dec	sp
       0030F7 15 81            [12]  704 	dec	sp
-                                    705 ;	8051_i2c_eeprom.c:65: printf("├────────────┼────────────────────────────────────────────┤\n\r");
-      0030F9 74 B0            [12]  706 	mov	a,#___str_5
+                                    705 ;	8051_i2c_eeprom.c:99: printf("├────────────┼────────────────────────────────────────────┤\n\r");
+      0030F9 74 56            [12]  706 	mov	a,#___str_5
       0030FB C0 E0            [24]  707 	push	acc
-      0030FD 74 4B            [12]  708 	mov	a,#(___str_5 >> 8)
+      0030FD 74 4C            [12]  708 	mov	a,#(___str_5 >> 8)
       0030FF C0 E0            [24]  709 	push	acc
       003101 74 80            [12]  710 	mov	a,#0x80
       003103 C0 E0            [24]  711 	push	acc
-      003105 12 3E B0         [24]  712 	lcall	_printf
+      003105 12 3F 56         [24]  712 	lcall	_printf
       003108 15 81            [12]  713 	dec	sp
       00310A 15 81            [12]  714 	dec	sp
       00310C 15 81            [12]  715 	dec	sp
-                                    716 ;	8051_i2c_eeprom.c:66: printf("│     R      │ Read from address                          │\n\r");
-      00310E 74 64            [12]  717 	mov	a,#___str_6
+                                    716 ;	8051_i2c_eeprom.c:100: printf("│     R      │ Read from address                          │\n\r");
+      00310E 74 0A            [12]  717 	mov	a,#___str_6
       003110 C0 E0            [24]  718 	push	acc
-      003112 74 4C            [12]  719 	mov	a,#(___str_6 >> 8)
+      003112 74 4D            [12]  719 	mov	a,#(___str_6 >> 8)
       003114 C0 E0            [24]  720 	push	acc
       003116 74 80            [12]  721 	mov	a,#0x80
       003118 C0 E0            [24]  722 	push	acc
-      00311A 12 3E B0         [24]  723 	lcall	_printf
+      00311A 12 3F 56         [24]  723 	lcall	_printf
       00311D 15 81            [12]  724 	dec	sp
       00311F 15 81            [12]  725 	dec	sp
       003121 15 81            [12]  726 	dec	sp
-                                    727 ;	8051_i2c_eeprom.c:67: printf("│     W      │ Write data to address                      │\n\r");
-      003123 74 A8            [12]  728 	mov	a,#___str_7
+                                    727 ;	8051_i2c_eeprom.c:101: printf("│     W      │ Write data to address                      │\n\r");
+      003123 74 4E            [12]  728 	mov	a,#___str_7
       003125 C0 E0            [24]  729 	push	acc
-      003127 74 4C            [12]  730 	mov	a,#(___str_7 >> 8)
+      003127 74 4D            [12]  730 	mov	a,#(___str_7 >> 8)
       003129 C0 E0            [24]  731 	push	acc
       00312B 74 80            [12]  732 	mov	a,#0x80
       00312D C0 E0            [24]  733 	push	acc
-      00312F 12 3E B0         [24]  734 	lcall	_printf
+      00312F 12 3F 56         [24]  734 	lcall	_printf
       003132 15 81            [12]  735 	dec	sp
       003134 15 81            [12]  736 	dec	sp
       003136 15 81            [12]  737 	dec	sp
-                                    738 ;	8051_i2c_eeprom.c:68: printf("│     H      │ Display hex dump                           │\n\r");
-      003138 74 EC            [12]  739 	mov	a,#___str_8
+                                    738 ;	8051_i2c_eeprom.c:102: printf("│     H      │ Display hex dump                           │\n\r");
+      003138 74 92            [12]  739 	mov	a,#___str_8
       00313A C0 E0            [24]  740 	push	acc
-      00313C 74 4C            [12]  741 	mov	a,#(___str_8 >> 8)
+      00313C 74 4D            [12]  741 	mov	a,#(___str_8 >> 8)
       00313E C0 E0            [24]  742 	push	acc
       003140 74 80            [12]  743 	mov	a,#0x80
       003142 C0 E0            [24]  744 	push	acc
-      003144 12 3E B0         [24]  745 	lcall	_printf
+      003144 12 3F 56         [24]  745 	lcall	_printf
       003147 15 81            [12]  746 	dec	sp
       003149 15 81            [12]  747 	dec	sp
       00314B 15 81            [12]  748 	dec	sp
-                                    749 ;	8051_i2c_eeprom.c:69: printf("│     X      │ Reset memory system                        │\n\r");
-      00314D 74 30            [12]  750 	mov	a,#___str_9
+                                    749 ;	8051_i2c_eeprom.c:103: printf("│     X      │ Reset memory system                        │\n\r");
+      00314D 74 D6            [12]  750 	mov	a,#___str_9
       00314F C0 E0            [24]  751 	push	acc
       003151 74 4D            [12]  752 	mov	a,#(___str_9 >> 8)
       003153 C0 E0            [24]  753 	push	acc
       003155 74 80            [12]  754 	mov	a,#0x80
       003157 C0 E0            [24]  755 	push	acc
-      003159 12 3E B0         [24]  756 	lcall	_printf
+      003159 12 3F 56         [24]  756 	lcall	_printf
       00315C 15 81            [12]  757 	dec	sp
       00315E 15 81            [12]  758 	dec	sp
       003160 15 81            [12]  759 	dec	sp
-                                    760 ;	8051_i2c_eeprom.c:70: printf("│     ?      │ Display this help menu                     │\n\r");
-      003162 74 74            [12]  761 	mov	a,#___str_10
+                                    760 ;	8051_i2c_eeprom.c:104: printf("│     ?      │ Display this help menu                     │\n\r");
+      003162 74 1A            [12]  761 	mov	a,#___str_10
       003164 C0 E0            [24]  762 	push	acc
-      003166 74 4D            [12]  763 	mov	a,#(___str_10 >> 8)
+      003166 74 4E            [12]  763 	mov	a,#(___str_10 >> 8)
       003168 C0 E0            [24]  764 	push	acc
       00316A 74 80            [12]  765 	mov	a,#0x80
       00316C C0 E0            [24]  766 	push	acc
-      00316E 12 3E B0         [24]  767 	lcall	_printf
+      00316E 12 3F 56         [24]  767 	lcall	_printf
       003171 15 81            [12]  768 	dec	sp
       003173 15 81            [12]  769 	dec	sp
       003175 15 81            [12]  770 	dec	sp
-                                    771 ;	8051_i2c_eeprom.c:71: printf("│     Q      │ Quit program                               │\n\r");
-      003177 74 B8            [12]  772 	mov	a,#___str_11
+                                    771 ;	8051_i2c_eeprom.c:105: printf("│     Q      │ Quit program                               │\n\r");
+      003177 74 5E            [12]  772 	mov	a,#___str_11
       003179 C0 E0            [24]  773 	push	acc
-      00317B 74 4D            [12]  774 	mov	a,#(___str_11 >> 8)
+      00317B 74 4E            [12]  774 	mov	a,#(___str_11 >> 8)
       00317D C0 E0            [24]  775 	push	acc
       00317F 74 80            [12]  776 	mov	a,#0x80
       003181 C0 E0            [24]  777 	push	acc
-      003183 12 3E B0         [24]  778 	lcall	_printf
+      003183 12 3F 56         [24]  778 	lcall	_printf
       003186 15 81            [12]  779 	dec	sp
       003188 15 81            [12]  780 	dec	sp
       00318A 15 81            [12]  781 	dec	sp
-                                    782 ;	8051_i2c_eeprom.c:72: printf("└────────────┴────────────────────────────────────────────┘\n\r");
-      00318C 74 FC            [12]  783 	mov	a,#___str_12
+                                    782 ;	8051_i2c_eeprom.c:106: printf("└────────────┴────────────────────────────────────────────┘\n\r");
+      00318C 74 A2            [12]  783 	mov	a,#___str_12
       00318E C0 E0            [24]  784 	push	acc
-      003190 74 4D            [12]  785 	mov	a,#(___str_12 >> 8)
+      003190 74 4E            [12]  785 	mov	a,#(___str_12 >> 8)
       003192 C0 E0            [24]  786 	push	acc
       003194 74 80            [12]  787 	mov	a,#0x80
       003196 C0 E0            [24]  788 	push	acc
-      003198 12 3E B0         [24]  789 	lcall	_printf
+      003198 12 3F 56         [24]  789 	lcall	_printf
       00319B 15 81            [12]  790 	dec	sp
       00319D 15 81            [12]  791 	dec	sp
       00319F 15 81            [12]  792 	dec	sp
-                                    793 ;	8051_i2c_eeprom.c:75: }
+                                    793 ;	8051_i2c_eeprom.c:109: }
       0031A1 22               [24]  794 	ret
                                     795 ;------------------------------------------------------------
                                     796 ;Allocation info for local variables in function 'main'
@@ -800,55 +800,55 @@
                                     800 ;data                      Allocated with name '_main_data_262146_62'
                                     801 ;addr                      Allocated with name '_main_addr_262145_65'
                                     802 ;------------------------------------------------------------
-                                    803 ;	8051_i2c_eeprom.c:76: int main()
+                                    803 ;	8051_i2c_eeprom.c:115: int main()
                                     804 ;	-----------------------------------------
                                     805 ;	 function main
                                     806 ;	-----------------------------------------
       0031A2                        807 _main:
-                                    808 ;	8051_i2c_eeprom.c:79: P1 &= ~(1<<3);  // Set P1.3 as output
+                                    808 ;	8051_i2c_eeprom.c:118: P1 &= ~(1<<3);  // Set P1.3 as output
       0031A2 53 90 F7         [24]  809 	anl	_P1,#0xf7
-                                    810 ;	8051_i2c_eeprom.c:80: P1 &= ~(1<<4);  // Set P1.4 as output
+                                    810 ;	8051_i2c_eeprom.c:119: P1 &= ~(1<<4);  // Set P1.4 as output
       0031A5 53 90 EF         [24]  811 	anl	_P1,#0xef
-                                    812 ;	8051_i2c_eeprom.c:81: ui();
+                                    812 ;	8051_i2c_eeprom.c:120: ui();
       0031A8 12 30 8F         [24]  813 	lcall	_ui
-                                    814 ;	8051_i2c_eeprom.c:82: command_menu();
+                                    814 ;	8051_i2c_eeprom.c:121: command_menu();
       0031AB 12 30 CF         [24]  815 	lcall	_command_menu
-                                    816 ;	8051_i2c_eeprom.c:83: i2c_start();
+                                    816 ;	8051_i2c_eeprom.c:122: i2c_start();
       0031AE 12 39 F8         [24]  817 	lcall	_i2c_start
-                                    818 ;	8051_i2c_eeprom.c:84: while(1)
+                                    818 ;	8051_i2c_eeprom.c:123: while(1)
       0031B1                        819 00115$:
-                                    820 ;	8051_i2c_eeprom.c:86: char user_input = getchar();
+                                    820 ;	8051_i2c_eeprom.c:125: char user_input = getchar();
       0031B1 12 30 81         [24]  821 	lcall	_getchar
       0031B4 AE 82            [24]  822 	mov	r6,dpl
-                                    823 ;	8051_i2c_eeprom.c:87: printf("| $ %c\n\r", user_input);
+                                    823 ;	8051_i2c_eeprom.c:126: printf("| $ %c\n\r", user_input);
       0031B6 8E 05            [24]  824 	mov	ar5,r6
       0031B8 7F 00            [12]  825 	mov	r7,#0x00
       0031BA C0 06            [24]  826 	push	ar6
       0031BC C0 05            [24]  827 	push	ar5
       0031BE C0 07            [24]  828 	push	ar7
-      0031C0 74 B0            [12]  829 	mov	a,#___str_13
+      0031C0 74 56            [12]  829 	mov	a,#___str_13
       0031C2 C0 E0            [24]  830 	push	acc
-      0031C4 74 4E            [12]  831 	mov	a,#(___str_13 >> 8)
+      0031C4 74 4F            [12]  831 	mov	a,#(___str_13 >> 8)
       0031C6 C0 E0            [24]  832 	push	acc
       0031C8 74 80            [12]  833 	mov	a,#0x80
       0031CA C0 E0            [24]  834 	push	acc
-      0031CC 12 3E B0         [24]  835 	lcall	_printf
+      0031CC 12 3F 56         [24]  835 	lcall	_printf
       0031CF E5 81            [12]  836 	mov	a,sp
       0031D1 24 FB            [12]  837 	add	a,#0xfb
       0031D3 F5 81            [12]  838 	mov	sp,a
-                                    839 ;	8051_i2c_eeprom.c:88: printf("\n\r");
-      0031D5 74 B9            [12]  840 	mov	a,#___str_14
+                                    839 ;	8051_i2c_eeprom.c:127: printf("\n\r");
+      0031D5 74 5F            [12]  840 	mov	a,#___str_14
       0031D7 C0 E0            [24]  841 	push	acc
-      0031D9 74 4E            [12]  842 	mov	a,#(___str_14 >> 8)
+      0031D9 74 4F            [12]  842 	mov	a,#(___str_14 >> 8)
       0031DB C0 E0            [24]  843 	push	acc
       0031DD 74 80            [12]  844 	mov	a,#0x80
       0031DF C0 E0            [24]  845 	push	acc
-      0031E1 12 3E B0         [24]  846 	lcall	_printf
+      0031E1 12 3F 56         [24]  846 	lcall	_printf
       0031E4 15 81            [12]  847 	dec	sp
       0031E6 15 81            [12]  848 	dec	sp
       0031E8 15 81            [12]  849 	dec	sp
       0031EA D0 06            [24]  850 	pop	ar6
-                                    851 ;	8051_i2c_eeprom.c:89: switch(user_input)
+                                    851 ;	8051_i2c_eeprom.c:128: switch(user_input)
       0031EC BE 3F 03         [24]  852 	cjne	r6,#0x3f,00155$
       0031EF 02 32 D2         [24]  853 	ljmp	00109$
       0031F2                        854 00155$:
@@ -865,24 +865,24 @@
       003205 02 32 D8         [24]  865 	ljmp	00110$
       003208                        866 00159$:
       003208 02 33 0B         [24]  867 	ljmp	00112$
-                                    868 ;	8051_i2c_eeprom.c:91: case 'W':
+                                    868 ;	8051_i2c_eeprom.c:130: case 'W':
       00320B                        869 00101$:
-                                    870 ;	8051_i2c_eeprom.c:93: printf("\n┌─────────────── WRITE OPERATION ──────────────┐\n\r");
-      00320B 74 BC            [12]  871 	mov	a,#___str_15
+                                    870 ;	8051_i2c_eeprom.c:132: printf("\n┌─────────────── WRITE OPERATION ──────────────┐\n\r");
+      00320B 74 62            [12]  871 	mov	a,#___str_15
       00320D C0 E0            [24]  872 	push	acc
-      00320F 74 4E            [12]  873 	mov	a,#(___str_15 >> 8)
+      00320F 74 4F            [12]  873 	mov	a,#(___str_15 >> 8)
       003211 C0 E0            [24]  874 	push	acc
       003213 74 80            [12]  875 	mov	a,#0x80
       003215 C0 E0            [24]  876 	push	acc
-      003217 12 3E B0         [24]  877 	lcall	_printf
+      003217 12 3F 56         [24]  877 	lcall	_printf
       00321A 15 81            [12]  878 	dec	sp
       00321C 15 81            [12]  879 	dec	sp
       00321E 15 81            [12]  880 	dec	sp
-                                    881 ;	8051_i2c_eeprom.c:95: addr = take_address();
+                                    881 ;	8051_i2c_eeprom.c:134: addr = take_address();
       003220 12 33 23         [24]  882 	lcall	_take_address
       003223 AE 82            [24]  883 	mov	r6,dpl
       003225 AF 83            [24]  884 	mov	r7,dph
-                                    885 ;	8051_i2c_eeprom.c:96: if(!address_range_flag) 
+                                    885 ;	8051_i2c_eeprom.c:135: if(!address_range_flag) 
       003227 90 04 57         [24]  886 	mov	dptr,#_address_range_flag
       00322A E0               [24]  887 	movx	a,@dptr
       00322B F5 F0            [12]  888 	mov	b,a
@@ -890,24 +890,24 @@
       00322E E0               [24]  890 	movx	a,@dptr
       00322F 45 F0            [12]  891 	orl	a,b
       003231 70 0C            [24]  892 	jnz	00103$
-                                    893 ;	8051_i2c_eeprom.c:98: address_range_flag = 1;
+                                    893 ;	8051_i2c_eeprom.c:137: address_range_flag = 1;
       003233 90 04 57         [24]  894 	mov	dptr,#_address_range_flag
       003236 74 01            [12]  895 	mov	a,#0x01
       003238 F0               [24]  896 	movx	@dptr,a
       003239 E4               [12]  897 	clr	a
       00323A A3               [24]  898 	inc	dptr
       00323B F0               [24]  899 	movx	@dptr,a
-                                    900 ;	8051_i2c_eeprom.c:99: break;
+                                    900 ;	8051_i2c_eeprom.c:138: break;
       00323C 02 31 B1         [24]  901 	ljmp	00115$
       00323F                        902 00103$:
-                                    903 ;	8051_i2c_eeprom.c:102: data = take_data();
+                                    903 ;	8051_i2c_eeprom.c:141: data = take_data();
       00323F C0 07            [24]  904 	push	ar7
       003241 C0 06            [24]  905 	push	ar6
       003243 12 35 3C         [24]  906 	lcall	_take_data
       003246 AD 82            [24]  907 	mov	r5,dpl
       003248 D0 06            [24]  908 	pop	ar6
       00324A D0 07            [24]  909 	pop	ar7
-                                    910 ;	8051_i2c_eeprom.c:103: if(!data_range_flag) 
+                                    910 ;	8051_i2c_eeprom.c:142: if(!data_range_flag) 
       00324C 90 04 59         [24]  911 	mov	dptr,#_data_range_flag
       00324F E0               [24]  912 	movx	a,@dptr
       003250 F5 F0            [12]  913 	mov	b,a
@@ -915,43 +915,43 @@
       003253 E0               [24]  915 	movx	a,@dptr
       003254 45 F0            [12]  916 	orl	a,b
       003256 70 0C            [24]  917 	jnz	00105$
-                                    918 ;	8051_i2c_eeprom.c:105: data_range_flag = 1;
+                                    918 ;	8051_i2c_eeprom.c:144: data_range_flag = 1;
       003258 90 04 59         [24]  919 	mov	dptr,#_data_range_flag
       00325B 74 01            [12]  920 	mov	a,#0x01
       00325D F0               [24]  921 	movx	@dptr,a
       00325E E4               [12]  922 	clr	a
       00325F A3               [24]  923 	inc	dptr
       003260 F0               [24]  924 	movx	@dptr,a
-                                    925 ;	8051_i2c_eeprom.c:106: break;
+                                    925 ;	8051_i2c_eeprom.c:145: break;
       003261 02 31 B1         [24]  926 	ljmp	00115$
       003264                        927 00105$:
-                                    928 ;	8051_i2c_eeprom.c:109: eeprom_write(addr, data);
+                                    928 ;	8051_i2c_eeprom.c:148: eeprom_write(addr, data);
       003264 90 04 0F         [24]  929 	mov	dptr,#_eeprom_write_PARM_2
       003267 ED               [12]  930 	mov	a,r5
       003268 F0               [24]  931 	movx	@dptr,a
       003269 8E 82            [24]  932 	mov	dpl,r6
       00326B 8F 83            [24]  933 	mov	dph,r7
       00326D 12 36 B5         [24]  934 	lcall	_eeprom_write
-                                    935 ;	8051_i2c_eeprom.c:110: break;
+                                    935 ;	8051_i2c_eeprom.c:149: break;
       003270 02 31 B1         [24]  936 	ljmp	00115$
-                                    937 ;	8051_i2c_eeprom.c:112: case 'R':
+                                    937 ;	8051_i2c_eeprom.c:151: case 'R':
       003273                        938 00106$:
-                                    939 ;	8051_i2c_eeprom.c:114: printf("\n┌─────────────── READ OPERATION ───────────────┐\n\r");
-      003273 74 2E            [12]  940 	mov	a,#___str_16
+                                    939 ;	8051_i2c_eeprom.c:153: printf("\n┌─────────────── READ OPERATION ───────────────┐\n\r");
+      003273 74 D4            [12]  940 	mov	a,#___str_16
       003275 C0 E0            [24]  941 	push	acc
       003277 74 4F            [12]  942 	mov	a,#(___str_16 >> 8)
       003279 C0 E0            [24]  943 	push	acc
       00327B 74 80            [12]  944 	mov	a,#0x80
       00327D C0 E0            [24]  945 	push	acc
-      00327F 12 3E B0         [24]  946 	lcall	_printf
+      00327F 12 3F 56         [24]  946 	lcall	_printf
       003282 15 81            [12]  947 	dec	sp
       003284 15 81            [12]  948 	dec	sp
       003286 15 81            [12]  949 	dec	sp
-                                    950 ;	8051_i2c_eeprom.c:116: addr = take_address(); 
+                                    950 ;	8051_i2c_eeprom.c:155: addr = take_address(); 
       003288 12 33 23         [24]  951 	lcall	_take_address
       00328B AE 82            [24]  952 	mov	r6,dpl
       00328D AF 83            [24]  953 	mov	r7,dph
-                                    954 ;	8051_i2c_eeprom.c:117: if(!address_range_flag) 
+                                    954 ;	8051_i2c_eeprom.c:156: if(!address_range_flag) 
       00328F 90 04 57         [24]  955 	mov	dptr,#_address_range_flag
       003292 E0               [24]  956 	movx	a,@dptr
       003293 F5 F0            [12]  957 	mov	b,a
@@ -959,92 +959,92 @@
       003296 E0               [24]  959 	movx	a,@dptr
       003297 45 F0            [12]  960 	orl	a,b
       003299 70 0C            [24]  961 	jnz	00108$
-                                    962 ;	8051_i2c_eeprom.c:119: address_range_flag = 1;
+                                    962 ;	8051_i2c_eeprom.c:158: address_range_flag = 1;
       00329B 90 04 57         [24]  963 	mov	dptr,#_address_range_flag
       00329E 74 01            [12]  964 	mov	a,#0x01
       0032A0 F0               [24]  965 	movx	@dptr,a
       0032A1 E4               [12]  966 	clr	a
       0032A2 A3               [24]  967 	inc	dptr
       0032A3 F0               [24]  968 	movx	@dptr,a
-                                    969 ;	8051_i2c_eeprom.c:120: break;
+                                    969 ;	8051_i2c_eeprom.c:159: break;
       0032A4 02 31 B1         [24]  970 	ljmp	00115$
       0032A7                        971 00108$:
-                                    972 ;	8051_i2c_eeprom.c:122: printf("| Reading from Address 0x%03X           |\n\r", addr);
+                                    972 ;	8051_i2c_eeprom.c:161: printf("| Reading from Address 0x%03X           |\n\r", addr);
       0032A7 C0 07            [24]  973 	push	ar7
       0032A9 C0 06            [24]  974 	push	ar6
       0032AB C0 06            [24]  975 	push	ar6
       0032AD C0 07            [24]  976 	push	ar7
-      0032AF 74 A2            [12]  977 	mov	a,#___str_17
+      0032AF 74 48            [12]  977 	mov	a,#___str_17
       0032B1 C0 E0            [24]  978 	push	acc
-      0032B3 74 4F            [12]  979 	mov	a,#(___str_17 >> 8)
+      0032B3 74 50            [12]  979 	mov	a,#(___str_17 >> 8)
       0032B5 C0 E0            [24]  980 	push	acc
       0032B7 74 80            [12]  981 	mov	a,#0x80
       0032B9 C0 E0            [24]  982 	push	acc
-      0032BB 12 3E B0         [24]  983 	lcall	_printf
+      0032BB 12 3F 56         [24]  983 	lcall	_printf
       0032BE E5 81            [12]  984 	mov	a,sp
       0032C0 24 FB            [12]  985 	add	a,#0xfb
       0032C2 F5 81            [12]  986 	mov	sp,a
       0032C4 D0 06            [24]  987 	pop	ar6
       0032C6 D0 07            [24]  988 	pop	ar7
-                                    989 ;	8051_i2c_eeprom.c:123: eeprom_read(addr);
+                                    989 ;	8051_i2c_eeprom.c:162: eeprom_read(addr);
       0032C8 8E 82            [24]  990 	mov	dpl,r6
       0032CA 8F 83            [24]  991 	mov	dph,r7
       0032CC 12 37 F7         [24]  992 	lcall	_eeprom_read
-                                    993 ;	8051_i2c_eeprom.c:124: break;
+                                    993 ;	8051_i2c_eeprom.c:163: break;
       0032CF 02 31 B1         [24]  994 	ljmp	00115$
-                                    995 ;	8051_i2c_eeprom.c:127: case '?':
+                                    995 ;	8051_i2c_eeprom.c:166: case '?':
       0032D2                        996 00109$:
-                                    997 ;	8051_i2c_eeprom.c:128: command_menu();
+                                    997 ;	8051_i2c_eeprom.c:167: command_menu();
       0032D2 12 30 CF         [24]  998 	lcall	_command_menu
-                                    999 ;	8051_i2c_eeprom.c:129: break;
+                                    999 ;	8051_i2c_eeprom.c:168: break;
       0032D5 02 31 B1         [24] 1000 	ljmp	00115$
-                                   1001 ;	8051_i2c_eeprom.c:131: case 'X':
+                                   1001 ;	8051_i2c_eeprom.c:170: case 'X':
       0032D8                       1002 00110$:
-                                   1003 ;	8051_i2c_eeprom.c:132: printf("\n┌─────────────── RESET OPERATION ───────────┐\n\r");
-      0032D8 74 CE            [12] 1004 	mov	a,#___str_18
+                                   1003 ;	8051_i2c_eeprom.c:171: printf("\n┌─────────────── RESET OPERATION ───────────┐\n\r");
+      0032D8 74 74            [12] 1004 	mov	a,#___str_18
       0032DA C0 E0            [24] 1005 	push	acc
-      0032DC 74 4F            [12] 1006 	mov	a,#(___str_18 >> 8)
+      0032DC 74 50            [12] 1006 	mov	a,#(___str_18 >> 8)
       0032DE C0 E0            [24] 1007 	push	acc
       0032E0 74 80            [12] 1008 	mov	a,#0x80
       0032E2 C0 E0            [24] 1009 	push	acc
-      0032E4 12 3E B0         [24] 1010 	lcall	_printf
+      0032E4 12 3F 56         [24] 1010 	lcall	_printf
       0032E7 15 81            [12] 1011 	dec	sp
       0032E9 15 81            [12] 1012 	dec	sp
       0032EB 15 81            [12] 1013 	dec	sp
-                                   1014 ;	8051_i2c_eeprom.c:133: eeprom_reset();
-      0032ED 12 3C 5E         [24] 1015 	lcall	_eeprom_reset
-                                   1016 ;	8051_i2c_eeprom.c:134: break;
+                                   1014 ;	8051_i2c_eeprom.c:172: eeprom_reset();
+      0032ED 12 3D 04         [24] 1015 	lcall	_eeprom_reset
+                                   1016 ;	8051_i2c_eeprom.c:173: break;
       0032F0 02 31 B1         [24] 1017 	ljmp	00115$
-                                   1018 ;	8051_i2c_eeprom.c:136: case 'H':
+                                   1018 ;	8051_i2c_eeprom.c:175: case 'H':
       0032F3                       1019 00111$:
-                                   1020 ;	8051_i2c_eeprom.c:137: printf("\n┌───────────── HEX DUMP OPERATION ───────────────┐\n\r");
-      0032F3 74 37            [12] 1021 	mov	a,#___str_19
+                                   1020 ;	8051_i2c_eeprom.c:176: printf("\n┌───────────── HEX DUMP OPERATION ───────────────┐\n\r");
+      0032F3 74 DD            [12] 1021 	mov	a,#___str_19
       0032F5 C0 E0            [24] 1022 	push	acc
       0032F7 74 50            [12] 1023 	mov	a,#(___str_19 >> 8)
       0032F9 C0 E0            [24] 1024 	push	acc
       0032FB 74 80            [12] 1025 	mov	a,#0x80
       0032FD C0 E0            [24] 1026 	push	acc
-      0032FF 12 3E B0         [24] 1027 	lcall	_printf
+      0032FF 12 3F 56         [24] 1027 	lcall	_printf
       003302 15 81            [12] 1028 	dec	sp
       003304 15 81            [12] 1029 	dec	sp
       003306 15 81            [12] 1030 	dec	sp
-                                   1031 ;	8051_i2c_eeprom.c:143: handler_EEPROM_hexdump();
-      003308 12 3B B8         [24] 1032 	lcall	_handler_EEPROM_hexdump
-                                   1033 ;	8051_i2c_eeprom.c:146: default:
+                                   1031 ;	8051_i2c_eeprom.c:182: handler_EEPROM_hexdump();
+      003308 12 3C 5E         [24] 1032 	lcall	_handler_EEPROM_hexdump
+                                   1033 ;	8051_i2c_eeprom.c:185: default:
       00330B                       1034 00112$:
-                                   1035 ;	8051_i2c_eeprom.c:147: printf("INVALID INPUT\n\r");
-      00330B 74 A9            [12] 1036 	mov	a,#___str_20
+                                   1035 ;	8051_i2c_eeprom.c:186: printf("INVALID INPUT\n\r");
+      00330B 74 4F            [12] 1036 	mov	a,#___str_20
       00330D C0 E0            [24] 1037 	push	acc
-      00330F 74 50            [12] 1038 	mov	a,#(___str_20 >> 8)
+      00330F 74 51            [12] 1038 	mov	a,#(___str_20 >> 8)
       003311 C0 E0            [24] 1039 	push	acc
       003313 74 80            [12] 1040 	mov	a,#0x80
       003315 C0 E0            [24] 1041 	push	acc
-      003317 12 3E B0         [24] 1042 	lcall	_printf
+      003317 12 3F 56         [24] 1042 	lcall	_printf
       00331A 15 81            [12] 1043 	dec	sp
       00331C 15 81            [12] 1044 	dec	sp
       00331E 15 81            [12] 1045 	dec	sp
-                                   1046 ;	8051_i2c_eeprom.c:149: }
-                                   1047 ;	8051_i2c_eeprom.c:152: }
+                                   1046 ;	8051_i2c_eeprom.c:188: }
+                                   1047 ;	8051_i2c_eeprom.c:191: }
       003320 02 31 B1         [24] 1048 	ljmp	00115$
                                    1049 ;------------------------------------------------------------
                                    1050 ;Allocation info for local variables in function 'take_address'
@@ -1055,23 +1055,23 @@
                                    1055 ;address                   Allocated with name '_take_address_address_65538_72'
                                    1056 ;block                     Allocated with name '_take_address_block_65539_76'
                                    1057 ;------------------------------------------------------------
-                                   1058 ;	8051_i2c_eeprom.c:154: unsigned int take_address() 
+                                   1058 ;	8051_i2c_eeprom.c:199: unsigned int take_address() 
                                    1059 ;	-----------------------------------------
                                    1060 ;	 function take_address
                                    1061 ;	-----------------------------------------
       003323                       1062 _take_address:
-                                   1063 ;	8051_i2c_eeprom.c:156: printf("│ Enter address (hex, up to 3 characters): \n\r|");
-      003323 74 B9            [12] 1064 	mov	a,#___str_21
+                                   1063 ;	8051_i2c_eeprom.c:201: printf("│ Enter address (hex, up to 3 characters): \n\r|");
+      003323 74 5F            [12] 1064 	mov	a,#___str_21
       003325 C0 E0            [24] 1065 	push	acc
-      003327 74 50            [12] 1066 	mov	a,#(___str_21 >> 8)
+      003327 74 51            [12] 1066 	mov	a,#(___str_21 >> 8)
       003329 C0 E0            [24] 1067 	push	acc
       00332B 74 80            [12] 1068 	mov	a,#0x80
       00332D C0 E0            [24] 1069 	push	acc
-      00332F 12 3E B0         [24] 1070 	lcall	_printf
+      00332F 12 3F 56         [24] 1070 	lcall	_printf
       003332 15 81            [12] 1071 	dec	sp
       003334 15 81            [12] 1072 	dec	sp
       003336 15 81            [12] 1073 	dec	sp
-                                   1074 ;	8051_i2c_eeprom.c:157: char input[4] = {0};  // Array for 3 hex chars + null terminator
+                                   1074 ;	8051_i2c_eeprom.c:202: char input[4] = {0};  // Array for 3 hex chars + null terminator
       003338 90 04 04         [24] 1075 	mov	dptr,#_take_address_input_65537_68
       00333B E4               [12] 1076 	clr	a
       00333C F0               [24] 1077 	movx	@dptr,a
@@ -1081,18 +1081,18 @@
       003344 F0               [24] 1081 	movx	@dptr,a
       003345 90 04 07         [24] 1082 	mov	dptr,#(_take_address_input_65537_68 + 0x0003)
       003348 F0               [24] 1083 	movx	@dptr,a
-                                   1084 ;	8051_i2c_eeprom.c:161: printf("| $ ");
-      003349 74 EA            [12] 1085 	mov	a,#___str_22
+                                   1084 ;	8051_i2c_eeprom.c:206: printf("| $ ");
+      003349 74 90            [12] 1085 	mov	a,#___str_22
       00334B C0 E0            [24] 1086 	push	acc
-      00334D 74 50            [12] 1087 	mov	a,#(___str_22 >> 8)
+      00334D 74 51            [12] 1087 	mov	a,#(___str_22 >> 8)
       00334F C0 E0            [24] 1088 	push	acc
       003351 74 80            [12] 1089 	mov	a,#0x80
       003353 C0 E0            [24] 1090 	push	acc
-      003355 12 3E B0         [24] 1091 	lcall	_printf
+      003355 12 3F 56         [24] 1091 	lcall	_printf
       003358 15 81            [12] 1092 	dec	sp
       00335A 15 81            [12] 1093 	dec	sp
       00335C 15 81            [12] 1094 	dec	sp
-                                   1095 ;	8051_i2c_eeprom.c:163: while (i < 3) {
+                                   1095 ;	8051_i2c_eeprom.c:208: while (i < 3) {
       00335E 7E 00            [12] 1096 	mov	r6,#0x00
       003360 7F 00            [12] 1097 	mov	r7,#0x00
       003362                       1098 00111$:
@@ -1103,7 +1103,7 @@
       003367 64 80            [12] 1103 	xrl	a,#0x80
       003369 94 80            [12] 1104 	subb	a,#0x80
       00336B 50 5B            [24] 1105 	jnc	00113$
-                                   1106 ;	8051_i2c_eeprom.c:165: c = getchar();
+                                   1106 ;	8051_i2c_eeprom.c:210: c = getchar();
       00336D C0 07            [24] 1107 	push	ar7
       00336F C0 06            [24] 1108 	push	ar6
       003371 12 30 81         [24] 1109 	lcall	_getchar
@@ -1111,14 +1111,14 @@
       003376 AD 83            [24] 1111 	mov	r5,dph
       003378 D0 06            [24] 1112 	pop	ar6
       00337A D0 07            [24] 1113 	pop	ar7
-                                   1114 ;	8051_i2c_eeprom.c:168: if (c == '\r' || c == '\n') {
+                                   1114 ;	8051_i2c_eeprom.c:213: if (c == '\r' || c == '\n') {
       00337C BC 0D 02         [24] 1115 	cjne	r4,#0x0d,00200$
       00337F 80 47            [24] 1116 	sjmp	00113$
       003381                       1117 00200$:
       003381 BC 0A 02         [24] 1118 	cjne	r4,#0x0a,00201$
       003384 80 42            [24] 1119 	sjmp	00113$
       003386                       1120 00201$:
-                                   1121 ;	8051_i2c_eeprom.c:173: if ((c >= '0' && c <= '9') || 
+                                   1121 ;	8051_i2c_eeprom.c:218: if ((c >= '0' && c <= '9') || 
       003386 BC 30 00         [24] 1122 	cjne	r4,#0x30,00202$
       003389                       1123 00202$:
       003389 40 05            [24] 1124 	jc	00108$
@@ -1126,7 +1126,7 @@
       00338C 24 C6            [12] 1126 	add	a,#0xff - 0x39
       00338E 50 14            [24] 1127 	jnc	00104$
       003390                       1128 00108$:
-                                   1129 ;	8051_i2c_eeprom.c:174: (c >= 'a' && c <= 'f') || 
+                                   1129 ;	8051_i2c_eeprom.c:219: (c >= 'a' && c <= 'f') || 
       003390 BC 61 00         [24] 1130 	cjne	r4,#0x61,00205$
       003393                       1131 00205$:
       003393 40 05            [24] 1132 	jc	00110$
@@ -1134,7 +1134,7 @@
       003396 24 99            [12] 1134 	add	a,#0xff - 0x66
       003398 50 0A            [24] 1135 	jnc	00104$
       00339A                       1136 00110$:
-                                   1137 ;	8051_i2c_eeprom.c:175: (c >= 'A' && c <= 'F')) {
+                                   1137 ;	8051_i2c_eeprom.c:220: (c >= 'A' && c <= 'F')) {
       00339A BC 41 00         [24] 1138 	cjne	r4,#0x41,00208$
       00339D                       1139 00208$:
       00339D 40 C3            [24] 1140 	jc	00111$
@@ -1142,7 +1142,7 @@
       0033A0 24 B9            [12] 1142 	add	a,#0xff - 0x46
       0033A2 40 BE            [24] 1143 	jc	00111$
       0033A4                       1144 00104$:
-                                   1145 ;	8051_i2c_eeprom.c:177: input[i] = c;
+                                   1145 ;	8051_i2c_eeprom.c:222: input[i] = c;
       0033A4 EE               [12] 1146 	mov	a,r6
       0033A5 24 04            [12] 1147 	add	a,#_take_address_input_65537_68
       0033A7 F5 82            [12] 1148 	mov	dpl,a
@@ -1151,7 +1151,7 @@
       0033AC F5 83            [12] 1151 	mov	dph,a
       0033AE EC               [12] 1152 	mov	a,r4
       0033AF F0               [24] 1153 	movx	@dptr,a
-                                   1154 ;	8051_i2c_eeprom.c:178: putchar(c);  // Echo character back
+                                   1154 ;	8051_i2c_eeprom.c:223: putchar(c);  // Echo character back
       0033B0 7D 00            [12] 1155 	mov	r5,#0x00
       0033B2 8C 82            [24] 1156 	mov	dpl,r4
       0033B4 8D 83            [24] 1157 	mov	dph,r5
@@ -1160,13 +1160,13 @@
       0033BA 12 30 62         [24] 1160 	lcall	_putchar
       0033BD D0 06            [24] 1161 	pop	ar6
       0033BF D0 07            [24] 1162 	pop	ar7
-                                   1163 ;	8051_i2c_eeprom.c:179: i++;
+                                   1163 ;	8051_i2c_eeprom.c:224: i++;
       0033C1 0E               [12] 1164 	inc	r6
       0033C2 BE 00 9D         [24] 1165 	cjne	r6,#0x00,00111$
       0033C5 0F               [12] 1166 	inc	r7
       0033C6 80 9A            [24] 1167 	sjmp	00111$
       0033C8                       1168 00113$:
-                                   1169 ;	8051_i2c_eeprom.c:183: input[i] = '\0';  // Null-terminate the string
+                                   1169 ;	8051_i2c_eeprom.c:228: input[i] = '\0';  // Null-terminate the string
       0033C8 EE               [12] 1170 	mov	a,r6
       0033C9 24 04            [12] 1171 	add	a,#_take_address_input_65537_68
       0033CB F5 82            [12] 1172 	mov	dpl,a
@@ -1175,12 +1175,12 @@
       0033D0 F5 83            [12] 1175 	mov	dph,a
       0033D2 E4               [12] 1176 	clr	a
       0033D3 F0               [24] 1177 	movx	@dptr,a
-                                   1178 ;	8051_i2c_eeprom.c:186: unsigned int address = 0;
+                                   1178 ;	8051_i2c_eeprom.c:231: unsigned int address = 0;
       0033D4 90 04 08         [24] 1179 	mov	dptr,#_take_address_address_65538_72
       0033D7 F0               [24] 1180 	movx	@dptr,a
       0033D8 A3               [24] 1181 	inc	dptr
       0033D9 F0               [24] 1182 	movx	@dptr,a
-                                   1183 ;	8051_i2c_eeprom.c:187: for(i = 0; input[i] != '\0'; i++) {
+                                   1183 ;	8051_i2c_eeprom.c:232: for(i = 0; input[i] != '\0'; i++) {
       0033DA 7E 00            [12] 1184 	mov	r6,#0x00
       0033DC 7F 00            [12] 1185 	mov	r7,#0x00
       0033DE                       1186 00129$:
@@ -1195,7 +1195,7 @@
       0033EA 70 03            [24] 1195 	jnz	00212$
       0033EC 02 34 97         [24] 1196 	ljmp	00125$
       0033EF                       1197 00212$:
-                                   1198 ;	8051_i2c_eeprom.c:188: address = address * 16;
+                                   1198 ;	8051_i2c_eeprom.c:233: address = address * 16;
       0033EF 90 04 08         [24] 1199 	mov	dptr,#_take_address_address_65538_72
       0033F2 E0               [24] 1200 	movx	a,@dptr
       0033F3 FB               [12] 1201 	mov	r3,a
@@ -1218,14 +1218,14 @@
       003408 EC               [12] 1218 	mov	a,r4
       003409 A3               [24] 1219 	inc	dptr
       00340A F0               [24] 1220 	movx	@dptr,a
-                                   1221 ;	8051_i2c_eeprom.c:189: if(input[i] >= '0' && input[i] <= '9')
+                                   1221 ;	8051_i2c_eeprom.c:234: if(input[i] >= '0' && input[i] <= '9')
       00340B BD 30 00         [24] 1222 	cjne	r5,#0x30,00213$
       00340E                       1223 00213$:
       00340E 40 23            [24] 1224 	jc	00122$
       003410 ED               [12] 1225 	mov	a,r5
       003411 24 C6            [12] 1226 	add	a,#0xff - 0x39
       003413 40 1E            [24] 1227 	jc	00122$
-                                   1228 ;	8051_i2c_eeprom.c:190: address += input[i] - '0';
+                                   1228 ;	8051_i2c_eeprom.c:235: address += input[i] - '0';
       003415 7C 00            [12] 1229 	mov	r4,#0x00
       003417 ED               [12] 1230 	mov	a,r5
       003418 24 D0            [12] 1231 	add	a,#0xd0
@@ -1249,7 +1249,7 @@
       003430 F0               [24] 1249 	movx	@dptr,a
       003431 80 5C            [24] 1250 	sjmp	00130$
       003433                       1251 00122$:
-                                   1252 ;	8051_i2c_eeprom.c:191: else if(input[i] >= 'A' && input[i] <= 'F')
+                                   1252 ;	8051_i2c_eeprom.c:236: else if(input[i] >= 'A' && input[i] <= 'F')
       003433 EE               [12] 1253 	mov	a,r6
       003434 24 04            [12] 1254 	add	a,#_take_address_input_65537_68
       003436 F5 82            [12] 1255 	mov	dpl,a
@@ -1264,7 +1264,7 @@
       003444 ED               [12] 1264 	mov	a,r5
       003445 24 B9            [12] 1265 	add	a,#0xff - 0x46
       003447 40 20            [24] 1266 	jc	00118$
-                                   1267 ;	8051_i2c_eeprom.c:192: address += input[i] - 'A' + 10;
+                                   1267 ;	8051_i2c_eeprom.c:237: address += input[i] - 'A' + 10;
       003449 8D 03            [24] 1268 	mov	ar3,r5
       00344B 7C 00            [12] 1269 	mov	r4,#0x00
       00344D 74 C9            [12] 1270 	mov	a,#0xc9
@@ -1289,14 +1289,14 @@
       003466 F0               [24] 1289 	movx	@dptr,a
       003467 80 26            [24] 1290 	sjmp	00130$
       003469                       1291 00118$:
-                                   1292 ;	8051_i2c_eeprom.c:193: else if(input[i] >= 'a' && input[i] <= 'f')
+                                   1292 ;	8051_i2c_eeprom.c:238: else if(input[i] >= 'a' && input[i] <= 'f')
       003469 BD 61 00         [24] 1293 	cjne	r5,#0x61,00219$
       00346C                       1294 00219$:
       00346C 40 21            [24] 1295 	jc	00130$
       00346E ED               [12] 1296 	mov	a,r5
       00346F 24 99            [12] 1297 	add	a,#0xff - 0x66
       003471 40 1C            [24] 1298 	jc	00130$
-                                   1299 ;	8051_i2c_eeprom.c:194: address += input[i] - 'a' + 10;
+                                   1299 ;	8051_i2c_eeprom.c:239: address += input[i] - 'a' + 10;
       003473 7C 00            [12] 1300 	mov	r4,#0x00
       003475 74 A9            [12] 1301 	mov	a,#0xa9
       003477 2D               [12] 1302 	add	a,r5
@@ -1319,14 +1319,14 @@
       00348D A3               [24] 1319 	inc	dptr
       00348E F0               [24] 1320 	movx	@dptr,a
       00348F                       1321 00130$:
-                                   1322 ;	8051_i2c_eeprom.c:187: for(i = 0; input[i] != '\0'; i++) {
+                                   1322 ;	8051_i2c_eeprom.c:232: for(i = 0; input[i] != '\0'; i++) {
       00348F 0E               [12] 1323 	inc	r6
       003490 BE 00 01         [24] 1324 	cjne	r6,#0x00,00222$
       003493 0F               [12] 1325 	inc	r7
       003494                       1326 00222$:
       003494 02 33 DE         [24] 1327 	ljmp	00129$
       003497                       1328 00125$:
-                                   1329 ;	8051_i2c_eeprom.c:197: printf("\n\r│ Entered address: 0x%03X\n\r", address);
+                                   1329 ;	8051_i2c_eeprom.c:242: printf("\n\r│ Entered address: 0x%03X\n\r", address);
       003497 90 04 08         [24] 1330 	mov	dptr,#_take_address_address_65538_72
       00349A E0               [24] 1331 	movx	a,@dptr
       00349B FE               [12] 1332 	mov	r6,a
@@ -1337,93 +1337,93 @@
       0034A1 C0 06            [24] 1337 	push	ar6
       0034A3 C0 06            [24] 1338 	push	ar6
       0034A5 C0 07            [24] 1339 	push	ar7
-      0034A7 74 EF            [12] 1340 	mov	a,#___str_23
+      0034A7 74 95            [12] 1340 	mov	a,#___str_23
       0034A9 C0 E0            [24] 1341 	push	acc
-      0034AB 74 50            [12] 1342 	mov	a,#(___str_23 >> 8)
+      0034AB 74 51            [12] 1342 	mov	a,#(___str_23 >> 8)
       0034AD C0 E0            [24] 1343 	push	acc
       0034AF 74 80            [12] 1344 	mov	a,#0x80
       0034B1 C0 E0            [24] 1345 	push	acc
-      0034B3 12 3E B0         [24] 1346 	lcall	_printf
+      0034B3 12 3F 56         [24] 1346 	lcall	_printf
       0034B6 E5 81            [12] 1347 	mov	a,sp
       0034B8 24 FB            [12] 1348 	add	a,#0xfb
       0034BA F5 81            [12] 1349 	mov	sp,a
       0034BC D0 06            [24] 1350 	pop	ar6
       0034BE D0 07            [24] 1351 	pop	ar7
-                                   1352 ;	8051_i2c_eeprom.c:198: if(address > 0x7ff) 
+                                   1352 ;	8051_i2c_eeprom.c:243: if(address > 0x7ff) 
       0034C0 C3               [12] 1353 	clr	c
       0034C1 74 FF            [12] 1354 	mov	a,#0xff
       0034C3 9E               [12] 1355 	subb	a,r6
       0034C4 74 07            [12] 1356 	mov	a,#0x07
       0034C6 9F               [12] 1357 	subb	a,r7
       0034C7 50 5F            [24] 1358 	jnc	00127$
-                                   1359 ;	8051_i2c_eeprom.c:200: printf("╔══════════════════════════════════════════╗\n\r");
-      0034C9 74 0F            [12] 1360 	mov	a,#___str_24
+                                   1359 ;	8051_i2c_eeprom.c:245: printf("╔══════════════════════════════════════════╗\n\r");
+      0034C9 74 B5            [12] 1360 	mov	a,#___str_24
       0034CB C0 E0            [24] 1361 	push	acc
       0034CD 74 51            [12] 1362 	mov	a,#(___str_24 >> 8)
       0034CF C0 E0            [24] 1363 	push	acc
       0034D1 74 80            [12] 1364 	mov	a,#0x80
       0034D3 C0 E0            [24] 1365 	push	acc
-      0034D5 12 3E B0         [24] 1366 	lcall	_printf
+      0034D5 12 3F 56         [24] 1366 	lcall	_printf
       0034D8 15 81            [12] 1367 	dec	sp
       0034DA 15 81            [12] 1368 	dec	sp
       0034DC 15 81            [12] 1369 	dec	sp
-                                   1370 ;	8051_i2c_eeprom.c:201: printf("║       ! ADDRESS OUT OF RANGE !         ║\n\r");
-      0034DE 74 96            [12] 1371 	mov	a,#___str_25
+                                   1370 ;	8051_i2c_eeprom.c:246: printf("║       ! ADDRESS OUT OF RANGE !         ║\n\r");
+      0034DE 74 3C            [12] 1371 	mov	a,#___str_25
       0034E0 C0 E0            [24] 1372 	push	acc
-      0034E2 74 51            [12] 1373 	mov	a,#(___str_25 >> 8)
+      0034E2 74 52            [12] 1373 	mov	a,#(___str_25 >> 8)
       0034E4 C0 E0            [24] 1374 	push	acc
       0034E6 74 80            [12] 1375 	mov	a,#0x80
       0034E8 C0 E0            [24] 1376 	push	acc
-      0034EA 12 3E B0         [24] 1377 	lcall	_printf
+      0034EA 12 3F 56         [24] 1377 	lcall	_printf
       0034ED 15 81            [12] 1378 	dec	sp
       0034EF 15 81            [12] 1379 	dec	sp
       0034F1 15 81            [12] 1380 	dec	sp
-                                   1381 ;	8051_i2c_eeprom.c:202: printf("║     Please Enter Valid Address         ║\n\r");
-      0034F3 74 C7            [12] 1382 	mov	a,#___str_26
+                                   1381 ;	8051_i2c_eeprom.c:247: printf("║     Please Enter Valid Address         ║\n\r");
+      0034F3 74 6D            [12] 1382 	mov	a,#___str_26
       0034F5 C0 E0            [24] 1383 	push	acc
-      0034F7 74 51            [12] 1384 	mov	a,#(___str_26 >> 8)
+      0034F7 74 52            [12] 1384 	mov	a,#(___str_26 >> 8)
       0034F9 C0 E0            [24] 1385 	push	acc
       0034FB 74 80            [12] 1386 	mov	a,#0x80
       0034FD C0 E0            [24] 1387 	push	acc
-      0034FF 12 3E B0         [24] 1388 	lcall	_printf
+      0034FF 12 3F 56         [24] 1388 	lcall	_printf
       003502 15 81            [12] 1389 	dec	sp
       003504 15 81            [12] 1390 	dec	sp
       003506 15 81            [12] 1391 	dec	sp
-                                   1392 ;	8051_i2c_eeprom.c:203: printf("╚══════════════════════════════════════════╝\n\r");
-      003508 74 F8            [12] 1393 	mov	a,#___str_27
+                                   1392 ;	8051_i2c_eeprom.c:248: printf("╚══════════════════════════════════════════╝\n\r");
+      003508 74 9E            [12] 1393 	mov	a,#___str_27
       00350A C0 E0            [24] 1394 	push	acc
-      00350C 74 51            [12] 1395 	mov	a,#(___str_27 >> 8)
+      00350C 74 52            [12] 1395 	mov	a,#(___str_27 >> 8)
       00350E C0 E0            [24] 1396 	push	acc
       003510 74 80            [12] 1397 	mov	a,#0x80
       003512 C0 E0            [24] 1398 	push	acc
-      003514 12 3E B0         [24] 1399 	lcall	_printf
+      003514 12 3F 56         [24] 1399 	lcall	_printf
       003517 15 81            [12] 1400 	dec	sp
       003519 15 81            [12] 1401 	dec	sp
       00351B 15 81            [12] 1402 	dec	sp
-                                   1403 ;	8051_i2c_eeprom.c:204: address_range_flag = 0;
+                                   1403 ;	8051_i2c_eeprom.c:249: address_range_flag = 0;
       00351D 90 04 57         [24] 1404 	mov	dptr,#_address_range_flag
       003520 E4               [12] 1405 	clr	a
       003521 F0               [24] 1406 	movx	@dptr,a
       003522 A3               [24] 1407 	inc	dptr
       003523 F0               [24] 1408 	movx	@dptr,a
-                                   1409 ;	8051_i2c_eeprom.c:205: return 0;
+                                   1409 ;	8051_i2c_eeprom.c:250: return 0;
       003524 90 00 00         [24] 1410 	mov	dptr,#0x0000
       003527 22               [24] 1411 	ret
       003528                       1412 00127$:
-                                   1413 ;	8051_i2c_eeprom.c:209: address = address%256;     //word address
+                                   1413 ;	8051_i2c_eeprom.c:254: address = address%256;     //word address
       003528 90 04 08         [24] 1414 	mov	dptr,#_take_address_address_65538_72
       00352B EE               [12] 1415 	mov	a,r6
       00352C F0               [24] 1416 	movx	@dptr,a
       00352D E4               [12] 1417 	clr	a
       00352E A3               [24] 1418 	inc	dptr
       00352F F0               [24] 1419 	movx	@dptr,a
-                                   1420 ;	8051_i2c_eeprom.c:212: return address;
+                                   1420 ;	8051_i2c_eeprom.c:257: return address;
       003530 90 04 08         [24] 1421 	mov	dptr,#_take_address_address_65538_72
       003533 E0               [24] 1422 	movx	a,@dptr
       003534 FE               [12] 1423 	mov	r6,a
       003535 A3               [24] 1424 	inc	dptr
       003536 E0               [24] 1425 	movx	a,@dptr
-                                   1426 ;	8051_i2c_eeprom.c:213: }
+                                   1426 ;	8051_i2c_eeprom.c:258: }
       003537 8E 82            [24] 1427 	mov	dpl,r6
       003539 F5 83            [12] 1428 	mov	dph,a
       00353B 22               [24] 1429 	ret
@@ -1435,23 +1435,23 @@
                                    1435 ;c                         Allocated with name '_take_data_c_65537_78'
                                    1436 ;data                      Allocated with name '_take_data_data_65538_82'
                                    1437 ;------------------------------------------------------------
-                                   1438 ;	8051_i2c_eeprom.c:215: unsigned char take_data()
+                                   1438 ;	8051_i2c_eeprom.c:266: unsigned char take_data()
                                    1439 ;	-----------------------------------------
                                    1440 ;	 function take_data
                                    1441 ;	-----------------------------------------
       00353C                       1442 _take_data:
-                                   1443 ;	8051_i2c_eeprom.c:217: printf("│ Enter data (hex, up to 2 characters): \n\r|");
-      00353C 74 7F            [12] 1444 	mov	a,#___str_28
+                                   1443 ;	8051_i2c_eeprom.c:268: printf("│ Enter data (hex, up to 2 characters): \n\r|");
+      00353C 74 25            [12] 1444 	mov	a,#___str_28
       00353E C0 E0            [24] 1445 	push	acc
-      003540 74 52            [12] 1446 	mov	a,#(___str_28 >> 8)
+      003540 74 53            [12] 1446 	mov	a,#(___str_28 >> 8)
       003542 C0 E0            [24] 1447 	push	acc
       003544 74 80            [12] 1448 	mov	a,#0x80
       003546 C0 E0            [24] 1449 	push	acc
-      003548 12 3E B0         [24] 1450 	lcall	_printf
+      003548 12 3F 56         [24] 1450 	lcall	_printf
       00354B 15 81            [12] 1451 	dec	sp
       00354D 15 81            [12] 1452 	dec	sp
       00354F 15 81            [12] 1453 	dec	sp
-                                   1454 ;	8051_i2c_eeprom.c:218: char input[4] = {0};  // Array for 3 hex chars + null terminator
+                                   1454 ;	8051_i2c_eeprom.c:269: char input[4] = {0};  // Array for 3 hex chars + null terminator
       003551 90 04 0A         [24] 1455 	mov	dptr,#_take_data_input_65537_78
       003554 E4               [12] 1456 	clr	a
       003555 F0               [24] 1457 	movx	@dptr,a
@@ -1461,18 +1461,18 @@
       00355D F0               [24] 1461 	movx	@dptr,a
       00355E 90 04 0D         [24] 1462 	mov	dptr,#(_take_data_input_65537_78 + 0x0003)
       003561 F0               [24] 1463 	movx	@dptr,a
-                                   1464 ;	8051_i2c_eeprom.c:222: printf("$ ");
-      003562 74 AD            [12] 1465 	mov	a,#___str_29
+                                   1464 ;	8051_i2c_eeprom.c:273: printf("$ ");
+      003562 74 53            [12] 1465 	mov	a,#___str_29
       003564 C0 E0            [24] 1466 	push	acc
-      003566 74 52            [12] 1467 	mov	a,#(___str_29 >> 8)
+      003566 74 53            [12] 1467 	mov	a,#(___str_29 >> 8)
       003568 C0 E0            [24] 1468 	push	acc
       00356A 74 80            [12] 1469 	mov	a,#0x80
       00356C C0 E0            [24] 1470 	push	acc
-      00356E 12 3E B0         [24] 1471 	lcall	_printf
+      00356E 12 3F 56         [24] 1471 	lcall	_printf
       003571 15 81            [12] 1472 	dec	sp
       003573 15 81            [12] 1473 	dec	sp
       003575 15 81            [12] 1474 	dec	sp
-                                   1475 ;	8051_i2c_eeprom.c:224: while (i < 3) {
+                                   1475 ;	8051_i2c_eeprom.c:275: while (i < 3) {
       003577 7E 00            [12] 1476 	mov	r6,#0x00
       003579 7F 00            [12] 1477 	mov	r7,#0x00
       00357B                       1478 00111$:
@@ -1483,7 +1483,7 @@
       003580 64 80            [12] 1483 	xrl	a,#0x80
       003582 94 80            [12] 1484 	subb	a,#0x80
       003584 50 5B            [24] 1485 	jnc	00113$
-                                   1486 ;	8051_i2c_eeprom.c:226: c = getchar();
+                                   1486 ;	8051_i2c_eeprom.c:277: c = getchar();
       003586 C0 07            [24] 1487 	push	ar7
       003588 C0 06            [24] 1488 	push	ar6
       00358A 12 30 81         [24] 1489 	lcall	_getchar
@@ -1491,14 +1491,14 @@
       00358F AD 83            [24] 1491 	mov	r5,dph
       003591 D0 06            [24] 1492 	pop	ar6
       003593 D0 07            [24] 1493 	pop	ar7
-                                   1494 ;	8051_i2c_eeprom.c:229: if (c == '\r' || c == '\n') {
+                                   1494 ;	8051_i2c_eeprom.c:280: if (c == '\r' || c == '\n') {
       003595 BC 0D 02         [24] 1495 	cjne	r4,#0x0d,00200$
       003598 80 47            [24] 1496 	sjmp	00113$
       00359A                       1497 00200$:
       00359A BC 0A 02         [24] 1498 	cjne	r4,#0x0a,00201$
       00359D 80 42            [24] 1499 	sjmp	00113$
       00359F                       1500 00201$:
-                                   1501 ;	8051_i2c_eeprom.c:234: if ((c >= '0' && c <= '9') ||
+                                   1501 ;	8051_i2c_eeprom.c:285: if ((c >= '0' && c <= '9') ||
       00359F BC 30 00         [24] 1502 	cjne	r4,#0x30,00202$
       0035A2                       1503 00202$:
       0035A2 40 05            [24] 1504 	jc	00108$
@@ -1506,7 +1506,7 @@
       0035A5 24 C6            [12] 1506 	add	a,#0xff - 0x39
       0035A7 50 14            [24] 1507 	jnc	00104$
       0035A9                       1508 00108$:
-                                   1509 ;	8051_i2c_eeprom.c:235: (c >= 'a' && c <= 'f') ||
+                                   1509 ;	8051_i2c_eeprom.c:286: (c >= 'a' && c <= 'f') ||
       0035A9 BC 61 00         [24] 1510 	cjne	r4,#0x61,00205$
       0035AC                       1511 00205$:
       0035AC 40 05            [24] 1512 	jc	00110$
@@ -1514,7 +1514,7 @@
       0035AF 24 99            [12] 1514 	add	a,#0xff - 0x66
       0035B1 50 0A            [24] 1515 	jnc	00104$
       0035B3                       1516 00110$:
-                                   1517 ;	8051_i2c_eeprom.c:236: (c >= 'A' && c <= 'F')) {
+                                   1517 ;	8051_i2c_eeprom.c:287: (c >= 'A' && c <= 'F')) {
       0035B3 BC 41 00         [24] 1518 	cjne	r4,#0x41,00208$
       0035B6                       1519 00208$:
       0035B6 40 C3            [24] 1520 	jc	00111$
@@ -1522,7 +1522,7 @@
       0035B9 24 B9            [12] 1522 	add	a,#0xff - 0x46
       0035BB 40 BE            [24] 1523 	jc	00111$
       0035BD                       1524 00104$:
-                                   1525 ;	8051_i2c_eeprom.c:238: input[i] = c;
+                                   1525 ;	8051_i2c_eeprom.c:289: input[i] = c;
       0035BD EE               [12] 1526 	mov	a,r6
       0035BE 24 0A            [12] 1527 	add	a,#_take_data_input_65537_78
       0035C0 F5 82            [12] 1528 	mov	dpl,a
@@ -1531,7 +1531,7 @@
       0035C5 F5 83            [12] 1531 	mov	dph,a
       0035C7 EC               [12] 1532 	mov	a,r4
       0035C8 F0               [24] 1533 	movx	@dptr,a
-                                   1534 ;	8051_i2c_eeprom.c:239: putchar(c);  // Echo character back
+                                   1534 ;	8051_i2c_eeprom.c:290: putchar(c);  // Echo character back
       0035C9 7D 00            [12] 1535 	mov	r5,#0x00
       0035CB 8C 82            [24] 1536 	mov	dpl,r4
       0035CD 8D 83            [24] 1537 	mov	dph,r5
@@ -1540,13 +1540,13 @@
       0035D3 12 30 62         [24] 1540 	lcall	_putchar
       0035D6 D0 06            [24] 1541 	pop	ar6
       0035D8 D0 07            [24] 1542 	pop	ar7
-                                   1543 ;	8051_i2c_eeprom.c:240: i++;
+                                   1543 ;	8051_i2c_eeprom.c:291: i++;
       0035DA 0E               [12] 1544 	inc	r6
       0035DB BE 00 9D         [24] 1545 	cjne	r6,#0x00,00111$
       0035DE 0F               [12] 1546 	inc	r7
       0035DF 80 9A            [24] 1547 	sjmp	00111$
       0035E1                       1548 00113$:
-                                   1549 ;	8051_i2c_eeprom.c:244: input[i] = '\0';  // Null-terminate the string
+                                   1549 ;	8051_i2c_eeprom.c:295: input[i] = '\0';  // Null-terminate the string
       0035E1 EE               [12] 1550 	mov	a,r6
       0035E2 24 0A            [12] 1551 	add	a,#_take_data_input_65537_78
       0035E4 F5 82            [12] 1552 	mov	dpl,a
@@ -1555,10 +1555,10 @@
       0035E9 F5 83            [12] 1555 	mov	dph,a
       0035EB E4               [12] 1556 	clr	a
       0035EC F0               [24] 1557 	movx	@dptr,a
-                                   1558 ;	8051_i2c_eeprom.c:247: unsigned char data = 0;
+                                   1558 ;	8051_i2c_eeprom.c:298: unsigned char data = 0;
       0035ED 90 04 0E         [24] 1559 	mov	dptr,#_take_data_data_65538_82
       0035F0 F0               [24] 1560 	movx	@dptr,a
-                                   1561 ;	8051_i2c_eeprom.c:248: for (i = 0; input[i] != '\0'; i++) {
+                                   1561 ;	8051_i2c_eeprom.c:299: for (i = 0; input[i] != '\0'; i++) {
       0035F1 7E 00            [12] 1562 	mov	r6,#0x00
       0035F3 7F 00            [12] 1563 	mov	r7,#0x00
       0035F5                       1564 00129$:
@@ -1573,21 +1573,21 @@
       003601 70 03            [24] 1573 	jnz	00212$
       003603 02 36 68         [24] 1574 	ljmp	00125$
       003606                       1575 00212$:
-                                   1576 ;	8051_i2c_eeprom.c:249: data = data * 16;
+                                   1576 ;	8051_i2c_eeprom.c:300: data = data * 16;
       003606 90 04 0E         [24] 1577 	mov	dptr,#_take_data_data_65538_82
       003609 E0               [24] 1578 	movx	a,@dptr
       00360A C4               [12] 1579 	swap	a
       00360B 54 F0            [12] 1580 	anl	a,#0xf0
       00360D FC               [12] 1581 	mov	r4,a
       00360E F0               [24] 1582 	movx	@dptr,a
-                                   1583 ;	8051_i2c_eeprom.c:250: if (input[i] >= '0' && input[i] <= '9')
+                                   1583 ;	8051_i2c_eeprom.c:301: if (input[i] >= '0' && input[i] <= '9')
       00360F BD 30 00         [24] 1584 	cjne	r5,#0x30,00213$
       003612                       1585 00213$:
       003612 40 12            [24] 1586 	jc	00122$
       003614 ED               [12] 1587 	mov	a,r5
       003615 24 C6            [12] 1588 	add	a,#0xff - 0x39
       003617 40 0D            [24] 1589 	jc	00122$
-                                   1590 ;	8051_i2c_eeprom.c:251: data += input[i] - '0';
+                                   1590 ;	8051_i2c_eeprom.c:302: data += input[i] - '0';
       003619 ED               [12] 1591 	mov	a,r5
       00361A 24 D0            [12] 1592 	add	a,#0xd0
       00361C FD               [12] 1593 	mov	r5,a
@@ -1598,7 +1598,7 @@
       003623 F0               [24] 1598 	movx	@dptr,a
       003624 80 3A            [24] 1599 	sjmp	00130$
       003626                       1600 00122$:
-                                   1601 ;	8051_i2c_eeprom.c:252: else if (input[i] >= 'A' && input[i] <= 'F')
+                                   1601 ;	8051_i2c_eeprom.c:303: else if (input[i] >= 'A' && input[i] <= 'F')
       003626 EE               [12] 1602 	mov	a,r6
       003627 24 0A            [12] 1603 	add	a,#_take_data_input_65537_78
       003629 F5 82            [12] 1604 	mov	dpl,a
@@ -1613,7 +1613,7 @@
       003637 ED               [12] 1613 	mov	a,r5
       003638 24 B9            [12] 1614 	add	a,#0xff - 0x46
       00363A 40 0F            [24] 1615 	jc	00118$
-                                   1616 ;	8051_i2c_eeprom.c:253: data += input[i] - 'A' + 10;
+                                   1616 ;	8051_i2c_eeprom.c:304: data += input[i] - 'A' + 10;
       00363C 8D 04            [24] 1617 	mov	ar4,r5
       00363E 74 C9            [12] 1618 	mov	a,#0xc9
       003640 2C               [12] 1619 	add	a,r4
@@ -1625,14 +1625,14 @@
       003648 F0               [24] 1625 	movx	@dptr,a
       003649 80 15            [24] 1626 	sjmp	00130$
       00364B                       1627 00118$:
-                                   1628 ;	8051_i2c_eeprom.c:254: else if (input[i] >= 'a' && input[i] <= 'f')
+                                   1628 ;	8051_i2c_eeprom.c:305: else if (input[i] >= 'a' && input[i] <= 'f')
       00364B BD 61 00         [24] 1629 	cjne	r5,#0x61,00219$
       00364E                       1630 00219$:
       00364E 40 10            [24] 1631 	jc	00130$
       003650 ED               [12] 1632 	mov	a,r5
       003651 24 99            [12] 1633 	add	a,#0xff - 0x66
       003653 40 0B            [24] 1634 	jc	00130$
-                                   1635 ;	8051_i2c_eeprom.c:255: data += input[i] - 'a' + 10;
+                                   1635 ;	8051_i2c_eeprom.c:306: data += input[i] - 'a' + 10;
       003655 74 A9            [12] 1636 	mov	a,#0xa9
       003657 2D               [12] 1637 	add	a,r5
       003658 FD               [12] 1638 	mov	r5,a
@@ -1642,14 +1642,14 @@
       00365E 2D               [12] 1642 	add	a,r5
       00365F F0               [24] 1643 	movx	@dptr,a
       003660                       1644 00130$:
-                                   1645 ;	8051_i2c_eeprom.c:248: for (i = 0; input[i] != '\0'; i++) {
+                                   1645 ;	8051_i2c_eeprom.c:299: for (i = 0; input[i] != '\0'; i++) {
       003660 0E               [12] 1646 	inc	r6
       003661 BE 00 01         [24] 1647 	cjne	r6,#0x00,00222$
       003664 0F               [12] 1648 	inc	r7
       003665                       1649 00222$:
       003665 02 35 F5         [24] 1650 	ljmp	00129$
       003668                       1651 00125$:
-                                   1652 ;	8051_i2c_eeprom.c:258: printf("\n\r│ Entered data: 0x%02X\n\r", data);
+                                   1652 ;	8051_i2c_eeprom.c:309: printf("\n\r│ Entered data: 0x%02X\n\r", data);
       003668 90 04 0E         [24] 1653 	mov	dptr,#_take_data_data_65538_82
       00366B E0               [24] 1654 	movx	a,@dptr
       00366C FF               [12] 1655 	mov	r7,a
@@ -1658,45 +1658,45 @@
       003670 C0 07            [24] 1658 	push	ar7
       003672 C0 05            [24] 1659 	push	ar5
       003674 C0 06            [24] 1660 	push	ar6
-      003676 74 B0            [12] 1661 	mov	a,#___str_30
+      003676 74 56            [12] 1661 	mov	a,#___str_30
       003678 C0 E0            [24] 1662 	push	acc
-      00367A 74 52            [12] 1663 	mov	a,#(___str_30 >> 8)
+      00367A 74 53            [12] 1663 	mov	a,#(___str_30 >> 8)
       00367C C0 E0            [24] 1664 	push	acc
       00367E 74 80            [12] 1665 	mov	a,#0x80
       003680 C0 E0            [24] 1666 	push	acc
-      003682 12 3E B0         [24] 1667 	lcall	_printf
+      003682 12 3F 56         [24] 1667 	lcall	_printf
       003685 E5 81            [12] 1668 	mov	a,sp
       003687 24 FB            [12] 1669 	add	a,#0xfb
       003689 F5 81            [12] 1670 	mov	sp,a
       00368B D0 07            [24] 1671 	pop	ar7
-                                   1672 ;	8051_i2c_eeprom.c:259: if(data > 0xfe)
+                                   1672 ;	8051_i2c_eeprom.c:310: if(data > 0xfe)
       00368D EF               [12] 1673 	mov	a,r7
       00368E 24 01            [12] 1674 	add	a,#0xff - 0xfe
       003690 50 20            [24] 1675 	jnc	00127$
-                                   1676 ;	8051_i2c_eeprom.c:261: printf("Data out of Range\n\r");
-      003692 74 CD            [12] 1677 	mov	a,#___str_31
+                                   1676 ;	8051_i2c_eeprom.c:312: printf("Data out of Range\n\r");
+      003692 74 73            [12] 1677 	mov	a,#___str_31
       003694 C0 E0            [24] 1678 	push	acc
-      003696 74 52            [12] 1679 	mov	a,#(___str_31 >> 8)
+      003696 74 53            [12] 1679 	mov	a,#(___str_31 >> 8)
       003698 C0 E0            [24] 1680 	push	acc
       00369A 74 80            [12] 1681 	mov	a,#0x80
       00369C C0 E0            [24] 1682 	push	acc
-      00369E 12 3E B0         [24] 1683 	lcall	_printf
+      00369E 12 3F 56         [24] 1683 	lcall	_printf
       0036A1 15 81            [12] 1684 	dec	sp
       0036A3 15 81            [12] 1685 	dec	sp
       0036A5 15 81            [12] 1686 	dec	sp
-                                   1687 ;	8051_i2c_eeprom.c:262: data_range_flag = 0;
+                                   1687 ;	8051_i2c_eeprom.c:313: data_range_flag = 0;
       0036A7 90 04 59         [24] 1688 	mov	dptr,#_data_range_flag
       0036AA E4               [12] 1689 	clr	a
       0036AB F0               [24] 1690 	movx	@dptr,a
       0036AC A3               [24] 1691 	inc	dptr
       0036AD F0               [24] 1692 	movx	@dptr,a
-                                   1693 ;	8051_i2c_eeprom.c:263: return 0;
+                                   1693 ;	8051_i2c_eeprom.c:314: return 0;
       0036AE 75 82 00         [24] 1694 	mov	dpl,#0x00
       0036B1 22               [24] 1695 	ret
       0036B2                       1696 00127$:
-                                   1697 ;	8051_i2c_eeprom.c:265: return data;
+                                   1697 ;	8051_i2c_eeprom.c:316: return data;
       0036B2 8F 82            [24] 1698 	mov	dpl,r7
-                                   1699 ;	8051_i2c_eeprom.c:267: }
+                                   1699 ;	8051_i2c_eeprom.c:318: }
       0036B4 22               [24] 1700 	ret
                                    1701 ;------------------------------------------------------------
                                    1702 ;Allocation info for local variables in function 'eeprom_write'
@@ -1705,7 +1705,7 @@
                                    1705 ;address                   Allocated with name '_eeprom_write_address_65536_86'
                                    1706 ;i                         Allocated with name '_eeprom_write_i_131072_91'
                                    1707 ;------------------------------------------------------------
-                                   1708 ;	8051_i2c_eeprom.c:269: int eeprom_write(unsigned int address, unsigned char data) 
+                                   1708 ;	8051_i2c_eeprom.c:334: int eeprom_write(unsigned int address, unsigned char data) 
                                    1709 ;	-----------------------------------------
                                    1710 ;	 function eeprom_write
                                    1711 ;	-----------------------------------------
@@ -1717,9 +1717,9 @@
       0036BD EF               [12] 1717 	mov	a,r7
       0036BE A3               [24] 1718 	inc	dptr
       0036BF F0               [24] 1719 	movx	@dptr,a
-                                   1720 ;	8051_i2c_eeprom.c:275: i2c_start();
+                                   1720 ;	8051_i2c_eeprom.c:337: i2c_start();
       0036C0 12 39 F8         [24] 1721 	lcall	_i2c_start
-                                   1722 ;	8051_i2c_eeprom.c:278: if(!i2c_write(EEPROM_ID | block | WRITE)) {
+                                   1722 ;	8051_i2c_eeprom.c:340: if(!i2c_write(EEPROM_ID | block | WRITE)) {
       0036C3 90 04 5B         [24] 1723 	mov	dptr,#_block
       0036C6 E0               [24] 1724 	movx	a,@dptr
       0036C7 FE               [12] 1725 	mov	r6,a
@@ -1732,24 +1732,24 @@
       0036D4 85 83 F0         [24] 1732 	mov	b,dph
       0036D7 45 F0            [12] 1733 	orl	a,b
       0036D9 70 1C            [24] 1734 	jnz	00102$
-                                   1735 ;	8051_i2c_eeprom.c:279: printf("Error: No ACK for device address (write)\n\r");
-      0036DB 74 E1            [12] 1736 	mov	a,#___str_32
+                                   1735 ;	8051_i2c_eeprom.c:341: printf("Error: No ACK for device address (write)\n\r");
+      0036DB 74 87            [12] 1736 	mov	a,#___str_32
       0036DD C0 E0            [24] 1737 	push	acc
-      0036DF 74 52            [12] 1738 	mov	a,#(___str_32 >> 8)
+      0036DF 74 53            [12] 1738 	mov	a,#(___str_32 >> 8)
       0036E1 C0 E0            [24] 1739 	push	acc
       0036E3 74 80            [12] 1740 	mov	a,#0x80
       0036E5 C0 E0            [24] 1741 	push	acc
-      0036E7 12 3E B0         [24] 1742 	lcall	_printf
+      0036E7 12 3F 56         [24] 1742 	lcall	_printf
       0036EA 15 81            [12] 1743 	dec	sp
       0036EC 15 81            [12] 1744 	dec	sp
       0036EE 15 81            [12] 1745 	dec	sp
-                                   1746 ;	8051_i2c_eeprom.c:280: i2c_stop();
-      0036F0 12 3C 51         [24] 1747 	lcall	_i2c_stop
-                                   1748 ;	8051_i2c_eeprom.c:281: return 0;
+                                   1746 ;	8051_i2c_eeprom.c:342: i2c_stop();
+      0036F0 12 3C F7         [24] 1747 	lcall	_i2c_stop
+                                   1748 ;	8051_i2c_eeprom.c:343: return 0;
       0036F3 90 00 00         [24] 1749 	mov	dptr,#0x0000
       0036F6 22               [24] 1750 	ret
       0036F7                       1751 00102$:
-                                   1752 ;	8051_i2c_eeprom.c:285: if(!i2c_write((unsigned char)address)) {
+                                   1752 ;	8051_i2c_eeprom.c:347: if(!i2c_write((unsigned char)address)) {
       0036F7 90 04 10         [24] 1753 	mov	dptr,#_eeprom_write_address_65536_86
       0036FA E0               [24] 1754 	movx	a,@dptr
       0036FB FE               [12] 1755 	mov	r6,a
@@ -1767,24 +1767,24 @@
       003711 D0 07            [24] 1767 	pop	ar7
       003713 45 F0            [12] 1768 	orl	a,b
       003715 70 1C            [24] 1769 	jnz	00104$
-                                   1770 ;	8051_i2c_eeprom.c:286: printf("Error: No ACK for memory address\n\r");
-      003717 74 0C            [12] 1771 	mov	a,#___str_33
+                                   1770 ;	8051_i2c_eeprom.c:348: printf("Error: No ACK for memory address\n\r");
+      003717 74 B2            [12] 1771 	mov	a,#___str_33
       003719 C0 E0            [24] 1772 	push	acc
       00371B 74 53            [12] 1773 	mov	a,#(___str_33 >> 8)
       00371D C0 E0            [24] 1774 	push	acc
       00371F 74 80            [12] 1775 	mov	a,#0x80
       003721 C0 E0            [24] 1776 	push	acc
-      003723 12 3E B0         [24] 1777 	lcall	_printf
+      003723 12 3F 56         [24] 1777 	lcall	_printf
       003726 15 81            [12] 1778 	dec	sp
       003728 15 81            [12] 1779 	dec	sp
       00372A 15 81            [12] 1780 	dec	sp
-                                   1781 ;	8051_i2c_eeprom.c:287: i2c_stop();
-      00372C 12 3C 51         [24] 1782 	lcall	_i2c_stop
-                                   1783 ;	8051_i2c_eeprom.c:288: return 0;
+                                   1781 ;	8051_i2c_eeprom.c:349: i2c_stop();
+      00372C 12 3C F7         [24] 1782 	lcall	_i2c_stop
+                                   1783 ;	8051_i2c_eeprom.c:350: return 0;
       00372F 90 00 00         [24] 1784 	mov	dptr,#0x0000
       003732 22               [24] 1785 	ret
       003733                       1786 00104$:
-                                   1787 ;	8051_i2c_eeprom.c:292: if(!i2c_write(data)) {
+                                   1787 ;	8051_i2c_eeprom.c:354: if(!i2c_write(data)) {
       003733 90 04 0F         [24] 1788 	mov	dptr,#_eeprom_write_PARM_2
       003736 E0               [24] 1789 	movx	a,@dptr
       003737 FD               [12] 1790 	mov	r5,a
@@ -1800,32 +1800,32 @@
       00374C D0 07            [24] 1800 	pop	ar7
       00374E 45 F0            [12] 1801 	orl	a,b
       003750 70 1C            [24] 1802 	jnz	00106$
-                                   1803 ;	8051_i2c_eeprom.c:293: printf("Error: No ACK for data\n\r");
-      003752 74 2F            [12] 1804 	mov	a,#___str_34
+                                   1803 ;	8051_i2c_eeprom.c:355: printf("Error: No ACK for data\n\r");
+      003752 74 D5            [12] 1804 	mov	a,#___str_34
       003754 C0 E0            [24] 1805 	push	acc
       003756 74 53            [12] 1806 	mov	a,#(___str_34 >> 8)
       003758 C0 E0            [24] 1807 	push	acc
       00375A 74 80            [12] 1808 	mov	a,#0x80
       00375C C0 E0            [24] 1809 	push	acc
-      00375E 12 3E B0         [24] 1810 	lcall	_printf
+      00375E 12 3F 56         [24] 1810 	lcall	_printf
       003761 15 81            [12] 1811 	dec	sp
       003763 15 81            [12] 1812 	dec	sp
       003765 15 81            [12] 1813 	dec	sp
-                                   1814 ;	8051_i2c_eeprom.c:294: i2c_stop();
-      003767 12 3C 51         [24] 1815 	lcall	_i2c_stop
-                                   1816 ;	8051_i2c_eeprom.c:295: return 0;
+                                   1814 ;	8051_i2c_eeprom.c:356: i2c_stop();
+      003767 12 3C F7         [24] 1815 	lcall	_i2c_stop
+                                   1816 ;	8051_i2c_eeprom.c:357: return 0;
       00376A 90 00 00         [24] 1817 	mov	dptr,#0x0000
       00376D 22               [24] 1818 	ret
       00376E                       1819 00106$:
-                                   1820 ;	8051_i2c_eeprom.c:298: i2c_stop();
+                                   1820 ;	8051_i2c_eeprom.c:360: i2c_stop();
       00376E C0 07            [24] 1821 	push	ar7
       003770 C0 06            [24] 1822 	push	ar6
       003772 C0 05            [24] 1823 	push	ar5
-      003774 12 3C 51         [24] 1824 	lcall	_i2c_stop
+      003774 12 3C F7         [24] 1824 	lcall	_i2c_stop
       003777 D0 05            [24] 1825 	pop	ar5
       003779 D0 06            [24] 1826 	pop	ar6
       00377B D0 07            [24] 1827 	pop	ar7
-                                   1828 ;	8051_i2c_eeprom.c:300: for(int i = 0; i<10; i++)
+                                   1828 ;	8051_i2c_eeprom.c:362: for(int i = 0; i<10; i++)
       00377D 7B 00            [12] 1829 	mov	r3,#0x00
       00377F 7C 00            [12] 1830 	mov	r4,#0x00
       003781                       1831 00109$:
@@ -1836,65 +1836,65 @@
       003786 64 80            [12] 1836 	xrl	a,#0x80
       003788 94 80            [12] 1837 	subb	a,#0x80
       00378A 50 1E            [24] 1838 	jnc	00107$
-                                   1839 ;	8051_i2c_eeprom.c:302: i2c_delay();
+                                   1839 ;	8051_i2c_eeprom.c:364: i2c_delay();
       00378C C0 07            [24] 1840 	push	ar7
       00378E C0 06            [24] 1841 	push	ar6
       003790 C0 05            [24] 1842 	push	ar5
       003792 C0 04            [24] 1843 	push	ar4
       003794 C0 03            [24] 1844 	push	ar3
-      003796 12 3C 8A         [24] 1845 	lcall	_i2c_delay
+      003796 12 3D 30         [24] 1845 	lcall	_i2c_delay
       003799 D0 03            [24] 1846 	pop	ar3
       00379B D0 04            [24] 1847 	pop	ar4
       00379D D0 05            [24] 1848 	pop	ar5
       00379F D0 06            [24] 1849 	pop	ar6
       0037A1 D0 07            [24] 1850 	pop	ar7
-                                   1851 ;	8051_i2c_eeprom.c:300: for(int i = 0; i<10; i++)
+                                   1851 ;	8051_i2c_eeprom.c:362: for(int i = 0; i<10; i++)
       0037A3 0B               [12] 1852 	inc	r3
       0037A4 BB 00 DA         [24] 1853 	cjne	r3,#0x00,00109$
       0037A7 0C               [12] 1854 	inc	r4
       0037A8 80 D7            [24] 1855 	sjmp	00109$
       0037AA                       1856 00107$:
-                                   1857 ;	8051_i2c_eeprom.c:305: printf("| Writing at Address 0x%03X Data 0x%02X          |\n\r", address, data);
+                                   1857 ;	8051_i2c_eeprom.c:367: printf("| Writing at Address 0x%03X Data 0x%02X          |\n\r", address, data);
       0037AA 7C 00            [12] 1858 	mov	r4,#0x00
       0037AC C0 05            [24] 1859 	push	ar5
       0037AE C0 04            [24] 1860 	push	ar4
       0037B0 C0 06            [24] 1861 	push	ar6
       0037B2 C0 07            [24] 1862 	push	ar7
-      0037B4 74 48            [12] 1863 	mov	a,#___str_35
+      0037B4 74 EE            [12] 1863 	mov	a,#___str_35
       0037B6 C0 E0            [24] 1864 	push	acc
       0037B8 74 53            [12] 1865 	mov	a,#(___str_35 >> 8)
       0037BA C0 E0            [24] 1866 	push	acc
       0037BC 74 80            [12] 1867 	mov	a,#0x80
       0037BE C0 E0            [24] 1868 	push	acc
-      0037C0 12 3E B0         [24] 1869 	lcall	_printf
+      0037C0 12 3F 56         [24] 1869 	lcall	_printf
       0037C3 E5 81            [12] 1870 	mov	a,sp
       0037C5 24 F9            [12] 1871 	add	a,#0xf9
       0037C7 F5 81            [12] 1872 	mov	sp,a
-                                   1873 ;	8051_i2c_eeprom.c:306: printf("│ Write successful!                             │\n\r");
-      0037C9 74 7D            [12] 1874 	mov	a,#___str_36
+                                   1873 ;	8051_i2c_eeprom.c:368: printf("│ Write successful!                             │\n\r");
+      0037C9 74 23            [12] 1874 	mov	a,#___str_36
       0037CB C0 E0            [24] 1875 	push	acc
-      0037CD 74 53            [12] 1876 	mov	a,#(___str_36 >> 8)
+      0037CD 74 54            [12] 1876 	mov	a,#(___str_36 >> 8)
       0037CF C0 E0            [24] 1877 	push	acc
       0037D1 74 80            [12] 1878 	mov	a,#0x80
       0037D3 C0 E0            [24] 1879 	push	acc
-      0037D5 12 3E B0         [24] 1880 	lcall	_printf
+      0037D5 12 3F 56         [24] 1880 	lcall	_printf
       0037D8 15 81            [12] 1881 	dec	sp
       0037DA 15 81            [12] 1882 	dec	sp
       0037DC 15 81            [12] 1883 	dec	sp
-                                   1884 ;	8051_i2c_eeprom.c:307: printf("└───────────────────────────────────────────────┘\n\r");
-      0037DE 74 B5            [12] 1885 	mov	a,#___str_37
+                                   1884 ;	8051_i2c_eeprom.c:369: printf("└───────────────────────────────────────────────┘\n\r");
+      0037DE 74 5B            [12] 1885 	mov	a,#___str_37
       0037E0 C0 E0            [24] 1886 	push	acc
-      0037E2 74 53            [12] 1887 	mov	a,#(___str_37 >> 8)
+      0037E2 74 54            [12] 1887 	mov	a,#(___str_37 >> 8)
       0037E4 C0 E0            [24] 1888 	push	acc
       0037E6 74 80            [12] 1889 	mov	a,#0x80
       0037E8 C0 E0            [24] 1890 	push	acc
-      0037EA 12 3E B0         [24] 1891 	lcall	_printf
+      0037EA 12 3F 56         [24] 1891 	lcall	_printf
       0037ED 15 81            [12] 1892 	dec	sp
       0037EF 15 81            [12] 1893 	dec	sp
       0037F1 15 81            [12] 1894 	dec	sp
-                                   1895 ;	8051_i2c_eeprom.c:308: return 1;  // Success
+                                   1895 ;	8051_i2c_eeprom.c:370: return 1;  // Success
       0037F3 90 00 01         [24] 1896 	mov	dptr,#0x0001
-                                   1897 ;	8051_i2c_eeprom.c:318: }
+                                   1897 ;	8051_i2c_eeprom.c:380: }
       0037F6 22               [24] 1898 	ret
                                    1899 ;------------------------------------------------------------
                                    1900 ;Allocation info for local variables in function 'eeprom_read'
@@ -1902,7 +1902,7 @@
                                    1902 ;address                   Allocated with name '_eeprom_read_address_65536_93'
                                    1903 ;result                    Allocated with name '_eeprom_read_result_65536_94'
                                    1904 ;------------------------------------------------------------
-                                   1905 ;	8051_i2c_eeprom.c:319: int eeprom_read(unsigned int address)
+                                   1905 ;	8051_i2c_eeprom.c:396: int eeprom_read(unsigned int address)
                                    1906 ;	-----------------------------------------
                                    1907 ;	 function eeprom_read
                                    1908 ;	-----------------------------------------
@@ -1914,33 +1914,33 @@
       0037FF EF               [12] 1914 	mov	a,r7
       003800 A3               [24] 1915 	inc	dptr
       003801 F0               [24] 1916 	movx	@dptr,a
-                                   1917 ;	8051_i2c_eeprom.c:325: i2c_start();
+                                   1917 ;	8051_i2c_eeprom.c:402: i2c_start();
       003802 12 39 F8         [24] 1918 	lcall	_i2c_start
-                                   1919 ;	8051_i2c_eeprom.c:328: if(!i2c_write(EEPROM_ID | WRITE)) {
+                                   1919 ;	8051_i2c_eeprom.c:405: if(!i2c_write(EEPROM_ID | WRITE)) {
       003805 75 82 A0         [24] 1920 	mov	dpl,#0xa0
       003808 12 39 0B         [24] 1921 	lcall	_i2c_write
       00380B E5 82            [12] 1922 	mov	a,dpl
       00380D 85 83 F0         [24] 1923 	mov	b,dph
       003810 45 F0            [12] 1924 	orl	a,b
       003812 70 1C            [24] 1925 	jnz	00102$
-                                   1926 ;	8051_i2c_eeprom.c:329: printf("Error: No ACK for device address (write mode)\n\r");
-      003814 74 4B            [12] 1927 	mov	a,#___str_38
+                                   1926 ;	8051_i2c_eeprom.c:406: printf("Error: No ACK for device address (write mode)\n\r");
+      003814 74 F1            [12] 1927 	mov	a,#___str_38
       003816 C0 E0            [24] 1928 	push	acc
       003818 74 54            [12] 1929 	mov	a,#(___str_38 >> 8)
       00381A C0 E0            [24] 1930 	push	acc
       00381C 74 80            [12] 1931 	mov	a,#0x80
       00381E C0 E0            [24] 1932 	push	acc
-      003820 12 3E B0         [24] 1933 	lcall	_printf
+      003820 12 3F 56         [24] 1933 	lcall	_printf
       003823 15 81            [12] 1934 	dec	sp
       003825 15 81            [12] 1935 	dec	sp
       003827 15 81            [12] 1936 	dec	sp
-                                   1937 ;	8051_i2c_eeprom.c:330: i2c_stop();
-      003829 12 3C 51         [24] 1938 	lcall	_i2c_stop
-                                   1939 ;	8051_i2c_eeprom.c:331: return -1;
+                                   1937 ;	8051_i2c_eeprom.c:407: i2c_stop();
+      003829 12 3C F7         [24] 1938 	lcall	_i2c_stop
+                                   1939 ;	8051_i2c_eeprom.c:408: return -1;
       00382C 90 FF FF         [24] 1940 	mov	dptr,#0xffff
       00382F 22               [24] 1941 	ret
       003830                       1942 00102$:
-                                   1943 ;	8051_i2c_eeprom.c:335: if(!i2c_write((unsigned char)address)) {
+                                   1943 ;	8051_i2c_eeprom.c:412: if(!i2c_write((unsigned char)address)) {
       003830 90 04 12         [24] 1944 	mov	dptr,#_eeprom_read_address_65536_93
       003833 E0               [24] 1945 	movx	a,@dptr
       003834 FE               [12] 1946 	mov	r6,a
@@ -1958,28 +1958,28 @@
       00384A D0 07            [24] 1958 	pop	ar7
       00384C 45 F0            [12] 1959 	orl	a,b
       00384E 70 1C            [24] 1960 	jnz	00104$
-                                   1961 ;	8051_i2c_eeprom.c:336: printf("Error: No ACK for memory address\n\r");
-      003850 74 0C            [12] 1962 	mov	a,#___str_33
+                                   1961 ;	8051_i2c_eeprom.c:413: printf("Error: No ACK for memory address\n\r");
+      003850 74 B2            [12] 1962 	mov	a,#___str_33
       003852 C0 E0            [24] 1963 	push	acc
       003854 74 53            [12] 1964 	mov	a,#(___str_33 >> 8)
       003856 C0 E0            [24] 1965 	push	acc
       003858 74 80            [12] 1966 	mov	a,#0x80
       00385A C0 E0            [24] 1967 	push	acc
-      00385C 12 3E B0         [24] 1968 	lcall	_printf
+      00385C 12 3F 56         [24] 1968 	lcall	_printf
       00385F 15 81            [12] 1969 	dec	sp
       003861 15 81            [12] 1970 	dec	sp
       003863 15 81            [12] 1971 	dec	sp
-                                   1972 ;	8051_i2c_eeprom.c:337: i2c_stop();
-      003865 12 3C 51         [24] 1973 	lcall	_i2c_stop
-                                   1974 ;	8051_i2c_eeprom.c:338: return -1;
+                                   1972 ;	8051_i2c_eeprom.c:414: i2c_stop();
+      003865 12 3C F7         [24] 1973 	lcall	_i2c_stop
+                                   1974 ;	8051_i2c_eeprom.c:415: return -1;
       003868 90 FF FF         [24] 1975 	mov	dptr,#0xffff
       00386B 22               [24] 1976 	ret
       00386C                       1977 00104$:
-                                   1978 ;	8051_i2c_eeprom.c:342: i2c_start();
+                                   1978 ;	8051_i2c_eeprom.c:419: i2c_start();
       00386C C0 07            [24] 1979 	push	ar7
       00386E C0 06            [24] 1980 	push	ar6
       003870 12 39 F8         [24] 1981 	lcall	_i2c_start
-                                   1982 ;	8051_i2c_eeprom.c:345: if(!i2c_write(EEPROM_ID | READ)) {
+                                   1982 ;	8051_i2c_eeprom.c:422: if(!i2c_write(EEPROM_ID | READ)) {
       003873 75 82 A1         [24] 1983 	mov	dpl,#0xa1
       003876 12 39 0B         [24] 1984 	lcall	_i2c_write
       003879 E5 82            [12] 1985 	mov	a,dpl
@@ -1988,24 +1988,24 @@
       003880 D0 07            [24] 1988 	pop	ar7
       003882 45 F0            [12] 1989 	orl	a,b
       003884 70 1C            [24] 1990 	jnz	00106$
-                                   1991 ;	8051_i2c_eeprom.c:346: printf("Error: No ACK for device address (read mode)\n\r");
-      003886 74 7B            [12] 1992 	mov	a,#___str_39
+                                   1991 ;	8051_i2c_eeprom.c:423: printf("Error: No ACK for device address (read mode)\n\r");
+      003886 74 21            [12] 1992 	mov	a,#___str_39
       003888 C0 E0            [24] 1993 	push	acc
-      00388A 74 54            [12] 1994 	mov	a,#(___str_39 >> 8)
+      00388A 74 55            [12] 1994 	mov	a,#(___str_39 >> 8)
       00388C C0 E0            [24] 1995 	push	acc
       00388E 74 80            [12] 1996 	mov	a,#0x80
       003890 C0 E0            [24] 1997 	push	acc
-      003892 12 3E B0         [24] 1998 	lcall	_printf
+      003892 12 3F 56         [24] 1998 	lcall	_printf
       003895 15 81            [12] 1999 	dec	sp
       003897 15 81            [12] 2000 	dec	sp
       003899 15 81            [12] 2001 	dec	sp
-                                   2002 ;	8051_i2c_eeprom.c:347: i2c_stop();
-      00389B 12 3C 51         [24] 2003 	lcall	_i2c_stop
-                                   2004 ;	8051_i2c_eeprom.c:348: return -1;
+                                   2002 ;	8051_i2c_eeprom.c:424: i2c_stop();
+      00389B 12 3C F7         [24] 2003 	lcall	_i2c_stop
+                                   2004 ;	8051_i2c_eeprom.c:425: return -1;
       00389E 90 FF FF         [24] 2005 	mov	dptr,#0xffff
       0038A1 22               [24] 2006 	ret
       0038A2                       2007 00106$:
-                                   2008 ;	8051_i2c_eeprom.c:352: result = i2c_read(0);  // 0 means send NACK
+                                   2008 ;	8051_i2c_eeprom.c:429: result = i2c_read(0);  // 0 means send NACK
       0038A2 90 00 00         [24] 2009 	mov	dptr,#0x0000
       0038A5 C0 07            [24] 2010 	push	ar7
       0038A7 C0 06            [24] 2011 	push	ar6
@@ -2013,7 +2013,7 @@
       0038AC AC 82            [24] 2013 	mov	r4,dpl
       0038AE D0 06            [24] 2014 	pop	ar6
       0038B0 D0 07            [24] 2015 	pop	ar7
-                                   2016 ;	8051_i2c_eeprom.c:354: printf("| 0x%03X : 0x%02X \n\r", address, result);
+                                   2016 ;	8051_i2c_eeprom.c:431: printf("| 0x%03X : 0x%02X \n\r", address, result);
       0038B2 7D 00            [12] 2017 	mov	r5,#0x00
       0038B4 C0 05            [24] 2018 	push	ar5
       0038B6 C0 04            [24] 2019 	push	ar4
@@ -2021,46 +2021,46 @@
       0038BA C0 05            [24] 2021 	push	ar5
       0038BC C0 06            [24] 2022 	push	ar6
       0038BE C0 07            [24] 2023 	push	ar7
-      0038C0 74 AA            [12] 2024 	mov	a,#___str_40
+      0038C0 74 50            [12] 2024 	mov	a,#___str_40
       0038C2 C0 E0            [24] 2025 	push	acc
-      0038C4 74 54            [12] 2026 	mov	a,#(___str_40 >> 8)
+      0038C4 74 55            [12] 2026 	mov	a,#(___str_40 >> 8)
       0038C6 C0 E0            [24] 2027 	push	acc
       0038C8 74 80            [12] 2028 	mov	a,#0x80
       0038CA C0 E0            [24] 2029 	push	acc
-      0038CC 12 3E B0         [24] 2030 	lcall	_printf
+      0038CC 12 3F 56         [24] 2030 	lcall	_printf
       0038CF E5 81            [12] 2031 	mov	a,sp
       0038D1 24 F9            [12] 2032 	add	a,#0xf9
       0038D3 F5 81            [12] 2033 	mov	sp,a
-                                   2034 ;	8051_i2c_eeprom.c:355: printf("│ Read successful!                 │\n\r");
-      0038D5 74 BF            [12] 2035 	mov	a,#___str_41
+                                   2034 ;	8051_i2c_eeprom.c:432: printf("│ Read successful!                 │\n\r");
+      0038D5 74 65            [12] 2035 	mov	a,#___str_41
       0038D7 C0 E0            [24] 2036 	push	acc
-      0038D9 74 54            [12] 2037 	mov	a,#(___str_41 >> 8)
+      0038D9 74 55            [12] 2037 	mov	a,#(___str_41 >> 8)
       0038DB C0 E0            [24] 2038 	push	acc
       0038DD 74 80            [12] 2039 	mov	a,#0x80
       0038DF C0 E0            [24] 2040 	push	acc
-      0038E1 12 3E B0         [24] 2041 	lcall	_printf
+      0038E1 12 3F 56         [24] 2041 	lcall	_printf
       0038E4 15 81            [12] 2042 	dec	sp
       0038E6 15 81            [12] 2043 	dec	sp
       0038E8 15 81            [12] 2044 	dec	sp
-                                   2045 ;	8051_i2c_eeprom.c:356: printf("└───────────────────────────────────────────────┘\n\r");
-      0038EA 74 B5            [12] 2046 	mov	a,#___str_37
+                                   2045 ;	8051_i2c_eeprom.c:433: printf("└───────────────────────────────────────────────┘\n\r");
+      0038EA 74 5B            [12] 2046 	mov	a,#___str_37
       0038EC C0 E0            [24] 2047 	push	acc
-      0038EE 74 53            [12] 2048 	mov	a,#(___str_37 >> 8)
+      0038EE 74 54            [12] 2048 	mov	a,#(___str_37 >> 8)
       0038F0 C0 E0            [24] 2049 	push	acc
       0038F2 74 80            [12] 2050 	mov	a,#0x80
       0038F4 C0 E0            [24] 2051 	push	acc
-      0038F6 12 3E B0         [24] 2052 	lcall	_printf
+      0038F6 12 3F 56         [24] 2052 	lcall	_printf
       0038F9 15 81            [12] 2053 	dec	sp
       0038FB 15 81            [12] 2054 	dec	sp
       0038FD 15 81            [12] 2055 	dec	sp
-                                   2056 ;	8051_i2c_eeprom.c:357: i2c_stop();
-      0038FF 12 3C 51         [24] 2057 	lcall	_i2c_stop
+                                   2056 ;	8051_i2c_eeprom.c:434: i2c_stop();
+      0038FF 12 3C F7         [24] 2057 	lcall	_i2c_stop
       003902 D0 04            [24] 2058 	pop	ar4
       003904 D0 05            [24] 2059 	pop	ar5
-                                   2060 ;	8051_i2c_eeprom.c:358: return result;
+                                   2060 ;	8051_i2c_eeprom.c:435: return result;
       003906 8C 82            [24] 2061 	mov	dpl,r4
       003908 8D 83            [24] 2062 	mov	dph,r5
-                                   2063 ;	8051_i2c_eeprom.c:359: }
+                                   2063 ;	8051_i2c_eeprom.c:436: }
       00390A 22               [24] 2064 	ret
                                    2065 ;------------------------------------------------------------
                                    2066 ;Allocation info for local variables in function 'i2c_write'
@@ -2068,7 +2068,7 @@
                                    2068 ;data                      Allocated with name '_i2c_write_data_65536_98'
                                    2069 ;i                         Allocated with name '_i2c_write_i_65536_99'
                                    2070 ;------------------------------------------------------------
-                                   2071 ;	8051_i2c_eeprom.c:362: int i2c_write(unsigned char data)
+                                   2071 ;	8051_i2c_eeprom.c:447: int i2c_write(unsigned char data)
                                    2072 ;	-----------------------------------------
                                    2073 ;	 function i2c_write
                                    2074 ;	-----------------------------------------
@@ -2076,11 +2076,11 @@
       00390B E5 82            [12] 2076 	mov	a,dpl
       00390D 90 04 14         [24] 2077 	mov	dptr,#_i2c_write_data_65536_98
       003910 F0               [24] 2078 	movx	@dptr,a
-                                   2079 ;	8051_i2c_eeprom.c:366: for(i=0;i<=7;i++)
+                                   2079 ;	8051_i2c_eeprom.c:451: for(i=0;i<=7;i++)
       003911 7E 00            [12] 2080 	mov	r6,#0x00
       003913 7F 00            [12] 2081 	mov	r7,#0x00
       003915                       2082 00104$:
-                                   2083 ;	8051_i2c_eeprom.c:368: SDA = (data & 0x80) ? 1 : 0;    //msb first
+                                   2083 ;	8051_i2c_eeprom.c:453: SDA = (data & 0x80) ? 1 : 0;    //msb first
       003915 90 04 14         [24] 2084 	mov	dptr,#_i2c_write_data_65536_98
       003918 E0               [24] 2085 	movx	a,@dptr
       003919 FD               [12] 2086 	mov	r5,a
@@ -2088,28 +2088,28 @@
       00391B 54 01            [12] 2088 	anl	a,#0x01
       00391D 24 FF            [12] 2089 	add	a,#0xff
       00391F 92 94            [24] 2090 	mov	_P1_4,c
-                                   2091 ;	8051_i2c_eeprom.c:369: i2c_delay();        // Setup time for data
+                                   2091 ;	8051_i2c_eeprom.c:454: i2c_delay();        // Setup time for data
       003921 C0 07            [24] 2092 	push	ar7
       003923 C0 06            [24] 2093 	push	ar6
       003925 C0 05            [24] 2094 	push	ar5
-      003927 12 3C 8A         [24] 2095 	lcall	_i2c_delay
-                                   2096 ;	8051_i2c_eeprom.c:370: SCL=1;
+      003927 12 3D 30         [24] 2095 	lcall	_i2c_delay
+                                   2096 ;	8051_i2c_eeprom.c:455: SCL=1;
                                    2097 ;	assignBit
       00392A D2 93            [12] 2098 	setb	_P1_3
-                                   2099 ;	8051_i2c_eeprom.c:371: i2c_delay();        // Hold time for clock
-      00392C 12 3C 8A         [24] 2100 	lcall	_i2c_delay
+                                   2099 ;	8051_i2c_eeprom.c:456: i2c_delay();        // Hold time for clock
+      00392C 12 3D 30         [24] 2100 	lcall	_i2c_delay
       00392F D0 05            [24] 2101 	pop	ar5
       003931 D0 06            [24] 2102 	pop	ar6
       003933 D0 07            [24] 2103 	pop	ar7
-                                   2104 ;	8051_i2c_eeprom.c:372: SCL=0;
+                                   2104 ;	8051_i2c_eeprom.c:457: SCL=0;
                                    2105 ;	assignBit
       003935 C2 93            [12] 2106 	clr	_P1_3
-                                   2107 ;	8051_i2c_eeprom.c:373: data = data << 1;
+                                   2107 ;	8051_i2c_eeprom.c:458: data = data << 1;
       003937 ED               [12] 2108 	mov	a,r5
       003938 2D               [12] 2109 	add	a,r5
       003939 90 04 14         [24] 2110 	mov	dptr,#_i2c_write_data_65536_98
       00393C F0               [24] 2111 	movx	@dptr,a
-                                   2112 ;	8051_i2c_eeprom.c:366: for(i=0;i<=7;i++)
+                                   2112 ;	8051_i2c_eeprom.c:451: for(i=0;i<=7;i++)
       00393D 0E               [12] 2113 	inc	r6
       00393E BE 00 01         [24] 2114 	cjne	r6,#0x00,00121$
       003941 0F               [12] 2115 	inc	r7
@@ -2120,37 +2120,37 @@
       003946 E4               [12] 2120 	clr	a
       003947 9F               [12] 2121 	subb	a,r7
       003948 50 CB            [24] 2122 	jnc	00104$
-                                   2123 ;	8051_i2c_eeprom.c:377: SDA = 1;            // Release SDA for slave
+                                   2123 ;	8051_i2c_eeprom.c:462: SDA = 1;            // Release SDA for slave
                                    2124 ;	assignBit
       00394A D2 94            [12] 2125 	setb	_P1_4
-                                   2126 ;	8051_i2c_eeprom.c:378: SCL = 1;            // 9th clock pulse for ACK
+                                   2126 ;	8051_i2c_eeprom.c:463: SCL = 1;            // 9th clock pulse for ACK
                                    2127 ;	assignBit
       00394C D2 93            [12] 2128 	setb	_P1_3
-                                   2129 ;	8051_i2c_eeprom.c:379: i2c_delay();
-      00394E 12 3C 8A         [24] 2130 	lcall	_i2c_delay
-                                   2131 ;	8051_i2c_eeprom.c:380: if(SDA == 1)        // If SDA is still high, no ACK received
+                                   2129 ;	8051_i2c_eeprom.c:464: i2c_delay();
+      00394E 12 3D 30         [24] 2130 	lcall	_i2c_delay
+                                   2131 ;	8051_i2c_eeprom.c:465: if(SDA == 1)        // If SDA is still high, no ACK received
       003951 30 94 19         [24] 2132 	jnb	_P1_4,00103$
-                                   2133 ;	8051_i2c_eeprom.c:383: printf("ACK DID NOT ARRIVE\n\r");
-      003954 74 EA            [12] 2134 	mov	a,#___str_42
+                                   2133 ;	8051_i2c_eeprom.c:468: printf("ACK DID NOT ARRIVE\n\r");
+      003954 74 90            [12] 2134 	mov	a,#___str_42
       003956 C0 E0            [24] 2135 	push	acc
-      003958 74 54            [12] 2136 	mov	a,#(___str_42 >> 8)
+      003958 74 55            [12] 2136 	mov	a,#(___str_42 >> 8)
       00395A C0 E0            [24] 2137 	push	acc
       00395C 74 80            [12] 2138 	mov	a,#0x80
       00395E C0 E0            [24] 2139 	push	acc
-      003960 12 3E B0         [24] 2140 	lcall	_printf
+      003960 12 3F 56         [24] 2140 	lcall	_printf
       003963 15 81            [12] 2141 	dec	sp
       003965 15 81            [12] 2142 	dec	sp
       003967 15 81            [12] 2143 	dec	sp
-                                   2144 ;	8051_i2c_eeprom.c:384: return 0;       // Error
+                                   2144 ;	8051_i2c_eeprom.c:469: return 0;       // Error
       003969 90 00 00         [24] 2145 	mov	dptr,#0x0000
       00396C 22               [24] 2146 	ret
       00396D                       2147 00103$:
-                                   2148 ;	8051_i2c_eeprom.c:386: SCL = 0;
+                                   2148 ;	8051_i2c_eeprom.c:471: SCL = 0;
                                    2149 ;	assignBit
       00396D C2 93            [12] 2150 	clr	_P1_3
-                                   2151 ;	8051_i2c_eeprom.c:388: return 1;           // Success
+                                   2151 ;	8051_i2c_eeprom.c:473: return 1;           // Success
       00396F 90 00 01         [24] 2152 	mov	dptr,#0x0001
-                                   2153 ;	8051_i2c_eeprom.c:390: }
+                                   2153 ;	8051_i2c_eeprom.c:475: }
       003972 22               [24] 2154 	ret
                                    2155 ;------------------------------------------------------------
                                    2156 ;Allocation info for local variables in function 'i2c_read'
@@ -2159,7 +2159,7 @@
                                    2159 ;buff                      Allocated with name '_i2c_read_buff_65536_104'
                                    2160 ;i                         Allocated with name '_i2c_read_i_131072_105'
                                    2161 ;------------------------------------------------------------
-                                   2162 ;	8051_i2c_eeprom.c:391: int i2c_read(int ACK)
+                                   2162 ;	8051_i2c_eeprom.c:485: int i2c_read(int ACK)
                                    2163 ;	-----------------------------------------
                                    2164 ;	 function i2c_read
                                    2165 ;	-----------------------------------------
@@ -2171,14 +2171,14 @@
       00397B EF               [12] 2171 	mov	a,r7
       00397C A3               [24] 2172 	inc	dptr
       00397D F0               [24] 2173 	movx	@dptr,a
-                                   2174 ;	8051_i2c_eeprom.c:393: unsigned char buff=0;
+                                   2174 ;	8051_i2c_eeprom.c:487: unsigned char buff=0;
       00397E 90 04 17         [24] 2175 	mov	dptr,#_i2c_read_buff_65536_104
       003981 E4               [12] 2176 	clr	a
       003982 F0               [24] 2177 	movx	@dptr,a
-                                   2178 ;	8051_i2c_eeprom.c:394: SCL = 0;
+                                   2178 ;	8051_i2c_eeprom.c:488: SCL = 0;
                                    2179 ;	assignBit
       003983 C2 93            [12] 2180 	clr	_P1_3
-                                   2181 ;	8051_i2c_eeprom.c:395: for(int i=0;i<8;i++)
+                                   2181 ;	8051_i2c_eeprom.c:489: for(int i=0;i<8;i++)
       003985 7E 00            [12] 2182 	mov	r6,#0x00
       003987 7F 00            [12] 2183 	mov	r7,#0x00
       003989                       2184 00103$:
@@ -2189,16 +2189,16 @@
       00398E 64 80            [12] 2189 	xrl	a,#0x80
       003990 94 80            [12] 2190 	subb	a,#0x80
       003992 50 40            [24] 2191 	jnc	00101$
-                                   2192 ;	8051_i2c_eeprom.c:397: SCL = 1;
+                                   2192 ;	8051_i2c_eeprom.c:491: SCL = 1;
                                    2193 ;	assignBit
       003994 D2 93            [12] 2194 	setb	_P1_3
-                                   2195 ;	8051_i2c_eeprom.c:398: i2c_delay();
+                                   2195 ;	8051_i2c_eeprom.c:492: i2c_delay();
       003996 C0 07            [24] 2196 	push	ar7
       003998 C0 06            [24] 2197 	push	ar6
-      00399A 12 3C 8A         [24] 2198 	lcall	_i2c_delay
+      00399A 12 3D 30         [24] 2198 	lcall	_i2c_delay
       00399D D0 06            [24] 2199 	pop	ar6
       00399F D0 07            [24] 2200 	pop	ar7
-                                   2201 ;	8051_i2c_eeprom.c:399: buff |= (SDA << (7 - i));
+                                   2201 ;	8051_i2c_eeprom.c:493: buff |= (SDA << (7 - i));
       0039A1 A2 94            [12] 2202 	mov	c,_P1_4
       0039A3 E4               [12] 2203 	clr	a
       0039A4 33               [12] 2204 	rlc	a
@@ -2221,22 +2221,22 @@
       0039BD E0               [24] 2221 	movx	a,@dptr
       0039BE 4C               [12] 2222 	orl	a,r4
       0039BF F0               [24] 2223 	movx	@dptr,a
-                                   2224 ;	8051_i2c_eeprom.c:400: i2c_delay();
+                                   2224 ;	8051_i2c_eeprom.c:494: i2c_delay();
       0039C0 C0 07            [24] 2225 	push	ar7
       0039C2 C0 06            [24] 2226 	push	ar6
-      0039C4 12 3C 8A         [24] 2227 	lcall	_i2c_delay
+      0039C4 12 3D 30         [24] 2227 	lcall	_i2c_delay
       0039C7 D0 06            [24] 2228 	pop	ar6
       0039C9 D0 07            [24] 2229 	pop	ar7
-                                   2230 ;	8051_i2c_eeprom.c:401: SCL=0;
+                                   2230 ;	8051_i2c_eeprom.c:495: SCL=0;
                                    2231 ;	assignBit
       0039CB C2 93            [12] 2232 	clr	_P1_3
-                                   2233 ;	8051_i2c_eeprom.c:395: for(int i=0;i<8;i++)
+                                   2233 ;	8051_i2c_eeprom.c:489: for(int i=0;i<8;i++)
       0039CD 0E               [12] 2234 	inc	r6
       0039CE BE 00 B8         [24] 2235 	cjne	r6,#0x00,00103$
       0039D1 0F               [12] 2236 	inc	r7
       0039D2 80 B5            [24] 2237 	sjmp	00103$
       0039D4                       2238 00101$:
-                                   2239 ;	8051_i2c_eeprom.c:405: SDA = !ACK;         // ACK = 0, NACK = 1
+                                   2239 ;	8051_i2c_eeprom.c:499: SDA = !ACK;         // ACK = 0, NACK = 1
       0039D4 90 04 15         [24] 2240 	mov	dptr,#_i2c_read_ACK_65536_103
       0039D7 E0               [24] 2241 	movx	a,@dptr
       0039D8 FE               [12] 2242 	mov	r6,a
@@ -2249,52 +2249,52 @@
       0039E0 33               [12] 2249 	rlc	a
       0039E1 24 FF            [12] 2250 	add	a,#0xff
       0039E3 92 94            [24] 2251 	mov	_P1_4,c
-                                   2252 ;	8051_i2c_eeprom.c:406: SCL = 1;
+                                   2252 ;	8051_i2c_eeprom.c:500: SCL = 1;
                                    2253 ;	assignBit
       0039E5 D2 93            [12] 2254 	setb	_P1_3
-                                   2255 ;	8051_i2c_eeprom.c:407: i2c_delay();
-      0039E7 12 3C 8A         [24] 2256 	lcall	_i2c_delay
-                                   2257 ;	8051_i2c_eeprom.c:408: SCL = 0;
+                                   2255 ;	8051_i2c_eeprom.c:501: i2c_delay();
+      0039E7 12 3D 30         [24] 2256 	lcall	_i2c_delay
+                                   2257 ;	8051_i2c_eeprom.c:502: SCL = 0;
                                    2258 ;	assignBit
       0039EA C2 93            [12] 2259 	clr	_P1_3
-                                   2260 ;	8051_i2c_eeprom.c:410: return buff;
+                                   2260 ;	8051_i2c_eeprom.c:504: return buff;
       0039EC 90 04 17         [24] 2261 	mov	dptr,#_i2c_read_buff_65536_104
       0039EF E0               [24] 2262 	movx	a,@dptr
       0039F0 FF               [12] 2263 	mov	r7,a
       0039F1 7E 00            [12] 2264 	mov	r6,#0x00
       0039F3 8F 82            [24] 2265 	mov	dpl,r7
       0039F5 8E 83            [24] 2266 	mov	dph,r6
-                                   2267 ;	8051_i2c_eeprom.c:411: }
+                                   2267 ;	8051_i2c_eeprom.c:505: }
       0039F7 22               [24] 2268 	ret
                                    2269 ;------------------------------------------------------------
                                    2270 ;Allocation info for local variables in function 'i2c_start'
                                    2271 ;------------------------------------------------------------
-                                   2272 ;	8051_i2c_eeprom.c:412: void i2c_start(void)
+                                   2272 ;	8051_i2c_eeprom.c:512: void i2c_start(void)
                                    2273 ;	-----------------------------------------
                                    2274 ;	 function i2c_start
                                    2275 ;	-----------------------------------------
       0039F8                       2276 _i2c_start:
-                                   2277 ;	8051_i2c_eeprom.c:414: i2c_delay();
-      0039F8 12 3C 8A         [24] 2278 	lcall	_i2c_delay
-                                   2279 ;	8051_i2c_eeprom.c:415: SDA = 1;
+                                   2277 ;	8051_i2c_eeprom.c:514: i2c_delay();
+      0039F8 12 3D 30         [24] 2278 	lcall	_i2c_delay
+                                   2279 ;	8051_i2c_eeprom.c:515: SDA = 1;
                                    2280 ;	assignBit
       0039FB D2 94            [12] 2281 	setb	_P1_4
-                                   2282 ;	8051_i2c_eeprom.c:416: i2c_delay();
-      0039FD 12 3C 8A         [24] 2283 	lcall	_i2c_delay
-                                   2284 ;	8051_i2c_eeprom.c:417: SCL = 1;
+                                   2282 ;	8051_i2c_eeprom.c:516: i2c_delay();
+      0039FD 12 3D 30         [24] 2283 	lcall	_i2c_delay
+                                   2284 ;	8051_i2c_eeprom.c:517: SCL = 1;
                                    2285 ;	assignBit
       003A00 D2 93            [12] 2286 	setb	_P1_3
-                                   2287 ;	8051_i2c_eeprom.c:418: i2c_delay();
-      003A02 12 3C 8A         [24] 2288 	lcall	_i2c_delay
-                                   2289 ;	8051_i2c_eeprom.c:419: SDA = 0;
+                                   2287 ;	8051_i2c_eeprom.c:518: i2c_delay();
+      003A02 12 3D 30         [24] 2288 	lcall	_i2c_delay
+                                   2289 ;	8051_i2c_eeprom.c:519: SDA = 0;
                                    2290 ;	assignBit
       003A05 C2 94            [12] 2291 	clr	_P1_4
-                                   2292 ;	8051_i2c_eeprom.c:420: i2c_delay();
-      003A07 12 3C 8A         [24] 2293 	lcall	_i2c_delay
-                                   2294 ;	8051_i2c_eeprom.c:421: SCL = 0;
+                                   2292 ;	8051_i2c_eeprom.c:520: i2c_delay();
+      003A07 12 3D 30         [24] 2293 	lcall	_i2c_delay
+                                   2294 ;	8051_i2c_eeprom.c:521: SCL = 0;
                                    2295 ;	assignBit
       003A0A C2 93            [12] 2296 	clr	_P1_3
-                                   2297 ;	8051_i2c_eeprom.c:422: }
+                                   2297 ;	8051_i2c_eeprom.c:522: }
       003A0C 22               [24] 2298 	ret
                                    2299 ;------------------------------------------------------------
                                    2300 ;Allocation info for local variables in function 'EEPROM_hexump'
@@ -2305,9 +2305,9 @@
                                    2305 ;address                   Allocated with name '_EEPROM_hexump_address_131072_111'
                                    2306 ;offset                    Allocated with name '_EEPROM_hexump_offset_262144_113'
                                    2307 ;current_address           Allocated with name '_EEPROM_hexump_current_address_327680_114'
-                                   2308 ;data                      Allocated with name '_EEPROM_hexump_data_393216_115'
+                                   2308 ;result                    Allocated with name '_EEPROM_hexump_result_393216_115'
                                    2309 ;------------------------------------------------------------
-                                   2310 ;	8051_i2c_eeprom.c:423: void EEPROM_hexump(uint16_t start_address, uint16_t end_address)
+                                   2310 ;	8051_i2c_eeprom.c:530: int EEPROM_hexump(uint16_t start_address, uint16_t end_address)
                                    2311 ;	-----------------------------------------
                                    2312 ;	 function EEPROM_hexump
                                    2313 ;	-----------------------------------------
@@ -2319,51 +2319,51 @@
       003A15 EF               [12] 2319 	mov	a,r7
       003A16 A3               [24] 2320 	inc	dptr
       003A17 F0               [24] 2321 	movx	@dptr,a
-                                   2322 ;	8051_i2c_eeprom.c:447: printf("\r\n");
-      003A18 74 FF            [12] 2323 	mov	a,#___str_43
+                                   2322 ;	8051_i2c_eeprom.c:554: printf("\r\n");
+      003A18 74 A5            [12] 2323 	mov	a,#___str_43
       003A1A C0 E0            [24] 2324 	push	acc
-      003A1C 74 54            [12] 2325 	mov	a,#(___str_43 >> 8)
+      003A1C 74 55            [12] 2325 	mov	a,#(___str_43 >> 8)
       003A1E C0 E0            [24] 2326 	push	acc
       003A20 74 80            [12] 2327 	mov	a,#0x80
       003A22 C0 E0            [24] 2328 	push	acc
-      003A24 12 3E B0         [24] 2329 	lcall	_printf
+      003A24 12 3F 56         [24] 2329 	lcall	_printf
       003A27 15 81            [12] 2330 	dec	sp
       003A29 15 81            [12] 2331 	dec	sp
       003A2B 15 81            [12] 2332 	dec	sp
-                                   2333 ;	8051_i2c_eeprom.c:448: printf("\r\n----------------------------------------------------------------");
-      003A2D 74 02            [12] 2334 	mov	a,#___str_44
+                                   2333 ;	8051_i2c_eeprom.c:555: printf("\r\n----------------------------------------------------------------");
+      003A2D 74 A8            [12] 2334 	mov	a,#___str_44
       003A2F C0 E0            [24] 2335 	push	acc
       003A31 74 55            [12] 2336 	mov	a,#(___str_44 >> 8)
       003A33 C0 E0            [24] 2337 	push	acc
       003A35 74 80            [12] 2338 	mov	a,#0x80
       003A37 C0 E0            [24] 2339 	push	acc
-      003A39 12 3E B0         [24] 2340 	lcall	_printf
+      003A39 12 3F 56         [24] 2340 	lcall	_printf
       003A3C 15 81            [12] 2341 	dec	sp
       003A3E 15 81            [12] 2342 	dec	sp
       003A40 15 81            [12] 2343 	dec	sp
-                                   2344 ;	8051_i2c_eeprom.c:449: printf("\r\n                    EEPROM Hex Dump                             ");
-      003A42 74 45            [12] 2345 	mov	a,#___str_45
+                                   2344 ;	8051_i2c_eeprom.c:556: printf("\r\n                    EEPROM Hex Dump                             ");
+      003A42 74 EB            [12] 2345 	mov	a,#___str_45
       003A44 C0 E0            [24] 2346 	push	acc
       003A46 74 55            [12] 2347 	mov	a,#(___str_45 >> 8)
       003A48 C0 E0            [24] 2348 	push	acc
       003A4A 74 80            [12] 2349 	mov	a,#0x80
       003A4C C0 E0            [24] 2350 	push	acc
-      003A4E 12 3E B0         [24] 2351 	lcall	_printf
+      003A4E 12 3F 56         [24] 2351 	lcall	_printf
       003A51 15 81            [12] 2352 	dec	sp
       003A53 15 81            [12] 2353 	dec	sp
       003A55 15 81            [12] 2354 	dec	sp
-                                   2355 ;	8051_i2c_eeprom.c:450: printf("\r\n----------------------------------------------------------------\r\n");
-      003A57 74 88            [12] 2356 	mov	a,#___str_46
+                                   2355 ;	8051_i2c_eeprom.c:557: printf("\r\n----------------------------------------------------------------\r\n");
+      003A57 74 2E            [12] 2356 	mov	a,#___str_46
       003A59 C0 E0            [24] 2357 	push	acc
-      003A5B 74 55            [12] 2358 	mov	a,#(___str_46 >> 8)
+      003A5B 74 56            [12] 2358 	mov	a,#(___str_46 >> 8)
       003A5D C0 E0            [24] 2359 	push	acc
       003A5F 74 80            [12] 2360 	mov	a,#0x80
       003A61 C0 E0            [24] 2361 	push	acc
-      003A63 12 3E B0         [24] 2362 	lcall	_printf
+      003A63 12 3F 56         [24] 2362 	lcall	_printf
       003A66 15 81            [12] 2363 	dec	sp
       003A68 15 81            [12] 2364 	dec	sp
       003A6A 15 81            [12] 2365 	dec	sp
-                                   2366 ;	8051_i2c_eeprom.c:452: for (uint16_t address = start_address; address <= end_address; address += MAX_HEX_CHAR_IN_SINGLE_LINE) {
+                                   2366 ;	8051_i2c_eeprom.c:559: for (uint16_t address = start_address; address <= end_address; address += MAX_HEX_CHAR_IN_SINGLE_LINE) {
       003A6C 90 04 1A         [24] 2367 	mov	dptr,#_EEPROM_hexump_start_address_65536_109
       003A6F E0               [24] 2368 	movx	a,@dptr
       003A70 FE               [12] 2369 	mov	r6,a
@@ -2382,7 +2382,7 @@
       003A81 A3               [24] 2382 	inc	dptr
       003A82 E0               [24] 2383 	movx	a,@dptr
       003A83 FF               [12] 2384 	mov	r7,a
-      003A84                       2385 00110$:
+      003A84                       2385 00116$:
       003A84 90 04 1C         [24] 2386 	mov	dptr,#_EEPROM_hexump_address_131072_111
       003A87 E0               [24] 2387 	movx	a,@dptr
       003A88 FC               [12] 2388 	mov	r4,a
@@ -2394,701 +2394,796 @@
       003A8E 9C               [12] 2394 	subb	a,r4
       003A8F EF               [12] 2395 	mov	a,r7
       003A90 9D               [12] 2396 	subb	a,r5
-      003A91 50 03            [24] 2397 	jnc	00135$
-      003A93 02 3B A2         [24] 2398 	ljmp	00105$
-      003A96                       2399 00135$:
-                                   2400 ;	8051_i2c_eeprom.c:454: printf("%03X: ", address);
+      003A91 50 03            [24] 2397 	jnc	00152$
+      003A93 02 3C 45         [24] 2398 	ljmp	00111$
+      003A96                       2399 00152$:
+                                   2400 ;	8051_i2c_eeprom.c:561: printf("%03X: ", address);
       003A96 C0 07            [24] 2401 	push	ar7
       003A98 C0 06            [24] 2402 	push	ar6
-      003A9A C0 05            [24] 2403 	push	ar5
-      003A9C C0 04            [24] 2404 	push	ar4
-      003A9E C0 04            [24] 2405 	push	ar4
-      003AA0 C0 05            [24] 2406 	push	ar5
-      003AA2 74 CD            [12] 2407 	mov	a,#___str_47
+      003A9A C0 04            [24] 2403 	push	ar4
+      003A9C C0 05            [24] 2404 	push	ar5
+      003A9E 74 73            [12] 2405 	mov	a,#___str_47
+      003AA0 C0 E0            [24] 2406 	push	acc
+      003AA2 74 56            [12] 2407 	mov	a,#(___str_47 >> 8)
       003AA4 C0 E0            [24] 2408 	push	acc
-      003AA6 74 55            [12] 2409 	mov	a,#(___str_47 >> 8)
+      003AA6 74 80            [12] 2409 	mov	a,#0x80
       003AA8 C0 E0            [24] 2410 	push	acc
-      003AAA 74 80            [12] 2411 	mov	a,#0x80
-      003AAC C0 E0            [24] 2412 	push	acc
-      003AAE 12 3E B0         [24] 2413 	lcall	_printf
-      003AB1 E5 81            [12] 2414 	mov	a,sp
-      003AB3 24 FB            [12] 2415 	add	a,#0xfb
-      003AB5 F5 81            [12] 2416 	mov	sp,a
-      003AB7 D0 04            [24] 2417 	pop	ar4
-      003AB9 D0 05            [24] 2418 	pop	ar5
-      003ABB D0 06            [24] 2419 	pop	ar6
-      003ABD D0 07            [24] 2420 	pop	ar7
-                                   2421 ;	8051_i2c_eeprom.c:457: for (int offset = 0; offset < MAX_HEX_CHAR_IN_SINGLE_LINE; offset++) {
-      003ABF 7A 00            [12] 2422 	mov	r2,#0x00
-      003AC1 7B 00            [12] 2423 	mov	r3,#0x00
-      003AC3                       2424 00107$:
-      003AC3 C3               [12] 2425 	clr	c
-      003AC4 EA               [12] 2426 	mov	a,r2
-      003AC5 94 10            [12] 2427 	subb	a,#0x10
-      003AC7 EB               [12] 2428 	mov	a,r3
-      003AC8 64 80            [12] 2429 	xrl	a,#0x80
-      003ACA 94 80            [12] 2430 	subb	a,#0x80
-      003ACC 40 03            [24] 2431 	jc	00136$
-      003ACE 02 3B 6B         [24] 2432 	ljmp	00104$
-      003AD1                       2433 00136$:
-                                   2434 ;	8051_i2c_eeprom.c:458: uint16_t current_address = address + offset;
-      003AD1 8C 00            [24] 2435 	mov	ar0,r4
-      003AD3 8D 01            [24] 2436 	mov	ar1,r5
-      003AD5 C0 04            [24] 2437 	push	ar4
-      003AD7 C0 05            [24] 2438 	push	ar5
-      003AD9 8A 04            [24] 2439 	mov	ar4,r2
-      003ADB 8B 05            [24] 2440 	mov	ar5,r3
-      003ADD EC               [12] 2441 	mov	a,r4
-      003ADE 28               [12] 2442 	add	a,r0
-      003ADF F8               [12] 2443 	mov	r0,a
-      003AE0 ED               [12] 2444 	mov	a,r5
-      003AE1 39               [12] 2445 	addc	a,r1
-      003AE2 F9               [12] 2446 	mov	r1,a
-      003AE3 88 08            [24] 2447 	mov	_EEPROM_hexump_sloc0_1_0,r0
-      003AE5 89 09            [24] 2448 	mov	(_EEPROM_hexump_sloc0_1_0 + 1),r1
-                                   2449 ;	8051_i2c_eeprom.c:460: if (current_address <= end_address) {
-      003AE7 C3               [12] 2450 	clr	c
-      003AE8 EE               [12] 2451 	mov	a,r6
-      003AE9 95 08            [12] 2452 	subb	a,_EEPROM_hexump_sloc0_1_0
-      003AEB EF               [12] 2453 	mov	a,r7
-      003AEC 95 09            [12] 2454 	subb	a,(_EEPROM_hexump_sloc0_1_0 + 1)
-      003AEE D0 05            [24] 2455 	pop	ar5
-      003AF0 D0 04            [24] 2456 	pop	ar4
-      003AF2 40 42            [24] 2457 	jc	00102$
-                                   2458 ;	8051_i2c_eeprom.c:462: uint8_t data = eeprom_read(current_address);
-      003AF4 A8 08            [24] 2459 	mov	r0,_EEPROM_hexump_sloc0_1_0
-      003AF6 A9 09            [24] 2460 	mov	r1,(_EEPROM_hexump_sloc0_1_0 + 1)
-      003AF8 88 82            [24] 2461 	mov	dpl,r0
-      003AFA 89 83            [24] 2462 	mov	dph,r1
-      003AFC C0 07            [24] 2463 	push	ar7
-      003AFE C0 06            [24] 2464 	push	ar6
-      003B00 C0 05            [24] 2465 	push	ar5
-      003B02 C0 04            [24] 2466 	push	ar4
-      003B04 C0 03            [24] 2467 	push	ar3
-      003B06 C0 02            [24] 2468 	push	ar2
-      003B08 12 37 F7         [24] 2469 	lcall	_eeprom_read
-      003B0B A8 82            [24] 2470 	mov	r0,dpl
-                                   2471 ;	8051_i2c_eeprom.c:463: printf("%02X ", data);
-      003B0D 79 00            [12] 2472 	mov	r1,#0x00
-      003B0F C0 00            [24] 2473 	push	ar0
-      003B11 C0 01            [24] 2474 	push	ar1
-      003B13 74 D4            [12] 2475 	mov	a,#___str_48
-      003B15 C0 E0            [24] 2476 	push	acc
-      003B17 74 55            [12] 2477 	mov	a,#(___str_48 >> 8)
-      003B19 C0 E0            [24] 2478 	push	acc
-      003B1B 74 80            [12] 2479 	mov	a,#0x80
-      003B1D C0 E0            [24] 2480 	push	acc
-      003B1F 12 3E B0         [24] 2481 	lcall	_printf
-      003B22 E5 81            [12] 2482 	mov	a,sp
-      003B24 24 FB            [12] 2483 	add	a,#0xfb
-      003B26 F5 81            [12] 2484 	mov	sp,a
-      003B28 D0 02            [24] 2485 	pop	ar2
-      003B2A D0 03            [24] 2486 	pop	ar3
-      003B2C D0 04            [24] 2487 	pop	ar4
-      003B2E D0 05            [24] 2488 	pop	ar5
-      003B30 D0 06            [24] 2489 	pop	ar6
-      003B32 D0 07            [24] 2490 	pop	ar7
-      003B34 80 2D            [24] 2491 	sjmp	00108$
-      003B36                       2492 00102$:
-                                   2493 ;	8051_i2c_eeprom.c:465: printf("   "); // Space for missing bytes if end_address reached mid-line
-      003B36 C0 07            [24] 2494 	push	ar7
-      003B38 C0 06            [24] 2495 	push	ar6
-      003B3A C0 05            [24] 2496 	push	ar5
-      003B3C C0 04            [24] 2497 	push	ar4
-      003B3E C0 03            [24] 2498 	push	ar3
-      003B40 C0 02            [24] 2499 	push	ar2
-      003B42 74 DA            [12] 2500 	mov	a,#___str_49
-      003B44 C0 E0            [24] 2501 	push	acc
-      003B46 74 55            [12] 2502 	mov	a,#(___str_49 >> 8)
-      003B48 C0 E0            [24] 2503 	push	acc
-      003B4A 74 80            [12] 2504 	mov	a,#0x80
-      003B4C C0 E0            [24] 2505 	push	acc
-      003B4E 12 3E B0         [24] 2506 	lcall	_printf
-      003B51 15 81            [12] 2507 	dec	sp
-      003B53 15 81            [12] 2508 	dec	sp
-      003B55 15 81            [12] 2509 	dec	sp
-      003B57 D0 02            [24] 2510 	pop	ar2
-      003B59 D0 03            [24] 2511 	pop	ar3
-      003B5B D0 04            [24] 2512 	pop	ar4
-      003B5D D0 05            [24] 2513 	pop	ar5
-      003B5F D0 06            [24] 2514 	pop	ar6
-      003B61 D0 07            [24] 2515 	pop	ar7
-      003B63                       2516 00108$:
-                                   2517 ;	8051_i2c_eeprom.c:457: for (int offset = 0; offset < MAX_HEX_CHAR_IN_SINGLE_LINE; offset++) {
-      003B63 0A               [12] 2518 	inc	r2
-      003B64 BA 00 01         [24] 2519 	cjne	r2,#0x00,00138$
-      003B67 0B               [12] 2520 	inc	r3
-      003B68                       2521 00138$:
-      003B68 02 3A C3         [24] 2522 	ljmp	00107$
-      003B6B                       2523 00104$:
-                                   2524 ;	8051_i2c_eeprom.c:470: printf("\r\n");
-      003B6B C0 07            [24] 2525 	push	ar7
-      003B6D C0 06            [24] 2526 	push	ar6
-      003B6F 74 FF            [12] 2527 	mov	a,#___str_43
-      003B71 C0 E0            [24] 2528 	push	acc
-      003B73 74 54            [12] 2529 	mov	a,#(___str_43 >> 8)
-      003B75 C0 E0            [24] 2530 	push	acc
-      003B77 74 80            [12] 2531 	mov	a,#0x80
-      003B79 C0 E0            [24] 2532 	push	acc
-      003B7B 12 3E B0         [24] 2533 	lcall	_printf
-      003B7E 15 81            [12] 2534 	dec	sp
-      003B80 15 81            [12] 2535 	dec	sp
-      003B82 15 81            [12] 2536 	dec	sp
-      003B84 D0 06            [24] 2537 	pop	ar6
-      003B86 D0 07            [24] 2538 	pop	ar7
-                                   2539 ;	8051_i2c_eeprom.c:452: for (uint16_t address = start_address; address <= end_address; address += MAX_HEX_CHAR_IN_SINGLE_LINE) {
-      003B88 90 04 1C         [24] 2540 	mov	dptr,#_EEPROM_hexump_address_131072_111
-      003B8B E0               [24] 2541 	movx	a,@dptr
-      003B8C FC               [12] 2542 	mov	r4,a
-      003B8D A3               [24] 2543 	inc	dptr
-      003B8E E0               [24] 2544 	movx	a,@dptr
-      003B8F FD               [12] 2545 	mov	r5,a
-      003B90 74 10            [12] 2546 	mov	a,#0x10
-      003B92 2C               [12] 2547 	add	a,r4
-      003B93 FC               [12] 2548 	mov	r4,a
-      003B94 E4               [12] 2549 	clr	a
-      003B95 3D               [12] 2550 	addc	a,r5
-      003B96 FD               [12] 2551 	mov	r5,a
-      003B97 90 04 1C         [24] 2552 	mov	dptr,#_EEPROM_hexump_address_131072_111
-      003B9A EC               [12] 2553 	mov	a,r4
-      003B9B F0               [24] 2554 	movx	@dptr,a
-      003B9C ED               [12] 2555 	mov	a,r5
-      003B9D A3               [24] 2556 	inc	dptr
-      003B9E F0               [24] 2557 	movx	@dptr,a
-      003B9F 02 3A 84         [24] 2558 	ljmp	00110$
-      003BA2                       2559 00105$:
-                                   2560 ;	8051_i2c_eeprom.c:472: printf("\r\n");
-      003BA2 74 FF            [12] 2561 	mov	a,#___str_43
-      003BA4 C0 E0            [24] 2562 	push	acc
-      003BA6 74 54            [12] 2563 	mov	a,#(___str_43 >> 8)
-      003BA8 C0 E0            [24] 2564 	push	acc
-      003BAA 74 80            [12] 2565 	mov	a,#0x80
-      003BAC C0 E0            [24] 2566 	push	acc
-      003BAE 12 3E B0         [24] 2567 	lcall	_printf
-      003BB1 15 81            [12] 2568 	dec	sp
-      003BB3 15 81            [12] 2569 	dec	sp
-      003BB5 15 81            [12] 2570 	dec	sp
-                                   2571 ;	8051_i2c_eeprom.c:473: }
-      003BB7 22               [24] 2572 	ret
-                                   2573 ;------------------------------------------------------------
-                                   2574 ;Allocation info for local variables in function 'handler_EEPROM_hexdump'
-                                   2575 ;------------------------------------------------------------
-                                   2576 ;start_addr                Allocated with name '_handler_EEPROM_hexdump_start_addr_65536_118'
-                                   2577 ;end_addr                  Allocated with name '_handler_EEPROM_hexdump_end_addr_65537_121'
-                                   2578 ;------------------------------------------------------------
-                                   2579 ;	8051_i2c_eeprom.c:476: void handler_EEPROM_hexdump(void)
-                                   2580 ;	-----------------------------------------
-                                   2581 ;	 function handler_EEPROM_hexdump
-                                   2582 ;	-----------------------------------------
-      003BB8                       2583 _handler_EEPROM_hexdump:
-                                   2584 ;	8051_i2c_eeprom.c:479: printf_tiny("\033[1;33m\n\rEnter Start Address for HEX Dump\r\n");
-      003BB8 74 DE            [12] 2585 	mov	a,#___str_50
-      003BBA C0 E0            [24] 2586 	push	acc
-      003BBC 74 55            [12] 2587 	mov	a,#(___str_50 >> 8)
-      003BBE C0 E0            [24] 2588 	push	acc
-      003BC0 12 3D 59         [24] 2589 	lcall	_printf_tiny
-      003BC3 15 81            [12] 2590 	dec	sp
-      003BC5 15 81            [12] 2591 	dec	sp
-                                   2592 ;	8051_i2c_eeprom.c:480: start_addr = take_address();
-      003BC7 12 33 23         [24] 2593 	lcall	_take_address
-      003BCA AE 82            [24] 2594 	mov	r6,dpl
-      003BCC AF 83            [24] 2595 	mov	r7,dph
-      003BCE 8E 04            [24] 2596 	mov	ar4,r6
-      003BD0 8F 05            [24] 2597 	mov	ar5,r7
-      003BD2 7E 00            [12] 2598 	mov	r6,#0x00
-      003BD4 7F 00            [12] 2599 	mov	r7,#0x00
-                                   2600 ;	8051_i2c_eeprom.c:482: if(start_addr >= 0 && start_addr <= ADDR_MAX)
-      003BD6 C3               [12] 2601 	clr	c
-      003BD7 74 FF            [12] 2602 	mov	a,#0xff
-      003BD9 9C               [12] 2603 	subb	a,r4
-      003BDA 74 07            [12] 2604 	mov	a,#0x07
-      003BDC 9D               [12] 2605 	subb	a,r5
-      003BDD E4               [12] 2606 	clr	a
-      003BDE 9E               [12] 2607 	subb	a,r6
-      003BDF E4               [12] 2608 	clr	a
-      003BE0 9F               [12] 2609 	subb	a,r7
-      003BE1 50 16            [24] 2610 	jnc	00103$
-                                   2611 ;	8051_i2c_eeprom.c:487: printf("\033[1;31m\n\rInvalid Start Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
-      003BE3 74 0A            [12] 2612 	mov	a,#___str_51
-      003BE5 C0 E0            [24] 2613 	push	acc
-      003BE7 74 56            [12] 2614 	mov	a,#(___str_51 >> 8)
-      003BE9 C0 E0            [24] 2615 	push	acc
-      003BEB 74 80            [12] 2616 	mov	a,#0x80
-      003BED C0 E0            [24] 2617 	push	acc
-      003BEF 12 3E B0         [24] 2618 	lcall	_printf
-      003BF2 15 81            [12] 2619 	dec	sp
-      003BF4 15 81            [12] 2620 	dec	sp
-      003BF6 15 81            [12] 2621 	dec	sp
-                                   2622 ;	8051_i2c_eeprom.c:488: return;
-      003BF8 22               [24] 2623 	ret
-      003BF9                       2624 00103$:
-                                   2625 ;	8051_i2c_eeprom.c:493: printf_tiny("\033[1;33m\n\rEnter End Address for HEX Dump\r\n");
-      003BF9 C0 07            [24] 2626 	push	ar7
-      003BFB C0 06            [24] 2627 	push	ar6
-      003BFD C0 05            [24] 2628 	push	ar5
-      003BFF C0 04            [24] 2629 	push	ar4
-      003C01 74 62            [12] 2630 	mov	a,#___str_52
-      003C03 C0 E0            [24] 2631 	push	acc
-      003C05 74 56            [12] 2632 	mov	a,#(___str_52 >> 8)
-      003C07 C0 E0            [24] 2633 	push	acc
-      003C09 12 3D 59         [24] 2634 	lcall	_printf_tiny
-      003C0C 15 81            [12] 2635 	dec	sp
-      003C0E 15 81            [12] 2636 	dec	sp
-                                   2637 ;	8051_i2c_eeprom.c:494: end_addr = take_address();
-      003C10 12 33 23         [24] 2638 	lcall	_take_address
-      003C13 AA 82            [24] 2639 	mov	r2,dpl
-      003C15 AB 83            [24] 2640 	mov	r3,dph
-      003C17 D0 04            [24] 2641 	pop	ar4
-      003C19 D0 05            [24] 2642 	pop	ar5
-      003C1B D0 06            [24] 2643 	pop	ar6
-      003C1D D0 07            [24] 2644 	pop	ar7
-                                   2645 ;	8051_i2c_eeprom.c:496: if(end_addr >= 0 && end_addr <= ADDR_MAX)
-      003C1F 8A 00            [24] 2646 	mov	ar0,r2
-      003C21 8B 01            [24] 2647 	mov	ar1,r3
-      003C23 C3               [12] 2648 	clr	c
-      003C24 74 FF            [12] 2649 	mov	a,#0xff
-      003C26 98               [12] 2650 	subb	a,r0
-      003C27 74 07            [12] 2651 	mov	a,#0x07
-      003C29 99               [12] 2652 	subb	a,r1
-      003C2A 50 16            [24] 2653 	jnc	00107$
-                                   2654 ;	8051_i2c_eeprom.c:501: printf("\033[1;31m\n\rInvalid End Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
-      003C2C 74 8C            [12] 2655 	mov	a,#___str_53
-      003C2E C0 E0            [24] 2656 	push	acc
-      003C30 74 56            [12] 2657 	mov	a,#(___str_53 >> 8)
-      003C32 C0 E0            [24] 2658 	push	acc
-      003C34 74 80            [12] 2659 	mov	a,#0x80
-      003C36 C0 E0            [24] 2660 	push	acc
-      003C38 12 3E B0         [24] 2661 	lcall	_printf
-      003C3B 15 81            [12] 2662 	dec	sp
-      003C3D 15 81            [12] 2663 	dec	sp
-      003C3F 15 81            [12] 2664 	dec	sp
-                                   2665 ;	8051_i2c_eeprom.c:502: return;
-      003C41 22               [24] 2666 	ret
-      003C42                       2667 00107$:
-                                   2668 ;	8051_i2c_eeprom.c:505: EEPROM_hexump(start_addr,end_addr);
-      003C42 90 04 18         [24] 2669 	mov	dptr,#_EEPROM_hexump_PARM_2
-      003C45 EA               [12] 2670 	mov	a,r2
-      003C46 F0               [24] 2671 	movx	@dptr,a
-      003C47 EB               [12] 2672 	mov	a,r3
-      003C48 A3               [24] 2673 	inc	dptr
-      003C49 F0               [24] 2674 	movx	@dptr,a
-      003C4A 8C 82            [24] 2675 	mov	dpl,r4
-      003C4C 8D 83            [24] 2676 	mov	dph,r5
-                                   2677 ;	8051_i2c_eeprom.c:506: }
-      003C4E 02 3A 0D         [24] 2678 	ljmp	_EEPROM_hexump
-                                   2679 ;------------------------------------------------------------
-                                   2680 ;Allocation info for local variables in function 'i2c_stop'
-                                   2681 ;------------------------------------------------------------
-                                   2682 ;	8051_i2c_eeprom.c:508: void i2c_stop(void)
-                                   2683 ;	-----------------------------------------
-                                   2684 ;	 function i2c_stop
-                                   2685 ;	-----------------------------------------
-      003C51                       2686 _i2c_stop:
-                                   2687 ;	8051_i2c_eeprom.c:510: SDA = 0;
-                                   2688 ;	assignBit
-      003C51 C2 94            [12] 2689 	clr	_P1_4
-                                   2690 ;	8051_i2c_eeprom.c:511: i2c_delay();
-      003C53 12 3C 8A         [24] 2691 	lcall	_i2c_delay
-                                   2692 ;	8051_i2c_eeprom.c:512: SCL = 1;
-                                   2693 ;	assignBit
-      003C56 D2 93            [12] 2694 	setb	_P1_3
-                                   2695 ;	8051_i2c_eeprom.c:513: i2c_delay();
-      003C58 12 3C 8A         [24] 2696 	lcall	_i2c_delay
-                                   2697 ;	8051_i2c_eeprom.c:514: SDA = 1; 
-                                   2698 ;	assignBit
-      003C5B D2 94            [12] 2699 	setb	_P1_4
-                                   2700 ;	8051_i2c_eeprom.c:515: }
-      003C5D 22               [24] 2701 	ret
-                                   2702 ;------------------------------------------------------------
-                                   2703 ;Allocation info for local variables in function 'eeprom_reset'
-                                   2704 ;------------------------------------------------------------
-                                   2705 ;i                         Allocated with name '_eeprom_reset_i_131072_127'
-                                   2706 ;------------------------------------------------------------
-                                   2707 ;	8051_i2c_eeprom.c:517: void eeprom_reset()
-                                   2708 ;	-----------------------------------------
-                                   2709 ;	 function eeprom_reset
-                                   2710 ;	-----------------------------------------
-      003C5E                       2711 _eeprom_reset:
-                                   2712 ;	8051_i2c_eeprom.c:519: i2c_start();
-      003C5E 12 39 F8         [24] 2713 	lcall	_i2c_start
-                                   2714 ;	8051_i2c_eeprom.c:520: SDA = 0;
-                                   2715 ;	assignBit
-      003C61 C2 94            [12] 2716 	clr	_P1_4
-                                   2717 ;	8051_i2c_eeprom.c:521: SDA = 1;
-                                   2718 ;	assignBit
-      003C63 D2 94            [12] 2719 	setb	_P1_4
-                                   2720 ;	8051_i2c_eeprom.c:522: for(int i = 0; i<10; i++)
-      003C65 7E 00            [12] 2721 	mov	r6,#0x00
-      003C67 7F 00            [12] 2722 	mov	r7,#0x00
-      003C69                       2723 00103$:
-      003C69 C3               [12] 2724 	clr	c
-      003C6A EE               [12] 2725 	mov	a,r6
-      003C6B 94 0A            [12] 2726 	subb	a,#0x0a
-      003C6D EF               [12] 2727 	mov	a,r7
-      003C6E 64 80            [12] 2728 	xrl	a,#0x80
-      003C70 94 80            [12] 2729 	subb	a,#0x80
-      003C72 50 0B            [24] 2730 	jnc	00101$
-                                   2731 ;	8051_i2c_eeprom.c:524: SCL = 0;
-                                   2732 ;	assignBit
-      003C74 C2 93            [12] 2733 	clr	_P1_3
-                                   2734 ;	8051_i2c_eeprom.c:525: SCL = 1;
-                                   2735 ;	assignBit
-      003C76 D2 93            [12] 2736 	setb	_P1_3
-                                   2737 ;	8051_i2c_eeprom.c:522: for(int i = 0; i<10; i++)
-      003C78 0E               [12] 2738 	inc	r6
-      003C79 BE 00 ED         [24] 2739 	cjne	r6,#0x00,00103$
-      003C7C 0F               [12] 2740 	inc	r7
-      003C7D 80 EA            [24] 2741 	sjmp	00103$
-      003C7F                       2742 00101$:
-                                   2743 ;	8051_i2c_eeprom.c:527: i2c_start();
-      003C7F 12 39 F8         [24] 2744 	lcall	_i2c_start
-                                   2745 ;	8051_i2c_eeprom.c:528: SDA = 0;
-                                   2746 ;	assignBit
-      003C82 C2 94            [12] 2747 	clr	_P1_4
-                                   2748 ;	8051_i2c_eeprom.c:529: i2c_stop();
-      003C84 12 3C 51         [24] 2749 	lcall	_i2c_stop
-                                   2750 ;	8051_i2c_eeprom.c:530: SDA = 1;
-                                   2751 ;	assignBit
-      003C87 D2 94            [12] 2752 	setb	_P1_4
-                                   2753 ;	8051_i2c_eeprom.c:531: }
-      003C89 22               [24] 2754 	ret
-                                   2755 ;------------------------------------------------------------
-                                   2756 ;Allocation info for local variables in function 'i2c_delay'
-                                   2757 ;------------------------------------------------------------
-                                   2758 ;i                         Allocated with name '_i2c_delay_i_131072_130'
-                                   2759 ;------------------------------------------------------------
-                                   2760 ;	8051_i2c_eeprom.c:532: void i2c_delay() 
-                                   2761 ;	-----------------------------------------
-                                   2762 ;	 function i2c_delay
-                                   2763 ;	-----------------------------------------
-      003C8A                       2764 _i2c_delay:
-                                   2765 ;	8051_i2c_eeprom.c:540: for(int i = 0; i<500; i++);
-      003C8A 7E 00            [12] 2766 	mov	r6,#0x00
-      003C8C 7F 00            [12] 2767 	mov	r7,#0x00
-      003C8E                       2768 00103$:
-      003C8E C3               [12] 2769 	clr	c
-      003C8F EE               [12] 2770 	mov	a,r6
-      003C90 94 F4            [12] 2771 	subb	a,#0xf4
-      003C92 EF               [12] 2772 	mov	a,r7
-      003C93 64 80            [12] 2773 	xrl	a,#0x80
-      003C95 94 81            [12] 2774 	subb	a,#0x81
-      003C97 50 07            [24] 2775 	jnc	00105$
-      003C99 0E               [12] 2776 	inc	r6
-      003C9A BE 00 F1         [24] 2777 	cjne	r6,#0x00,00103$
-      003C9D 0F               [12] 2778 	inc	r7
-      003C9E 80 EE            [24] 2779 	sjmp	00103$
-      003CA0                       2780 00105$:
-                                   2781 ;	8051_i2c_eeprom.c:541: }
-      003CA0 22               [24] 2782 	ret
-                                   2783 ;------------------------------------------------------------
-                                   2784 ;Allocation info for local variables in function 'test_function'
-                                   2785 ;------------------------------------------------------------
-                                   2786 ;test_data                 Allocated with name '_test_function_test_data_65537_132'
-                                   2787 ;address                   Allocated with name '_test_function_address_65537_132'
-                                   2788 ;i                         Allocated with name '_test_function_i_131073_133'
-                                   2789 ;read_data                 Allocated with name '_test_function_read_data_65538_135'
-                                   2790 ;------------------------------------------------------------
-                                   2791 ;	8051_i2c_eeprom.c:543: void test_function()
-                                   2792 ;	-----------------------------------------
-                                   2793 ;	 function test_function
-                                   2794 ;	-----------------------------------------
-      003CA1                       2795 _test_function:
-                                   2796 ;	8051_i2c_eeprom.c:545: i2c_start();
-      003CA1 12 39 F8         [24] 2797 	lcall	_i2c_start
-                                   2798 ;	8051_i2c_eeprom.c:546: i2c_delay();
-      003CA4 12 3C 8A         [24] 2799 	lcall	_i2c_delay
-                                   2800 ;	8051_i2c_eeprom.c:552: printf("Writing data 0x%02X to address 0x%02X\n\r", test_data, address);
-      003CA7 74 02            [12] 2801 	mov	a,#0x02
-      003CA9 C0 E0            [24] 2802 	push	acc
-      003CAB E4               [12] 2803 	clr	a
-      003CAC C0 E0            [24] 2804 	push	acc
-      003CAE 74 26            [12] 2805 	mov	a,#0x26
-      003CB0 C0 E0            [24] 2806 	push	acc
-      003CB2 E4               [12] 2807 	clr	a
-      003CB3 C0 E0            [24] 2808 	push	acc
-      003CB5 74 E2            [12] 2809 	mov	a,#___str_54
-      003CB7 C0 E0            [24] 2810 	push	acc
-      003CB9 74 56            [12] 2811 	mov	a,#(___str_54 >> 8)
-      003CBB C0 E0            [24] 2812 	push	acc
-      003CBD 74 80            [12] 2813 	mov	a,#0x80
-      003CBF C0 E0            [24] 2814 	push	acc
-      003CC1 12 3E B0         [24] 2815 	lcall	_printf
-      003CC4 E5 81            [12] 2816 	mov	a,sp
-      003CC6 24 F9            [12] 2817 	add	a,#0xf9
-      003CC8 F5 81            [12] 2818 	mov	sp,a
-                                   2819 ;	8051_i2c_eeprom.c:553: eeprom_write(address, test_data);
-      003CCA 90 04 0F         [24] 2820 	mov	dptr,#_eeprom_write_PARM_2
-      003CCD 74 26            [12] 2821 	mov	a,#0x26
-      003CCF F0               [24] 2822 	movx	@dptr,a
-      003CD0 90 00 02         [24] 2823 	mov	dptr,#0x0002
-      003CD3 12 36 B5         [24] 2824 	lcall	_eeprom_write
-                                   2825 ;	8051_i2c_eeprom.c:554: i2c_stop();
-      003CD6 12 3C 51         [24] 2826 	lcall	_i2c_stop
-                                   2827 ;	8051_i2c_eeprom.c:556: for(int i = 0; i<100; i++)
-      003CD9 7E 00            [12] 2828 	mov	r6,#0x00
-      003CDB 7F 00            [12] 2829 	mov	r7,#0x00
-      003CDD                       2830 00106$:
-      003CDD C3               [12] 2831 	clr	c
-      003CDE EE               [12] 2832 	mov	a,r6
-      003CDF 94 64            [12] 2833 	subb	a,#0x64
-      003CE1 EF               [12] 2834 	mov	a,r7
-      003CE2 64 80            [12] 2835 	xrl	a,#0x80
-      003CE4 94 80            [12] 2836 	subb	a,#0x80
-      003CE6 50 12            [24] 2837 	jnc	00101$
-                                   2838 ;	8051_i2c_eeprom.c:558: i2c_delay();
-      003CE8 C0 07            [24] 2839 	push	ar7
-      003CEA C0 06            [24] 2840 	push	ar6
-      003CEC 12 3C 8A         [24] 2841 	lcall	_i2c_delay
-      003CEF D0 06            [24] 2842 	pop	ar6
-      003CF1 D0 07            [24] 2843 	pop	ar7
-                                   2844 ;	8051_i2c_eeprom.c:556: for(int i = 0; i<100; i++)
-      003CF3 0E               [12] 2845 	inc	r6
-      003CF4 BE 00 E6         [24] 2846 	cjne	r6,#0x00,00106$
-      003CF7 0F               [12] 2847 	inc	r7
-      003CF8 80 E3            [24] 2848 	sjmp	00106$
-      003CFA                       2849 00101$:
-                                   2850 ;	8051_i2c_eeprom.c:562: unsigned char read_data = eeprom_read(address);
-      003CFA 90 00 02         [24] 2851 	mov	dptr,#0x0002
-      003CFD 12 37 F7         [24] 2852 	lcall	_eeprom_read
-      003D00 AE 82            [24] 2853 	mov	r6,dpl
-                                   2854 ;	8051_i2c_eeprom.c:563: printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
-      003D02 8E 05            [24] 2855 	mov	ar5,r6
-      003D04 7F 00            [12] 2856 	mov	r7,#0x00
-      003D06 C0 06            [24] 2857 	push	ar6
-      003D08 C0 05            [24] 2858 	push	ar5
-      003D0A C0 07            [24] 2859 	push	ar7
-      003D0C 74 02            [12] 2860 	mov	a,#0x02
-      003D0E C0 E0            [24] 2861 	push	acc
-      003D10 E4               [12] 2862 	clr	a
-      003D11 C0 E0            [24] 2863 	push	acc
-      003D13 74 0A            [12] 2864 	mov	a,#___str_55
-      003D15 C0 E0            [24] 2865 	push	acc
-      003D17 74 57            [12] 2866 	mov	a,#(___str_55 >> 8)
-      003D19 C0 E0            [24] 2867 	push	acc
-      003D1B 74 80            [12] 2868 	mov	a,#0x80
-      003D1D C0 E0            [24] 2869 	push	acc
-      003D1F 12 3E B0         [24] 2870 	lcall	_printf
-      003D22 E5 81            [12] 2871 	mov	a,sp
-      003D24 24 F9            [12] 2872 	add	a,#0xf9
-      003D26 F5 81            [12] 2873 	mov	sp,a
-      003D28 D0 06            [24] 2874 	pop	ar6
-                                   2875 ;	8051_i2c_eeprom.c:566: if(read_data == test_data) {
-      003D2A BE 26 16         [24] 2876 	cjne	r6,#0x26,00103$
-                                   2877 ;	8051_i2c_eeprom.c:567: printf("MATCH - Write/Read successful!\n\r");
-      003D2D 74 32            [12] 2878 	mov	a,#___str_56
-      003D2F C0 E0            [24] 2879 	push	acc
-      003D31 74 57            [12] 2880 	mov	a,#(___str_56 >> 8)
-      003D33 C0 E0            [24] 2881 	push	acc
-      003D35 74 80            [12] 2882 	mov	a,#0x80
-      003D37 C0 E0            [24] 2883 	push	acc
-      003D39 12 3E B0         [24] 2884 	lcall	_printf
-      003D3C 15 81            [12] 2885 	dec	sp
-      003D3E 15 81            [12] 2886 	dec	sp
-      003D40 15 81            [12] 2887 	dec	sp
-      003D42 22               [24] 2888 	ret
-      003D43                       2889 00103$:
-                                   2890 ;	8051_i2c_eeprom.c:569: printf("ERROR - Data mismatch!\n\r");
-      003D43 74 53            [12] 2891 	mov	a,#___str_57
-      003D45 C0 E0            [24] 2892 	push	acc
-      003D47 74 57            [12] 2893 	mov	a,#(___str_57 >> 8)
-      003D49 C0 E0            [24] 2894 	push	acc
-      003D4B 74 80            [12] 2895 	mov	a,#0x80
-      003D4D C0 E0            [24] 2896 	push	acc
-      003D4F 12 3E B0         [24] 2897 	lcall	_printf
-      003D52 15 81            [12] 2898 	dec	sp
-      003D54 15 81            [12] 2899 	dec	sp
-      003D56 15 81            [12] 2900 	dec	sp
-                                   2901 ;	8051_i2c_eeprom.c:573: }
-      003D58 22               [24] 2902 	ret
-                                   2903 	.area CSEG    (CODE)
-                                   2904 	.area CONST   (CODE)
-                                   2905 	.area CONST   (CODE)
-      004912                       2906 ___str_0:
-      004912 0A                    2907 	.db 0x0a
-      004913 E2                    2908 	.db 0xe2
-      004914 95                    2909 	.db 0x95
-      004915 94                    2910 	.db 0x94
-      004916 E2                    2911 	.db 0xe2
-      004917 95                    2912 	.db 0x95
-      004918 90                    2913 	.db 0x90
-      004919 E2                    2914 	.db 0xe2
-      00491A 95                    2915 	.db 0x95
-      00491B 90                    2916 	.db 0x90
-      00491C E2                    2917 	.db 0xe2
-      00491D 95                    2918 	.db 0x95
-      00491E 90                    2919 	.db 0x90
-      00491F E2                    2920 	.db 0xe2
-      004920 95                    2921 	.db 0x95
-      004921 90                    2922 	.db 0x90
-      004922 E2                    2923 	.db 0xe2
-      004923 95                    2924 	.db 0x95
-      004924 90                    2925 	.db 0x90
-      004925 E2                    2926 	.db 0xe2
-      004926 95                    2927 	.db 0x95
-      004927 90                    2928 	.db 0x90
-      004928 E2                    2929 	.db 0xe2
-      004929 95                    2930 	.db 0x95
-      00492A 90                    2931 	.db 0x90
-      00492B E2                    2932 	.db 0xe2
-      00492C 95                    2933 	.db 0x95
-      00492D 90                    2934 	.db 0x90
-      00492E E2                    2935 	.db 0xe2
-      00492F 95                    2936 	.db 0x95
-      004930 90                    2937 	.db 0x90
-      004931 E2                    2938 	.db 0xe2
-      004932 95                    2939 	.db 0x95
-      004933 90                    2940 	.db 0x90
-      004934 E2                    2941 	.db 0xe2
-      004935 95                    2942 	.db 0x95
-      004936 90                    2943 	.db 0x90
-      004937 E2                    2944 	.db 0xe2
-      004938 95                    2945 	.db 0x95
-      004939 90                    2946 	.db 0x90
-      00493A E2                    2947 	.db 0xe2
-      00493B 95                    2948 	.db 0x95
-      00493C 90                    2949 	.db 0x90
-      00493D E2                    2950 	.db 0xe2
-      00493E 95                    2951 	.db 0x95
-      00493F 90                    2952 	.db 0x90
-      004940 E2                    2953 	.db 0xe2
-      004941 95                    2954 	.db 0x95
-      004942 90                    2955 	.db 0x90
-      004943 E2                    2956 	.db 0xe2
-      004944 95                    2957 	.db 0x95
-      004945 90                    2958 	.db 0x90
-      004946 E2                    2959 	.db 0xe2
-      004947 95                    2960 	.db 0x95
-      004948 90                    2961 	.db 0x90
-      004949 E2                    2962 	.db 0xe2
-      00494A 95                    2963 	.db 0x95
-      00494B 90                    2964 	.db 0x90
-      00494C E2                    2965 	.db 0xe2
-      00494D 95                    2966 	.db 0x95
-      00494E 90                    2967 	.db 0x90
-      00494F E2                    2968 	.db 0xe2
-      004950 95                    2969 	.db 0x95
-      004951 90                    2970 	.db 0x90
-      004952 E2                    2971 	.db 0xe2
-      004953 95                    2972 	.db 0x95
-      004954 90                    2973 	.db 0x90
-      004955 E2                    2974 	.db 0xe2
-      004956 95                    2975 	.db 0x95
-      004957 90                    2976 	.db 0x90
-      004958 E2                    2977 	.db 0xe2
-      004959 95                    2978 	.db 0x95
-      00495A 90                    2979 	.db 0x90
-      00495B E2                    2980 	.db 0xe2
-      00495C 95                    2981 	.db 0x95
-      00495D 90                    2982 	.db 0x90
-      00495E E2                    2983 	.db 0xe2
-      00495F 95                    2984 	.db 0x95
-      004960 90                    2985 	.db 0x90
-      004961 E2                    2986 	.db 0xe2
-      004962 95                    2987 	.db 0x95
-      004963 90                    2988 	.db 0x90
-      004964 E2                    2989 	.db 0xe2
-      004965 95                    2990 	.db 0x95
-      004966 90                    2991 	.db 0x90
-      004967 E2                    2992 	.db 0xe2
-      004968 95                    2993 	.db 0x95
-      004969 90                    2994 	.db 0x90
-      00496A E2                    2995 	.db 0xe2
-      00496B 95                    2996 	.db 0x95
-      00496C 90                    2997 	.db 0x90
-      00496D E2                    2998 	.db 0xe2
-      00496E 95                    2999 	.db 0x95
-      00496F 90                    3000 	.db 0x90
-      004970 E2                    3001 	.db 0xe2
-      004971 95                    3002 	.db 0x95
-      004972 90                    3003 	.db 0x90
-      004973 E2                    3004 	.db 0xe2
-      004974 95                    3005 	.db 0x95
-      004975 90                    3006 	.db 0x90
-      004976 E2                    3007 	.db 0xe2
-      004977 95                    3008 	.db 0x95
-      004978 90                    3009 	.db 0x90
-      004979 E2                    3010 	.db 0xe2
-      00497A 95                    3011 	.db 0x95
-      00497B 90                    3012 	.db 0x90
-      00497C E2                    3013 	.db 0xe2
-      00497D 95                    3014 	.db 0x95
-      00497E 90                    3015 	.db 0x90
-      00497F E2                    3016 	.db 0xe2
-      004980 95                    3017 	.db 0x95
-      004981 90                    3018 	.db 0x90
-      004982 E2                    3019 	.db 0xe2
-      004983 95                    3020 	.db 0x95
-      004984 90                    3021 	.db 0x90
-      004985 E2                    3022 	.db 0xe2
-      004986 95                    3023 	.db 0x95
-      004987 90                    3024 	.db 0x90
-      004988 E2                    3025 	.db 0xe2
-      004989 95                    3026 	.db 0x95
-      00498A 90                    3027 	.db 0x90
-      00498B E2                    3028 	.db 0xe2
-      00498C 95                    3029 	.db 0x95
-      00498D 90                    3030 	.db 0x90
-      00498E E2                    3031 	.db 0xe2
-      00498F 95                    3032 	.db 0x95
-      004990 90                    3033 	.db 0x90
-      004991 E2                    3034 	.db 0xe2
-      004992 95                    3035 	.db 0x95
-      004993 90                    3036 	.db 0x90
-      004994 E2                    3037 	.db 0xe2
-      004995 95                    3038 	.db 0x95
-      004996 90                    3039 	.db 0x90
-      004997 E2                    3040 	.db 0xe2
-      004998 95                    3041 	.db 0x95
-      004999 90                    3042 	.db 0x90
-      00499A E2                    3043 	.db 0xe2
-      00499B 95                    3044 	.db 0x95
-      00499C 90                    3045 	.db 0x90
-      00499D E2                    3046 	.db 0xe2
-      00499E 95                    3047 	.db 0x95
-      00499F 90                    3048 	.db 0x90
-      0049A0 E2                    3049 	.db 0xe2
-      0049A1 95                    3050 	.db 0x95
-      0049A2 90                    3051 	.db 0x90
-      0049A3 E2                    3052 	.db 0xe2
-      0049A4 95                    3053 	.db 0x95
-      0049A5 90                    3054 	.db 0x90
-      0049A6 E2                    3055 	.db 0xe2
-      0049A7 95                    3056 	.db 0x95
-      0049A8 90                    3057 	.db 0x90
-      0049A9 E2                    3058 	.db 0xe2
-      0049AA 95                    3059 	.db 0x95
-      0049AB 90                    3060 	.db 0x90
-      0049AC E2                    3061 	.db 0xe2
-      0049AD 95                    3062 	.db 0x95
-      0049AE 90                    3063 	.db 0x90
-      0049AF E2                    3064 	.db 0xe2
-      0049B0 95                    3065 	.db 0x95
-      0049B1 90                    3066 	.db 0x90
-      0049B2 E2                    3067 	.db 0xe2
-      0049B3 95                    3068 	.db 0x95
-      0049B4 90                    3069 	.db 0x90
-      0049B5 E2                    3070 	.db 0xe2
-      0049B6 95                    3071 	.db 0x95
-      0049B7 90                    3072 	.db 0x90
-      0049B8 E2                    3073 	.db 0xe2
-      0049B9 95                    3074 	.db 0x95
-      0049BA 90                    3075 	.db 0x90
-      0049BB E2                    3076 	.db 0xe2
-      0049BC 95                    3077 	.db 0x95
-      0049BD 90                    3078 	.db 0x90
-      0049BE E2                    3079 	.db 0xe2
-      0049BF 95                    3080 	.db 0x95
-      0049C0 97                    3081 	.db 0x97
-      0049C1 0A                    3082 	.db 0x0a
-      0049C2 0D                    3083 	.db 0x0d
-      0049C3 00                    3084 	.db 0x00
-                                   3085 	.area CSEG    (CODE)
-                                   3086 	.area CONST   (CODE)
-      0049C4                       3087 ___str_1:
-      0049C4 E2                    3088 	.db 0xe2
-      0049C5 95                    3089 	.db 0x95
-      0049C6 91                    3090 	.db 0x91
-      0049C7 20 20 20 20 20 20 20  3091 	.ascii "           I2C Memory Management System v1.0            "
+      003AAA 12 3F 56         [24] 2411 	lcall	_printf
+      003AAD E5 81            [12] 2412 	mov	a,sp
+      003AAF 24 FB            [12] 2413 	add	a,#0xfb
+      003AB1 F5 81            [12] 2414 	mov	sp,a
+      003AB3 D0 06            [24] 2415 	pop	ar6
+      003AB5 D0 07            [24] 2416 	pop	ar7
+                                   2417 ;	8051_i2c_eeprom.c:564: for (int offset = 0; offset < MAX_HEX_CHAR_IN_SINGLE_LINE; offset++) {
+      003AB7 7C 00            [12] 2418 	mov	r4,#0x00
+      003AB9 7D 00            [12] 2419 	mov	r5,#0x00
+      003ABB                       2420 00113$:
+      003ABB C3               [12] 2421 	clr	c
+      003ABC EC               [12] 2422 	mov	a,r4
+      003ABD 94 10            [12] 2423 	subb	a,#0x10
+      003ABF ED               [12] 2424 	mov	a,r5
+      003AC0 64 80            [12] 2425 	xrl	a,#0x80
+      003AC2 94 80            [12] 2426 	subb	a,#0x80
+      003AC4 40 03            [24] 2427 	jc	00153$
+      003AC6 02 3C 0E         [24] 2428 	ljmp	00110$
+      003AC9                       2429 00153$:
+                                   2430 ;	8051_i2c_eeprom.c:565: uint16_t current_address = address + offset;
+      003AC9 90 04 1C         [24] 2431 	mov	dptr,#_EEPROM_hexump_address_131072_111
+      003ACC E0               [24] 2432 	movx	a,@dptr
+      003ACD FA               [12] 2433 	mov	r2,a
+      003ACE A3               [24] 2434 	inc	dptr
+      003ACF E0               [24] 2435 	movx	a,@dptr
+      003AD0 FB               [12] 2436 	mov	r3,a
+      003AD1 8A 08            [24] 2437 	mov	_EEPROM_hexump_sloc0_1_0,r2
+      003AD3 8B 09            [24] 2438 	mov	(_EEPROM_hexump_sloc0_1_0 + 1),r3
+      003AD5 8C 00            [24] 2439 	mov	ar0,r4
+      003AD7 8D 01            [24] 2440 	mov	ar1,r5
+      003AD9 E8               [12] 2441 	mov	a,r0
+      003ADA 25 08            [12] 2442 	add	a,_EEPROM_hexump_sloc0_1_0
+      003ADC F8               [12] 2443 	mov	r0,a
+      003ADD E9               [12] 2444 	mov	a,r1
+      003ADE 35 09            [12] 2445 	addc	a,(_EEPROM_hexump_sloc0_1_0 + 1)
+      003AE0 F9               [12] 2446 	mov	r1,a
+                                   2447 ;	8051_i2c_eeprom.c:567: if (current_address <= end_address) {
+      003AE1 C3               [12] 2448 	clr	c
+      003AE2 EE               [12] 2449 	mov	a,r6
+      003AE3 98               [12] 2450 	subb	a,r0
+      003AE4 EF               [12] 2451 	mov	a,r7
+      003AE5 99               [12] 2452 	subb	a,r1
+      003AE6 50 03            [24] 2453 	jnc	00154$
+      003AE8 02 3B E1         [24] 2454 	ljmp	00108$
+      003AEB                       2455 00154$:
+                                   2456 ;	8051_i2c_eeprom.c:573: i2c_start();
+      003AEB C0 07            [24] 2457 	push	ar7
+      003AED C0 06            [24] 2458 	push	ar6
+      003AEF C0 05            [24] 2459 	push	ar5
+      003AF1 C0 04            [24] 2460 	push	ar4
+      003AF3 C0 03            [24] 2461 	push	ar3
+      003AF5 C0 02            [24] 2462 	push	ar2
+      003AF7 12 39 F8         [24] 2463 	lcall	_i2c_start
+                                   2464 ;	8051_i2c_eeprom.c:576: if(!i2c_write(EEPROM_ID | WRITE)) {
+      003AFA 75 82 A0         [24] 2465 	mov	dpl,#0xa0
+      003AFD 12 39 0B         [24] 2466 	lcall	_i2c_write
+      003B00 E5 82            [12] 2467 	mov	a,dpl
+      003B02 85 83 F0         [24] 2468 	mov	b,dph
+      003B05 D0 02            [24] 2469 	pop	ar2
+      003B07 D0 03            [24] 2470 	pop	ar3
+      003B09 D0 04            [24] 2471 	pop	ar4
+      003B0B D0 05            [24] 2472 	pop	ar5
+      003B0D D0 06            [24] 2473 	pop	ar6
+      003B0F D0 07            [24] 2474 	pop	ar7
+      003B11 45 F0            [12] 2475 	orl	a,b
+      003B13 70 1C            [24] 2476 	jnz	00102$
+                                   2477 ;	8051_i2c_eeprom.c:577: printf("Error: No ACK for device address (write mode)\n\r");
+      003B15 74 F1            [12] 2478 	mov	a,#___str_38
+      003B17 C0 E0            [24] 2479 	push	acc
+      003B19 74 54            [12] 2480 	mov	a,#(___str_38 >> 8)
+      003B1B C0 E0            [24] 2481 	push	acc
+      003B1D 74 80            [12] 2482 	mov	a,#0x80
+      003B1F C0 E0            [24] 2483 	push	acc
+      003B21 12 3F 56         [24] 2484 	lcall	_printf
+      003B24 15 81            [12] 2485 	dec	sp
+      003B26 15 81            [12] 2486 	dec	sp
+      003B28 15 81            [12] 2487 	dec	sp
+                                   2488 ;	8051_i2c_eeprom.c:578: i2c_stop();
+      003B2A 12 3C F7         [24] 2489 	lcall	_i2c_stop
+                                   2490 ;	8051_i2c_eeprom.c:579: return -1;
+      003B2D 90 FF FF         [24] 2491 	mov	dptr,#0xffff
+      003B30 22               [24] 2492 	ret
+      003B31                       2493 00102$:
+                                   2494 ;	8051_i2c_eeprom.c:583: if(!i2c_write((unsigned char)address)) {
+      003B31 8A 82            [24] 2495 	mov	dpl,r2
+      003B33 C0 07            [24] 2496 	push	ar7
+      003B35 C0 06            [24] 2497 	push	ar6
+      003B37 C0 05            [24] 2498 	push	ar5
+      003B39 C0 04            [24] 2499 	push	ar4
+      003B3B 12 39 0B         [24] 2500 	lcall	_i2c_write
+      003B3E E5 82            [12] 2501 	mov	a,dpl
+      003B40 85 83 F0         [24] 2502 	mov	b,dph
+      003B43 D0 04            [24] 2503 	pop	ar4
+      003B45 D0 05            [24] 2504 	pop	ar5
+      003B47 D0 06            [24] 2505 	pop	ar6
+      003B49 D0 07            [24] 2506 	pop	ar7
+      003B4B 45 F0            [12] 2507 	orl	a,b
+      003B4D 70 1C            [24] 2508 	jnz	00104$
+                                   2509 ;	8051_i2c_eeprom.c:584: printf("Error: No ACK for memory address\n\r");
+      003B4F 74 B2            [12] 2510 	mov	a,#___str_33
+      003B51 C0 E0            [24] 2511 	push	acc
+      003B53 74 53            [12] 2512 	mov	a,#(___str_33 >> 8)
+      003B55 C0 E0            [24] 2513 	push	acc
+      003B57 74 80            [12] 2514 	mov	a,#0x80
+      003B59 C0 E0            [24] 2515 	push	acc
+      003B5B 12 3F 56         [24] 2516 	lcall	_printf
+      003B5E 15 81            [12] 2517 	dec	sp
+      003B60 15 81            [12] 2518 	dec	sp
+      003B62 15 81            [12] 2519 	dec	sp
+                                   2520 ;	8051_i2c_eeprom.c:585: i2c_stop();
+      003B64 12 3C F7         [24] 2521 	lcall	_i2c_stop
+                                   2522 ;	8051_i2c_eeprom.c:586: return -1;
+      003B67 90 FF FF         [24] 2523 	mov	dptr,#0xffff
+      003B6A 22               [24] 2524 	ret
+      003B6B                       2525 00104$:
+                                   2526 ;	8051_i2c_eeprom.c:590: i2c_start();
+      003B6B C0 07            [24] 2527 	push	ar7
+      003B6D C0 06            [24] 2528 	push	ar6
+      003B6F C0 05            [24] 2529 	push	ar5
+      003B71 C0 04            [24] 2530 	push	ar4
+      003B73 12 39 F8         [24] 2531 	lcall	_i2c_start
+                                   2532 ;	8051_i2c_eeprom.c:593: if(!i2c_write(EEPROM_ID | READ)) {
+      003B76 75 82 A1         [24] 2533 	mov	dpl,#0xa1
+      003B79 12 39 0B         [24] 2534 	lcall	_i2c_write
+      003B7C E5 82            [12] 2535 	mov	a,dpl
+      003B7E 85 83 F0         [24] 2536 	mov	b,dph
+      003B81 D0 04            [24] 2537 	pop	ar4
+      003B83 D0 05            [24] 2538 	pop	ar5
+      003B85 D0 06            [24] 2539 	pop	ar6
+      003B87 D0 07            [24] 2540 	pop	ar7
+      003B89 45 F0            [12] 2541 	orl	a,b
+      003B8B 70 1C            [24] 2542 	jnz	00106$
+                                   2543 ;	8051_i2c_eeprom.c:594: printf("Error: No ACK for device address (read mode)\n\r");
+      003B8D 74 21            [12] 2544 	mov	a,#___str_39
+      003B8F C0 E0            [24] 2545 	push	acc
+      003B91 74 55            [12] 2546 	mov	a,#(___str_39 >> 8)
+      003B93 C0 E0            [24] 2547 	push	acc
+      003B95 74 80            [12] 2548 	mov	a,#0x80
+      003B97 C0 E0            [24] 2549 	push	acc
+      003B99 12 3F 56         [24] 2550 	lcall	_printf
+      003B9C 15 81            [12] 2551 	dec	sp
+      003B9E 15 81            [12] 2552 	dec	sp
+      003BA0 15 81            [12] 2553 	dec	sp
+                                   2554 ;	8051_i2c_eeprom.c:595: i2c_stop();
+      003BA2 12 3C F7         [24] 2555 	lcall	_i2c_stop
+                                   2556 ;	8051_i2c_eeprom.c:596: return -1;
+      003BA5 90 FF FF         [24] 2557 	mov	dptr,#0xffff
+      003BA8 22               [24] 2558 	ret
+      003BA9                       2559 00106$:
+                                   2560 ;	8051_i2c_eeprom.c:600: result = i2c_read(0);  // 0 means send NACK
+      003BA9 90 00 00         [24] 2561 	mov	dptr,#0x0000
+      003BAC C0 07            [24] 2562 	push	ar7
+      003BAE C0 06            [24] 2563 	push	ar6
+      003BB0 C0 05            [24] 2564 	push	ar5
+      003BB2 C0 04            [24] 2565 	push	ar4
+      003BB4 12 39 73         [24] 2566 	lcall	_i2c_read
+      003BB7 AA 82            [24] 2567 	mov	r2,dpl
+                                   2568 ;	8051_i2c_eeprom.c:601: printf("%02X ", result);
+      003BB9 7B 00            [12] 2569 	mov	r3,#0x00
+      003BBB C0 02            [24] 2570 	push	ar2
+      003BBD C0 03            [24] 2571 	push	ar3
+      003BBF 74 7A            [12] 2572 	mov	a,#___str_48
+      003BC1 C0 E0            [24] 2573 	push	acc
+      003BC3 74 56            [12] 2574 	mov	a,#(___str_48 >> 8)
+      003BC5 C0 E0            [24] 2575 	push	acc
+      003BC7 74 80            [12] 2576 	mov	a,#0x80
+      003BC9 C0 E0            [24] 2577 	push	acc
+      003BCB 12 3F 56         [24] 2578 	lcall	_printf
+      003BCE E5 81            [12] 2579 	mov	a,sp
+      003BD0 24 FB            [12] 2580 	add	a,#0xfb
+      003BD2 F5 81            [12] 2581 	mov	sp,a
+                                   2582 ;	8051_i2c_eeprom.c:602: i2c_stop();
+      003BD4 12 3C F7         [24] 2583 	lcall	_i2c_stop
+      003BD7 D0 04            [24] 2584 	pop	ar4
+      003BD9 D0 05            [24] 2585 	pop	ar5
+      003BDB D0 06            [24] 2586 	pop	ar6
+      003BDD D0 07            [24] 2587 	pop	ar7
+      003BDF 80 25            [24] 2588 	sjmp	00114$
+      003BE1                       2589 00108$:
+                                   2590 ;	8051_i2c_eeprom.c:606: printf("   "); // Space for missing bytes if end_address reached mid-line
+      003BE1 C0 07            [24] 2591 	push	ar7
+      003BE3 C0 06            [24] 2592 	push	ar6
+      003BE5 C0 05            [24] 2593 	push	ar5
+      003BE7 C0 04            [24] 2594 	push	ar4
+      003BE9 74 80            [12] 2595 	mov	a,#___str_49
+      003BEB C0 E0            [24] 2596 	push	acc
+      003BED 74 56            [12] 2597 	mov	a,#(___str_49 >> 8)
+      003BEF C0 E0            [24] 2598 	push	acc
+      003BF1 74 80            [12] 2599 	mov	a,#0x80
+      003BF3 C0 E0            [24] 2600 	push	acc
+      003BF5 12 3F 56         [24] 2601 	lcall	_printf
+      003BF8 15 81            [12] 2602 	dec	sp
+      003BFA 15 81            [12] 2603 	dec	sp
+      003BFC 15 81            [12] 2604 	dec	sp
+      003BFE D0 04            [24] 2605 	pop	ar4
+      003C00 D0 05            [24] 2606 	pop	ar5
+      003C02 D0 06            [24] 2607 	pop	ar6
+      003C04 D0 07            [24] 2608 	pop	ar7
+      003C06                       2609 00114$:
+                                   2610 ;	8051_i2c_eeprom.c:564: for (int offset = 0; offset < MAX_HEX_CHAR_IN_SINGLE_LINE; offset++) {
+      003C06 0C               [12] 2611 	inc	r4
+      003C07 BC 00 01         [24] 2612 	cjne	r4,#0x00,00158$
+      003C0A 0D               [12] 2613 	inc	r5
+      003C0B                       2614 00158$:
+      003C0B 02 3A BB         [24] 2615 	ljmp	00113$
+      003C0E                       2616 00110$:
+                                   2617 ;	8051_i2c_eeprom.c:611: printf("\r\n");
+      003C0E C0 07            [24] 2618 	push	ar7
+      003C10 C0 06            [24] 2619 	push	ar6
+      003C12 74 A5            [12] 2620 	mov	a,#___str_43
+      003C14 C0 E0            [24] 2621 	push	acc
+      003C16 74 55            [12] 2622 	mov	a,#(___str_43 >> 8)
+      003C18 C0 E0            [24] 2623 	push	acc
+      003C1A 74 80            [12] 2624 	mov	a,#0x80
+      003C1C C0 E0            [24] 2625 	push	acc
+      003C1E 12 3F 56         [24] 2626 	lcall	_printf
+      003C21 15 81            [12] 2627 	dec	sp
+      003C23 15 81            [12] 2628 	dec	sp
+      003C25 15 81            [12] 2629 	dec	sp
+      003C27 D0 06            [24] 2630 	pop	ar6
+      003C29 D0 07            [24] 2631 	pop	ar7
+                                   2632 ;	8051_i2c_eeprom.c:559: for (uint16_t address = start_address; address <= end_address; address += MAX_HEX_CHAR_IN_SINGLE_LINE) {
+      003C2B 90 04 1C         [24] 2633 	mov	dptr,#_EEPROM_hexump_address_131072_111
+      003C2E E0               [24] 2634 	movx	a,@dptr
+      003C2F FC               [12] 2635 	mov	r4,a
+      003C30 A3               [24] 2636 	inc	dptr
+      003C31 E0               [24] 2637 	movx	a,@dptr
+      003C32 FD               [12] 2638 	mov	r5,a
+      003C33 74 10            [12] 2639 	mov	a,#0x10
+      003C35 2C               [12] 2640 	add	a,r4
+      003C36 FC               [12] 2641 	mov	r4,a
+      003C37 E4               [12] 2642 	clr	a
+      003C38 3D               [12] 2643 	addc	a,r5
+      003C39 FD               [12] 2644 	mov	r5,a
+      003C3A 90 04 1C         [24] 2645 	mov	dptr,#_EEPROM_hexump_address_131072_111
+      003C3D EC               [12] 2646 	mov	a,r4
+      003C3E F0               [24] 2647 	movx	@dptr,a
+      003C3F ED               [12] 2648 	mov	a,r5
+      003C40 A3               [24] 2649 	inc	dptr
+      003C41 F0               [24] 2650 	movx	@dptr,a
+      003C42 02 3A 84         [24] 2651 	ljmp	00116$
+      003C45                       2652 00111$:
+                                   2653 ;	8051_i2c_eeprom.c:613: printf("\r\n");
+      003C45 74 A5            [12] 2654 	mov	a,#___str_43
+      003C47 C0 E0            [24] 2655 	push	acc
+      003C49 74 55            [12] 2656 	mov	a,#(___str_43 >> 8)
+      003C4B C0 E0            [24] 2657 	push	acc
+      003C4D 74 80            [12] 2658 	mov	a,#0x80
+      003C4F C0 E0            [24] 2659 	push	acc
+      003C51 12 3F 56         [24] 2660 	lcall	_printf
+      003C54 15 81            [12] 2661 	dec	sp
+      003C56 15 81            [12] 2662 	dec	sp
+      003C58 15 81            [12] 2663 	dec	sp
+                                   2664 ;	8051_i2c_eeprom.c:614: return 1;
+      003C5A 90 00 01         [24] 2665 	mov	dptr,#0x0001
+                                   2666 ;	8051_i2c_eeprom.c:615: }
+      003C5D 22               [24] 2667 	ret
+                                   2668 ;------------------------------------------------------------
+                                   2669 ;Allocation info for local variables in function 'handler_EEPROM_hexdump'
+                                   2670 ;------------------------------------------------------------
+                                   2671 ;start_addr                Allocated with name '_handler_EEPROM_hexdump_start_addr_65536_121'
+                                   2672 ;end_addr                  Allocated with name '_handler_EEPROM_hexdump_end_addr_65537_124'
+                                   2673 ;------------------------------------------------------------
+                                   2674 ;	8051_i2c_eeprom.c:622: void handler_EEPROM_hexdump(void)
+                                   2675 ;	-----------------------------------------
+                                   2676 ;	 function handler_EEPROM_hexdump
+                                   2677 ;	-----------------------------------------
+      003C5E                       2678 _handler_EEPROM_hexdump:
+                                   2679 ;	8051_i2c_eeprom.c:625: printf_tiny("\033[1;33m\n\rEnter Start Address for HEX Dump\r\n");
+      003C5E 74 84            [12] 2680 	mov	a,#___str_50
+      003C60 C0 E0            [24] 2681 	push	acc
+      003C62 74 56            [12] 2682 	mov	a,#(___str_50 >> 8)
+      003C64 C0 E0            [24] 2683 	push	acc
+      003C66 12 3D FF         [24] 2684 	lcall	_printf_tiny
+      003C69 15 81            [12] 2685 	dec	sp
+      003C6B 15 81            [12] 2686 	dec	sp
+                                   2687 ;	8051_i2c_eeprom.c:626: start_addr = take_address();
+      003C6D 12 33 23         [24] 2688 	lcall	_take_address
+      003C70 AE 82            [24] 2689 	mov	r6,dpl
+      003C72 AF 83            [24] 2690 	mov	r7,dph
+      003C74 8E 04            [24] 2691 	mov	ar4,r6
+      003C76 8F 05            [24] 2692 	mov	ar5,r7
+      003C78 7E 00            [12] 2693 	mov	r6,#0x00
+      003C7A 7F 00            [12] 2694 	mov	r7,#0x00
+                                   2695 ;	8051_i2c_eeprom.c:628: if(start_addr >= 0 && start_addr <= ADDR_MAX)
+      003C7C C3               [12] 2696 	clr	c
+      003C7D 74 FF            [12] 2697 	mov	a,#0xff
+      003C7F 9C               [12] 2698 	subb	a,r4
+      003C80 74 07            [12] 2699 	mov	a,#0x07
+      003C82 9D               [12] 2700 	subb	a,r5
+      003C83 E4               [12] 2701 	clr	a
+      003C84 9E               [12] 2702 	subb	a,r6
+      003C85 E4               [12] 2703 	clr	a
+      003C86 9F               [12] 2704 	subb	a,r7
+      003C87 50 16            [24] 2705 	jnc	00103$
+                                   2706 ;	8051_i2c_eeprom.c:633: printf("\033[1;31m\n\rInvalid Start Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
+      003C89 74 B0            [12] 2707 	mov	a,#___str_51
+      003C8B C0 E0            [24] 2708 	push	acc
+      003C8D 74 56            [12] 2709 	mov	a,#(___str_51 >> 8)
+      003C8F C0 E0            [24] 2710 	push	acc
+      003C91 74 80            [12] 2711 	mov	a,#0x80
+      003C93 C0 E0            [24] 2712 	push	acc
+      003C95 12 3F 56         [24] 2713 	lcall	_printf
+      003C98 15 81            [12] 2714 	dec	sp
+      003C9A 15 81            [12] 2715 	dec	sp
+      003C9C 15 81            [12] 2716 	dec	sp
+                                   2717 ;	8051_i2c_eeprom.c:634: return;
+      003C9E 22               [24] 2718 	ret
+      003C9F                       2719 00103$:
+                                   2720 ;	8051_i2c_eeprom.c:639: printf_tiny("\033[1;33m\n\rEnter End Address for HEX Dump\r\n");
+      003C9F C0 07            [24] 2721 	push	ar7
+      003CA1 C0 06            [24] 2722 	push	ar6
+      003CA3 C0 05            [24] 2723 	push	ar5
+      003CA5 C0 04            [24] 2724 	push	ar4
+      003CA7 74 08            [12] 2725 	mov	a,#___str_52
+      003CA9 C0 E0            [24] 2726 	push	acc
+      003CAB 74 57            [12] 2727 	mov	a,#(___str_52 >> 8)
+      003CAD C0 E0            [24] 2728 	push	acc
+      003CAF 12 3D FF         [24] 2729 	lcall	_printf_tiny
+      003CB2 15 81            [12] 2730 	dec	sp
+      003CB4 15 81            [12] 2731 	dec	sp
+                                   2732 ;	8051_i2c_eeprom.c:640: end_addr = take_address();
+      003CB6 12 33 23         [24] 2733 	lcall	_take_address
+      003CB9 AA 82            [24] 2734 	mov	r2,dpl
+      003CBB AB 83            [24] 2735 	mov	r3,dph
+      003CBD D0 04            [24] 2736 	pop	ar4
+      003CBF D0 05            [24] 2737 	pop	ar5
+      003CC1 D0 06            [24] 2738 	pop	ar6
+      003CC3 D0 07            [24] 2739 	pop	ar7
+                                   2740 ;	8051_i2c_eeprom.c:642: if(end_addr >= 0 && end_addr <= ADDR_MAX)
+      003CC5 8A 00            [24] 2741 	mov	ar0,r2
+      003CC7 8B 01            [24] 2742 	mov	ar1,r3
+      003CC9 C3               [12] 2743 	clr	c
+      003CCA 74 FF            [12] 2744 	mov	a,#0xff
+      003CCC 98               [12] 2745 	subb	a,r0
+      003CCD 74 07            [12] 2746 	mov	a,#0x07
+      003CCF 99               [12] 2747 	subb	a,r1
+      003CD0 50 16            [24] 2748 	jnc	00107$
+                                   2749 ;	8051_i2c_eeprom.c:647: printf("\033[1;31m\n\rInvalid End Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
+      003CD2 74 32            [12] 2750 	mov	a,#___str_53
+      003CD4 C0 E0            [24] 2751 	push	acc
+      003CD6 74 57            [12] 2752 	mov	a,#(___str_53 >> 8)
+      003CD8 C0 E0            [24] 2753 	push	acc
+      003CDA 74 80            [12] 2754 	mov	a,#0x80
+      003CDC C0 E0            [24] 2755 	push	acc
+      003CDE 12 3F 56         [24] 2756 	lcall	_printf
+      003CE1 15 81            [12] 2757 	dec	sp
+      003CE3 15 81            [12] 2758 	dec	sp
+      003CE5 15 81            [12] 2759 	dec	sp
+                                   2760 ;	8051_i2c_eeprom.c:648: return;
+      003CE7 22               [24] 2761 	ret
+      003CE8                       2762 00107$:
+                                   2763 ;	8051_i2c_eeprom.c:651: EEPROM_hexump(start_addr,end_addr);
+      003CE8 90 04 18         [24] 2764 	mov	dptr,#_EEPROM_hexump_PARM_2
+      003CEB EA               [12] 2765 	mov	a,r2
+      003CEC F0               [24] 2766 	movx	@dptr,a
+      003CED EB               [12] 2767 	mov	a,r3
+      003CEE A3               [24] 2768 	inc	dptr
+      003CEF F0               [24] 2769 	movx	@dptr,a
+      003CF0 8C 82            [24] 2770 	mov	dpl,r4
+      003CF2 8D 83            [24] 2771 	mov	dph,r5
+                                   2772 ;	8051_i2c_eeprom.c:652: }
+      003CF4 02 3A 0D         [24] 2773 	ljmp	_EEPROM_hexump
+                                   2774 ;------------------------------------------------------------
+                                   2775 ;Allocation info for local variables in function 'i2c_stop'
+                                   2776 ;------------------------------------------------------------
+                                   2777 ;	8051_i2c_eeprom.c:659: void i2c_stop(void)
+                                   2778 ;	-----------------------------------------
+                                   2779 ;	 function i2c_stop
+                                   2780 ;	-----------------------------------------
+      003CF7                       2781 _i2c_stop:
+                                   2782 ;	8051_i2c_eeprom.c:661: SDA = 0;
+                                   2783 ;	assignBit
+      003CF7 C2 94            [12] 2784 	clr	_P1_4
+                                   2785 ;	8051_i2c_eeprom.c:662: i2c_delay();
+      003CF9 12 3D 30         [24] 2786 	lcall	_i2c_delay
+                                   2787 ;	8051_i2c_eeprom.c:663: SCL = 1;
+                                   2788 ;	assignBit
+      003CFC D2 93            [12] 2789 	setb	_P1_3
+                                   2790 ;	8051_i2c_eeprom.c:664: i2c_delay();
+      003CFE 12 3D 30         [24] 2791 	lcall	_i2c_delay
+                                   2792 ;	8051_i2c_eeprom.c:665: SDA = 1; 
+                                   2793 ;	assignBit
+      003D01 D2 94            [12] 2794 	setb	_P1_4
+                                   2795 ;	8051_i2c_eeprom.c:666: }
+      003D03 22               [24] 2796 	ret
+                                   2797 ;------------------------------------------------------------
+                                   2798 ;Allocation info for local variables in function 'eeprom_reset'
+                                   2799 ;------------------------------------------------------------
+                                   2800 ;i                         Allocated with name '_eeprom_reset_i_131072_130'
+                                   2801 ;------------------------------------------------------------
+                                   2802 ;	8051_i2c_eeprom.c:676: void eeprom_reset()
+                                   2803 ;	-----------------------------------------
+                                   2804 ;	 function eeprom_reset
+                                   2805 ;	-----------------------------------------
+      003D04                       2806 _eeprom_reset:
+                                   2807 ;	8051_i2c_eeprom.c:678: i2c_start();
+      003D04 12 39 F8         [24] 2808 	lcall	_i2c_start
+                                   2809 ;	8051_i2c_eeprom.c:679: SDA = 0;
+                                   2810 ;	assignBit
+      003D07 C2 94            [12] 2811 	clr	_P1_4
+                                   2812 ;	8051_i2c_eeprom.c:680: SDA = 1;
+                                   2813 ;	assignBit
+      003D09 D2 94            [12] 2814 	setb	_P1_4
+                                   2815 ;	8051_i2c_eeprom.c:681: for(int i = 0; i<10; i++)
+      003D0B 7E 00            [12] 2816 	mov	r6,#0x00
+      003D0D 7F 00            [12] 2817 	mov	r7,#0x00
+      003D0F                       2818 00103$:
+      003D0F C3               [12] 2819 	clr	c
+      003D10 EE               [12] 2820 	mov	a,r6
+      003D11 94 0A            [12] 2821 	subb	a,#0x0a
+      003D13 EF               [12] 2822 	mov	a,r7
+      003D14 64 80            [12] 2823 	xrl	a,#0x80
+      003D16 94 80            [12] 2824 	subb	a,#0x80
+      003D18 50 0B            [24] 2825 	jnc	00101$
+                                   2826 ;	8051_i2c_eeprom.c:683: SCL = 0;
+                                   2827 ;	assignBit
+      003D1A C2 93            [12] 2828 	clr	_P1_3
+                                   2829 ;	8051_i2c_eeprom.c:684: SCL = 1;
+                                   2830 ;	assignBit
+      003D1C D2 93            [12] 2831 	setb	_P1_3
+                                   2832 ;	8051_i2c_eeprom.c:681: for(int i = 0; i<10; i++)
+      003D1E 0E               [12] 2833 	inc	r6
+      003D1F BE 00 ED         [24] 2834 	cjne	r6,#0x00,00103$
+      003D22 0F               [12] 2835 	inc	r7
+      003D23 80 EA            [24] 2836 	sjmp	00103$
+      003D25                       2837 00101$:
+                                   2838 ;	8051_i2c_eeprom.c:686: i2c_start();
+      003D25 12 39 F8         [24] 2839 	lcall	_i2c_start
+                                   2840 ;	8051_i2c_eeprom.c:687: SDA = 0;
+                                   2841 ;	assignBit
+      003D28 C2 94            [12] 2842 	clr	_P1_4
+                                   2843 ;	8051_i2c_eeprom.c:688: i2c_stop();
+      003D2A 12 3C F7         [24] 2844 	lcall	_i2c_stop
+                                   2845 ;	8051_i2c_eeprom.c:689: SDA = 1;
+                                   2846 ;	assignBit
+      003D2D D2 94            [12] 2847 	setb	_P1_4
+                                   2848 ;	8051_i2c_eeprom.c:690: }
+      003D2F 22               [24] 2849 	ret
+                                   2850 ;------------------------------------------------------------
+                                   2851 ;Allocation info for local variables in function 'i2c_delay'
+                                   2852 ;------------------------------------------------------------
+                                   2853 ;i                         Allocated with name '_i2c_delay_i_131072_133'
+                                   2854 ;------------------------------------------------------------
+                                   2855 ;	8051_i2c_eeprom.c:699: void i2c_delay() 
+                                   2856 ;	-----------------------------------------
+                                   2857 ;	 function i2c_delay
+                                   2858 ;	-----------------------------------------
+      003D30                       2859 _i2c_delay:
+                                   2860 ;	8051_i2c_eeprom.c:707: for(int i = 0; i<500; i++);
+      003D30 7E 00            [12] 2861 	mov	r6,#0x00
+      003D32 7F 00            [12] 2862 	mov	r7,#0x00
+      003D34                       2863 00103$:
+      003D34 C3               [12] 2864 	clr	c
+      003D35 EE               [12] 2865 	mov	a,r6
+      003D36 94 F4            [12] 2866 	subb	a,#0xf4
+      003D38 EF               [12] 2867 	mov	a,r7
+      003D39 64 80            [12] 2868 	xrl	a,#0x80
+      003D3B 94 81            [12] 2869 	subb	a,#0x81
+      003D3D 50 07            [24] 2870 	jnc	00105$
+      003D3F 0E               [12] 2871 	inc	r6
+      003D40 BE 00 F1         [24] 2872 	cjne	r6,#0x00,00103$
+      003D43 0F               [12] 2873 	inc	r7
+      003D44 80 EE            [24] 2874 	sjmp	00103$
+      003D46                       2875 00105$:
+                                   2876 ;	8051_i2c_eeprom.c:708: }
+      003D46 22               [24] 2877 	ret
+                                   2878 ;------------------------------------------------------------
+                                   2879 ;Allocation info for local variables in function 'test_function'
+                                   2880 ;------------------------------------------------------------
+                                   2881 ;test_data                 Allocated with name '_test_function_test_data_65537_135'
+                                   2882 ;address                   Allocated with name '_test_function_address_65537_135'
+                                   2883 ;i                         Allocated with name '_test_function_i_131073_136'
+                                   2884 ;read_data                 Allocated with name '_test_function_read_data_65538_138'
+                                   2885 ;------------------------------------------------------------
+                                   2886 ;	8051_i2c_eeprom.c:710: void test_function()
+                                   2887 ;	-----------------------------------------
+                                   2888 ;	 function test_function
+                                   2889 ;	-----------------------------------------
+      003D47                       2890 _test_function:
+                                   2891 ;	8051_i2c_eeprom.c:712: i2c_start();
+      003D47 12 39 F8         [24] 2892 	lcall	_i2c_start
+                                   2893 ;	8051_i2c_eeprom.c:713: i2c_delay();
+      003D4A 12 3D 30         [24] 2894 	lcall	_i2c_delay
+                                   2895 ;	8051_i2c_eeprom.c:719: printf("Writing data 0x%02X to address 0x%02X\n\r", test_data, address);
+      003D4D 74 02            [12] 2896 	mov	a,#0x02
+      003D4F C0 E0            [24] 2897 	push	acc
+      003D51 E4               [12] 2898 	clr	a
+      003D52 C0 E0            [24] 2899 	push	acc
+      003D54 74 26            [12] 2900 	mov	a,#0x26
+      003D56 C0 E0            [24] 2901 	push	acc
+      003D58 E4               [12] 2902 	clr	a
+      003D59 C0 E0            [24] 2903 	push	acc
+      003D5B 74 88            [12] 2904 	mov	a,#___str_54
+      003D5D C0 E0            [24] 2905 	push	acc
+      003D5F 74 57            [12] 2906 	mov	a,#(___str_54 >> 8)
+      003D61 C0 E0            [24] 2907 	push	acc
+      003D63 74 80            [12] 2908 	mov	a,#0x80
+      003D65 C0 E0            [24] 2909 	push	acc
+      003D67 12 3F 56         [24] 2910 	lcall	_printf
+      003D6A E5 81            [12] 2911 	mov	a,sp
+      003D6C 24 F9            [12] 2912 	add	a,#0xf9
+      003D6E F5 81            [12] 2913 	mov	sp,a
+                                   2914 ;	8051_i2c_eeprom.c:720: eeprom_write(address, test_data);
+      003D70 90 04 0F         [24] 2915 	mov	dptr,#_eeprom_write_PARM_2
+      003D73 74 26            [12] 2916 	mov	a,#0x26
+      003D75 F0               [24] 2917 	movx	@dptr,a
+      003D76 90 00 02         [24] 2918 	mov	dptr,#0x0002
+      003D79 12 36 B5         [24] 2919 	lcall	_eeprom_write
+                                   2920 ;	8051_i2c_eeprom.c:721: i2c_stop();
+      003D7C 12 3C F7         [24] 2921 	lcall	_i2c_stop
+                                   2922 ;	8051_i2c_eeprom.c:723: for(int i = 0; i<100; i++)
+      003D7F 7E 00            [12] 2923 	mov	r6,#0x00
+      003D81 7F 00            [12] 2924 	mov	r7,#0x00
+      003D83                       2925 00106$:
+      003D83 C3               [12] 2926 	clr	c
+      003D84 EE               [12] 2927 	mov	a,r6
+      003D85 94 64            [12] 2928 	subb	a,#0x64
+      003D87 EF               [12] 2929 	mov	a,r7
+      003D88 64 80            [12] 2930 	xrl	a,#0x80
+      003D8A 94 80            [12] 2931 	subb	a,#0x80
+      003D8C 50 12            [24] 2932 	jnc	00101$
+                                   2933 ;	8051_i2c_eeprom.c:725: i2c_delay();
+      003D8E C0 07            [24] 2934 	push	ar7
+      003D90 C0 06            [24] 2935 	push	ar6
+      003D92 12 3D 30         [24] 2936 	lcall	_i2c_delay
+      003D95 D0 06            [24] 2937 	pop	ar6
+      003D97 D0 07            [24] 2938 	pop	ar7
+                                   2939 ;	8051_i2c_eeprom.c:723: for(int i = 0; i<100; i++)
+      003D99 0E               [12] 2940 	inc	r6
+      003D9A BE 00 E6         [24] 2941 	cjne	r6,#0x00,00106$
+      003D9D 0F               [12] 2942 	inc	r7
+      003D9E 80 E3            [24] 2943 	sjmp	00106$
+      003DA0                       2944 00101$:
+                                   2945 ;	8051_i2c_eeprom.c:729: unsigned char read_data = eeprom_read(address);
+      003DA0 90 00 02         [24] 2946 	mov	dptr,#0x0002
+      003DA3 12 37 F7         [24] 2947 	lcall	_eeprom_read
+      003DA6 AE 82            [24] 2948 	mov	r6,dpl
+                                   2949 ;	8051_i2c_eeprom.c:730: printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
+      003DA8 8E 05            [24] 2950 	mov	ar5,r6
+      003DAA 7F 00            [12] 2951 	mov	r7,#0x00
+      003DAC C0 06            [24] 2952 	push	ar6
+      003DAE C0 05            [24] 2953 	push	ar5
+      003DB0 C0 07            [24] 2954 	push	ar7
+      003DB2 74 02            [12] 2955 	mov	a,#0x02
+      003DB4 C0 E0            [24] 2956 	push	acc
+      003DB6 E4               [12] 2957 	clr	a
+      003DB7 C0 E0            [24] 2958 	push	acc
+      003DB9 74 B0            [12] 2959 	mov	a,#___str_55
+      003DBB C0 E0            [24] 2960 	push	acc
+      003DBD 74 57            [12] 2961 	mov	a,#(___str_55 >> 8)
+      003DBF C0 E0            [24] 2962 	push	acc
+      003DC1 74 80            [12] 2963 	mov	a,#0x80
+      003DC3 C0 E0            [24] 2964 	push	acc
+      003DC5 12 3F 56         [24] 2965 	lcall	_printf
+      003DC8 E5 81            [12] 2966 	mov	a,sp
+      003DCA 24 F9            [12] 2967 	add	a,#0xf9
+      003DCC F5 81            [12] 2968 	mov	sp,a
+      003DCE D0 06            [24] 2969 	pop	ar6
+                                   2970 ;	8051_i2c_eeprom.c:733: if(read_data == test_data) {
+      003DD0 BE 26 16         [24] 2971 	cjne	r6,#0x26,00103$
+                                   2972 ;	8051_i2c_eeprom.c:734: printf("MATCH - Write/Read successful!\n\r");
+      003DD3 74 D8            [12] 2973 	mov	a,#___str_56
+      003DD5 C0 E0            [24] 2974 	push	acc
+      003DD7 74 57            [12] 2975 	mov	a,#(___str_56 >> 8)
+      003DD9 C0 E0            [24] 2976 	push	acc
+      003DDB 74 80            [12] 2977 	mov	a,#0x80
+      003DDD C0 E0            [24] 2978 	push	acc
+      003DDF 12 3F 56         [24] 2979 	lcall	_printf
+      003DE2 15 81            [12] 2980 	dec	sp
+      003DE4 15 81            [12] 2981 	dec	sp
+      003DE6 15 81            [12] 2982 	dec	sp
+      003DE8 22               [24] 2983 	ret
+      003DE9                       2984 00103$:
+                                   2985 ;	8051_i2c_eeprom.c:736: printf("ERROR - Data mismatch!\n\r");
+      003DE9 74 F9            [12] 2986 	mov	a,#___str_57
+      003DEB C0 E0            [24] 2987 	push	acc
+      003DED 74 57            [12] 2988 	mov	a,#(___str_57 >> 8)
+      003DEF C0 E0            [24] 2989 	push	acc
+      003DF1 74 80            [12] 2990 	mov	a,#0x80
+      003DF3 C0 E0            [24] 2991 	push	acc
+      003DF5 12 3F 56         [24] 2992 	lcall	_printf
+      003DF8 15 81            [12] 2993 	dec	sp
+      003DFA 15 81            [12] 2994 	dec	sp
+      003DFC 15 81            [12] 2995 	dec	sp
+                                   2996 ;	8051_i2c_eeprom.c:740: }
+      003DFE 22               [24] 2997 	ret
+                                   2998 	.area CSEG    (CODE)
+                                   2999 	.area CONST   (CODE)
+                                   3000 	.area CONST   (CODE)
+      0049B8                       3001 ___str_0:
+      0049B8 0A                    3002 	.db 0x0a
+      0049B9 E2                    3003 	.db 0xe2
+      0049BA 95                    3004 	.db 0x95
+      0049BB 94                    3005 	.db 0x94
+      0049BC E2                    3006 	.db 0xe2
+      0049BD 95                    3007 	.db 0x95
+      0049BE 90                    3008 	.db 0x90
+      0049BF E2                    3009 	.db 0xe2
+      0049C0 95                    3010 	.db 0x95
+      0049C1 90                    3011 	.db 0x90
+      0049C2 E2                    3012 	.db 0xe2
+      0049C3 95                    3013 	.db 0x95
+      0049C4 90                    3014 	.db 0x90
+      0049C5 E2                    3015 	.db 0xe2
+      0049C6 95                    3016 	.db 0x95
+      0049C7 90                    3017 	.db 0x90
+      0049C8 E2                    3018 	.db 0xe2
+      0049C9 95                    3019 	.db 0x95
+      0049CA 90                    3020 	.db 0x90
+      0049CB E2                    3021 	.db 0xe2
+      0049CC 95                    3022 	.db 0x95
+      0049CD 90                    3023 	.db 0x90
+      0049CE E2                    3024 	.db 0xe2
+      0049CF 95                    3025 	.db 0x95
+      0049D0 90                    3026 	.db 0x90
+      0049D1 E2                    3027 	.db 0xe2
+      0049D2 95                    3028 	.db 0x95
+      0049D3 90                    3029 	.db 0x90
+      0049D4 E2                    3030 	.db 0xe2
+      0049D5 95                    3031 	.db 0x95
+      0049D6 90                    3032 	.db 0x90
+      0049D7 E2                    3033 	.db 0xe2
+      0049D8 95                    3034 	.db 0x95
+      0049D9 90                    3035 	.db 0x90
+      0049DA E2                    3036 	.db 0xe2
+      0049DB 95                    3037 	.db 0x95
+      0049DC 90                    3038 	.db 0x90
+      0049DD E2                    3039 	.db 0xe2
+      0049DE 95                    3040 	.db 0x95
+      0049DF 90                    3041 	.db 0x90
+      0049E0 E2                    3042 	.db 0xe2
+      0049E1 95                    3043 	.db 0x95
+      0049E2 90                    3044 	.db 0x90
+      0049E3 E2                    3045 	.db 0xe2
+      0049E4 95                    3046 	.db 0x95
+      0049E5 90                    3047 	.db 0x90
+      0049E6 E2                    3048 	.db 0xe2
+      0049E7 95                    3049 	.db 0x95
+      0049E8 90                    3050 	.db 0x90
+      0049E9 E2                    3051 	.db 0xe2
+      0049EA 95                    3052 	.db 0x95
+      0049EB 90                    3053 	.db 0x90
+      0049EC E2                    3054 	.db 0xe2
+      0049ED 95                    3055 	.db 0x95
+      0049EE 90                    3056 	.db 0x90
+      0049EF E2                    3057 	.db 0xe2
+      0049F0 95                    3058 	.db 0x95
+      0049F1 90                    3059 	.db 0x90
+      0049F2 E2                    3060 	.db 0xe2
+      0049F3 95                    3061 	.db 0x95
+      0049F4 90                    3062 	.db 0x90
+      0049F5 E2                    3063 	.db 0xe2
+      0049F6 95                    3064 	.db 0x95
+      0049F7 90                    3065 	.db 0x90
+      0049F8 E2                    3066 	.db 0xe2
+      0049F9 95                    3067 	.db 0x95
+      0049FA 90                    3068 	.db 0x90
+      0049FB E2                    3069 	.db 0xe2
+      0049FC 95                    3070 	.db 0x95
+      0049FD 90                    3071 	.db 0x90
+      0049FE E2                    3072 	.db 0xe2
+      0049FF 95                    3073 	.db 0x95
+      004A00 90                    3074 	.db 0x90
+      004A01 E2                    3075 	.db 0xe2
+      004A02 95                    3076 	.db 0x95
+      004A03 90                    3077 	.db 0x90
+      004A04 E2                    3078 	.db 0xe2
+      004A05 95                    3079 	.db 0x95
+      004A06 90                    3080 	.db 0x90
+      004A07 E2                    3081 	.db 0xe2
+      004A08 95                    3082 	.db 0x95
+      004A09 90                    3083 	.db 0x90
+      004A0A E2                    3084 	.db 0xe2
+      004A0B 95                    3085 	.db 0x95
+      004A0C 90                    3086 	.db 0x90
+      004A0D E2                    3087 	.db 0xe2
+      004A0E 95                    3088 	.db 0x95
+      004A0F 90                    3089 	.db 0x90
+      004A10 E2                    3090 	.db 0xe2
+      004A11 95                    3091 	.db 0x95
+      004A12 90                    3092 	.db 0x90
+      004A13 E2                    3093 	.db 0xe2
+      004A14 95                    3094 	.db 0x95
+      004A15 90                    3095 	.db 0x90
+      004A16 E2                    3096 	.db 0xe2
+      004A17 95                    3097 	.db 0x95
+      004A18 90                    3098 	.db 0x90
+      004A19 E2                    3099 	.db 0xe2
+      004A1A 95                    3100 	.db 0x95
+      004A1B 90                    3101 	.db 0x90
+      004A1C E2                    3102 	.db 0xe2
+      004A1D 95                    3103 	.db 0x95
+      004A1E 90                    3104 	.db 0x90
+      004A1F E2                    3105 	.db 0xe2
+      004A20 95                    3106 	.db 0x95
+      004A21 90                    3107 	.db 0x90
+      004A22 E2                    3108 	.db 0xe2
+      004A23 95                    3109 	.db 0x95
+      004A24 90                    3110 	.db 0x90
+      004A25 E2                    3111 	.db 0xe2
+      004A26 95                    3112 	.db 0x95
+      004A27 90                    3113 	.db 0x90
+      004A28 E2                    3114 	.db 0xe2
+      004A29 95                    3115 	.db 0x95
+      004A2A 90                    3116 	.db 0x90
+      004A2B E2                    3117 	.db 0xe2
+      004A2C 95                    3118 	.db 0x95
+      004A2D 90                    3119 	.db 0x90
+      004A2E E2                    3120 	.db 0xe2
+      004A2F 95                    3121 	.db 0x95
+      004A30 90                    3122 	.db 0x90
+      004A31 E2                    3123 	.db 0xe2
+      004A32 95                    3124 	.db 0x95
+      004A33 90                    3125 	.db 0x90
+      004A34 E2                    3126 	.db 0xe2
+      004A35 95                    3127 	.db 0x95
+      004A36 90                    3128 	.db 0x90
+      004A37 E2                    3129 	.db 0xe2
+      004A38 95                    3130 	.db 0x95
+      004A39 90                    3131 	.db 0x90
+      004A3A E2                    3132 	.db 0xe2
+      004A3B 95                    3133 	.db 0x95
+      004A3C 90                    3134 	.db 0x90
+      004A3D E2                    3135 	.db 0xe2
+      004A3E 95                    3136 	.db 0x95
+      004A3F 90                    3137 	.db 0x90
+      004A40 E2                    3138 	.db 0xe2
+      004A41 95                    3139 	.db 0x95
+      004A42 90                    3140 	.db 0x90
+      004A43 E2                    3141 	.db 0xe2
+      004A44 95                    3142 	.db 0x95
+      004A45 90                    3143 	.db 0x90
+      004A46 E2                    3144 	.db 0xe2
+      004A47 95                    3145 	.db 0x95
+      004A48 90                    3146 	.db 0x90
+      004A49 E2                    3147 	.db 0xe2
+      004A4A 95                    3148 	.db 0x95
+      004A4B 90                    3149 	.db 0x90
+      004A4C E2                    3150 	.db 0xe2
+      004A4D 95                    3151 	.db 0x95
+      004A4E 90                    3152 	.db 0x90
+      004A4F E2                    3153 	.db 0xe2
+      004A50 95                    3154 	.db 0x95
+      004A51 90                    3155 	.db 0x90
+      004A52 E2                    3156 	.db 0xe2
+      004A53 95                    3157 	.db 0x95
+      004A54 90                    3158 	.db 0x90
+      004A55 E2                    3159 	.db 0xe2
+      004A56 95                    3160 	.db 0x95
+      004A57 90                    3161 	.db 0x90
+      004A58 E2                    3162 	.db 0xe2
+      004A59 95                    3163 	.db 0x95
+      004A5A 90                    3164 	.db 0x90
+      004A5B E2                    3165 	.db 0xe2
+      004A5C 95                    3166 	.db 0x95
+      004A5D 90                    3167 	.db 0x90
+      004A5E E2                    3168 	.db 0xe2
+      004A5F 95                    3169 	.db 0x95
+      004A60 90                    3170 	.db 0x90
+      004A61 E2                    3171 	.db 0xe2
+      004A62 95                    3172 	.db 0x95
+      004A63 90                    3173 	.db 0x90
+      004A64 E2                    3174 	.db 0xe2
+      004A65 95                    3175 	.db 0x95
+      004A66 97                    3176 	.db 0x97
+      004A67 0A                    3177 	.db 0x0a
+      004A68 0D                    3178 	.db 0x0d
+      004A69 00                    3179 	.db 0x00
+                                   3180 	.area CSEG    (CODE)
+                                   3181 	.area CONST   (CODE)
+      004A6A                       3182 ___str_1:
+      004A6A E2                    3183 	.db 0xe2
+      004A6B 95                    3184 	.db 0x95
+      004A6C 91                    3185 	.db 0x91
+      004A6D 20 20 20 20 20 20 20  3186 	.ascii "           I2C Memory Management System v1.0            "
              20 20 20 20 49 32 43
              20 4D 65 6D 6F 72 79
              20 4D 61 6E 61 67 65
@@ -3096,1776 +3191,1776 @@
              73 74 65 6D 20 76 31
              2E 30 20 20 20 20 20
              20 20 20 20 20 20 20
-      0049FF E2                    3092 	.db 0xe2
-      004A00 95                    3093 	.db 0x95
-      004A01 91                    3094 	.db 0x91
-      004A02 0A                    3095 	.db 0x0a
-      004A03 0D                    3096 	.db 0x0d
-      004A04 00                    3097 	.db 0x00
-                                   3098 	.area CSEG    (CODE)
-                                   3099 	.area CONST   (CODE)
-      004A05                       3100 ___str_2:
-      004A05 E2                    3101 	.db 0xe2
-      004A06 95                    3102 	.db 0x95
-      004A07 9A                    3103 	.db 0x9a
-      004A08 E2                    3104 	.db 0xe2
-      004A09 95                    3105 	.db 0x95
-      004A0A 90                    3106 	.db 0x90
-      004A0B E2                    3107 	.db 0xe2
-      004A0C 95                    3108 	.db 0x95
-      004A0D 90                    3109 	.db 0x90
-      004A0E E2                    3110 	.db 0xe2
-      004A0F 95                    3111 	.db 0x95
-      004A10 90                    3112 	.db 0x90
-      004A11 E2                    3113 	.db 0xe2
-      004A12 95                    3114 	.db 0x95
-      004A13 90                    3115 	.db 0x90
-      004A14 E2                    3116 	.db 0xe2
-      004A15 95                    3117 	.db 0x95
-      004A16 90                    3118 	.db 0x90
-      004A17 E2                    3119 	.db 0xe2
-      004A18 95                    3120 	.db 0x95
-      004A19 90                    3121 	.db 0x90
-      004A1A E2                    3122 	.db 0xe2
-      004A1B 95                    3123 	.db 0x95
-      004A1C 90                    3124 	.db 0x90
-      004A1D E2                    3125 	.db 0xe2
-      004A1E 95                    3126 	.db 0x95
-      004A1F 90                    3127 	.db 0x90
-      004A20 E2                    3128 	.db 0xe2
-      004A21 95                    3129 	.db 0x95
-      004A22 90                    3130 	.db 0x90
-      004A23 E2                    3131 	.db 0xe2
-      004A24 95                    3132 	.db 0x95
-      004A25 90                    3133 	.db 0x90
-      004A26 E2                    3134 	.db 0xe2
-      004A27 95                    3135 	.db 0x95
-      004A28 90                    3136 	.db 0x90
-      004A29 E2                    3137 	.db 0xe2
-      004A2A 95                    3138 	.db 0x95
-      004A2B 90                    3139 	.db 0x90
-      004A2C E2                    3140 	.db 0xe2
-      004A2D 95                    3141 	.db 0x95
-      004A2E 90                    3142 	.db 0x90
-      004A2F E2                    3143 	.db 0xe2
-      004A30 95                    3144 	.db 0x95
-      004A31 90                    3145 	.db 0x90
-      004A32 E2                    3146 	.db 0xe2
-      004A33 95                    3147 	.db 0x95
-      004A34 90                    3148 	.db 0x90
-      004A35 E2                    3149 	.db 0xe2
-      004A36 95                    3150 	.db 0x95
-      004A37 90                    3151 	.db 0x90
-      004A38 E2                    3152 	.db 0xe2
-      004A39 95                    3153 	.db 0x95
-      004A3A 90                    3154 	.db 0x90
-      004A3B E2                    3155 	.db 0xe2
-      004A3C 95                    3156 	.db 0x95
-      004A3D 90                    3157 	.db 0x90
-      004A3E E2                    3158 	.db 0xe2
-      004A3F 95                    3159 	.db 0x95
-      004A40 90                    3160 	.db 0x90
-      004A41 E2                    3161 	.db 0xe2
-      004A42 95                    3162 	.db 0x95
-      004A43 90                    3163 	.db 0x90
-      004A44 E2                    3164 	.db 0xe2
-      004A45 95                    3165 	.db 0x95
-      004A46 90                    3166 	.db 0x90
-      004A47 E2                    3167 	.db 0xe2
-      004A48 95                    3168 	.db 0x95
-      004A49 90                    3169 	.db 0x90
-      004A4A E2                    3170 	.db 0xe2
-      004A4B 95                    3171 	.db 0x95
-      004A4C 90                    3172 	.db 0x90
-      004A4D E2                    3173 	.db 0xe2
-      004A4E 95                    3174 	.db 0x95
-      004A4F 90                    3175 	.db 0x90
-      004A50 E2                    3176 	.db 0xe2
-      004A51 95                    3177 	.db 0x95
-      004A52 90                    3178 	.db 0x90
-      004A53 E2                    3179 	.db 0xe2
-      004A54 95                    3180 	.db 0x95
-      004A55 90                    3181 	.db 0x90
-      004A56 E2                    3182 	.db 0xe2
-      004A57 95                    3183 	.db 0x95
-      004A58 90                    3184 	.db 0x90
-      004A59 E2                    3185 	.db 0xe2
-      004A5A 95                    3186 	.db 0x95
-      004A5B 90                    3187 	.db 0x90
-      004A5C E2                    3188 	.db 0xe2
-      004A5D 95                    3189 	.db 0x95
-      004A5E 90                    3190 	.db 0x90
-      004A5F E2                    3191 	.db 0xe2
-      004A60 95                    3192 	.db 0x95
-      004A61 90                    3193 	.db 0x90
-      004A62 E2                    3194 	.db 0xe2
-      004A63 95                    3195 	.db 0x95
-      004A64 90                    3196 	.db 0x90
-      004A65 E2                    3197 	.db 0xe2
-      004A66 95                    3198 	.db 0x95
-      004A67 90                    3199 	.db 0x90
-      004A68 E2                    3200 	.db 0xe2
-      004A69 95                    3201 	.db 0x95
-      004A6A 90                    3202 	.db 0x90
-      004A6B E2                    3203 	.db 0xe2
-      004A6C 95                    3204 	.db 0x95
-      004A6D 90                    3205 	.db 0x90
-      004A6E E2                    3206 	.db 0xe2
-      004A6F 95                    3207 	.db 0x95
-      004A70 90                    3208 	.db 0x90
-      004A71 E2                    3209 	.db 0xe2
-      004A72 95                    3210 	.db 0x95
-      004A73 90                    3211 	.db 0x90
-      004A74 E2                    3212 	.db 0xe2
-      004A75 95                    3213 	.db 0x95
-      004A76 90                    3214 	.db 0x90
-      004A77 E2                    3215 	.db 0xe2
-      004A78 95                    3216 	.db 0x95
-      004A79 90                    3217 	.db 0x90
-      004A7A E2                    3218 	.db 0xe2
-      004A7B 95                    3219 	.db 0x95
-      004A7C 90                    3220 	.db 0x90
-      004A7D E2                    3221 	.db 0xe2
-      004A7E 95                    3222 	.db 0x95
-      004A7F 90                    3223 	.db 0x90
-      004A80 E2                    3224 	.db 0xe2
-      004A81 95                    3225 	.db 0x95
-      004A82 90                    3226 	.db 0x90
-      004A83 E2                    3227 	.db 0xe2
-      004A84 95                    3228 	.db 0x95
-      004A85 90                    3229 	.db 0x90
-      004A86 E2                    3230 	.db 0xe2
-      004A87 95                    3231 	.db 0x95
-      004A88 90                    3232 	.db 0x90
-      004A89 E2                    3233 	.db 0xe2
-      004A8A 95                    3234 	.db 0x95
-      004A8B 90                    3235 	.db 0x90
-      004A8C E2                    3236 	.db 0xe2
-      004A8D 95                    3237 	.db 0x95
-      004A8E 90                    3238 	.db 0x90
-      004A8F E2                    3239 	.db 0xe2
-      004A90 95                    3240 	.db 0x95
-      004A91 90                    3241 	.db 0x90
-      004A92 E2                    3242 	.db 0xe2
-      004A93 95                    3243 	.db 0x95
-      004A94 90                    3244 	.db 0x90
-      004A95 E2                    3245 	.db 0xe2
-      004A96 95                    3246 	.db 0x95
-      004A97 90                    3247 	.db 0x90
-      004A98 E2                    3248 	.db 0xe2
-      004A99 95                    3249 	.db 0x95
-      004A9A 90                    3250 	.db 0x90
-      004A9B E2                    3251 	.db 0xe2
-      004A9C 95                    3252 	.db 0x95
-      004A9D 90                    3253 	.db 0x90
-      004A9E E2                    3254 	.db 0xe2
-      004A9F 95                    3255 	.db 0x95
-      004AA0 90                    3256 	.db 0x90
-      004AA1 E2                    3257 	.db 0xe2
-      004AA2 95                    3258 	.db 0x95
-      004AA3 90                    3259 	.db 0x90
-      004AA4 E2                    3260 	.db 0xe2
-      004AA5 95                    3261 	.db 0x95
-      004AA6 90                    3262 	.db 0x90
-      004AA7 E2                    3263 	.db 0xe2
-      004AA8 95                    3264 	.db 0x95
-      004AA9 90                    3265 	.db 0x90
-      004AAA E2                    3266 	.db 0xe2
-      004AAB 95                    3267 	.db 0x95
-      004AAC 90                    3268 	.db 0x90
-      004AAD E2                    3269 	.db 0xe2
-      004AAE 95                    3270 	.db 0x95
-      004AAF 90                    3271 	.db 0x90
-      004AB0 E2                    3272 	.db 0xe2
-      004AB1 95                    3273 	.db 0x95
-      004AB2 9D                    3274 	.db 0x9d
-      004AB3 0A                    3275 	.db 0x0a
-      004AB4 0D                    3276 	.db 0x0d
-      004AB5 00                    3277 	.db 0x00
-                                   3278 	.area CSEG    (CODE)
-                                   3279 	.area CONST   (CODE)
-      004AB6                       3280 ___str_3:
-      004AB6 0A                    3281 	.db 0x0a
-      004AB7 0D                    3282 	.db 0x0d
-      004AB8 E2                    3283 	.db 0xe2
-      004AB9 94                    3284 	.db 0x94
-      004ABA 8C                    3285 	.db 0x8c
-      004ABB E2                    3286 	.db 0xe2
-      004ABC 94                    3287 	.db 0x94
-      004ABD 80                    3288 	.db 0x80
-      004ABE E2                    3289 	.db 0xe2
-      004ABF 94                    3290 	.db 0x94
-      004AC0 80                    3291 	.db 0x80
-      004AC1 E2                    3292 	.db 0xe2
-      004AC2 94                    3293 	.db 0x94
-      004AC3 80                    3294 	.db 0x80
-      004AC4 E2                    3295 	.db 0xe2
-      004AC5 94                    3296 	.db 0x94
-      004AC6 80                    3297 	.db 0x80
-      004AC7 E2                    3298 	.db 0xe2
-      004AC8 94                    3299 	.db 0x94
-      004AC9 80                    3300 	.db 0x80
-      004ACA E2                    3301 	.db 0xe2
-      004ACB 94                    3302 	.db 0x94
-      004ACC 80                    3303 	.db 0x80
-      004ACD E2                    3304 	.db 0xe2
-      004ACE 94                    3305 	.db 0x94
-      004ACF 80                    3306 	.db 0x80
-      004AD0 E2                    3307 	.db 0xe2
-      004AD1 94                    3308 	.db 0x94
-      004AD2 80                    3309 	.db 0x80
-      004AD3 E2                    3310 	.db 0xe2
-      004AD4 94                    3311 	.db 0x94
-      004AD5 80                    3312 	.db 0x80
-      004AD6 E2                    3313 	.db 0xe2
-      004AD7 94                    3314 	.db 0x94
-      004AD8 80                    3315 	.db 0x80
-      004AD9 E2                    3316 	.db 0xe2
-      004ADA 94                    3317 	.db 0x94
-      004ADB 80                    3318 	.db 0x80
-      004ADC E2                    3319 	.db 0xe2
-      004ADD 94                    3320 	.db 0x94
-      004ADE 80                    3321 	.db 0x80
-      004ADF E2                    3322 	.db 0xe2
-      004AE0 94                    3323 	.db 0x94
-      004AE1 AC                    3324 	.db 0xac
-      004AE2 E2                    3325 	.db 0xe2
-      004AE3 94                    3326 	.db 0x94
-      004AE4 80                    3327 	.db 0x80
-      004AE5 E2                    3328 	.db 0xe2
-      004AE6 94                    3329 	.db 0x94
-      004AE7 80                    3330 	.db 0x80
-      004AE8 E2                    3331 	.db 0xe2
-      004AE9 94                    3332 	.db 0x94
-      004AEA 80                    3333 	.db 0x80
-      004AEB E2                    3334 	.db 0xe2
-      004AEC 94                    3335 	.db 0x94
-      004AED 80                    3336 	.db 0x80
-      004AEE E2                    3337 	.db 0xe2
-      004AEF 94                    3338 	.db 0x94
-      004AF0 80                    3339 	.db 0x80
-      004AF1 E2                    3340 	.db 0xe2
-      004AF2 94                    3341 	.db 0x94
-      004AF3 80                    3342 	.db 0x80
-      004AF4 E2                    3343 	.db 0xe2
-      004AF5 94                    3344 	.db 0x94
-      004AF6 80                    3345 	.db 0x80
-      004AF7 E2                    3346 	.db 0xe2
-      004AF8 94                    3347 	.db 0x94
-      004AF9 80                    3348 	.db 0x80
-      004AFA E2                    3349 	.db 0xe2
-      004AFB 94                    3350 	.db 0x94
-      004AFC 80                    3351 	.db 0x80
-      004AFD E2                    3352 	.db 0xe2
-      004AFE 94                    3353 	.db 0x94
-      004AFF 80                    3354 	.db 0x80
-      004B00 E2                    3355 	.db 0xe2
-      004B01 94                    3356 	.db 0x94
-      004B02 80                    3357 	.db 0x80
-      004B03 E2                    3358 	.db 0xe2
-      004B04 94                    3359 	.db 0x94
-      004B05 80                    3360 	.db 0x80
-      004B06 E2                    3361 	.db 0xe2
-      004B07 94                    3362 	.db 0x94
-      004B08 80                    3363 	.db 0x80
-      004B09 E2                    3364 	.db 0xe2
-      004B0A 94                    3365 	.db 0x94
-      004B0B 80                    3366 	.db 0x80
-      004B0C E2                    3367 	.db 0xe2
-      004B0D 94                    3368 	.db 0x94
-      004B0E 80                    3369 	.db 0x80
-      004B0F E2                    3370 	.db 0xe2
-      004B10 94                    3371 	.db 0x94
-      004B11 80                    3372 	.db 0x80
-      004B12 E2                    3373 	.db 0xe2
-      004B13 94                    3374 	.db 0x94
-      004B14 80                    3375 	.db 0x80
-      004B15 E2                    3376 	.db 0xe2
-      004B16 94                    3377 	.db 0x94
-      004B17 80                    3378 	.db 0x80
-      004B18 E2                    3379 	.db 0xe2
-      004B19 94                    3380 	.db 0x94
-      004B1A 80                    3381 	.db 0x80
-      004B1B E2                    3382 	.db 0xe2
-      004B1C 94                    3383 	.db 0x94
-      004B1D 80                    3384 	.db 0x80
-      004B1E E2                    3385 	.db 0xe2
-      004B1F 94                    3386 	.db 0x94
-      004B20 80                    3387 	.db 0x80
-      004B21 E2                    3388 	.db 0xe2
-      004B22 94                    3389 	.db 0x94
-      004B23 80                    3390 	.db 0x80
-      004B24 E2                    3391 	.db 0xe2
-      004B25 94                    3392 	.db 0x94
-      004B26 80                    3393 	.db 0x80
-      004B27 E2                    3394 	.db 0xe2
-      004B28 94                    3395 	.db 0x94
-      004B29 80                    3396 	.db 0x80
-      004B2A E2                    3397 	.db 0xe2
-      004B2B 94                    3398 	.db 0x94
-      004B2C 80                    3399 	.db 0x80
-      004B2D E2                    3400 	.db 0xe2
-      004B2E 94                    3401 	.db 0x94
-      004B2F 80                    3402 	.db 0x80
-      004B30 E2                    3403 	.db 0xe2
-      004B31 94                    3404 	.db 0x94
-      004B32 80                    3405 	.db 0x80
-      004B33 E2                    3406 	.db 0xe2
-      004B34 94                    3407 	.db 0x94
-      004B35 80                    3408 	.db 0x80
-      004B36 E2                    3409 	.db 0xe2
-      004B37 94                    3410 	.db 0x94
-      004B38 80                    3411 	.db 0x80
-      004B39 E2                    3412 	.db 0xe2
-      004B3A 94                    3413 	.db 0x94
-      004B3B 80                    3414 	.db 0x80
-      004B3C E2                    3415 	.db 0xe2
-      004B3D 94                    3416 	.db 0x94
-      004B3E 80                    3417 	.db 0x80
-      004B3F E2                    3418 	.db 0xe2
-      004B40 94                    3419 	.db 0x94
-      004B41 80                    3420 	.db 0x80
-      004B42 E2                    3421 	.db 0xe2
-      004B43 94                    3422 	.db 0x94
-      004B44 80                    3423 	.db 0x80
-      004B45 E2                    3424 	.db 0xe2
-      004B46 94                    3425 	.db 0x94
-      004B47 80                    3426 	.db 0x80
-      004B48 E2                    3427 	.db 0xe2
-      004B49 94                    3428 	.db 0x94
-      004B4A 80                    3429 	.db 0x80
-      004B4B E2                    3430 	.db 0xe2
-      004B4C 94                    3431 	.db 0x94
-      004B4D 80                    3432 	.db 0x80
-      004B4E E2                    3433 	.db 0xe2
-      004B4F 94                    3434 	.db 0x94
-      004B50 80                    3435 	.db 0x80
-      004B51 E2                    3436 	.db 0xe2
-      004B52 94                    3437 	.db 0x94
-      004B53 80                    3438 	.db 0x80
-      004B54 E2                    3439 	.db 0xe2
-      004B55 94                    3440 	.db 0x94
-      004B56 80                    3441 	.db 0x80
-      004B57 E2                    3442 	.db 0xe2
-      004B58 94                    3443 	.db 0x94
-      004B59 80                    3444 	.db 0x80
-      004B5A E2                    3445 	.db 0xe2
-      004B5B 94                    3446 	.db 0x94
-      004B5C 80                    3447 	.db 0x80
-      004B5D E2                    3448 	.db 0xe2
-      004B5E 94                    3449 	.db 0x94
-      004B5F 80                    3450 	.db 0x80
-      004B60 E2                    3451 	.db 0xe2
-      004B61 94                    3452 	.db 0x94
-      004B62 80                    3453 	.db 0x80
-      004B63 E2                    3454 	.db 0xe2
-      004B64 94                    3455 	.db 0x94
-      004B65 80                    3456 	.db 0x80
-      004B66 E2                    3457 	.db 0xe2
-      004B67 94                    3458 	.db 0x94
-      004B68 90                    3459 	.db 0x90
-      004B69 0A                    3460 	.db 0x0a
-      004B6A 0D                    3461 	.db 0x0d
-      004B6B 00                    3462 	.db 0x00
-                                   3463 	.area CSEG    (CODE)
-                                   3464 	.area CONST   (CODE)
-      004B6C                       3465 ___str_4:
-      004B6C E2                    3466 	.db 0xe2
-      004B6D 94                    3467 	.db 0x94
-      004B6E 82                    3468 	.db 0x82
-      004B6F 20 20 43 6F 6D 6D 61  3469 	.ascii "  Command   "
+      004AA5 E2                    3187 	.db 0xe2
+      004AA6 95                    3188 	.db 0x95
+      004AA7 91                    3189 	.db 0x91
+      004AA8 0A                    3190 	.db 0x0a
+      004AA9 0D                    3191 	.db 0x0d
+      004AAA 00                    3192 	.db 0x00
+                                   3193 	.area CSEG    (CODE)
+                                   3194 	.area CONST   (CODE)
+      004AAB                       3195 ___str_2:
+      004AAB E2                    3196 	.db 0xe2
+      004AAC 95                    3197 	.db 0x95
+      004AAD 9A                    3198 	.db 0x9a
+      004AAE E2                    3199 	.db 0xe2
+      004AAF 95                    3200 	.db 0x95
+      004AB0 90                    3201 	.db 0x90
+      004AB1 E2                    3202 	.db 0xe2
+      004AB2 95                    3203 	.db 0x95
+      004AB3 90                    3204 	.db 0x90
+      004AB4 E2                    3205 	.db 0xe2
+      004AB5 95                    3206 	.db 0x95
+      004AB6 90                    3207 	.db 0x90
+      004AB7 E2                    3208 	.db 0xe2
+      004AB8 95                    3209 	.db 0x95
+      004AB9 90                    3210 	.db 0x90
+      004ABA E2                    3211 	.db 0xe2
+      004ABB 95                    3212 	.db 0x95
+      004ABC 90                    3213 	.db 0x90
+      004ABD E2                    3214 	.db 0xe2
+      004ABE 95                    3215 	.db 0x95
+      004ABF 90                    3216 	.db 0x90
+      004AC0 E2                    3217 	.db 0xe2
+      004AC1 95                    3218 	.db 0x95
+      004AC2 90                    3219 	.db 0x90
+      004AC3 E2                    3220 	.db 0xe2
+      004AC4 95                    3221 	.db 0x95
+      004AC5 90                    3222 	.db 0x90
+      004AC6 E2                    3223 	.db 0xe2
+      004AC7 95                    3224 	.db 0x95
+      004AC8 90                    3225 	.db 0x90
+      004AC9 E2                    3226 	.db 0xe2
+      004ACA 95                    3227 	.db 0x95
+      004ACB 90                    3228 	.db 0x90
+      004ACC E2                    3229 	.db 0xe2
+      004ACD 95                    3230 	.db 0x95
+      004ACE 90                    3231 	.db 0x90
+      004ACF E2                    3232 	.db 0xe2
+      004AD0 95                    3233 	.db 0x95
+      004AD1 90                    3234 	.db 0x90
+      004AD2 E2                    3235 	.db 0xe2
+      004AD3 95                    3236 	.db 0x95
+      004AD4 90                    3237 	.db 0x90
+      004AD5 E2                    3238 	.db 0xe2
+      004AD6 95                    3239 	.db 0x95
+      004AD7 90                    3240 	.db 0x90
+      004AD8 E2                    3241 	.db 0xe2
+      004AD9 95                    3242 	.db 0x95
+      004ADA 90                    3243 	.db 0x90
+      004ADB E2                    3244 	.db 0xe2
+      004ADC 95                    3245 	.db 0x95
+      004ADD 90                    3246 	.db 0x90
+      004ADE E2                    3247 	.db 0xe2
+      004ADF 95                    3248 	.db 0x95
+      004AE0 90                    3249 	.db 0x90
+      004AE1 E2                    3250 	.db 0xe2
+      004AE2 95                    3251 	.db 0x95
+      004AE3 90                    3252 	.db 0x90
+      004AE4 E2                    3253 	.db 0xe2
+      004AE5 95                    3254 	.db 0x95
+      004AE6 90                    3255 	.db 0x90
+      004AE7 E2                    3256 	.db 0xe2
+      004AE8 95                    3257 	.db 0x95
+      004AE9 90                    3258 	.db 0x90
+      004AEA E2                    3259 	.db 0xe2
+      004AEB 95                    3260 	.db 0x95
+      004AEC 90                    3261 	.db 0x90
+      004AED E2                    3262 	.db 0xe2
+      004AEE 95                    3263 	.db 0x95
+      004AEF 90                    3264 	.db 0x90
+      004AF0 E2                    3265 	.db 0xe2
+      004AF1 95                    3266 	.db 0x95
+      004AF2 90                    3267 	.db 0x90
+      004AF3 E2                    3268 	.db 0xe2
+      004AF4 95                    3269 	.db 0x95
+      004AF5 90                    3270 	.db 0x90
+      004AF6 E2                    3271 	.db 0xe2
+      004AF7 95                    3272 	.db 0x95
+      004AF8 90                    3273 	.db 0x90
+      004AF9 E2                    3274 	.db 0xe2
+      004AFA 95                    3275 	.db 0x95
+      004AFB 90                    3276 	.db 0x90
+      004AFC E2                    3277 	.db 0xe2
+      004AFD 95                    3278 	.db 0x95
+      004AFE 90                    3279 	.db 0x90
+      004AFF E2                    3280 	.db 0xe2
+      004B00 95                    3281 	.db 0x95
+      004B01 90                    3282 	.db 0x90
+      004B02 E2                    3283 	.db 0xe2
+      004B03 95                    3284 	.db 0x95
+      004B04 90                    3285 	.db 0x90
+      004B05 E2                    3286 	.db 0xe2
+      004B06 95                    3287 	.db 0x95
+      004B07 90                    3288 	.db 0x90
+      004B08 E2                    3289 	.db 0xe2
+      004B09 95                    3290 	.db 0x95
+      004B0A 90                    3291 	.db 0x90
+      004B0B E2                    3292 	.db 0xe2
+      004B0C 95                    3293 	.db 0x95
+      004B0D 90                    3294 	.db 0x90
+      004B0E E2                    3295 	.db 0xe2
+      004B0F 95                    3296 	.db 0x95
+      004B10 90                    3297 	.db 0x90
+      004B11 E2                    3298 	.db 0xe2
+      004B12 95                    3299 	.db 0x95
+      004B13 90                    3300 	.db 0x90
+      004B14 E2                    3301 	.db 0xe2
+      004B15 95                    3302 	.db 0x95
+      004B16 90                    3303 	.db 0x90
+      004B17 E2                    3304 	.db 0xe2
+      004B18 95                    3305 	.db 0x95
+      004B19 90                    3306 	.db 0x90
+      004B1A E2                    3307 	.db 0xe2
+      004B1B 95                    3308 	.db 0x95
+      004B1C 90                    3309 	.db 0x90
+      004B1D E2                    3310 	.db 0xe2
+      004B1E 95                    3311 	.db 0x95
+      004B1F 90                    3312 	.db 0x90
+      004B20 E2                    3313 	.db 0xe2
+      004B21 95                    3314 	.db 0x95
+      004B22 90                    3315 	.db 0x90
+      004B23 E2                    3316 	.db 0xe2
+      004B24 95                    3317 	.db 0x95
+      004B25 90                    3318 	.db 0x90
+      004B26 E2                    3319 	.db 0xe2
+      004B27 95                    3320 	.db 0x95
+      004B28 90                    3321 	.db 0x90
+      004B29 E2                    3322 	.db 0xe2
+      004B2A 95                    3323 	.db 0x95
+      004B2B 90                    3324 	.db 0x90
+      004B2C E2                    3325 	.db 0xe2
+      004B2D 95                    3326 	.db 0x95
+      004B2E 90                    3327 	.db 0x90
+      004B2F E2                    3328 	.db 0xe2
+      004B30 95                    3329 	.db 0x95
+      004B31 90                    3330 	.db 0x90
+      004B32 E2                    3331 	.db 0xe2
+      004B33 95                    3332 	.db 0x95
+      004B34 90                    3333 	.db 0x90
+      004B35 E2                    3334 	.db 0xe2
+      004B36 95                    3335 	.db 0x95
+      004B37 90                    3336 	.db 0x90
+      004B38 E2                    3337 	.db 0xe2
+      004B39 95                    3338 	.db 0x95
+      004B3A 90                    3339 	.db 0x90
+      004B3B E2                    3340 	.db 0xe2
+      004B3C 95                    3341 	.db 0x95
+      004B3D 90                    3342 	.db 0x90
+      004B3E E2                    3343 	.db 0xe2
+      004B3F 95                    3344 	.db 0x95
+      004B40 90                    3345 	.db 0x90
+      004B41 E2                    3346 	.db 0xe2
+      004B42 95                    3347 	.db 0x95
+      004B43 90                    3348 	.db 0x90
+      004B44 E2                    3349 	.db 0xe2
+      004B45 95                    3350 	.db 0x95
+      004B46 90                    3351 	.db 0x90
+      004B47 E2                    3352 	.db 0xe2
+      004B48 95                    3353 	.db 0x95
+      004B49 90                    3354 	.db 0x90
+      004B4A E2                    3355 	.db 0xe2
+      004B4B 95                    3356 	.db 0x95
+      004B4C 90                    3357 	.db 0x90
+      004B4D E2                    3358 	.db 0xe2
+      004B4E 95                    3359 	.db 0x95
+      004B4F 90                    3360 	.db 0x90
+      004B50 E2                    3361 	.db 0xe2
+      004B51 95                    3362 	.db 0x95
+      004B52 90                    3363 	.db 0x90
+      004B53 E2                    3364 	.db 0xe2
+      004B54 95                    3365 	.db 0x95
+      004B55 90                    3366 	.db 0x90
+      004B56 E2                    3367 	.db 0xe2
+      004B57 95                    3368 	.db 0x95
+      004B58 9D                    3369 	.db 0x9d
+      004B59 0A                    3370 	.db 0x0a
+      004B5A 0D                    3371 	.db 0x0d
+      004B5B 00                    3372 	.db 0x00
+                                   3373 	.area CSEG    (CODE)
+                                   3374 	.area CONST   (CODE)
+      004B5C                       3375 ___str_3:
+      004B5C 0A                    3376 	.db 0x0a
+      004B5D 0D                    3377 	.db 0x0d
+      004B5E E2                    3378 	.db 0xe2
+      004B5F 94                    3379 	.db 0x94
+      004B60 8C                    3380 	.db 0x8c
+      004B61 E2                    3381 	.db 0xe2
+      004B62 94                    3382 	.db 0x94
+      004B63 80                    3383 	.db 0x80
+      004B64 E2                    3384 	.db 0xe2
+      004B65 94                    3385 	.db 0x94
+      004B66 80                    3386 	.db 0x80
+      004B67 E2                    3387 	.db 0xe2
+      004B68 94                    3388 	.db 0x94
+      004B69 80                    3389 	.db 0x80
+      004B6A E2                    3390 	.db 0xe2
+      004B6B 94                    3391 	.db 0x94
+      004B6C 80                    3392 	.db 0x80
+      004B6D E2                    3393 	.db 0xe2
+      004B6E 94                    3394 	.db 0x94
+      004B6F 80                    3395 	.db 0x80
+      004B70 E2                    3396 	.db 0xe2
+      004B71 94                    3397 	.db 0x94
+      004B72 80                    3398 	.db 0x80
+      004B73 E2                    3399 	.db 0xe2
+      004B74 94                    3400 	.db 0x94
+      004B75 80                    3401 	.db 0x80
+      004B76 E2                    3402 	.db 0xe2
+      004B77 94                    3403 	.db 0x94
+      004B78 80                    3404 	.db 0x80
+      004B79 E2                    3405 	.db 0xe2
+      004B7A 94                    3406 	.db 0x94
+      004B7B 80                    3407 	.db 0x80
+      004B7C E2                    3408 	.db 0xe2
+      004B7D 94                    3409 	.db 0x94
+      004B7E 80                    3410 	.db 0x80
+      004B7F E2                    3411 	.db 0xe2
+      004B80 94                    3412 	.db 0x94
+      004B81 80                    3413 	.db 0x80
+      004B82 E2                    3414 	.db 0xe2
+      004B83 94                    3415 	.db 0x94
+      004B84 80                    3416 	.db 0x80
+      004B85 E2                    3417 	.db 0xe2
+      004B86 94                    3418 	.db 0x94
+      004B87 AC                    3419 	.db 0xac
+      004B88 E2                    3420 	.db 0xe2
+      004B89 94                    3421 	.db 0x94
+      004B8A 80                    3422 	.db 0x80
+      004B8B E2                    3423 	.db 0xe2
+      004B8C 94                    3424 	.db 0x94
+      004B8D 80                    3425 	.db 0x80
+      004B8E E2                    3426 	.db 0xe2
+      004B8F 94                    3427 	.db 0x94
+      004B90 80                    3428 	.db 0x80
+      004B91 E2                    3429 	.db 0xe2
+      004B92 94                    3430 	.db 0x94
+      004B93 80                    3431 	.db 0x80
+      004B94 E2                    3432 	.db 0xe2
+      004B95 94                    3433 	.db 0x94
+      004B96 80                    3434 	.db 0x80
+      004B97 E2                    3435 	.db 0xe2
+      004B98 94                    3436 	.db 0x94
+      004B99 80                    3437 	.db 0x80
+      004B9A E2                    3438 	.db 0xe2
+      004B9B 94                    3439 	.db 0x94
+      004B9C 80                    3440 	.db 0x80
+      004B9D E2                    3441 	.db 0xe2
+      004B9E 94                    3442 	.db 0x94
+      004B9F 80                    3443 	.db 0x80
+      004BA0 E2                    3444 	.db 0xe2
+      004BA1 94                    3445 	.db 0x94
+      004BA2 80                    3446 	.db 0x80
+      004BA3 E2                    3447 	.db 0xe2
+      004BA4 94                    3448 	.db 0x94
+      004BA5 80                    3449 	.db 0x80
+      004BA6 E2                    3450 	.db 0xe2
+      004BA7 94                    3451 	.db 0x94
+      004BA8 80                    3452 	.db 0x80
+      004BA9 E2                    3453 	.db 0xe2
+      004BAA 94                    3454 	.db 0x94
+      004BAB 80                    3455 	.db 0x80
+      004BAC E2                    3456 	.db 0xe2
+      004BAD 94                    3457 	.db 0x94
+      004BAE 80                    3458 	.db 0x80
+      004BAF E2                    3459 	.db 0xe2
+      004BB0 94                    3460 	.db 0x94
+      004BB1 80                    3461 	.db 0x80
+      004BB2 E2                    3462 	.db 0xe2
+      004BB3 94                    3463 	.db 0x94
+      004BB4 80                    3464 	.db 0x80
+      004BB5 E2                    3465 	.db 0xe2
+      004BB6 94                    3466 	.db 0x94
+      004BB7 80                    3467 	.db 0x80
+      004BB8 E2                    3468 	.db 0xe2
+      004BB9 94                    3469 	.db 0x94
+      004BBA 80                    3470 	.db 0x80
+      004BBB E2                    3471 	.db 0xe2
+      004BBC 94                    3472 	.db 0x94
+      004BBD 80                    3473 	.db 0x80
+      004BBE E2                    3474 	.db 0xe2
+      004BBF 94                    3475 	.db 0x94
+      004BC0 80                    3476 	.db 0x80
+      004BC1 E2                    3477 	.db 0xe2
+      004BC2 94                    3478 	.db 0x94
+      004BC3 80                    3479 	.db 0x80
+      004BC4 E2                    3480 	.db 0xe2
+      004BC5 94                    3481 	.db 0x94
+      004BC6 80                    3482 	.db 0x80
+      004BC7 E2                    3483 	.db 0xe2
+      004BC8 94                    3484 	.db 0x94
+      004BC9 80                    3485 	.db 0x80
+      004BCA E2                    3486 	.db 0xe2
+      004BCB 94                    3487 	.db 0x94
+      004BCC 80                    3488 	.db 0x80
+      004BCD E2                    3489 	.db 0xe2
+      004BCE 94                    3490 	.db 0x94
+      004BCF 80                    3491 	.db 0x80
+      004BD0 E2                    3492 	.db 0xe2
+      004BD1 94                    3493 	.db 0x94
+      004BD2 80                    3494 	.db 0x80
+      004BD3 E2                    3495 	.db 0xe2
+      004BD4 94                    3496 	.db 0x94
+      004BD5 80                    3497 	.db 0x80
+      004BD6 E2                    3498 	.db 0xe2
+      004BD7 94                    3499 	.db 0x94
+      004BD8 80                    3500 	.db 0x80
+      004BD9 E2                    3501 	.db 0xe2
+      004BDA 94                    3502 	.db 0x94
+      004BDB 80                    3503 	.db 0x80
+      004BDC E2                    3504 	.db 0xe2
+      004BDD 94                    3505 	.db 0x94
+      004BDE 80                    3506 	.db 0x80
+      004BDF E2                    3507 	.db 0xe2
+      004BE0 94                    3508 	.db 0x94
+      004BE1 80                    3509 	.db 0x80
+      004BE2 E2                    3510 	.db 0xe2
+      004BE3 94                    3511 	.db 0x94
+      004BE4 80                    3512 	.db 0x80
+      004BE5 E2                    3513 	.db 0xe2
+      004BE6 94                    3514 	.db 0x94
+      004BE7 80                    3515 	.db 0x80
+      004BE8 E2                    3516 	.db 0xe2
+      004BE9 94                    3517 	.db 0x94
+      004BEA 80                    3518 	.db 0x80
+      004BEB E2                    3519 	.db 0xe2
+      004BEC 94                    3520 	.db 0x94
+      004BED 80                    3521 	.db 0x80
+      004BEE E2                    3522 	.db 0xe2
+      004BEF 94                    3523 	.db 0x94
+      004BF0 80                    3524 	.db 0x80
+      004BF1 E2                    3525 	.db 0xe2
+      004BF2 94                    3526 	.db 0x94
+      004BF3 80                    3527 	.db 0x80
+      004BF4 E2                    3528 	.db 0xe2
+      004BF5 94                    3529 	.db 0x94
+      004BF6 80                    3530 	.db 0x80
+      004BF7 E2                    3531 	.db 0xe2
+      004BF8 94                    3532 	.db 0x94
+      004BF9 80                    3533 	.db 0x80
+      004BFA E2                    3534 	.db 0xe2
+      004BFB 94                    3535 	.db 0x94
+      004BFC 80                    3536 	.db 0x80
+      004BFD E2                    3537 	.db 0xe2
+      004BFE 94                    3538 	.db 0x94
+      004BFF 80                    3539 	.db 0x80
+      004C00 E2                    3540 	.db 0xe2
+      004C01 94                    3541 	.db 0x94
+      004C02 80                    3542 	.db 0x80
+      004C03 E2                    3543 	.db 0xe2
+      004C04 94                    3544 	.db 0x94
+      004C05 80                    3545 	.db 0x80
+      004C06 E2                    3546 	.db 0xe2
+      004C07 94                    3547 	.db 0x94
+      004C08 80                    3548 	.db 0x80
+      004C09 E2                    3549 	.db 0xe2
+      004C0A 94                    3550 	.db 0x94
+      004C0B 80                    3551 	.db 0x80
+      004C0C E2                    3552 	.db 0xe2
+      004C0D 94                    3553 	.db 0x94
+      004C0E 90                    3554 	.db 0x90
+      004C0F 0A                    3555 	.db 0x0a
+      004C10 0D                    3556 	.db 0x0d
+      004C11 00                    3557 	.db 0x00
+                                   3558 	.area CSEG    (CODE)
+                                   3559 	.area CONST   (CODE)
+      004C12                       3560 ___str_4:
+      004C12 E2                    3561 	.db 0xe2
+      004C13 94                    3562 	.db 0x94
+      004C14 82                    3563 	.db 0x82
+      004C15 20 20 43 6F 6D 6D 61  3564 	.ascii "  Command   "
              6E 64 20 20 20
-      004B7B E2                    3470 	.db 0xe2
-      004B7C 94                    3471 	.db 0x94
-      004B7D 82                    3472 	.db 0x82
-      004B7E 20 20 20 20 20 20 20  3473 	.ascii "               Description                  "
+      004C21 E2                    3565 	.db 0xe2
+      004C22 94                    3566 	.db 0x94
+      004C23 82                    3567 	.db 0x82
+      004C24 20 20 20 20 20 20 20  3568 	.ascii "               Description                  "
              20 20 20 20 20 20 20
              20 44 65 73 63 72 69
              70 74 69 6F 6E 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20
-      004BAA E2                    3474 	.db 0xe2
-      004BAB 94                    3475 	.db 0x94
-      004BAC 82                    3476 	.db 0x82
-      004BAD 0A                    3477 	.db 0x0a
-      004BAE 0D                    3478 	.db 0x0d
-      004BAF 00                    3479 	.db 0x00
-                                   3480 	.area CSEG    (CODE)
-                                   3481 	.area CONST   (CODE)
-      004BB0                       3482 ___str_5:
-      004BB0 E2                    3483 	.db 0xe2
-      004BB1 94                    3484 	.db 0x94
-      004BB2 9C                    3485 	.db 0x9c
-      004BB3 E2                    3486 	.db 0xe2
-      004BB4 94                    3487 	.db 0x94
-      004BB5 80                    3488 	.db 0x80
-      004BB6 E2                    3489 	.db 0xe2
-      004BB7 94                    3490 	.db 0x94
-      004BB8 80                    3491 	.db 0x80
-      004BB9 E2                    3492 	.db 0xe2
-      004BBA 94                    3493 	.db 0x94
-      004BBB 80                    3494 	.db 0x80
-      004BBC E2                    3495 	.db 0xe2
-      004BBD 94                    3496 	.db 0x94
-      004BBE 80                    3497 	.db 0x80
-      004BBF E2                    3498 	.db 0xe2
-      004BC0 94                    3499 	.db 0x94
-      004BC1 80                    3500 	.db 0x80
-      004BC2 E2                    3501 	.db 0xe2
-      004BC3 94                    3502 	.db 0x94
-      004BC4 80                    3503 	.db 0x80
-      004BC5 E2                    3504 	.db 0xe2
-      004BC6 94                    3505 	.db 0x94
-      004BC7 80                    3506 	.db 0x80
-      004BC8 E2                    3507 	.db 0xe2
-      004BC9 94                    3508 	.db 0x94
-      004BCA 80                    3509 	.db 0x80
-      004BCB E2                    3510 	.db 0xe2
-      004BCC 94                    3511 	.db 0x94
-      004BCD 80                    3512 	.db 0x80
-      004BCE E2                    3513 	.db 0xe2
-      004BCF 94                    3514 	.db 0x94
-      004BD0 80                    3515 	.db 0x80
-      004BD1 E2                    3516 	.db 0xe2
-      004BD2 94                    3517 	.db 0x94
-      004BD3 80                    3518 	.db 0x80
-      004BD4 E2                    3519 	.db 0xe2
-      004BD5 94                    3520 	.db 0x94
-      004BD6 80                    3521 	.db 0x80
-      004BD7 E2                    3522 	.db 0xe2
-      004BD8 94                    3523 	.db 0x94
-      004BD9 BC                    3524 	.db 0xbc
-      004BDA E2                    3525 	.db 0xe2
-      004BDB 94                    3526 	.db 0x94
-      004BDC 80                    3527 	.db 0x80
-      004BDD E2                    3528 	.db 0xe2
-      004BDE 94                    3529 	.db 0x94
-      004BDF 80                    3530 	.db 0x80
-      004BE0 E2                    3531 	.db 0xe2
-      004BE1 94                    3532 	.db 0x94
-      004BE2 80                    3533 	.db 0x80
-      004BE3 E2                    3534 	.db 0xe2
-      004BE4 94                    3535 	.db 0x94
-      004BE5 80                    3536 	.db 0x80
-      004BE6 E2                    3537 	.db 0xe2
-      004BE7 94                    3538 	.db 0x94
-      004BE8 80                    3539 	.db 0x80
-      004BE9 E2                    3540 	.db 0xe2
-      004BEA 94                    3541 	.db 0x94
-      004BEB 80                    3542 	.db 0x80
-      004BEC E2                    3543 	.db 0xe2
-      004BED 94                    3544 	.db 0x94
-      004BEE 80                    3545 	.db 0x80
-      004BEF E2                    3546 	.db 0xe2
-      004BF0 94                    3547 	.db 0x94
-      004BF1 80                    3548 	.db 0x80
-      004BF2 E2                    3549 	.db 0xe2
-      004BF3 94                    3550 	.db 0x94
-      004BF4 80                    3551 	.db 0x80
-      004BF5 E2                    3552 	.db 0xe2
-      004BF6 94                    3553 	.db 0x94
-      004BF7 80                    3554 	.db 0x80
-      004BF8 E2                    3555 	.db 0xe2
-      004BF9 94                    3556 	.db 0x94
-      004BFA 80                    3557 	.db 0x80
-      004BFB E2                    3558 	.db 0xe2
-      004BFC 94                    3559 	.db 0x94
-      004BFD 80                    3560 	.db 0x80
-      004BFE E2                    3561 	.db 0xe2
-      004BFF 94                    3562 	.db 0x94
-      004C00 80                    3563 	.db 0x80
-      004C01 E2                    3564 	.db 0xe2
-      004C02 94                    3565 	.db 0x94
-      004C03 80                    3566 	.db 0x80
-      004C04 E2                    3567 	.db 0xe2
-      004C05 94                    3568 	.db 0x94
-      004C06 80                    3569 	.db 0x80
-      004C07 E2                    3570 	.db 0xe2
-      004C08 94                    3571 	.db 0x94
-      004C09 80                    3572 	.db 0x80
-      004C0A E2                    3573 	.db 0xe2
-      004C0B 94                    3574 	.db 0x94
-      004C0C 80                    3575 	.db 0x80
-      004C0D E2                    3576 	.db 0xe2
-      004C0E 94                    3577 	.db 0x94
-      004C0F 80                    3578 	.db 0x80
-      004C10 E2                    3579 	.db 0xe2
-      004C11 94                    3580 	.db 0x94
-      004C12 80                    3581 	.db 0x80
-      004C13 E2                    3582 	.db 0xe2
-      004C14 94                    3583 	.db 0x94
-      004C15 80                    3584 	.db 0x80
-      004C16 E2                    3585 	.db 0xe2
-      004C17 94                    3586 	.db 0x94
-      004C18 80                    3587 	.db 0x80
-      004C19 E2                    3588 	.db 0xe2
-      004C1A 94                    3589 	.db 0x94
-      004C1B 80                    3590 	.db 0x80
-      004C1C E2                    3591 	.db 0xe2
-      004C1D 94                    3592 	.db 0x94
-      004C1E 80                    3593 	.db 0x80
-      004C1F E2                    3594 	.db 0xe2
-      004C20 94                    3595 	.db 0x94
-      004C21 80                    3596 	.db 0x80
-      004C22 E2                    3597 	.db 0xe2
-      004C23 94                    3598 	.db 0x94
-      004C24 80                    3599 	.db 0x80
-      004C25 E2                    3600 	.db 0xe2
-      004C26 94                    3601 	.db 0x94
-      004C27 80                    3602 	.db 0x80
-      004C28 E2                    3603 	.db 0xe2
-      004C29 94                    3604 	.db 0x94
-      004C2A 80                    3605 	.db 0x80
-      004C2B E2                    3606 	.db 0xe2
-      004C2C 94                    3607 	.db 0x94
-      004C2D 80                    3608 	.db 0x80
-      004C2E E2                    3609 	.db 0xe2
-      004C2F 94                    3610 	.db 0x94
-      004C30 80                    3611 	.db 0x80
-      004C31 E2                    3612 	.db 0xe2
-      004C32 94                    3613 	.db 0x94
-      004C33 80                    3614 	.db 0x80
-      004C34 E2                    3615 	.db 0xe2
-      004C35 94                    3616 	.db 0x94
-      004C36 80                    3617 	.db 0x80
-      004C37 E2                    3618 	.db 0xe2
-      004C38 94                    3619 	.db 0x94
-      004C39 80                    3620 	.db 0x80
-      004C3A E2                    3621 	.db 0xe2
-      004C3B 94                    3622 	.db 0x94
-      004C3C 80                    3623 	.db 0x80
-      004C3D E2                    3624 	.db 0xe2
-      004C3E 94                    3625 	.db 0x94
-      004C3F 80                    3626 	.db 0x80
-      004C40 E2                    3627 	.db 0xe2
-      004C41 94                    3628 	.db 0x94
-      004C42 80                    3629 	.db 0x80
-      004C43 E2                    3630 	.db 0xe2
-      004C44 94                    3631 	.db 0x94
-      004C45 80                    3632 	.db 0x80
-      004C46 E2                    3633 	.db 0xe2
-      004C47 94                    3634 	.db 0x94
-      004C48 80                    3635 	.db 0x80
-      004C49 E2                    3636 	.db 0xe2
-      004C4A 94                    3637 	.db 0x94
-      004C4B 80                    3638 	.db 0x80
-      004C4C E2                    3639 	.db 0xe2
-      004C4D 94                    3640 	.db 0x94
-      004C4E 80                    3641 	.db 0x80
-      004C4F E2                    3642 	.db 0xe2
-      004C50 94                    3643 	.db 0x94
-      004C51 80                    3644 	.db 0x80
-      004C52 E2                    3645 	.db 0xe2
-      004C53 94                    3646 	.db 0x94
-      004C54 80                    3647 	.db 0x80
-      004C55 E2                    3648 	.db 0xe2
-      004C56 94                    3649 	.db 0x94
-      004C57 80                    3650 	.db 0x80
-      004C58 E2                    3651 	.db 0xe2
-      004C59 94                    3652 	.db 0x94
-      004C5A 80                    3653 	.db 0x80
-      004C5B E2                    3654 	.db 0xe2
-      004C5C 94                    3655 	.db 0x94
-      004C5D 80                    3656 	.db 0x80
-      004C5E E2                    3657 	.db 0xe2
-      004C5F 94                    3658 	.db 0x94
-      004C60 A4                    3659 	.db 0xa4
-      004C61 0A                    3660 	.db 0x0a
-      004C62 0D                    3661 	.db 0x0d
-      004C63 00                    3662 	.db 0x00
-                                   3663 	.area CSEG    (CODE)
-                                   3664 	.area CONST   (CODE)
-      004C64                       3665 ___str_6:
-      004C64 E2                    3666 	.db 0xe2
-      004C65 94                    3667 	.db 0x94
-      004C66 82                    3668 	.db 0x82
-      004C67 20 20 20 20 20 52 20  3669 	.ascii "     R      "
+      004C50 E2                    3569 	.db 0xe2
+      004C51 94                    3570 	.db 0x94
+      004C52 82                    3571 	.db 0x82
+      004C53 0A                    3572 	.db 0x0a
+      004C54 0D                    3573 	.db 0x0d
+      004C55 00                    3574 	.db 0x00
+                                   3575 	.area CSEG    (CODE)
+                                   3576 	.area CONST   (CODE)
+      004C56                       3577 ___str_5:
+      004C56 E2                    3578 	.db 0xe2
+      004C57 94                    3579 	.db 0x94
+      004C58 9C                    3580 	.db 0x9c
+      004C59 E2                    3581 	.db 0xe2
+      004C5A 94                    3582 	.db 0x94
+      004C5B 80                    3583 	.db 0x80
+      004C5C E2                    3584 	.db 0xe2
+      004C5D 94                    3585 	.db 0x94
+      004C5E 80                    3586 	.db 0x80
+      004C5F E2                    3587 	.db 0xe2
+      004C60 94                    3588 	.db 0x94
+      004C61 80                    3589 	.db 0x80
+      004C62 E2                    3590 	.db 0xe2
+      004C63 94                    3591 	.db 0x94
+      004C64 80                    3592 	.db 0x80
+      004C65 E2                    3593 	.db 0xe2
+      004C66 94                    3594 	.db 0x94
+      004C67 80                    3595 	.db 0x80
+      004C68 E2                    3596 	.db 0xe2
+      004C69 94                    3597 	.db 0x94
+      004C6A 80                    3598 	.db 0x80
+      004C6B E2                    3599 	.db 0xe2
+      004C6C 94                    3600 	.db 0x94
+      004C6D 80                    3601 	.db 0x80
+      004C6E E2                    3602 	.db 0xe2
+      004C6F 94                    3603 	.db 0x94
+      004C70 80                    3604 	.db 0x80
+      004C71 E2                    3605 	.db 0xe2
+      004C72 94                    3606 	.db 0x94
+      004C73 80                    3607 	.db 0x80
+      004C74 E2                    3608 	.db 0xe2
+      004C75 94                    3609 	.db 0x94
+      004C76 80                    3610 	.db 0x80
+      004C77 E2                    3611 	.db 0xe2
+      004C78 94                    3612 	.db 0x94
+      004C79 80                    3613 	.db 0x80
+      004C7A E2                    3614 	.db 0xe2
+      004C7B 94                    3615 	.db 0x94
+      004C7C 80                    3616 	.db 0x80
+      004C7D E2                    3617 	.db 0xe2
+      004C7E 94                    3618 	.db 0x94
+      004C7F BC                    3619 	.db 0xbc
+      004C80 E2                    3620 	.db 0xe2
+      004C81 94                    3621 	.db 0x94
+      004C82 80                    3622 	.db 0x80
+      004C83 E2                    3623 	.db 0xe2
+      004C84 94                    3624 	.db 0x94
+      004C85 80                    3625 	.db 0x80
+      004C86 E2                    3626 	.db 0xe2
+      004C87 94                    3627 	.db 0x94
+      004C88 80                    3628 	.db 0x80
+      004C89 E2                    3629 	.db 0xe2
+      004C8A 94                    3630 	.db 0x94
+      004C8B 80                    3631 	.db 0x80
+      004C8C E2                    3632 	.db 0xe2
+      004C8D 94                    3633 	.db 0x94
+      004C8E 80                    3634 	.db 0x80
+      004C8F E2                    3635 	.db 0xe2
+      004C90 94                    3636 	.db 0x94
+      004C91 80                    3637 	.db 0x80
+      004C92 E2                    3638 	.db 0xe2
+      004C93 94                    3639 	.db 0x94
+      004C94 80                    3640 	.db 0x80
+      004C95 E2                    3641 	.db 0xe2
+      004C96 94                    3642 	.db 0x94
+      004C97 80                    3643 	.db 0x80
+      004C98 E2                    3644 	.db 0xe2
+      004C99 94                    3645 	.db 0x94
+      004C9A 80                    3646 	.db 0x80
+      004C9B E2                    3647 	.db 0xe2
+      004C9C 94                    3648 	.db 0x94
+      004C9D 80                    3649 	.db 0x80
+      004C9E E2                    3650 	.db 0xe2
+      004C9F 94                    3651 	.db 0x94
+      004CA0 80                    3652 	.db 0x80
+      004CA1 E2                    3653 	.db 0xe2
+      004CA2 94                    3654 	.db 0x94
+      004CA3 80                    3655 	.db 0x80
+      004CA4 E2                    3656 	.db 0xe2
+      004CA5 94                    3657 	.db 0x94
+      004CA6 80                    3658 	.db 0x80
+      004CA7 E2                    3659 	.db 0xe2
+      004CA8 94                    3660 	.db 0x94
+      004CA9 80                    3661 	.db 0x80
+      004CAA E2                    3662 	.db 0xe2
+      004CAB 94                    3663 	.db 0x94
+      004CAC 80                    3664 	.db 0x80
+      004CAD E2                    3665 	.db 0xe2
+      004CAE 94                    3666 	.db 0x94
+      004CAF 80                    3667 	.db 0x80
+      004CB0 E2                    3668 	.db 0xe2
+      004CB1 94                    3669 	.db 0x94
+      004CB2 80                    3670 	.db 0x80
+      004CB3 E2                    3671 	.db 0xe2
+      004CB4 94                    3672 	.db 0x94
+      004CB5 80                    3673 	.db 0x80
+      004CB6 E2                    3674 	.db 0xe2
+      004CB7 94                    3675 	.db 0x94
+      004CB8 80                    3676 	.db 0x80
+      004CB9 E2                    3677 	.db 0xe2
+      004CBA 94                    3678 	.db 0x94
+      004CBB 80                    3679 	.db 0x80
+      004CBC E2                    3680 	.db 0xe2
+      004CBD 94                    3681 	.db 0x94
+      004CBE 80                    3682 	.db 0x80
+      004CBF E2                    3683 	.db 0xe2
+      004CC0 94                    3684 	.db 0x94
+      004CC1 80                    3685 	.db 0x80
+      004CC2 E2                    3686 	.db 0xe2
+      004CC3 94                    3687 	.db 0x94
+      004CC4 80                    3688 	.db 0x80
+      004CC5 E2                    3689 	.db 0xe2
+      004CC6 94                    3690 	.db 0x94
+      004CC7 80                    3691 	.db 0x80
+      004CC8 E2                    3692 	.db 0xe2
+      004CC9 94                    3693 	.db 0x94
+      004CCA 80                    3694 	.db 0x80
+      004CCB E2                    3695 	.db 0xe2
+      004CCC 94                    3696 	.db 0x94
+      004CCD 80                    3697 	.db 0x80
+      004CCE E2                    3698 	.db 0xe2
+      004CCF 94                    3699 	.db 0x94
+      004CD0 80                    3700 	.db 0x80
+      004CD1 E2                    3701 	.db 0xe2
+      004CD2 94                    3702 	.db 0x94
+      004CD3 80                    3703 	.db 0x80
+      004CD4 E2                    3704 	.db 0xe2
+      004CD5 94                    3705 	.db 0x94
+      004CD6 80                    3706 	.db 0x80
+      004CD7 E2                    3707 	.db 0xe2
+      004CD8 94                    3708 	.db 0x94
+      004CD9 80                    3709 	.db 0x80
+      004CDA E2                    3710 	.db 0xe2
+      004CDB 94                    3711 	.db 0x94
+      004CDC 80                    3712 	.db 0x80
+      004CDD E2                    3713 	.db 0xe2
+      004CDE 94                    3714 	.db 0x94
+      004CDF 80                    3715 	.db 0x80
+      004CE0 E2                    3716 	.db 0xe2
+      004CE1 94                    3717 	.db 0x94
+      004CE2 80                    3718 	.db 0x80
+      004CE3 E2                    3719 	.db 0xe2
+      004CE4 94                    3720 	.db 0x94
+      004CE5 80                    3721 	.db 0x80
+      004CE6 E2                    3722 	.db 0xe2
+      004CE7 94                    3723 	.db 0x94
+      004CE8 80                    3724 	.db 0x80
+      004CE9 E2                    3725 	.db 0xe2
+      004CEA 94                    3726 	.db 0x94
+      004CEB 80                    3727 	.db 0x80
+      004CEC E2                    3728 	.db 0xe2
+      004CED 94                    3729 	.db 0x94
+      004CEE 80                    3730 	.db 0x80
+      004CEF E2                    3731 	.db 0xe2
+      004CF0 94                    3732 	.db 0x94
+      004CF1 80                    3733 	.db 0x80
+      004CF2 E2                    3734 	.db 0xe2
+      004CF3 94                    3735 	.db 0x94
+      004CF4 80                    3736 	.db 0x80
+      004CF5 E2                    3737 	.db 0xe2
+      004CF6 94                    3738 	.db 0x94
+      004CF7 80                    3739 	.db 0x80
+      004CF8 E2                    3740 	.db 0xe2
+      004CF9 94                    3741 	.db 0x94
+      004CFA 80                    3742 	.db 0x80
+      004CFB E2                    3743 	.db 0xe2
+      004CFC 94                    3744 	.db 0x94
+      004CFD 80                    3745 	.db 0x80
+      004CFE E2                    3746 	.db 0xe2
+      004CFF 94                    3747 	.db 0x94
+      004D00 80                    3748 	.db 0x80
+      004D01 E2                    3749 	.db 0xe2
+      004D02 94                    3750 	.db 0x94
+      004D03 80                    3751 	.db 0x80
+      004D04 E2                    3752 	.db 0xe2
+      004D05 94                    3753 	.db 0x94
+      004D06 A4                    3754 	.db 0xa4
+      004D07 0A                    3755 	.db 0x0a
+      004D08 0D                    3756 	.db 0x0d
+      004D09 00                    3757 	.db 0x00
+                                   3758 	.area CSEG    (CODE)
+                                   3759 	.area CONST   (CODE)
+      004D0A                       3760 ___str_6:
+      004D0A E2                    3761 	.db 0xe2
+      004D0B 94                    3762 	.db 0x94
+      004D0C 82                    3763 	.db 0x82
+      004D0D 20 20 20 20 20 52 20  3764 	.ascii "     R      "
              20 20 20 20 20
-      004C73 E2                    3670 	.db 0xe2
-      004C74 94                    3671 	.db 0x94
-      004C75 82                    3672 	.db 0x82
-      004C76 20 52 65 61 64 20 66  3673 	.ascii " Read from address                          "
+      004D19 E2                    3765 	.db 0xe2
+      004D1A 94                    3766 	.db 0x94
+      004D1B 82                    3767 	.db 0x82
+      004D1C 20 52 65 61 64 20 66  3768 	.ascii " Read from address                          "
              72 6F 6D 20 61 64 64
              72 65 73 73 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20
-      004CA2 E2                    3674 	.db 0xe2
-      004CA3 94                    3675 	.db 0x94
-      004CA4 82                    3676 	.db 0x82
-      004CA5 0A                    3677 	.db 0x0a
-      004CA6 0D                    3678 	.db 0x0d
-      004CA7 00                    3679 	.db 0x00
-                                   3680 	.area CSEG    (CODE)
-                                   3681 	.area CONST   (CODE)
-      004CA8                       3682 ___str_7:
-      004CA8 E2                    3683 	.db 0xe2
-      004CA9 94                    3684 	.db 0x94
-      004CAA 82                    3685 	.db 0x82
-      004CAB 20 20 20 20 20 57 20  3686 	.ascii "     W      "
+      004D48 E2                    3769 	.db 0xe2
+      004D49 94                    3770 	.db 0x94
+      004D4A 82                    3771 	.db 0x82
+      004D4B 0A                    3772 	.db 0x0a
+      004D4C 0D                    3773 	.db 0x0d
+      004D4D 00                    3774 	.db 0x00
+                                   3775 	.area CSEG    (CODE)
+                                   3776 	.area CONST   (CODE)
+      004D4E                       3777 ___str_7:
+      004D4E E2                    3778 	.db 0xe2
+      004D4F 94                    3779 	.db 0x94
+      004D50 82                    3780 	.db 0x82
+      004D51 20 20 20 20 20 57 20  3781 	.ascii "     W      "
              20 20 20 20 20
-      004CB7 E2                    3687 	.db 0xe2
-      004CB8 94                    3688 	.db 0x94
-      004CB9 82                    3689 	.db 0x82
-      004CBA 20 57 72 69 74 65 20  3690 	.ascii " Write data to address                      "
+      004D5D E2                    3782 	.db 0xe2
+      004D5E 94                    3783 	.db 0x94
+      004D5F 82                    3784 	.db 0x82
+      004D60 20 57 72 69 74 65 20  3785 	.ascii " Write data to address                      "
              64 61 74 61 20 74 6F
              20 61 64 64 72 65 73
              73 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20
-      004CE6 E2                    3691 	.db 0xe2
-      004CE7 94                    3692 	.db 0x94
-      004CE8 82                    3693 	.db 0x82
-      004CE9 0A                    3694 	.db 0x0a
-      004CEA 0D                    3695 	.db 0x0d
-      004CEB 00                    3696 	.db 0x00
-                                   3697 	.area CSEG    (CODE)
-                                   3698 	.area CONST   (CODE)
-      004CEC                       3699 ___str_8:
-      004CEC E2                    3700 	.db 0xe2
-      004CED 94                    3701 	.db 0x94
-      004CEE 82                    3702 	.db 0x82
-      004CEF 20 20 20 20 20 48 20  3703 	.ascii "     H      "
+      004D8C E2                    3786 	.db 0xe2
+      004D8D 94                    3787 	.db 0x94
+      004D8E 82                    3788 	.db 0x82
+      004D8F 0A                    3789 	.db 0x0a
+      004D90 0D                    3790 	.db 0x0d
+      004D91 00                    3791 	.db 0x00
+                                   3792 	.area CSEG    (CODE)
+                                   3793 	.area CONST   (CODE)
+      004D92                       3794 ___str_8:
+      004D92 E2                    3795 	.db 0xe2
+      004D93 94                    3796 	.db 0x94
+      004D94 82                    3797 	.db 0x82
+      004D95 20 20 20 20 20 48 20  3798 	.ascii "     H      "
              20 20 20 20 20
-      004CFB E2                    3704 	.db 0xe2
-      004CFC 94                    3705 	.db 0x94
-      004CFD 82                    3706 	.db 0x82
-      004CFE 20 44 69 73 70 6C 61  3707 	.ascii " Display hex dump                           "
+      004DA1 E2                    3799 	.db 0xe2
+      004DA2 94                    3800 	.db 0x94
+      004DA3 82                    3801 	.db 0x82
+      004DA4 20 44 69 73 70 6C 61  3802 	.ascii " Display hex dump                           "
              79 20 68 65 78 20 64
              75 6D 70 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20
-      004D2A E2                    3708 	.db 0xe2
-      004D2B 94                    3709 	.db 0x94
-      004D2C 82                    3710 	.db 0x82
-      004D2D 0A                    3711 	.db 0x0a
-      004D2E 0D                    3712 	.db 0x0d
-      004D2F 00                    3713 	.db 0x00
-                                   3714 	.area CSEG    (CODE)
-                                   3715 	.area CONST   (CODE)
-      004D30                       3716 ___str_9:
-      004D30 E2                    3717 	.db 0xe2
-      004D31 94                    3718 	.db 0x94
-      004D32 82                    3719 	.db 0x82
-      004D33 20 20 20 20 20 58 20  3720 	.ascii "     X      "
+      004DD0 E2                    3803 	.db 0xe2
+      004DD1 94                    3804 	.db 0x94
+      004DD2 82                    3805 	.db 0x82
+      004DD3 0A                    3806 	.db 0x0a
+      004DD4 0D                    3807 	.db 0x0d
+      004DD5 00                    3808 	.db 0x00
+                                   3809 	.area CSEG    (CODE)
+                                   3810 	.area CONST   (CODE)
+      004DD6                       3811 ___str_9:
+      004DD6 E2                    3812 	.db 0xe2
+      004DD7 94                    3813 	.db 0x94
+      004DD8 82                    3814 	.db 0x82
+      004DD9 20 20 20 20 20 58 20  3815 	.ascii "     X      "
              20 20 20 20 20
-      004D3F E2                    3721 	.db 0xe2
-      004D40 94                    3722 	.db 0x94
-      004D41 82                    3723 	.db 0x82
-      004D42 20 52 65 73 65 74 20  3724 	.ascii " Reset memory system                        "
+      004DE5 E2                    3816 	.db 0xe2
+      004DE6 94                    3817 	.db 0x94
+      004DE7 82                    3818 	.db 0x82
+      004DE8 20 52 65 73 65 74 20  3819 	.ascii " Reset memory system                        "
              6D 65 6D 6F 72 79 20
              73 79 73 74 65 6D 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20
-      004D6E E2                    3725 	.db 0xe2
-      004D6F 94                    3726 	.db 0x94
-      004D70 82                    3727 	.db 0x82
-      004D71 0A                    3728 	.db 0x0a
-      004D72 0D                    3729 	.db 0x0d
-      004D73 00                    3730 	.db 0x00
-                                   3731 	.area CSEG    (CODE)
-                                   3732 	.area CONST   (CODE)
-      004D74                       3733 ___str_10:
-      004D74 E2                    3734 	.db 0xe2
-      004D75 94                    3735 	.db 0x94
-      004D76 82                    3736 	.db 0x82
-      004D77 20 20 20 20 20 3F 20  3737 	.ascii "     ?      "
+      004E14 E2                    3820 	.db 0xe2
+      004E15 94                    3821 	.db 0x94
+      004E16 82                    3822 	.db 0x82
+      004E17 0A                    3823 	.db 0x0a
+      004E18 0D                    3824 	.db 0x0d
+      004E19 00                    3825 	.db 0x00
+                                   3826 	.area CSEG    (CODE)
+                                   3827 	.area CONST   (CODE)
+      004E1A                       3828 ___str_10:
+      004E1A E2                    3829 	.db 0xe2
+      004E1B 94                    3830 	.db 0x94
+      004E1C 82                    3831 	.db 0x82
+      004E1D 20 20 20 20 20 3F 20  3832 	.ascii "     ?      "
              20 20 20 20 20
-      004D83 E2                    3738 	.db 0xe2
-      004D84 94                    3739 	.db 0x94
-      004D85 82                    3740 	.db 0x82
-      004D86 20 44 69 73 70 6C 61  3741 	.ascii " Display this help menu                     "
+      004E29 E2                    3833 	.db 0xe2
+      004E2A 94                    3834 	.db 0x94
+      004E2B 82                    3835 	.db 0x82
+      004E2C 20 44 69 73 70 6C 61  3836 	.ascii " Display this help menu                     "
              79 20 74 68 69 73 20
              68 65 6C 70 20 6D 65
              6E 75 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20
-      004DB2 E2                    3742 	.db 0xe2
-      004DB3 94                    3743 	.db 0x94
-      004DB4 82                    3744 	.db 0x82
-      004DB5 0A                    3745 	.db 0x0a
-      004DB6 0D                    3746 	.db 0x0d
-      004DB7 00                    3747 	.db 0x00
-                                   3748 	.area CSEG    (CODE)
-                                   3749 	.area CONST   (CODE)
-      004DB8                       3750 ___str_11:
-      004DB8 E2                    3751 	.db 0xe2
-      004DB9 94                    3752 	.db 0x94
-      004DBA 82                    3753 	.db 0x82
-      004DBB 20 20 20 20 20 51 20  3754 	.ascii "     Q      "
+      004E58 E2                    3837 	.db 0xe2
+      004E59 94                    3838 	.db 0x94
+      004E5A 82                    3839 	.db 0x82
+      004E5B 0A                    3840 	.db 0x0a
+      004E5C 0D                    3841 	.db 0x0d
+      004E5D 00                    3842 	.db 0x00
+                                   3843 	.area CSEG    (CODE)
+                                   3844 	.area CONST   (CODE)
+      004E5E                       3845 ___str_11:
+      004E5E E2                    3846 	.db 0xe2
+      004E5F 94                    3847 	.db 0x94
+      004E60 82                    3848 	.db 0x82
+      004E61 20 20 20 20 20 51 20  3849 	.ascii "     Q      "
              20 20 20 20 20
-      004DC7 E2                    3755 	.db 0xe2
-      004DC8 94                    3756 	.db 0x94
-      004DC9 82                    3757 	.db 0x82
-      004DCA 20 51 75 69 74 20 70  3758 	.ascii " Quit program                               "
+      004E6D E2                    3850 	.db 0xe2
+      004E6E 94                    3851 	.db 0x94
+      004E6F 82                    3852 	.db 0x82
+      004E70 20 51 75 69 74 20 70  3853 	.ascii " Quit program                               "
              72 6F 67 72 61 6D 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20
-      004DF6 E2                    3759 	.db 0xe2
-      004DF7 94                    3760 	.db 0x94
-      004DF8 82                    3761 	.db 0x82
-      004DF9 0A                    3762 	.db 0x0a
-      004DFA 0D                    3763 	.db 0x0d
-      004DFB 00                    3764 	.db 0x00
-                                   3765 	.area CSEG    (CODE)
-                                   3766 	.area CONST   (CODE)
-      004DFC                       3767 ___str_12:
-      004DFC E2                    3768 	.db 0xe2
-      004DFD 94                    3769 	.db 0x94
-      004DFE 94                    3770 	.db 0x94
-      004DFF E2                    3771 	.db 0xe2
-      004E00 94                    3772 	.db 0x94
-      004E01 80                    3773 	.db 0x80
-      004E02 E2                    3774 	.db 0xe2
-      004E03 94                    3775 	.db 0x94
-      004E04 80                    3776 	.db 0x80
-      004E05 E2                    3777 	.db 0xe2
-      004E06 94                    3778 	.db 0x94
-      004E07 80                    3779 	.db 0x80
-      004E08 E2                    3780 	.db 0xe2
-      004E09 94                    3781 	.db 0x94
-      004E0A 80                    3782 	.db 0x80
-      004E0B E2                    3783 	.db 0xe2
-      004E0C 94                    3784 	.db 0x94
-      004E0D 80                    3785 	.db 0x80
-      004E0E E2                    3786 	.db 0xe2
-      004E0F 94                    3787 	.db 0x94
-      004E10 80                    3788 	.db 0x80
-      004E11 E2                    3789 	.db 0xe2
-      004E12 94                    3790 	.db 0x94
-      004E13 80                    3791 	.db 0x80
-      004E14 E2                    3792 	.db 0xe2
-      004E15 94                    3793 	.db 0x94
-      004E16 80                    3794 	.db 0x80
-      004E17 E2                    3795 	.db 0xe2
-      004E18 94                    3796 	.db 0x94
-      004E19 80                    3797 	.db 0x80
-      004E1A E2                    3798 	.db 0xe2
-      004E1B 94                    3799 	.db 0x94
-      004E1C 80                    3800 	.db 0x80
-      004E1D E2                    3801 	.db 0xe2
-      004E1E 94                    3802 	.db 0x94
-      004E1F 80                    3803 	.db 0x80
-      004E20 E2                    3804 	.db 0xe2
-      004E21 94                    3805 	.db 0x94
-      004E22 80                    3806 	.db 0x80
-      004E23 E2                    3807 	.db 0xe2
-      004E24 94                    3808 	.db 0x94
-      004E25 B4                    3809 	.db 0xb4
-      004E26 E2                    3810 	.db 0xe2
-      004E27 94                    3811 	.db 0x94
-      004E28 80                    3812 	.db 0x80
-      004E29 E2                    3813 	.db 0xe2
-      004E2A 94                    3814 	.db 0x94
-      004E2B 80                    3815 	.db 0x80
-      004E2C E2                    3816 	.db 0xe2
-      004E2D 94                    3817 	.db 0x94
-      004E2E 80                    3818 	.db 0x80
-      004E2F E2                    3819 	.db 0xe2
-      004E30 94                    3820 	.db 0x94
-      004E31 80                    3821 	.db 0x80
-      004E32 E2                    3822 	.db 0xe2
-      004E33 94                    3823 	.db 0x94
-      004E34 80                    3824 	.db 0x80
-      004E35 E2                    3825 	.db 0xe2
-      004E36 94                    3826 	.db 0x94
-      004E37 80                    3827 	.db 0x80
-      004E38 E2                    3828 	.db 0xe2
-      004E39 94                    3829 	.db 0x94
-      004E3A 80                    3830 	.db 0x80
-      004E3B E2                    3831 	.db 0xe2
-      004E3C 94                    3832 	.db 0x94
-      004E3D 80                    3833 	.db 0x80
-      004E3E E2                    3834 	.db 0xe2
-      004E3F 94                    3835 	.db 0x94
-      004E40 80                    3836 	.db 0x80
-      004E41 E2                    3837 	.db 0xe2
-      004E42 94                    3838 	.db 0x94
-      004E43 80                    3839 	.db 0x80
-      004E44 E2                    3840 	.db 0xe2
-      004E45 94                    3841 	.db 0x94
-      004E46 80                    3842 	.db 0x80
-      004E47 E2                    3843 	.db 0xe2
-      004E48 94                    3844 	.db 0x94
-      004E49 80                    3845 	.db 0x80
-      004E4A E2                    3846 	.db 0xe2
-      004E4B 94                    3847 	.db 0x94
-      004E4C 80                    3848 	.db 0x80
-      004E4D E2                    3849 	.db 0xe2
-      004E4E 94                    3850 	.db 0x94
-      004E4F 80                    3851 	.db 0x80
-      004E50 E2                    3852 	.db 0xe2
-      004E51 94                    3853 	.db 0x94
-      004E52 80                    3854 	.db 0x80
-      004E53 E2                    3855 	.db 0xe2
-      004E54 94                    3856 	.db 0x94
-      004E55 80                    3857 	.db 0x80
-      004E56 E2                    3858 	.db 0xe2
-      004E57 94                    3859 	.db 0x94
-      004E58 80                    3860 	.db 0x80
-      004E59 E2                    3861 	.db 0xe2
-      004E5A 94                    3862 	.db 0x94
-      004E5B 80                    3863 	.db 0x80
-      004E5C E2                    3864 	.db 0xe2
-      004E5D 94                    3865 	.db 0x94
-      004E5E 80                    3866 	.db 0x80
-      004E5F E2                    3867 	.db 0xe2
-      004E60 94                    3868 	.db 0x94
-      004E61 80                    3869 	.db 0x80
-      004E62 E2                    3870 	.db 0xe2
-      004E63 94                    3871 	.db 0x94
-      004E64 80                    3872 	.db 0x80
-      004E65 E2                    3873 	.db 0xe2
-      004E66 94                    3874 	.db 0x94
-      004E67 80                    3875 	.db 0x80
-      004E68 E2                    3876 	.db 0xe2
-      004E69 94                    3877 	.db 0x94
-      004E6A 80                    3878 	.db 0x80
-      004E6B E2                    3879 	.db 0xe2
-      004E6C 94                    3880 	.db 0x94
-      004E6D 80                    3881 	.db 0x80
-      004E6E E2                    3882 	.db 0xe2
-      004E6F 94                    3883 	.db 0x94
-      004E70 80                    3884 	.db 0x80
-      004E71 E2                    3885 	.db 0xe2
-      004E72 94                    3886 	.db 0x94
-      004E73 80                    3887 	.db 0x80
-      004E74 E2                    3888 	.db 0xe2
-      004E75 94                    3889 	.db 0x94
-      004E76 80                    3890 	.db 0x80
-      004E77 E2                    3891 	.db 0xe2
-      004E78 94                    3892 	.db 0x94
-      004E79 80                    3893 	.db 0x80
-      004E7A E2                    3894 	.db 0xe2
-      004E7B 94                    3895 	.db 0x94
-      004E7C 80                    3896 	.db 0x80
-      004E7D E2                    3897 	.db 0xe2
-      004E7E 94                    3898 	.db 0x94
-      004E7F 80                    3899 	.db 0x80
-      004E80 E2                    3900 	.db 0xe2
-      004E81 94                    3901 	.db 0x94
-      004E82 80                    3902 	.db 0x80
-      004E83 E2                    3903 	.db 0xe2
-      004E84 94                    3904 	.db 0x94
-      004E85 80                    3905 	.db 0x80
-      004E86 E2                    3906 	.db 0xe2
-      004E87 94                    3907 	.db 0x94
-      004E88 80                    3908 	.db 0x80
-      004E89 E2                    3909 	.db 0xe2
-      004E8A 94                    3910 	.db 0x94
-      004E8B 80                    3911 	.db 0x80
-      004E8C E2                    3912 	.db 0xe2
-      004E8D 94                    3913 	.db 0x94
-      004E8E 80                    3914 	.db 0x80
-      004E8F E2                    3915 	.db 0xe2
-      004E90 94                    3916 	.db 0x94
-      004E91 80                    3917 	.db 0x80
-      004E92 E2                    3918 	.db 0xe2
-      004E93 94                    3919 	.db 0x94
-      004E94 80                    3920 	.db 0x80
-      004E95 E2                    3921 	.db 0xe2
-      004E96 94                    3922 	.db 0x94
-      004E97 80                    3923 	.db 0x80
-      004E98 E2                    3924 	.db 0xe2
-      004E99 94                    3925 	.db 0x94
-      004E9A 80                    3926 	.db 0x80
-      004E9B E2                    3927 	.db 0xe2
-      004E9C 94                    3928 	.db 0x94
-      004E9D 80                    3929 	.db 0x80
-      004E9E E2                    3930 	.db 0xe2
-      004E9F 94                    3931 	.db 0x94
-      004EA0 80                    3932 	.db 0x80
-      004EA1 E2                    3933 	.db 0xe2
-      004EA2 94                    3934 	.db 0x94
-      004EA3 80                    3935 	.db 0x80
-      004EA4 E2                    3936 	.db 0xe2
-      004EA5 94                    3937 	.db 0x94
-      004EA6 80                    3938 	.db 0x80
-      004EA7 E2                    3939 	.db 0xe2
-      004EA8 94                    3940 	.db 0x94
-      004EA9 80                    3941 	.db 0x80
-      004EAA E2                    3942 	.db 0xe2
-      004EAB 94                    3943 	.db 0x94
-      004EAC 98                    3944 	.db 0x98
-      004EAD 0A                    3945 	.db 0x0a
-      004EAE 0D                    3946 	.db 0x0d
-      004EAF 00                    3947 	.db 0x00
-                                   3948 	.area CSEG    (CODE)
-                                   3949 	.area CONST   (CODE)
-      004EB0                       3950 ___str_13:
-      004EB0 7C 20 24 20 25 63     3951 	.ascii "| $ %c"
-      004EB6 0A                    3952 	.db 0x0a
-      004EB7 0D                    3953 	.db 0x0d
-      004EB8 00                    3954 	.db 0x00
-                                   3955 	.area CSEG    (CODE)
-                                   3956 	.area CONST   (CODE)
-      004EB9                       3957 ___str_14:
-      004EB9 0A                    3958 	.db 0x0a
-      004EBA 0D                    3959 	.db 0x0d
-      004EBB 00                    3960 	.db 0x00
-                                   3961 	.area CSEG    (CODE)
-                                   3962 	.area CONST   (CODE)
-      004EBC                       3963 ___str_15:
-      004EBC 0A                    3964 	.db 0x0a
-      004EBD E2                    3965 	.db 0xe2
-      004EBE 94                    3966 	.db 0x94
-      004EBF 8C                    3967 	.db 0x8c
-      004EC0 E2                    3968 	.db 0xe2
-      004EC1 94                    3969 	.db 0x94
-      004EC2 80                    3970 	.db 0x80
-      004EC3 E2                    3971 	.db 0xe2
-      004EC4 94                    3972 	.db 0x94
-      004EC5 80                    3973 	.db 0x80
-      004EC6 E2                    3974 	.db 0xe2
-      004EC7 94                    3975 	.db 0x94
-      004EC8 80                    3976 	.db 0x80
-      004EC9 E2                    3977 	.db 0xe2
-      004ECA 94                    3978 	.db 0x94
-      004ECB 80                    3979 	.db 0x80
-      004ECC E2                    3980 	.db 0xe2
-      004ECD 94                    3981 	.db 0x94
-      004ECE 80                    3982 	.db 0x80
-      004ECF E2                    3983 	.db 0xe2
-      004ED0 94                    3984 	.db 0x94
-      004ED1 80                    3985 	.db 0x80
-      004ED2 E2                    3986 	.db 0xe2
-      004ED3 94                    3987 	.db 0x94
-      004ED4 80                    3988 	.db 0x80
-      004ED5 E2                    3989 	.db 0xe2
-      004ED6 94                    3990 	.db 0x94
-      004ED7 80                    3991 	.db 0x80
-      004ED8 E2                    3992 	.db 0xe2
-      004ED9 94                    3993 	.db 0x94
-      004EDA 80                    3994 	.db 0x80
-      004EDB E2                    3995 	.db 0xe2
-      004EDC 94                    3996 	.db 0x94
-      004EDD 80                    3997 	.db 0x80
-      004EDE E2                    3998 	.db 0xe2
-      004EDF 94                    3999 	.db 0x94
-      004EE0 80                    4000 	.db 0x80
-      004EE1 E2                    4001 	.db 0xe2
-      004EE2 94                    4002 	.db 0x94
-      004EE3 80                    4003 	.db 0x80
-      004EE4 E2                    4004 	.db 0xe2
-      004EE5 94                    4005 	.db 0x94
-      004EE6 80                    4006 	.db 0x80
-      004EE7 E2                    4007 	.db 0xe2
-      004EE8 94                    4008 	.db 0x94
-      004EE9 80                    4009 	.db 0x80
-      004EEA E2                    4010 	.db 0xe2
-      004EEB 94                    4011 	.db 0x94
-      004EEC 80                    4012 	.db 0x80
-      004EED 20 57 52 49 54 45 20  4013 	.ascii " WRITE OPERATION "
+      004E9C E2                    3854 	.db 0xe2
+      004E9D 94                    3855 	.db 0x94
+      004E9E 82                    3856 	.db 0x82
+      004E9F 0A                    3857 	.db 0x0a
+      004EA0 0D                    3858 	.db 0x0d
+      004EA1 00                    3859 	.db 0x00
+                                   3860 	.area CSEG    (CODE)
+                                   3861 	.area CONST   (CODE)
+      004EA2                       3862 ___str_12:
+      004EA2 E2                    3863 	.db 0xe2
+      004EA3 94                    3864 	.db 0x94
+      004EA4 94                    3865 	.db 0x94
+      004EA5 E2                    3866 	.db 0xe2
+      004EA6 94                    3867 	.db 0x94
+      004EA7 80                    3868 	.db 0x80
+      004EA8 E2                    3869 	.db 0xe2
+      004EA9 94                    3870 	.db 0x94
+      004EAA 80                    3871 	.db 0x80
+      004EAB E2                    3872 	.db 0xe2
+      004EAC 94                    3873 	.db 0x94
+      004EAD 80                    3874 	.db 0x80
+      004EAE E2                    3875 	.db 0xe2
+      004EAF 94                    3876 	.db 0x94
+      004EB0 80                    3877 	.db 0x80
+      004EB1 E2                    3878 	.db 0xe2
+      004EB2 94                    3879 	.db 0x94
+      004EB3 80                    3880 	.db 0x80
+      004EB4 E2                    3881 	.db 0xe2
+      004EB5 94                    3882 	.db 0x94
+      004EB6 80                    3883 	.db 0x80
+      004EB7 E2                    3884 	.db 0xe2
+      004EB8 94                    3885 	.db 0x94
+      004EB9 80                    3886 	.db 0x80
+      004EBA E2                    3887 	.db 0xe2
+      004EBB 94                    3888 	.db 0x94
+      004EBC 80                    3889 	.db 0x80
+      004EBD E2                    3890 	.db 0xe2
+      004EBE 94                    3891 	.db 0x94
+      004EBF 80                    3892 	.db 0x80
+      004EC0 E2                    3893 	.db 0xe2
+      004EC1 94                    3894 	.db 0x94
+      004EC2 80                    3895 	.db 0x80
+      004EC3 E2                    3896 	.db 0xe2
+      004EC4 94                    3897 	.db 0x94
+      004EC5 80                    3898 	.db 0x80
+      004EC6 E2                    3899 	.db 0xe2
+      004EC7 94                    3900 	.db 0x94
+      004EC8 80                    3901 	.db 0x80
+      004EC9 E2                    3902 	.db 0xe2
+      004ECA 94                    3903 	.db 0x94
+      004ECB B4                    3904 	.db 0xb4
+      004ECC E2                    3905 	.db 0xe2
+      004ECD 94                    3906 	.db 0x94
+      004ECE 80                    3907 	.db 0x80
+      004ECF E2                    3908 	.db 0xe2
+      004ED0 94                    3909 	.db 0x94
+      004ED1 80                    3910 	.db 0x80
+      004ED2 E2                    3911 	.db 0xe2
+      004ED3 94                    3912 	.db 0x94
+      004ED4 80                    3913 	.db 0x80
+      004ED5 E2                    3914 	.db 0xe2
+      004ED6 94                    3915 	.db 0x94
+      004ED7 80                    3916 	.db 0x80
+      004ED8 E2                    3917 	.db 0xe2
+      004ED9 94                    3918 	.db 0x94
+      004EDA 80                    3919 	.db 0x80
+      004EDB E2                    3920 	.db 0xe2
+      004EDC 94                    3921 	.db 0x94
+      004EDD 80                    3922 	.db 0x80
+      004EDE E2                    3923 	.db 0xe2
+      004EDF 94                    3924 	.db 0x94
+      004EE0 80                    3925 	.db 0x80
+      004EE1 E2                    3926 	.db 0xe2
+      004EE2 94                    3927 	.db 0x94
+      004EE3 80                    3928 	.db 0x80
+      004EE4 E2                    3929 	.db 0xe2
+      004EE5 94                    3930 	.db 0x94
+      004EE6 80                    3931 	.db 0x80
+      004EE7 E2                    3932 	.db 0xe2
+      004EE8 94                    3933 	.db 0x94
+      004EE9 80                    3934 	.db 0x80
+      004EEA E2                    3935 	.db 0xe2
+      004EEB 94                    3936 	.db 0x94
+      004EEC 80                    3937 	.db 0x80
+      004EED E2                    3938 	.db 0xe2
+      004EEE 94                    3939 	.db 0x94
+      004EEF 80                    3940 	.db 0x80
+      004EF0 E2                    3941 	.db 0xe2
+      004EF1 94                    3942 	.db 0x94
+      004EF2 80                    3943 	.db 0x80
+      004EF3 E2                    3944 	.db 0xe2
+      004EF4 94                    3945 	.db 0x94
+      004EF5 80                    3946 	.db 0x80
+      004EF6 E2                    3947 	.db 0xe2
+      004EF7 94                    3948 	.db 0x94
+      004EF8 80                    3949 	.db 0x80
+      004EF9 E2                    3950 	.db 0xe2
+      004EFA 94                    3951 	.db 0x94
+      004EFB 80                    3952 	.db 0x80
+      004EFC E2                    3953 	.db 0xe2
+      004EFD 94                    3954 	.db 0x94
+      004EFE 80                    3955 	.db 0x80
+      004EFF E2                    3956 	.db 0xe2
+      004F00 94                    3957 	.db 0x94
+      004F01 80                    3958 	.db 0x80
+      004F02 E2                    3959 	.db 0xe2
+      004F03 94                    3960 	.db 0x94
+      004F04 80                    3961 	.db 0x80
+      004F05 E2                    3962 	.db 0xe2
+      004F06 94                    3963 	.db 0x94
+      004F07 80                    3964 	.db 0x80
+      004F08 E2                    3965 	.db 0xe2
+      004F09 94                    3966 	.db 0x94
+      004F0A 80                    3967 	.db 0x80
+      004F0B E2                    3968 	.db 0xe2
+      004F0C 94                    3969 	.db 0x94
+      004F0D 80                    3970 	.db 0x80
+      004F0E E2                    3971 	.db 0xe2
+      004F0F 94                    3972 	.db 0x94
+      004F10 80                    3973 	.db 0x80
+      004F11 E2                    3974 	.db 0xe2
+      004F12 94                    3975 	.db 0x94
+      004F13 80                    3976 	.db 0x80
+      004F14 E2                    3977 	.db 0xe2
+      004F15 94                    3978 	.db 0x94
+      004F16 80                    3979 	.db 0x80
+      004F17 E2                    3980 	.db 0xe2
+      004F18 94                    3981 	.db 0x94
+      004F19 80                    3982 	.db 0x80
+      004F1A E2                    3983 	.db 0xe2
+      004F1B 94                    3984 	.db 0x94
+      004F1C 80                    3985 	.db 0x80
+      004F1D E2                    3986 	.db 0xe2
+      004F1E 94                    3987 	.db 0x94
+      004F1F 80                    3988 	.db 0x80
+      004F20 E2                    3989 	.db 0xe2
+      004F21 94                    3990 	.db 0x94
+      004F22 80                    3991 	.db 0x80
+      004F23 E2                    3992 	.db 0xe2
+      004F24 94                    3993 	.db 0x94
+      004F25 80                    3994 	.db 0x80
+      004F26 E2                    3995 	.db 0xe2
+      004F27 94                    3996 	.db 0x94
+      004F28 80                    3997 	.db 0x80
+      004F29 E2                    3998 	.db 0xe2
+      004F2A 94                    3999 	.db 0x94
+      004F2B 80                    4000 	.db 0x80
+      004F2C E2                    4001 	.db 0xe2
+      004F2D 94                    4002 	.db 0x94
+      004F2E 80                    4003 	.db 0x80
+      004F2F E2                    4004 	.db 0xe2
+      004F30 94                    4005 	.db 0x94
+      004F31 80                    4006 	.db 0x80
+      004F32 E2                    4007 	.db 0xe2
+      004F33 94                    4008 	.db 0x94
+      004F34 80                    4009 	.db 0x80
+      004F35 E2                    4010 	.db 0xe2
+      004F36 94                    4011 	.db 0x94
+      004F37 80                    4012 	.db 0x80
+      004F38 E2                    4013 	.db 0xe2
+      004F39 94                    4014 	.db 0x94
+      004F3A 80                    4015 	.db 0x80
+      004F3B E2                    4016 	.db 0xe2
+      004F3C 94                    4017 	.db 0x94
+      004F3D 80                    4018 	.db 0x80
+      004F3E E2                    4019 	.db 0xe2
+      004F3F 94                    4020 	.db 0x94
+      004F40 80                    4021 	.db 0x80
+      004F41 E2                    4022 	.db 0xe2
+      004F42 94                    4023 	.db 0x94
+      004F43 80                    4024 	.db 0x80
+      004F44 E2                    4025 	.db 0xe2
+      004F45 94                    4026 	.db 0x94
+      004F46 80                    4027 	.db 0x80
+      004F47 E2                    4028 	.db 0xe2
+      004F48 94                    4029 	.db 0x94
+      004F49 80                    4030 	.db 0x80
+      004F4A E2                    4031 	.db 0xe2
+      004F4B 94                    4032 	.db 0x94
+      004F4C 80                    4033 	.db 0x80
+      004F4D E2                    4034 	.db 0xe2
+      004F4E 94                    4035 	.db 0x94
+      004F4F 80                    4036 	.db 0x80
+      004F50 E2                    4037 	.db 0xe2
+      004F51 94                    4038 	.db 0x94
+      004F52 98                    4039 	.db 0x98
+      004F53 0A                    4040 	.db 0x0a
+      004F54 0D                    4041 	.db 0x0d
+      004F55 00                    4042 	.db 0x00
+                                   4043 	.area CSEG    (CODE)
+                                   4044 	.area CONST   (CODE)
+      004F56                       4045 ___str_13:
+      004F56 7C 20 24 20 25 63     4046 	.ascii "| $ %c"
+      004F5C 0A                    4047 	.db 0x0a
+      004F5D 0D                    4048 	.db 0x0d
+      004F5E 00                    4049 	.db 0x00
+                                   4050 	.area CSEG    (CODE)
+                                   4051 	.area CONST   (CODE)
+      004F5F                       4052 ___str_14:
+      004F5F 0A                    4053 	.db 0x0a
+      004F60 0D                    4054 	.db 0x0d
+      004F61 00                    4055 	.db 0x00
+                                   4056 	.area CSEG    (CODE)
+                                   4057 	.area CONST   (CODE)
+      004F62                       4058 ___str_15:
+      004F62 0A                    4059 	.db 0x0a
+      004F63 E2                    4060 	.db 0xe2
+      004F64 94                    4061 	.db 0x94
+      004F65 8C                    4062 	.db 0x8c
+      004F66 E2                    4063 	.db 0xe2
+      004F67 94                    4064 	.db 0x94
+      004F68 80                    4065 	.db 0x80
+      004F69 E2                    4066 	.db 0xe2
+      004F6A 94                    4067 	.db 0x94
+      004F6B 80                    4068 	.db 0x80
+      004F6C E2                    4069 	.db 0xe2
+      004F6D 94                    4070 	.db 0x94
+      004F6E 80                    4071 	.db 0x80
+      004F6F E2                    4072 	.db 0xe2
+      004F70 94                    4073 	.db 0x94
+      004F71 80                    4074 	.db 0x80
+      004F72 E2                    4075 	.db 0xe2
+      004F73 94                    4076 	.db 0x94
+      004F74 80                    4077 	.db 0x80
+      004F75 E2                    4078 	.db 0xe2
+      004F76 94                    4079 	.db 0x94
+      004F77 80                    4080 	.db 0x80
+      004F78 E2                    4081 	.db 0xe2
+      004F79 94                    4082 	.db 0x94
+      004F7A 80                    4083 	.db 0x80
+      004F7B E2                    4084 	.db 0xe2
+      004F7C 94                    4085 	.db 0x94
+      004F7D 80                    4086 	.db 0x80
+      004F7E E2                    4087 	.db 0xe2
+      004F7F 94                    4088 	.db 0x94
+      004F80 80                    4089 	.db 0x80
+      004F81 E2                    4090 	.db 0xe2
+      004F82 94                    4091 	.db 0x94
+      004F83 80                    4092 	.db 0x80
+      004F84 E2                    4093 	.db 0xe2
+      004F85 94                    4094 	.db 0x94
+      004F86 80                    4095 	.db 0x80
+      004F87 E2                    4096 	.db 0xe2
+      004F88 94                    4097 	.db 0x94
+      004F89 80                    4098 	.db 0x80
+      004F8A E2                    4099 	.db 0xe2
+      004F8B 94                    4100 	.db 0x94
+      004F8C 80                    4101 	.db 0x80
+      004F8D E2                    4102 	.db 0xe2
+      004F8E 94                    4103 	.db 0x94
+      004F8F 80                    4104 	.db 0x80
+      004F90 E2                    4105 	.db 0xe2
+      004F91 94                    4106 	.db 0x94
+      004F92 80                    4107 	.db 0x80
+      004F93 20 57 52 49 54 45 20  4108 	.ascii " WRITE OPERATION "
              4F 50 45 52 41 54 49
              4F 4E 20
-      004EFE E2                    4014 	.db 0xe2
-      004EFF 94                    4015 	.db 0x94
-      004F00 80                    4016 	.db 0x80
-      004F01 E2                    4017 	.db 0xe2
-      004F02 94                    4018 	.db 0x94
-      004F03 80                    4019 	.db 0x80
-      004F04 E2                    4020 	.db 0xe2
-      004F05 94                    4021 	.db 0x94
-      004F06 80                    4022 	.db 0x80
-      004F07 E2                    4023 	.db 0xe2
-      004F08 94                    4024 	.db 0x94
-      004F09 80                    4025 	.db 0x80
-      004F0A E2                    4026 	.db 0xe2
-      004F0B 94                    4027 	.db 0x94
-      004F0C 80                    4028 	.db 0x80
-      004F0D E2                    4029 	.db 0xe2
-      004F0E 94                    4030 	.db 0x94
-      004F0F 80                    4031 	.db 0x80
-      004F10 E2                    4032 	.db 0xe2
-      004F11 94                    4033 	.db 0x94
-      004F12 80                    4034 	.db 0x80
-      004F13 E2                    4035 	.db 0xe2
-      004F14 94                    4036 	.db 0x94
-      004F15 80                    4037 	.db 0x80
-      004F16 E2                    4038 	.db 0xe2
-      004F17 94                    4039 	.db 0x94
-      004F18 80                    4040 	.db 0x80
-      004F19 E2                    4041 	.db 0xe2
-      004F1A 94                    4042 	.db 0x94
-      004F1B 80                    4043 	.db 0x80
-      004F1C E2                    4044 	.db 0xe2
-      004F1D 94                    4045 	.db 0x94
-      004F1E 80                    4046 	.db 0x80
-      004F1F E2                    4047 	.db 0xe2
-      004F20 94                    4048 	.db 0x94
-      004F21 80                    4049 	.db 0x80
-      004F22 E2                    4050 	.db 0xe2
-      004F23 94                    4051 	.db 0x94
-      004F24 80                    4052 	.db 0x80
-      004F25 E2                    4053 	.db 0xe2
-      004F26 94                    4054 	.db 0x94
-      004F27 80                    4055 	.db 0x80
-      004F28 E2                    4056 	.db 0xe2
-      004F29 94                    4057 	.db 0x94
-      004F2A 90                    4058 	.db 0x90
-      004F2B 0A                    4059 	.db 0x0a
-      004F2C 0D                    4060 	.db 0x0d
-      004F2D 00                    4061 	.db 0x00
-                                   4062 	.area CSEG    (CODE)
-                                   4063 	.area CONST   (CODE)
-      004F2E                       4064 ___str_16:
-      004F2E 0A                    4065 	.db 0x0a
-      004F2F E2                    4066 	.db 0xe2
-      004F30 94                    4067 	.db 0x94
-      004F31 8C                    4068 	.db 0x8c
-      004F32 E2                    4069 	.db 0xe2
-      004F33 94                    4070 	.db 0x94
-      004F34 80                    4071 	.db 0x80
-      004F35 E2                    4072 	.db 0xe2
-      004F36 94                    4073 	.db 0x94
-      004F37 80                    4074 	.db 0x80
-      004F38 E2                    4075 	.db 0xe2
-      004F39 94                    4076 	.db 0x94
-      004F3A 80                    4077 	.db 0x80
-      004F3B E2                    4078 	.db 0xe2
-      004F3C 94                    4079 	.db 0x94
-      004F3D 80                    4080 	.db 0x80
-      004F3E E2                    4081 	.db 0xe2
-      004F3F 94                    4082 	.db 0x94
-      004F40 80                    4083 	.db 0x80
-      004F41 E2                    4084 	.db 0xe2
-      004F42 94                    4085 	.db 0x94
-      004F43 80                    4086 	.db 0x80
-      004F44 E2                    4087 	.db 0xe2
-      004F45 94                    4088 	.db 0x94
-      004F46 80                    4089 	.db 0x80
-      004F47 E2                    4090 	.db 0xe2
-      004F48 94                    4091 	.db 0x94
-      004F49 80                    4092 	.db 0x80
-      004F4A E2                    4093 	.db 0xe2
-      004F4B 94                    4094 	.db 0x94
-      004F4C 80                    4095 	.db 0x80
-      004F4D E2                    4096 	.db 0xe2
-      004F4E 94                    4097 	.db 0x94
-      004F4F 80                    4098 	.db 0x80
-      004F50 E2                    4099 	.db 0xe2
-      004F51 94                    4100 	.db 0x94
-      004F52 80                    4101 	.db 0x80
-      004F53 E2                    4102 	.db 0xe2
-      004F54 94                    4103 	.db 0x94
-      004F55 80                    4104 	.db 0x80
-      004F56 E2                    4105 	.db 0xe2
-      004F57 94                    4106 	.db 0x94
-      004F58 80                    4107 	.db 0x80
-      004F59 E2                    4108 	.db 0xe2
-      004F5A 94                    4109 	.db 0x94
-      004F5B 80                    4110 	.db 0x80
-      004F5C E2                    4111 	.db 0xe2
-      004F5D 94                    4112 	.db 0x94
-      004F5E 80                    4113 	.db 0x80
-      004F5F 20 52 45 41 44 20 4F  4114 	.ascii " READ OPERATION "
+      004FA4 E2                    4109 	.db 0xe2
+      004FA5 94                    4110 	.db 0x94
+      004FA6 80                    4111 	.db 0x80
+      004FA7 E2                    4112 	.db 0xe2
+      004FA8 94                    4113 	.db 0x94
+      004FA9 80                    4114 	.db 0x80
+      004FAA E2                    4115 	.db 0xe2
+      004FAB 94                    4116 	.db 0x94
+      004FAC 80                    4117 	.db 0x80
+      004FAD E2                    4118 	.db 0xe2
+      004FAE 94                    4119 	.db 0x94
+      004FAF 80                    4120 	.db 0x80
+      004FB0 E2                    4121 	.db 0xe2
+      004FB1 94                    4122 	.db 0x94
+      004FB2 80                    4123 	.db 0x80
+      004FB3 E2                    4124 	.db 0xe2
+      004FB4 94                    4125 	.db 0x94
+      004FB5 80                    4126 	.db 0x80
+      004FB6 E2                    4127 	.db 0xe2
+      004FB7 94                    4128 	.db 0x94
+      004FB8 80                    4129 	.db 0x80
+      004FB9 E2                    4130 	.db 0xe2
+      004FBA 94                    4131 	.db 0x94
+      004FBB 80                    4132 	.db 0x80
+      004FBC E2                    4133 	.db 0xe2
+      004FBD 94                    4134 	.db 0x94
+      004FBE 80                    4135 	.db 0x80
+      004FBF E2                    4136 	.db 0xe2
+      004FC0 94                    4137 	.db 0x94
+      004FC1 80                    4138 	.db 0x80
+      004FC2 E2                    4139 	.db 0xe2
+      004FC3 94                    4140 	.db 0x94
+      004FC4 80                    4141 	.db 0x80
+      004FC5 E2                    4142 	.db 0xe2
+      004FC6 94                    4143 	.db 0x94
+      004FC7 80                    4144 	.db 0x80
+      004FC8 E2                    4145 	.db 0xe2
+      004FC9 94                    4146 	.db 0x94
+      004FCA 80                    4147 	.db 0x80
+      004FCB E2                    4148 	.db 0xe2
+      004FCC 94                    4149 	.db 0x94
+      004FCD 80                    4150 	.db 0x80
+      004FCE E2                    4151 	.db 0xe2
+      004FCF 94                    4152 	.db 0x94
+      004FD0 90                    4153 	.db 0x90
+      004FD1 0A                    4154 	.db 0x0a
+      004FD2 0D                    4155 	.db 0x0d
+      004FD3 00                    4156 	.db 0x00
+                                   4157 	.area CSEG    (CODE)
+                                   4158 	.area CONST   (CODE)
+      004FD4                       4159 ___str_16:
+      004FD4 0A                    4160 	.db 0x0a
+      004FD5 E2                    4161 	.db 0xe2
+      004FD6 94                    4162 	.db 0x94
+      004FD7 8C                    4163 	.db 0x8c
+      004FD8 E2                    4164 	.db 0xe2
+      004FD9 94                    4165 	.db 0x94
+      004FDA 80                    4166 	.db 0x80
+      004FDB E2                    4167 	.db 0xe2
+      004FDC 94                    4168 	.db 0x94
+      004FDD 80                    4169 	.db 0x80
+      004FDE E2                    4170 	.db 0xe2
+      004FDF 94                    4171 	.db 0x94
+      004FE0 80                    4172 	.db 0x80
+      004FE1 E2                    4173 	.db 0xe2
+      004FE2 94                    4174 	.db 0x94
+      004FE3 80                    4175 	.db 0x80
+      004FE4 E2                    4176 	.db 0xe2
+      004FE5 94                    4177 	.db 0x94
+      004FE6 80                    4178 	.db 0x80
+      004FE7 E2                    4179 	.db 0xe2
+      004FE8 94                    4180 	.db 0x94
+      004FE9 80                    4181 	.db 0x80
+      004FEA E2                    4182 	.db 0xe2
+      004FEB 94                    4183 	.db 0x94
+      004FEC 80                    4184 	.db 0x80
+      004FED E2                    4185 	.db 0xe2
+      004FEE 94                    4186 	.db 0x94
+      004FEF 80                    4187 	.db 0x80
+      004FF0 E2                    4188 	.db 0xe2
+      004FF1 94                    4189 	.db 0x94
+      004FF2 80                    4190 	.db 0x80
+      004FF3 E2                    4191 	.db 0xe2
+      004FF4 94                    4192 	.db 0x94
+      004FF5 80                    4193 	.db 0x80
+      004FF6 E2                    4194 	.db 0xe2
+      004FF7 94                    4195 	.db 0x94
+      004FF8 80                    4196 	.db 0x80
+      004FF9 E2                    4197 	.db 0xe2
+      004FFA 94                    4198 	.db 0x94
+      004FFB 80                    4199 	.db 0x80
+      004FFC E2                    4200 	.db 0xe2
+      004FFD 94                    4201 	.db 0x94
+      004FFE 80                    4202 	.db 0x80
+      004FFF E2                    4203 	.db 0xe2
+      005000 94                    4204 	.db 0x94
+      005001 80                    4205 	.db 0x80
+      005002 E2                    4206 	.db 0xe2
+      005003 94                    4207 	.db 0x94
+      005004 80                    4208 	.db 0x80
+      005005 20 52 45 41 44 20 4F  4209 	.ascii " READ OPERATION "
              50 45 52 41 54 49 4F
              4E 20
-      004F6F E2                    4115 	.db 0xe2
-      004F70 94                    4116 	.db 0x94
-      004F71 80                    4117 	.db 0x80
-      004F72 E2                    4118 	.db 0xe2
-      004F73 94                    4119 	.db 0x94
-      004F74 80                    4120 	.db 0x80
-      004F75 E2                    4121 	.db 0xe2
-      004F76 94                    4122 	.db 0x94
-      004F77 80                    4123 	.db 0x80
-      004F78 E2                    4124 	.db 0xe2
-      004F79 94                    4125 	.db 0x94
-      004F7A 80                    4126 	.db 0x80
-      004F7B E2                    4127 	.db 0xe2
-      004F7C 94                    4128 	.db 0x94
-      004F7D 80                    4129 	.db 0x80
-      004F7E E2                    4130 	.db 0xe2
-      004F7F 94                    4131 	.db 0x94
-      004F80 80                    4132 	.db 0x80
-      004F81 E2                    4133 	.db 0xe2
-      004F82 94                    4134 	.db 0x94
-      004F83 80                    4135 	.db 0x80
-      004F84 E2                    4136 	.db 0xe2
-      004F85 94                    4137 	.db 0x94
-      004F86 80                    4138 	.db 0x80
-      004F87 E2                    4139 	.db 0xe2
-      004F88 94                    4140 	.db 0x94
-      004F89 80                    4141 	.db 0x80
-      004F8A E2                    4142 	.db 0xe2
-      004F8B 94                    4143 	.db 0x94
-      004F8C 80                    4144 	.db 0x80
-      004F8D E2                    4145 	.db 0xe2
-      004F8E 94                    4146 	.db 0x94
-      004F8F 80                    4147 	.db 0x80
-      004F90 E2                    4148 	.db 0xe2
-      004F91 94                    4149 	.db 0x94
-      004F92 80                    4150 	.db 0x80
-      004F93 E2                    4151 	.db 0xe2
-      004F94 94                    4152 	.db 0x94
-      004F95 80                    4153 	.db 0x80
-      004F96 E2                    4154 	.db 0xe2
-      004F97 94                    4155 	.db 0x94
-      004F98 80                    4156 	.db 0x80
-      004F99 E2                    4157 	.db 0xe2
-      004F9A 94                    4158 	.db 0x94
-      004F9B 80                    4159 	.db 0x80
-      004F9C E2                    4160 	.db 0xe2
-      004F9D 94                    4161 	.db 0x94
-      004F9E 90                    4162 	.db 0x90
-      004F9F 0A                    4163 	.db 0x0a
-      004FA0 0D                    4164 	.db 0x0d
-      004FA1 00                    4165 	.db 0x00
-                                   4166 	.area CSEG    (CODE)
-                                   4167 	.area CONST   (CODE)
-      004FA2                       4168 ___str_17:
-      004FA2 7C 20 52 65 61 64 69  4169 	.ascii "| Reading from Address 0x%03X           |"
+      005015 E2                    4210 	.db 0xe2
+      005016 94                    4211 	.db 0x94
+      005017 80                    4212 	.db 0x80
+      005018 E2                    4213 	.db 0xe2
+      005019 94                    4214 	.db 0x94
+      00501A 80                    4215 	.db 0x80
+      00501B E2                    4216 	.db 0xe2
+      00501C 94                    4217 	.db 0x94
+      00501D 80                    4218 	.db 0x80
+      00501E E2                    4219 	.db 0xe2
+      00501F 94                    4220 	.db 0x94
+      005020 80                    4221 	.db 0x80
+      005021 E2                    4222 	.db 0xe2
+      005022 94                    4223 	.db 0x94
+      005023 80                    4224 	.db 0x80
+      005024 E2                    4225 	.db 0xe2
+      005025 94                    4226 	.db 0x94
+      005026 80                    4227 	.db 0x80
+      005027 E2                    4228 	.db 0xe2
+      005028 94                    4229 	.db 0x94
+      005029 80                    4230 	.db 0x80
+      00502A E2                    4231 	.db 0xe2
+      00502B 94                    4232 	.db 0x94
+      00502C 80                    4233 	.db 0x80
+      00502D E2                    4234 	.db 0xe2
+      00502E 94                    4235 	.db 0x94
+      00502F 80                    4236 	.db 0x80
+      005030 E2                    4237 	.db 0xe2
+      005031 94                    4238 	.db 0x94
+      005032 80                    4239 	.db 0x80
+      005033 E2                    4240 	.db 0xe2
+      005034 94                    4241 	.db 0x94
+      005035 80                    4242 	.db 0x80
+      005036 E2                    4243 	.db 0xe2
+      005037 94                    4244 	.db 0x94
+      005038 80                    4245 	.db 0x80
+      005039 E2                    4246 	.db 0xe2
+      00503A 94                    4247 	.db 0x94
+      00503B 80                    4248 	.db 0x80
+      00503C E2                    4249 	.db 0xe2
+      00503D 94                    4250 	.db 0x94
+      00503E 80                    4251 	.db 0x80
+      00503F E2                    4252 	.db 0xe2
+      005040 94                    4253 	.db 0x94
+      005041 80                    4254 	.db 0x80
+      005042 E2                    4255 	.db 0xe2
+      005043 94                    4256 	.db 0x94
+      005044 90                    4257 	.db 0x90
+      005045 0A                    4258 	.db 0x0a
+      005046 0D                    4259 	.db 0x0d
+      005047 00                    4260 	.db 0x00
+                                   4261 	.area CSEG    (CODE)
+                                   4262 	.area CONST   (CODE)
+      005048                       4263 ___str_17:
+      005048 7C 20 52 65 61 64 69  4264 	.ascii "| Reading from Address 0x%03X           |"
              6E 67 20 66 72 6F 6D
              20 41 64 64 72 65 73
              73 20 30 78 25 30 33
              58 20 20 20 20 20 20
              20 20 20 20 20 7C
-      004FCB 0A                    4170 	.db 0x0a
-      004FCC 0D                    4171 	.db 0x0d
-      004FCD 00                    4172 	.db 0x00
-                                   4173 	.area CSEG    (CODE)
-                                   4174 	.area CONST   (CODE)
-      004FCE                       4175 ___str_18:
-      004FCE 0A                    4176 	.db 0x0a
-      004FCF E2                    4177 	.db 0xe2
-      004FD0 94                    4178 	.db 0x94
-      004FD1 8C                    4179 	.db 0x8c
-      004FD2 E2                    4180 	.db 0xe2
-      004FD3 94                    4181 	.db 0x94
-      004FD4 80                    4182 	.db 0x80
-      004FD5 E2                    4183 	.db 0xe2
-      004FD6 94                    4184 	.db 0x94
-      004FD7 80                    4185 	.db 0x80
-      004FD8 E2                    4186 	.db 0xe2
-      004FD9 94                    4187 	.db 0x94
-      004FDA 80                    4188 	.db 0x80
-      004FDB E2                    4189 	.db 0xe2
-      004FDC 94                    4190 	.db 0x94
-      004FDD 80                    4191 	.db 0x80
-      004FDE E2                    4192 	.db 0xe2
-      004FDF 94                    4193 	.db 0x94
-      004FE0 80                    4194 	.db 0x80
-      004FE1 E2                    4195 	.db 0xe2
-      004FE2 94                    4196 	.db 0x94
-      004FE3 80                    4197 	.db 0x80
-      004FE4 E2                    4198 	.db 0xe2
-      004FE5 94                    4199 	.db 0x94
-      004FE6 80                    4200 	.db 0x80
-      004FE7 E2                    4201 	.db 0xe2
-      004FE8 94                    4202 	.db 0x94
-      004FE9 80                    4203 	.db 0x80
-      004FEA E2                    4204 	.db 0xe2
-      004FEB 94                    4205 	.db 0x94
-      004FEC 80                    4206 	.db 0x80
-      004FED E2                    4207 	.db 0xe2
-      004FEE 94                    4208 	.db 0x94
-      004FEF 80                    4209 	.db 0x80
-      004FF0 E2                    4210 	.db 0xe2
-      004FF1 94                    4211 	.db 0x94
-      004FF2 80                    4212 	.db 0x80
-      004FF3 E2                    4213 	.db 0xe2
-      004FF4 94                    4214 	.db 0x94
-      004FF5 80                    4215 	.db 0x80
-      004FF6 E2                    4216 	.db 0xe2
-      004FF7 94                    4217 	.db 0x94
-      004FF8 80                    4218 	.db 0x80
-      004FF9 E2                    4219 	.db 0xe2
-      004FFA 94                    4220 	.db 0x94
-      004FFB 80                    4221 	.db 0x80
-      004FFC E2                    4222 	.db 0xe2
-      004FFD 94                    4223 	.db 0x94
-      004FFE 80                    4224 	.db 0x80
-      004FFF 20 52 45 53 45 54 20  4225 	.ascii " RESET OPERATION "
+      005071 0A                    4265 	.db 0x0a
+      005072 0D                    4266 	.db 0x0d
+      005073 00                    4267 	.db 0x00
+                                   4268 	.area CSEG    (CODE)
+                                   4269 	.area CONST   (CODE)
+      005074                       4270 ___str_18:
+      005074 0A                    4271 	.db 0x0a
+      005075 E2                    4272 	.db 0xe2
+      005076 94                    4273 	.db 0x94
+      005077 8C                    4274 	.db 0x8c
+      005078 E2                    4275 	.db 0xe2
+      005079 94                    4276 	.db 0x94
+      00507A 80                    4277 	.db 0x80
+      00507B E2                    4278 	.db 0xe2
+      00507C 94                    4279 	.db 0x94
+      00507D 80                    4280 	.db 0x80
+      00507E E2                    4281 	.db 0xe2
+      00507F 94                    4282 	.db 0x94
+      005080 80                    4283 	.db 0x80
+      005081 E2                    4284 	.db 0xe2
+      005082 94                    4285 	.db 0x94
+      005083 80                    4286 	.db 0x80
+      005084 E2                    4287 	.db 0xe2
+      005085 94                    4288 	.db 0x94
+      005086 80                    4289 	.db 0x80
+      005087 E2                    4290 	.db 0xe2
+      005088 94                    4291 	.db 0x94
+      005089 80                    4292 	.db 0x80
+      00508A E2                    4293 	.db 0xe2
+      00508B 94                    4294 	.db 0x94
+      00508C 80                    4295 	.db 0x80
+      00508D E2                    4296 	.db 0xe2
+      00508E 94                    4297 	.db 0x94
+      00508F 80                    4298 	.db 0x80
+      005090 E2                    4299 	.db 0xe2
+      005091 94                    4300 	.db 0x94
+      005092 80                    4301 	.db 0x80
+      005093 E2                    4302 	.db 0xe2
+      005094 94                    4303 	.db 0x94
+      005095 80                    4304 	.db 0x80
+      005096 E2                    4305 	.db 0xe2
+      005097 94                    4306 	.db 0x94
+      005098 80                    4307 	.db 0x80
+      005099 E2                    4308 	.db 0xe2
+      00509A 94                    4309 	.db 0x94
+      00509B 80                    4310 	.db 0x80
+      00509C E2                    4311 	.db 0xe2
+      00509D 94                    4312 	.db 0x94
+      00509E 80                    4313 	.db 0x80
+      00509F E2                    4314 	.db 0xe2
+      0050A0 94                    4315 	.db 0x94
+      0050A1 80                    4316 	.db 0x80
+      0050A2 E2                    4317 	.db 0xe2
+      0050A3 94                    4318 	.db 0x94
+      0050A4 80                    4319 	.db 0x80
+      0050A5 20 52 45 53 45 54 20  4320 	.ascii " RESET OPERATION "
              4F 50 45 52 41 54 49
              4F 4E 20
-      005010 E2                    4226 	.db 0xe2
-      005011 94                    4227 	.db 0x94
-      005012 80                    4228 	.db 0x80
-      005013 E2                    4229 	.db 0xe2
-      005014 94                    4230 	.db 0x94
-      005015 80                    4231 	.db 0x80
-      005016 E2                    4232 	.db 0xe2
-      005017 94                    4233 	.db 0x94
-      005018 80                    4234 	.db 0x80
-      005019 E2                    4235 	.db 0xe2
-      00501A 94                    4236 	.db 0x94
-      00501B 80                    4237 	.db 0x80
-      00501C E2                    4238 	.db 0xe2
-      00501D 94                    4239 	.db 0x94
-      00501E 80                    4240 	.db 0x80
-      00501F E2                    4241 	.db 0xe2
-      005020 94                    4242 	.db 0x94
-      005021 80                    4243 	.db 0x80
-      005022 E2                    4244 	.db 0xe2
-      005023 94                    4245 	.db 0x94
-      005024 80                    4246 	.db 0x80
-      005025 E2                    4247 	.db 0xe2
-      005026 94                    4248 	.db 0x94
-      005027 80                    4249 	.db 0x80
-      005028 E2                    4250 	.db 0xe2
-      005029 94                    4251 	.db 0x94
-      00502A 80                    4252 	.db 0x80
-      00502B E2                    4253 	.db 0xe2
-      00502C 94                    4254 	.db 0x94
-      00502D 80                    4255 	.db 0x80
-      00502E E2                    4256 	.db 0xe2
-      00502F 94                    4257 	.db 0x94
-      005030 80                    4258 	.db 0x80
-      005031 E2                    4259 	.db 0xe2
-      005032 94                    4260 	.db 0x94
-      005033 90                    4261 	.db 0x90
-      005034 0A                    4262 	.db 0x0a
-      005035 0D                    4263 	.db 0x0d
-      005036 00                    4264 	.db 0x00
-                                   4265 	.area CSEG    (CODE)
-                                   4266 	.area CONST   (CODE)
-      005037                       4267 ___str_19:
-      005037 0A                    4268 	.db 0x0a
-      005038 E2                    4269 	.db 0xe2
-      005039 94                    4270 	.db 0x94
-      00503A 8C                    4271 	.db 0x8c
-      00503B E2                    4272 	.db 0xe2
-      00503C 94                    4273 	.db 0x94
-      00503D 80                    4274 	.db 0x80
-      00503E E2                    4275 	.db 0xe2
-      00503F 94                    4276 	.db 0x94
-      005040 80                    4277 	.db 0x80
-      005041 E2                    4278 	.db 0xe2
-      005042 94                    4279 	.db 0x94
-      005043 80                    4280 	.db 0x80
-      005044 E2                    4281 	.db 0xe2
-      005045 94                    4282 	.db 0x94
-      005046 80                    4283 	.db 0x80
-      005047 E2                    4284 	.db 0xe2
-      005048 94                    4285 	.db 0x94
-      005049 80                    4286 	.db 0x80
-      00504A E2                    4287 	.db 0xe2
-      00504B 94                    4288 	.db 0x94
-      00504C 80                    4289 	.db 0x80
-      00504D E2                    4290 	.db 0xe2
-      00504E 94                    4291 	.db 0x94
-      00504F 80                    4292 	.db 0x80
-      005050 E2                    4293 	.db 0xe2
-      005051 94                    4294 	.db 0x94
-      005052 80                    4295 	.db 0x80
-      005053 E2                    4296 	.db 0xe2
-      005054 94                    4297 	.db 0x94
-      005055 80                    4298 	.db 0x80
-      005056 E2                    4299 	.db 0xe2
-      005057 94                    4300 	.db 0x94
-      005058 80                    4301 	.db 0x80
-      005059 E2                    4302 	.db 0xe2
-      00505A 94                    4303 	.db 0x94
-      00505B 80                    4304 	.db 0x80
-      00505C E2                    4305 	.db 0xe2
-      00505D 94                    4306 	.db 0x94
-      00505E 80                    4307 	.db 0x80
-      00505F E2                    4308 	.db 0xe2
-      005060 94                    4309 	.db 0x94
-      005061 80                    4310 	.db 0x80
-      005062 20 48 45 58 20 44 55  4311 	.ascii " HEX DUMP OPERATION "
+      0050B6 E2                    4321 	.db 0xe2
+      0050B7 94                    4322 	.db 0x94
+      0050B8 80                    4323 	.db 0x80
+      0050B9 E2                    4324 	.db 0xe2
+      0050BA 94                    4325 	.db 0x94
+      0050BB 80                    4326 	.db 0x80
+      0050BC E2                    4327 	.db 0xe2
+      0050BD 94                    4328 	.db 0x94
+      0050BE 80                    4329 	.db 0x80
+      0050BF E2                    4330 	.db 0xe2
+      0050C0 94                    4331 	.db 0x94
+      0050C1 80                    4332 	.db 0x80
+      0050C2 E2                    4333 	.db 0xe2
+      0050C3 94                    4334 	.db 0x94
+      0050C4 80                    4335 	.db 0x80
+      0050C5 E2                    4336 	.db 0xe2
+      0050C6 94                    4337 	.db 0x94
+      0050C7 80                    4338 	.db 0x80
+      0050C8 E2                    4339 	.db 0xe2
+      0050C9 94                    4340 	.db 0x94
+      0050CA 80                    4341 	.db 0x80
+      0050CB E2                    4342 	.db 0xe2
+      0050CC 94                    4343 	.db 0x94
+      0050CD 80                    4344 	.db 0x80
+      0050CE E2                    4345 	.db 0xe2
+      0050CF 94                    4346 	.db 0x94
+      0050D0 80                    4347 	.db 0x80
+      0050D1 E2                    4348 	.db 0xe2
+      0050D2 94                    4349 	.db 0x94
+      0050D3 80                    4350 	.db 0x80
+      0050D4 E2                    4351 	.db 0xe2
+      0050D5 94                    4352 	.db 0x94
+      0050D6 80                    4353 	.db 0x80
+      0050D7 E2                    4354 	.db 0xe2
+      0050D8 94                    4355 	.db 0x94
+      0050D9 90                    4356 	.db 0x90
+      0050DA 0A                    4357 	.db 0x0a
+      0050DB 0D                    4358 	.db 0x0d
+      0050DC 00                    4359 	.db 0x00
+                                   4360 	.area CSEG    (CODE)
+                                   4361 	.area CONST   (CODE)
+      0050DD                       4362 ___str_19:
+      0050DD 0A                    4363 	.db 0x0a
+      0050DE E2                    4364 	.db 0xe2
+      0050DF 94                    4365 	.db 0x94
+      0050E0 8C                    4366 	.db 0x8c
+      0050E1 E2                    4367 	.db 0xe2
+      0050E2 94                    4368 	.db 0x94
+      0050E3 80                    4369 	.db 0x80
+      0050E4 E2                    4370 	.db 0xe2
+      0050E5 94                    4371 	.db 0x94
+      0050E6 80                    4372 	.db 0x80
+      0050E7 E2                    4373 	.db 0xe2
+      0050E8 94                    4374 	.db 0x94
+      0050E9 80                    4375 	.db 0x80
+      0050EA E2                    4376 	.db 0xe2
+      0050EB 94                    4377 	.db 0x94
+      0050EC 80                    4378 	.db 0x80
+      0050ED E2                    4379 	.db 0xe2
+      0050EE 94                    4380 	.db 0x94
+      0050EF 80                    4381 	.db 0x80
+      0050F0 E2                    4382 	.db 0xe2
+      0050F1 94                    4383 	.db 0x94
+      0050F2 80                    4384 	.db 0x80
+      0050F3 E2                    4385 	.db 0xe2
+      0050F4 94                    4386 	.db 0x94
+      0050F5 80                    4387 	.db 0x80
+      0050F6 E2                    4388 	.db 0xe2
+      0050F7 94                    4389 	.db 0x94
+      0050F8 80                    4390 	.db 0x80
+      0050F9 E2                    4391 	.db 0xe2
+      0050FA 94                    4392 	.db 0x94
+      0050FB 80                    4393 	.db 0x80
+      0050FC E2                    4394 	.db 0xe2
+      0050FD 94                    4395 	.db 0x94
+      0050FE 80                    4396 	.db 0x80
+      0050FF E2                    4397 	.db 0xe2
+      005100 94                    4398 	.db 0x94
+      005101 80                    4399 	.db 0x80
+      005102 E2                    4400 	.db 0xe2
+      005103 94                    4401 	.db 0x94
+      005104 80                    4402 	.db 0x80
+      005105 E2                    4403 	.db 0xe2
+      005106 94                    4404 	.db 0x94
+      005107 80                    4405 	.db 0x80
+      005108 20 48 45 58 20 44 55  4406 	.ascii " HEX DUMP OPERATION "
              4D 50 20 4F 50 45 52
              41 54 49 4F 4E 20
-      005076 E2                    4312 	.db 0xe2
-      005077 94                    4313 	.db 0x94
-      005078 80                    4314 	.db 0x80
-      005079 E2                    4315 	.db 0xe2
-      00507A 94                    4316 	.db 0x94
-      00507B 80                    4317 	.db 0x80
-      00507C E2                    4318 	.db 0xe2
-      00507D 94                    4319 	.db 0x94
-      00507E 80                    4320 	.db 0x80
-      00507F E2                    4321 	.db 0xe2
-      005080 94                    4322 	.db 0x94
-      005081 80                    4323 	.db 0x80
-      005082 E2                    4324 	.db 0xe2
-      005083 94                    4325 	.db 0x94
-      005084 80                    4326 	.db 0x80
-      005085 E2                    4327 	.db 0xe2
-      005086 94                    4328 	.db 0x94
-      005087 80                    4329 	.db 0x80
-      005088 E2                    4330 	.db 0xe2
-      005089 94                    4331 	.db 0x94
-      00508A 80                    4332 	.db 0x80
-      00508B E2                    4333 	.db 0xe2
-      00508C 94                    4334 	.db 0x94
-      00508D 80                    4335 	.db 0x80
-      00508E E2                    4336 	.db 0xe2
-      00508F 94                    4337 	.db 0x94
-      005090 80                    4338 	.db 0x80
-      005091 E2                    4339 	.db 0xe2
-      005092 94                    4340 	.db 0x94
-      005093 80                    4341 	.db 0x80
-      005094 E2                    4342 	.db 0xe2
-      005095 94                    4343 	.db 0x94
-      005096 80                    4344 	.db 0x80
-      005097 E2                    4345 	.db 0xe2
-      005098 94                    4346 	.db 0x94
-      005099 80                    4347 	.db 0x80
-      00509A E2                    4348 	.db 0xe2
-      00509B 94                    4349 	.db 0x94
-      00509C 80                    4350 	.db 0x80
-      00509D E2                    4351 	.db 0xe2
-      00509E 94                    4352 	.db 0x94
-      00509F 80                    4353 	.db 0x80
-      0050A0 E2                    4354 	.db 0xe2
-      0050A1 94                    4355 	.db 0x94
-      0050A2 80                    4356 	.db 0x80
-      0050A3 E2                    4357 	.db 0xe2
-      0050A4 94                    4358 	.db 0x94
-      0050A5 90                    4359 	.db 0x90
-      0050A6 0A                    4360 	.db 0x0a
-      0050A7 0D                    4361 	.db 0x0d
-      0050A8 00                    4362 	.db 0x00
-                                   4363 	.area CSEG    (CODE)
-                                   4364 	.area CONST   (CODE)
-      0050A9                       4365 ___str_20:
-      0050A9 49 4E 56 41 4C 49 44  4366 	.ascii "INVALID INPUT"
+      00511C E2                    4407 	.db 0xe2
+      00511D 94                    4408 	.db 0x94
+      00511E 80                    4409 	.db 0x80
+      00511F E2                    4410 	.db 0xe2
+      005120 94                    4411 	.db 0x94
+      005121 80                    4412 	.db 0x80
+      005122 E2                    4413 	.db 0xe2
+      005123 94                    4414 	.db 0x94
+      005124 80                    4415 	.db 0x80
+      005125 E2                    4416 	.db 0xe2
+      005126 94                    4417 	.db 0x94
+      005127 80                    4418 	.db 0x80
+      005128 E2                    4419 	.db 0xe2
+      005129 94                    4420 	.db 0x94
+      00512A 80                    4421 	.db 0x80
+      00512B E2                    4422 	.db 0xe2
+      00512C 94                    4423 	.db 0x94
+      00512D 80                    4424 	.db 0x80
+      00512E E2                    4425 	.db 0xe2
+      00512F 94                    4426 	.db 0x94
+      005130 80                    4427 	.db 0x80
+      005131 E2                    4428 	.db 0xe2
+      005132 94                    4429 	.db 0x94
+      005133 80                    4430 	.db 0x80
+      005134 E2                    4431 	.db 0xe2
+      005135 94                    4432 	.db 0x94
+      005136 80                    4433 	.db 0x80
+      005137 E2                    4434 	.db 0xe2
+      005138 94                    4435 	.db 0x94
+      005139 80                    4436 	.db 0x80
+      00513A E2                    4437 	.db 0xe2
+      00513B 94                    4438 	.db 0x94
+      00513C 80                    4439 	.db 0x80
+      00513D E2                    4440 	.db 0xe2
+      00513E 94                    4441 	.db 0x94
+      00513F 80                    4442 	.db 0x80
+      005140 E2                    4443 	.db 0xe2
+      005141 94                    4444 	.db 0x94
+      005142 80                    4445 	.db 0x80
+      005143 E2                    4446 	.db 0xe2
+      005144 94                    4447 	.db 0x94
+      005145 80                    4448 	.db 0x80
+      005146 E2                    4449 	.db 0xe2
+      005147 94                    4450 	.db 0x94
+      005148 80                    4451 	.db 0x80
+      005149 E2                    4452 	.db 0xe2
+      00514A 94                    4453 	.db 0x94
+      00514B 90                    4454 	.db 0x90
+      00514C 0A                    4455 	.db 0x0a
+      00514D 0D                    4456 	.db 0x0d
+      00514E 00                    4457 	.db 0x00
+                                   4458 	.area CSEG    (CODE)
+                                   4459 	.area CONST   (CODE)
+      00514F                       4460 ___str_20:
+      00514F 49 4E 56 41 4C 49 44  4461 	.ascii "INVALID INPUT"
              20 49 4E 50 55 54
-      0050B6 0A                    4367 	.db 0x0a
-      0050B7 0D                    4368 	.db 0x0d
-      0050B8 00                    4369 	.db 0x00
-                                   4370 	.area CSEG    (CODE)
-                                   4371 	.area CONST   (CODE)
-      0050B9                       4372 ___str_21:
-      0050B9 E2                    4373 	.db 0xe2
-      0050BA 94                    4374 	.db 0x94
-      0050BB 82                    4375 	.db 0x82
-      0050BC 20 45 6E 74 65 72 20  4376 	.ascii " Enter address (hex, up to 3 characters): "
+      00515C 0A                    4462 	.db 0x0a
+      00515D 0D                    4463 	.db 0x0d
+      00515E 00                    4464 	.db 0x00
+                                   4465 	.area CSEG    (CODE)
+                                   4466 	.area CONST   (CODE)
+      00515F                       4467 ___str_21:
+      00515F E2                    4468 	.db 0xe2
+      005160 94                    4469 	.db 0x94
+      005161 82                    4470 	.db 0x82
+      005162 20 45 6E 74 65 72 20  4471 	.ascii " Enter address (hex, up to 3 characters): "
              61 64 64 72 65 73 73
              20 28 68 65 78 2C 20
              75 70 20 74 6F 20 33
              20 63 68 61 72 61 63
              74 65 72 73 29 3A 20
-      0050E6 0A                    4377 	.db 0x0a
-      0050E7 0D                    4378 	.db 0x0d
-      0050E8 7C                    4379 	.ascii "|"
-      0050E9 00                    4380 	.db 0x00
-                                   4381 	.area CSEG    (CODE)
-                                   4382 	.area CONST   (CODE)
-      0050EA                       4383 ___str_22:
-      0050EA 7C 20 24 20           4384 	.ascii "| $ "
-      0050EE 00                    4385 	.db 0x00
-                                   4386 	.area CSEG    (CODE)
-                                   4387 	.area CONST   (CODE)
-      0050EF                       4388 ___str_23:
-      0050EF 0A                    4389 	.db 0x0a
-      0050F0 0D                    4390 	.db 0x0d
-      0050F1 E2                    4391 	.db 0xe2
-      0050F2 94                    4392 	.db 0x94
-      0050F3 82                    4393 	.db 0x82
-      0050F4 20 45 6E 74 65 72 65  4394 	.ascii " Entered address: 0x%03X"
+      00518C 0A                    4472 	.db 0x0a
+      00518D 0D                    4473 	.db 0x0d
+      00518E 7C                    4474 	.ascii "|"
+      00518F 00                    4475 	.db 0x00
+                                   4476 	.area CSEG    (CODE)
+                                   4477 	.area CONST   (CODE)
+      005190                       4478 ___str_22:
+      005190 7C 20 24 20           4479 	.ascii "| $ "
+      005194 00                    4480 	.db 0x00
+                                   4481 	.area CSEG    (CODE)
+                                   4482 	.area CONST   (CODE)
+      005195                       4483 ___str_23:
+      005195 0A                    4484 	.db 0x0a
+      005196 0D                    4485 	.db 0x0d
+      005197 E2                    4486 	.db 0xe2
+      005198 94                    4487 	.db 0x94
+      005199 82                    4488 	.db 0x82
+      00519A 20 45 6E 74 65 72 65  4489 	.ascii " Entered address: 0x%03X"
              64 20 61 64 64 72 65
              73 73 3A 20 30 78 25
              30 33 58
-      00510C 0A                    4395 	.db 0x0a
-      00510D 0D                    4396 	.db 0x0d
-      00510E 00                    4397 	.db 0x00
-                                   4398 	.area CSEG    (CODE)
-                                   4399 	.area CONST   (CODE)
-      00510F                       4400 ___str_24:
-      00510F E2                    4401 	.db 0xe2
-      005110 95                    4402 	.db 0x95
-      005111 94                    4403 	.db 0x94
-      005112 E2                    4404 	.db 0xe2
-      005113 95                    4405 	.db 0x95
-      005114 90                    4406 	.db 0x90
-      005115 E2                    4407 	.db 0xe2
-      005116 95                    4408 	.db 0x95
-      005117 90                    4409 	.db 0x90
-      005118 E2                    4410 	.db 0xe2
-      005119 95                    4411 	.db 0x95
-      00511A 90                    4412 	.db 0x90
-      00511B E2                    4413 	.db 0xe2
-      00511C 95                    4414 	.db 0x95
-      00511D 90                    4415 	.db 0x90
-      00511E E2                    4416 	.db 0xe2
-      00511F 95                    4417 	.db 0x95
-      005120 90                    4418 	.db 0x90
-      005121 E2                    4419 	.db 0xe2
-      005122 95                    4420 	.db 0x95
-      005123 90                    4421 	.db 0x90
-      005124 E2                    4422 	.db 0xe2
-      005125 95                    4423 	.db 0x95
-      005126 90                    4424 	.db 0x90
-      005127 E2                    4425 	.db 0xe2
-      005128 95                    4426 	.db 0x95
-      005129 90                    4427 	.db 0x90
-      00512A E2                    4428 	.db 0xe2
-      00512B 95                    4429 	.db 0x95
-      00512C 90                    4430 	.db 0x90
-      00512D E2                    4431 	.db 0xe2
-      00512E 95                    4432 	.db 0x95
-      00512F 90                    4433 	.db 0x90
-      005130 E2                    4434 	.db 0xe2
-      005131 95                    4435 	.db 0x95
-      005132 90                    4436 	.db 0x90
-      005133 E2                    4437 	.db 0xe2
-      005134 95                    4438 	.db 0x95
-      005135 90                    4439 	.db 0x90
-      005136 E2                    4440 	.db 0xe2
-      005137 95                    4441 	.db 0x95
-      005138 90                    4442 	.db 0x90
-      005139 E2                    4443 	.db 0xe2
-      00513A 95                    4444 	.db 0x95
-      00513B 90                    4445 	.db 0x90
-      00513C E2                    4446 	.db 0xe2
-      00513D 95                    4447 	.db 0x95
-      00513E 90                    4448 	.db 0x90
-      00513F E2                    4449 	.db 0xe2
-      005140 95                    4450 	.db 0x95
-      005141 90                    4451 	.db 0x90
-      005142 E2                    4452 	.db 0xe2
-      005143 95                    4453 	.db 0x95
-      005144 90                    4454 	.db 0x90
-      005145 E2                    4455 	.db 0xe2
-      005146 95                    4456 	.db 0x95
-      005147 90                    4457 	.db 0x90
-      005148 E2                    4458 	.db 0xe2
-      005149 95                    4459 	.db 0x95
-      00514A 90                    4460 	.db 0x90
-      00514B E2                    4461 	.db 0xe2
-      00514C 95                    4462 	.db 0x95
-      00514D 90                    4463 	.db 0x90
-      00514E E2                    4464 	.db 0xe2
-      00514F 95                    4465 	.db 0x95
-      005150 90                    4466 	.db 0x90
-      005151 E2                    4467 	.db 0xe2
-      005152 95                    4468 	.db 0x95
-      005153 90                    4469 	.db 0x90
-      005154 E2                    4470 	.db 0xe2
-      005155 95                    4471 	.db 0x95
-      005156 90                    4472 	.db 0x90
-      005157 E2                    4473 	.db 0xe2
-      005158 95                    4474 	.db 0x95
-      005159 90                    4475 	.db 0x90
-      00515A E2                    4476 	.db 0xe2
-      00515B 95                    4477 	.db 0x95
-      00515C 90                    4478 	.db 0x90
-      00515D E2                    4479 	.db 0xe2
-      00515E 95                    4480 	.db 0x95
-      00515F 90                    4481 	.db 0x90
-      005160 E2                    4482 	.db 0xe2
-      005161 95                    4483 	.db 0x95
-      005162 90                    4484 	.db 0x90
-      005163 E2                    4485 	.db 0xe2
-      005164 95                    4486 	.db 0x95
-      005165 90                    4487 	.db 0x90
-      005166 E2                    4488 	.db 0xe2
-      005167 95                    4489 	.db 0x95
-      005168 90                    4490 	.db 0x90
-      005169 E2                    4491 	.db 0xe2
-      00516A 95                    4492 	.db 0x95
-      00516B 90                    4493 	.db 0x90
-      00516C E2                    4494 	.db 0xe2
-      00516D 95                    4495 	.db 0x95
-      00516E 90                    4496 	.db 0x90
-      00516F E2                    4497 	.db 0xe2
-      005170 95                    4498 	.db 0x95
-      005171 90                    4499 	.db 0x90
-      005172 E2                    4500 	.db 0xe2
-      005173 95                    4501 	.db 0x95
-      005174 90                    4502 	.db 0x90
-      005175 E2                    4503 	.db 0xe2
-      005176 95                    4504 	.db 0x95
-      005177 90                    4505 	.db 0x90
-      005178 E2                    4506 	.db 0xe2
-      005179 95                    4507 	.db 0x95
-      00517A 90                    4508 	.db 0x90
-      00517B E2                    4509 	.db 0xe2
-      00517C 95                    4510 	.db 0x95
-      00517D 90                    4511 	.db 0x90
-      00517E E2                    4512 	.db 0xe2
-      00517F 95                    4513 	.db 0x95
-      005180 90                    4514 	.db 0x90
-      005181 E2                    4515 	.db 0xe2
-      005182 95                    4516 	.db 0x95
-      005183 90                    4517 	.db 0x90
-      005184 E2                    4518 	.db 0xe2
-      005185 95                    4519 	.db 0x95
-      005186 90                    4520 	.db 0x90
-      005187 E2                    4521 	.db 0xe2
-      005188 95                    4522 	.db 0x95
-      005189 90                    4523 	.db 0x90
-      00518A E2                    4524 	.db 0xe2
-      00518B 95                    4525 	.db 0x95
-      00518C 90                    4526 	.db 0x90
-      00518D E2                    4527 	.db 0xe2
-      00518E 95                    4528 	.db 0x95
-      00518F 90                    4529 	.db 0x90
-      005190 E2                    4530 	.db 0xe2
-      005191 95                    4531 	.db 0x95
-      005192 97                    4532 	.db 0x97
-      005193 0A                    4533 	.db 0x0a
-      005194 0D                    4534 	.db 0x0d
-      005195 00                    4535 	.db 0x00
-                                   4536 	.area CSEG    (CODE)
-                                   4537 	.area CONST   (CODE)
-      005196                       4538 ___str_25:
-      005196 E2                    4539 	.db 0xe2
-      005197 95                    4540 	.db 0x95
-      005198 91                    4541 	.db 0x91
-      005199 20 20 20 20 20 20 20  4542 	.ascii "       ! ADDRESS OUT OF RANGE !         "
+      0051B2 0A                    4490 	.db 0x0a
+      0051B3 0D                    4491 	.db 0x0d
+      0051B4 00                    4492 	.db 0x00
+                                   4493 	.area CSEG    (CODE)
+                                   4494 	.area CONST   (CODE)
+      0051B5                       4495 ___str_24:
+      0051B5 E2                    4496 	.db 0xe2
+      0051B6 95                    4497 	.db 0x95
+      0051B7 94                    4498 	.db 0x94
+      0051B8 E2                    4499 	.db 0xe2
+      0051B9 95                    4500 	.db 0x95
+      0051BA 90                    4501 	.db 0x90
+      0051BB E2                    4502 	.db 0xe2
+      0051BC 95                    4503 	.db 0x95
+      0051BD 90                    4504 	.db 0x90
+      0051BE E2                    4505 	.db 0xe2
+      0051BF 95                    4506 	.db 0x95
+      0051C0 90                    4507 	.db 0x90
+      0051C1 E2                    4508 	.db 0xe2
+      0051C2 95                    4509 	.db 0x95
+      0051C3 90                    4510 	.db 0x90
+      0051C4 E2                    4511 	.db 0xe2
+      0051C5 95                    4512 	.db 0x95
+      0051C6 90                    4513 	.db 0x90
+      0051C7 E2                    4514 	.db 0xe2
+      0051C8 95                    4515 	.db 0x95
+      0051C9 90                    4516 	.db 0x90
+      0051CA E2                    4517 	.db 0xe2
+      0051CB 95                    4518 	.db 0x95
+      0051CC 90                    4519 	.db 0x90
+      0051CD E2                    4520 	.db 0xe2
+      0051CE 95                    4521 	.db 0x95
+      0051CF 90                    4522 	.db 0x90
+      0051D0 E2                    4523 	.db 0xe2
+      0051D1 95                    4524 	.db 0x95
+      0051D2 90                    4525 	.db 0x90
+      0051D3 E2                    4526 	.db 0xe2
+      0051D4 95                    4527 	.db 0x95
+      0051D5 90                    4528 	.db 0x90
+      0051D6 E2                    4529 	.db 0xe2
+      0051D7 95                    4530 	.db 0x95
+      0051D8 90                    4531 	.db 0x90
+      0051D9 E2                    4532 	.db 0xe2
+      0051DA 95                    4533 	.db 0x95
+      0051DB 90                    4534 	.db 0x90
+      0051DC E2                    4535 	.db 0xe2
+      0051DD 95                    4536 	.db 0x95
+      0051DE 90                    4537 	.db 0x90
+      0051DF E2                    4538 	.db 0xe2
+      0051E0 95                    4539 	.db 0x95
+      0051E1 90                    4540 	.db 0x90
+      0051E2 E2                    4541 	.db 0xe2
+      0051E3 95                    4542 	.db 0x95
+      0051E4 90                    4543 	.db 0x90
+      0051E5 E2                    4544 	.db 0xe2
+      0051E6 95                    4545 	.db 0x95
+      0051E7 90                    4546 	.db 0x90
+      0051E8 E2                    4547 	.db 0xe2
+      0051E9 95                    4548 	.db 0x95
+      0051EA 90                    4549 	.db 0x90
+      0051EB E2                    4550 	.db 0xe2
+      0051EC 95                    4551 	.db 0x95
+      0051ED 90                    4552 	.db 0x90
+      0051EE E2                    4553 	.db 0xe2
+      0051EF 95                    4554 	.db 0x95
+      0051F0 90                    4555 	.db 0x90
+      0051F1 E2                    4556 	.db 0xe2
+      0051F2 95                    4557 	.db 0x95
+      0051F3 90                    4558 	.db 0x90
+      0051F4 E2                    4559 	.db 0xe2
+      0051F5 95                    4560 	.db 0x95
+      0051F6 90                    4561 	.db 0x90
+      0051F7 E2                    4562 	.db 0xe2
+      0051F8 95                    4563 	.db 0x95
+      0051F9 90                    4564 	.db 0x90
+      0051FA E2                    4565 	.db 0xe2
+      0051FB 95                    4566 	.db 0x95
+      0051FC 90                    4567 	.db 0x90
+      0051FD E2                    4568 	.db 0xe2
+      0051FE 95                    4569 	.db 0x95
+      0051FF 90                    4570 	.db 0x90
+      005200 E2                    4571 	.db 0xe2
+      005201 95                    4572 	.db 0x95
+      005202 90                    4573 	.db 0x90
+      005203 E2                    4574 	.db 0xe2
+      005204 95                    4575 	.db 0x95
+      005205 90                    4576 	.db 0x90
+      005206 E2                    4577 	.db 0xe2
+      005207 95                    4578 	.db 0x95
+      005208 90                    4579 	.db 0x90
+      005209 E2                    4580 	.db 0xe2
+      00520A 95                    4581 	.db 0x95
+      00520B 90                    4582 	.db 0x90
+      00520C E2                    4583 	.db 0xe2
+      00520D 95                    4584 	.db 0x95
+      00520E 90                    4585 	.db 0x90
+      00520F E2                    4586 	.db 0xe2
+      005210 95                    4587 	.db 0x95
+      005211 90                    4588 	.db 0x90
+      005212 E2                    4589 	.db 0xe2
+      005213 95                    4590 	.db 0x95
+      005214 90                    4591 	.db 0x90
+      005215 E2                    4592 	.db 0xe2
+      005216 95                    4593 	.db 0x95
+      005217 90                    4594 	.db 0x90
+      005218 E2                    4595 	.db 0xe2
+      005219 95                    4596 	.db 0x95
+      00521A 90                    4597 	.db 0x90
+      00521B E2                    4598 	.db 0xe2
+      00521C 95                    4599 	.db 0x95
+      00521D 90                    4600 	.db 0x90
+      00521E E2                    4601 	.db 0xe2
+      00521F 95                    4602 	.db 0x95
+      005220 90                    4603 	.db 0x90
+      005221 E2                    4604 	.db 0xe2
+      005222 95                    4605 	.db 0x95
+      005223 90                    4606 	.db 0x90
+      005224 E2                    4607 	.db 0xe2
+      005225 95                    4608 	.db 0x95
+      005226 90                    4609 	.db 0x90
+      005227 E2                    4610 	.db 0xe2
+      005228 95                    4611 	.db 0x95
+      005229 90                    4612 	.db 0x90
+      00522A E2                    4613 	.db 0xe2
+      00522B 95                    4614 	.db 0x95
+      00522C 90                    4615 	.db 0x90
+      00522D E2                    4616 	.db 0xe2
+      00522E 95                    4617 	.db 0x95
+      00522F 90                    4618 	.db 0x90
+      005230 E2                    4619 	.db 0xe2
+      005231 95                    4620 	.db 0x95
+      005232 90                    4621 	.db 0x90
+      005233 E2                    4622 	.db 0xe2
+      005234 95                    4623 	.db 0x95
+      005235 90                    4624 	.db 0x90
+      005236 E2                    4625 	.db 0xe2
+      005237 95                    4626 	.db 0x95
+      005238 97                    4627 	.db 0x97
+      005239 0A                    4628 	.db 0x0a
+      00523A 0D                    4629 	.db 0x0d
+      00523B 00                    4630 	.db 0x00
+                                   4631 	.area CSEG    (CODE)
+                                   4632 	.area CONST   (CODE)
+      00523C                       4633 ___str_25:
+      00523C E2                    4634 	.db 0xe2
+      00523D 95                    4635 	.db 0x95
+      00523E 91                    4636 	.db 0x91
+      00523F 20 20 20 20 20 20 20  4637 	.ascii "       ! ADDRESS OUT OF RANGE !         "
              21 20 41 44 44 52 45
              53 53 20 4F 55 54 20
              4F 46 20 52 41 4E 47
              45 20 21 20 20 20 20
              20 20 20 20 20
-      0051C1 E2                    4543 	.db 0xe2
-      0051C2 95                    4544 	.db 0x95
-      0051C3 91                    4545 	.db 0x91
-      0051C4 0A                    4546 	.db 0x0a
-      0051C5 0D                    4547 	.db 0x0d
-      0051C6 00                    4548 	.db 0x00
-                                   4549 	.area CSEG    (CODE)
-                                   4550 	.area CONST   (CODE)
-      0051C7                       4551 ___str_26:
-      0051C7 E2                    4552 	.db 0xe2
-      0051C8 95                    4553 	.db 0x95
-      0051C9 91                    4554 	.db 0x91
-      0051CA 20 20 20 20 20 50 6C  4555 	.ascii "     Please Enter Valid Address         "
+      005267 E2                    4638 	.db 0xe2
+      005268 95                    4639 	.db 0x95
+      005269 91                    4640 	.db 0x91
+      00526A 0A                    4641 	.db 0x0a
+      00526B 0D                    4642 	.db 0x0d
+      00526C 00                    4643 	.db 0x00
+                                   4644 	.area CSEG    (CODE)
+                                   4645 	.area CONST   (CODE)
+      00526D                       4646 ___str_26:
+      00526D E2                    4647 	.db 0xe2
+      00526E 95                    4648 	.db 0x95
+      00526F 91                    4649 	.db 0x91
+      005270 20 20 20 20 20 50 6C  4650 	.ascii "     Please Enter Valid Address         "
              65 61 73 65 20 45 6E
              74 65 72 20 56 61 6C
              69 64 20 41 64 64 72
              65 73 73 20 20 20 20
              20 20 20 20 20
-      0051F2 E2                    4556 	.db 0xe2
-      0051F3 95                    4557 	.db 0x95
-      0051F4 91                    4558 	.db 0x91
-      0051F5 0A                    4559 	.db 0x0a
-      0051F6 0D                    4560 	.db 0x0d
-      0051F7 00                    4561 	.db 0x00
-                                   4562 	.area CSEG    (CODE)
-                                   4563 	.area CONST   (CODE)
-      0051F8                       4564 ___str_27:
-      0051F8 E2                    4565 	.db 0xe2
-      0051F9 95                    4566 	.db 0x95
-      0051FA 9A                    4567 	.db 0x9a
-      0051FB E2                    4568 	.db 0xe2
-      0051FC 95                    4569 	.db 0x95
-      0051FD 90                    4570 	.db 0x90
-      0051FE E2                    4571 	.db 0xe2
-      0051FF 95                    4572 	.db 0x95
-      005200 90                    4573 	.db 0x90
-      005201 E2                    4574 	.db 0xe2
-      005202 95                    4575 	.db 0x95
-      005203 90                    4576 	.db 0x90
-      005204 E2                    4577 	.db 0xe2
-      005205 95                    4578 	.db 0x95
-      005206 90                    4579 	.db 0x90
-      005207 E2                    4580 	.db 0xe2
-      005208 95                    4581 	.db 0x95
-      005209 90                    4582 	.db 0x90
-      00520A E2                    4583 	.db 0xe2
-      00520B 95                    4584 	.db 0x95
-      00520C 90                    4585 	.db 0x90
-      00520D E2                    4586 	.db 0xe2
-      00520E 95                    4587 	.db 0x95
-      00520F 90                    4588 	.db 0x90
-      005210 E2                    4589 	.db 0xe2
-      005211 95                    4590 	.db 0x95
-      005212 90                    4591 	.db 0x90
-      005213 E2                    4592 	.db 0xe2
-      005214 95                    4593 	.db 0x95
-      005215 90                    4594 	.db 0x90
-      005216 E2                    4595 	.db 0xe2
-      005217 95                    4596 	.db 0x95
-      005218 90                    4597 	.db 0x90
-      005219 E2                    4598 	.db 0xe2
-      00521A 95                    4599 	.db 0x95
-      00521B 90                    4600 	.db 0x90
-      00521C E2                    4601 	.db 0xe2
-      00521D 95                    4602 	.db 0x95
-      00521E 90                    4603 	.db 0x90
-      00521F E2                    4604 	.db 0xe2
-      005220 95                    4605 	.db 0x95
-      005221 90                    4606 	.db 0x90
-      005222 E2                    4607 	.db 0xe2
-      005223 95                    4608 	.db 0x95
-      005224 90                    4609 	.db 0x90
-      005225 E2                    4610 	.db 0xe2
-      005226 95                    4611 	.db 0x95
-      005227 90                    4612 	.db 0x90
-      005228 E2                    4613 	.db 0xe2
-      005229 95                    4614 	.db 0x95
-      00522A 90                    4615 	.db 0x90
-      00522B E2                    4616 	.db 0xe2
-      00522C 95                    4617 	.db 0x95
-      00522D 90                    4618 	.db 0x90
-      00522E E2                    4619 	.db 0xe2
-      00522F 95                    4620 	.db 0x95
-      005230 90                    4621 	.db 0x90
-      005231 E2                    4622 	.db 0xe2
-      005232 95                    4623 	.db 0x95
-      005233 90                    4624 	.db 0x90
-      005234 E2                    4625 	.db 0xe2
-      005235 95                    4626 	.db 0x95
-      005236 90                    4627 	.db 0x90
-      005237 E2                    4628 	.db 0xe2
-      005238 95                    4629 	.db 0x95
-      005239 90                    4630 	.db 0x90
-      00523A E2                    4631 	.db 0xe2
-      00523B 95                    4632 	.db 0x95
-      00523C 90                    4633 	.db 0x90
-      00523D E2                    4634 	.db 0xe2
-      00523E 95                    4635 	.db 0x95
-      00523F 90                    4636 	.db 0x90
-      005240 E2                    4637 	.db 0xe2
-      005241 95                    4638 	.db 0x95
-      005242 90                    4639 	.db 0x90
-      005243 E2                    4640 	.db 0xe2
-      005244 95                    4641 	.db 0x95
-      005245 90                    4642 	.db 0x90
-      005246 E2                    4643 	.db 0xe2
-      005247 95                    4644 	.db 0x95
-      005248 90                    4645 	.db 0x90
-      005249 E2                    4646 	.db 0xe2
-      00524A 95                    4647 	.db 0x95
-      00524B 90                    4648 	.db 0x90
-      00524C E2                    4649 	.db 0xe2
-      00524D 95                    4650 	.db 0x95
-      00524E 90                    4651 	.db 0x90
-      00524F E2                    4652 	.db 0xe2
-      005250 95                    4653 	.db 0x95
-      005251 90                    4654 	.db 0x90
-      005252 E2                    4655 	.db 0xe2
-      005253 95                    4656 	.db 0x95
-      005254 90                    4657 	.db 0x90
-      005255 E2                    4658 	.db 0xe2
-      005256 95                    4659 	.db 0x95
-      005257 90                    4660 	.db 0x90
-      005258 E2                    4661 	.db 0xe2
-      005259 95                    4662 	.db 0x95
-      00525A 90                    4663 	.db 0x90
-      00525B E2                    4664 	.db 0xe2
-      00525C 95                    4665 	.db 0x95
-      00525D 90                    4666 	.db 0x90
-      00525E E2                    4667 	.db 0xe2
-      00525F 95                    4668 	.db 0x95
-      005260 90                    4669 	.db 0x90
-      005261 E2                    4670 	.db 0xe2
-      005262 95                    4671 	.db 0x95
-      005263 90                    4672 	.db 0x90
-      005264 E2                    4673 	.db 0xe2
-      005265 95                    4674 	.db 0x95
-      005266 90                    4675 	.db 0x90
-      005267 E2                    4676 	.db 0xe2
-      005268 95                    4677 	.db 0x95
-      005269 90                    4678 	.db 0x90
-      00526A E2                    4679 	.db 0xe2
-      00526B 95                    4680 	.db 0x95
-      00526C 90                    4681 	.db 0x90
-      00526D E2                    4682 	.db 0xe2
-      00526E 95                    4683 	.db 0x95
-      00526F 90                    4684 	.db 0x90
-      005270 E2                    4685 	.db 0xe2
-      005271 95                    4686 	.db 0x95
-      005272 90                    4687 	.db 0x90
-      005273 E2                    4688 	.db 0xe2
-      005274 95                    4689 	.db 0x95
-      005275 90                    4690 	.db 0x90
-      005276 E2                    4691 	.db 0xe2
-      005277 95                    4692 	.db 0x95
-      005278 90                    4693 	.db 0x90
-      005279 E2                    4694 	.db 0xe2
-      00527A 95                    4695 	.db 0x95
-      00527B 9D                    4696 	.db 0x9d
-      00527C 0A                    4697 	.db 0x0a
-      00527D 0D                    4698 	.db 0x0d
-      00527E 00                    4699 	.db 0x00
-                                   4700 	.area CSEG    (CODE)
-                                   4701 	.area CONST   (CODE)
-      00527F                       4702 ___str_28:
-      00527F E2                    4703 	.db 0xe2
-      005280 94                    4704 	.db 0x94
-      005281 82                    4705 	.db 0x82
-      005282 20 45 6E 74 65 72 20  4706 	.ascii " Enter data (hex, up to 2 characters): "
+      005298 E2                    4651 	.db 0xe2
+      005299 95                    4652 	.db 0x95
+      00529A 91                    4653 	.db 0x91
+      00529B 0A                    4654 	.db 0x0a
+      00529C 0D                    4655 	.db 0x0d
+      00529D 00                    4656 	.db 0x00
+                                   4657 	.area CSEG    (CODE)
+                                   4658 	.area CONST   (CODE)
+      00529E                       4659 ___str_27:
+      00529E E2                    4660 	.db 0xe2
+      00529F 95                    4661 	.db 0x95
+      0052A0 9A                    4662 	.db 0x9a
+      0052A1 E2                    4663 	.db 0xe2
+      0052A2 95                    4664 	.db 0x95
+      0052A3 90                    4665 	.db 0x90
+      0052A4 E2                    4666 	.db 0xe2
+      0052A5 95                    4667 	.db 0x95
+      0052A6 90                    4668 	.db 0x90
+      0052A7 E2                    4669 	.db 0xe2
+      0052A8 95                    4670 	.db 0x95
+      0052A9 90                    4671 	.db 0x90
+      0052AA E2                    4672 	.db 0xe2
+      0052AB 95                    4673 	.db 0x95
+      0052AC 90                    4674 	.db 0x90
+      0052AD E2                    4675 	.db 0xe2
+      0052AE 95                    4676 	.db 0x95
+      0052AF 90                    4677 	.db 0x90
+      0052B0 E2                    4678 	.db 0xe2
+      0052B1 95                    4679 	.db 0x95
+      0052B2 90                    4680 	.db 0x90
+      0052B3 E2                    4681 	.db 0xe2
+      0052B4 95                    4682 	.db 0x95
+      0052B5 90                    4683 	.db 0x90
+      0052B6 E2                    4684 	.db 0xe2
+      0052B7 95                    4685 	.db 0x95
+      0052B8 90                    4686 	.db 0x90
+      0052B9 E2                    4687 	.db 0xe2
+      0052BA 95                    4688 	.db 0x95
+      0052BB 90                    4689 	.db 0x90
+      0052BC E2                    4690 	.db 0xe2
+      0052BD 95                    4691 	.db 0x95
+      0052BE 90                    4692 	.db 0x90
+      0052BF E2                    4693 	.db 0xe2
+      0052C0 95                    4694 	.db 0x95
+      0052C1 90                    4695 	.db 0x90
+      0052C2 E2                    4696 	.db 0xe2
+      0052C3 95                    4697 	.db 0x95
+      0052C4 90                    4698 	.db 0x90
+      0052C5 E2                    4699 	.db 0xe2
+      0052C6 95                    4700 	.db 0x95
+      0052C7 90                    4701 	.db 0x90
+      0052C8 E2                    4702 	.db 0xe2
+      0052C9 95                    4703 	.db 0x95
+      0052CA 90                    4704 	.db 0x90
+      0052CB E2                    4705 	.db 0xe2
+      0052CC 95                    4706 	.db 0x95
+      0052CD 90                    4707 	.db 0x90
+      0052CE E2                    4708 	.db 0xe2
+      0052CF 95                    4709 	.db 0x95
+      0052D0 90                    4710 	.db 0x90
+      0052D1 E2                    4711 	.db 0xe2
+      0052D2 95                    4712 	.db 0x95
+      0052D3 90                    4713 	.db 0x90
+      0052D4 E2                    4714 	.db 0xe2
+      0052D5 95                    4715 	.db 0x95
+      0052D6 90                    4716 	.db 0x90
+      0052D7 E2                    4717 	.db 0xe2
+      0052D8 95                    4718 	.db 0x95
+      0052D9 90                    4719 	.db 0x90
+      0052DA E2                    4720 	.db 0xe2
+      0052DB 95                    4721 	.db 0x95
+      0052DC 90                    4722 	.db 0x90
+      0052DD E2                    4723 	.db 0xe2
+      0052DE 95                    4724 	.db 0x95
+      0052DF 90                    4725 	.db 0x90
+      0052E0 E2                    4726 	.db 0xe2
+      0052E1 95                    4727 	.db 0x95
+      0052E2 90                    4728 	.db 0x90
+      0052E3 E2                    4729 	.db 0xe2
+      0052E4 95                    4730 	.db 0x95
+      0052E5 90                    4731 	.db 0x90
+      0052E6 E2                    4732 	.db 0xe2
+      0052E7 95                    4733 	.db 0x95
+      0052E8 90                    4734 	.db 0x90
+      0052E9 E2                    4735 	.db 0xe2
+      0052EA 95                    4736 	.db 0x95
+      0052EB 90                    4737 	.db 0x90
+      0052EC E2                    4738 	.db 0xe2
+      0052ED 95                    4739 	.db 0x95
+      0052EE 90                    4740 	.db 0x90
+      0052EF E2                    4741 	.db 0xe2
+      0052F0 95                    4742 	.db 0x95
+      0052F1 90                    4743 	.db 0x90
+      0052F2 E2                    4744 	.db 0xe2
+      0052F3 95                    4745 	.db 0x95
+      0052F4 90                    4746 	.db 0x90
+      0052F5 E2                    4747 	.db 0xe2
+      0052F6 95                    4748 	.db 0x95
+      0052F7 90                    4749 	.db 0x90
+      0052F8 E2                    4750 	.db 0xe2
+      0052F9 95                    4751 	.db 0x95
+      0052FA 90                    4752 	.db 0x90
+      0052FB E2                    4753 	.db 0xe2
+      0052FC 95                    4754 	.db 0x95
+      0052FD 90                    4755 	.db 0x90
+      0052FE E2                    4756 	.db 0xe2
+      0052FF 95                    4757 	.db 0x95
+      005300 90                    4758 	.db 0x90
+      005301 E2                    4759 	.db 0xe2
+      005302 95                    4760 	.db 0x95
+      005303 90                    4761 	.db 0x90
+      005304 E2                    4762 	.db 0xe2
+      005305 95                    4763 	.db 0x95
+      005306 90                    4764 	.db 0x90
+      005307 E2                    4765 	.db 0xe2
+      005308 95                    4766 	.db 0x95
+      005309 90                    4767 	.db 0x90
+      00530A E2                    4768 	.db 0xe2
+      00530B 95                    4769 	.db 0x95
+      00530C 90                    4770 	.db 0x90
+      00530D E2                    4771 	.db 0xe2
+      00530E 95                    4772 	.db 0x95
+      00530F 90                    4773 	.db 0x90
+      005310 E2                    4774 	.db 0xe2
+      005311 95                    4775 	.db 0x95
+      005312 90                    4776 	.db 0x90
+      005313 E2                    4777 	.db 0xe2
+      005314 95                    4778 	.db 0x95
+      005315 90                    4779 	.db 0x90
+      005316 E2                    4780 	.db 0xe2
+      005317 95                    4781 	.db 0x95
+      005318 90                    4782 	.db 0x90
+      005319 E2                    4783 	.db 0xe2
+      00531A 95                    4784 	.db 0x95
+      00531B 90                    4785 	.db 0x90
+      00531C E2                    4786 	.db 0xe2
+      00531D 95                    4787 	.db 0x95
+      00531E 90                    4788 	.db 0x90
+      00531F E2                    4789 	.db 0xe2
+      005320 95                    4790 	.db 0x95
+      005321 9D                    4791 	.db 0x9d
+      005322 0A                    4792 	.db 0x0a
+      005323 0D                    4793 	.db 0x0d
+      005324 00                    4794 	.db 0x00
+                                   4795 	.area CSEG    (CODE)
+                                   4796 	.area CONST   (CODE)
+      005325                       4797 ___str_28:
+      005325 E2                    4798 	.db 0xe2
+      005326 94                    4799 	.db 0x94
+      005327 82                    4800 	.db 0x82
+      005328 20 45 6E 74 65 72 20  4801 	.ascii " Enter data (hex, up to 2 characters): "
              64 61 74 61 20 28 68
              65 78 2C 20 75 70 20
              74 6F 20 32 20 63 68
              61 72 61 63 74 65 72
              73 29 3A 20
-      0052A9 0A                    4707 	.db 0x0a
-      0052AA 0D                    4708 	.db 0x0d
-      0052AB 7C                    4709 	.ascii "|"
-      0052AC 00                    4710 	.db 0x00
-                                   4711 	.area CSEG    (CODE)
-                                   4712 	.area CONST   (CODE)
-      0052AD                       4713 ___str_29:
-      0052AD 24 20                 4714 	.ascii "$ "
-      0052AF 00                    4715 	.db 0x00
-                                   4716 	.area CSEG    (CODE)
-                                   4717 	.area CONST   (CODE)
-      0052B0                       4718 ___str_30:
-      0052B0 0A                    4719 	.db 0x0a
-      0052B1 0D                    4720 	.db 0x0d
-      0052B2 E2                    4721 	.db 0xe2
-      0052B3 94                    4722 	.db 0x94
-      0052B4 82                    4723 	.db 0x82
-      0052B5 20 45 6E 74 65 72 65  4724 	.ascii " Entered data: 0x%02X"
+      00534F 0A                    4802 	.db 0x0a
+      005350 0D                    4803 	.db 0x0d
+      005351 7C                    4804 	.ascii "|"
+      005352 00                    4805 	.db 0x00
+                                   4806 	.area CSEG    (CODE)
+                                   4807 	.area CONST   (CODE)
+      005353                       4808 ___str_29:
+      005353 24 20                 4809 	.ascii "$ "
+      005355 00                    4810 	.db 0x00
+                                   4811 	.area CSEG    (CODE)
+                                   4812 	.area CONST   (CODE)
+      005356                       4813 ___str_30:
+      005356 0A                    4814 	.db 0x0a
+      005357 0D                    4815 	.db 0x0d
+      005358 E2                    4816 	.db 0xe2
+      005359 94                    4817 	.db 0x94
+      00535A 82                    4818 	.db 0x82
+      00535B 20 45 6E 74 65 72 65  4819 	.ascii " Entered data: 0x%02X"
              64 20 64 61 74 61 3A
              20 30 78 25 30 32 58
-      0052CA 0A                    4725 	.db 0x0a
-      0052CB 0D                    4726 	.db 0x0d
-      0052CC 00                    4727 	.db 0x00
-                                   4728 	.area CSEG    (CODE)
-                                   4729 	.area CONST   (CODE)
-      0052CD                       4730 ___str_31:
-      0052CD 44 61 74 61 20 6F 75  4731 	.ascii "Data out of Range"
+      005370 0A                    4820 	.db 0x0a
+      005371 0D                    4821 	.db 0x0d
+      005372 00                    4822 	.db 0x00
+                                   4823 	.area CSEG    (CODE)
+                                   4824 	.area CONST   (CODE)
+      005373                       4825 ___str_31:
+      005373 44 61 74 61 20 6F 75  4826 	.ascii "Data out of Range"
              74 20 6F 66 20 52 61
              6E 67 65
-      0052DE 0A                    4732 	.db 0x0a
-      0052DF 0D                    4733 	.db 0x0d
-      0052E0 00                    4734 	.db 0x00
-                                   4735 	.area CSEG    (CODE)
-                                   4736 	.area CONST   (CODE)
-      0052E1                       4737 ___str_32:
-      0052E1 45 72 72 6F 72 3A 20  4738 	.ascii "Error: No ACK for device address (write)"
+      005384 0A                    4827 	.db 0x0a
+      005385 0D                    4828 	.db 0x0d
+      005386 00                    4829 	.db 0x00
+                                   4830 	.area CSEG    (CODE)
+                                   4831 	.area CONST   (CODE)
+      005387                       4832 ___str_32:
+      005387 45 72 72 6F 72 3A 20  4833 	.ascii "Error: No ACK for device address (write)"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 65 76
              69 63 65 20 61 64 64
              72 65 73 73 20 28 77
              72 69 74 65 29
-      005309 0A                    4739 	.db 0x0a
-      00530A 0D                    4740 	.db 0x0d
-      00530B 00                    4741 	.db 0x00
-                                   4742 	.area CSEG    (CODE)
-                                   4743 	.area CONST   (CODE)
-      00530C                       4744 ___str_33:
-      00530C 45 72 72 6F 72 3A 20  4745 	.ascii "Error: No ACK for memory address"
+      0053AF 0A                    4834 	.db 0x0a
+      0053B0 0D                    4835 	.db 0x0d
+      0053B1 00                    4836 	.db 0x00
+                                   4837 	.area CSEG    (CODE)
+                                   4838 	.area CONST   (CODE)
+      0053B2                       4839 ___str_33:
+      0053B2 45 72 72 6F 72 3A 20  4840 	.ascii "Error: No ACK for memory address"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 6D 65 6D
              6F 72 79 20 61 64 64
              72 65 73 73
-      00532C 0A                    4746 	.db 0x0a
-      00532D 0D                    4747 	.db 0x0d
-      00532E 00                    4748 	.db 0x00
-                                   4749 	.area CSEG    (CODE)
-                                   4750 	.area CONST   (CODE)
-      00532F                       4751 ___str_34:
-      00532F 45 72 72 6F 72 3A 20  4752 	.ascii "Error: No ACK for data"
+      0053D2 0A                    4841 	.db 0x0a
+      0053D3 0D                    4842 	.db 0x0d
+      0053D4 00                    4843 	.db 0x00
+                                   4844 	.area CSEG    (CODE)
+                                   4845 	.area CONST   (CODE)
+      0053D5                       4846 ___str_34:
+      0053D5 45 72 72 6F 72 3A 20  4847 	.ascii "Error: No ACK for data"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 61 74
              61
-      005345 0A                    4753 	.db 0x0a
-      005346 0D                    4754 	.db 0x0d
-      005347 00                    4755 	.db 0x00
-                                   4756 	.area CSEG    (CODE)
-                                   4757 	.area CONST   (CODE)
-      005348                       4758 ___str_35:
-      005348 7C 20 57 72 69 74 69  4759 	.ascii "| Writing at Address 0x%03X Data 0x%02X          |"
+      0053EB 0A                    4848 	.db 0x0a
+      0053EC 0D                    4849 	.db 0x0d
+      0053ED 00                    4850 	.db 0x00
+                                   4851 	.area CSEG    (CODE)
+                                   4852 	.area CONST   (CODE)
+      0053EE                       4853 ___str_35:
+      0053EE 7C 20 57 72 69 74 69  4854 	.ascii "| Writing at Address 0x%03X Data 0x%02X          |"
              6E 67 20 61 74 20 41
              64 64 72 65 73 73 20
              30 78 25 30 33 58 20
@@ -4873,254 +4968,254 @@
              25 30 32 58 20 20 20
              20 20 20 20 20 20 20
              7C
-      00537A 0A                    4760 	.db 0x0a
-      00537B 0D                    4761 	.db 0x0d
-      00537C 00                    4762 	.db 0x00
-                                   4763 	.area CSEG    (CODE)
-                                   4764 	.area CONST   (CODE)
-      00537D                       4765 ___str_36:
-      00537D E2                    4766 	.db 0xe2
-      00537E 94                    4767 	.db 0x94
-      00537F 82                    4768 	.db 0x82
-      005380 20 57 72 69 74 65 20  4769 	.ascii " Write successful!                             "
+      005420 0A                    4855 	.db 0x0a
+      005421 0D                    4856 	.db 0x0d
+      005422 00                    4857 	.db 0x00
+                                   4858 	.area CSEG    (CODE)
+                                   4859 	.area CONST   (CODE)
+      005423                       4860 ___str_36:
+      005423 E2                    4861 	.db 0xe2
+      005424 94                    4862 	.db 0x94
+      005425 82                    4863 	.db 0x82
+      005426 20 57 72 69 74 65 20  4864 	.ascii " Write successful!                             "
              73 75 63 63 65 73 73
              66 75 6C 21 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20
-      0053AF E2                    4770 	.db 0xe2
-      0053B0 94                    4771 	.db 0x94
-      0053B1 82                    4772 	.db 0x82
-      0053B2 0A                    4773 	.db 0x0a
-      0053B3 0D                    4774 	.db 0x0d
-      0053B4 00                    4775 	.db 0x00
-                                   4776 	.area CSEG    (CODE)
-                                   4777 	.area CONST   (CODE)
-      0053B5                       4778 ___str_37:
-      0053B5 E2                    4779 	.db 0xe2
-      0053B6 94                    4780 	.db 0x94
-      0053B7 94                    4781 	.db 0x94
-      0053B8 E2                    4782 	.db 0xe2
-      0053B9 94                    4783 	.db 0x94
-      0053BA 80                    4784 	.db 0x80
-      0053BB E2                    4785 	.db 0xe2
-      0053BC 94                    4786 	.db 0x94
-      0053BD 80                    4787 	.db 0x80
-      0053BE E2                    4788 	.db 0xe2
-      0053BF 94                    4789 	.db 0x94
-      0053C0 80                    4790 	.db 0x80
-      0053C1 E2                    4791 	.db 0xe2
-      0053C2 94                    4792 	.db 0x94
-      0053C3 80                    4793 	.db 0x80
-      0053C4 E2                    4794 	.db 0xe2
-      0053C5 94                    4795 	.db 0x94
-      0053C6 80                    4796 	.db 0x80
-      0053C7 E2                    4797 	.db 0xe2
-      0053C8 94                    4798 	.db 0x94
-      0053C9 80                    4799 	.db 0x80
-      0053CA E2                    4800 	.db 0xe2
-      0053CB 94                    4801 	.db 0x94
-      0053CC 80                    4802 	.db 0x80
-      0053CD E2                    4803 	.db 0xe2
-      0053CE 94                    4804 	.db 0x94
-      0053CF 80                    4805 	.db 0x80
-      0053D0 E2                    4806 	.db 0xe2
-      0053D1 94                    4807 	.db 0x94
-      0053D2 80                    4808 	.db 0x80
-      0053D3 E2                    4809 	.db 0xe2
-      0053D4 94                    4810 	.db 0x94
-      0053D5 80                    4811 	.db 0x80
-      0053D6 E2                    4812 	.db 0xe2
-      0053D7 94                    4813 	.db 0x94
-      0053D8 80                    4814 	.db 0x80
-      0053D9 E2                    4815 	.db 0xe2
-      0053DA 94                    4816 	.db 0x94
-      0053DB 80                    4817 	.db 0x80
-      0053DC E2                    4818 	.db 0xe2
-      0053DD 94                    4819 	.db 0x94
-      0053DE 80                    4820 	.db 0x80
-      0053DF E2                    4821 	.db 0xe2
-      0053E0 94                    4822 	.db 0x94
-      0053E1 80                    4823 	.db 0x80
-      0053E2 E2                    4824 	.db 0xe2
-      0053E3 94                    4825 	.db 0x94
-      0053E4 80                    4826 	.db 0x80
-      0053E5 E2                    4827 	.db 0xe2
-      0053E6 94                    4828 	.db 0x94
-      0053E7 80                    4829 	.db 0x80
-      0053E8 E2                    4830 	.db 0xe2
-      0053E9 94                    4831 	.db 0x94
-      0053EA 80                    4832 	.db 0x80
-      0053EB E2                    4833 	.db 0xe2
-      0053EC 94                    4834 	.db 0x94
-      0053ED 80                    4835 	.db 0x80
-      0053EE E2                    4836 	.db 0xe2
-      0053EF 94                    4837 	.db 0x94
-      0053F0 80                    4838 	.db 0x80
-      0053F1 E2                    4839 	.db 0xe2
-      0053F2 94                    4840 	.db 0x94
-      0053F3 80                    4841 	.db 0x80
-      0053F4 E2                    4842 	.db 0xe2
-      0053F5 94                    4843 	.db 0x94
-      0053F6 80                    4844 	.db 0x80
-      0053F7 E2                    4845 	.db 0xe2
-      0053F8 94                    4846 	.db 0x94
-      0053F9 80                    4847 	.db 0x80
-      0053FA E2                    4848 	.db 0xe2
-      0053FB 94                    4849 	.db 0x94
-      0053FC 80                    4850 	.db 0x80
-      0053FD E2                    4851 	.db 0xe2
-      0053FE 94                    4852 	.db 0x94
-      0053FF 80                    4853 	.db 0x80
-      005400 E2                    4854 	.db 0xe2
-      005401 94                    4855 	.db 0x94
-      005402 80                    4856 	.db 0x80
-      005403 E2                    4857 	.db 0xe2
-      005404 94                    4858 	.db 0x94
-      005405 80                    4859 	.db 0x80
-      005406 E2                    4860 	.db 0xe2
-      005407 94                    4861 	.db 0x94
-      005408 80                    4862 	.db 0x80
-      005409 E2                    4863 	.db 0xe2
-      00540A 94                    4864 	.db 0x94
-      00540B 80                    4865 	.db 0x80
-      00540C E2                    4866 	.db 0xe2
-      00540D 94                    4867 	.db 0x94
-      00540E 80                    4868 	.db 0x80
-      00540F E2                    4869 	.db 0xe2
-      005410 94                    4870 	.db 0x94
-      005411 80                    4871 	.db 0x80
-      005412 E2                    4872 	.db 0xe2
-      005413 94                    4873 	.db 0x94
-      005414 80                    4874 	.db 0x80
-      005415 E2                    4875 	.db 0xe2
-      005416 94                    4876 	.db 0x94
-      005417 80                    4877 	.db 0x80
-      005418 E2                    4878 	.db 0xe2
-      005419 94                    4879 	.db 0x94
-      00541A 80                    4880 	.db 0x80
-      00541B E2                    4881 	.db 0xe2
-      00541C 94                    4882 	.db 0x94
-      00541D 80                    4883 	.db 0x80
-      00541E E2                    4884 	.db 0xe2
-      00541F 94                    4885 	.db 0x94
-      005420 80                    4886 	.db 0x80
-      005421 E2                    4887 	.db 0xe2
-      005422 94                    4888 	.db 0x94
-      005423 80                    4889 	.db 0x80
-      005424 E2                    4890 	.db 0xe2
-      005425 94                    4891 	.db 0x94
-      005426 80                    4892 	.db 0x80
-      005427 E2                    4893 	.db 0xe2
-      005428 94                    4894 	.db 0x94
-      005429 80                    4895 	.db 0x80
-      00542A E2                    4896 	.db 0xe2
-      00542B 94                    4897 	.db 0x94
-      00542C 80                    4898 	.db 0x80
-      00542D E2                    4899 	.db 0xe2
-      00542E 94                    4900 	.db 0x94
-      00542F 80                    4901 	.db 0x80
-      005430 E2                    4902 	.db 0xe2
-      005431 94                    4903 	.db 0x94
-      005432 80                    4904 	.db 0x80
-      005433 E2                    4905 	.db 0xe2
-      005434 94                    4906 	.db 0x94
-      005435 80                    4907 	.db 0x80
-      005436 E2                    4908 	.db 0xe2
-      005437 94                    4909 	.db 0x94
-      005438 80                    4910 	.db 0x80
-      005439 E2                    4911 	.db 0xe2
-      00543A 94                    4912 	.db 0x94
-      00543B 80                    4913 	.db 0x80
-      00543C E2                    4914 	.db 0xe2
-      00543D 94                    4915 	.db 0x94
-      00543E 80                    4916 	.db 0x80
-      00543F E2                    4917 	.db 0xe2
-      005440 94                    4918 	.db 0x94
-      005441 80                    4919 	.db 0x80
-      005442 E2                    4920 	.db 0xe2
-      005443 94                    4921 	.db 0x94
-      005444 80                    4922 	.db 0x80
-      005445 E2                    4923 	.db 0xe2
-      005446 94                    4924 	.db 0x94
-      005447 98                    4925 	.db 0x98
-      005448 0A                    4926 	.db 0x0a
-      005449 0D                    4927 	.db 0x0d
-      00544A 00                    4928 	.db 0x00
-                                   4929 	.area CSEG    (CODE)
-                                   4930 	.area CONST   (CODE)
-      00544B                       4931 ___str_38:
-      00544B 45 72 72 6F 72 3A 20  4932 	.ascii "Error: No ACK for device address (write mode)"
+      005455 E2                    4865 	.db 0xe2
+      005456 94                    4866 	.db 0x94
+      005457 82                    4867 	.db 0x82
+      005458 0A                    4868 	.db 0x0a
+      005459 0D                    4869 	.db 0x0d
+      00545A 00                    4870 	.db 0x00
+                                   4871 	.area CSEG    (CODE)
+                                   4872 	.area CONST   (CODE)
+      00545B                       4873 ___str_37:
+      00545B E2                    4874 	.db 0xe2
+      00545C 94                    4875 	.db 0x94
+      00545D 94                    4876 	.db 0x94
+      00545E E2                    4877 	.db 0xe2
+      00545F 94                    4878 	.db 0x94
+      005460 80                    4879 	.db 0x80
+      005461 E2                    4880 	.db 0xe2
+      005462 94                    4881 	.db 0x94
+      005463 80                    4882 	.db 0x80
+      005464 E2                    4883 	.db 0xe2
+      005465 94                    4884 	.db 0x94
+      005466 80                    4885 	.db 0x80
+      005467 E2                    4886 	.db 0xe2
+      005468 94                    4887 	.db 0x94
+      005469 80                    4888 	.db 0x80
+      00546A E2                    4889 	.db 0xe2
+      00546B 94                    4890 	.db 0x94
+      00546C 80                    4891 	.db 0x80
+      00546D E2                    4892 	.db 0xe2
+      00546E 94                    4893 	.db 0x94
+      00546F 80                    4894 	.db 0x80
+      005470 E2                    4895 	.db 0xe2
+      005471 94                    4896 	.db 0x94
+      005472 80                    4897 	.db 0x80
+      005473 E2                    4898 	.db 0xe2
+      005474 94                    4899 	.db 0x94
+      005475 80                    4900 	.db 0x80
+      005476 E2                    4901 	.db 0xe2
+      005477 94                    4902 	.db 0x94
+      005478 80                    4903 	.db 0x80
+      005479 E2                    4904 	.db 0xe2
+      00547A 94                    4905 	.db 0x94
+      00547B 80                    4906 	.db 0x80
+      00547C E2                    4907 	.db 0xe2
+      00547D 94                    4908 	.db 0x94
+      00547E 80                    4909 	.db 0x80
+      00547F E2                    4910 	.db 0xe2
+      005480 94                    4911 	.db 0x94
+      005481 80                    4912 	.db 0x80
+      005482 E2                    4913 	.db 0xe2
+      005483 94                    4914 	.db 0x94
+      005484 80                    4915 	.db 0x80
+      005485 E2                    4916 	.db 0xe2
+      005486 94                    4917 	.db 0x94
+      005487 80                    4918 	.db 0x80
+      005488 E2                    4919 	.db 0xe2
+      005489 94                    4920 	.db 0x94
+      00548A 80                    4921 	.db 0x80
+      00548B E2                    4922 	.db 0xe2
+      00548C 94                    4923 	.db 0x94
+      00548D 80                    4924 	.db 0x80
+      00548E E2                    4925 	.db 0xe2
+      00548F 94                    4926 	.db 0x94
+      005490 80                    4927 	.db 0x80
+      005491 E2                    4928 	.db 0xe2
+      005492 94                    4929 	.db 0x94
+      005493 80                    4930 	.db 0x80
+      005494 E2                    4931 	.db 0xe2
+      005495 94                    4932 	.db 0x94
+      005496 80                    4933 	.db 0x80
+      005497 E2                    4934 	.db 0xe2
+      005498 94                    4935 	.db 0x94
+      005499 80                    4936 	.db 0x80
+      00549A E2                    4937 	.db 0xe2
+      00549B 94                    4938 	.db 0x94
+      00549C 80                    4939 	.db 0x80
+      00549D E2                    4940 	.db 0xe2
+      00549E 94                    4941 	.db 0x94
+      00549F 80                    4942 	.db 0x80
+      0054A0 E2                    4943 	.db 0xe2
+      0054A1 94                    4944 	.db 0x94
+      0054A2 80                    4945 	.db 0x80
+      0054A3 E2                    4946 	.db 0xe2
+      0054A4 94                    4947 	.db 0x94
+      0054A5 80                    4948 	.db 0x80
+      0054A6 E2                    4949 	.db 0xe2
+      0054A7 94                    4950 	.db 0x94
+      0054A8 80                    4951 	.db 0x80
+      0054A9 E2                    4952 	.db 0xe2
+      0054AA 94                    4953 	.db 0x94
+      0054AB 80                    4954 	.db 0x80
+      0054AC E2                    4955 	.db 0xe2
+      0054AD 94                    4956 	.db 0x94
+      0054AE 80                    4957 	.db 0x80
+      0054AF E2                    4958 	.db 0xe2
+      0054B0 94                    4959 	.db 0x94
+      0054B1 80                    4960 	.db 0x80
+      0054B2 E2                    4961 	.db 0xe2
+      0054B3 94                    4962 	.db 0x94
+      0054B4 80                    4963 	.db 0x80
+      0054B5 E2                    4964 	.db 0xe2
+      0054B6 94                    4965 	.db 0x94
+      0054B7 80                    4966 	.db 0x80
+      0054B8 E2                    4967 	.db 0xe2
+      0054B9 94                    4968 	.db 0x94
+      0054BA 80                    4969 	.db 0x80
+      0054BB E2                    4970 	.db 0xe2
+      0054BC 94                    4971 	.db 0x94
+      0054BD 80                    4972 	.db 0x80
+      0054BE E2                    4973 	.db 0xe2
+      0054BF 94                    4974 	.db 0x94
+      0054C0 80                    4975 	.db 0x80
+      0054C1 E2                    4976 	.db 0xe2
+      0054C2 94                    4977 	.db 0x94
+      0054C3 80                    4978 	.db 0x80
+      0054C4 E2                    4979 	.db 0xe2
+      0054C5 94                    4980 	.db 0x94
+      0054C6 80                    4981 	.db 0x80
+      0054C7 E2                    4982 	.db 0xe2
+      0054C8 94                    4983 	.db 0x94
+      0054C9 80                    4984 	.db 0x80
+      0054CA E2                    4985 	.db 0xe2
+      0054CB 94                    4986 	.db 0x94
+      0054CC 80                    4987 	.db 0x80
+      0054CD E2                    4988 	.db 0xe2
+      0054CE 94                    4989 	.db 0x94
+      0054CF 80                    4990 	.db 0x80
+      0054D0 E2                    4991 	.db 0xe2
+      0054D1 94                    4992 	.db 0x94
+      0054D2 80                    4993 	.db 0x80
+      0054D3 E2                    4994 	.db 0xe2
+      0054D4 94                    4995 	.db 0x94
+      0054D5 80                    4996 	.db 0x80
+      0054D6 E2                    4997 	.db 0xe2
+      0054D7 94                    4998 	.db 0x94
+      0054D8 80                    4999 	.db 0x80
+      0054D9 E2                    5000 	.db 0xe2
+      0054DA 94                    5001 	.db 0x94
+      0054DB 80                    5002 	.db 0x80
+      0054DC E2                    5003 	.db 0xe2
+      0054DD 94                    5004 	.db 0x94
+      0054DE 80                    5005 	.db 0x80
+      0054DF E2                    5006 	.db 0xe2
+      0054E0 94                    5007 	.db 0x94
+      0054E1 80                    5008 	.db 0x80
+      0054E2 E2                    5009 	.db 0xe2
+      0054E3 94                    5010 	.db 0x94
+      0054E4 80                    5011 	.db 0x80
+      0054E5 E2                    5012 	.db 0xe2
+      0054E6 94                    5013 	.db 0x94
+      0054E7 80                    5014 	.db 0x80
+      0054E8 E2                    5015 	.db 0xe2
+      0054E9 94                    5016 	.db 0x94
+      0054EA 80                    5017 	.db 0x80
+      0054EB E2                    5018 	.db 0xe2
+      0054EC 94                    5019 	.db 0x94
+      0054ED 98                    5020 	.db 0x98
+      0054EE 0A                    5021 	.db 0x0a
+      0054EF 0D                    5022 	.db 0x0d
+      0054F0 00                    5023 	.db 0x00
+                                   5024 	.area CSEG    (CODE)
+                                   5025 	.area CONST   (CODE)
+      0054F1                       5026 ___str_38:
+      0054F1 45 72 72 6F 72 3A 20  5027 	.ascii "Error: No ACK for device address (write mode)"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 65 76
              69 63 65 20 61 64 64
              72 65 73 73 20 28 77
              72 69 74 65 20 6D 6F
              64 65 29
-      005478 0A                    4933 	.db 0x0a
-      005479 0D                    4934 	.db 0x0d
-      00547A 00                    4935 	.db 0x00
-                                   4936 	.area CSEG    (CODE)
-                                   4937 	.area CONST   (CODE)
-      00547B                       4938 ___str_39:
-      00547B 45 72 72 6F 72 3A 20  4939 	.ascii "Error: No ACK for device address (read mode)"
+      00551E 0A                    5028 	.db 0x0a
+      00551F 0D                    5029 	.db 0x0d
+      005520 00                    5030 	.db 0x00
+                                   5031 	.area CSEG    (CODE)
+                                   5032 	.area CONST   (CODE)
+      005521                       5033 ___str_39:
+      005521 45 72 72 6F 72 3A 20  5034 	.ascii "Error: No ACK for device address (read mode)"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 65 76
              69 63 65 20 61 64 64
              72 65 73 73 20 28 72
              65 61 64 20 6D 6F 64
              65 29
-      0054A7 0A                    4940 	.db 0x0a
-      0054A8 0D                    4941 	.db 0x0d
-      0054A9 00                    4942 	.db 0x00
-                                   4943 	.area CSEG    (CODE)
-                                   4944 	.area CONST   (CODE)
-      0054AA                       4945 ___str_40:
-      0054AA 7C 20 30 78 25 30 33  4946 	.ascii "| 0x%03X : 0x%02X "
+      00554D 0A                    5035 	.db 0x0a
+      00554E 0D                    5036 	.db 0x0d
+      00554F 00                    5037 	.db 0x00
+                                   5038 	.area CSEG    (CODE)
+                                   5039 	.area CONST   (CODE)
+      005550                       5040 ___str_40:
+      005550 7C 20 30 78 25 30 33  5041 	.ascii "| 0x%03X : 0x%02X "
              58 20 3A 20 30 78 25
              30 32 58 20
-      0054BC 0A                    4947 	.db 0x0a
-      0054BD 0D                    4948 	.db 0x0d
-      0054BE 00                    4949 	.db 0x00
-                                   4950 	.area CSEG    (CODE)
-                                   4951 	.area CONST   (CODE)
-      0054BF                       4952 ___str_41:
-      0054BF E2                    4953 	.db 0xe2
-      0054C0 94                    4954 	.db 0x94
-      0054C1 82                    4955 	.db 0x82
-      0054C2 20 52 65 61 64 20 73  4956 	.ascii " Read successful!                 "
+      005562 0A                    5042 	.db 0x0a
+      005563 0D                    5043 	.db 0x0d
+      005564 00                    5044 	.db 0x00
+                                   5045 	.area CSEG    (CODE)
+                                   5046 	.area CONST   (CODE)
+      005565                       5047 ___str_41:
+      005565 E2                    5048 	.db 0xe2
+      005566 94                    5049 	.db 0x94
+      005567 82                    5050 	.db 0x82
+      005568 20 52 65 61 64 20 73  5051 	.ascii " Read successful!                 "
              75 63 63 65 73 73 66
              75 6C 21 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20
-      0054E4 E2                    4957 	.db 0xe2
-      0054E5 94                    4958 	.db 0x94
-      0054E6 82                    4959 	.db 0x82
-      0054E7 0A                    4960 	.db 0x0a
-      0054E8 0D                    4961 	.db 0x0d
-      0054E9 00                    4962 	.db 0x00
-                                   4963 	.area CSEG    (CODE)
-                                   4964 	.area CONST   (CODE)
-      0054EA                       4965 ___str_42:
-      0054EA 41 43 4B 20 44 49 44  4966 	.ascii "ACK DID NOT ARRIVE"
+      00558A E2                    5052 	.db 0xe2
+      00558B 94                    5053 	.db 0x94
+      00558C 82                    5054 	.db 0x82
+      00558D 0A                    5055 	.db 0x0a
+      00558E 0D                    5056 	.db 0x0d
+      00558F 00                    5057 	.db 0x00
+                                   5058 	.area CSEG    (CODE)
+                                   5059 	.area CONST   (CODE)
+      005590                       5060 ___str_42:
+      005590 41 43 4B 20 44 49 44  5061 	.ascii "ACK DID NOT ARRIVE"
              20 4E 4F 54 20 41 52
              52 49 56 45
-      0054FC 0A                    4967 	.db 0x0a
-      0054FD 0D                    4968 	.db 0x0d
-      0054FE 00                    4969 	.db 0x00
-                                   4970 	.area CSEG    (CODE)
-                                   4971 	.area CONST   (CODE)
-      0054FF                       4972 ___str_43:
-      0054FF 0D                    4973 	.db 0x0d
-      005500 0A                    4974 	.db 0x0a
-      005501 00                    4975 	.db 0x00
-                                   4976 	.area CSEG    (CODE)
-                                   4977 	.area CONST   (CODE)
-      005502                       4978 ___str_44:
-      005502 0D                    4979 	.db 0x0d
-      005503 0A                    4980 	.db 0x0a
-      005504 2D 2D 2D 2D 2D 2D 2D  4981 	.ascii "------------------------------------------------------------"
+      0055A2 0A                    5062 	.db 0x0a
+      0055A3 0D                    5063 	.db 0x0d
+      0055A4 00                    5064 	.db 0x00
+                                   5065 	.area CSEG    (CODE)
+                                   5066 	.area CONST   (CODE)
+      0055A5                       5067 ___str_43:
+      0055A5 0D                    5068 	.db 0x0d
+      0055A6 0A                    5069 	.db 0x0a
+      0055A7 00                    5070 	.db 0x00
+                                   5071 	.area CSEG    (CODE)
+                                   5072 	.area CONST   (CODE)
+      0055A8                       5073 ___str_44:
+      0055A8 0D                    5074 	.db 0x0d
+      0055A9 0A                    5075 	.db 0x0a
+      0055AA 2D 2D 2D 2D 2D 2D 2D  5076 	.ascii "------------------------------------------------------------"
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
@@ -5129,14 +5224,14 @@
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D
-      005540 2D 2D 2D 2D           4982 	.ascii "----"
-      005544 00                    4983 	.db 0x00
-                                   4984 	.area CSEG    (CODE)
-                                   4985 	.area CONST   (CODE)
-      005545                       4986 ___str_45:
-      005545 0D                    4987 	.db 0x0d
-      005546 0A                    4988 	.db 0x0a
-      005547 20 20 20 20 20 20 20  4989 	.ascii "                    EEPROM Hex Dump                         "
+      0055E6 2D 2D 2D 2D           5077 	.ascii "----"
+      0055EA 00                    5078 	.db 0x00
+                                   5079 	.area CSEG    (CODE)
+                                   5080 	.area CONST   (CODE)
+      0055EB                       5081 ___str_45:
+      0055EB 0D                    5082 	.db 0x0d
+      0055EC 0A                    5083 	.db 0x0a
+      0055ED 20 20 20 20 20 20 20  5084 	.ascii "                    EEPROM Hex Dump                         "
              20 20 20 20 20 20 20
              20 20 20 20 20 20 45
              45 50 52 4F 4D 20 48
@@ -5145,14 +5240,14 @@
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20
-      005583 20 20 20 20           4990 	.ascii "    "
-      005587 00                    4991 	.db 0x00
-                                   4992 	.area CSEG    (CODE)
-                                   4993 	.area CONST   (CODE)
-      005588                       4994 ___str_46:
-      005588 0D                    4995 	.db 0x0d
-      005589 0A                    4996 	.db 0x0a
-      00558A 2D 2D 2D 2D 2D 2D 2D  4997 	.ascii "------------------------------------------------------------"
+      005629 20 20 20 20           5085 	.ascii "    "
+      00562D 00                    5086 	.db 0x00
+                                   5087 	.area CSEG    (CODE)
+                                   5088 	.area CONST   (CODE)
+      00562E                       5089 ___str_46:
+      00562E 0D                    5090 	.db 0x0d
+      00562F 0A                    5091 	.db 0x0a
+      005630 2D 2D 2D 2D 2D 2D 2D  5092 	.ascii "------------------------------------------------------------"
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
@@ -5161,155 +5256,155 @@
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D
-      0055C6 2D 2D 2D 2D           4998 	.ascii "----"
-      0055CA 0D                    4999 	.db 0x0d
-      0055CB 0A                    5000 	.db 0x0a
-      0055CC 00                    5001 	.db 0x00
-                                   5002 	.area CSEG    (CODE)
-                                   5003 	.area CONST   (CODE)
-      0055CD                       5004 ___str_47:
-      0055CD 25 30 33 58 3A 20     5005 	.ascii "%03X: "
-      0055D3 00                    5006 	.db 0x00
-                                   5007 	.area CSEG    (CODE)
-                                   5008 	.area CONST   (CODE)
-      0055D4                       5009 ___str_48:
-      0055D4 25 30 32 58 20        5010 	.ascii "%02X "
-      0055D9 00                    5011 	.db 0x00
-                                   5012 	.area CSEG    (CODE)
-                                   5013 	.area CONST   (CODE)
-      0055DA                       5014 ___str_49:
-      0055DA 20 20 20              5015 	.ascii "   "
-      0055DD 00                    5016 	.db 0x00
-                                   5017 	.area CSEG    (CODE)
-                                   5018 	.area CONST   (CODE)
-      0055DE                       5019 ___str_50:
-      0055DE 1B                    5020 	.db 0x1b
-      0055DF 5B 31 3B 33 33 6D     5021 	.ascii "[1;33m"
-      0055E5 0A                    5022 	.db 0x0a
-      0055E6 0D                    5023 	.db 0x0d
-      0055E7 45 6E 74 65 72 20 53  5024 	.ascii "Enter Start Address for HEX Dump"
+      00566C 2D 2D 2D 2D           5093 	.ascii "----"
+      005670 0D                    5094 	.db 0x0d
+      005671 0A                    5095 	.db 0x0a
+      005672 00                    5096 	.db 0x00
+                                   5097 	.area CSEG    (CODE)
+                                   5098 	.area CONST   (CODE)
+      005673                       5099 ___str_47:
+      005673 25 30 33 58 3A 20     5100 	.ascii "%03X: "
+      005679 00                    5101 	.db 0x00
+                                   5102 	.area CSEG    (CODE)
+                                   5103 	.area CONST   (CODE)
+      00567A                       5104 ___str_48:
+      00567A 25 30 32 58 20        5105 	.ascii "%02X "
+      00567F 00                    5106 	.db 0x00
+                                   5107 	.area CSEG    (CODE)
+                                   5108 	.area CONST   (CODE)
+      005680                       5109 ___str_49:
+      005680 20 20 20              5110 	.ascii "   "
+      005683 00                    5111 	.db 0x00
+                                   5112 	.area CSEG    (CODE)
+                                   5113 	.area CONST   (CODE)
+      005684                       5114 ___str_50:
+      005684 1B                    5115 	.db 0x1b
+      005685 5B 31 3B 33 33 6D     5116 	.ascii "[1;33m"
+      00568B 0A                    5117 	.db 0x0a
+      00568C 0D                    5118 	.db 0x0d
+      00568D 45 6E 74 65 72 20 53  5119 	.ascii "Enter Start Address for HEX Dump"
              74 61 72 74 20 41 64
              64 72 65 73 73 20 66
              6F 72 20 48 45 58 20
              44 75 6D 70
-      005607 0D                    5025 	.db 0x0d
-      005608 0A                    5026 	.db 0x0a
-      005609 00                    5027 	.db 0x00
-                                   5028 	.area CSEG    (CODE)
-                                   5029 	.area CONST   (CODE)
-      00560A                       5030 ___str_51:
-      00560A 1B                    5031 	.db 0x1b
-      00560B 5B 31 3B 33 31 6D     5032 	.ascii "[1;31m"
-      005611 0A                    5033 	.db 0x0a
-      005612 0D                    5034 	.db 0x0d
-      005613 49 6E 76 61 6C 69 64  5035 	.ascii "Invalid Start Address Range!!"
+      0056AD 0D                    5120 	.db 0x0d
+      0056AE 0A                    5121 	.db 0x0a
+      0056AF 00                    5122 	.db 0x00
+                                   5123 	.area CSEG    (CODE)
+                                   5124 	.area CONST   (CODE)
+      0056B0                       5125 ___str_51:
+      0056B0 1B                    5126 	.db 0x1b
+      0056B1 5B 31 3B 33 31 6D     5127 	.ascii "[1;31m"
+      0056B7 0A                    5128 	.db 0x0a
+      0056B8 0D                    5129 	.db 0x0d
+      0056B9 49 6E 76 61 6C 69 64  5130 	.ascii "Invalid Start Address Range!!"
              20 53 74 61 72 74 20
              41 64 64 72 65 73 73
              20 52 61 6E 67 65 21
              21
-      005630 0A                    5036 	.db 0x0a
-      005631 0D                    5037 	.db 0x0d
-      005632 20 41 64 64 72 65 73  5038 	.ascii " Address has to be between 0x000 to 0x7FF"
+      0056D6 0A                    5131 	.db 0x0a
+      0056D7 0D                    5132 	.db 0x0d
+      0056D8 20 41 64 64 72 65 73  5133 	.ascii " Address has to be between 0x000 to 0x7FF"
              73 20 68 61 73 20 74
              6F 20 62 65 20 62 65
              74 77 65 65 6E 20 30
              78 30 30 30 20 74 6F
              20 30 78 37 46 46
-      00565B 1B                    5039 	.db 0x1b
-      00565C 5B 30 6D              5040 	.ascii "[0m"
-      00565F 0D                    5041 	.db 0x0d
-      005660 0A                    5042 	.db 0x0a
-      005661 00                    5043 	.db 0x00
-                                   5044 	.area CSEG    (CODE)
-                                   5045 	.area CONST   (CODE)
-      005662                       5046 ___str_52:
-      005662 1B                    5047 	.db 0x1b
-      005663 5B 31 3B 33 33 6D     5048 	.ascii "[1;33m"
-      005669 0A                    5049 	.db 0x0a
-      00566A 0D                    5050 	.db 0x0d
-      00566B 45 6E 74 65 72 20 45  5051 	.ascii "Enter End Address for HEX Dump"
+      005701 1B                    5134 	.db 0x1b
+      005702 5B 30 6D              5135 	.ascii "[0m"
+      005705 0D                    5136 	.db 0x0d
+      005706 0A                    5137 	.db 0x0a
+      005707 00                    5138 	.db 0x00
+                                   5139 	.area CSEG    (CODE)
+                                   5140 	.area CONST   (CODE)
+      005708                       5141 ___str_52:
+      005708 1B                    5142 	.db 0x1b
+      005709 5B 31 3B 33 33 6D     5143 	.ascii "[1;33m"
+      00570F 0A                    5144 	.db 0x0a
+      005710 0D                    5145 	.db 0x0d
+      005711 45 6E 74 65 72 20 45  5146 	.ascii "Enter End Address for HEX Dump"
              6E 64 20 41 64 64 72
              65 73 73 20 66 6F 72
              20 48 45 58 20 44 75
              6D 70
-      005689 0D                    5052 	.db 0x0d
-      00568A 0A                    5053 	.db 0x0a
-      00568B 00                    5054 	.db 0x00
-                                   5055 	.area CSEG    (CODE)
-                                   5056 	.area CONST   (CODE)
-      00568C                       5057 ___str_53:
-      00568C 1B                    5058 	.db 0x1b
-      00568D 5B 31 3B 33 31 6D     5059 	.ascii "[1;31m"
-      005693 0A                    5060 	.db 0x0a
-      005694 0D                    5061 	.db 0x0d
-      005695 49 6E 76 61 6C 69 64  5062 	.ascii "Invalid End Address Range!!"
+      00572F 0D                    5147 	.db 0x0d
+      005730 0A                    5148 	.db 0x0a
+      005731 00                    5149 	.db 0x00
+                                   5150 	.area CSEG    (CODE)
+                                   5151 	.area CONST   (CODE)
+      005732                       5152 ___str_53:
+      005732 1B                    5153 	.db 0x1b
+      005733 5B 31 3B 33 31 6D     5154 	.ascii "[1;31m"
+      005739 0A                    5155 	.db 0x0a
+      00573A 0D                    5156 	.db 0x0d
+      00573B 49 6E 76 61 6C 69 64  5157 	.ascii "Invalid End Address Range!!"
              20 45 6E 64 20 41 64
              64 72 65 73 73 20 52
              61 6E 67 65 21 21
-      0056B0 0A                    5063 	.db 0x0a
-      0056B1 0D                    5064 	.db 0x0d
-      0056B2 20 41 64 64 72 65 73  5065 	.ascii " Address has to be between 0x000 to 0x7FF"
+      005756 0A                    5158 	.db 0x0a
+      005757 0D                    5159 	.db 0x0d
+      005758 20 41 64 64 72 65 73  5160 	.ascii " Address has to be between 0x000 to 0x7FF"
              73 20 68 61 73 20 74
              6F 20 62 65 20 62 65
              74 77 65 65 6E 20 30
              78 30 30 30 20 74 6F
              20 30 78 37 46 46
-      0056DB 1B                    5066 	.db 0x1b
-      0056DC 5B 30 6D              5067 	.ascii "[0m"
-      0056DF 0D                    5068 	.db 0x0d
-      0056E0 0A                    5069 	.db 0x0a
-      0056E1 00                    5070 	.db 0x00
-                                   5071 	.area CSEG    (CODE)
-                                   5072 	.area CONST   (CODE)
-      0056E2                       5073 ___str_54:
-      0056E2 57 72 69 74 69 6E 67  5074 	.ascii "Writing data 0x%02X to address 0x%02X"
+      005781 1B                    5161 	.db 0x1b
+      005782 5B 30 6D              5162 	.ascii "[0m"
+      005785 0D                    5163 	.db 0x0d
+      005786 0A                    5164 	.db 0x0a
+      005787 00                    5165 	.db 0x00
+                                   5166 	.area CSEG    (CODE)
+                                   5167 	.area CONST   (CODE)
+      005788                       5168 ___str_54:
+      005788 57 72 69 74 69 6E 67  5169 	.ascii "Writing data 0x%02X to address 0x%02X"
              20 64 61 74 61 20 30
              78 25 30 32 58 20 74
              6F 20 61 64 64 72 65
              73 73 20 30 78 25 30
              32 58
-      005707 0A                    5075 	.db 0x0a
-      005708 0D                    5076 	.db 0x0d
-      005709 00                    5077 	.db 0x00
-                                   5078 	.area CSEG    (CODE)
-                                   5079 	.area CONST   (CODE)
-      00570A                       5080 ___str_55:
-      00570A 52 65 61 64 20 62 61  5081 	.ascii "Read back from address 0x%02X: 0x%02X"
+      0057AD 0A                    5170 	.db 0x0a
+      0057AE 0D                    5171 	.db 0x0d
+      0057AF 00                    5172 	.db 0x00
+                                   5173 	.area CSEG    (CODE)
+                                   5174 	.area CONST   (CODE)
+      0057B0                       5175 ___str_55:
+      0057B0 52 65 61 64 20 62 61  5176 	.ascii "Read back from address 0x%02X: 0x%02X"
              63 6B 20 66 72 6F 6D
              20 61 64 64 72 65 73
              73 20 30 78 25 30 32
              58 3A 20 30 78 25 30
              32 58
-      00572F 0A                    5082 	.db 0x0a
-      005730 0D                    5083 	.db 0x0d
-      005731 00                    5084 	.db 0x00
-                                   5085 	.area CSEG    (CODE)
-                                   5086 	.area CONST   (CODE)
-      005732                       5087 ___str_56:
-      005732 4D 41 54 43 48 20 2D  5088 	.ascii "MATCH - Write/Read successful!"
+      0057D5 0A                    5177 	.db 0x0a
+      0057D6 0D                    5178 	.db 0x0d
+      0057D7 00                    5179 	.db 0x00
+                                   5180 	.area CSEG    (CODE)
+                                   5181 	.area CONST   (CODE)
+      0057D8                       5182 ___str_56:
+      0057D8 4D 41 54 43 48 20 2D  5183 	.ascii "MATCH - Write/Read successful!"
              20 57 72 69 74 65 2F
              52 65 61 64 20 73 75
              63 63 65 73 73 66 75
              6C 21
-      005750 0A                    5089 	.db 0x0a
-      005751 0D                    5090 	.db 0x0d
-      005752 00                    5091 	.db 0x00
-                                   5092 	.area CSEG    (CODE)
-                                   5093 	.area CONST   (CODE)
-      005753                       5094 ___str_57:
-      005753 45 52 52 4F 52 20 2D  5095 	.ascii "ERROR - Data mismatch!"
+      0057F6 0A                    5184 	.db 0x0a
+      0057F7 0D                    5185 	.db 0x0d
+      0057F8 00                    5186 	.db 0x00
+                                   5187 	.area CSEG    (CODE)
+                                   5188 	.area CONST   (CODE)
+      0057F9                       5189 ___str_57:
+      0057F9 45 52 52 4F 52 20 2D  5190 	.ascii "ERROR - Data mismatch!"
              20 44 61 74 61 20 6D
              69 73 6D 61 74 63 68
              21
-      005769 0A                    5096 	.db 0x0a
-      00576A 0D                    5097 	.db 0x0d
-      00576B 00                    5098 	.db 0x00
-                                   5099 	.area CSEG    (CODE)
-                                   5100 	.area XINIT   (CODE)
-      005777                       5101 __xinit__address_range_flag:
-      005777 01 00                 5102 	.byte #0x01, #0x00	;  1
-      005779                       5103 __xinit__data_range_flag:
-      005779 01 00                 5104 	.byte #0x01, #0x00	;  1
-      00577B                       5105 __xinit__block:
-      00577B 00 00                 5106 	.byte #0x00, #0x00	; 0
-                                   5107 	.area CABS    (ABS,CODE)
+      00580F 0A                    5191 	.db 0x0a
+      005810 0D                    5192 	.db 0x0d
+      005811 00                    5193 	.db 0x00
+                                   5194 	.area CSEG    (CODE)
+                                   5195 	.area XINIT   (CODE)
+      00581D                       5196 __xinit__address_range_flag:
+      00581D 01 00                 5197 	.byte #0x01, #0x00	;  1
+      00581F                       5198 __xinit__data_range_flag:
+      00581F 01 00                 5199 	.byte #0x01, #0x00	;  1
+      005821                       5200 __xinit__block:
+      005821 00 00                 5201 	.byte #0x00, #0x00	; 0
+                                   5202 	.area CABS    (ABS,CODE)

@@ -54,7 +54,7 @@ unsigned char take_data();
 unsigned int take_address();
 void eeprom_reset();
 void handler_EEPROM_hexdump(void);
-void EEPROM_hexump(uint16_t start_address, uint16_t end_address);
+int EEPROM_hexump(uint16_t start_address, uint16_t end_address);
 
 /**
  * @brief Sends a character to the serial port
@@ -527,7 +527,7 @@ void i2c_start(void)
  * @param end_address Ending address for dump
  * @details Formats output as 16-byte lines with address prefix
  */
-void EEPROM_hexump(uint16_t start_address, uint16_t end_address)
+int EEPROM_hexump(uint16_t start_address, uint16_t end_address)
 {
     // printf_tiny("\033[1;34m\n\rI2C EEPROM DUMP!!\r\n");
     //
@@ -566,9 +566,43 @@ void EEPROM_hexump(uint16_t start_address, uint16_t end_address)
 
             if (current_address <= end_address) {
                 // Read data from EEPROM and print it
-                uint8_t data = eeprom_read(current_address);
-                printf("%02X ", data);
-            } else {
+                //uint8_t data = eeprom_read(current_address);
+                    unsigned char result;
+
+                    // Start for address setting
+                    i2c_start();
+                
+                    // Send device address with write bit
+                    if(!i2c_write(EEPROM_ID | WRITE)) {
+                        printf("Error: No ACK for device address (write mode)\n\r");
+                        i2c_stop();
+                        return -1;
+                    }
+                
+                    // Send memory address
+                    if(!i2c_write((unsigned char)address)) {
+                        printf("Error: No ACK for memory address\n\r");
+                        i2c_stop();
+                        return -1;
+                    }
+                
+                    // Repeated start for reading
+                    i2c_start();
+                
+                    // Send device address with read bit
+                    if(!i2c_write(EEPROM_ID | READ)) {
+                        printf("Error: No ACK for device address (read mode)\n\r");
+                        i2c_stop();
+                        return -1;
+                    }
+                
+                    // Read data (send NACK after as it's the last byte)
+                    result = i2c_read(0);  // 0 means send NACK
+                    printf("%02X ", result);
+                    i2c_stop();
+            } 
+            else 
+            {
                 printf("   "); // Space for missing bytes if end_address reached mid-line
             }
         }
@@ -577,6 +611,7 @@ void EEPROM_hexump(uint16_t start_address, uint16_t end_address)
         printf("\r\n");
     }
     printf("\r\n");
+    return 1;
 }
 
 /**
