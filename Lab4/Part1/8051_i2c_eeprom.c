@@ -174,23 +174,23 @@ int main()
                 
             case 'H':
                 printf("\n┌───────────── HEX DUMP OPERATION ───────────────┐\n\r");
-                unsigned int start_add;
-                start_add = take_address();
-                // if(!address_range_flag) 
-                // {
-                //     address_range_flag = 1;
-                //     break;
-                // }
-                unsigned int end_add;
-                // if(!address_range_flag) 
-                // {
-                //     address_range_flag = 1;
-                //     break;
-                // }
-                end_add = take_address();
+                // unsigned int start_add;
+                // start_add = take_address();
+                // // if(!address_range_flag) 
+                // // {
+                // //     address_range_flag = 1;
+                // //     break;
+                // // }
+                // unsigned int end_add;
+                // // if(!address_range_flag) 
+                // // {
+                // //     address_range_flag = 1;
+                // //     break;
+                // // }
+                // end_add = take_address();
                 //eeprom_hex_dump(start_add, end_add );
-                //handler_EEPROM_hexdump();
-                EEPROM_hexump(start_add, end_add);
+                handler_EEPROM_hexdump();
+                //EEPROM_hexump(start_add, end_add);
             
             default:
                 printf("INVALID INPUT\n\r");
@@ -537,131 +537,241 @@ void i2c_start(void)
  * @param end_address Ending address for dump
  * @details Formats output as 16-byte lines with address prefix
  */
-int EEPROM_hexump(uint16_t start_address, uint16_t end_address)
-{
-    // printf_tiny("\033[1;34m\n\rI2C EEPROM DUMP!!\r\n");
-    //
-    // __xdata uint8_t count = 0, i = 0, temp_storage = 0, data_byte = 0;
-    // __xdata uint16_t address = start_address;
-    //
-    // while (address <= end_address) {
-    //     if (count % DIVIDE_BY_16 == 0) {
-    //         putchar('\n');
-    //         putchar('\r');
-    //         print_hex_number(address, 3);
-    //         putchar(':');
-    //     }
-    //     putchar(ASCII_SPACE);//space
-    //     data_byte = i2c_eeprom_read(address);
-    //     print_hex_number(data_byte, 2);
-    //
-    //     address++;
-    //     count++;
-    // }
-    // printf("\033[0m\r\n");
-    // return;
-
-    printf("\r\n");
-    printf("\r\n----------------------------------------------------------------");
-    printf("\r\n                    EEPROM Hex Dump                             ");
+ 
+ int EEPROM_hexdump(uint16_t start_address, uint16_t end_address) {
+    // Print header
     printf("\r\n----------------------------------------------------------------\r\n");
-    // Loop through the EEPROM addresses from start to end
-    for (unsigned int address = start_address; address <= end_address; address += MAX_HEX_CHAR_IN_SINGLE_LINE) {
-        // Print the address (starting address for each line)
-        printf("%03X: ", address);
-
-        // Print up to 16 bytes of data in hex
-        for (int offset = 0; offset < MAX_HEX_CHAR_IN_SINGLE_LINE; offset++) {
-            unsigned int current_address = address + offset;
-
-            if (current_address <= end_address) 
-            {
-                // Read data from EEPROM and print it
-                //uint8_t data = eeprom_read(current_address);
-                    unsigned char result;
-
-                    // Start for address setting
-                    i2c_start();
+    printf("                    EEPROM Hex Dump                               \r\n");
+    printf("----------------------------------------------------------------\r\n");
+    printf("     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\r\n");
+    
+    // Calculate number of complete rows and remaining bytes
+    uint16_t num_bytes = end_address - start_address + 1;
+    uint16_t current_address = start_address;
+    
+    // Process each row
+    while (current_address <= end_address) {
+        // Print address at start of line
+        printf("%03X: ", current_address & 0xFFF0);
+        
+        // Print hex values
+        for (uint8_t i = 0; i < 16; i++) {
+            if (current_address + i <= end_address) {
+                // Start condition for each byte read
+                i2c_start();
                 
-                    // Send device address with write bit
-                    if(!i2c_write(EEPROM_ID | WRITE)) {
-                        printf("Error: No ACK for device address (write mode)\n\r");
-                        i2c_stop();
-                        return -1;
-                    }
-                
-                    // Send memory address
-                    if(!i2c_write((unsigned char)address)) {
-                        printf("Error: No ACK for memory address\n\r");
-                        i2c_stop();
-                        return -1;
-                    }
-                
-                    // Repeated start for reading
-                    i2c_start();
-                
-                    // Send device address with read bit
-                    if(!i2c_write(EEPROM_ID | READ)) {
-                        printf("Error: No ACK for device address (read mode)\n\r");
-                        i2c_stop();
-                        return -1;
-                    }
-                
-                    // Read data (send NACK after as it's the last byte)
-                    result = i2c_read(0);  // 0 means send NACK
-                    printf("%02X ", result);
-                    result = 0;
+                // Send device address with write bit
+                if (!i2c_write(EEPROM_ID | WRITE)) {
+                    printf("Error: Device not responding\r\n");
                     i2c_stop();
-            } 
-            else 
-            {
-                printf("   "); // Space for missing bytes if end_address reached mid-line
+                    return 0;
+                }
+                
+                // Send memory address
+                if (!i2c_write((unsigned char)(current_address + i))) {
+                    printf("Error: Address write failed\r\n");
+                    i2c_stop();
+                    return 0;
+                }
+                
+                // Repeated start for reading
+                i2c_start();
+                
+                // Send device address with read bit
+                if (!i2c_write(EEPROM_ID | READ)) {
+                    printf("Error: Device not responding in read mode\r\n");
+                    i2c_stop();
+                    return 0;
+                }
+                
+                // Read byte (send NACK as we're reading single bytes)
+                unsigned char data = i2c_read(0);
+                printf("%02X ", data);
+                
+                i2c_stop();
+                i2c_delay(); // Small delay between reads
+            } else {
+                printf("   "); // Print spaces for addresses beyond end_address
             }
         }
-
-        // Print a newline after each line of data
+        
+        // Print ASCII representation
+        printf(" | ");
+        for (uint8_t i = 0; i < 16; i++) {
+            if (current_address + i <= end_address) {
+                // Read byte again for ASCII display
+                i2c_start();
+                i2c_write(EEPROM_ID | WRITE);
+                i2c_write((unsigned char)(current_address + i));
+                i2c_start();
+                i2c_write(EEPROM_ID | READ);
+                unsigned char data = i2c_read(0);
+                i2c_stop();
+                
+                // Print printable characters, dots for non-printable
+                if (data >= 32 && data <= 126) {
+                    putchar(data);
+                } else {
+                    putchar('.');
+                }
+            } else {
+                putchar(' ');
+            }
+        }
+        
         printf("\r\n");
+        current_address += 16;
     }
-    printf("\r\n");
+    
+    printf("----------------------------------------------------------------\r\n");
     return 1;
 }
 
-/**
- * @brief Handles user interface for hex dump operation
- * @details Prompts for start and end addresses, validates range,
- *          and calls EEPROM_hexump for actual dump
- */
-void handler_EEPROM_hexdump(void)
-{
-    __xdata uint32_t start_addr = 0;
-    printf_tiny("\033[1;33m\n\rEnter Start Address for HEX Dump\r\n");
-    start_addr = take_address();
-
-    if(start_addr >= 0 && start_addr <= ADDR_MAX)
-    {
-        // correct address range
-    }
-    else{
-        printf("\033[1;31m\n\rInvalid Start Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
+// Updated handler function
+void handler_EEPROM_hexdump(void) {
+    printf("\nEnter Start Address for HEX Dump (000-7FF):\r\n");
+    uint16_t start_addr = take_address();
+    
+    if (start_addr > ADDR_MAX) {
+        printf("Invalid Start Address! Must be between 0x000 and 0x7FF\r\n");
         return;
     }
-
-    __xdata uint16_t end_addr = 0;
-
-    printf_tiny("\033[1;33m\n\rEnter End Address for HEX Dump\r\n");
-    end_addr = take_address();
-
-    if(end_addr >= 0 && end_addr <= ADDR_MAX)
-    {
-        // correct address range
-    }
-    else{
-        printf("\033[1;31m\n\rInvalid End Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
+    
+    printf("\nEnter End Address for HEX Dump (000-7FF):\r\n");
+    uint16_t end_addr = take_address();
+    
+    if (end_addr > ADDR_MAX || end_addr < start_addr) {
+        printf("Invalid End Address! Must be between 0x%03X and 0x7FF\r\n", start_addr);
         return;
     }
-
-    EEPROM_hexump(start_addr,end_addr);
+    
+    EEPROM_hexdump(start_addr, end_addr);
 }
+// int EEPROM_hexump(uint16_t start_address, uint16_t end_address)
+// {
+//     // printf_tiny("\033[1;34m\n\rI2C EEPROM DUMP!!\r\n");
+//     //
+//     // __xdata uint8_t count = 0, i = 0, temp_storage = 0, data_byte = 0;
+//     // __xdata uint16_t address = start_address;
+//     //
+//     // while (address <= end_address) {
+//     //     if (count % DIVIDE_BY_16 == 0) {
+//     //         putchar('\n');
+//     //         putchar('\r');
+//     //         print_hex_number(address, 3);
+//     //         putchar(':');
+//     //     }
+//     //     putchar(ASCII_SPACE);//space
+//     //     data_byte = i2c_eeprom_read(address);
+//     //     print_hex_number(data_byte, 2);
+//     //
+//     //     address++;
+//     //     count++;
+//     // }
+//     // printf("\033[0m\r\n");
+//     // return;
+
+//     printf("\r\n");
+//     printf("\r\n----------------------------------------------------------------");
+//     printf("\r\n                    EEPROM Hex Dump                             ");
+//     printf("\r\n----------------------------------------------------------------\r\n");
+//     // Loop through the EEPROM addresses from start to end
+//     for (unsigned int address = start_address; address <= end_address; address += MAX_HEX_CHAR_IN_SINGLE_LINE) {
+//         // Print the address (starting address for each line)
+//         printf("%03X: ", address);
+
+//         // Print up to 16 bytes of data in hex
+//         for (int offset = 0; offset < MAX_HEX_CHAR_IN_SINGLE_LINE; offset++) {
+//             unsigned int current_address = address + offset;
+
+//             if (current_address <= end_address) 
+//             {
+//                 // Read data from EEPROM and print it
+//                 //uint8_t data = eeprom_read(current_address);
+//                     unsigned char result;
+
+//                     // Start for address setting
+//                     i2c_start();
+                
+//                     // Send device address with write bit
+//                     if(!i2c_write(EEPROM_ID | WRITE)) {
+//                         printf("Error: No ACK for device address (write mode)\n\r");
+//                         i2c_stop();
+//                         return -1;
+//                     }
+                
+//                     // Send memory address
+//                     if(!i2c_write((unsigned char)address)) {
+//                         printf("Error: No ACK for memory address\n\r");
+//                         i2c_stop();
+//                         return -1;
+//                     }
+                
+//                     // Repeated start for reading
+//                     i2c_start();
+                
+//                     // Send device address with read bit
+//                     if(!i2c_write(EEPROM_ID | READ)) {
+//                         printf("Error: No ACK for device address (read mode)\n\r");
+//                         i2c_stop();
+//                         return -1;
+//                     }
+                
+//                     // Read data (send NACK after as it's the last byte)
+//                     result = i2c_read(0);  // 0 means send NACK
+//                     printf("%02X ", result);
+//                     result = 0;
+//                     i2c_stop();
+//             } 
+//             else 
+//             {
+//                 printf("   "); // Space for missing bytes if end_address reached mid-line
+//             }
+//         }
+
+//         // Print a newline after each line of data
+//         printf("\r\n");
+//     }
+//     printf("\r\n");
+//     return 1;
+// }
+
+// /**
+//  * @brief Handles user interface for hex dump operation
+//  * @details Prompts for start and end addresses, validates range,
+//  *          and calls EEPROM_hexump for actual dump
+//  */
+// void handler_EEPROM_hexdump(void)
+// {
+//     __xdata uint32_t start_addr = 0;
+//     printf_tiny("\033[1;33m\n\rEnter Start Address for HEX Dump\r\n");
+//     start_addr = take_address();
+
+//     if(start_addr >= 0 && start_addr <= ADDR_MAX)
+//     {
+//         // correct address range
+//     }
+//     else{
+//         printf("\033[1;31m\n\rInvalid Start Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
+//         return;
+//     }
+
+//     __xdata uint16_t end_addr = 0;
+
+//     printf_tiny("\033[1;33m\n\rEnter End Address for HEX Dump\r\n");
+//     end_addr = take_address();
+
+//     if(end_addr >= 0 && end_addr <= ADDR_MAX)
+//     {
+//         // correct address range
+//     }
+//     else{
+//         printf("\033[1;31m\n\rInvalid End Address Range!!\n\r Address has to be between 0x000 to 0x7FF\033[0m\r\n");
+//         return;
+//     }
+
+//     EEPROM_hexump(start_addr,end_addr);
+// }
 
 /**
  * @brief Generates I2C stop condition
