@@ -1407,6 +1407,26 @@ _take_address:
 	mov	dptr,#0x0000
 	ret
 00127$:
+;	8051_i2c_eeprom.c:262: unsigned int block = address/256;       //block address
+	mov	ar4,r7
+	mov	r5,#0x00
+;	8051_i2c_eeprom.c:263: printf("| Block number %d                            \n\r", block);
+	push	ar7
+	push	ar6
+	push	ar4
+	push	ar5
+	mov	a,#___str_28
+	push	acc
+	mov	a,#(___str_28 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+	pop	ar6
+	pop	ar7
 ;	8051_i2c_eeprom.c:264: address = address%256;     //word address
 	mov	dptr,#_take_address_address_65538_72
 	mov	a,r6
@@ -1438,9 +1458,9 @@ _take_address:
 ;	-----------------------------------------
 _take_data:
 ;	8051_i2c_eeprom.c:278: printf("│ Enter data (hex, up to 2 characters): \n\r|");
-	mov	a,#___str_28
+	mov	a,#___str_29
 	push	acc
-	mov	a,#(___str_28 >> 8)
+	mov	a,#(___str_29 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1459,9 +1479,9 @@ _take_data:
 	mov	dptr,#(_take_data_input_65537_78 + 0x0003)
 	movx	@dptr,a
 ;	8051_i2c_eeprom.c:283: printf("$ ");
-	mov	a,#___str_29
+	mov	a,#___str_30
 	push	acc
-	mov	a,#(___str_29 >> 8)
+	mov	a,#(___str_30 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1655,9 +1675,9 @@ _take_data:
 	push	ar7
 	push	ar5
 	push	ar6
-	mov	a,#___str_30
+	mov	a,#___str_31
 	push	acc
-	mov	a,#(___str_30 >> 8)
+	mov	a,#(___str_31 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1671,9 +1691,9 @@ _take_data:
 	add	a,#0xff - 0xfe
 	jnc	00127$
 ;	8051_i2c_eeprom.c:322: printf("Data out of Range\n\r");
-	mov	a,#___str_31
+	mov	a,#___str_32
 	push	acc
-	mov	a,#(___str_31 >> 8)
+	mov	a,#(___str_32 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1730,9 +1750,9 @@ _eeprom_write:
 	orl	a,b
 	jnz	00102$
 ;	8051_i2c_eeprom.c:351: printf("Error: No ACK for device address (write)\n\r");
-	mov	a,#___str_32
+	mov	a,#___str_33
 	push	acc
-	mov	a,#(___str_32 >> 8)
+	mov	a,#(___str_33 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1765,9 +1785,9 @@ _eeprom_write:
 	orl	a,b
 	jnz	00104$
 ;	8051_i2c_eeprom.c:358: printf("Error: No ACK for memory address\n\r");
-	mov	a,#___str_33
+	mov	a,#___str_34
 	push	acc
-	mov	a,#(___str_33 >> 8)
+	mov	a,#(___str_34 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1798,9 +1818,9 @@ _eeprom_write:
 	orl	a,b
 	jnz	00106$
 ;	8051_i2c_eeprom.c:365: printf("Error: No ACK for data\n\r");
-	mov	a,#___str_34
+	mov	a,#___str_35
 	push	acc
-	mov	a,#(___str_34 >> 8)
+	mov	a,#(___str_35 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1857,9 +1877,9 @@ _eeprom_write:
 	push	ar4
 	push	ar6
 	push	ar7
-	mov	a,#___str_35
+	mov	a,#___str_36
 	push	acc
-	mov	a,#(___str_35 >> 8)
+	mov	a,#(___str_36 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1868,9 +1888,9 @@ _eeprom_write:
 	add	a,#0xf9
 	mov	sp,a
 ;	8051_i2c_eeprom.c:378: printf("│ Write successful!                             │\n\r");
-	mov	a,#___str_36
+	mov	a,#___str_37
 	push	acc
-	mov	a,#(___str_36 >> 8)
+	mov	a,#(___str_37 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1879,9 +1899,9 @@ _eeprom_write:
 	dec	sp
 	dec	sp
 ;	8051_i2c_eeprom.c:379: printf("└───────────────────────────────────────────────┘\n\r");
-	mov	a,#___str_37
+	mov	a,#___str_38
 	push	acc
-	mov	a,#(___str_37 >> 8)
+	mov	a,#(___str_38 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1921,9 +1941,9 @@ _eeprom_read:
 	orl	a,b
 	jnz	00102$
 ;	8051_i2c_eeprom.c:416: printf("Error: No ACK for device address (write mode)\n\r");
-	mov	a,#___str_38
+	mov	a,#___str_39
 	push	acc
-	mov	a,#(___str_38 >> 8)
+	mov	a,#(___str_39 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1956,9 +1976,9 @@ _eeprom_read:
 	orl	a,b
 	jnz	00104$
 ;	8051_i2c_eeprom.c:423: printf("Error: No ACK for memory address\n\r");
-	mov	a,#___str_33
+	mov	a,#___str_34
 	push	acc
-	mov	a,#(___str_33 >> 8)
+	mov	a,#(___str_34 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1986,9 +2006,9 @@ _eeprom_read:
 	orl	a,b
 	jnz	00106$
 ;	8051_i2c_eeprom.c:433: printf("Error: No ACK for device address (read mode)\n\r");
-	mov	a,#___str_39
+	mov	a,#___str_40
 	push	acc
-	mov	a,#(___str_39 >> 8)
+	mov	a,#(___str_40 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2018,9 +2038,9 @@ _eeprom_read:
 	push	ar5
 	push	ar6
 	push	ar7
-	mov	a,#___str_40
+	mov	a,#___str_41
 	push	acc
-	mov	a,#(___str_40 >> 8)
+	mov	a,#(___str_41 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2029,9 +2049,9 @@ _eeprom_read:
 	add	a,#0xf9
 	mov	sp,a
 ;	8051_i2c_eeprom.c:442: printf("│ Read successful!                 │\n\r");
-	mov	a,#___str_41
+	mov	a,#___str_42
 	push	acc
-	mov	a,#(___str_41 >> 8)
+	mov	a,#(___str_42 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2040,9 +2060,9 @@ _eeprom_read:
 	dec	sp
 	dec	sp
 ;	8051_i2c_eeprom.c:443: printf("└───────────────────────────────────────────────┘\n\r");
-	mov	a,#___str_37
+	mov	a,#___str_38
 	push	acc
-	mov	a,#(___str_37 >> 8)
+	mov	a,#(___str_38 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2128,9 +2148,9 @@ _i2c_write:
 ;	8051_i2c_eeprom.c:475: if(SDA == 1)        // If SDA is still high, no ACK received
 	jnb	_P1_4,00103$
 ;	8051_i2c_eeprom.c:478: printf("ACK DID NOT ARRIVE\n\r");
-	mov	a,#___str_42
+	mov	a,#___str_43
 	push	acc
-	mov	a,#(___str_42 >> 8)
+	mov	a,#(___str_43 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2318,17 +2338,6 @@ _EEPROM_hexdump:
 	inc	dptr
 	movx	@dptr,a
 ;	8051_i2c_eeprom.c:543: printf("\r\n----------------------------------------------------------------\r\n");
-	mov	a,#___str_43
-	push	acc
-	mov	a,#(___str_43 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	8051_i2c_eeprom.c:544: printf("                    EEPROM Hex Dump                               \r\n");
 	mov	a,#___str_44
 	push	acc
 	mov	a,#(___str_44 >> 8)
@@ -2339,7 +2348,7 @@ _EEPROM_hexdump:
 	dec	sp
 	dec	sp
 	dec	sp
-;	8051_i2c_eeprom.c:545: printf("----------------------------------------------------------------\r\n");
+;	8051_i2c_eeprom.c:544: printf("                    EEPROM Hex Dump                               \r\n");
 	mov	a,#___str_45
 	push	acc
 	mov	a,#(___str_45 >> 8)
@@ -2350,10 +2359,21 @@ _EEPROM_hexdump:
 	dec	sp
 	dec	sp
 	dec	sp
-;	8051_i2c_eeprom.c:546: printf("     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\r\n");
+;	8051_i2c_eeprom.c:545: printf("----------------------------------------------------------------\r\n");
 	mov	a,#___str_46
 	push	acc
 	mov	a,#(___str_46 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	8051_i2c_eeprom.c:546: printf("     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\r\n");
+	mov	a,#___str_47
+	push	acc
+	mov	a,#(___str_47 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2402,9 +2422,9 @@ _EEPROM_hexdump:
 	push	ar6
 	push	ar4
 	push	ar5
-	mov	a,#___str_47
+	mov	a,#___str_48
 	push	acc
-	mov	a,#(___str_47 >> 8)
+	mov	a,#(___str_48 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2469,9 +2489,9 @@ _EEPROM_hexdump:
 	orl	a,b
 	jnz	00102$
 ;	8051_i2c_eeprom.c:565: printf("Error: Device not responding\r\n");
-	mov	a,#___str_48
+	mov	a,#___str_49
 	push	acc
-	mov	a,#(___str_48 >> 8)
+	mov	a,#(___str_49 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2501,9 +2521,9 @@ _EEPROM_hexdump:
 	orl	a,b
 	jnz	00104$
 ;	8051_i2c_eeprom.c:572: printf("Error: Address write failed\r\n");
-	mov	a,#___str_49
+	mov	a,#___str_50
 	push	acc
-	mov	a,#(___str_49 >> 8)
+	mov	a,#(___str_50 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2533,9 +2553,9 @@ _EEPROM_hexdump:
 	orl	a,b
 	jnz	00106$
 ;	8051_i2c_eeprom.c:582: printf("Error: Device not responding in read mode\r\n");
-	mov	a,#___str_50
+	mov	a,#___str_51
 	push	acc
-	mov	a,#(___str_50 >> 8)
+	mov	a,#(___str_51 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2560,9 +2580,9 @@ _EEPROM_hexdump:
 	mov	r4,#0x00
 	push	ar3
 	push	ar4
-	mov	a,#___str_51
+	mov	a,#___str_52
 	push	acc
-	mov	a,#(___str_51 >> 8)
+	mov	a,#(___str_52 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2583,9 +2603,9 @@ _EEPROM_hexdump:
 	push	ar7
 	push	ar6
 	push	ar5
-	mov	a,#___str_52
+	mov	a,#___str_53
 	push	acc
-	mov	a,#(___str_52 >> 8)
+	mov	a,#(___str_53 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2604,9 +2624,9 @@ _EEPROM_hexdump:
 ;	8051_i2c_eeprom.c:599: printf(" | ");
 	push	ar7
 	push	ar6
-	mov	a,#___str_53
+	mov	a,#___str_54
 	push	acc
-	mov	a,#(___str_53 >> 8)
+	mov	a,#(___str_54 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2749,9 +2769,9 @@ _EEPROM_hexdump:
 ;	8051_i2c_eeprom.c:622: printf("\r\n");
 	push	ar7
 	push	ar6
-	mov	a,#___str_54
+	mov	a,#___str_55
 	push	acc
-	mov	a,#(___str_54 >> 8)
+	mov	a,#(___str_55 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2783,9 +2803,9 @@ _EEPROM_hexdump:
 	ljmp	00119$
 00121$:
 ;	8051_i2c_eeprom.c:626: printf("----------------------------------------------------------------\r\n");
-	mov	a,#___str_45
+	mov	a,#___str_46
 	push	acc
-	mov	a,#(___str_45 >> 8)
+	mov	a,#(___str_46 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2809,9 +2829,9 @@ _EEPROM_hexdump:
 ;	-----------------------------------------
 _handler_EEPROM_hexdump:
 ;	8051_i2c_eeprom.c:632: printf("\nEnter Start Address for HEX Dump (000-7FF):\r\n");
-	mov	a,#___str_55
+	mov	a,#___str_56
 	push	acc
-	mov	a,#(___str_55 >> 8)
+	mov	a,#(___str_56 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2833,9 +2853,9 @@ _handler_EEPROM_hexdump:
 	subb	a,r5
 	jnc	00102$
 ;	8051_i2c_eeprom.c:636: printf("Invalid Start Address! Must be between 0x000 and 0x7FF\r\n");
-	mov	a,#___str_56
+	mov	a,#___str_57
 	push	acc
-	mov	a,#(___str_56 >> 8)
+	mov	a,#(___str_57 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2849,9 +2869,9 @@ _handler_EEPROM_hexdump:
 ;	8051_i2c_eeprom.c:640: printf("\nEnter End Address for HEX Dump (000-7FF):\r\n");
 	push	ar7
 	push	ar6
-	mov	a,#___str_57
+	mov	a,#___str_58
 	push	acc
-	mov	a,#(___str_57 >> 8)
+	mov	a,#(___str_58 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -2883,9 +2903,9 @@ _handler_EEPROM_hexdump:
 ;	8051_i2c_eeprom.c:644: printf("Invalid End Address! Must be between 0x%03X and 0x7FF\r\n", start_addr);
 	push	ar6
 	push	ar7
-	mov	a,#___str_58
+	mov	a,#___str_59
 	push	acc
-	mov	a,#(___str_58 >> 8)
+	mov	a,#(___str_59 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -3037,9 +3057,9 @@ _test_function:
 	push	acc
 	clr	a
 	push	acc
-	mov	a,#___str_59
+	mov	a,#___str_60
 	push	acc
-	mov	a,#(___str_59 >> 8)
+	mov	a,#(___str_60 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -3092,9 +3112,9 @@ _test_function:
 	push	acc
 	clr	a
 	push	acc
-	mov	a,#___str_60
+	mov	a,#___str_61
 	push	acc
-	mov	a,#(___str_60 >> 8)
+	mov	a,#(___str_61 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -3106,9 +3126,9 @@ _test_function:
 ;	8051_i2c_eeprom.c:855: if(read_data == test_data) {
 	cjne	r6,#0x26,00103$
 ;	8051_i2c_eeprom.c:856: printf("MATCH - Write/Read successful!\n\r");
-	mov	a,#___str_61
+	mov	a,#___str_62
 	push	acc
-	mov	a,#(___str_61 >> 8)
+	mov	a,#(___str_62 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -3119,9 +3139,9 @@ _test_function:
 	ret
 00103$:
 ;	8051_i2c_eeprom.c:858: printf("ERROR - Data mismatch!\n\r");
-	mov	a,#___str_62
+	mov	a,#___str_63
 	push	acc
-	mov	a,#(___str_62 >> 8)
+	mov	a,#(___str_63 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -4931,6 +4951,13 @@ ___str_27:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_28:
+	.ascii "| Block number %d                            "
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_29:
 	.db 0xe2
 	.db 0x94
 	.db 0x82
@@ -4941,12 +4968,12 @@ ___str_28:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_29:
+___str_30:
 	.ascii "$ "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_30:
+___str_31:
 	.db 0x0a
 	.db 0x0d
 	.db 0xe2
@@ -4958,42 +4985,42 @@ ___str_30:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_31:
+___str_32:
 	.ascii "Data out of Range"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_32:
+___str_33:
 	.ascii "Error: No ACK for device address (write)"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_33:
+___str_34:
 	.ascii "Error: No ACK for memory address"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_34:
+___str_35:
 	.ascii "Error: No ACK for data"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_35:
+___str_36:
 	.ascii "| Writing at Address 0x%03X Data 0x%02X          |"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_36:
+___str_37:
 	.db 0xe2
 	.db 0x94
 	.db 0x82
@@ -5006,7 +5033,7 @@ ___str_36:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_37:
+___str_38:
 	.db 0xe2
 	.db 0x94
 	.db 0x94
@@ -5159,28 +5186,28 @@ ___str_37:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_38:
+___str_39:
 	.ascii "Error: No ACK for device address (write mode)"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_39:
+___str_40:
 	.ascii "Error: No ACK for device address (read mode)"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_40:
+___str_41:
 	.ascii "| 0x%03X : 0x%02X "
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_41:
+___str_42:
 	.db 0xe2
 	.db 0x94
 	.db 0x82
@@ -5193,14 +5220,14 @@ ___str_41:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_42:
+___str_43:
 	.ascii "ACK DID NOT ARRIVE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_43:
+___str_44:
 	.db 0x0d
 	.db 0x0a
 	.ascii "------------------------------------------------------------"
@@ -5210,7 +5237,7 @@ ___str_43:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_44:
+___str_45:
 	.ascii "                    EEPROM Hex Dump                         "
 	.ascii "      "
 	.db 0x0d
@@ -5218,7 +5245,7 @@ ___str_44:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_45:
+___str_46:
 	.ascii "------------------------------------------------------------"
 	.ascii "----"
 	.db 0x0d
@@ -5226,61 +5253,61 @@ ___str_45:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_46:
+___str_47:
 	.ascii "     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_47:
+___str_48:
 	.ascii "%03X: "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_48:
+___str_49:
 	.ascii "Error: Device not responding"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_49:
+___str_50:
 	.ascii "Error: Address write failed"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_50:
+___str_51:
 	.ascii "Error: Device not responding in read mode"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_51:
+___str_52:
 	.ascii "%02X "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_52:
+___str_53:
 	.ascii "   "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_53:
+___str_54:
 	.ascii " | "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_54:
+___str_55:
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_55:
+___str_56:
 	.db 0x0a
 	.ascii "Enter Start Address for HEX Dump (000-7FF):"
 	.db 0x0d
@@ -5288,14 +5315,14 @@ ___str_55:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_56:
+___str_57:
 	.ascii "Invalid Start Address! Must be between 0x000 and 0x7FF"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_57:
+___str_58:
 	.db 0x0a
 	.ascii "Enter End Address for HEX Dump (000-7FF):"
 	.db 0x0d
@@ -5303,35 +5330,35 @@ ___str_57:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_58:
+___str_59:
 	.ascii "Invalid End Address! Must be between 0x%03X and 0x7FF"
 	.db 0x0d
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_59:
+___str_60:
 	.ascii "Writing data 0x%02X to address 0x%02X"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_60:
+___str_61:
 	.ascii "Read back from address 0x%02X: 0x%02X"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_61:
+___str_62:
 	.ascii "MATCH - Write/Read successful!"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_62:
+___str_63:
 	.ascii "ERROR - Data mismatch!"
 	.db 0x0a
 	.db 0x0d

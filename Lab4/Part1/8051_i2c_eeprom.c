@@ -260,7 +260,7 @@ unsigned int take_address()
        return 0;
     }
     unsigned int block = address/256;       //block address
-    //printf("Block number %d\n\r", block);
+    printf("| Block number %d                            \n\r", block);
     address = address%256;     //word address
     //printf("address now  0x%03X\n\r", address);
 
