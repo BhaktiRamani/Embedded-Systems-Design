@@ -566,15 +566,16 @@ int EEPROM_hexump(uint16_t start_address, uint16_t end_address)
     printf("\r\n                    EEPROM Hex Dump                             ");
     printf("\r\n----------------------------------------------------------------\r\n");
     // Loop through the EEPROM addresses from start to end
-    for (uint16_t address = start_address; address <= end_address; address += MAX_HEX_CHAR_IN_SINGLE_LINE) {
+    for (unsigned int address = start_address; address <= end_address; address += MAX_HEX_CHAR_IN_SINGLE_LINE) {
         // Print the address (starting address for each line)
         printf("%03X: ", address);
 
         // Print up to 16 bytes of data in hex
         for (int offset = 0; offset < MAX_HEX_CHAR_IN_SINGLE_LINE; offset++) {
-            uint16_t current_address = address + offset;
+            unsigned int current_address = address + offset;
 
-            if (current_address <= end_address) {
+            if (current_address <= end_address) 
+            {
                 // Read data from EEPROM and print it
                 //uint8_t data = eeprom_read(current_address);
                     unsigned char result;
@@ -609,6 +610,7 @@ int EEPROM_hexump(uint16_t start_address, uint16_t end_address)
                     // Read data (send NACK after as it's the last byte)
                     result = i2c_read(0);  // 0 means send NACK
                     printf("%02X ", result);
+                    result = 0;
                     i2c_stop();
             } 
             else 
