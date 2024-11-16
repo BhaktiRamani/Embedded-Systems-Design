@@ -176,17 +176,17 @@ int main()
                 printf("\n┌───────────── HEX DUMP OPERATION ───────────────┐\n\r");
                 unsigned int start_add;
                 start_add = take_address();
-                if(!address_range_flag) 
-                {
-                    address_range_flag = 1;
-                    break;
-                }
+                // if(!address_range_flag) 
+                // {
+                //     address_range_flag = 1;
+                //     break;
+                // }
                 unsigned int end_add;
-                if(!address_range_flag) 
-                {
-                    address_range_flag = 1;
-                    break;
-                }
+                // if(!address_range_flag) 
+                // {
+                //     address_range_flag = 1;
+                //     break;
+                // }
                 end_add = take_address();
                 //eeprom_hex_dump(start_add, end_add );
                 //handler_EEPROM_hexdump();

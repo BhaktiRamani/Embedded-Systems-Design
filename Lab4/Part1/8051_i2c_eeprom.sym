@@ -248,9 +248,9 @@ Symbol Table
     _EA                                                         =  0000AF G
     _EC                                                         =  0000AE G
     _EECON                                                      =  0000D2 G
- 17 _EEPROM_hexump                                                 0009FD GR
+ 17 _EEPROM_hexump                                                 0009CD GR
   B _EEPROM_hexump_PARM_2                                          000018 GR
-  B _EEPROM_hexump_start_address_65536_113                         00001A R
+  B _EEPROM_hexump_start_address_65536_111                         00001A R
     _ES                                                         =  0000AC G
     _ET0                                                        =  0000A9 G
     _ET1                                                        =  0000AB G
@@ -495,34 +495,34 @@ Symbol Table
   D _block                                                         000004 R
  17 _command_menu                                                  00006D GR
   D _data_range_flag                                               000002 R
- 17 _eeprom_read                                                   0007E7 GR
-  B _eeprom_read_address_65536_97                                  000012 R
- 17 _eeprom_reset                                                  000CFC GR
- 17 _eeprom_write                                                  0006A5 GR
+ 17 _eeprom_read                                                   0007B7 GR
+  B _eeprom_read_address_65536_95                                  000012 R
+ 17 _eeprom_reset                                                  000CCC GR
+ 17 _eeprom_write                                                  000675 GR
   B _eeprom_write_PARM_2                                           00000F GR
-  B _eeprom_write_address_65536_90                                 000010 R
+  B _eeprom_write_address_65536_88                                 000010 R
  17 _getchar                                                       00001F GR
- 17 _handler_EEPROM_hexdump                                        000C56 GR
- 17 _i2c_delay                                                     000D28 GR
- 17 _i2c_read                                                      000963 GR
-  B _i2c_read_ACK_65536_107                                        000015 R
-  B _i2c_read_buff_65536_108                                       000017 R
- 17 _i2c_start                                                     0009E8 GR
- 17 _i2c_stop                                                      000CEF GR
- 17 _i2c_write                                                     0008FB GR
-  B _i2c_write_data_65536_102                                      000014 R
+ 17 _handler_EEPROM_hexdump                                        000C26 GR
+ 17 _i2c_delay                                                     000CF8 GR
+ 17 _i2c_read                                                      000933 GR
+  B _i2c_read_ACK_65536_105                                        000015 R
+  B _i2c_read_buff_65536_106                                       000017 R
+ 17 _i2c_start                                                     0009B8 GR
+ 17 _i2c_stop                                                      000CBF GR
+ 17 _i2c_write                                                     0008CB GR
+  B _i2c_write_data_65536_100                                      000014 R
  17 _main                                                          000140 GR
     _printf                                                        ****** GX
     _printf_tiny                                                   ****** GX
  17 _putchar                                                       000000 GR
   B _putchar_charToSend_65536_50                                   000002 R
- 17 _take_address                                                  000313 GR
-  B _take_address_address_65538_76                                 000008 R
-  B _take_address_input_65537_72                                   000004 R
- 17 _take_data                                                     00052C GR
-  B _take_data_data_65538_86                                       00000E R
-  B _take_data_input_65537_82                                      00000A R
- 17 _test_function                                                 000D3F GR
+ 17 _take_address                                                  0002E3 GR
+  B _take_address_address_65538_74                                 000008 R
+  B _take_address_input_65537_70                                   000004 R
+ 17 _take_data                                                     0004FC GR
+  B _take_data_data_65538_84                                       00000E R
+  B _take_data_input_65537_80                                      00000A R
+ 17 _test_function                                                 000D0F GR
  17 _ui                                                            00002D GR
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -758,7 +758,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size    DF7   flags   20
+  17 CSEG                                       size    DC7   flags   20
   18 CONST                                      size    E5A   flags   20
   19 XINIT                                      size      6   flags   20
   1A CABS                                       size      0   flags   28
