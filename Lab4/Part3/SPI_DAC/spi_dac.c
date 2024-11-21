@@ -34,7 +34,7 @@
 #define SPI_ENABLE         (1<<6)  // SPI enable bit
 
 /* Clock Configuration */
-#define SPI_CLK_DIV_128    0x02    // Frequency divider for fclk/128
+#define SPI_CLK_DIV_2    0x00    // Frequency divider for fclk/128
 
 /* Interrupt Configuration */
 #define SPI_INT_ENABLE     (1<<3)  // SPI interrupt enable bit in IEN1
@@ -108,12 +108,15 @@ int main(void)
     /* Initialize variables */
     int dac_value_index = 0;
     int dac_data = 0;
-
+    
+    printf("SPI DAC PROGRAM\n\r");
     EA = GLOBAL_INT_ENABLE;        // Enable global interrupts
     
     /* Initialize SPI */
     spi_init();
     spi_transmission_start();
+    
+    printf("SPI TRANSMISSION STARTED\n\r");
     
     unsigned char high_byte, low_byte;
     timer0_init();
@@ -224,10 +227,11 @@ void spi_init(void)
     // P1_1 = 1;
     
     // Configure SPI mode and clock settings
+    SPCON |= SPI_CLK_DIV_2;      // Set clock frequency divider
     SPCON |= SPI_MASTER_MODE;      // Set as master
     SPCON |= SPI_CPOL_HIGH;        // Clock polarity active high
     SPCON &= ~SPI_CPHA_FIRST;      // Sample data on first clock edge
-    SPCON |= SPI_CLK_DIV_128;      // Set clock frequency divider
+
     
     // Enable interrupts
     IEN1 |= SPI_INT_ENABLE;        // Enable SPI interrupt
