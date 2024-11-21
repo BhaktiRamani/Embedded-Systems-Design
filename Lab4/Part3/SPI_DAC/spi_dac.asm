@@ -762,8 +762,86 @@ _main:
 ;	spi_dac.c:153: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
+;	spi_dac.c:155: while(1)
+00120$:
+;	spi_dac.c:157: printf("while start\n\r");
+	mov	a,#___str_4
+	push	acc
+	mov	a,#(___str_4 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:183: delay_ms(10);
+	mov	dptr,#0x000a
+	lcall	_delay_ms
+;	spi_dac.c:186: P1_1 = 0;  // Select DAC
+;	assignBit
+	clr	_P1_1
+;	spi_dac.c:192: SPDAT = high_byte;
+	mov	_SPDAT,#0x30
+;	spi_dac.c:193: while (!(SPSTA & (1<<7))); 
+00107$:
+	mov	a,_SPSTA
+	jnb	acc.7,00107$
+;	spi_dac.c:198: SPDAT = low_byte;
+	mov	_SPDAT,#0x00
+;	spi_dac.c:199: while (!(SPSTA & (1<<7))); 
+00110$:
+	mov	a,_SPSTA
+	jnb	acc.7,00110$
+;	spi_dac.c:203: P1_1 = 1;  // Deselect DAC
+;	assignBit
+	setb	_P1_1
+;	spi_dac.c:218: delay_ms(10);
+	mov	dptr,#0x000a
+	lcall	_delay_ms
+;	spi_dac.c:221: P1_1 = 0;  // Select DAC
+;	assignBit
+	clr	_P1_1
+;	spi_dac.c:227: SPDAT = high_byte;
+	mov	_SPDAT,#0x3f
+;	spi_dac.c:228: while (!(SPSTA & (1<<7))); 
+00113$:
+	mov	a,_SPSTA
+	jnb	acc.7,00113$
+;	spi_dac.c:233: SPDAT = low_byte;
+	mov	_SPDAT,#0xf0
+;	spi_dac.c:234: while (!(SPSTA & (1<<7))); 
+00116$:
+	mov	a,_SPSTA
+	jnb	acc.7,00116$
+;	spi_dac.c:238: P1_1 = 1;  // Deselect DAC
+;	assignBit
+	setb	_P1_1
+;	spi_dac.c:242: printf("E\n\r");
+	mov	a,#___str_5
+	push	acc
+	mov	a,#(___str_5 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:243: printf("\n\r");
+	mov	a,#___str_6
+	push	acc
+	mov	a,#(___str_6 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:246: dac_value_index++;
 ;	spi_dac.c:248: }
-	ret
+	sjmp	00120$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer0_init'
 ;------------------------------------------------------------
@@ -820,9 +898,9 @@ _timer0_isr:
 	mov	a,#0x01
 	movx	@dptr,a
 ;	spi_dac.c:272: printf("T \n\r");
-	mov	a,#___str_4
+	mov	a,#___str_7
 	push	acc
-	mov	a,#(___str_4 >> 8)
+	mov	a,#(___str_7 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -880,9 +958,9 @@ _spi_isr:
 	inc	dptr
 	movx	@dptr,a
 ;	spi_dac.c:288: printf("spi isr \n\r");
-	mov	a,#___str_5
+	mov	a,#___str_8
 	push	acc
-	mov	a,#(___str_5 >> 8)
+	mov	a,#(___str_8 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1033,13 +1111,33 @@ ___str_3:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_4:
-	.ascii "T "
+	.ascii "while start"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_5:
+	.ascii "E"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_6:
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_7:
+	.ascii "T "
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_8:
 	.ascii "spi isr "
 	.db 0x0a
 	.db 0x0d
