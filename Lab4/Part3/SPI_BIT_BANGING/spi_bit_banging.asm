@@ -603,11 +603,11 @@ _main:
 ;	spi_bit_banging.c:43: spi_write(0x1F);
 	mov	dpl,#0x1f
 	lcall	_spi_write
-;	spi_bit_banging.c:44: spi_write(0x1F);
-	mov	dpl,#0x1f
+;	spi_bit_banging.c:44: spi_write(0x18);
+	mov	dpl,#0x18
 	lcall	_spi_write
-;	spi_bit_banging.c:45: spi_write(0xF0);
-	mov	dpl,#0xf0
+;	spi_bit_banging.c:45: spi_write(0x00);
+	mov	dpl,#0x00
 	lcall	_spi_write
 ;	spi_bit_banging.c:46: printf("  ITS DONE\n\r");
 	mov	a,#___str_1

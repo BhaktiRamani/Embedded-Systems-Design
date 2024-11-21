@@ -41,8 +41,8 @@ int main()
     SS = 1;
     printf("  SPI BIT BANGING PROGRAM\n\r");
     spi_write(0x1F);
-    spi_write(0x1F);
-    spi_write(0xF0);
+    spi_write(0x18);
+    spi_write(0x00);
     printf("  ITS DONE\n\r");
     return 0;
     

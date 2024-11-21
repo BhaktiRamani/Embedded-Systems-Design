@@ -603,11 +603,11 @@
                                     603 ;	spi_bit_banging.c:43: spi_write(0x1F);
       0020A6 75 82 1F         [24]  604 	mov	dpl,#0x1f
       0020A9 12 20 D1         [24]  605 	lcall	_spi_write
-                                    606 ;	spi_bit_banging.c:44: spi_write(0x1F);
-      0020AC 75 82 1F         [24]  607 	mov	dpl,#0x1f
+                                    606 ;	spi_bit_banging.c:44: spi_write(0x18);
+      0020AC 75 82 18         [24]  607 	mov	dpl,#0x18
       0020AF 12 20 D1         [24]  608 	lcall	_spi_write
-                                    609 ;	spi_bit_banging.c:45: spi_write(0xF0);
-      0020B2 75 82 F0         [24]  610 	mov	dpl,#0xf0
+                                    609 ;	spi_bit_banging.c:45: spi_write(0x00);
+      0020B2 75 82 00         [24]  610 	mov	dpl,#0x00
       0020B5 12 20 D1         [24]  611 	lcall	_spi_write
                                     612 ;	spi_bit_banging.c:46: printf("  ITS DONE\n\r");
       0020B8 74 FB            [12]  613 	mov	a,#___str_1
