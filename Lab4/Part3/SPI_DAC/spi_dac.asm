@@ -772,10 +772,10 @@ _main:
 	mov	sp,a
 ;	spi_dac.c:169: SPDAT = high_byte;
 	mov	_SPDAT,#0x30
-;	spi_dac.c:170: while (SPSTA & (1<<7)); 
+;	spi_dac.c:170: while (!(SPSTA & (1<<7))); 
 00101$:
 	mov	a,_SPSTA
-	jb	acc.7,00101$
+	jnb	acc.7,00101$
 ;	spi_dac.c:175: SPDAT = low_byte;
 	mov	dptr,#_main_low_byte_65538_28
 	movx	a,@dptr
@@ -783,10 +783,10 @@ _main:
 	inc	dptr
 	movx	a,@dptr
 	mov	_SPDAT,r6
-;	spi_dac.c:176: while (SPSTA & (1<<7));
+;	spi_dac.c:176: while (!(SPSTA & (1<<7))); 
 00104$:
 	mov	a,_SPSTA
-	jb	acc.7,00104$
+	jnb	acc.7,00104$
 ;	spi_dac.c:180: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
@@ -835,10 +835,10 @@ _main:
 	mov	sp,a
 ;	spi_dac.c:202: SPDAT = high_byte;
 	mov	_SPDAT,#0x3f
-;	spi_dac.c:203: while (SPSTA & (1<<7)); 
+;	spi_dac.c:203: while (!(SPSTA & (1<<7))); 
 00107$:
 	mov	a,_SPSTA
-	jb	acc.7,00107$
+	jnb	acc.7,00107$
 ;	spi_dac.c:208: SPDAT = low_byte;
 	mov	dptr,#_main_low_byte_65538_28
 	movx	a,@dptr
@@ -846,10 +846,10 @@ _main:
 	inc	dptr
 	movx	a,@dptr
 	mov	_SPDAT,r6
-;	spi_dac.c:209: while (SPSTA & (1<<7));
+;	spi_dac.c:209: while (!(SPSTA & (1<<7))); 
 00110$:
 	mov	a,_SPSTA
-	jb	acc.7,00110$
+	jnb	acc.7,00110$
 ;	spi_dac.c:213: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
@@ -890,16 +890,16 @@ _main:
 	mov	sp,a
 ;	spi_dac.c:238: SPDAT = high_byte;
 	mov	_SPDAT,#0x30
-;	spi_dac.c:239: while (SPSTA & (1<<7)); 
+;	spi_dac.c:239: while (!(SPSTA & (1<<7))); 
 00113$:
 	mov	a,_SPSTA
-	jb	acc.7,00113$
+	jnb	acc.7,00113$
 ;	spi_dac.c:244: SPDAT = low_byte;
 	mov	_SPDAT,#0x00
-;	spi_dac.c:245: while (SPSTA & (1<<7));
+;	spi_dac.c:245: while (!(SPSTA & (1<<7))); 
 00116$:
 	mov	a,_SPSTA
-	jb	acc.7,00116$
+	jnb	acc.7,00116$
 ;	spi_dac.c:249: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
@@ -941,16 +941,16 @@ _main:
 	mov	sp,a
 ;	spi_dac.c:268: SPDAT = high_byte;
 	mov	_SPDAT,#0x3f
-;	spi_dac.c:269: while (SPSTA & (1<<7)); 
+;	spi_dac.c:269: while (!(SPSTA & (1<<7))); 
 00119$:
 	mov	a,_SPSTA
-	jb	acc.7,00119$
+	jnb	acc.7,00119$
 ;	spi_dac.c:274: SPDAT = low_byte;
 	mov	_SPDAT,#0xf0
-;	spi_dac.c:275: while (SPSTA & (1<<7));
+;	spi_dac.c:275: while (!(SPSTA & (1<<7))); 
 00122$:
 	mov	a,_SPSTA
-	jb	acc.7,00122$
+	jnb	acc.7,00122$
 ;	spi_dac.c:279: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
@@ -1119,51 +1119,40 @@ _spi_isr:
 ;	 function spi_init
 ;	-----------------------------------------
 _spi_init:
-;	spi_dac.c:345: SPCON = 0;
-	mov	_SPCON,#0x00
-;	spi_dac.c:353: SPCON &= ~SPI_CPOL_HIGH;        // Clock polarity active high
-	anl	_SPCON,#0xf7
-;	spi_dac.c:354: SPCON &= ~SPI_CPHA_FIRST;      // Sample data on first clock edge 
-	anl	_SPCON,#0xfb
-;	spi_dac.c:355: SPCON &= ~SPI_SSDIS;
-	anl	_SPCON,#0xdf
-;	spi_dac.c:357: SPCON |= 0x10;
+;	spi_dac.c:363: SPCON |= 0x10;
 	orl	_SPCON,#0x10
-;	spi_dac.c:358: P1_1 = 1;
-;	assignBit
-	setb	_P1_1
-;	spi_dac.c:359: SPCON |= 0x82;
-	orl	_SPCON,#0x82
-;	spi_dac.c:361: SPCON |= 0x40;
+;	spi_dac.c:364: SPCON |= 0x20;
+	orl	_SPCON,#0x20
+;	spi_dac.c:365: SPCON |= 0x40;
 	orl	_SPCON,#0x40
-;	spi_dac.c:368: }
+;	spi_dac.c:372: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_start'
 ;------------------------------------------------------------
-;	spi_dac.c:375: void spi_transmission_start(void)
+;	spi_dac.c:379: void spi_transmission_start(void)
 ;	-----------------------------------------
 ;	 function spi_transmission_start
 ;	-----------------------------------------
 _spi_transmission_start:
-;	spi_dac.c:377: SPCON |= SPI_ENABLE;           // Enable SPI
+;	spi_dac.c:381: SPCON |= SPI_ENABLE;           // Enable SPI
 	orl	_SPCON,#0x40
-;	spi_dac.c:378: P1_1 = 0;
+;	spi_dac.c:382: P1_1 = 0;
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:379: }
+;	spi_dac.c:383: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_stop'
 ;------------------------------------------------------------
-;	spi_dac.c:386: void spi_transmission_stop(void) 
+;	spi_dac.c:390: void spi_transmission_stop(void) 
 ;	-----------------------------------------
 ;	 function spi_transmission_stop
 ;	-----------------------------------------
 _spi_transmission_stop:
-;	spi_dac.c:388: SPCON &= ~SPI_ENABLE;          // Disable SPI
+;	spi_dac.c:392: SPCON &= ~SPI_ENABLE;          // Disable SPI
 	anl	_SPCON,#0xbf
-;	spi_dac.c:389: }
+;	spi_dac.c:393: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

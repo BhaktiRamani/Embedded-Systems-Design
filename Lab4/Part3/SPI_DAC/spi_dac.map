@@ -70,7 +70,7 @@ C:   00000100  l_IRAM
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   0000043F  s_XISEG                         
-C:   00000DB9  l_CSEG                          
+C:   00000DAB  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002051  s_GSINIT0                       
 C:   00002054  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   000020AA  s_GSFINAL
 C:   000020AA  s_GSINIT                        
 C:   000020AA  s_GSINIT5                       
 C:   000020AD  s_CSEG                          
-C:   00002E66  s_CONST                         
-C:   00002F42  s_XINIT                         
+C:   00002E58  s_CONST                         
+C:   00002F34  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -465,7 +465,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                000020AD    00000DB9 =        3513. bytes (REL,CON,CODE)
+CSEG                                000020AD    00000DAB =        3499. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -477,33 +477,33 @@ C:   000022C7  _timer0_init                       spi_dac
 C:   000022D8  _timer0_isr                        spi_dac
 C:   00002335  _spi_isr                           spi_dac
 C:   00002394  _spi_init                          spi_dac
-C:   000023AC  _spi_transmission_start            spi_dac
-C:   000023B2  _spi_transmission_stop             spi_dac
-C:   000023C5  _vprintf                           vprintf
-C:   00002404  _printf                            vprintf
-C:   0000250D  __print_format                     printf_large
-C:   00002E0E  _strlen                            _strlen
-C:   00002E26  __mulint                           _mulint
-C:   00002E46  __gptrget                          _gptrget
-C:   00002E62  __sdcc_external_startup            _startup
+C:   0000239E  _spi_transmission_start            spi_dac
+C:   000023A4  _spi_transmission_stop             spi_dac
+C:   000023B7  _vprintf                           vprintf
+C:   000023F6  _printf                            vprintf
+C:   000024FF  __print_format                     printf_large
+C:   00002E00  _strlen                            _strlen
+C:   00002E18  __mulint                           _mulint
+C:   00002E38  __gptrget                          _gptrget
+C:   00002E54  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002E66    000000DC =         220. bytes (REL,CON,CODE)
+CONST                               00002E58    000000DC =         220. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00002E66  _dac_values                        spi_dac
+C:   00002E58  _dac_values                        spi_dac
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00002F42    00000003 =           3. bytes (REL,CON,CODE)
+XINIT                               00002F34    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
