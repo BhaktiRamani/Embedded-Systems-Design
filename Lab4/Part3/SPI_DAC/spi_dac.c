@@ -181,11 +181,12 @@ int main(void)
 
         delay_ms(10);
         
+        printf("Low byte %d\n\r", low_byte);
+        printf("High byte %d\n\r", high_byte);
         // Begin transmission
         P1_1 = 0;  // Select DAC
 
-        // printf("Low byte %d\n\r", low_byte);
-        // printf("High byte %d\n\r", high_byte);
+
 
         // Send high byte
         SPDAT = high_byte;
@@ -203,11 +204,6 @@ int main(void)
         // while(!transmission_complete);
         // transmission_complete = 0;
 
-        
-
-        P1_1 = 1;  // Deselect DAC
-        // while(!transmission_complete);
-        // transmission_complete = 0;
         
         printf("E\n\r");
         printf("\n\r");
