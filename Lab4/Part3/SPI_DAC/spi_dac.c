@@ -52,7 +52,7 @@
 #define SINE_MAX_INDEX    49      // Maximum index for sine table (SINE_SAMPLES - 1)
 
 /* Timer0 Configuration for 1ms */
-#define TIMER0_VALUE  (-1000)     // Negative of number of machine cycles for 1ms
+#define TIMER0_VALUE  (0xFC66)     // Negative of number of machine cycles for 1ms
 #define TH0_RELOAD    ((TIMER0_VALUE >> 8) & 0xFF)
 #define TL0_RELOAD    (TIMER0_VALUE & 0xFF)
 
@@ -120,7 +120,7 @@ int main(void)
     printf("SPI TRANSMISSION STARTED\n\r");
 
 
-    unsigned char high_byte, low_byte;
+    int high_byte, low_byte;
     timer0_init();
 
     while(1)
@@ -238,7 +238,7 @@ void spi_init(void)
     SPCON |= 0x10;
     P1_1 = 1;
     SPCON |= 0x82;
-    SPCON &= ~ 0x08;
+    SPCON &= ~0x08;
     SPCON |= 0x40;
     
 

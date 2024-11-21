@@ -738,15 +738,20 @@ _main:
 	jnb	acc.3,00162$
 	orl	a,#0xf0
 00162$:
-	mov	a,#0x0f
-	anl	a,r4
-	orl	a,#0x30
-	mov	r5,a
+	anl	ar4,#0x0f
+	mov	r5,#0x00
+	orl	ar4,#0x30
 ;	spi_dac.c:146: low_byte = (dac_data & 0x0F) << 4;
 	anl	ar6,#0x0f
-	mov	a,r6
+	clr	a
+	xch	a,r6
 	swap	a
+	xch	a,r6
+	xrl	a,r6
+	xch	a,r6
 	anl	a,#0xf0
+	xch	a,r6
+	xrl	a,r6
 	mov	r7,a
 ;	spi_dac.c:148: while(!ms_flag);
 00104$:
@@ -761,12 +766,12 @@ _main:
 ;	assignBit
 	clr	_P1_1
 ;	spi_dac.c:154: printf("Low byte %d\n", low_byte);
-	mov	ar6,r7
-	mov	r4,#0x00
 	push	ar7
-	push	ar5
 	push	ar6
+	push	ar5
 	push	ar4
+	push	ar6
+	push	ar7
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -777,13 +782,13 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
+	pop	ar4
 	pop	ar5
 ;	spi_dac.c:155: printf("High byte %d\n", high_byte);
-	mov	ar4,r5
-	mov	r6,#0x00
 	push	ar5
 	push	ar4
-	push	ar6
+	push	ar4
+	push	ar5
 	mov	a,#___str_3
 	push	acc
 	mov	a,#(___str_3 >> 8)
@@ -794,19 +799,21 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
+	pop	ar4
 	pop	ar5
+	pop	ar6
 	pop	ar7
 ;	spi_dac.c:158: SPDAT = high_byte;
-	mov	_SPDAT,r5
+	mov	_SPDAT,r4
 ;	spi_dac.c:159: while(!transmission_complete);
 00107$:
 	mov	dptr,#_transmission_complete
 	movx	a,@dptr
-	mov	r5,a
+	mov	r4,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r6,a
-	orl	a,r5
+	mov	r5,a
+	orl	a,r4
 	jz	00107$
 ;	spi_dac.c:160: transmission_complete = 0;
 	mov	dptr,#_transmission_complete
@@ -815,7 +822,7 @@ _main:
 	inc	dptr
 	movx	@dptr,a
 ;	spi_dac.c:163: SPDAT = low_byte;
-	mov	_SPDAT,r7
+	mov	_SPDAT,r6
 ;	spi_dac.c:164: while(!transmission_complete);
 00110$:
 	mov	dptr,#_transmission_complete
@@ -877,7 +884,7 @@ _timer0_init:
 ;	spi_dac.c:181: TH0 = TH0_RELOAD;
 	mov	_TH0,#0xfc
 ;	spi_dac.c:182: TL0 = TL0_RELOAD;
-	mov	_TL0,#0x18
+	mov	_TL0,#0x66
 ;	spi_dac.c:184: ET0 = 1;         // Enable Timer0 interrupt
 ;	assignBit
 	setb	_ET0
@@ -900,7 +907,7 @@ _timer0_isr:
 ;	spi_dac.c:192: TH0 = TH0_RELOAD;
 	mov	_TH0,#0xfc
 ;	spi_dac.c:193: TL0 = TL0_RELOAD;
-	mov	_TL0,#0x18
+	mov	_TL0,#0x66
 ;	spi_dac.c:195: ms_flag = 1;     // Set 1ms flag
 	mov	dptr,#_ms_flag
 	mov	a,#0x01
@@ -965,7 +972,7 @@ _spi_init:
 	setb	_P1_1
 ;	spi_dac.c:240: SPCON |= 0x82;
 	orl	_SPCON,#0x82
-;	spi_dac.c:241: SPCON &= ~ 0x08;
+;	spi_dac.c:241: SPCON &= ~0x08;
 	anl	_SPCON,#0xf7
 ;	spi_dac.c:242: SPCON |= 0x40;
 	orl	_SPCON,#0x40

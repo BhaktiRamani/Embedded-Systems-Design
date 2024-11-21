@@ -70,7 +70,7 @@ C:   00000100  l_IRAM
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   0000043F  s_XISEG                         
-C:   00000C91  l_CSEG                          
+C:   00000C9D  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003051  s_GSINIT0                       
 C:   00003054  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   000030AA  s_GSFINAL
 C:   000030AA  s_GSINIT                        
 C:   000030AA  s_GSINIT5                       
 C:   000030AD  s_CSEG                          
-C:   00003D3E  s_CONST                         
-C:   00003DF6  s_XINIT                         
+C:   00003D4A  s_CONST                         
+C:   00003E02  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -456,44 +456,44 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                000030AD    00000C91 =        3217. bytes (REL,CON,CODE)
+CSEG                                000030AD    00000C9D =        3229. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   000030AD  _putchar                           spi_dac
 C:   000030CC  _getchar                           spi_dac
 C:   000030DA  _main                              spi_dac
-C:   00003221  _timer0_init                       spi_dac
-C:   00003232  _timer0_isr                        spi_dac
-C:   0000324D  _spi_isr                           spi_dac
-C:   0000326C  _spi_init                          spi_dac
-C:   00003284  _spi_transmission_start            spi_dac
-C:   0000328A  _spi_transmission_stop             spi_dac
-C:   0000329D  _vprintf                           vprintf
-C:   000032DC  _printf                            vprintf
-C:   000033E5  __print_format                     printf_large
-C:   00003CE6  _strlen                            _strlen
-C:   00003CFE  __mulint                           _mulint
-C:   00003D1E  __gptrget                          _gptrget
-C:   00003D3A  __sdcc_external_startup            _startup
+C:   0000322D  _timer0_init                       spi_dac
+C:   0000323E  _timer0_isr                        spi_dac
+C:   00003259  _spi_isr                           spi_dac
+C:   00003278  _spi_init                          spi_dac
+C:   00003290  _spi_transmission_start            spi_dac
+C:   00003296  _spi_transmission_stop             spi_dac
+C:   000032A9  _vprintf                           vprintf
+C:   000032E8  _printf                            vprintf
+C:   000033F1  __print_format                     printf_large
+C:   00003CF2  _strlen                            _strlen
+C:   00003D0A  __mulint                           _mulint
+C:   00003D2A  __gptrget                          _gptrget
+C:   00003D46  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003D3E    000000B8 =         184. bytes (REL,CON,CODE)
+CONST                               00003D4A    000000B8 =         184. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00003D3E  _dac_values                        spi_dac
+C:   00003D4A  _dac_values                        spi_dac
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00003DF6    00000003 =           3. bytes (REL,CON,CODE)
+XINIT                               00003E02    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
