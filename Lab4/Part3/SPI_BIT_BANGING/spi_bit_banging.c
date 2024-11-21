@@ -47,7 +47,15 @@ int main()
     printf("  SPI BIT BANGING PROGRAM\n\r");
     // spi_write(0x1F);
     spi_write(0x1FF0);
-    printf("  ITS DONE\n\r");
+    while(1)
+    {
+        printf("r\n\r");
+        spi_write(0x1FF0);
+        delay_ms(500);
+        spi_write(0x1000);
+    }
+    
+
     
     return 0;
     

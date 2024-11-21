@@ -460,7 +460,7 @@ _putchar_charToSend_65536_14:
 	.ds 2
 _delay_ms_ms_65536_18:
 	.ds 2
-_spi_write_data_65536_23:
+_spi_write_data_65536_24:
 	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -659,7 +659,9 @@ _main:
 ;	spi_bit_banging.c:49: spi_write(0x1FF0);
 	mov	dptr,#0x1ff0
 	lcall	_spi_write
-;	spi_bit_banging.c:50: printf("  ITS DONE\n\r");
+;	spi_bit_banging.c:50: while(1)
+00102$:
+;	spi_bit_banging.c:52: printf("r\n\r");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -670,39 +672,47 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_bit_banging.c:52: return 0;
-	mov	dptr,#0x0000
-;	spi_bit_banging.c:54: }
-	ret
+;	spi_bit_banging.c:53: spi_write(0x1FF0);
+	mov	dptr,#0x1ff0
+	lcall	_spi_write
+;	spi_bit_banging.c:54: delay_ms(500);
+	mov	dptr,#0x01f4
+	lcall	_delay_ms
+;	spi_bit_banging.c:55: spi_write(0x1000);
+	mov	dptr,#0x1000
+	lcall	_spi_write
+;	spi_bit_banging.c:60: return 0;
+;	spi_bit_banging.c:62: }
+	sjmp	00102$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_write'
 ;------------------------------------------------------------
-;data                      Allocated with name '_spi_write_data_65536_23'
-;i                         Allocated with name '_spi_write_i_65537_25'
-;j                         Allocated with name '_spi_write_j_262145_28'
+;data                      Allocated with name '_spi_write_data_65536_24'
+;i                         Allocated with name '_spi_write_i_65537_26'
 ;j                         Allocated with name '_spi_write_j_262145_29'
+;j                         Allocated with name '_spi_write_j_262145_30'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:56: int spi_write(uint16_t data)
+;	spi_bit_banging.c:64: int spi_write(uint16_t data)
 ;	-----------------------------------------
 ;	 function spi_write
 ;	-----------------------------------------
 _spi_write:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_spi_write_data_65536_23
+	mov	dptr,#_spi_write_data_65536_24
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_bit_banging.c:59: SS = 0;
+;	spi_bit_banging.c:67: SS = 0;
 ;	assignBit
 	clr	_P1_1
-;	spi_bit_banging.c:61: for(i=0;i<16;i++)
+;	spi_bit_banging.c:69: for(i=0;i<16;i++)
 	mov	r6,#0x00
 	mov	r7,#0x00
 00110$:
-;	spi_bit_banging.c:63: SDA = (data & 0x80) ? 1 : 0;    //msb first
-	mov	dptr,#_spi_write_data_65536_23
+;	spi_bit_banging.c:71: SDA = (data & 0x80) ? 1 : 0;    //msb first
+	mov	dptr,#_spi_write_data_65536_24
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -712,10 +722,10 @@ _spi_write:
 	anl	a,#0x01
 	add	a,#0xff
 	mov	_P1_7,c
-;	spi_bit_banging.c:64: SCL=1;
+;	spi_bit_banging.c:72: SCL=1;
 ;	assignBit
 	setb	_P1_6
-;	spi_bit_banging.c:66: for (int j = 0; j != 63; j++);
+;	spi_bit_banging.c:74: for (int j = 0; j != 63; j++);
 	mov	r4,#0x00
 	mov	r5,#0x00
 00105$:
@@ -728,10 +738,10 @@ _spi_write:
 	inc	r5
 	sjmp	00105$
 00101$:
-;	spi_bit_banging.c:67: SCL=0;
+;	spi_bit_banging.c:75: SCL=0;
 ;	assignBit
 	clr	_P1_6
-;	spi_bit_banging.c:69: for (int j = 0; j != 63; j++);
+;	spi_bit_banging.c:77: for (int j = 0; j != 63; j++);
 	mov	r4,#0x00
 	mov	r5,#0x00
 00108$:
@@ -744,8 +754,8 @@ _spi_write:
 	inc	r5
 	sjmp	00108$
 00102$:
-;	spi_bit_banging.c:70: data = data << 1;
-	mov	dptr,#_spi_write_data_65536_23
+;	spi_bit_banging.c:78: data = data << 1;
+	mov	dptr,#_spi_write_data_65536_24
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -757,13 +767,13 @@ _spi_write:
 	mov	a,r5
 	rlc	a
 	mov	r5,a
-	mov	dptr,#_spi_write_data_65536_23
+	mov	dptr,#_spi_write_data_65536_24
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
-;	spi_bit_banging.c:61: for(i=0;i<16;i++)
+;	spi_bit_banging.c:69: for(i=0;i<16;i++)
 	inc	r6
 	cjne	r6,#0x00,00145$
 	inc	r7
@@ -774,12 +784,12 @@ _spi_write:
 	mov	a,r7
 	subb	a,#0x00
 	jc	00110$
-;	spi_bit_banging.c:72: SS = 1;
+;	spi_bit_banging.c:80: SS = 1;
 ;	assignBit
 	setb	_P1_1
-;	spi_bit_banging.c:74: return 1;           // Success
+;	spi_bit_banging.c:82: return 1;           // Success
 	mov	dptr,#0x0001
-;	spi_bit_banging.c:76: }
+;	spi_bit_banging.c:84: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -792,7 +802,7 @@ ___str_0:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "  ITS DONE"
+	.ascii "r"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
