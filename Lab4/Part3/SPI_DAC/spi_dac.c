@@ -156,26 +156,135 @@ int main(void)
     {
         printf("w\n\r");
         /* Calculate or lookup next sine wave value */
-        if(dac_value_index < SINE_MAX_INDEX)
-        {
+        // if(dac_value_index < SINE_MAX_INDEX)
+        // {
 
-            /* Alternatively, use lookup table:*/
-            dac_data = dac_values[dac_value_index];
-        }
-        else
-        {
-            dac_value_index = 0;  // Reset index for next cycle
+        //     /* Alternatively, use lookup table:*/
+        //     dac_data = dac_values[dac_value_index];
+        // }
+        // else
+        // {
+        //     dac_value_index = 0;  // Reset index for next cycle
 
-        }
+        // }
 
         
                     // Format high byte: Channel A, 1x gain, Active
-        high_byte = DAC_CHANNEL_A | DAC_GAIN_1X | DAC_ACTIVE |
-                       ((dac_data >> 4) & 0x0F);
+        // high_byte = DAC_CHANNEL_A | DAC_GAIN_1X | DAC_ACTIVE |
+        //                ((dac_data >> 4) & 0x0F);
 
-            // Format low byte: Lower 4 bits of data, shifted left 4 positions
-        low_byte = (dac_data & 0x0F) << 4;
+        //     // Format low byte: Lower 4 bits of data, shifted left 4 positions
+        // low_byte = (dac_data & 0x0F) << 4;
 
+        low_byte = 0x00;            //mid - 0
+        high_byte = 0x18;
+        // while(!ms_flag);
+        // ms_flag = 0;
+
+        delay_ms(10);
+        
+        printf("Low byte %d\n\r", low_byte);
+        printf("High byte %d\n\r", high_byte);
+        // Begin transmission
+        P1_1 = 0;  // Select DAC
+
+        // Send high byte
+        SPDAT = high_byte;
+        while (!(SPSTA & (1<<7))); 
+
+
+        // Send low byte
+        SPDAT = low_byte;
+        while (!(SPSTA & (1<<7))); 
+
+        P1_1 = 1;  // Deselect DAC
+
+        
+        low_byte = 0xFF;            //high - 1
+        high_byte = 0x1F;
+
+
+        delay_ms(10);
+        
+        printf("Low byte %d\n\r", low_byte);
+        printf("High byte %d\n\r", high_byte);
+        // Begin transmission
+        P1_1 = 0;  // Select DAC
+
+        // Send high byte
+        SPDAT = high_byte;
+        while (!(SPSTA & (1<<7))); 
+        // while(!transmission_complete);
+        // transmission_complete = 0;
+
+        // Send low byte
+        SPDAT = low_byte;
+        while (!(SPSTA & (1<<7))); 
+        // while(!transmission_complete);
+        // transmission_complete = 0;
+
+        P1_1 = 1;  // Deselect DAC
+        
+        low_byte = 0x00;            //mid - 0
+        high_byte = 0x18;
+        // while(!ms_flag);
+        // ms_flag = 0;
+
+        delay_ms(10);
+        
+        printf("Low byte %d\n\r", low_byte);
+        printf("High byte %d\n\r", high_byte);
+        // Begin transmission
+        P1_1 = 0;  // Select DAC
+
+
+        // Send high byte
+        SPDAT = high_byte;
+        while (!(SPSTA & (1<<7))); 
+        // while(!transmission_complete);
+        // transmission_complete = 0;
+
+        // Send low byte
+        SPDAT = low_byte;
+        while (!(SPSTA & (1<<7))); 
+        // while(!transmission_complete);
+        // transmission_complete = 0;
+
+        P1_1 = 1;  // Deselect DAC
+        // while(!transmission_complete);
+        // transmission_complete = 0;
+        
+        low_byte = 0x00;            //low - 0
+        high_byte = 0x10;
+        // while(!ms_flag);
+        // ms_flag = 0;
+
+        delay_ms(10);
+        
+        printf("Low byte %d\n\r", low_byte);
+        printf("High byte %d\n\r", high_byte);
+        // Begin transmission
+        P1_1 = 0;  // Select DAC
+
+
+
+        // Send high byte
+        SPDAT = high_byte;
+        while (!(SPSTA & (1<<7))); 
+        // while(!transmission_complete);
+        // transmission_complete = 0;
+
+        // Send low byte
+        SPDAT = low_byte;
+        while (!(SPSTA & (1<<7))); 
+        // while(!transmission_complete);
+        // transmission_complete = 0;
+
+        P1_1 = 1;  // Deselect DAC
+        // while(!transmission_complet
+        
+        low_byte = 0x00;            //mid - 0
+        high_byte = 0x18;
         // while(!ms_flag);
         // ms_flag = 0;
 
