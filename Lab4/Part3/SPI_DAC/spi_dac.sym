@@ -409,15 +409,15 @@ Symbol Table
     _WDTPRG                                                     =  0000A7 G
     _WDTRST                                                     =  0000A6 G
     _WR                                                         =  0000B6 G
- 19 ___str_0                                                       000200 R
- 19 ___str_1                                                       000213 R
- 19 ___str_2                                                       00022E R
- 19 ___str_3                                                       000232 R
- 19 ___str_4                                                       000240 R
- 19 ___str_5                                                       00024F R
- 19 ___str_6                                                       000253 R
- 19 ___str_7                                                       000256 R
- 19 ___str_8                                                       00025B R
+ 19 ___str_0                                                       000400 R
+ 19 ___str_1                                                       000413 R
+ 19 ___str_2                                                       00042E R
+ 19 ___str_3                                                       000432 R
+ 19 ___str_4                                                       000440 R
+ 19 ___str_5                                                       00044F R
+ 19 ___str_6                                                       000453 R
+ 19 ___str_7                                                       000456 R
+ 19 ___str_8                                                       00045B R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 8.
 Hexadecimal [24-Bits]
 
@@ -443,12 +443,12 @@ Symbol Table
     _printf                                                        ****** GX
  18 _putchar                                                       000000 GR
   C _putchar_charToSend_65536_17                                   000000 R
- 18 _spi_init                                                      00028E GR
- 18 _spi_isr                                                       00022F GR
- 18 _spi_transmission_start                                        000298 GR
- 18 _spi_transmission_stop                                         00029E GR
- 18 _timer0_init                                                   0001C1 GR
- 18 _timer0_isr                                                    0001D2 GR
+ 18 _spi_init                                                      000278 GR
+ 18 _spi_isr                                                       000219 GR
+ 18 _spi_transmission_start                                        000282 GR
+ 18 _spi_transmission_stop                                         000288 GR
+ 18 _timer0_init                                                   0001AB GR
+ 18 _timer0_isr                                                    0001BC GR
   E _transmission_complete                                         000001 GR
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -694,8 +694,8 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    2A2   flags   20
-  19 CONST                                      size    266   flags   20
+  18 CSEG                                       size    28C   flags   20
+  19 CONST                                      size    466   flags   20
   1A XINIT                                      size      3   flags   20
   1B CABS                                       size      0   flags   28
 
