@@ -210,7 +210,6 @@
 	.globl _SP
 	.globl _P0
 	.globl _spi_write
-	.globl _i2c_delay
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -657,22 +656,13 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_bit_banging.c:48: spi_write(0x1F);
+;	spi_bit_banging.c:49: spi_write(0x1F);
 	mov	dpl,#0x1f
 	lcall	_spi_write
-;	spi_bit_banging.c:49: spi_write(0x18);
-	mov	dpl,#0x18
+;	spi_bit_banging.c:50: spi_write(0xF0);
+	mov	dpl,#0xf0
 	lcall	_spi_write
-;	spi_bit_banging.c:50: delay_ms(5);
-	mov	dptr,#0x0005
-	lcall	_delay_ms
-;	spi_bit_banging.c:51: spi_write(0x00);
-	mov	dpl,#0x00
-	lcall	_spi_write
-;	spi_bit_banging.c:52: delay_ms(5);
-	mov	dptr,#0x0005
-	lcall	_delay_ms
-;	spi_bit_banging.c:53: printf("  ITS DONE\n\r");
+;	spi_bit_banging.c:52: printf("  ITS DONE\n\r");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -692,6 +682,8 @@ _main:
 ;------------------------------------------------------------
 ;data                      Allocated with name '_spi_write_data_65536_23'
 ;i                         Allocated with name '_spi_write_i_65537_25'
+;j                         Allocated with name '_spi_write_j_262145_28'
+;j                         Allocated with name '_spi_write_j_262145_29'
 ;------------------------------------------------------------
 ;	spi_bit_banging.c:58: int spi_write(uint8_t data)
 ;	-----------------------------------------
@@ -707,11 +699,10 @@ _spi_write:
 ;	spi_bit_banging.c:63: for(i=0;i<=7;i++)
 	mov	r6,#0x00
 	mov	r7,#0x00
-00102$:
+00110$:
 ;	spi_bit_banging.c:65: SDA = (data & 0x80) ? 1 : 0;    //msb first
 	mov	dptr,#_spi_write_data_65536_23
 	movx	a,@dptr
-	mov	r5,a
 	rl	a
 	anl	a,#0x01
 	add	a,#0xff
@@ -719,59 +710,57 @@ _spi_write:
 ;	spi_bit_banging.c:66: SCL=1;
 ;	assignBit
 	setb	_P1_6
-;	spi_bit_banging.c:68: SCL=0;
+;	spi_bit_banging.c:68: for (int j = 0; j != 63; j++);
+	mov	r4,#0x00
+	mov	r5,#0x00
+00105$:
+	cjne	r4,#0x3f,00141$
+	cjne	r5,#0x00,00141$
+	sjmp	00101$
+00141$:
+	inc	r4
+	cjne	r4,#0x00,00105$
+	inc	r5
+	sjmp	00105$
+00101$:
+;	spi_bit_banging.c:69: SCL=0;
 ;	assignBit
 	clr	_P1_6
-;	spi_bit_banging.c:70: data = data << 1;
-	mov	a,r5
-	add	a,r5
+;	spi_bit_banging.c:71: for (int j = 0; j != 63; j++);
+	mov	r4,#0x00
+	mov	r5,#0x00
+00108$:
+	cjne	r4,#0x3f,00143$
+	cjne	r5,#0x00,00143$
+	sjmp	00102$
+00143$:
+	inc	r4
+	cjne	r4,#0x00,00108$
+	inc	r5
+	sjmp	00108$
+00102$:
+;	spi_bit_banging.c:72: data = data << 1;
 	mov	dptr,#_spi_write_data_65536_23
+	movx	a,@dptr
+	add	a,acc
 	movx	@dptr,a
 ;	spi_bit_banging.c:63: for(i=0;i<=7;i++)
 	inc	r6
-	cjne	r6,#0x00,00115$
+	cjne	r6,#0x00,00145$
 	inc	r7
-00115$:
+00145$:
 	clr	c
 	mov	a,#0x07
 	subb	a,r6
 	clr	a
 	subb	a,r7
-	jnc	00102$
-;	spi_bit_banging.c:72: SS = 1;
+	jnc	00110$
+;	spi_bit_banging.c:74: SS = 1;
 ;	assignBit
 	setb	_P1_1
-;	spi_bit_banging.c:74: return 1;           // Success
+;	spi_bit_banging.c:76: return 1;           // Success
 	mov	dptr,#0x0001
-;	spi_bit_banging.c:76: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'i2c_delay'
-;------------------------------------------------------------
-;i                         Allocated with name '_i2c_delay_i_131072_29'
-;------------------------------------------------------------
-;	spi_bit_banging.c:78: void i2c_delay() 
-;	-----------------------------------------
-;	 function i2c_delay
-;	-----------------------------------------
-_i2c_delay:
-;	spi_bit_banging.c:80: for(int i = 0; i<500; i++);
-	mov	r6,#0x00
-	mov	r7,#0x00
-00103$:
-	clr	c
-	mov	a,r6
-	subb	a,#0xf4
-	mov	a,r7
-	xrl	a,#0x80
-	subb	a,#0x81
-	jnc	00105$
-	inc	r6
-	cjne	r6,#0x00,00103$
-	inc	r7
-	sjmp	00103$
-00105$:
-;	spi_bit_banging.c:81: }
+;	spi_bit_banging.c:78: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

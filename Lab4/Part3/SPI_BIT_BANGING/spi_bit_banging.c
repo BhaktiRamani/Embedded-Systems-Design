@@ -10,7 +10,7 @@
 #define SS  P1_1         /*Chip Select*/
 
 int spi_write(uint8_t data);
-void i2c_delay();
+// void i2c_delay();
 
 /**
  * @brief Sends a character to the serial port
@@ -45,12 +45,12 @@ int main()
 
     SS = 1;
     printf("  SPI BIT BANGING PROGRAM\n\r");
+    // spi_write(0x1F);
     spi_write(0x1F);
-    spi_write(0x18);
-    delay_ms(5);
-    spi_write(0x00);
-    delay_ms(5);
+    spi_write(0xF0);
+
     printf("  ITS DONE\n\r");
+    
     return 0;
     
 }
@@ -64,9 +64,11 @@ int spi_write(uint8_t data)
   {
     SDA = (data & 0x80) ? 1 : 0;    //msb first
     SCL=1;
-    //some delay
+    //some 
+    for (int j = 0; j != 63; j++);
     SCL=0;
     //some delay
+    for (int j = 0; j != 63; j++);
     data = data << 1;
   }
   SS = 1;
@@ -75,7 +77,7 @@ int spi_write(uint8_t data)
 
 }
 
-void i2c_delay() 
-{
-    for(int i = 0; i<500; i++);
-}
+// void i2c_delay() 
+// {
+//     for(int i = 0; i<500; i++);
+// }
