@@ -412,19 +412,17 @@ Symbol Table
  19 ___str_0                                                       000064 R
  19 ___str_1                                                       000077 R
  19 ___str_2                                                       000092 R
- 19 ___str_3                                                       00009F R
- 19 ___str_4                                                       0000AE R
- 19 ___str_5                                                       0000BC R
- 19 ___str_6                                                       0000C0 R
- 19 ___str_7                                                       0000C3 R
- 19 ___str_8                                                       0000C8 R
+ 19 ___str_3                                                       000096 R
+ 19 ___str_4                                                       00009A R
+ 19 ___str_5                                                       00009D R
+ 19 ___str_6                                                       0000A2 R
+  F __interrupt_vect                                               000000 R
+    __mcs51_genRAMCLEAR                                            ****** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 8.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  F __interrupt_vect                                               000000 R
-    __mcs51_genRAMCLEAR                                            ****** GX
     __mcs51_genXINIT                                               ****** GX
     __mcs51_genXRAMCLEAR                                           ****** GX
     __sdcc_gsinit_startup                                          ****** GX
@@ -437,16 +435,18 @@ Symbol Table
   C _delay_ms_ms_65536_21                                          000002 R
  18 _getchar                                                       00001F GR
  18 _main                                                          000060 GR
+  C _main_dac_data_65537_27                                        000006 R
+  C _main_dac_value_index_65537_27                                 000004 R
   E _ms_flag                                                       000000 GR
     _printf                                                        ****** GX
  18 _putchar                                                       000000 GR
   C _putchar_charToSend_65536_17                                   000000 R
- 18 _spi_init                                                      00021B GR
- 18 _spi_isr                                                       0001BC GR
- 18 _spi_transmission_start                                        000225 GR
- 18 _spi_transmission_stop                                         00022B GR
- 18 _timer0_init                                                   00014E GR
- 18 _timer0_isr                                                    00015F GR
+ 18 _spi_init                                                      00023A GR
+ 18 _spi_isr                                                       0001DB GR
+ 18 _spi_transmission_start                                        000244 GR
+ 18 _spi_transmission_stop                                         00024A GR
+ 18 _timer0_init                                                   00016D GR
+ 18 _timer0_isr                                                    00017E GR
   E _transmission_complete                                         000001 GR
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -674,7 +674,7 @@ Area Table
    9 IABS                                       size      0   flags    8
    A BSEG                                       size      0   flags   80
    B PSEG                                       size      0   flags   50
-   C XSEG                                       size      4   flags   40
+   C XSEG                                       size      8   flags   40
    D XABS                                       size      0   flags   48
    E XISEG                                      size      3   flags   40
    F HOME                                       size     51   flags   20
@@ -686,8 +686,8 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size    22F   flags   20
-  19 CONST                                      size     D3   flags   20
+  18 CSEG                                       size    24E   flags   20
+  19 CONST                                      size     AD   flags   20
   1A XINIT                                      size      3   flags   20
   1B CABS                                       size      0   flags   28
 
