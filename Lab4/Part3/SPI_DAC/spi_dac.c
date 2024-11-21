@@ -194,6 +194,8 @@ void timer0_isr(void) __interrupt 1
     
     ms_flag = 1;     // Set 1ms flag
     P1_0 = !P1_0;    // Toggle P1.0 for verification
+    
+    TR0 = 1;
 }
 
 /**
