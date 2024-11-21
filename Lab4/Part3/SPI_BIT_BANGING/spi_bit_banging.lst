@@ -461,7 +461,7 @@
       000002                        461 _delay_ms_ms_65536_18:
       000002                        462 	.ds 2
       000004                        463 _spi_write_data_65536_24:
-      000004                        464 	.ds 2
+      000004                        464 	.ds 1
                                     465 ;--------------------------------------------------------
                                     466 ; absolute external ram data
                                     467 ;--------------------------------------------------------
@@ -642,171 +642,159 @@
                                     642 ;	 function main
                                     643 ;	-----------------------------------------
       000060                        644 _main:
-                                    645 ;	spi_bit_banging.c:46: SS = 1;
+                                    645 ;	spi_bit_banging.c:46: SS = 1;  // Set SS high (inactive state)
                                     646 ;	assignBit
       000060 D2 91            [12]  647 	setb	_P1_1
-                                    648 ;	spi_bit_banging.c:47: printf("  SPI BIT BANGING PROGRAM\n\r");
-      000062 74r00            [12]  649 	mov	a,#___str_0
-      000064 C0 E0            [24]  650 	push	acc
-      000066 74s00            [12]  651 	mov	a,#(___str_0 >> 8)
-      000068 C0 E0            [24]  652 	push	acc
-      00006A 74 80            [12]  653 	mov	a,#0x80
-      00006C C0 E0            [24]  654 	push	acc
-      00006E 12r00r00         [24]  655 	lcall	_printf
-      000071 15 81            [12]  656 	dec	sp
-      000073 15 81            [12]  657 	dec	sp
-      000075 15 81            [12]  658 	dec	sp
-                                    659 ;	spi_bit_banging.c:49: spi_write(0x1FF0);
-      000077 90 1F F0         [24]  660 	mov	dptr,#0x1ff0
-      00007A 12r00rA6         [24]  661 	lcall	_spi_write
-                                    662 ;	spi_bit_banging.c:50: while(1)
-      00007D                        663 00102$:
-                                    664 ;	spi_bit_banging.c:52: printf("r\n\r");
-      00007D 74r1C            [12]  665 	mov	a,#___str_1
-      00007F C0 E0            [24]  666 	push	acc
-      000081 74s00            [12]  667 	mov	a,#(___str_1 >> 8)
-      000083 C0 E0            [24]  668 	push	acc
-      000085 74 80            [12]  669 	mov	a,#0x80
-      000087 C0 E0            [24]  670 	push	acc
-      000089 12r00r00         [24]  671 	lcall	_printf
-      00008C 15 81            [12]  672 	dec	sp
-      00008E 15 81            [12]  673 	dec	sp
-      000090 15 81            [12]  674 	dec	sp
-                                    675 ;	spi_bit_banging.c:53: spi_write(0x1FF0);
-      000092 90 1F F0         [24]  676 	mov	dptr,#0x1ff0
-      000095 12r00rA6         [24]  677 	lcall	_spi_write
-                                    678 ;	spi_bit_banging.c:54: delay_ms(500);
-      000098 90 01 F4         [24]  679 	mov	dptr,#0x01f4
-      00009B 12r00r2D         [24]  680 	lcall	_delay_ms
-                                    681 ;	spi_bit_banging.c:55: spi_write(0x1000);
-      00009E 90 10 00         [24]  682 	mov	dptr,#0x1000
-      0000A1 12r00rA6         [24]  683 	lcall	_spi_write
-                                    684 ;	spi_bit_banging.c:60: return 0;
-                                    685 ;	spi_bit_banging.c:62: }
-      0000A4 80 D7            [24]  686 	sjmp	00102$
-                                    687 ;------------------------------------------------------------
-                                    688 ;Allocation info for local variables in function 'spi_write'
-                                    689 ;------------------------------------------------------------
-                                    690 ;data                      Allocated with name '_spi_write_data_65536_24'
-                                    691 ;i                         Allocated with name '_spi_write_i_65537_26'
-                                    692 ;j                         Allocated with name '_spi_write_j_262145_29'
-                                    693 ;j                         Allocated with name '_spi_write_j_262145_30'
-                                    694 ;------------------------------------------------------------
-                                    695 ;	spi_bit_banging.c:64: int spi_write(uint16_t data)
-                                    696 ;	-----------------------------------------
-                                    697 ;	 function spi_write
-                                    698 ;	-----------------------------------------
-      0000A6                        699 _spi_write:
-      0000A6 AF 83            [24]  700 	mov	r7,dph
-      0000A8 E5 82            [12]  701 	mov	a,dpl
-      0000AA 90r00r04         [24]  702 	mov	dptr,#_spi_write_data_65536_24
-      0000AD F0               [24]  703 	movx	@dptr,a
-      0000AE EF               [12]  704 	mov	a,r7
-      0000AF A3               [24]  705 	inc	dptr
-      0000B0 F0               [24]  706 	movx	@dptr,a
-                                    707 ;	spi_bit_banging.c:67: SS = 0;
-                                    708 ;	assignBit
-      0000B1 C2 91            [12]  709 	clr	_P1_1
-                                    710 ;	spi_bit_banging.c:69: for(i=0;i<16;i++)
-      0000B3 7E 00            [12]  711 	mov	r6,#0x00
-      0000B5 7F 00            [12]  712 	mov	r7,#0x00
-      0000B7                        713 00110$:
-                                    714 ;	spi_bit_banging.c:71: SDA = (data & 0x8000) ? 1 : 0;    //msb first
-      0000B7 90r00r04         [24]  715 	mov	dptr,#_spi_write_data_65536_24
-      0000BA E0               [24]  716 	movx	a,@dptr
-      0000BB A3               [24]  717 	inc	dptr
-      0000BC E0               [24]  718 	movx	a,@dptr
-      0000BD 23               [12]  719 	rl	a
-      0000BE 54 01            [12]  720 	anl	a,#0x01
-      0000C0 24 FF            [12]  721 	add	a,#0xff
-      0000C2 92 97            [24]  722 	mov	_P1_7,c
-                                    723 ;	spi_bit_banging.c:72: SCL=1;
-                                    724 ;	assignBit
-      0000C4 D2 96            [12]  725 	setb	_P1_6
-                                    726 ;	spi_bit_banging.c:74: for (int j = 0; j != 63; j++);
-      0000C6 7C 00            [12]  727 	mov	r4,#0x00
-      0000C8 7D 00            [12]  728 	mov	r5,#0x00
-      0000CA                        729 00105$:
-      0000CA BC 3F 05         [24]  730 	cjne	r4,#0x3f,00141$
-      0000CD BD 00 02         [24]  731 	cjne	r5,#0x00,00141$
-      0000D0 80 07            [24]  732 	sjmp	00101$
-      0000D2                        733 00141$:
-      0000D2 0C               [12]  734 	inc	r4
-      0000D3 BC 00 F4         [24]  735 	cjne	r4,#0x00,00105$
-      0000D6 0D               [12]  736 	inc	r5
-      0000D7 80 F1            [24]  737 	sjmp	00105$
-      0000D9                        738 00101$:
-                                    739 ;	spi_bit_banging.c:75: SCL=0;
-                                    740 ;	assignBit
-      0000D9 C2 96            [12]  741 	clr	_P1_6
-                                    742 ;	spi_bit_banging.c:77: for (int j = 0; j != 63; j++);
-      0000DB 7C 00            [12]  743 	mov	r4,#0x00
-      0000DD 7D 00            [12]  744 	mov	r5,#0x00
-      0000DF                        745 00108$:
-      0000DF BC 3F 05         [24]  746 	cjne	r4,#0x3f,00143$
-      0000E2 BD 00 02         [24]  747 	cjne	r5,#0x00,00143$
-      0000E5 80 07            [24]  748 	sjmp	00102$
-      0000E7                        749 00143$:
-      0000E7 0C               [12]  750 	inc	r4
-      0000E8 BC 00 F4         [24]  751 	cjne	r4,#0x00,00108$
-      0000EB 0D               [12]  752 	inc	r5
-      0000EC 80 F1            [24]  753 	sjmp	00108$
-      0000EE                        754 00102$:
-                                    755 ;	spi_bit_banging.c:78: data = data << 1;
-      0000EE 90r00r04         [24]  756 	mov	dptr,#_spi_write_data_65536_24
-      0000F1 E0               [24]  757 	movx	a,@dptr
-      0000F2 FC               [12]  758 	mov	r4,a
-      0000F3 A3               [24]  759 	inc	dptr
-      0000F4 E0               [24]  760 	movx	a,@dptr
-      0000F5 FD               [12]  761 	mov	r5,a
-      0000F6 EC               [12]  762 	mov	a,r4
-      0000F7 2C               [12]  763 	add	a,r4
-      0000F8 FC               [12]  764 	mov	r4,a
-      0000F9 ED               [12]  765 	mov	a,r5
-      0000FA 33               [12]  766 	rlc	a
-      0000FB FD               [12]  767 	mov	r5,a
-      0000FC 90r00r04         [24]  768 	mov	dptr,#_spi_write_data_65536_24
-      0000FF EC               [12]  769 	mov	a,r4
-      000100 F0               [24]  770 	movx	@dptr,a
-      000101 ED               [12]  771 	mov	a,r5
-      000102 A3               [24]  772 	inc	dptr
-      000103 F0               [24]  773 	movx	@dptr,a
-                                    774 ;	spi_bit_banging.c:69: for(i=0;i<16;i++)
-      000104 0E               [12]  775 	inc	r6
-      000105 BE 00 01         [24]  776 	cjne	r6,#0x00,00145$
-      000108 0F               [12]  777 	inc	r7
-      000109                        778 00145$:
-      000109 C3               [12]  779 	clr	c
-      00010A EE               [12]  780 	mov	a,r6
-      00010B 94 10            [12]  781 	subb	a,#0x10
-      00010D EF               [12]  782 	mov	a,r7
-      00010E 94 00            [12]  783 	subb	a,#0x00
-      000110 40 A5            [24]  784 	jc	00110$
-                                    785 ;	spi_bit_banging.c:80: SS = 1;
-                                    786 ;	assignBit
-      000112 D2 91            [12]  787 	setb	_P1_1
-                                    788 ;	spi_bit_banging.c:82: return 1;           // Success
-      000114 90 00 01         [24]  789 	mov	dptr,#0x0001
-                                    790 ;	spi_bit_banging.c:84: }
-      000117 22               [24]  791 	ret
-                                    792 	.area CSEG    (CODE)
-                                    793 	.area CONST   (CODE)
-                                    794 	.area CONST   (CODE)
-      000000                        795 ___str_0:
-      000000 20 20 53 50 49 20 42   796 	.ascii "  SPI BIT BANGING PROGRAM"
+                                    648 ;	spi_bit_banging.c:47: SDA = 0; // Initialize SDA to low
+                                    649 ;	assignBit
+      000062 C2 97            [12]  650 	clr	_P1_7
+                                    651 ;	spi_bit_banging.c:48: SCL = 0; // Initialize SCL to low
+                                    652 ;	assignBit
+      000064 C2 96            [12]  653 	clr	_P1_6
+                                    654 ;	spi_bit_banging.c:49: printf("  SPI BIT BANGING PROGRAM\n\r");
+      000066 74r00            [12]  655 	mov	a,#___str_0
+      000068 C0 E0            [24]  656 	push	acc
+      00006A 74s00            [12]  657 	mov	a,#(___str_0 >> 8)
+      00006C C0 E0            [24]  658 	push	acc
+      00006E 74 80            [12]  659 	mov	a,#0x80
+      000070 C0 E0            [24]  660 	push	acc
+      000072 12r00r00         [24]  661 	lcall	_printf
+      000075 15 81            [12]  662 	dec	sp
+      000077 15 81            [12]  663 	dec	sp
+      000079 15 81            [12]  664 	dec	sp
+                                    665 ;	spi_bit_banging.c:51: while(1)
+      00007B                        666 00102$:
+                                    667 ;	spi_bit_banging.c:53: printf("r\n\r");
+      00007B 74r1C            [12]  668 	mov	a,#___str_1
+      00007D C0 E0            [24]  669 	push	acc
+      00007F 74s00            [12]  670 	mov	a,#(___str_1 >> 8)
+      000081 C0 E0            [24]  671 	push	acc
+      000083 74 80            [12]  672 	mov	a,#0x80
+      000085 C0 E0            [24]  673 	push	acc
+      000087 12r00r00         [24]  674 	lcall	_printf
+      00008A 15 81            [12]  675 	dec	sp
+      00008C 15 81            [12]  676 	dec	sp
+      00008E 15 81            [12]  677 	dec	sp
+                                    678 ;	spi_bit_banging.c:54: spi_write(0x1F);
+      000090 75 82 1F         [24]  679 	mov	dpl,#0x1f
+      000093 12r00rB0         [24]  680 	lcall	_spi_write
+                                    681 ;	spi_bit_banging.c:55: spi_write(0xF0);
+      000096 75 82 F0         [24]  682 	mov	dpl,#0xf0
+      000099 12r00rB0         [24]  683 	lcall	_spi_write
+                                    684 ;	spi_bit_banging.c:56: delay_ms(500);
+      00009C 90 01 F4         [24]  685 	mov	dptr,#0x01f4
+      00009F 12r00r2D         [24]  686 	lcall	_delay_ms
+                                    687 ;	spi_bit_banging.c:57: spi_write(0x10);
+      0000A2 75 82 10         [24]  688 	mov	dpl,#0x10
+      0000A5 12r00rB0         [24]  689 	lcall	_spi_write
+                                    690 ;	spi_bit_banging.c:58: spi_write(0x00);
+      0000A8 75 82 00         [24]  691 	mov	dpl,#0x00
+      0000AB 12r00rB0         [24]  692 	lcall	_spi_write
+                                    693 ;	spi_bit_banging.c:64: }
+      0000AE 80 CB            [24]  694 	sjmp	00102$
+                                    695 ;------------------------------------------------------------
+                                    696 ;Allocation info for local variables in function 'spi_write'
+                                    697 ;------------------------------------------------------------
+                                    698 ;data                      Allocated with name '_spi_write_data_65536_24'
+                                    699 ;i                         Allocated with name '_spi_write_i_65537_26'
+                                    700 ;j                         Allocated with name '_spi_write_j_262145_29'
+                                    701 ;j                         Allocated with name '_spi_write_j_262145_30'
+                                    702 ;------------------------------------------------------------
+                                    703 ;	spi_bit_banging.c:66: int spi_write(uint8_t data)
+                                    704 ;	-----------------------------------------
+                                    705 ;	 function spi_write
+                                    706 ;	-----------------------------------------
+      0000B0                        707 _spi_write:
+      0000B0 E5 82            [12]  708 	mov	a,dpl
+      0000B2 90r00r04         [24]  709 	mov	dptr,#_spi_write_data_65536_24
+      0000B5 F0               [24]  710 	movx	@dptr,a
+                                    711 ;	spi_bit_banging.c:69: SS = 0;
+                                    712 ;	assignBit
+      0000B6 C2 91            [12]  713 	clr	_P1_1
+                                    714 ;	spi_bit_banging.c:71: for(i=0;i<=7;i++)
+      0000B8 7E 00            [12]  715 	mov	r6,#0x00
+      0000BA 7F 00            [12]  716 	mov	r7,#0x00
+      0000BC                        717 00110$:
+                                    718 ;	spi_bit_banging.c:73: SDA = (data & 0x80) ? 1 : 0;    //msb first
+      0000BC 90r00r04         [24]  719 	mov	dptr,#_spi_write_data_65536_24
+      0000BF E0               [24]  720 	movx	a,@dptr
+      0000C0 23               [12]  721 	rl	a
+      0000C1 54 01            [12]  722 	anl	a,#0x01
+      0000C3 24 FF            [12]  723 	add	a,#0xff
+      0000C5 92 97            [24]  724 	mov	_P1_7,c
+                                    725 ;	spi_bit_banging.c:74: SCL=1;
+                                    726 ;	assignBit
+      0000C7 D2 96            [12]  727 	setb	_P1_6
+                                    728 ;	spi_bit_banging.c:76: for (int j = 0; j != 63; j++);
+      0000C9 7C 00            [12]  729 	mov	r4,#0x00
+      0000CB 7D 00            [12]  730 	mov	r5,#0x00
+      0000CD                        731 00105$:
+      0000CD BC 3F 05         [24]  732 	cjne	r4,#0x3f,00141$
+      0000D0 BD 00 02         [24]  733 	cjne	r5,#0x00,00141$
+      0000D3 80 07            [24]  734 	sjmp	00101$
+      0000D5                        735 00141$:
+      0000D5 0C               [12]  736 	inc	r4
+      0000D6 BC 00 F4         [24]  737 	cjne	r4,#0x00,00105$
+      0000D9 0D               [12]  738 	inc	r5
+      0000DA 80 F1            [24]  739 	sjmp	00105$
+      0000DC                        740 00101$:
+                                    741 ;	spi_bit_banging.c:77: SCL=0;
+                                    742 ;	assignBit
+      0000DC C2 96            [12]  743 	clr	_P1_6
+                                    744 ;	spi_bit_banging.c:79: for (int j = 0; j != 63; j++);
+      0000DE 7C 00            [12]  745 	mov	r4,#0x00
+      0000E0 7D 00            [12]  746 	mov	r5,#0x00
+      0000E2                        747 00108$:
+      0000E2 BC 3F 05         [24]  748 	cjne	r4,#0x3f,00143$
+      0000E5 BD 00 02         [24]  749 	cjne	r5,#0x00,00143$
+      0000E8 80 07            [24]  750 	sjmp	00102$
+      0000EA                        751 00143$:
+      0000EA 0C               [12]  752 	inc	r4
+      0000EB BC 00 F4         [24]  753 	cjne	r4,#0x00,00108$
+      0000EE 0D               [12]  754 	inc	r5
+      0000EF 80 F1            [24]  755 	sjmp	00108$
+      0000F1                        756 00102$:
+                                    757 ;	spi_bit_banging.c:80: data = data << 1;
+      0000F1 90r00r04         [24]  758 	mov	dptr,#_spi_write_data_65536_24
+      0000F4 E0               [24]  759 	movx	a,@dptr
+      0000F5 25 E0            [12]  760 	add	a,acc
+      0000F7 F0               [24]  761 	movx	@dptr,a
+                                    762 ;	spi_bit_banging.c:71: for(i=0;i<=7;i++)
+      0000F8 0E               [12]  763 	inc	r6
+      0000F9 BE 00 01         [24]  764 	cjne	r6,#0x00,00145$
+      0000FC 0F               [12]  765 	inc	r7
+      0000FD                        766 00145$:
+      0000FD C3               [12]  767 	clr	c
+      0000FE 74 07            [12]  768 	mov	a,#0x07
+      000100 9E               [12]  769 	subb	a,r6
+      000101 E4               [12]  770 	clr	a
+      000102 9F               [12]  771 	subb	a,r7
+      000103 50 B7            [24]  772 	jnc	00110$
+                                    773 ;	spi_bit_banging.c:82: SS = 1;
+                                    774 ;	assignBit
+      000105 D2 91            [12]  775 	setb	_P1_1
+                                    776 ;	spi_bit_banging.c:84: return 1;           // Success
+      000107 90 00 01         [24]  777 	mov	dptr,#0x0001
+                                    778 ;	spi_bit_banging.c:86: }
+      00010A 22               [24]  779 	ret
+                                    780 	.area CSEG    (CODE)
+                                    781 	.area CONST   (CODE)
+                                    782 	.area CONST   (CODE)
+      000000                        783 ___str_0:
+      000000 20 20 53 50 49 20 42   784 	.ascii "  SPI BIT BANGING PROGRAM"
              49 54 20 42 41 4E 47
              49 4E 47 20 50 52 4F
              47 52 41 4D
-      000019 0A                     797 	.db 0x0a
-      00001A 0D                     798 	.db 0x0d
-      00001B 00                     799 	.db 0x00
-                                    800 	.area CSEG    (CODE)
-                                    801 	.area CONST   (CODE)
-      00001C                        802 ___str_1:
-      00001C 72                     803 	.ascii "r"
-      00001D 0A                     804 	.db 0x0a
-      00001E 0D                     805 	.db 0x0d
-      00001F 00                     806 	.db 0x00
-                                    807 	.area CSEG    (CODE)
-                                    808 	.area XINIT   (CODE)
-                                    809 	.area CABS    (ABS,CODE)
+      000019 0A                     785 	.db 0x0a
+      00001A 0D                     786 	.db 0x0d
+      00001B 00                     787 	.db 0x00
+                                    788 	.area CSEG    (CODE)
+                                    789 	.area CONST   (CODE)
+      00001C                        790 ___str_1:
+      00001C 72                     791 	.ascii "r"
+      00001D 0A                     792 	.db 0x0a
+      00001E 0D                     793 	.db 0x0d
+      00001F 00                     794 	.db 0x00
+                                    795 	.area CSEG    (CODE)
+                                    796 	.area XINIT   (CODE)
+                                    797 	.area CABS    (ABS,CODE)
