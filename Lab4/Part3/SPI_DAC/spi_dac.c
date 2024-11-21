@@ -117,7 +117,7 @@ int main(void)
     int dac_data = 0;
 
 
-    EA |= GLOBAL_INT_ENABLE;        // Enable global interrupts
+    //EA |= GLOBAL_INT_ENABLE;        // Enable global interrupts
 
     /* Initialize SPI */
     spi_init();
@@ -165,17 +165,20 @@ int main(void)
 
         // Send high byte
         SPDAT = high_byte;
-        while(!transmission_complete);
-        transmission_complete = 0;
+        while (SPSTA & (1<<7)); 
+        // while(!transmission_complete);
+        // transmission_complete = 0;
 
-            // Send low byte
+        // Send low byte
         SPDAT = low_byte;
-        while(!transmission_complete);
-        transmission_complete = 0;
+        while (SPSTA & (1<<7));
+        // while(!transmission_complete);
+        // transmission_complete = 0;
 
         P1_1 = 1;  // Deselect DAC
-        while(!transmission_complete);
-        transmission_complete = 0;
+        // while(!transmission_complete);
+        // transmission_complete = 0;
+        printf("E\n\r");
 
         dac_value_index++;
     }
@@ -257,8 +260,8 @@ void spi_init(void)
     
 
     
-    // Enable interrupts
-    IEN1 |= SPI_INT_ENABLE;        // Enable SPI interrupt
+    // // Enable interrupts
+    // IEN1 |= SPI_INT_ENABLE;        // Enable SPI interrupt
 
 }
 
