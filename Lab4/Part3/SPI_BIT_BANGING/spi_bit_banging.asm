@@ -711,13 +711,11 @@ _spi_write:
 	mov	r6,#0x00
 	mov	r7,#0x00
 00110$:
-;	spi_bit_banging.c:71: SDA = (data & 0x80) ? 1 : 0;    //msb first
+;	spi_bit_banging.c:71: SDA = (data & 0x8000) ? 1 : 0;    //msb first
 	mov	dptr,#_spi_write_data_65536_24
 	movx	a,@dptr
-	mov	r4,a
 	inc	dptr
 	movx	a,@dptr
-	mov	a,r4
 	rl	a
 	anl	a,#0x01
 	add	a,#0xff

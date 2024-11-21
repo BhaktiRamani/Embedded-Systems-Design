@@ -57,7 +57,7 @@ int main()
     
 
     
-    return 0;
+    
     
 }
 
@@ -68,7 +68,7 @@ int spi_write(uint16_t data)
   unsigned int i;
   for(i=0;i<16;i++)
   {
-    SDA = (data & 0x80) ? 1 : 0;    //msb first
+    SDA = (data & 0x8000) ? 1 : 0;    //msb first
     SCL=1;
     //some 
     for (int j = 0; j != 63; j++);
