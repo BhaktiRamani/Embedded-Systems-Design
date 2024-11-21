@@ -463,11 +463,7 @@ __start__stack:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-_putchar_charToSend_65536_41:
-	.ds 2
-_main_dac_value_index_65536_46:
-	.ds 2
-_main_dac_data_65536_46:
+_putchar_charToSend_65536_17:
 	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -546,9 +542,9 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar'
 ;------------------------------------------------------------
-;charToSend                Allocated with name '_putchar_charToSend_65536_41'
+;charToSend                Allocated with name '_putchar_charToSend_65536_17'
 ;------------------------------------------------------------
-;	spi_dac.c:90: int putchar(int charToSend) {
+;	spi_dac.c:89: int putchar(int charToSend) {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
@@ -563,78 +559,62 @@ _putchar:
 	ar0 = 0x00
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_putchar_charToSend_65536_41
+	mov	dptr,#_putchar_charToSend_65536_17
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_dac.c:91: SBUF = charToSend;       /* Load character into serial buffer */
-	mov	dptr,#_putchar_charToSend_65536_41
+;	spi_dac.c:90: SBUF = charToSend;       /* Load character into serial buffer */
+	mov	dptr,#_putchar_charToSend_65536_17
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
 	mov	_SBUF,r6
-;	spi_dac.c:92: while (!TI);             /* Wait for transmission completion */
+;	spi_dac.c:91: while (!TI);             /* Wait for transmission completion */
 00101$:
-;	spi_dac.c:93: TI = 0;                  /* Clear transmission flag */
+;	spi_dac.c:92: TI = 0;                  /* Clear transmission flag */
 ;	assignBit
 	jbc	_TI,00114$
 	sjmp	00101$
 00114$:
-;	spi_dac.c:94: return charToSend;
+;	spi_dac.c:93: return charToSend;
 	mov	dpl,r6
 	mov	dph,r7
-;	spi_dac.c:95: }
+;	spi_dac.c:94: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	spi_dac.c:101: int getchar(void) {
+;	spi_dac.c:100: int getchar(void) {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
-;	spi_dac.c:102: while (!RI);             /* Wait for reception completion */
+;	spi_dac.c:101: while (!RI);             /* Wait for reception completion */
 00101$:
-;	spi_dac.c:103: RI = 0;                  /* Clear reception flag */
+;	spi_dac.c:102: RI = 0;                  /* Clear reception flag */
 ;	assignBit
 	jbc	_RI,00114$
 	sjmp	00101$
 00114$:
-;	spi_dac.c:104: return SBUF;             /* Return received character */
+;	spi_dac.c:103: return SBUF;             /* Return received character */
 	mov	r6,_SBUF
 	mov	r7,#0x00
 	mov	dpl,r6
 	mov	dph,r7
-;	spi_dac.c:105: }
+;	spi_dac.c:104: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;dac_value_index           Allocated with name '_main_dac_value_index_65536_46'
-;dac_data                  Allocated with name '_main_dac_data_65536_46'
-;high_byte                 Allocated with name '_main_high_byte_65537_47'
-;low_byte                  Allocated with name '_main_low_byte_65537_47'
-;------------------------------------------------------------
-;	spi_dac.c:107: int main(void)
+;	spi_dac.c:106: int main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	spi_dac.c:110: int dac_value_index = 0;
-	mov	dptr,#_main_dac_value_index_65536_46
-	clr	a
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-;	spi_dac.c:111: int dac_data = 0;
-	mov	dptr,#_main_dac_data_65536_46
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-;	spi_dac.c:113: printf("SPI DAC PROGRAM\n\r");
+;	spi_dac.c:108: printf("SPI DAC PROGRAM\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -645,221 +625,8 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:114: EA = GLOBAL_INT_ENABLE;        // Enable global interrupts
-;	assignBit
-	setb	_EA
-;	spi_dac.c:117: spi_init();
-	lcall	_spi_init
-;	spi_dac.c:118: spi_transmission_start();
-	lcall	_spi_transmission_start
-;	spi_dac.c:120: printf("SPI TRANSMISSION STARTED\n\r");
-	mov	a,#___str_1
-	push	acc
-	mov	a,#(___str_1 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	spi_dac.c:124: timer0_init();
-	lcall	_timer0_init
-;	spi_dac.c:126: while(1)
-00117$:
-;	spi_dac.c:129: if(dac_value_index < SINE_MAX_INDEX)
-	mov	dptr,#_main_dac_value_index_65536_46
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	clr	c
-	mov	a,r6
-	subb	a,#0x31
-	mov	a,r7
-	xrl	a,#0x80
-	subb	a,#0x80
-	jnc	00102$
-;	spi_dac.c:133: dac_data = dac_values[dac_value_index]; 
-	mov	a,r6
-	add	a,r6
-	mov	r6,a
-	mov	a,r7
-	rlc	a
-	mov	r7,a
-	mov	a,r6
-	add	a,#_dac_values
-	mov	dpl,a
-	mov	a,r7
-	addc	a,#(_dac_values >> 8)
-	mov	dph,a
-	clr	a
-	movc	a,@a+dptr
-	mov	r6,a
-	inc	dptr
-	clr	a
-	movc	a,@a+dptr
-	mov	r7,a
-	mov	dptr,#_main_dac_data_65536_46
-	mov	a,r6
-	movx	@dptr,a
-	mov	a,r7
-	inc	dptr
-	movx	@dptr,a
-	sjmp	00103$
-00102$:
-;	spi_dac.c:137: dac_value_index = 0;  // Reset index for next cycle
-	mov	dptr,#_main_dac_value_index_65536_46
-	clr	a
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-00103$:
-;	spi_dac.c:143: ((dac_data >> 4) & 0x0F);
-	mov	dptr,#_main_dac_data_65536_46
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	ar4,r6
-	swap	a
-	xch	a,r4
-	swap	a
-	anl	a,#0x0f
-	xrl	a,r4
-	xch	a,r4
-	anl	a,#0x0f
-	xch	a,r4
-	xrl	a,r4
-	xch	a,r4
-	jnb	acc.3,00162$
-	orl	a,#0xf0
-00162$:
-	mov	a,#0x0f
-	anl	a,r4
-	orl	a,#0x30
-	mov	r5,a
-;	spi_dac.c:146: low_byte = (dac_data & 0x0F) << 4;
-	anl	ar6,#0x0f
-	mov	a,r6
-	swap	a
-	anl	a,#0xf0
-	mov	r7,a
-;	spi_dac.c:148: while(!ms_flag);
-00104$:
-	mov	dptr,#_ms_flag
-	movx	a,@dptr
-	jz	00104$
-;	spi_dac.c:149: ms_flag = 0;
-	mov	dptr,#_ms_flag
-	clr	a
-	movx	@dptr,a
-;	spi_dac.c:152: P1_1 = 0;  // Select DAC
-;	assignBit
-	clr	_P1_1
-;	spi_dac.c:154: printf("Low byte %d\n", low_byte);
-	mov	ar6,r7
-	mov	r4,#0x00
-	push	ar7
-	push	ar5
-	push	ar6
-	push	ar4
-	mov	a,#___str_2
-	push	acc
-	mov	a,#(___str_2 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar5
-;	spi_dac.c:155: printf("High byte %d\n", high_byte);
-	mov	ar4,r5
-	mov	r6,#0x00
-	push	ar5
-	push	ar4
-	push	ar6
-	mov	a,#___str_3
-	push	acc
-	mov	a,#(___str_3 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar5
-	pop	ar7
-;	spi_dac.c:158: SPDAT = high_byte;
-	mov	_SPDAT,r5
-;	spi_dac.c:159: while(!transmission_complete);
-00107$:
-	mov	dptr,#_transmission_complete
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	orl	a,r5
-	jz	00107$
-;	spi_dac.c:160: transmission_complete = 0;
-	mov	dptr,#_transmission_complete
-	clr	a
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-;	spi_dac.c:163: SPDAT = low_byte;
-	mov	_SPDAT,r7
-;	spi_dac.c:164: while(!transmission_complete);
-00110$:
-	mov	dptr,#_transmission_complete
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	orl	a,r6
-	jz	00110$
-;	spi_dac.c:165: transmission_complete = 0;
-	mov	dptr,#_transmission_complete
-	clr	a
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-;	spi_dac.c:167: P1_1 = 1;  // Deselect DAC
-;	assignBit
-	setb	_P1_1
-;	spi_dac.c:168: while(!transmission_complete);
-00113$:
-	mov	dptr,#_transmission_complete
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	orl	a,r6
-	jz	00113$
-;	spi_dac.c:169: transmission_complete = 0;
-	mov	dptr,#_transmission_complete
-	clr	a
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-;	spi_dac.c:171: dac_value_index++;
-	mov	dptr,#_main_dac_value_index_65536_46
-	movx	a,@dptr
-	add	a,#0x01
-	movx	@dptr,a
-	inc	dptr
-	movx	a,@dptr
-	addc	a,#0x00
-	movx	@dptr,a
 ;	spi_dac.c:173: }
-	ljmp	00117$
+	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer0_init'
 ;------------------------------------------------------------
@@ -1050,25 +817,6 @@ ___str_0:
 	.ascii "SPI DAC PROGRAM"
 	.db 0x0a
 	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_1:
-	.ascii "SPI TRANSMISSION STARTED"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_2:
-	.ascii "Low byte %d"
-	.db 0x0a
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_3:
-	.ascii "High byte %d"
-	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)

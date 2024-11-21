@@ -463,624 +463,367 @@
                                     463 ; external ram data
                                     464 ;--------------------------------------------------------
                                     465 	.area XSEG    (XDATA)
-      000000                        466 _putchar_charToSend_65536_41:
+      000000                        466 _putchar_charToSend_65536_17:
       000000                        467 	.ds 2
-      000002                        468 _main_dac_value_index_65536_46:
-      000002                        469 	.ds 2
-      000004                        470 _main_dac_data_65536_46:
-      000004                        471 	.ds 2
+                                    468 ;--------------------------------------------------------
+                                    469 ; absolute external ram data
+                                    470 ;--------------------------------------------------------
+                                    471 	.area XABS    (ABS,XDATA)
                                     472 ;--------------------------------------------------------
-                                    473 ; absolute external ram data
+                                    473 ; external initialized ram data
                                     474 ;--------------------------------------------------------
-                                    475 	.area XABS    (ABS,XDATA)
-                                    476 ;--------------------------------------------------------
-                                    477 ; external initialized ram data
-                                    478 ;--------------------------------------------------------
-                                    479 	.area XISEG   (XDATA)
-      000000                        480 _ms_flag::
-      000000                        481 	.ds 1
-      000001                        482 _transmission_complete::
-      000001                        483 	.ds 2
-                                    484 	.area HOME    (CODE)
-                                    485 	.area GSINIT0 (CODE)
-                                    486 	.area GSINIT1 (CODE)
-                                    487 	.area GSINIT2 (CODE)
-                                    488 	.area GSINIT3 (CODE)
-                                    489 	.area GSINIT4 (CODE)
-                                    490 	.area GSINIT5 (CODE)
-                                    491 	.area GSINIT  (CODE)
-                                    492 	.area GSFINAL (CODE)
-                                    493 	.area CSEG    (CODE)
-                                    494 ;--------------------------------------------------------
-                                    495 ; interrupt vector 
-                                    496 ;--------------------------------------------------------
-                                    497 	.area HOME    (CODE)
-      000000                        498 __interrupt_vect:
-      000000 02r00r00         [24]  499 	ljmp	__sdcc_gsinit_startup
-      000003 32               [24]  500 	reti
-      000004                        501 	.ds	7
-      00000B 02r01r81         [24]  502 	ljmp	_timer0_isr
-      00000E                        503 	.ds	5
-      000013 32               [24]  504 	reti
-      000014                        505 	.ds	7
-      00001B 32               [24]  506 	reti
-      00001C                        507 	.ds	7
-      000023 32               [24]  508 	reti
-      000024                        509 	.ds	7
-      00002B 32               [24]  510 	reti
-      00002C                        511 	.ds	7
-      000033 32               [24]  512 	reti
-      000034                        513 	.ds	7
-      00003B 32               [24]  514 	reti
-      00003C                        515 	.ds	7
-      000043 32               [24]  516 	reti
-      000044                        517 	.ds	7
-      00004B 02r01r9C         [24]  518 	ljmp	_spi_isr
-                                    519 ;--------------------------------------------------------
-                                    520 ; global & static initialisations
-                                    521 ;--------------------------------------------------------
-                                    522 	.area HOME    (CODE)
-                                    523 	.area GSINIT  (CODE)
-                                    524 	.area GSFINAL (CODE)
-                                    525 	.area GSINIT  (CODE)
-                                    526 	.globl __sdcc_gsinit_startup
-                                    527 	.globl __sdcc_program_startup
-                                    528 	.globl __start__stack
-                                    529 	.globl __mcs51_genXINIT
-                                    530 	.globl __mcs51_genXRAMCLEAR
-                                    531 	.globl __mcs51_genRAMCLEAR
-                                    532 	.area GSFINAL (CODE)
-      000000 02r00r4E         [24]  533 	ljmp	__sdcc_program_startup
-                                    534 ;--------------------------------------------------------
-                                    535 ; Home
-                                    536 ;--------------------------------------------------------
-                                    537 	.area HOME    (CODE)
-                                    538 	.area HOME    (CODE)
-      00004E                        539 __sdcc_program_startup:
-      00004E 02r00r2D         [24]  540 	ljmp	_main
-                                    541 ;	return from main will return to caller
-                                    542 ;--------------------------------------------------------
-                                    543 ; code
-                                    544 ;--------------------------------------------------------
-                                    545 	.area CSEG    (CODE)
+                                    475 	.area XISEG   (XDATA)
+      000000                        476 _ms_flag::
+      000000                        477 	.ds 1
+      000001                        478 _transmission_complete::
+      000001                        479 	.ds 2
+                                    480 	.area HOME    (CODE)
+                                    481 	.area GSINIT0 (CODE)
+                                    482 	.area GSINIT1 (CODE)
+                                    483 	.area GSINIT2 (CODE)
+                                    484 	.area GSINIT3 (CODE)
+                                    485 	.area GSINIT4 (CODE)
+                                    486 	.area GSINIT5 (CODE)
+                                    487 	.area GSINIT  (CODE)
+                                    488 	.area GSFINAL (CODE)
+                                    489 	.area CSEG    (CODE)
+                                    490 ;--------------------------------------------------------
+                                    491 ; interrupt vector 
+                                    492 ;--------------------------------------------------------
+                                    493 	.area HOME    (CODE)
+      000000                        494 __interrupt_vect:
+      000000 02r00r00         [24]  495 	ljmp	__sdcc_gsinit_startup
+      000003 32               [24]  496 	reti
+      000004                        497 	.ds	7
+      00000B 02r00r54         [24]  498 	ljmp	_timer0_isr
+      00000E                        499 	.ds	5
+      000013 32               [24]  500 	reti
+      000014                        501 	.ds	7
+      00001B 32               [24]  502 	reti
+      00001C                        503 	.ds	7
+      000023 32               [24]  504 	reti
+      000024                        505 	.ds	7
+      00002B 32               [24]  506 	reti
+      00002C                        507 	.ds	7
+      000033 32               [24]  508 	reti
+      000034                        509 	.ds	7
+      00003B 32               [24]  510 	reti
+      00003C                        511 	.ds	7
+      000043 32               [24]  512 	reti
+      000044                        513 	.ds	7
+      00004B 02r00r6F         [24]  514 	ljmp	_spi_isr
+                                    515 ;--------------------------------------------------------
+                                    516 ; global & static initialisations
+                                    517 ;--------------------------------------------------------
+                                    518 	.area HOME    (CODE)
+                                    519 	.area GSINIT  (CODE)
+                                    520 	.area GSFINAL (CODE)
+                                    521 	.area GSINIT  (CODE)
+                                    522 	.globl __sdcc_gsinit_startup
+                                    523 	.globl __sdcc_program_startup
+                                    524 	.globl __start__stack
+                                    525 	.globl __mcs51_genXINIT
+                                    526 	.globl __mcs51_genXRAMCLEAR
+                                    527 	.globl __mcs51_genRAMCLEAR
+                                    528 	.area GSFINAL (CODE)
+      000000 02r00r4E         [24]  529 	ljmp	__sdcc_program_startup
+                                    530 ;--------------------------------------------------------
+                                    531 ; Home
+                                    532 ;--------------------------------------------------------
+                                    533 	.area HOME    (CODE)
+                                    534 	.area HOME    (CODE)
+      00004E                        535 __sdcc_program_startup:
+      00004E 02r00r2D         [24]  536 	ljmp	_main
+                                    537 ;	return from main will return to caller
+                                    538 ;--------------------------------------------------------
+                                    539 ; code
+                                    540 ;--------------------------------------------------------
+                                    541 	.area CSEG    (CODE)
+                                    542 ;------------------------------------------------------------
+                                    543 ;Allocation info for local variables in function 'putchar'
+                                    544 ;------------------------------------------------------------
+                                    545 ;charToSend                Allocated with name '_putchar_charToSend_65536_17'
                                     546 ;------------------------------------------------------------
-                                    547 ;Allocation info for local variables in function 'putchar'
-                                    548 ;------------------------------------------------------------
-                                    549 ;charToSend                Allocated with name '_putchar_charToSend_65536_41'
-                                    550 ;------------------------------------------------------------
-                                    551 ;	spi_dac.c:90: int putchar(int charToSend) {
-                                    552 ;	-----------------------------------------
-                                    553 ;	 function putchar
-                                    554 ;	-----------------------------------------
-      000000                        555 _putchar:
-                           000007   556 	ar7 = 0x07
-                           000006   557 	ar6 = 0x06
-                           000005   558 	ar5 = 0x05
-                           000004   559 	ar4 = 0x04
-                           000003   560 	ar3 = 0x03
-                           000002   561 	ar2 = 0x02
-                           000001   562 	ar1 = 0x01
-                           000000   563 	ar0 = 0x00
-      000000 AF 83            [24]  564 	mov	r7,dph
-      000002 E5 82            [12]  565 	mov	a,dpl
-      000004 90r00r00         [24]  566 	mov	dptr,#_putchar_charToSend_65536_41
-      000007 F0               [24]  567 	movx	@dptr,a
-      000008 EF               [12]  568 	mov	a,r7
-      000009 A3               [24]  569 	inc	dptr
-      00000A F0               [24]  570 	movx	@dptr,a
-                                    571 ;	spi_dac.c:91: SBUF = charToSend;       /* Load character into serial buffer */
-      00000B 90r00r00         [24]  572 	mov	dptr,#_putchar_charToSend_65536_41
-      00000E E0               [24]  573 	movx	a,@dptr
-      00000F FE               [12]  574 	mov	r6,a
-      000010 A3               [24]  575 	inc	dptr
-      000011 E0               [24]  576 	movx	a,@dptr
-      000012 FF               [12]  577 	mov	r7,a
-      000013 8E 99            [24]  578 	mov	_SBUF,r6
-                                    579 ;	spi_dac.c:92: while (!TI);             /* Wait for transmission completion */
-      000015                        580 00101$:
-                                    581 ;	spi_dac.c:93: TI = 0;                  /* Clear transmission flag */
-                                    582 ;	assignBit
-      000015 10 99 02         [24]  583 	jbc	_TI,00114$
-      000018 80 FB            [24]  584 	sjmp	00101$
-      00001A                        585 00114$:
-                                    586 ;	spi_dac.c:94: return charToSend;
-      00001A 8E 82            [24]  587 	mov	dpl,r6
-      00001C 8F 83            [24]  588 	mov	dph,r7
-                                    589 ;	spi_dac.c:95: }
-      00001E 22               [24]  590 	ret
-                                    591 ;------------------------------------------------------------
-                                    592 ;Allocation info for local variables in function 'getchar'
-                                    593 ;------------------------------------------------------------
-                                    594 ;	spi_dac.c:101: int getchar(void) {
-                                    595 ;	-----------------------------------------
-                                    596 ;	 function getchar
-                                    597 ;	-----------------------------------------
-      00001F                        598 _getchar:
-                                    599 ;	spi_dac.c:102: while (!RI);             /* Wait for reception completion */
-      00001F                        600 00101$:
-                                    601 ;	spi_dac.c:103: RI = 0;                  /* Clear reception flag */
-                                    602 ;	assignBit
-      00001F 10 98 02         [24]  603 	jbc	_RI,00114$
-      000022 80 FB            [24]  604 	sjmp	00101$
-      000024                        605 00114$:
-                                    606 ;	spi_dac.c:104: return SBUF;             /* Return received character */
-      000024 AE 99            [24]  607 	mov	r6,_SBUF
-      000026 7F 00            [12]  608 	mov	r7,#0x00
-      000028 8E 82            [24]  609 	mov	dpl,r6
-      00002A 8F 83            [24]  610 	mov	dph,r7
-                                    611 ;	spi_dac.c:105: }
-      00002C 22               [24]  612 	ret
-                                    613 ;------------------------------------------------------------
-                                    614 ;Allocation info for local variables in function 'main'
-                                    615 ;------------------------------------------------------------
-                                    616 ;dac_value_index           Allocated with name '_main_dac_value_index_65536_46'
-                                    617 ;dac_data                  Allocated with name '_main_dac_data_65536_46'
-                                    618 ;high_byte                 Allocated with name '_main_high_byte_65537_47'
-                                    619 ;low_byte                  Allocated with name '_main_low_byte_65537_47'
-                                    620 ;------------------------------------------------------------
-                                    621 ;	spi_dac.c:107: int main(void)
-                                    622 ;	-----------------------------------------
-                                    623 ;	 function main
-                                    624 ;	-----------------------------------------
-      00002D                        625 _main:
-                                    626 ;	spi_dac.c:110: int dac_value_index = 0;
-      00002D 90r00r02         [24]  627 	mov	dptr,#_main_dac_value_index_65536_46
-      000030 E4               [12]  628 	clr	a
-      000031 F0               [24]  629 	movx	@dptr,a
-      000032 A3               [24]  630 	inc	dptr
-      000033 F0               [24]  631 	movx	@dptr,a
-                                    632 ;	spi_dac.c:111: int dac_data = 0;
-      000034 90r00r04         [24]  633 	mov	dptr,#_main_dac_data_65536_46
-      000037 F0               [24]  634 	movx	@dptr,a
-      000038 A3               [24]  635 	inc	dptr
-      000039 F0               [24]  636 	movx	@dptr,a
-                                    637 ;	spi_dac.c:113: printf("SPI DAC PROGRAM\n\r");
-      00003A 74r64            [12]  638 	mov	a,#___str_0
-      00003C C0 E0            [24]  639 	push	acc
-      00003E 74s00            [12]  640 	mov	a,#(___str_0 >> 8)
-      000040 C0 E0            [24]  641 	push	acc
-      000042 74 80            [12]  642 	mov	a,#0x80
-      000044 C0 E0            [24]  643 	push	acc
-      000046 12r00r00         [24]  644 	lcall	_printf
-      000049 15 81            [12]  645 	dec	sp
-      00004B 15 81            [12]  646 	dec	sp
-      00004D 15 81            [12]  647 	dec	sp
-                                    648 ;	spi_dac.c:114: EA = GLOBAL_INT_ENABLE;        // Enable global interrupts
-                                    649 ;	assignBit
-      00004F D2 AF            [12]  650 	setb	_EA
-                                    651 ;	spi_dac.c:117: spi_init();
-      000051 12r01rBB         [24]  652 	lcall	_spi_init
-                                    653 ;	spi_dac.c:118: spi_transmission_start();
-      000054 12r01rD1         [24]  654 	lcall	_spi_transmission_start
-                                    655 ;	spi_dac.c:120: printf("SPI TRANSMISSION STARTED\n\r");
-      000057 74r76            [12]  656 	mov	a,#___str_1
-      000059 C0 E0            [24]  657 	push	acc
-      00005B 74s00            [12]  658 	mov	a,#(___str_1 >> 8)
-      00005D C0 E0            [24]  659 	push	acc
-      00005F 74 80            [12]  660 	mov	a,#0x80
-      000061 C0 E0            [24]  661 	push	acc
-      000063 12r00r00         [24]  662 	lcall	_printf
-      000066 15 81            [12]  663 	dec	sp
-      000068 15 81            [12]  664 	dec	sp
-      00006A 15 81            [12]  665 	dec	sp
-                                    666 ;	spi_dac.c:124: timer0_init();
-      00006C 12r01r70         [24]  667 	lcall	_timer0_init
-                                    668 ;	spi_dac.c:126: while(1)
-      00006F                        669 00117$:
-                                    670 ;	spi_dac.c:129: if(dac_value_index < SINE_MAX_INDEX)
-      00006F 90r00r02         [24]  671 	mov	dptr,#_main_dac_value_index_65536_46
-      000072 E0               [24]  672 	movx	a,@dptr
-      000073 FE               [12]  673 	mov	r6,a
-      000074 A3               [24]  674 	inc	dptr
-      000075 E0               [24]  675 	movx	a,@dptr
-      000076 FF               [12]  676 	mov	r7,a
-      000077 C3               [12]  677 	clr	c
-      000078 EE               [12]  678 	mov	a,r6
-      000079 94 31            [12]  679 	subb	a,#0x31
-      00007B EF               [12]  680 	mov	a,r7
-      00007C 64 80            [12]  681 	xrl	a,#0x80
-      00007E 94 80            [12]  682 	subb	a,#0x80
-      000080 50 21            [24]  683 	jnc	00102$
-                                    684 ;	spi_dac.c:133: dac_data = dac_values[dac_value_index]; 
-      000082 EE               [12]  685 	mov	a,r6
-      000083 2E               [12]  686 	add	a,r6
-      000084 FE               [12]  687 	mov	r6,a
-      000085 EF               [12]  688 	mov	a,r7
-      000086 33               [12]  689 	rlc	a
-      000087 FF               [12]  690 	mov	r7,a
-      000088 EE               [12]  691 	mov	a,r6
-      000089 24r00            [12]  692 	add	a,#_dac_values
-      00008B F5 82            [12]  693 	mov	dpl,a
-      00008D EF               [12]  694 	mov	a,r7
-      00008E 34s00            [12]  695 	addc	a,#(_dac_values >> 8)
-      000090 F5 83            [12]  696 	mov	dph,a
-      000092 E4               [12]  697 	clr	a
-      000093 93               [24]  698 	movc	a,@a+dptr
-      000094 FE               [12]  699 	mov	r6,a
-      000095 A3               [24]  700 	inc	dptr
-      000096 E4               [12]  701 	clr	a
-      000097 93               [24]  702 	movc	a,@a+dptr
-      000098 FF               [12]  703 	mov	r7,a
-      000099 90r00r04         [24]  704 	mov	dptr,#_main_dac_data_65536_46
-      00009C EE               [12]  705 	mov	a,r6
-      00009D F0               [24]  706 	movx	@dptr,a
-      00009E EF               [12]  707 	mov	a,r7
-      00009F A3               [24]  708 	inc	dptr
-      0000A0 F0               [24]  709 	movx	@dptr,a
-      0000A1 80 07            [24]  710 	sjmp	00103$
-      0000A3                        711 00102$:
-                                    712 ;	spi_dac.c:137: dac_value_index = 0;  // Reset index for next cycle
-      0000A3 90r00r02         [24]  713 	mov	dptr,#_main_dac_value_index_65536_46
-      0000A6 E4               [12]  714 	clr	a
-      0000A7 F0               [24]  715 	movx	@dptr,a
-      0000A8 A3               [24]  716 	inc	dptr
-      0000A9 F0               [24]  717 	movx	@dptr,a
-      0000AA                        718 00103$:
-                                    719 ;	spi_dac.c:143: ((dac_data >> 4) & 0x0F);
-      0000AA 90r00r04         [24]  720 	mov	dptr,#_main_dac_data_65536_46
-      0000AD E0               [24]  721 	movx	a,@dptr
-      0000AE FE               [12]  722 	mov	r6,a
-      0000AF A3               [24]  723 	inc	dptr
-      0000B0 E0               [24]  724 	movx	a,@dptr
-      0000B1 8E 04            [24]  725 	mov	ar4,r6
-      0000B3 C4               [12]  726 	swap	a
-      0000B4 CC               [12]  727 	xch	a,r4
-      0000B5 C4               [12]  728 	swap	a
-      0000B6 54 0F            [12]  729 	anl	a,#0x0f
-      0000B8 6C               [12]  730 	xrl	a,r4
-      0000B9 CC               [12]  731 	xch	a,r4
-      0000BA 54 0F            [12]  732 	anl	a,#0x0f
-      0000BC CC               [12]  733 	xch	a,r4
-      0000BD 6C               [12]  734 	xrl	a,r4
-      0000BE CC               [12]  735 	xch	a,r4
-      0000BF 30 E3 02         [24]  736 	jnb	acc.3,00162$
-      0000C2 44 F0            [12]  737 	orl	a,#0xf0
-      0000C4                        738 00162$:
-      0000C4 74 0F            [12]  739 	mov	a,#0x0f
-      0000C6 5C               [12]  740 	anl	a,r4
-      0000C7 44 30            [12]  741 	orl	a,#0x30
-      0000C9 FD               [12]  742 	mov	r5,a
-                                    743 ;	spi_dac.c:146: low_byte = (dac_data & 0x0F) << 4;
-      0000CA 53 06 0F         [24]  744 	anl	ar6,#0x0f
-      0000CD EE               [12]  745 	mov	a,r6
-      0000CE C4               [12]  746 	swap	a
-      0000CF 54 F0            [12]  747 	anl	a,#0xf0
-      0000D1 FF               [12]  748 	mov	r7,a
-                                    749 ;	spi_dac.c:148: while(!ms_flag);
-      0000D2                        750 00104$:
-      0000D2 90r00r00         [24]  751 	mov	dptr,#_ms_flag
-      0000D5 E0               [24]  752 	movx	a,@dptr
-      0000D6 60 FA            [24]  753 	jz	00104$
-                                    754 ;	spi_dac.c:149: ms_flag = 0;
-      0000D8 90r00r00         [24]  755 	mov	dptr,#_ms_flag
-      0000DB E4               [12]  756 	clr	a
-      0000DC F0               [24]  757 	movx	@dptr,a
-                                    758 ;	spi_dac.c:152: P1_1 = 0;  // Select DAC
-                                    759 ;	assignBit
-      0000DD C2 91            [12]  760 	clr	_P1_1
-                                    761 ;	spi_dac.c:154: printf("Low byte %d\n", low_byte);
-      0000DF 8F 06            [24]  762 	mov	ar6,r7
-      0000E1 7C 00            [12]  763 	mov	r4,#0x00
-      0000E3 C0 07            [24]  764 	push	ar7
-      0000E5 C0 05            [24]  765 	push	ar5
-      0000E7 C0 06            [24]  766 	push	ar6
-      0000E9 C0 04            [24]  767 	push	ar4
-      0000EB 74r91            [12]  768 	mov	a,#___str_2
-      0000ED C0 E0            [24]  769 	push	acc
-      0000EF 74s00            [12]  770 	mov	a,#(___str_2 >> 8)
-      0000F1 C0 E0            [24]  771 	push	acc
-      0000F3 74 80            [12]  772 	mov	a,#0x80
-      0000F5 C0 E0            [24]  773 	push	acc
-      0000F7 12r00r00         [24]  774 	lcall	_printf
-      0000FA E5 81            [12]  775 	mov	a,sp
-      0000FC 24 FB            [12]  776 	add	a,#0xfb
-      0000FE F5 81            [12]  777 	mov	sp,a
-      000100 D0 05            [24]  778 	pop	ar5
-                                    779 ;	spi_dac.c:155: printf("High byte %d\n", high_byte);
-      000102 8D 04            [24]  780 	mov	ar4,r5
-      000104 7E 00            [12]  781 	mov	r6,#0x00
-      000106 C0 05            [24]  782 	push	ar5
-      000108 C0 04            [24]  783 	push	ar4
-      00010A C0 06            [24]  784 	push	ar6
-      00010C 74r9E            [12]  785 	mov	a,#___str_3
-      00010E C0 E0            [24]  786 	push	acc
-      000110 74s00            [12]  787 	mov	a,#(___str_3 >> 8)
-      000112 C0 E0            [24]  788 	push	acc
-      000114 74 80            [12]  789 	mov	a,#0x80
-      000116 C0 E0            [24]  790 	push	acc
-      000118 12r00r00         [24]  791 	lcall	_printf
-      00011B E5 81            [12]  792 	mov	a,sp
-      00011D 24 FB            [12]  793 	add	a,#0xfb
-      00011F F5 81            [12]  794 	mov	sp,a
-      000121 D0 05            [24]  795 	pop	ar5
-      000123 D0 07            [24]  796 	pop	ar7
-                                    797 ;	spi_dac.c:158: SPDAT = high_byte;
-      000125 8D C5            [24]  798 	mov	_SPDAT,r5
-                                    799 ;	spi_dac.c:159: while(!transmission_complete);
-      000127                        800 00107$:
-      000127 90r00r01         [24]  801 	mov	dptr,#_transmission_complete
-      00012A E0               [24]  802 	movx	a,@dptr
-      00012B FD               [12]  803 	mov	r5,a
-      00012C A3               [24]  804 	inc	dptr
-      00012D E0               [24]  805 	movx	a,@dptr
-      00012E FE               [12]  806 	mov	r6,a
-      00012F 4D               [12]  807 	orl	a,r5
-      000130 60 F5            [24]  808 	jz	00107$
-                                    809 ;	spi_dac.c:160: transmission_complete = 0;
-      000132 90r00r01         [24]  810 	mov	dptr,#_transmission_complete
-      000135 E4               [12]  811 	clr	a
-      000136 F0               [24]  812 	movx	@dptr,a
-      000137 A3               [24]  813 	inc	dptr
-      000138 F0               [24]  814 	movx	@dptr,a
-                                    815 ;	spi_dac.c:163: SPDAT = low_byte;
-      000139 8F C5            [24]  816 	mov	_SPDAT,r7
-                                    817 ;	spi_dac.c:164: while(!transmission_complete);
-      00013B                        818 00110$:
-      00013B 90r00r01         [24]  819 	mov	dptr,#_transmission_complete
-      00013E E0               [24]  820 	movx	a,@dptr
-      00013F FE               [12]  821 	mov	r6,a
-      000140 A3               [24]  822 	inc	dptr
-      000141 E0               [24]  823 	movx	a,@dptr
-      000142 FF               [12]  824 	mov	r7,a
-      000143 4E               [12]  825 	orl	a,r6
-      000144 60 F5            [24]  826 	jz	00110$
-                                    827 ;	spi_dac.c:165: transmission_complete = 0;
-      000146 90r00r01         [24]  828 	mov	dptr,#_transmission_complete
-      000149 E4               [12]  829 	clr	a
-      00014A F0               [24]  830 	movx	@dptr,a
-      00014B A3               [24]  831 	inc	dptr
-      00014C F0               [24]  832 	movx	@dptr,a
-                                    833 ;	spi_dac.c:167: P1_1 = 1;  // Deselect DAC
-                                    834 ;	assignBit
-      00014D D2 91            [12]  835 	setb	_P1_1
-                                    836 ;	spi_dac.c:168: while(!transmission_complete);
-      00014F                        837 00113$:
-      00014F 90r00r01         [24]  838 	mov	dptr,#_transmission_complete
-      000152 E0               [24]  839 	movx	a,@dptr
-      000153 FE               [12]  840 	mov	r6,a
-      000154 A3               [24]  841 	inc	dptr
-      000155 E0               [24]  842 	movx	a,@dptr
-      000156 FF               [12]  843 	mov	r7,a
-      000157 4E               [12]  844 	orl	a,r6
-      000158 60 F5            [24]  845 	jz	00113$
-                                    846 ;	spi_dac.c:169: transmission_complete = 0;
-      00015A 90r00r01         [24]  847 	mov	dptr,#_transmission_complete
-      00015D E4               [12]  848 	clr	a
-      00015E F0               [24]  849 	movx	@dptr,a
-      00015F A3               [24]  850 	inc	dptr
-      000160 F0               [24]  851 	movx	@dptr,a
-                                    852 ;	spi_dac.c:171: dac_value_index++;
-      000161 90r00r02         [24]  853 	mov	dptr,#_main_dac_value_index_65536_46
-      000164 E0               [24]  854 	movx	a,@dptr
-      000165 24 01            [12]  855 	add	a,#0x01
-      000167 F0               [24]  856 	movx	@dptr,a
-      000168 A3               [24]  857 	inc	dptr
-      000169 E0               [24]  858 	movx	a,@dptr
-      00016A 34 00            [12]  859 	addc	a,#0x00
-      00016C F0               [24]  860 	movx	@dptr,a
-                                    861 ;	spi_dac.c:173: }
-      00016D 02r00r6F         [24]  862 	ljmp	00117$
-                                    863 ;------------------------------------------------------------
-                                    864 ;Allocation info for local variables in function 'timer0_init'
-                                    865 ;------------------------------------------------------------
-                                    866 ;	spi_dac.c:175: void timer0_init(void)
-                                    867 ;	-----------------------------------------
-                                    868 ;	 function timer0_init
-                                    869 ;	-----------------------------------------
-      000170                        870 _timer0_init:
-                                    871 ;	spi_dac.c:177: TMOD &= 0xF0;    // Clear Timer0 mode bits
-      000170 53 89 F0         [24]  872 	anl	_TMOD,#0xf0
-                                    873 ;	spi_dac.c:178: TMOD |= TIMER0_MODE1;  // Set Timer0 mode 1 (16-bit)
-      000173 43 89 01         [24]  874 	orl	_TMOD,#0x01
-                                    875 ;	spi_dac.c:181: TH0 = TH0_RELOAD;
-      000176 75 8C FC         [24]  876 	mov	_TH0,#0xfc
-                                    877 ;	spi_dac.c:182: TL0 = TL0_RELOAD;
-      000179 75 8A 18         [24]  878 	mov	_TL0,#0x18
-                                    879 ;	spi_dac.c:184: ET0 = 1;         // Enable Timer0 interrupt
-                                    880 ;	assignBit
-      00017C D2 A9            [12]  881 	setb	_ET0
-                                    882 ;	spi_dac.c:185: TR0 = 1;         // Start Timer0
-                                    883 ;	assignBit
-      00017E D2 8C            [12]  884 	setb	_TR0
-                                    885 ;	spi_dac.c:186: }
-      000180 22               [24]  886 	ret
-                                    887 ;------------------------------------------------------------
-                                    888 ;Allocation info for local variables in function 'timer0_isr'
-                                    889 ;------------------------------------------------------------
-                                    890 ;	spi_dac.c:189: void timer0_isr(void) __interrupt 1
-                                    891 ;	-----------------------------------------
-                                    892 ;	 function timer0_isr
-                                    893 ;	-----------------------------------------
-      000181                        894 _timer0_isr:
-      000181 C0 E0            [24]  895 	push	acc
-      000183 C0 82            [24]  896 	push	dpl
-      000185 C0 83            [24]  897 	push	dph
-                                    898 ;	spi_dac.c:192: TH0 = TH0_RELOAD;
-      000187 75 8C FC         [24]  899 	mov	_TH0,#0xfc
-                                    900 ;	spi_dac.c:193: TL0 = TL0_RELOAD;
-      00018A 75 8A 18         [24]  901 	mov	_TL0,#0x18
-                                    902 ;	spi_dac.c:195: ms_flag = 1;     // Set 1ms flag
-      00018D 90r00r00         [24]  903 	mov	dptr,#_ms_flag
-      000190 74 01            [12]  904 	mov	a,#0x01
-      000192 F0               [24]  905 	movx	@dptr,a
-                                    906 ;	spi_dac.c:196: P1_0 = !P1_0;    // Toggle P1.0 for verification
-      000193 B2 90            [12]  907 	cpl	_P1_0
-                                    908 ;	spi_dac.c:197: }
-      000195 D0 83            [24]  909 	pop	dph
-      000197 D0 82            [24]  910 	pop	dpl
-      000199 D0 E0            [24]  911 	pop	acc
-      00019B 32               [24]  912 	reti
-                                    913 ;	eliminated unneeded mov psw,# (no regs used in bank)
-                                    914 ;	eliminated unneeded push/pop psw
-                                    915 ;	eliminated unneeded push/pop b
-                                    916 ;------------------------------------------------------------
-                                    917 ;Allocation info for local variables in function 'spi_isr'
-                                    918 ;------------------------------------------------------------
-                                    919 ;	spi_dac.c:205: void spi_isr(void) __interrupt 9
-                                    920 ;	-----------------------------------------
-                                    921 ;	 function spi_isr
-                                    922 ;	-----------------------------------------
-      00019C                        923 _spi_isr:
-      00019C C0 E0            [24]  924 	push	acc
-      00019E C0 82            [24]  925 	push	dpl
-      0001A0 C0 83            [24]  926 	push	dph
-      0001A2 C0 D0            [24]  927 	push	psw
-                                    928 ;	spi_dac.c:207: if(SPSTA == 0x80)  // Check for successful transmission
-      0001A4 74 80            [12]  929 	mov	a,#0x80
-      0001A6 B5 C4 09         [24]  930 	cjne	a,_SPSTA,00103$
-                                    931 ;	spi_dac.c:209: transmission_complete = 1;
-      0001A9 90r00r01         [24]  932 	mov	dptr,#_transmission_complete
-      0001AC 74 01            [12]  933 	mov	a,#0x01
-      0001AE F0               [24]  934 	movx	@dptr,a
-      0001AF E4               [12]  935 	clr	a
-      0001B0 A3               [24]  936 	inc	dptr
-      0001B1 F0               [24]  937 	movx	@dptr,a
-      0001B2                        938 00103$:
-                                    939 ;	spi_dac.c:211: }
-      0001B2 D0 D0            [24]  940 	pop	psw
-      0001B4 D0 83            [24]  941 	pop	dph
-      0001B6 D0 82            [24]  942 	pop	dpl
-      0001B8 D0 E0            [24]  943 	pop	acc
-      0001BA 32               [24]  944 	reti
-                                    945 ;	eliminated unneeded mov psw,# (no regs used in bank)
-                                    946 ;	eliminated unneeded push/pop b
-                                    947 ;------------------------------------------------------------
-                                    948 ;Allocation info for local variables in function 'spi_init'
-                                    949 ;------------------------------------------------------------
-                                    950 ;	spi_dac.c:223: void spi_init(void) 
-                                    951 ;	-----------------------------------------
-                                    952 ;	 function spi_init
-                                    953 ;	-----------------------------------------
-      0001BB                        954 _spi_init:
-                                    955 ;	spi_dac.c:226: SPCON = 0;
-      0001BB 75 C3 00         [24]  956 	mov	_SPCON,#0x00
-                                    957 ;	spi_dac.c:232: SPCON |= SPI_CLK_DIV_2;      // Set clock frequency divider
-      0001BE 85 C3 C3         [24]  958 	mov	_SPCON,_SPCON
-                                    959 ;	spi_dac.c:233: SPCON |= SPI_MASTER_MODE;      // Set as master
-      0001C1 43 C3 10         [24]  960 	orl	_SPCON,#0x10
-                                    961 ;	spi_dac.c:234: SPCON |= SPI_CPOL_HIGH;        // Clock polarity active high
-      0001C4 43 C3 08         [24]  962 	orl	_SPCON,#0x08
-                                    963 ;	spi_dac.c:235: SPCON &= ~SPI_CPHA_FIRST;      // Sample data on first clock edge
-      0001C7 53 C3 FB         [24]  964 	anl	_SPCON,#0xfb
-                                    965 ;	spi_dac.c:236: SPCON &= ~SPI_SSDIS;
-      0001CA 53 C3 DF         [24]  966 	anl	_SPCON,#0xdf
-                                    967 ;	spi_dac.c:240: IEN1 |= SPI_INT_ENABLE;        // Enable SPI interrupt
-      0001CD 43 B1 08         [24]  968 	orl	_IEN1,#0x08
-                                    969 ;	spi_dac.c:242: }
-      0001D0 22               [24]  970 	ret
-                                    971 ;------------------------------------------------------------
-                                    972 ;Allocation info for local variables in function 'spi_transmission_start'
-                                    973 ;------------------------------------------------------------
-                                    974 ;	spi_dac.c:249: void spi_transmission_start(void)
-                                    975 ;	-----------------------------------------
-                                    976 ;	 function spi_transmission_start
-                                    977 ;	-----------------------------------------
-      0001D1                        978 _spi_transmission_start:
-                                    979 ;	spi_dac.c:251: SPCON |= SPI_ENABLE;           // Enable SPI
-      0001D1 43 C3 40         [24]  980 	orl	_SPCON,#0x40
-                                    981 ;	spi_dac.c:252: }
-      0001D4 22               [24]  982 	ret
-                                    983 ;------------------------------------------------------------
-                                    984 ;Allocation info for local variables in function 'spi_transmission_stop'
-                                    985 ;------------------------------------------------------------
-                                    986 ;	spi_dac.c:259: void spi_transmission_stop(void) 
-                                    987 ;	-----------------------------------------
-                                    988 ;	 function spi_transmission_stop
-                                    989 ;	-----------------------------------------
-      0001D5                        990 _spi_transmission_stop:
-                                    991 ;	spi_dac.c:261: SPCON &= ~SPI_ENABLE;          // Disable SPI
-      0001D5 53 C3 BF         [24]  992 	anl	_SPCON,#0xbf
-                                    993 ;	spi_dac.c:262: }
-      0001D8 22               [24]  994 	ret
-                                    995 	.area CSEG    (CODE)
-                                    996 	.area CONST   (CODE)
-      000000                        997 _dac_values:
-      000000 80 00                  998 	.byte #0x80, #0x00	;  128
-      000002 8F 00                  999 	.byte #0x8f, #0x00	;  143
-      000004 9F 00                 1000 	.byte #0x9f, #0x00	;  159
-      000006 AE 00                 1001 	.byte #0xae, #0x00	;  174
-      000008 BD 00                 1002 	.byte #0xbd, #0x00	;  189
-      00000A CA 00                 1003 	.byte #0xca, #0x00	;  202
-      00000C D7 00                 1004 	.byte #0xd7, #0x00	;  215
-      00000E E2 00                 1005 	.byte #0xe2, #0x00	;  226
-      000010 EB 00                 1006 	.byte #0xeb, #0x00	;  235
-      000012 F3 00                 1007 	.byte #0xf3, #0x00	;  243
-      000014 F9 00                 1008 	.byte #0xf9, #0x00	;  249
-      000016 FD 00                 1009 	.byte #0xfd, #0x00	;  253
-      000018 FF 00                 1010 	.byte #0xff, #0x00	;  255
-      00001A FF 00                 1011 	.byte #0xff, #0x00	;  255
-      00001C FD 00                 1012 	.byte #0xfd, #0x00	;  253
-      00001E F9 00                 1013 	.byte #0xf9, #0x00	;  249
-      000020 F3 00                 1014 	.byte #0xf3, #0x00	;  243
-      000022 EB 00                 1015 	.byte #0xeb, #0x00	;  235
-      000024 E2 00                 1016 	.byte #0xe2, #0x00	;  226
-      000026 D7 00                 1017 	.byte #0xd7, #0x00	;  215
-      000028 CA 00                 1018 	.byte #0xca, #0x00	;  202
-      00002A BD 00                 1019 	.byte #0xbd, #0x00	;  189
-      00002C AE 00                 1020 	.byte #0xae, #0x00	;  174
-      00002E 9F 00                 1021 	.byte #0x9f, #0x00	;  159
-      000030 8F 00                 1022 	.byte #0x8f, #0x00	;  143
-      000032 80 00                 1023 	.byte #0x80, #0x00	;  128
-      000034 70 00                 1024 	.byte #0x70, #0x00	;  112
-      000036 60 00                 1025 	.byte #0x60, #0x00	;  96
-      000038 51 00                 1026 	.byte #0x51, #0x00	;  81
-      00003A 42 00                 1027 	.byte #0x42, #0x00	;  66
-      00003C 35 00                 1028 	.byte #0x35, #0x00	;  53
-      00003E 28 00                 1029 	.byte #0x28, #0x00	;  40
-      000040 1D 00                 1030 	.byte #0x1d, #0x00	;  29
-      000042 14 00                 1031 	.byte #0x14, #0x00	;  20
-      000044 0C 00                 1032 	.byte #0x0c, #0x00	;  12
-      000046 06 00                 1033 	.byte #0x06, #0x00	;  6
-      000048 02 00                 1034 	.byte #0x02, #0x00	;  2
-      00004A 00 00                 1035 	.byte #0x00, #0x00	;  0
-      00004C 00 00                 1036 	.byte #0x00, #0x00	;  0
-      00004E 02 00                 1037 	.byte #0x02, #0x00	;  2
-      000050 06 00                 1038 	.byte #0x06, #0x00	;  6
-      000052 0C 00                 1039 	.byte #0x0c, #0x00	;  12
-      000054 14 00                 1040 	.byte #0x14, #0x00	;  20
-      000056 1D 00                 1041 	.byte #0x1d, #0x00	;  29
-      000058 28 00                 1042 	.byte #0x28, #0x00	;  40
-      00005A 35 00                 1043 	.byte #0x35, #0x00	;  53
-      00005C 42 00                 1044 	.byte #0x42, #0x00	;  66
-      00005E 51 00                 1045 	.byte #0x51, #0x00	;  81
-      000060 60 00                 1046 	.byte #0x60, #0x00	;  96
-      000062 70 00                 1047 	.byte #0x70, #0x00	;  112
-                                   1048 	.area CONST   (CODE)
-      000064                       1049 ___str_0:
-      000064 53 50 49 20 44 41 43  1050 	.ascii "SPI DAC PROGRAM"
+                                    547 ;	spi_dac.c:89: int putchar(int charToSend) {
+                                    548 ;	-----------------------------------------
+                                    549 ;	 function putchar
+                                    550 ;	-----------------------------------------
+      000000                        551 _putchar:
+                           000007   552 	ar7 = 0x07
+                           000006   553 	ar6 = 0x06
+                           000005   554 	ar5 = 0x05
+                           000004   555 	ar4 = 0x04
+                           000003   556 	ar3 = 0x03
+                           000002   557 	ar2 = 0x02
+                           000001   558 	ar1 = 0x01
+                           000000   559 	ar0 = 0x00
+      000000 AF 83            [24]  560 	mov	r7,dph
+      000002 E5 82            [12]  561 	mov	a,dpl
+      000004 90r00r00         [24]  562 	mov	dptr,#_putchar_charToSend_65536_17
+      000007 F0               [24]  563 	movx	@dptr,a
+      000008 EF               [12]  564 	mov	a,r7
+      000009 A3               [24]  565 	inc	dptr
+      00000A F0               [24]  566 	movx	@dptr,a
+                                    567 ;	spi_dac.c:90: SBUF = charToSend;       /* Load character into serial buffer */
+      00000B 90r00r00         [24]  568 	mov	dptr,#_putchar_charToSend_65536_17
+      00000E E0               [24]  569 	movx	a,@dptr
+      00000F FE               [12]  570 	mov	r6,a
+      000010 A3               [24]  571 	inc	dptr
+      000011 E0               [24]  572 	movx	a,@dptr
+      000012 FF               [12]  573 	mov	r7,a
+      000013 8E 99            [24]  574 	mov	_SBUF,r6
+                                    575 ;	spi_dac.c:91: while (!TI);             /* Wait for transmission completion */
+      000015                        576 00101$:
+                                    577 ;	spi_dac.c:92: TI = 0;                  /* Clear transmission flag */
+                                    578 ;	assignBit
+      000015 10 99 02         [24]  579 	jbc	_TI,00114$
+      000018 80 FB            [24]  580 	sjmp	00101$
+      00001A                        581 00114$:
+                                    582 ;	spi_dac.c:93: return charToSend;
+      00001A 8E 82            [24]  583 	mov	dpl,r6
+      00001C 8F 83            [24]  584 	mov	dph,r7
+                                    585 ;	spi_dac.c:94: }
+      00001E 22               [24]  586 	ret
+                                    587 ;------------------------------------------------------------
+                                    588 ;Allocation info for local variables in function 'getchar'
+                                    589 ;------------------------------------------------------------
+                                    590 ;	spi_dac.c:100: int getchar(void) {
+                                    591 ;	-----------------------------------------
+                                    592 ;	 function getchar
+                                    593 ;	-----------------------------------------
+      00001F                        594 _getchar:
+                                    595 ;	spi_dac.c:101: while (!RI);             /* Wait for reception completion */
+      00001F                        596 00101$:
+                                    597 ;	spi_dac.c:102: RI = 0;                  /* Clear reception flag */
+                                    598 ;	assignBit
+      00001F 10 98 02         [24]  599 	jbc	_RI,00114$
+      000022 80 FB            [24]  600 	sjmp	00101$
+      000024                        601 00114$:
+                                    602 ;	spi_dac.c:103: return SBUF;             /* Return received character */
+      000024 AE 99            [24]  603 	mov	r6,_SBUF
+      000026 7F 00            [12]  604 	mov	r7,#0x00
+      000028 8E 82            [24]  605 	mov	dpl,r6
+      00002A 8F 83            [24]  606 	mov	dph,r7
+                                    607 ;	spi_dac.c:104: }
+      00002C 22               [24]  608 	ret
+                                    609 ;------------------------------------------------------------
+                                    610 ;Allocation info for local variables in function 'main'
+                                    611 ;------------------------------------------------------------
+                                    612 ;	spi_dac.c:106: int main(void)
+                                    613 ;	-----------------------------------------
+                                    614 ;	 function main
+                                    615 ;	-----------------------------------------
+      00002D                        616 _main:
+                                    617 ;	spi_dac.c:108: printf("SPI DAC PROGRAM\n\r");
+      00002D 74r64            [12]  618 	mov	a,#___str_0
+      00002F C0 E0            [24]  619 	push	acc
+      000031 74s00            [12]  620 	mov	a,#(___str_0 >> 8)
+      000033 C0 E0            [24]  621 	push	acc
+      000035 74 80            [12]  622 	mov	a,#0x80
+      000037 C0 E0            [24]  623 	push	acc
+      000039 12r00r00         [24]  624 	lcall	_printf
+      00003C 15 81            [12]  625 	dec	sp
+      00003E 15 81            [12]  626 	dec	sp
+      000040 15 81            [12]  627 	dec	sp
+                                    628 ;	spi_dac.c:173: }
+      000042 22               [24]  629 	ret
+                                    630 ;------------------------------------------------------------
+                                    631 ;Allocation info for local variables in function 'timer0_init'
+                                    632 ;------------------------------------------------------------
+                                    633 ;	spi_dac.c:175: void timer0_init(void)
+                                    634 ;	-----------------------------------------
+                                    635 ;	 function timer0_init
+                                    636 ;	-----------------------------------------
+      000043                        637 _timer0_init:
+                                    638 ;	spi_dac.c:177: TMOD &= 0xF0;    // Clear Timer0 mode bits
+      000043 53 89 F0         [24]  639 	anl	_TMOD,#0xf0
+                                    640 ;	spi_dac.c:178: TMOD |= TIMER0_MODE1;  // Set Timer0 mode 1 (16-bit)
+      000046 43 89 01         [24]  641 	orl	_TMOD,#0x01
+                                    642 ;	spi_dac.c:181: TH0 = TH0_RELOAD;
+      000049 75 8C FC         [24]  643 	mov	_TH0,#0xfc
+                                    644 ;	spi_dac.c:182: TL0 = TL0_RELOAD;
+      00004C 75 8A 18         [24]  645 	mov	_TL0,#0x18
+                                    646 ;	spi_dac.c:184: ET0 = 1;         // Enable Timer0 interrupt
+                                    647 ;	assignBit
+      00004F D2 A9            [12]  648 	setb	_ET0
+                                    649 ;	spi_dac.c:185: TR0 = 1;         // Start Timer0
+                                    650 ;	assignBit
+      000051 D2 8C            [12]  651 	setb	_TR0
+                                    652 ;	spi_dac.c:186: }
+      000053 22               [24]  653 	ret
+                                    654 ;------------------------------------------------------------
+                                    655 ;Allocation info for local variables in function 'timer0_isr'
+                                    656 ;------------------------------------------------------------
+                                    657 ;	spi_dac.c:189: void timer0_isr(void) __interrupt 1
+                                    658 ;	-----------------------------------------
+                                    659 ;	 function timer0_isr
+                                    660 ;	-----------------------------------------
+      000054                        661 _timer0_isr:
+      000054 C0 E0            [24]  662 	push	acc
+      000056 C0 82            [24]  663 	push	dpl
+      000058 C0 83            [24]  664 	push	dph
+                                    665 ;	spi_dac.c:192: TH0 = TH0_RELOAD;
+      00005A 75 8C FC         [24]  666 	mov	_TH0,#0xfc
+                                    667 ;	spi_dac.c:193: TL0 = TL0_RELOAD;
+      00005D 75 8A 18         [24]  668 	mov	_TL0,#0x18
+                                    669 ;	spi_dac.c:195: ms_flag = 1;     // Set 1ms flag
+      000060 90r00r00         [24]  670 	mov	dptr,#_ms_flag
+      000063 74 01            [12]  671 	mov	a,#0x01
+      000065 F0               [24]  672 	movx	@dptr,a
+                                    673 ;	spi_dac.c:196: P1_0 = !P1_0;    // Toggle P1.0 for verification
+      000066 B2 90            [12]  674 	cpl	_P1_0
+                                    675 ;	spi_dac.c:197: }
+      000068 D0 83            [24]  676 	pop	dph
+      00006A D0 82            [24]  677 	pop	dpl
+      00006C D0 E0            [24]  678 	pop	acc
+      00006E 32               [24]  679 	reti
+                                    680 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                                    681 ;	eliminated unneeded push/pop psw
+                                    682 ;	eliminated unneeded push/pop b
+                                    683 ;------------------------------------------------------------
+                                    684 ;Allocation info for local variables in function 'spi_isr'
+                                    685 ;------------------------------------------------------------
+                                    686 ;	spi_dac.c:205: void spi_isr(void) __interrupt 9
+                                    687 ;	-----------------------------------------
+                                    688 ;	 function spi_isr
+                                    689 ;	-----------------------------------------
+      00006F                        690 _spi_isr:
+      00006F C0 E0            [24]  691 	push	acc
+      000071 C0 82            [24]  692 	push	dpl
+      000073 C0 83            [24]  693 	push	dph
+      000075 C0 D0            [24]  694 	push	psw
+                                    695 ;	spi_dac.c:207: if(SPSTA == 0x80)  // Check for successful transmission
+      000077 74 80            [12]  696 	mov	a,#0x80
+      000079 B5 C4 09         [24]  697 	cjne	a,_SPSTA,00103$
+                                    698 ;	spi_dac.c:209: transmission_complete = 1;
+      00007C 90r00r01         [24]  699 	mov	dptr,#_transmission_complete
+      00007F 74 01            [12]  700 	mov	a,#0x01
+      000081 F0               [24]  701 	movx	@dptr,a
+      000082 E4               [12]  702 	clr	a
+      000083 A3               [24]  703 	inc	dptr
+      000084 F0               [24]  704 	movx	@dptr,a
+      000085                        705 00103$:
+                                    706 ;	spi_dac.c:211: }
+      000085 D0 D0            [24]  707 	pop	psw
+      000087 D0 83            [24]  708 	pop	dph
+      000089 D0 82            [24]  709 	pop	dpl
+      00008B D0 E0            [24]  710 	pop	acc
+      00008D 32               [24]  711 	reti
+                                    712 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                                    713 ;	eliminated unneeded push/pop b
+                                    714 ;------------------------------------------------------------
+                                    715 ;Allocation info for local variables in function 'spi_init'
+                                    716 ;------------------------------------------------------------
+                                    717 ;	spi_dac.c:223: void spi_init(void) 
+                                    718 ;	-----------------------------------------
+                                    719 ;	 function spi_init
+                                    720 ;	-----------------------------------------
+      00008E                        721 _spi_init:
+                                    722 ;	spi_dac.c:226: SPCON = 0;
+      00008E 75 C3 00         [24]  723 	mov	_SPCON,#0x00
+                                    724 ;	spi_dac.c:232: SPCON |= SPI_CLK_DIV_2;      // Set clock frequency divider
+      000091 85 C3 C3         [24]  725 	mov	_SPCON,_SPCON
+                                    726 ;	spi_dac.c:233: SPCON |= SPI_MASTER_MODE;      // Set as master
+      000094 43 C3 10         [24]  727 	orl	_SPCON,#0x10
+                                    728 ;	spi_dac.c:234: SPCON |= SPI_CPOL_HIGH;        // Clock polarity active high
+      000097 43 C3 08         [24]  729 	orl	_SPCON,#0x08
+                                    730 ;	spi_dac.c:235: SPCON &= ~SPI_CPHA_FIRST;      // Sample data on first clock edge
+      00009A 53 C3 FB         [24]  731 	anl	_SPCON,#0xfb
+                                    732 ;	spi_dac.c:236: SPCON &= ~SPI_SSDIS;
+      00009D 53 C3 DF         [24]  733 	anl	_SPCON,#0xdf
+                                    734 ;	spi_dac.c:240: IEN1 |= SPI_INT_ENABLE;        // Enable SPI interrupt
+      0000A0 43 B1 08         [24]  735 	orl	_IEN1,#0x08
+                                    736 ;	spi_dac.c:242: }
+      0000A3 22               [24]  737 	ret
+                                    738 ;------------------------------------------------------------
+                                    739 ;Allocation info for local variables in function 'spi_transmission_start'
+                                    740 ;------------------------------------------------------------
+                                    741 ;	spi_dac.c:249: void spi_transmission_start(void)
+                                    742 ;	-----------------------------------------
+                                    743 ;	 function spi_transmission_start
+                                    744 ;	-----------------------------------------
+      0000A4                        745 _spi_transmission_start:
+                                    746 ;	spi_dac.c:251: SPCON |= SPI_ENABLE;           // Enable SPI
+      0000A4 43 C3 40         [24]  747 	orl	_SPCON,#0x40
+                                    748 ;	spi_dac.c:252: }
+      0000A7 22               [24]  749 	ret
+                                    750 ;------------------------------------------------------------
+                                    751 ;Allocation info for local variables in function 'spi_transmission_stop'
+                                    752 ;------------------------------------------------------------
+                                    753 ;	spi_dac.c:259: void spi_transmission_stop(void) 
+                                    754 ;	-----------------------------------------
+                                    755 ;	 function spi_transmission_stop
+                                    756 ;	-----------------------------------------
+      0000A8                        757 _spi_transmission_stop:
+                                    758 ;	spi_dac.c:261: SPCON &= ~SPI_ENABLE;          // Disable SPI
+      0000A8 53 C3 BF         [24]  759 	anl	_SPCON,#0xbf
+                                    760 ;	spi_dac.c:262: }
+      0000AB 22               [24]  761 	ret
+                                    762 	.area CSEG    (CODE)
+                                    763 	.area CONST   (CODE)
+      000000                        764 _dac_values:
+      000000 80 00                  765 	.byte #0x80, #0x00	;  128
+      000002 8F 00                  766 	.byte #0x8f, #0x00	;  143
+      000004 9F 00                  767 	.byte #0x9f, #0x00	;  159
+      000006 AE 00                  768 	.byte #0xae, #0x00	;  174
+      000008 BD 00                  769 	.byte #0xbd, #0x00	;  189
+      00000A CA 00                  770 	.byte #0xca, #0x00	;  202
+      00000C D7 00                  771 	.byte #0xd7, #0x00	;  215
+      00000E E2 00                  772 	.byte #0xe2, #0x00	;  226
+      000010 EB 00                  773 	.byte #0xeb, #0x00	;  235
+      000012 F3 00                  774 	.byte #0xf3, #0x00	;  243
+      000014 F9 00                  775 	.byte #0xf9, #0x00	;  249
+      000016 FD 00                  776 	.byte #0xfd, #0x00	;  253
+      000018 FF 00                  777 	.byte #0xff, #0x00	;  255
+      00001A FF 00                  778 	.byte #0xff, #0x00	;  255
+      00001C FD 00                  779 	.byte #0xfd, #0x00	;  253
+      00001E F9 00                  780 	.byte #0xf9, #0x00	;  249
+      000020 F3 00                  781 	.byte #0xf3, #0x00	;  243
+      000022 EB 00                  782 	.byte #0xeb, #0x00	;  235
+      000024 E2 00                  783 	.byte #0xe2, #0x00	;  226
+      000026 D7 00                  784 	.byte #0xd7, #0x00	;  215
+      000028 CA 00                  785 	.byte #0xca, #0x00	;  202
+      00002A BD 00                  786 	.byte #0xbd, #0x00	;  189
+      00002C AE 00                  787 	.byte #0xae, #0x00	;  174
+      00002E 9F 00                  788 	.byte #0x9f, #0x00	;  159
+      000030 8F 00                  789 	.byte #0x8f, #0x00	;  143
+      000032 80 00                  790 	.byte #0x80, #0x00	;  128
+      000034 70 00                  791 	.byte #0x70, #0x00	;  112
+      000036 60 00                  792 	.byte #0x60, #0x00	;  96
+      000038 51 00                  793 	.byte #0x51, #0x00	;  81
+      00003A 42 00                  794 	.byte #0x42, #0x00	;  66
+      00003C 35 00                  795 	.byte #0x35, #0x00	;  53
+      00003E 28 00                  796 	.byte #0x28, #0x00	;  40
+      000040 1D 00                  797 	.byte #0x1d, #0x00	;  29
+      000042 14 00                  798 	.byte #0x14, #0x00	;  20
+      000044 0C 00                  799 	.byte #0x0c, #0x00	;  12
+      000046 06 00                  800 	.byte #0x06, #0x00	;  6
+      000048 02 00                  801 	.byte #0x02, #0x00	;  2
+      00004A 00 00                  802 	.byte #0x00, #0x00	;  0
+      00004C 00 00                  803 	.byte #0x00, #0x00	;  0
+      00004E 02 00                  804 	.byte #0x02, #0x00	;  2
+      000050 06 00                  805 	.byte #0x06, #0x00	;  6
+      000052 0C 00                  806 	.byte #0x0c, #0x00	;  12
+      000054 14 00                  807 	.byte #0x14, #0x00	;  20
+      000056 1D 00                  808 	.byte #0x1d, #0x00	;  29
+      000058 28 00                  809 	.byte #0x28, #0x00	;  40
+      00005A 35 00                  810 	.byte #0x35, #0x00	;  53
+      00005C 42 00                  811 	.byte #0x42, #0x00	;  66
+      00005E 51 00                  812 	.byte #0x51, #0x00	;  81
+      000060 60 00                  813 	.byte #0x60, #0x00	;  96
+      000062 70 00                  814 	.byte #0x70, #0x00	;  112
+                                    815 	.area CONST   (CODE)
+      000064                        816 ___str_0:
+      000064 53 50 49 20 44 41 43   817 	.ascii "SPI DAC PROGRAM"
              20 50 52 4F 47 52 41
              4D
-      000073 0A                    1051 	.db 0x0a
-      000074 0D                    1052 	.db 0x0d
-      000075 00                    1053 	.db 0x00
-                                   1054 	.area CSEG    (CODE)
-                                   1055 	.area CONST   (CODE)
-      000076                       1056 ___str_1:
-      000076 53 50 49 20 54 52 41  1057 	.ascii "SPI TRANSMISSION STARTED"
-             4E 53 4D 49 53 53 49
-             4F 4E 20 53 54 41 52
-             54 45 44
-      00008E 0A                    1058 	.db 0x0a
-      00008F 0D                    1059 	.db 0x0d
-      000090 00                    1060 	.db 0x00
-                                   1061 	.area CSEG    (CODE)
-                                   1062 	.area CONST   (CODE)
-      000091                       1063 ___str_2:
-      000091 4C 6F 77 20 62 79 74  1064 	.ascii "Low byte %d"
-             65 20 25 64
-      00009C 0A                    1065 	.db 0x0a
-      00009D 00                    1066 	.db 0x00
-                                   1067 	.area CSEG    (CODE)
-                                   1068 	.area CONST   (CODE)
-      00009E                       1069 ___str_3:
-      00009E 48 69 67 68 20 62 79  1070 	.ascii "High byte %d"
-             74 65 20 25 64
-      0000AA 0A                    1071 	.db 0x0a
-      0000AB 00                    1072 	.db 0x00
-                                   1073 	.area CSEG    (CODE)
-                                   1074 	.area XINIT   (CODE)
-      000000                       1075 __xinit__ms_flag:
-      000000 00                    1076 	.db #0x00	; 0
-      000001                       1077 __xinit__transmission_complete:
-      000001 00 00                 1078 	.byte #0x00, #0x00	;  0
-                                   1079 	.area CABS    (ABS,CODE)
+      000073 0A                     818 	.db 0x0a
+      000074 0D                     819 	.db 0x0d
+      000075 00                     820 	.db 0x00
+                                    821 	.area CSEG    (CODE)
+                                    822 	.area XINIT   (CODE)
+      000000                        823 __xinit__ms_flag:
+      000000 00                     824 	.db #0x00	; 0
+      000001                        825 __xinit__transmission_complete:
+      000001 00 00                  826 	.byte #0x00, #0x00	;  0
+                                    827 	.area CABS    (ABS,CODE)
