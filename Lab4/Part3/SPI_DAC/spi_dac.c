@@ -115,7 +115,7 @@ int main(void)
 
     /* Initialize SPI */
     spi_init();
-    spi_transmission_start();
+    //spi_transmission_start();
 
     printf("SPI TRANSMISSION STARTED\n\r");
 
@@ -229,11 +229,18 @@ void spi_init(void)
     // P1_1 = 1;
     
     // Configure SPI mode and clock settings
-    SPCON |= SPI_CLK_DIV_2;      // Set clock frequency divider
+   /* SPCON |= SPI_CLK_DIV_2;      // Set clock frequency divider
     SPCON |= SPI_MASTER_MODE;      // Set as master
     SPCON |= SPI_CPOL_HIGH;        // Clock polarity active high
-    SPCON &= ~SPI_CPHA_FIRST;      // Sample data on first clock edge
+    SPCON &= ~SPI_CPHA_FIRST;      // Sample data on first clock edge */
     SPCON &= ~SPI_SSDIS;
+    
+    SPCON |= 0x10;
+    P1_1 = 1;
+    SPCON |= 0x82;
+    SPCON &= ~ 0x08;
+    SPCON |= 0x40;
+    
 
     
     // Enable interrupts

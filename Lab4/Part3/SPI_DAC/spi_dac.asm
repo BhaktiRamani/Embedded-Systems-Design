@@ -654,8 +654,6 @@ _main:
 	mov	_EA,c
 ;	spi_dac.c:117: spi_init();
 	lcall	_spi_init
-;	spi_dac.c:118: spi_transmission_start();
-	lcall	_spi_transmission_start
 ;	spi_dac.c:120: printf("SPI TRANSMISSION STARTED\n\r");
 	mov	a,#___str_1
 	push	acc
@@ -958,46 +956,49 @@ _spi_isr:
 _spi_init:
 ;	spi_dac.c:226: SPCON = 0;
 	mov	_SPCON,#0x00
-;	spi_dac.c:232: SPCON |= SPI_CLK_DIV_2;      // Set clock frequency divider
-	mov	_SPCON,_SPCON
-;	spi_dac.c:233: SPCON |= SPI_MASTER_MODE;      // Set as master
-	orl	_SPCON,#0x10
-;	spi_dac.c:234: SPCON |= SPI_CPOL_HIGH;        // Clock polarity active high
-	orl	_SPCON,#0x08
-;	spi_dac.c:235: SPCON &= ~SPI_CPHA_FIRST;      // Sample data on first clock edge
-	anl	_SPCON,#0xfb
 ;	spi_dac.c:236: SPCON &= ~SPI_SSDIS;
 	anl	_SPCON,#0xdf
-;	spi_dac.c:240: IEN1 |= SPI_INT_ENABLE;        // Enable SPI interrupt
+;	spi_dac.c:238: SPCON |= 0x10;
+	orl	_SPCON,#0x10
+;	spi_dac.c:239: P1_1 = 1;
+;	assignBit
+	setb	_P1_1
+;	spi_dac.c:240: SPCON |= 0x82;
+	orl	_SPCON,#0x82
+;	spi_dac.c:241: SPCON &= ~ 0x08;
+	anl	_SPCON,#0xf7
+;	spi_dac.c:242: SPCON |= 0x40;
+	orl	_SPCON,#0x40
+;	spi_dac.c:247: IEN1 |= SPI_INT_ENABLE;        // Enable SPI interrupt
 	orl	_IEN1,#0x08
-;	spi_dac.c:242: }
+;	spi_dac.c:249: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_start'
 ;------------------------------------------------------------
-;	spi_dac.c:249: void spi_transmission_start(void)
+;	spi_dac.c:256: void spi_transmission_start(void)
 ;	-----------------------------------------
 ;	 function spi_transmission_start
 ;	-----------------------------------------
 _spi_transmission_start:
-;	spi_dac.c:251: SPCON |= SPI_ENABLE;           // Enable SPI
+;	spi_dac.c:258: SPCON |= SPI_ENABLE;           // Enable SPI
 	orl	_SPCON,#0x40
-;	spi_dac.c:252: P1_1 = 0;
+;	spi_dac.c:259: P1_1 = 0;
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:253: }
+;	spi_dac.c:260: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_stop'
 ;------------------------------------------------------------
-;	spi_dac.c:260: void spi_transmission_stop(void) 
+;	spi_dac.c:267: void spi_transmission_stop(void) 
 ;	-----------------------------------------
 ;	 function spi_transmission_stop
 ;	-----------------------------------------
 _spi_transmission_stop:
-;	spi_dac.c:262: SPCON &= ~SPI_ENABLE;          // Disable SPI
+;	spi_dac.c:269: SPCON &= ~SPI_ENABLE;          // Disable SPI
 	anl	_SPCON,#0xbf
-;	spi_dac.c:263: }
+;	spi_dac.c:270: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
