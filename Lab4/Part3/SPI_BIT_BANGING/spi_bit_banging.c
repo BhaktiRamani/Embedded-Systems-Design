@@ -2,13 +2,14 @@
 #include <stdio.h>
 #include <mcs51/8051.h>
 #include <at89c51ed2.h>
+#include <stdint.h>
 
 /* I2C Pin Definitions */
-#define SCL P1_6         /* Serial Clock Line on P1.3 */
-#define SDA P1_7         /* Serial Data Line on P1.4 */
+#define SCL P1_6         /* SCK */
+#define SDA P1_7         /* MOSI */
 #define SS  P1_1         /*Chip Select*/
 
-int spi_write(unsigned char data);
+int spi_write(uint8_t data);
 void i2c_delay();
 
 /**
@@ -45,7 +46,7 @@ int main()
     
 }
 
-int spi_write(unsigned char data)
+int spi_write(uint8_t data)
 {
     
   SS = 0;

@@ -516,7 +516,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;charToSend                Allocated with name '_putchar_charToSend_65536_14'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:19: int putchar(int charToSend) {
+;	spi_bit_banging.c:20: int putchar(int charToSend) {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
@@ -536,7 +536,7 @@ _putchar:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_bit_banging.c:20: SBUF = charToSend;       /* Load character into serial buffer */
+;	spi_bit_banging.c:21: SBUF = charToSend;       /* Load character into serial buffer */
 	mov	dptr,#_putchar_charToSend_65536_14
 	movx	a,@dptr
 	mov	r6,a
@@ -544,49 +544,49 @@ _putchar:
 	movx	a,@dptr
 	mov	r7,a
 	mov	_SBUF,r6
-;	spi_bit_banging.c:21: while (!TI);             /* Wait for transmission completion */
+;	spi_bit_banging.c:22: while (!TI);             /* Wait for transmission completion */
 00101$:
-;	spi_bit_banging.c:22: TI = 0;                  /* Clear transmission flag */
+;	spi_bit_banging.c:23: TI = 0;                  /* Clear transmission flag */
 ;	assignBit
 	jbc	_TI,00114$
 	sjmp	00101$
 00114$:
-;	spi_bit_banging.c:23: return charToSend;
+;	spi_bit_banging.c:24: return charToSend;
 	mov	dpl,r6
 	mov	dph,r7
-;	spi_bit_banging.c:24: }
+;	spi_bit_banging.c:25: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:30: int getchar(void) {
+;	spi_bit_banging.c:31: int getchar(void) {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
-;	spi_bit_banging.c:31: while (!RI);             /* Wait for reception completion */
+;	spi_bit_banging.c:32: while (!RI);             /* Wait for reception completion */
 00101$:
-;	spi_bit_banging.c:32: RI = 0;                  /* Clear reception flag */
+;	spi_bit_banging.c:33: RI = 0;                  /* Clear reception flag */
 ;	assignBit
 	jbc	_RI,00114$
 	sjmp	00101$
 00114$:
-;	spi_bit_banging.c:33: return SBUF;             /* Return received character */
+;	spi_bit_banging.c:34: return SBUF;             /* Return received character */
 	mov	r6,_SBUF
 	mov	r7,#0x00
 	mov	dpl,r6
 	mov	dph,r7
-;	spi_bit_banging.c:34: }
+;	spi_bit_banging.c:35: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:37: int main()
+;	spi_bit_banging.c:38: int main()
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	spi_bit_banging.c:40: printf("SPI BIT BANGING PROGRAM\n\r");
+;	spi_bit_banging.c:41: printf("SPI BIT BANGING PROGRAM\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -597,13 +597,13 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_bit_banging.c:41: spi_write(0x1F);
+;	spi_bit_banging.c:42: spi_write(0x1F);
 	mov	dpl,#0x1f
 	lcall	_spi_write
-;	spi_bit_banging.c:42: spi_write(0xF0);
+;	spi_bit_banging.c:43: spi_write(0xF0);
 	mov	dpl,#0xf0
 	lcall	_spi_write
-;	spi_bit_banging.c:43: printf("ITS DONE\n\r");
+;	spi_bit_banging.c:44: printf("ITS DONE\n\r");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -614,9 +614,9 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_bit_banging.c:44: return 0;
+;	spi_bit_banging.c:45: return 0;
 	mov	dptr,#0x0000
-;	spi_bit_banging.c:46: }
+;	spi_bit_banging.c:47: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_write'
@@ -624,7 +624,7 @@ _main:
 ;data                      Allocated with name '_spi_write_data_65536_19'
 ;i                         Allocated with name '_spi_write_i_65537_21'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:48: int spi_write(unsigned char data)
+;	spi_bit_banging.c:49: int spi_write(uint8_t data)
 ;	-----------------------------------------
 ;	 function spi_write
 ;	-----------------------------------------
@@ -632,14 +632,14 @@ _spi_write:
 	mov	a,dpl
 	mov	dptr,#_spi_write_data_65536_19
 	movx	@dptr,a
-;	spi_bit_banging.c:51: SS = 0;
+;	spi_bit_banging.c:52: SS = 0;
 ;	assignBit
 	clr	_P1_1
-;	spi_bit_banging.c:53: for(i=0;i<=7;i++)
+;	spi_bit_banging.c:54: for(i=0;i<=7;i++)
 	mov	r6,#0x00
 	mov	r7,#0x00
 00102$:
-;	spi_bit_banging.c:55: SDA = (data & 0x80) ? 1 : 0;    //msb first
+;	spi_bit_banging.c:56: SDA = (data & 0x80) ? 1 : 0;    //msb first
 	mov	dptr,#_spi_write_data_65536_19
 	movx	a,@dptr
 	mov	r5,a
@@ -647,28 +647,28 @@ _spi_write:
 	anl	a,#0x01
 	add	a,#0xff
 	mov	_P1_7,c
-;	spi_bit_banging.c:56: i2c_delay();        // Setup time for data
+;	spi_bit_banging.c:57: i2c_delay();        // Setup time for data
 	push	ar7
 	push	ar6
 	push	ar5
 	lcall	_i2c_delay
-;	spi_bit_banging.c:57: SCL=1;
+;	spi_bit_banging.c:58: SCL=1;
 ;	assignBit
 	setb	_P1_6
-;	spi_bit_banging.c:58: i2c_delay();        // Hold time for clock
+;	spi_bit_banging.c:59: i2c_delay();        // Hold time for clock
 	lcall	_i2c_delay
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	spi_bit_banging.c:59: SCL=0;
+;	spi_bit_banging.c:60: SCL=0;
 ;	assignBit
 	clr	_P1_6
-;	spi_bit_banging.c:60: data = data << 1;
+;	spi_bit_banging.c:61: data = data << 1;
 	mov	a,r5
 	add	a,r5
 	mov	dptr,#_spi_write_data_65536_19
 	movx	@dptr,a
-;	spi_bit_banging.c:53: for(i=0;i<=7;i++)
+;	spi_bit_banging.c:54: for(i=0;i<=7;i++)
 	inc	r6
 	cjne	r6,#0x00,00115$
 	inc	r7
@@ -679,24 +679,24 @@ _spi_write:
 	clr	a
 	subb	a,r7
 	jnc	00102$
-;	spi_bit_banging.c:62: SS = 1;
+;	spi_bit_banging.c:63: SS = 1;
 ;	assignBit
 	setb	_P1_1
-;	spi_bit_banging.c:64: return 1;           // Success
+;	spi_bit_banging.c:65: return 1;           // Success
 	mov	dptr,#0x0001
-;	spi_bit_banging.c:66: }
+;	spi_bit_banging.c:67: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'i2c_delay'
 ;------------------------------------------------------------
 ;i                         Allocated with name '_i2c_delay_i_131072_25'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:68: void i2c_delay() 
+;	spi_bit_banging.c:69: void i2c_delay() 
 ;	-----------------------------------------
 ;	 function i2c_delay
 ;	-----------------------------------------
 _i2c_delay:
-;	spi_bit_banging.c:70: for(int i = 0; i<500; i++);
+;	spi_bit_banging.c:71: for(int i = 0; i<500; i++);
 	mov	r6,#0x00
 	mov	r7,#0x00
 00103$:
@@ -712,7 +712,7 @@ _i2c_delay:
 	inc	r7
 	sjmp	00103$
 00105$:
-;	spi_bit_banging.c:71: }
+;	spi_bit_banging.c:72: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
