@@ -941,17 +941,15 @@ _timer0_isr:
 	push	(0+0)
 	push	psw
 	mov	psw,#0x00
-;	spi_dac.c:193: TH0 = TH0_RELOAD;
-	mov	_TH0,#0xfc
-;	spi_dac.c:194: TL0 = TL0_RELOAD;
-	mov	_TL0,#0x66
+;	spi_dac.c:193: TH0 = 0x4B;
+	mov	_TH0,#0x4b
+;	spi_dac.c:194: TL0 = 0x1C;
+	mov	_TL0,#0x1c
 ;	spi_dac.c:196: ms_flag = 1;     // Set 1ms flag
 	mov	dptr,#_ms_flag
 	mov	a,#0x01
 	movx	@dptr,a
-;	spi_dac.c:197: P1_0 = !P1_0;    // Toggle P1.0 for verification
-	cpl	_P1_0
-;	spi_dac.c:198: printf("timer isr \n\r");
+;	spi_dac.c:198: printf("T \n\r");
 	mov	a,#___str_5
 	push	acc
 	mov	a,#(___str_5 >> 8)
@@ -1183,7 +1181,7 @@ ___str_4:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_5:
-	.ascii "timer isr "
+	.ascii "T "
 	.db 0x0a
 	.db 0x0d
 	.db 0x00

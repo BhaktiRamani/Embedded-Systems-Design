@@ -190,12 +190,12 @@ void timer0_init(void)
 void timer0_isr(void) __interrupt 1
 {
     // Reload timer values
-    TH0 = TH0_RELOAD;
-    TL0 = TL0_RELOAD;
+    TH0 = 0x4B;
+    TL0 = 0x1C;
     
     ms_flag = 1;     // Set 1ms flag
-    P1_0 = !P1_0;    // Toggle P1.0 for verification
-    printf("timer isr \n\r");
+    //P1_0 = !P1_0;    // Toggle P1.0 for verification
+    printf("T \n\r");
     
 
 }
