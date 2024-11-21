@@ -25,6 +25,7 @@
 #include <mcs51/8051.h>
 #include <at89c51ed2.h>
 #include<stdio.h>
+#include<stdint.h>
 
 /* SPI Register Bit Definitions */
 #define SPI_MASTER_MODE    (1<<4)  // Master mode select bit
@@ -103,6 +104,11 @@ int getchar(void) {
     return SBUF;             /* Return received character */
 }
 
+void delay_ms(unsigned int ms) {
+    unsigned int i, j;
+    for (i = 0; i < ms; i++)
+        for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
+}
 int main(void)
 {
     printf(" SPI DAC PROGRAM\n\r");
@@ -121,7 +127,7 @@ int main(void)
 
 
     int high_byte, low_byte;
-    timer0_init();
+    //timer0_init();
 
     while(1)
     {
@@ -146,9 +152,11 @@ int main(void)
             // Format low byte: Lower 4 bits of data, shifted left 4 positions
         low_byte = (dac_data & 0x0F) << 4;
 
-        while(!ms_flag);
-        ms_flag = 0;
+        // while(!ms_flag);
+        // ms_flag = 0;
 
+        delay_ms(10);
+        
         // Begin transmission
         P1_1 = 0;  // Select DAC
 
