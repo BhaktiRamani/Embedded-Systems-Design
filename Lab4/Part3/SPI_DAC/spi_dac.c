@@ -125,6 +125,7 @@ int main(void)
 
     while(1)
     {
+        printf("while start\n\r");
         /* Calculate or lookup next sine wave value */
         if(dac_value_index < SINE_MAX_INDEX)
         {
@@ -151,8 +152,8 @@ int main(void)
         // Begin transmission
         P1_1 = 0;  // Select DAC
 
-        printf("Low byte %d\n", low_byte);
-        printf("High byte %d\n", high_byte);
+        printf("Low byte %d\n\r", low_byte);
+        printf("High byte %d\n\r", high_byte);
 
         // Send high byte
         SPDAT = high_byte;
@@ -194,8 +195,9 @@ void timer0_isr(void) __interrupt 1
     
     ms_flag = 1;     // Set 1ms flag
     P1_0 = !P1_0;    // Toggle P1.0 for verification
+    printf("timer isr \n\r");
     
-    TR0 = 1;
+
 }
 
 /**
@@ -209,7 +211,9 @@ void spi_isr(void) __interrupt 9
     if(SPSTA == 0x80)  // Check for successful transmission
     {
         transmission_complete = 1;
+        printf("spi isr \n\r");
     }
+    
 }
 
 /**
