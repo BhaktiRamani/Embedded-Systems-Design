@@ -9,7 +9,7 @@
 #define SDA P1_7         /* MOSI */
 #define SS  P1_1         /*Chip Select*/
 
-int spi_write(uint8_t data);
+int spi_write(uint16_t data);
 // void i2c_delay();
 
 /**
@@ -46,21 +46,19 @@ int main()
     SS = 1;
     printf("  SPI BIT BANGING PROGRAM\n\r");
     // spi_write(0x1F);
-    spi_write(0x1F);
-    spi_write(0xF0);
-
+    spi_write(0x1FF0);
     printf("  ITS DONE\n\r");
     
     return 0;
     
 }
 
-int spi_write(uint8_t data)
+int spi_write(uint16_t data)
 {
     
   SS = 0;
   unsigned int i;
-  for(i=0;i<=7;i++)
+  for(i=0;i<16;i++)
   {
     SDA = (data & 0x80) ? 1 : 0;    //msb first
     SCL=1;
