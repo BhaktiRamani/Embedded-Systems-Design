@@ -55,7 +55,7 @@ C:   0000002A  l_GSINIT4
 C:   0000003D  l_XSEG                          
 C:   00000051  l_HOME                          
 C:   00000074  l_DSEG                          
-C:   000000CA  l_CONST                         
+C:   000000C9  l_CONST                         
 C:   000000DF  l_SSEG                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
@@ -82,7 +82,7 @@ C:   000020AA  s_GSINIT
 C:   000020AA  s_GSINIT5                       
 C:   000020AD  s_CSEG                          
 C:   00002D18  s_CONST                         
-C:   00002DE2  s_XINIT                         
+C:   00002DE1  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -492,7 +492,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002D18    000000CA =         202. bytes (REL,CON,CODE)
+CONST                               00002D18    000000C9 =         201. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -503,7 +503,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00002DE2    00000003 =           3. bytes (REL,CON,CODE)
+XINIT                               00002DE1    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

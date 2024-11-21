@@ -714,7 +714,7 @@
       000087 15 81            [12]  714 	dec	sp
       000089 15 81            [12]  715 	dec	sp
       00008B 15 81            [12]  716 	dec	sp
-                                    717 ;	spi_dac.c:137: printf("Low byte %d\n\r", low_byte);
+                                    717 ;	spi_dac.c:137: printf("Low byt %d\n\r", low_byte);
       00008D 74 F0            [12]  718 	mov	a,#0xf0
       00008F C0 E0            [24]  719 	push	acc
       000091 E4               [12]  720 	clr	a
@@ -734,7 +734,7 @@
       0000AB C0 E0            [24]  734 	push	acc
       0000AD E4               [12]  735 	clr	a
       0000AE C0 E0            [24]  736 	push	acc
-      0000B0 74rA0            [12]  737 	mov	a,#___str_3
+      0000B0 74r9F            [12]  737 	mov	a,#___str_3
       0000B2 C0 E0            [24]  738 	push	acc
       0000B4 74s00            [12]  739 	mov	a,#(___str_3 >> 8)
       0000B6 C0 E0            [24]  740 	push	acc
@@ -820,7 +820,7 @@
       000113 74 01            [12]  820 	mov	a,#0x01
       000115 F0               [24]  821 	movx	@dptr,a
                                     822 ;	spi_dac.c:272: printf("T \n\r");
-      000116 74rAF            [12]  823 	mov	a,#___str_4
+      000116 74rAE            [12]  823 	mov	a,#___str_4
       000118 C0 E0            [24]  824 	push	acc
       00011A 74s00            [12]  825 	mov	a,#(___str_4 >> 8)
       00011C C0 E0            [24]  826 	push	acc
@@ -880,7 +880,7 @@
       000173 A3               [24]  880 	inc	dptr
       000174 F0               [24]  881 	movx	@dptr,a
                                     882 ;	spi_dac.c:288: printf("spi isr \n\r");
-      000175 74rB4            [12]  883 	mov	a,#___str_5
+      000175 74rB3            [12]  883 	mov	a,#___str_5
       000177 C0 E0            [24]  884 	push	acc
       000179 74s00            [12]  885 	mov	a,#(___str_5 >> 8)
       00017B C0 E0            [24]  886 	push	acc
@@ -1024,34 +1024,34 @@
                                    1019 	.area CSEG    (CODE)
                                    1020 	.area CONST   (CODE)
       000092                       1021 ___str_2:
-      000092 4C 6F 77 20 62 79 74  1022 	.ascii "Low byte %d"
-             65 20 25 64
-      00009D 0A                    1023 	.db 0x0a
-      00009E 0D                    1024 	.db 0x0d
-      00009F 00                    1025 	.db 0x00
+      000092 4C 6F 77 20 62 79 74  1022 	.ascii "Low byt %d"
+             20 25 64
+      00009C 0A                    1023 	.db 0x0a
+      00009D 0D                    1024 	.db 0x0d
+      00009E 00                    1025 	.db 0x00
                                    1026 	.area CSEG    (CODE)
                                    1027 	.area CONST   (CODE)
-      0000A0                       1028 ___str_3:
-      0000A0 48 69 67 68 20 62 79  1029 	.ascii "High byte %d"
+      00009F                       1028 ___str_3:
+      00009F 48 69 67 68 20 62 79  1029 	.ascii "High byte %d"
              74 65 20 25 64
-      0000AC 0A                    1030 	.db 0x0a
-      0000AD 0D                    1031 	.db 0x0d
-      0000AE 00                    1032 	.db 0x00
+      0000AB 0A                    1030 	.db 0x0a
+      0000AC 0D                    1031 	.db 0x0d
+      0000AD 00                    1032 	.db 0x00
                                    1033 	.area CSEG    (CODE)
                                    1034 	.area CONST   (CODE)
-      0000AF                       1035 ___str_4:
-      0000AF 54 20                 1036 	.ascii "T "
-      0000B1 0A                    1037 	.db 0x0a
-      0000B2 0D                    1038 	.db 0x0d
-      0000B3 00                    1039 	.db 0x00
+      0000AE                       1035 ___str_4:
+      0000AE 54 20                 1036 	.ascii "T "
+      0000B0 0A                    1037 	.db 0x0a
+      0000B1 0D                    1038 	.db 0x0d
+      0000B2 00                    1039 	.db 0x00
                                    1040 	.area CSEG    (CODE)
                                    1041 	.area CONST   (CODE)
-      0000B4                       1042 ___str_5:
-      0000B4 73 70 69 20 69 73 72  1043 	.ascii "spi isr "
+      0000B3                       1042 ___str_5:
+      0000B3 73 70 69 20 69 73 72  1043 	.ascii "spi isr "
              20
-      0000BC 0A                    1044 	.db 0x0a
-      0000BD 0D                    1045 	.db 0x0d
-      0000BE 00                    1046 	.db 0x00
+      0000BB 0A                    1044 	.db 0x0a
+      0000BC 0D                    1045 	.db 0x0d
+      0000BD 00                    1046 	.db 0x00
                                    1047 	.area CSEG    (CODE)
                                    1048 	.area XINIT   (CODE)
       000000                       1049 __xinit__ms_flag:

@@ -714,7 +714,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:137: printf("Low byte %d\n\r", low_byte);
+;	spi_dac.c:137: printf("Low byt %d\n\r", low_byte);
 	mov	a,#0xf0
 	push	acc
 	clr	a
@@ -1019,7 +1019,7 @@ ___str_1:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_2:
-	.ascii "Low byte %d"
+	.ascii "Low byt %d"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
