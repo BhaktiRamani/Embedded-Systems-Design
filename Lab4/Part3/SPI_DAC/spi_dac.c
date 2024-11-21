@@ -128,37 +128,9 @@ int main(void)
 
     int high_byte, low_byte;
     //timer0_init();
-
-    while(1)
-    {
-        printf("while start\n\r");
-        /* Calculate or lookup next sine wave value */
-        // if(dac_value_index < SINE_MAX_INDEX)
-        // {
-
-        //     /* Alternatively, use lookup table:*/
-        //     dac_data = dac_values[dac_value_index];
-        // }
-        // else
-        // {
-        //     dac_value_index = 0;  // Reset index for next cycle
-
-        // }
-
-        dac_data = 0x00;
-        
-                    // Format high byte: Channel A, 1x gain, Active
-        high_byte = DAC_CHANNEL_A | DAC_GAIN_1X | DAC_ACTIVE |
-                       ((dac_data >> 4) & 0x0F);
-
-            // Format low byte: Lower 4 bits of data, shifted left 4 positions
-        low_byte = (dac_data & 0x0F) << 4;
-
-        // while(!ms_flag);
-        // ms_flag = 0;
-
-        delay_ms(10);
-        
+    
+    high_byte = 0x1F;
+    low_byte = 0xF0;
         // Begin transmission
         P1_1 = 0;  // Select DAC
 
@@ -178,50 +150,100 @@ int main(void)
         // transmission_complete = 0;
 
         P1_1 = 1;  // Deselect DAC
-        // while(!transmission_complete);
-        // transmission_complete = 0;
-        
-        printf("Transition to 1\n\r");
-        printf("\n\r");
-        
-        dac_data = 0xFF;
-        
-                    // Format high byte: Channel A, 1x gain, Active
-        high_byte = DAC_CHANNEL_A | DAC_GAIN_1X | DAC_ACTIVE |
-                       ((dac_data >> 4) & 0x0F);
 
-            // Format low byte: Lower 4 bits of data, shifted left 4 positions
-        low_byte = (dac_data & 0x0F) << 4;
-            delay_ms(10);
+    // while(1)
+    // {
+    //     printf("while start\n\r");
+    //     /* Calculate or lookup next sine wave value */
+    //     // if(dac_value_index < SINE_MAX_INDEX)
+    //     // {
+
+    //     //     /* Alternatively, use lookup table:*/
+    //     //     dac_data = dac_values[dac_value_index];
+    //     // }
+    //     // else
+    //     // {
+    //     //     dac_value_index = 0;  // Reset index for next cycle
+
+    //     // }
+
+    //     dac_data = 0x00;
         
-        // Begin transmission
-        P1_1 = 0;  // Select DAC
+    //                 // Format high byte: Channel A, 1x gain, Active
+    //     high_byte = DAC_CHANNEL_A | DAC_GAIN_1X | DAC_ACTIVE |
+    //                    ((dac_data >> 4) & 0x0F);
 
-        printf("Low byte %d\n\r", low_byte);
-        printf("High byte %d\n\r", high_byte);
+    //         // Format low byte: Lower 4 bits of data, shifted left 4 positions
+    //     low_byte = (dac_data & 0x0F) << 4;
 
-        // Send high byte
-        SPDAT = high_byte;
-        while (!(SPSTA & (1<<7))); 
-        // while(!transmission_complete);
-        // transmission_complete = 0;
+    //     // while(!ms_flag);
+    //     // ms_flag = 0;
 
-        // Send low byte
-        SPDAT = low_byte;
-        while (!(SPSTA & (1<<7))); 
-        // while(!transmission_complete);
-        // transmission_complete = 0;
-
-        P1_1 = 1;  // Deselect DAC
-        // while(!transmission_complete);
-        // transmission_complete = 0;
+    //     delay_ms(10);
         
-        printf("E\n\r");
-        printf("\n\r");
+    //     // Begin transmission
+    //     P1_1 = 0;  // Select DAC
+
+    //     printf("Low byte %d\n\r", low_byte);
+    //     printf("High byte %d\n\r", high_byte);
+
+    //     // Send high byte
+    //     SPDAT = high_byte;
+    //     while (!(SPSTA & (1<<7))); 
+    //     // while(!transmission_complete);
+    //     // transmission_complete = 0;
+
+    //     // Send low byte
+    //     SPDAT = low_byte;
+    //     while (!(SPSTA & (1<<7))); 
+    //     // while(!transmission_complete);
+    //     // transmission_complete = 0;
+
+    //     P1_1 = 1;  // Deselect DAC
+    //     // while(!transmission_complete);
+    //     // transmission_complete = 0;
+        
+    //     printf("Transition to 1\n\r");
+    //     printf("\n\r");
+        
+    //     dac_data = 0xFF;
+        
+    //                 // Format high byte: Channel A, 1x gain, Active
+    //     high_byte = DAC_CHANNEL_A | DAC_GAIN_1X | DAC_ACTIVE |
+    //                    ((dac_data >> 4) & 0x0F);
+
+    //         // Format low byte: Lower 4 bits of data, shifted left 4 positions
+    //     low_byte = (dac_data & 0x0F) << 4;
+    //         delay_ms(10);
+        
+    //     // Begin transmission
+    //     P1_1 = 0;  // Select DAC
+
+    //     printf("Low byte %d\n\r", low_byte);
+    //     printf("High byte %d\n\r", high_byte);
+
+    //     // Send high byte
+    //     SPDAT = high_byte;
+    //     while (!(SPSTA & (1<<7))); 
+    //     // while(!transmission_complete);
+    //     // transmission_complete = 0;
+
+    //     // Send low byte
+    //     SPDAT = low_byte;
+    //     while (!(SPSTA & (1<<7))); 
+    //     // while(!transmission_complete);
+    //     // transmission_complete = 0;
+
+    //     P1_1 = 1;  // Deselect DAC
+    //     // while(!transmission_complete);
+    //     // transmission_complete = 0;
+        
+    //     printf("E\n\r");
+    //     printf("\n\r");
         
 
-        dac_value_index++;
-    }
+    //     dac_value_index++;
+    // }
 }
 
 void timer0_init(void)
