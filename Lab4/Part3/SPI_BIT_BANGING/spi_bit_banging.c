@@ -38,7 +38,9 @@ int getchar(void) {
 int main()
 {
 
+    SS = 1;
     printf("  SPI BIT BANGING PROGRAM\n\r");
+    spi_write(0x1F);
     spi_write(0x1F);
     spi_write(0xF0);
     printf("  ITS DONE\n\r");
