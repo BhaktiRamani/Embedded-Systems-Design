@@ -34,6 +34,11 @@ int getchar(void) {
     return SBUF;             /* Return received character */
 }
 
+void delay_ms(unsigned int ms) {
+    unsigned int i, j;
+    for (i = 0; i < ms; i++)
+        for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
+}
 
 int main()
 {
@@ -42,7 +47,9 @@ int main()
     printf("  SPI BIT BANGING PROGRAM\n\r");
     spi_write(0x1F);
     spi_write(0x18);
+    delay_ms(5);
     spi_write(0x00);
+    delay_ms(5);
     printf("  ITS DONE\n\r");
     return 0;
     
@@ -57,7 +64,9 @@ int spi_write(uint8_t data)
   {
     SDA = (data & 0x80) ? 1 : 0;    //msb first
     SCL=1;
+    //some delay
     SCL=0;
+    //some delay
     data = data << 1;
   }
   SS = 1;
