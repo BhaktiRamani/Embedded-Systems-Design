@@ -586,7 +586,7 @@ _getchar:
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	spi_bit_banging.c:41: printf("SPI BIT BANGING PROGRAM\n\r");
+;	spi_bit_banging.c:41: printf("  SPI BIT BANGING PROGRAM\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -603,7 +603,7 @@ _main:
 ;	spi_bit_banging.c:43: spi_write(0xF0);
 	mov	dpl,#0xf0
 	lcall	_spi_write
-;	spi_bit_banging.c:44: printf("ITS DONE\n\r");
+;	spi_bit_banging.c:44: printf("  ITS DONE\n\r");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -718,14 +718,14 @@ _i2c_delay:
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
-	.ascii "SPI BIT BANGING PROGRAM"
+	.ascii "  SPI BIT BANGING PROGRAM"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "ITS DONE"
+	.ascii "  ITS DONE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00

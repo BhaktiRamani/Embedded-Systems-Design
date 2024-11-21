@@ -38,10 +38,10 @@ int getchar(void) {
 int main()
 {
 
-    printf("SPI BIT BANGING PROGRAM\n\r");
+    printf("  SPI BIT BANGING PROGRAM\n\r");
     spi_write(0x1F);
     spi_write(0xF0);
-    printf("ITS DONE\n\r");
+    printf("  ITS DONE\n\r");
     return 0;
     
 }

@@ -586,7 +586,7 @@
                                     586 ;	 function main
                                     587 ;	-----------------------------------------
       00002D                        588 _main:
-                                    589 ;	spi_bit_banging.c:41: printf("SPI BIT BANGING PROGRAM\n\r");
+                                    589 ;	spi_bit_banging.c:41: printf("  SPI BIT BANGING PROGRAM\n\r");
       00002D 74r00            [12]  590 	mov	a,#___str_0
       00002F C0 E0            [24]  591 	push	acc
       000031 74s00            [12]  592 	mov	a,#(___str_0 >> 8)
@@ -603,8 +603,8 @@
                                     603 ;	spi_bit_banging.c:43: spi_write(0xF0);
       000048 75 82 F0         [24]  604 	mov	dpl,#0xf0
       00004B 12r00r67         [24]  605 	lcall	_spi_write
-                                    606 ;	spi_bit_banging.c:44: printf("ITS DONE\n\r");
-      00004E 74r1A            [12]  607 	mov	a,#___str_1
+                                    606 ;	spi_bit_banging.c:44: printf("  ITS DONE\n\r");
+      00004E 74r1C            [12]  607 	mov	a,#___str_1
       000050 C0 E0            [24]  608 	push	acc
       000052 74s00            [12]  609 	mov	a,#(___str_1 >> 8)
       000054 C0 E0            [24]  610 	push	acc
@@ -718,21 +718,21 @@
                                     718 	.area CONST   (CODE)
                                     719 	.area CONST   (CODE)
       000000                        720 ___str_0:
-      000000 53 50 49 20 42 49 54   721 	.ascii "SPI BIT BANGING PROGRAM"
-             20 42 41 4E 47 49 4E
-             47 20 50 52 4F 47 52
-             41 4D
-      000017 0A                     722 	.db 0x0a
-      000018 0D                     723 	.db 0x0d
-      000019 00                     724 	.db 0x00
+      000000 20 20 53 50 49 20 42   721 	.ascii "  SPI BIT BANGING PROGRAM"
+             49 54 20 42 41 4E 47
+             49 4E 47 20 50 52 4F
+             47 52 41 4D
+      000019 0A                     722 	.db 0x0a
+      00001A 0D                     723 	.db 0x0d
+      00001B 00                     724 	.db 0x00
                                     725 	.area CSEG    (CODE)
                                     726 	.area CONST   (CODE)
-      00001A                        727 ___str_1:
-      00001A 49 54 53 20 44 4F 4E   728 	.ascii "ITS DONE"
-             45
-      000022 0A                     729 	.db 0x0a
-      000023 0D                     730 	.db 0x0d
-      000024 00                     731 	.db 0x00
+      00001C                        727 ___str_1:
+      00001C 20 20 49 54 53 20 44   728 	.ascii "  ITS DONE"
+             4F 4E 45
+      000026 0A                     729 	.db 0x0a
+      000027 0D                     730 	.db 0x0d
+      000028 00                     731 	.db 0x00
                                     732 	.area CSEG    (CODE)
                                     733 	.area XINIT   (CODE)
                                     734 	.area CABS    (ABS,CODE)
