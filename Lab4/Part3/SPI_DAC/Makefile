@@ -42,7 +42,7 @@ $(OBJ): $(SRC)
 
 # Link phase
 $(HEX): $(OBJ)
-	sdcc --code-loc 0x3000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx $(OBJ)
+	sdcc --code-loc 0x2000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx $(OBJ)
 	packihx $(IHX) > $(HEX)
 
 # Clean generated files
