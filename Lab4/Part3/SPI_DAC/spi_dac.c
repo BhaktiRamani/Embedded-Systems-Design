@@ -105,19 +105,19 @@ int getchar(void) {
 
 int main(void)
 {
-    printf("SPI DAC PROGRAM\n\r");
-//     /* Initialize variables */
-//     int dac_value_index = 0;
-//     int dac_data = 0;
-//
-//
-//     EA = GLOBAL_INT_ENABLE;        // Enable global interrupts
-//
-//     /* Initialize SPI */
-//     spi_init();
-//     spi_transmission_start();
-//
-//     printf("SPI TRANSMISSION STARTED\n\r");
+    printf(" SPI DAC PROGRAM\n\r");
+    /* Initialize variables */
+    int dac_value_index = 0;
+    int dac_data = 0;
+
+
+    EA |= GLOBAL_INT_ENABLE;        // Enable global interrupts
+
+    /* Initialize SPI */
+    spi_init();
+    spi_transmission_start();
+
+    printf("SPI TRANSMISSION STARTED\n\r");
 //
 //
 //     unsigned char high_byte, low_byte;
@@ -249,6 +249,7 @@ void spi_init(void)
 void spi_transmission_start(void)
 {
     SPCON |= SPI_ENABLE;           // Enable SPI
+    P1_1 = 0;
 }
 
 /**

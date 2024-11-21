@@ -609,15 +609,40 @@ _getchar:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
+;dac_value_index           Allocated with name '_main_dac_value_index_65537_23'
+;dac_data                  Allocated with name '_main_dac_data_65537_23'
+;------------------------------------------------------------
 ;	spi_dac.c:106: int main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	spi_dac.c:108: printf("SPI DAC PROGRAM\n\r");
+;	spi_dac.c:108: printf(" SPI DAC PROGRAM\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:114: EA |= GLOBAL_INT_ENABLE;        // Enable global interrupts
+	mov	r7,#0x01
+	mov	c,_EA
+;	assignBit
+	mov	a,r7
+	add	a,#0xff
+	mov	_EA,c
+;	spi_dac.c:117: spi_init();
+	lcall	_spi_init
+;	spi_dac.c:118: spi_transmission_start();
+	lcall	_spi_transmission_start
+;	spi_dac.c:120: printf("SPI TRANSMISSION STARTED\n\r");
+	mov	a,#___str_1
+	push	acc
+	mov	a,#(___str_1 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -745,19 +770,22 @@ _spi_init:
 _spi_transmission_start:
 ;	spi_dac.c:251: SPCON |= SPI_ENABLE;           // Enable SPI
 	orl	_SPCON,#0x40
-;	spi_dac.c:252: }
+;	spi_dac.c:252: P1_1 = 0;
+;	assignBit
+	clr	_P1_1
+;	spi_dac.c:253: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_stop'
 ;------------------------------------------------------------
-;	spi_dac.c:259: void spi_transmission_stop(void) 
+;	spi_dac.c:260: void spi_transmission_stop(void) 
 ;	-----------------------------------------
 ;	 function spi_transmission_stop
 ;	-----------------------------------------
 _spi_transmission_stop:
-;	spi_dac.c:261: SPCON &= ~SPI_ENABLE;          // Disable SPI
+;	spi_dac.c:262: SPCON &= ~SPI_ENABLE;          // Disable SPI
 	anl	_SPCON,#0xbf
-;	spi_dac.c:262: }
+;	spi_dac.c:263: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -814,7 +842,14 @@ _dac_values:
 	.byte #0x70, #0x00	;  112
 	.area CONST   (CODE)
 ___str_0:
-	.ascii "SPI DAC PROGRAM"
+	.ascii " SPI DAC PROGRAM"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_1:
+	.ascii "SPI TRANSMISSION STARTED"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
