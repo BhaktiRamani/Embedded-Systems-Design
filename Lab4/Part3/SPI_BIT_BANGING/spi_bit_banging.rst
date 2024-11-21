@@ -590,13 +590,13 @@
                                     590 ;	assignBit
       00208F D2 91            [12]  591 	setb	_P1_1
                                     592 ;	spi_bit_banging.c:42: printf("  SPI BIT BANGING PROGRAM\n\r");
-      002091 74 DF            [12]  593 	mov	a,#___str_0
+      002091 74 CD            [12]  593 	mov	a,#___str_0
       002093 C0 E0            [24]  594 	push	acc
       002095 74 2B            [12]  595 	mov	a,#(___str_0 >> 8)
       002097 C0 E0            [24]  596 	push	acc
       002099 74 80            [12]  597 	mov	a,#0x80
       00209B C0 E0            [24]  598 	push	acc
-      00209D 12 21 7D         [24]  599 	lcall	_printf
+      00209D 12 21 6B         [24]  599 	lcall	_printf
       0020A0 15 81            [12]  600 	dec	sp
       0020A2 15 81            [12]  601 	dec	sp
       0020A4 15 81            [12]  602 	dec	sp
@@ -610,13 +610,13 @@
       0020B2 75 82 00         [24]  610 	mov	dpl,#0x00
       0020B5 12 20 D1         [24]  611 	lcall	_spi_write
                                     612 ;	spi_bit_banging.c:46: printf("  ITS DONE\n\r");
-      0020B8 74 FB            [12]  613 	mov	a,#___str_1
+      0020B8 74 E9            [12]  613 	mov	a,#___str_1
       0020BA C0 E0            [24]  614 	push	acc
       0020BC 74 2B            [12]  615 	mov	a,#(___str_1 >> 8)
       0020BE C0 E0            [24]  616 	push	acc
       0020C0 74 80            [12]  617 	mov	a,#0x80
       0020C2 C0 E0            [24]  618 	push	acc
-      0020C4 12 21 7D         [24]  619 	lcall	_printf
+      0020C4 12 21 6B         [24]  619 	lcall	_printf
       0020C7 15 81            [12]  620 	dec	sp
       0020C9 15 81            [12]  621 	dec	sp
       0020CB 15 81            [12]  622 	dec	sp
@@ -653,92 +653,82 @@
       0020E3 54 01            [12]  653 	anl	a,#0x01
       0020E5 24 FF            [12]  654 	add	a,#0xff
       0020E7 92 97            [24]  655 	mov	_P1_7,c
-                                    656 ;	spi_bit_banging.c:59: i2c_delay();        // Setup time for data
-      0020E9 C0 07            [24]  657 	push	ar7
-      0020EB C0 06            [24]  658 	push	ar6
-      0020ED C0 05            [24]  659 	push	ar5
-      0020EF 12 21 18         [24]  660 	lcall	_i2c_delay
-                                    661 ;	spi_bit_banging.c:60: SCL=1;
-                                    662 ;	assignBit
-      0020F2 D2 96            [12]  663 	setb	_P1_6
-                                    664 ;	spi_bit_banging.c:61: i2c_delay();        // Hold time for clock
-      0020F4 12 21 18         [24]  665 	lcall	_i2c_delay
-      0020F7 D0 05            [24]  666 	pop	ar5
-      0020F9 D0 06            [24]  667 	pop	ar6
-      0020FB D0 07            [24]  668 	pop	ar7
-                                    669 ;	spi_bit_banging.c:62: SCL=0;
-                                    670 ;	assignBit
-      0020FD C2 96            [12]  671 	clr	_P1_6
-                                    672 ;	spi_bit_banging.c:63: data = data << 1;
-      0020FF ED               [12]  673 	mov	a,r5
-      002100 2D               [12]  674 	add	a,r5
-      002101 90 04 02         [24]  675 	mov	dptr,#_spi_write_data_65536_19
-      002104 F0               [24]  676 	movx	@dptr,a
-                                    677 ;	spi_bit_banging.c:56: for(i=0;i<=7;i++)
-      002105 0E               [12]  678 	inc	r6
-      002106 BE 00 01         [24]  679 	cjne	r6,#0x00,00115$
-      002109 0F               [12]  680 	inc	r7
-      00210A                        681 00115$:
-      00210A C3               [12]  682 	clr	c
-      00210B 74 07            [12]  683 	mov	a,#0x07
-      00210D 9E               [12]  684 	subb	a,r6
-      00210E E4               [12]  685 	clr	a
-      00210F 9F               [12]  686 	subb	a,r7
-      002110 50 CB            [24]  687 	jnc	00102$
-                                    688 ;	spi_bit_banging.c:65: SS = 1;
-                                    689 ;	assignBit
-      002112 D2 91            [12]  690 	setb	_P1_1
-                                    691 ;	spi_bit_banging.c:67: return 1;           // Success
-      002114 90 00 01         [24]  692 	mov	dptr,#0x0001
-                                    693 ;	spi_bit_banging.c:69: }
-      002117 22               [24]  694 	ret
-                                    695 ;------------------------------------------------------------
-                                    696 ;Allocation info for local variables in function 'i2c_delay'
-                                    697 ;------------------------------------------------------------
-                                    698 ;i                         Allocated with name '_i2c_delay_i_131072_25'
-                                    699 ;------------------------------------------------------------
-                                    700 ;	spi_bit_banging.c:71: void i2c_delay() 
-                                    701 ;	-----------------------------------------
-                                    702 ;	 function i2c_delay
-                                    703 ;	-----------------------------------------
-      002118                        704 _i2c_delay:
-                                    705 ;	spi_bit_banging.c:73: for(int i = 0; i<500; i++);
-      002118 7E 00            [12]  706 	mov	r6,#0x00
-      00211A 7F 00            [12]  707 	mov	r7,#0x00
-      00211C                        708 00103$:
-      00211C C3               [12]  709 	clr	c
-      00211D EE               [12]  710 	mov	a,r6
-      00211E 94 F4            [12]  711 	subb	a,#0xf4
-      002120 EF               [12]  712 	mov	a,r7
-      002121 64 80            [12]  713 	xrl	a,#0x80
-      002123 94 81            [12]  714 	subb	a,#0x81
-      002125 50 07            [24]  715 	jnc	00105$
-      002127 0E               [12]  716 	inc	r6
-      002128 BE 00 F1         [24]  717 	cjne	r6,#0x00,00103$
-      00212B 0F               [12]  718 	inc	r7
-      00212C 80 EE            [24]  719 	sjmp	00103$
-      00212E                        720 00105$:
-                                    721 ;	spi_bit_banging.c:74: }
-      00212E 22               [24]  722 	ret
-                                    723 	.area CSEG    (CODE)
-                                    724 	.area CONST   (CODE)
-                                    725 	.area CONST   (CODE)
-      002BDF                        726 ___str_0:
-      002BDF 20 20 53 50 49 20 42   727 	.ascii "  SPI BIT BANGING PROGRAM"
+                                    656 ;	spi_bit_banging.c:59: SCL=1;
+                                    657 ;	assignBit
+      0020E9 D2 96            [12]  658 	setb	_P1_6
+                                    659 ;	spi_bit_banging.c:60: SCL=0;
+                                    660 ;	assignBit
+      0020EB C2 96            [12]  661 	clr	_P1_6
+                                    662 ;	spi_bit_banging.c:61: data = data << 1;
+      0020ED ED               [12]  663 	mov	a,r5
+      0020EE 2D               [12]  664 	add	a,r5
+      0020EF 90 04 02         [24]  665 	mov	dptr,#_spi_write_data_65536_19
+      0020F2 F0               [24]  666 	movx	@dptr,a
+                                    667 ;	spi_bit_banging.c:56: for(i=0;i<=7;i++)
+      0020F3 0E               [12]  668 	inc	r6
+      0020F4 BE 00 01         [24]  669 	cjne	r6,#0x00,00115$
+      0020F7 0F               [12]  670 	inc	r7
+      0020F8                        671 00115$:
+      0020F8 C3               [12]  672 	clr	c
+      0020F9 74 07            [12]  673 	mov	a,#0x07
+      0020FB 9E               [12]  674 	subb	a,r6
+      0020FC E4               [12]  675 	clr	a
+      0020FD 9F               [12]  676 	subb	a,r7
+      0020FE 50 DD            [24]  677 	jnc	00102$
+                                    678 ;	spi_bit_banging.c:63: SS = 1;
+                                    679 ;	assignBit
+      002100 D2 91            [12]  680 	setb	_P1_1
+                                    681 ;	spi_bit_banging.c:65: return 1;           // Success
+      002102 90 00 01         [24]  682 	mov	dptr,#0x0001
+                                    683 ;	spi_bit_banging.c:67: }
+      002105 22               [24]  684 	ret
+                                    685 ;------------------------------------------------------------
+                                    686 ;Allocation info for local variables in function 'i2c_delay'
+                                    687 ;------------------------------------------------------------
+                                    688 ;i                         Allocated with name '_i2c_delay_i_131072_25'
+                                    689 ;------------------------------------------------------------
+                                    690 ;	spi_bit_banging.c:69: void i2c_delay() 
+                                    691 ;	-----------------------------------------
+                                    692 ;	 function i2c_delay
+                                    693 ;	-----------------------------------------
+      002106                        694 _i2c_delay:
+                                    695 ;	spi_bit_banging.c:71: for(int i = 0; i<500; i++);
+      002106 7E 00            [12]  696 	mov	r6,#0x00
+      002108 7F 00            [12]  697 	mov	r7,#0x00
+      00210A                        698 00103$:
+      00210A C3               [12]  699 	clr	c
+      00210B EE               [12]  700 	mov	a,r6
+      00210C 94 F4            [12]  701 	subb	a,#0xf4
+      00210E EF               [12]  702 	mov	a,r7
+      00210F 64 80            [12]  703 	xrl	a,#0x80
+      002111 94 81            [12]  704 	subb	a,#0x81
+      002113 50 07            [24]  705 	jnc	00105$
+      002115 0E               [12]  706 	inc	r6
+      002116 BE 00 F1         [24]  707 	cjne	r6,#0x00,00103$
+      002119 0F               [12]  708 	inc	r7
+      00211A 80 EE            [24]  709 	sjmp	00103$
+      00211C                        710 00105$:
+                                    711 ;	spi_bit_banging.c:72: }
+      00211C 22               [24]  712 	ret
+                                    713 	.area CSEG    (CODE)
+                                    714 	.area CONST   (CODE)
+                                    715 	.area CONST   (CODE)
+      002BCD                        716 ___str_0:
+      002BCD 20 20 53 50 49 20 42   717 	.ascii "  SPI BIT BANGING PROGRAM"
              49 54 20 42 41 4E 47
              49 4E 47 20 50 52 4F
              47 52 41 4D
-      002BF8 0A                     728 	.db 0x0a
-      002BF9 0D                     729 	.db 0x0d
-      002BFA 00                     730 	.db 0x00
-                                    731 	.area CSEG    (CODE)
-                                    732 	.area CONST   (CODE)
-      002BFB                        733 ___str_1:
-      002BFB 20 20 49 54 53 20 44   734 	.ascii "  ITS DONE"
+      002BE6 0A                     718 	.db 0x0a
+      002BE7 0D                     719 	.db 0x0d
+      002BE8 00                     720 	.db 0x00
+                                    721 	.area CSEG    (CODE)
+                                    722 	.area CONST   (CODE)
+      002BE9                        723 ___str_1:
+      002BE9 20 20 49 54 53 20 44   724 	.ascii "  ITS DONE"
              4F 4E 45
-      002C05 0A                     735 	.db 0x0a
-      002C06 0D                     736 	.db 0x0d
-      002C07 00                     737 	.db 0x00
-                                    738 	.area CSEG    (CODE)
-                                    739 	.area XINIT   (CODE)
-                                    740 	.area CABS    (ABS,CODE)
+      002BF3 0A                     725 	.db 0x0a
+      002BF4 0D                     726 	.db 0x0d
+      002BF5 00                     727 	.db 0x00
+                                    728 	.area CSEG    (CODE)
+                                    729 	.area XINIT   (CODE)
+                                    730 	.area CABS    (ABS,CODE)

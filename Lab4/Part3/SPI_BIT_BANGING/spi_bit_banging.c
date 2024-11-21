@@ -56,9 +56,7 @@ int spi_write(uint8_t data)
   for(i=0;i<=7;i++)
   {
     SDA = (data & 0x80) ? 1 : 0;    //msb first
-    i2c_delay();        // Setup time for data
     SCL=1;
-    i2c_delay();        // Hold time for clock
     SCL=0;
     data = data << 1;
   }

@@ -653,23 +653,13 @@ _spi_write:
 	anl	a,#0x01
 	add	a,#0xff
 	mov	_P1_7,c
-;	spi_bit_banging.c:59: i2c_delay();        // Setup time for data
-	push	ar7
-	push	ar6
-	push	ar5
-	lcall	_i2c_delay
-;	spi_bit_banging.c:60: SCL=1;
+;	spi_bit_banging.c:59: SCL=1;
 ;	assignBit
 	setb	_P1_6
-;	spi_bit_banging.c:61: i2c_delay();        // Hold time for clock
-	lcall	_i2c_delay
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	spi_bit_banging.c:62: SCL=0;
+;	spi_bit_banging.c:60: SCL=0;
 ;	assignBit
 	clr	_P1_6
-;	spi_bit_banging.c:63: data = data << 1;
+;	spi_bit_banging.c:61: data = data << 1;
 	mov	a,r5
 	add	a,r5
 	mov	dptr,#_spi_write_data_65536_19
@@ -685,24 +675,24 @@ _spi_write:
 	clr	a
 	subb	a,r7
 	jnc	00102$
-;	spi_bit_banging.c:65: SS = 1;
+;	spi_bit_banging.c:63: SS = 1;
 ;	assignBit
 	setb	_P1_1
-;	spi_bit_banging.c:67: return 1;           // Success
+;	spi_bit_banging.c:65: return 1;           // Success
 	mov	dptr,#0x0001
-;	spi_bit_banging.c:69: }
+;	spi_bit_banging.c:67: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'i2c_delay'
 ;------------------------------------------------------------
 ;i                         Allocated with name '_i2c_delay_i_131072_25'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:71: void i2c_delay() 
+;	spi_bit_banging.c:69: void i2c_delay() 
 ;	-----------------------------------------
 ;	 function i2c_delay
 ;	-----------------------------------------
 _i2c_delay:
-;	spi_bit_banging.c:73: for(int i = 0; i<500; i++);
+;	spi_bit_banging.c:71: for(int i = 0; i<500; i++);
 	mov	r6,#0x00
 	mov	r7,#0x00
 00103$:
@@ -718,7 +708,7 @@ _i2c_delay:
 	inc	r7
 	sjmp	00103$
 00105$:
-;	spi_bit_banging.c:74: }
+;	spi_bit_banging.c:72: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
