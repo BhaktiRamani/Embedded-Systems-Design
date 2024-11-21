@@ -132,11 +132,12 @@ int main(void)
     high_byte = 0x1F;
     low_byte = 0xF0;
         // Begin transmission
-        P1_1 = 0;  // Select DAC
+       
 
         printf("Low byte %d\n\r", low_byte);
         printf("High byte %d\n\r", high_byte);
 
+    P1_1 = 0;  // Select DAC
         // Send high byte
         SPDAT = high_byte;
         while (!(SPSTA & (1<<7))); 
