@@ -32,6 +32,7 @@
 #define SPI_CPOL_HIGH      (1<<3)  // Clock polarity select bit (1 = active high)
 #define SPI_CPHA_FIRST     (1<<2)  // Clock phase select bit (0 = sample on first edge)
 #define SPI_ENABLE         (1<<6)  // SPI enable bit
+#define SPI_SSDIS          (1<<5)  // SSDIS bit
 
 /* Clock Configuration */
 #define SPI_CLK_DIV_2    0x00    // Frequency divider for fclk/128
@@ -117,6 +118,7 @@ int main(void)
     spi_transmission_start();
     
     printf("SPI TRANSMISSION STARTED\n\r");
+    
     
     unsigned char high_byte, low_byte;
     timer0_init();
@@ -231,6 +233,7 @@ void spi_init(void)
     SPCON |= SPI_MASTER_MODE;      // Set as master
     SPCON |= SPI_CPOL_HIGH;        // Clock polarity active high
     SPCON &= ~SPI_CPHA_FIRST;      // Sample data on first clock edge
+    SPCON &= ~SPI_SSDIS;
 
     
     // Enable interrupts

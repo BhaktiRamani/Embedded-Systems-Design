@@ -438,8 +438,8 @@ Symbol Table
   B _putchar_charToSend_65536_41                                   000000 R
  17 _spi_init                                                      0001BB GR
  17 _spi_isr                                                       00019C GR
- 17 _spi_transmission_start                                        0001CE GR
- 17 _spi_transmission_stop                                         0001D2 GR
+ 17 _spi_transmission_start                                        0001D1 GR
+ 17 _spi_transmission_stop                                         0001D5 GR
  17 _timer0_init                                                   000170 GR
  17 _timer0_isr                                                    000181 GR
   D _transmission_complete                                         000001 GR
@@ -672,7 +672,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size    1D6   flags   20
+  17 CSEG                                       size    1D9   flags   20
   18 CONST                                      size     AC   flags   20
   19 XINIT                                      size      3   flags   20
   1A CABS                                       size      0   flags   28
