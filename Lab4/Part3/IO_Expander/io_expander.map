@@ -71,18 +71,18 @@ C:   00000400  s_PSEG
 C:   00000400  s_XSEG                          
 C:   00000444  s_XISEG                         
 C:   00000DB8  l_CSEG                          
-C:   00003000  s_HOME                          
-C:   00003009  s_GSINIT0                       
-C:   0000300C  s_GSINIT1                       
-C:   0000300C  s_GSINIT2                       
-C:   00003016  s_GSINIT3                       
-C:   00003038  s_GSINIT4                       
-C:   00003062  s_GSFINAL                       
-C:   00003062  s_GSINIT                        
-C:   00003062  s_GSINIT5                       
-C:   00003065  s_CSEG                          
-C:   00003E1D  s_CONST                         
-C:   00003E83  s_XINIT                         
+C:   00002000  s_HOME                          
+C:   00002009  s_GSINIT0                       
+C:   0000200C  s_GSINIT1                       
+C:   0000200C  s_GSINIT2                       
+C:   00002016  s_GSINIT3                       
+C:   00002038  s_GSINIT4                       
+C:   00002062  s_GSFINAL                       
+C:   00002062  s_GSINIT                        
+C:   00002062  s_GSINIT5                       
+C:   00002065  s_CSEG                          
+C:   00002E1D  s_CONST                         
+C:   00002E83  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -390,29 +390,29 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-HOME                                00003000    00000009 =           9. bytes (REL,CON,CODE)
+HOME                                00002000    00000009 =           9. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00003006  __sdcc_program_startup             io_expander
+C:   00002006  __sdcc_program_startup             io_expander
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT0                             00003009    00000003 =           3. bytes (REL,CON,CODE)
+GSINIT0                             00002009    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00003009  __sdcc_gsinit_startup              
+C:   00002009  __sdcc_gsinit_startup              
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT2                             0000300C    0000000A =          10. bytes (REL,CON,CODE)
+GSINIT2                             0000200C    0000000A =          10. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -421,30 +421,30 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT3                             00003016    00000022 =          34. bytes (REL,CON,CODE)
+GSINIT3                             00002016    00000022 =          34. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00003016  __mcs51_genXINIT                   
+C:   00002016  __mcs51_genXINIT                   
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT4                             00003038    0000002A =          42. bytes (REL,CON,CODE)
+GSINIT4                             00002038    0000002A =          42. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00003038  __mcs51_genRAMCLEAR                
-C:   0000303E  __mcs51_genXRAMCLEAR               
+C:   00002038  __mcs51_genRAMCLEAR                
+C:   0000203E  __mcs51_genXRAMCLEAR               
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSFINAL                             00003062    00000003 =           3. bytes (REL,CON,CODE)
+GSFINAL                             00002062    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -453,37 +453,37 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003065    00000DB8 =        3512. bytes (REL,CON,CODE)
+CSEG                                00002065    00000DB8 =        3512. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00003065  _putchar                           io_expander
-C:   00003084  _getchar                           io_expander
-C:   00003092  _external_ISR0                     io_expander
-C:   000030F6  _main                              io_expander
-C:   00003199  _enable_interrupt0                 io_expander
-C:   000031A0  _pcf8574_read_port                 io_expander
-C:   000031BB  _pcf8574_read_pin                  io_expander
-C:   000031DC  _pcf8574_write_port                io_expander
-C:   000031F7  _pcf8574_set_pin                   io_expander
-C:   00003247  _i2c_write                         io_expander
-C:   000032AF  _i2c_read                          io_expander
-C:   00003334  _i2c_start                         io_expander
-C:   00003349  _i2c_stop                          io_expander
-C:   00003356  _i2c_delay                         io_expander
-C:   0000337C  _vprintf                           vprintf
-C:   000033BB  _printf                            vprintf
-C:   000034C4  __print_format                     printf_large
-C:   00003DC5  _strlen                            _strlen
-C:   00003DDD  __mulint                           _mulint
-C:   00003DFD  __gptrget                          _gptrget
-C:   00003E19  __sdcc_external_startup            _startup
+C:   00002065  _putchar                           io_expander
+C:   00002084  _getchar                           io_expander
+C:   00002092  _external_ISR0                     io_expander
+C:   000020F6  _main                              io_expander
+C:   00002199  _enable_interrupt0                 io_expander
+C:   000021A0  _pcf8574_read_port                 io_expander
+C:   000021BB  _pcf8574_read_pin                  io_expander
+C:   000021DC  _pcf8574_write_port                io_expander
+C:   000021F7  _pcf8574_set_pin                   io_expander
+C:   00002247  _i2c_write                         io_expander
+C:   000022AF  _i2c_read                          io_expander
+C:   00002334  _i2c_start                         io_expander
+C:   00002349  _i2c_stop                          io_expander
+C:   00002356  _i2c_delay                         io_expander
+C:   0000237C  _vprintf                           vprintf
+C:   000023BB  _printf                            vprintf
+C:   000024C4  __print_format                     printf_large
+C:   00002DC5  _strlen                            _strlen
+C:   00002DDD  __mulint                           _mulint
+C:   00002DFD  __gptrget                          _gptrget
+C:   00002E19  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003E1D    00000066 =         102. bytes (REL,CON,CODE)
+CONST                               00002E1D    00000066 =         102. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -525,7 +525,7 @@ Libraries Linked                          [ object file ]
 
 User Base Address Definitions
 
-HOME = 0x3000
+HOME = 0x2000
 XSEG = 0x0400
 PSEG = 0x0400
 ISEG = 0x0000
