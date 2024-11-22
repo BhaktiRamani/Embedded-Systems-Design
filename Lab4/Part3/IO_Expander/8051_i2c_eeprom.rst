@@ -799,7 +799,7 @@
       002174 15 81            [12]  799 	dec	sp
       002176 15 81            [12]  800 	dec	sp
       002178 15 81            [12]  801 	dec	sp
-                                    802 ;	8051_i2c_eeprom.c:117: printf("│     I      │ IO Expander                                │\n\r");
+                                    802 ;	8051_i2c_eeprom.c:117: printf("│     I      │ IO Expander Mode                           │\n\r");
       00217A 74 D1            [12]  803 	mov	a,#___str_11
       00217C C0 E0            [24]  804 	push	acc
       00217E 74 3F            [12]  805 	mov	a,#(___str_11 >> 8)
@@ -810,7 +810,7 @@
       002189 15 81            [12]  810 	dec	sp
       00218B 15 81            [12]  811 	dec	sp
       00218D 15 81            [12]  812 	dec	sp
-                                    813 ;	8051_i2c_eeprom.c:118: printf("│     L      │ Leave IO Expander                          │\n\r");
+                                    813 ;	8051_i2c_eeprom.c:118: printf("│     L      │ Exit IO Expander Mode                      │\n\r");
       00218F 74 15            [12]  814 	mov	a,#___str_12
       002191 C0 E0            [24]  815 	push	acc
       002193 74 40            [12]  816 	mov	a,#(___str_12 >> 8)
@@ -869,7 +869,7 @@
       0021E5 F0               [24]  869 	movx	@dptr,a
       0021E6 75 82 07         [24]  870 	mov	dpl,#0x07
       0021E9 12 24 3F         [24]  871 	lcall	_pcf8574_set_pin
-                                    872 ;	8051_i2c_eeprom.c:134: }
+                                    872 ;	8051_i2c_eeprom.c:133: }
       0021EC D0 D0            [24]  873 	pop	psw
       0021EE D0 00            [24]  874 	pop	(0+0)
       0021F0 D0 01            [24]  875 	pop	(0+1)
@@ -888,21 +888,21 @@
                                     888 ;------------------------------------------------------------
                                     889 ;Allocation info for local variables in function 'disable_interrupt0'
                                     890 ;------------------------------------------------------------
-                                    891 ;	8051_i2c_eeprom.c:136: void disable_interrupt0(void)
+                                    891 ;	8051_i2c_eeprom.c:135: void disable_interrupt0(void)
                                     892 ;	-----------------------------------------
                                     893 ;	 function disable_interrupt0
                                     894 ;	-----------------------------------------
       002209                        895 _disable_interrupt0:
-                                    896 ;	8051_i2c_eeprom.c:139: IT0 = 0;           // Set INT0 to be edge-triggered
+                                    896 ;	8051_i2c_eeprom.c:138: IT0 = 0;           // Set INT0 to be edge-triggered
                                     897 ;	assignBit
       002209 C2 88            [12]  898 	clr	_IT0
-                                    899 ;	8051_i2c_eeprom.c:140: EX0 = 0;          // Enable INT0 interrupt
+                                    899 ;	8051_i2c_eeprom.c:139: EX0 = 0;          // Enable INT0 interrupt
                                     900 ;	assignBit
       00220B C2 A8            [12]  901 	clr	_EX0
-                                    902 ;	8051_i2c_eeprom.c:141: EA = 0;           // Enable global interrupts
+                                    902 ;	8051_i2c_eeprom.c:140: EA = 0;           // Enable global interrupts
                                     903 ;	assignBit
       00220D C2 AF            [12]  904 	clr	_EA
-                                    905 ;	8051_i2c_eeprom.c:142: }
+                                    905 ;	8051_i2c_eeprom.c:141: }
       00220F 22               [24]  906 	ret
                                     907 ;------------------------------------------------------------
                                     908 ;Allocation info for local variables in function 'main'
@@ -912,27 +912,27 @@
                                     912 ;data                      Allocated with name '_main_data_262146_71'
                                     913 ;addr                      Allocated with name '_main_addr_262145_74'
                                     914 ;------------------------------------------------------------
-                                    915 ;	8051_i2c_eeprom.c:147: int main()
+                                    915 ;	8051_i2c_eeprom.c:146: int main()
                                     916 ;	-----------------------------------------
                                     917 ;	 function main
                                     918 ;	-----------------------------------------
       002210                        919 _main:
-                                    920 ;	8051_i2c_eeprom.c:150: P1 &= ~(1<<3);  // Set P1.3 as output
+                                    920 ;	8051_i2c_eeprom.c:149: P1 &= ~(1<<3);  // Set P1.3 as output
       002210 53 90 F7         [24]  921 	anl	_P1,#0xf7
-                                    922 ;	8051_i2c_eeprom.c:151: P1 &= ~(1<<4);  // Set P1.4 as output
+                                    922 ;	8051_i2c_eeprom.c:150: P1 &= ~(1<<4);  // Set P1.4 as output
       002213 53 90 EF         [24]  923 	anl	_P1,#0xef
-                                    924 ;	8051_i2c_eeprom.c:152: ui();
+                                    924 ;	8051_i2c_eeprom.c:151: ui();
       002216 12 20 92         [24]  925 	lcall	_ui
-                                    926 ;	8051_i2c_eeprom.c:153: command_menu();
+                                    926 ;	8051_i2c_eeprom.c:152: command_menu();
       002219 12 20 D2         [24]  927 	lcall	_command_menu
-                                    928 ;	8051_i2c_eeprom.c:154: i2c_start();
+                                    928 ;	8051_i2c_eeprom.c:153: i2c_start();
       00221C 12 2B 90         [24]  929 	lcall	_i2c_start
-                                    930 ;	8051_i2c_eeprom.c:155: while(1)
+                                    930 ;	8051_i2c_eeprom.c:154: while(1)
       00221F                        931 00117$:
-                                    932 ;	8051_i2c_eeprom.c:157: char user_input = getchar();
+                                    932 ;	8051_i2c_eeprom.c:156: char user_input = getchar();
       00221F 12 20 84         [24]  933 	lcall	_getchar
       002222 AE 82            [24]  934 	mov	r6,dpl
-                                    935 ;	8051_i2c_eeprom.c:158: printf("| $ %c\n\r", user_input);
+                                    935 ;	8051_i2c_eeprom.c:157: printf("| $ %c\n\r", user_input);
       002224 8E 05            [24]  936 	mov	ar5,r6
       002226 7F 00            [12]  937 	mov	r7,#0x00
       002228 C0 06            [24]  938 	push	ar6
@@ -948,7 +948,7 @@
       00223D E5 81            [12]  948 	mov	a,sp
       00223F 24 FB            [12]  949 	add	a,#0xfb
       002241 F5 81            [12]  950 	mov	sp,a
-                                    951 ;	8051_i2c_eeprom.c:159: printf("\n\r");
+                                    951 ;	8051_i2c_eeprom.c:158: printf("\n\r");
       002243 74 16            [12]  952 	mov	a,#___str_15
       002245 C0 E0            [24]  953 	push	acc
       002247 74 41            [12]  954 	mov	a,#(___str_15 >> 8)
@@ -960,7 +960,7 @@
       002254 15 81            [12]  960 	dec	sp
       002256 15 81            [12]  961 	dec	sp
       002258 D0 06            [24]  962 	pop	ar6
-                                    963 ;	8051_i2c_eeprom.c:160: switch(user_input)
+                                    963 ;	8051_i2c_eeprom.c:159: switch(user_input)
       00225A BE 3F 03         [24]  964 	cjne	r6,#0x3f,00165$
       00225D 02 23 4C         [24]  965 	ljmp	00109$
       002260                        966 00165$:
@@ -983,9 +983,9 @@
       00227F 02 23 52         [24]  983 	ljmp	00110$
       002282                        984 00171$:
       002282 02 23 BE         [24]  985 	ljmp	00114$
-                                    986 ;	8051_i2c_eeprom.c:162: case 'W':
+                                    986 ;	8051_i2c_eeprom.c:161: case 'W':
       002285                        987 00101$:
-                                    988 ;	8051_i2c_eeprom.c:164: printf("\n┌─────────────── WRITE OPERATION ──────────────┐\n\r");
+                                    988 ;	8051_i2c_eeprom.c:163: printf("\n┌─────────────── WRITE OPERATION ──────────────┐\n\r");
       002285 74 19            [12]  989 	mov	a,#___str_16
       002287 C0 E0            [24]  990 	push	acc
       002289 74 41            [12]  991 	mov	a,#(___str_16 >> 8)
@@ -996,11 +996,11 @@
       002294 15 81            [12]  996 	dec	sp
       002296 15 81            [12]  997 	dec	sp
       002298 15 81            [12]  998 	dec	sp
-                                    999 ;	8051_i2c_eeprom.c:166: addr = take_address();
+                                    999 ;	8051_i2c_eeprom.c:165: addr = take_address();
       00229A 12 24 96         [24] 1000 	lcall	_take_address
       00229D AE 82            [24] 1001 	mov	r6,dpl
       00229F AF 83            [24] 1002 	mov	r7,dph
-                                   1003 ;	8051_i2c_eeprom.c:167: if(!address_range_flag) 
+                                   1003 ;	8051_i2c_eeprom.c:166: if(!address_range_flag) 
       0022A1 90 04 5C         [24] 1004 	mov	dptr,#_address_range_flag
       0022A4 E0               [24] 1005 	movx	a,@dptr
       0022A5 F5 F0            [12] 1006 	mov	b,a
@@ -1008,24 +1008,24 @@
       0022A8 E0               [24] 1008 	movx	a,@dptr
       0022A9 45 F0            [12] 1009 	orl	a,b
       0022AB 70 0C            [24] 1010 	jnz	00103$
-                                   1011 ;	8051_i2c_eeprom.c:169: address_range_flag = 1;
+                                   1011 ;	8051_i2c_eeprom.c:168: address_range_flag = 1;
       0022AD 90 04 5C         [24] 1012 	mov	dptr,#_address_range_flag
       0022B0 74 01            [12] 1013 	mov	a,#0x01
       0022B2 F0               [24] 1014 	movx	@dptr,a
       0022B3 E4               [12] 1015 	clr	a
       0022B4 A3               [24] 1016 	inc	dptr
       0022B5 F0               [24] 1017 	movx	@dptr,a
-                                   1018 ;	8051_i2c_eeprom.c:170: break;
+                                   1018 ;	8051_i2c_eeprom.c:169: break;
       0022B6 02 22 1F         [24] 1019 	ljmp	00117$
       0022B9                       1020 00103$:
-                                   1021 ;	8051_i2c_eeprom.c:173: data = take_data();
+                                   1021 ;	8051_i2c_eeprom.c:172: data = take_data();
       0022B9 C0 07            [24] 1022 	push	ar7
       0022BB C0 06            [24] 1023 	push	ar6
       0022BD 12 26 D4         [24] 1024 	lcall	_take_data
       0022C0 AD 82            [24] 1025 	mov	r5,dpl
       0022C2 D0 06            [24] 1026 	pop	ar6
       0022C4 D0 07            [24] 1027 	pop	ar7
-                                   1028 ;	8051_i2c_eeprom.c:174: if(!data_range_flag) 
+                                   1028 ;	8051_i2c_eeprom.c:173: if(!data_range_flag) 
       0022C6 90 04 5E         [24] 1029 	mov	dptr,#_data_range_flag
       0022C9 E0               [24] 1030 	movx	a,@dptr
       0022CA F5 F0            [12] 1031 	mov	b,a
@@ -1033,28 +1033,28 @@
       0022CD E0               [24] 1033 	movx	a,@dptr
       0022CE 45 F0            [12] 1034 	orl	a,b
       0022D0 70 0C            [24] 1035 	jnz	00105$
-                                   1036 ;	8051_i2c_eeprom.c:176: data_range_flag = 1;
+                                   1036 ;	8051_i2c_eeprom.c:175: data_range_flag = 1;
       0022D2 90 04 5E         [24] 1037 	mov	dptr,#_data_range_flag
       0022D5 74 01            [12] 1038 	mov	a,#0x01
       0022D7 F0               [24] 1039 	movx	@dptr,a
       0022D8 E4               [12] 1040 	clr	a
       0022D9 A3               [24] 1041 	inc	dptr
       0022DA F0               [24] 1042 	movx	@dptr,a
-                                   1043 ;	8051_i2c_eeprom.c:177: break;
+                                   1043 ;	8051_i2c_eeprom.c:176: break;
       0022DB 02 22 1F         [24] 1044 	ljmp	00117$
       0022DE                       1045 00105$:
-                                   1046 ;	8051_i2c_eeprom.c:180: eeprom_write(addr, data);
+                                   1046 ;	8051_i2c_eeprom.c:179: eeprom_write(addr, data);
       0022DE 90 04 14         [24] 1047 	mov	dptr,#_eeprom_write_PARM_2
       0022E1 ED               [12] 1048 	mov	a,r5
       0022E2 F0               [24] 1049 	movx	@dptr,a
       0022E3 8E 82            [24] 1050 	mov	dpl,r6
       0022E5 8F 83            [24] 1051 	mov	dph,r7
       0022E7 12 28 4D         [24] 1052 	lcall	_eeprom_write
-                                   1053 ;	8051_i2c_eeprom.c:181: break;
+                                   1053 ;	8051_i2c_eeprom.c:180: break;
       0022EA 02 22 1F         [24] 1054 	ljmp	00117$
-                                   1055 ;	8051_i2c_eeprom.c:183: case 'R':
+                                   1055 ;	8051_i2c_eeprom.c:182: case 'R':
       0022ED                       1056 00106$:
-                                   1057 ;	8051_i2c_eeprom.c:185: printf("\n┌─────────────── READ OPERATION ───────────────┐\n\r");
+                                   1057 ;	8051_i2c_eeprom.c:184: printf("\n┌─────────────── READ OPERATION ───────────────┐\n\r");
       0022ED 74 8B            [12] 1058 	mov	a,#___str_17
       0022EF C0 E0            [24] 1059 	push	acc
       0022F1 74 41            [12] 1060 	mov	a,#(___str_17 >> 8)
@@ -1065,11 +1065,11 @@
       0022FC 15 81            [12] 1065 	dec	sp
       0022FE 15 81            [12] 1066 	dec	sp
       002300 15 81            [12] 1067 	dec	sp
-                                   1068 ;	8051_i2c_eeprom.c:187: addr = take_address(); 
+                                   1068 ;	8051_i2c_eeprom.c:186: addr = take_address(); 
       002302 12 24 96         [24] 1069 	lcall	_take_address
       002305 AE 82            [24] 1070 	mov	r6,dpl
       002307 AF 83            [24] 1071 	mov	r7,dph
-                                   1072 ;	8051_i2c_eeprom.c:188: if(!address_range_flag) 
+                                   1072 ;	8051_i2c_eeprom.c:187: if(!address_range_flag) 
       002309 90 04 5C         [24] 1073 	mov	dptr,#_address_range_flag
       00230C E0               [24] 1074 	movx	a,@dptr
       00230D F5 F0            [12] 1075 	mov	b,a
@@ -1077,17 +1077,17 @@
       002310 E0               [24] 1077 	movx	a,@dptr
       002311 45 F0            [12] 1078 	orl	a,b
       002313 70 0C            [24] 1079 	jnz	00108$
-                                   1080 ;	8051_i2c_eeprom.c:190: address_range_flag = 1;
+                                   1080 ;	8051_i2c_eeprom.c:189: address_range_flag = 1;
       002315 90 04 5C         [24] 1081 	mov	dptr,#_address_range_flag
       002318 74 01            [12] 1082 	mov	a,#0x01
       00231A F0               [24] 1083 	movx	@dptr,a
       00231B E4               [12] 1084 	clr	a
       00231C A3               [24] 1085 	inc	dptr
       00231D F0               [24] 1086 	movx	@dptr,a
-                                   1087 ;	8051_i2c_eeprom.c:191: break;
+                                   1087 ;	8051_i2c_eeprom.c:190: break;
       00231E 02 22 1F         [24] 1088 	ljmp	00117$
       002321                       1089 00108$:
-                                   1090 ;	8051_i2c_eeprom.c:193: printf("| Reading from Address 0x%03X           |\n\r", addr);
+                                   1090 ;	8051_i2c_eeprom.c:192: printf("| Reading from Address 0x%03X           |\n\r", addr);
       002321 C0 07            [24] 1091 	push	ar7
       002323 C0 06            [24] 1092 	push	ar6
       002325 C0 06            [24] 1093 	push	ar6
@@ -1104,21 +1104,21 @@
       00233C F5 81            [12] 1104 	mov	sp,a
       00233E D0 06            [24] 1105 	pop	ar6
       002340 D0 07            [24] 1106 	pop	ar7
-                                   1107 ;	8051_i2c_eeprom.c:194: eeprom_read(addr);
+                                   1107 ;	8051_i2c_eeprom.c:193: eeprom_read(addr);
       002342 8E 82            [24] 1108 	mov	dpl,r6
       002344 8F 83            [24] 1109 	mov	dph,r7
       002346 12 29 8F         [24] 1110 	lcall	_eeprom_read
-                                   1111 ;	8051_i2c_eeprom.c:195: break;
+                                   1111 ;	8051_i2c_eeprom.c:194: break;
       002349 02 22 1F         [24] 1112 	ljmp	00117$
-                                   1113 ;	8051_i2c_eeprom.c:198: case '?':
+                                   1113 ;	8051_i2c_eeprom.c:197: case '?':
       00234C                       1114 00109$:
-                                   1115 ;	8051_i2c_eeprom.c:199: command_menu();
+                                   1115 ;	8051_i2c_eeprom.c:198: command_menu();
       00234C 12 20 D2         [24] 1116 	lcall	_command_menu
-                                   1117 ;	8051_i2c_eeprom.c:200: break;
+                                   1117 ;	8051_i2c_eeprom.c:199: break;
       00234F 02 22 1F         [24] 1118 	ljmp	00117$
-                                   1119 ;	8051_i2c_eeprom.c:202: case 'X':
+                                   1119 ;	8051_i2c_eeprom.c:201: case 'X':
       002352                       1120 00110$:
-                                   1121 ;	8051_i2c_eeprom.c:203: printf("\n┌─────────────── RESET OPERATION ───────────┐\n\r");
+                                   1121 ;	8051_i2c_eeprom.c:202: printf("\n┌─────────────── RESET OPERATION ───────────┐\n\r");
       002352 74 2B            [12] 1122 	mov	a,#___str_19
       002354 C0 E0            [24] 1123 	push	acc
       002356 74 42            [12] 1124 	mov	a,#(___str_19 >> 8)
@@ -1129,13 +1129,13 @@
       002361 15 81            [12] 1129 	dec	sp
       002363 15 81            [12] 1130 	dec	sp
       002365 15 81            [12] 1131 	dec	sp
-                                   1132 ;	8051_i2c_eeprom.c:204: eeprom_reset();
+                                   1132 ;	8051_i2c_eeprom.c:203: eeprom_reset();
       002367 12 2F 80         [24] 1133 	lcall	_eeprom_reset
-                                   1134 ;	8051_i2c_eeprom.c:205: break;
+                                   1134 ;	8051_i2c_eeprom.c:204: break;
       00236A 02 22 1F         [24] 1135 	ljmp	00117$
-                                   1136 ;	8051_i2c_eeprom.c:207: case 'H':
+                                   1136 ;	8051_i2c_eeprom.c:206: case 'H':
       00236D                       1137 00111$:
-                                   1138 ;	8051_i2c_eeprom.c:208: printf("\n┌───────────── HEX DUMP OPERATION ───────────────┐\n\r");
+                                   1138 ;	8051_i2c_eeprom.c:207: printf("\n┌───────────── HEX DUMP OPERATION ───────────────┐\n\r");
       00236D 74 94            [12] 1139 	mov	a,#___str_20
       00236F C0 E0            [24] 1140 	push	acc
       002371 74 42            [12] 1141 	mov	a,#(___str_20 >> 8)
@@ -1146,11 +1146,11 @@
       00237C 15 81            [12] 1146 	dec	sp
       00237E 15 81            [12] 1147 	dec	sp
       002380 15 81            [12] 1148 	dec	sp
-                                   1149 ;	8051_i2c_eeprom.c:210: handler_EEPROM_hexdump();
+                                   1149 ;	8051_i2c_eeprom.c:209: handler_EEPROM_hexdump();
       002382 12 2E D4         [24] 1150 	lcall	_handler_EEPROM_hexdump
-                                   1151 ;	8051_i2c_eeprom.c:212: case 'I':
+                                   1151 ;	8051_i2c_eeprom.c:211: case 'I':
       002385                       1152 00112$:
-                                   1153 ;	8051_i2c_eeprom.c:213: printf("\n┌───────────── IO EXPANDER OPERATION ───────────────┐\n\r");
+                                   1153 ;	8051_i2c_eeprom.c:212: printf("\n┌───────────── IO EXPANDER OPERATION ───────────────┐\n\r");
       002385 74 06            [12] 1154 	mov	a,#___str_21
       002387 C0 E0            [24] 1155 	push	acc
       002389 74 43            [12] 1156 	mov	a,#(___str_21 >> 8)
@@ -1161,15 +1161,15 @@
       002394 15 81            [12] 1161 	dec	sp
       002396 15 81            [12] 1162 	dec	sp
       002398 15 81            [12] 1163 	dec	sp
-                                   1164 ;	8051_i2c_eeprom.c:214: enable_interrupt0();
+                                   1164 ;	8051_i2c_eeprom.c:213: enable_interrupt0();
       00239A 12 24 8F         [24] 1165 	lcall	_enable_interrupt0
-                                   1166 ;	8051_i2c_eeprom.c:215: pcf8574_init();
+                                   1166 ;	8051_i2c_eeprom.c:214: pcf8574_init();
       00239D 12 23 D6         [24] 1167 	lcall	_pcf8574_init
-                                   1168 ;	8051_i2c_eeprom.c:216: break;
+                                   1168 ;	8051_i2c_eeprom.c:215: break;
       0023A0 02 22 1F         [24] 1169 	ljmp	00117$
-                                   1170 ;	8051_i2c_eeprom.c:218: case 'L':
+                                   1170 ;	8051_i2c_eeprom.c:217: case 'L':
       0023A3                       1171 00113$:
-                                   1172 ;	8051_i2c_eeprom.c:219: printf("\n┌───────────── IO EXPANDER LEAVE ───────────────┐\n\r");
+                                   1172 ;	8051_i2c_eeprom.c:218: printf("\n┌─────────────  EXIT IO EXPANDER   ───────────────┐\n\r");
       0023A3 74 7B            [12] 1173 	mov	a,#___str_22
       0023A5 C0 E0            [24] 1174 	push	acc
       0023A7 74 43            [12] 1175 	mov	a,#(___str_22 >> 8)
@@ -1180,14 +1180,14 @@
       0023B2 15 81            [12] 1180 	dec	sp
       0023B4 15 81            [12] 1181 	dec	sp
       0023B6 15 81            [12] 1182 	dec	sp
-                                   1183 ;	8051_i2c_eeprom.c:220: disable_interrupt0();
+                                   1183 ;	8051_i2c_eeprom.c:219: disable_interrupt0();
       0023B8 12 22 09         [24] 1184 	lcall	_disable_interrupt0
-                                   1185 ;	8051_i2c_eeprom.c:221: break;
+                                   1185 ;	8051_i2c_eeprom.c:220: break;
       0023BB 02 22 1F         [24] 1186 	ljmp	00117$
-                                   1187 ;	8051_i2c_eeprom.c:224: default:
+                                   1187 ;	8051_i2c_eeprom.c:223: default:
       0023BE                       1188 00114$:
-                                   1189 ;	8051_i2c_eeprom.c:225: printf("INVALID INPUT\n\r");
-      0023BE 74 EC            [12] 1190 	mov	a,#___str_23
+                                   1189 ;	8051_i2c_eeprom.c:224: printf("INVALID INPUT\n\r");
+      0023BE 74 EE            [12] 1190 	mov	a,#___str_23
       0023C0 C0 E0            [24] 1191 	push	acc
       0023C2 74 43            [12] 1192 	mov	a,#(___str_23 >> 8)
       0023C4 C0 E0            [24] 1193 	push	acc
@@ -1197,54 +1197,54 @@
       0023CD 15 81            [12] 1197 	dec	sp
       0023CF 15 81            [12] 1198 	dec	sp
       0023D1 15 81            [12] 1199 	dec	sp
-                                   1200 ;	8051_i2c_eeprom.c:227: }
-                                   1201 ;	8051_i2c_eeprom.c:230: }
+                                   1200 ;	8051_i2c_eeprom.c:226: }
+                                   1201 ;	8051_i2c_eeprom.c:229: }
       0023D3 02 22 1F         [24] 1202 	ljmp	00117$
                                    1203 ;------------------------------------------------------------
                                    1204 ;Allocation info for local variables in function 'pcf8574_init'
                                    1205 ;------------------------------------------------------------
-                                   1206 ;	8051_i2c_eeprom.c:232: void pcf8574_init()
+                                   1206 ;	8051_i2c_eeprom.c:231: void pcf8574_init()
                                    1207 ;	-----------------------------------------
                                    1208 ;	 function pcf8574_init
                                    1209 ;	-----------------------------------------
       0023D6                       1210 _pcf8574_init:
-                                   1211 ;	8051_i2c_eeprom.c:234: i2c_start();
+                                   1211 ;	8051_i2c_eeprom.c:233: i2c_start();
       0023D6 12 2B 90         [24] 1212 	lcall	_i2c_start
-                                   1213 ;	8051_i2c_eeprom.c:235: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
+                                   1213 ;	8051_i2c_eeprom.c:234: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
       0023D9 75 82 70         [24] 1214 	mov	dpl,#0x70
       0023DC 12 2A A3         [24] 1215 	lcall	_i2c_write
-                                   1216 ;	8051_i2c_eeprom.c:236: i2c_write(0xFF);
+                                   1216 ;	8051_i2c_eeprom.c:235: i2c_write(0xFF);
       0023DF 75 82 FF         [24] 1217 	mov	dpl,#0xff
       0023E2 12 2A A3         [24] 1218 	lcall	_i2c_write
-                                   1219 ;	8051_i2c_eeprom.c:237: i2c_stop();
-                                   1220 ;	8051_i2c_eeprom.c:238: }
+                                   1219 ;	8051_i2c_eeprom.c:236: i2c_stop();
+                                   1220 ;	8051_i2c_eeprom.c:237: }
       0023E5 02 2F 73         [24] 1221 	ljmp	_i2c_stop
                                    1222 ;------------------------------------------------------------
                                    1223 ;Allocation info for local variables in function 'pcf8574_read_port'
                                    1224 ;------------------------------------------------------------
                                    1225 ;data                      Allocated with name '_pcf8574_read_port_data_65536_78'
                                    1226 ;------------------------------------------------------------
-                                   1227 ;	8051_i2c_eeprom.c:239: uint8_t pcf8574_read_port(void) {
+                                   1227 ;	8051_i2c_eeprom.c:238: uint8_t pcf8574_read_port(void) {
                                    1228 ;	-----------------------------------------
                                    1229 ;	 function pcf8574_read_port
                                    1230 ;	-----------------------------------------
       0023E8                       1231 _pcf8574_read_port:
-                                   1232 ;	8051_i2c_eeprom.c:241: i2c_start();
+                                   1232 ;	8051_i2c_eeprom.c:240: i2c_start();
       0023E8 12 2B 90         [24] 1233 	lcall	_i2c_start
-                                   1234 ;	8051_i2c_eeprom.c:242: i2c_write(PCF8574_I2C_READ_ADDRESS);
+                                   1234 ;	8051_i2c_eeprom.c:241: i2c_write(PCF8574_I2C_READ_ADDRESS);
       0023EB 75 82 71         [24] 1235 	mov	dpl,#0x71
       0023EE 12 2A A3         [24] 1236 	lcall	_i2c_write
-                                   1237 ;	8051_i2c_eeprom.c:243: data = i2c_read(0);
+                                   1237 ;	8051_i2c_eeprom.c:242: data = i2c_read(0);
       0023F1 90 00 00         [24] 1238 	mov	dptr,#0x0000
       0023F4 12 2B 0B         [24] 1239 	lcall	_i2c_read
       0023F7 AE 82            [24] 1240 	mov	r6,dpl
-                                   1241 ;	8051_i2c_eeprom.c:244: i2c_stop();
+                                   1241 ;	8051_i2c_eeprom.c:243: i2c_stop();
       0023F9 C0 06            [24] 1242 	push	ar6
       0023FB 12 2F 73         [24] 1243 	lcall	_i2c_stop
       0023FE D0 06            [24] 1244 	pop	ar6
-                                   1245 ;	8051_i2c_eeprom.c:245: return data;
+                                   1245 ;	8051_i2c_eeprom.c:244: return data;
       002400 8E 82            [24] 1246 	mov	dpl,r6
-                                   1247 ;	8051_i2c_eeprom.c:246: }
+                                   1247 ;	8051_i2c_eeprom.c:245: }
       002402 22               [24] 1248 	ret
                                    1249 ;------------------------------------------------------------
                                    1250 ;Allocation info for local variables in function 'pcf8574_read_pin'
@@ -1252,7 +1252,7 @@
                                    1252 ;pin                       Allocated with name '_pcf8574_read_pin_pin_65536_79'
                                    1253 ;port_state                Allocated with name '_pcf8574_read_pin_port_state_65536_80'
                                    1254 ;------------------------------------------------------------
-                                   1255 ;	8051_i2c_eeprom.c:248: uint8_t pcf8574_read_pin(uint8_t pin) {
+                                   1255 ;	8051_i2c_eeprom.c:247: uint8_t pcf8574_read_pin(uint8_t pin) {
                                    1256 ;	-----------------------------------------
                                    1257 ;	 function pcf8574_read_pin
                                    1258 ;	-----------------------------------------
@@ -1260,10 +1260,10 @@
       002403 E5 82            [12] 1260 	mov	a,dpl
       002405 90 04 04         [24] 1261 	mov	dptr,#_pcf8574_read_pin_pin_65536_79
       002408 F0               [24] 1262 	movx	@dptr,a
-                                   1263 ;	8051_i2c_eeprom.c:249: uint8_t port_state = pcf8574_read_port();
+                                   1263 ;	8051_i2c_eeprom.c:248: uint8_t port_state = pcf8574_read_port();
       002409 12 23 E8         [24] 1264 	lcall	_pcf8574_read_port
       00240C AF 82            [24] 1265 	mov	r7,dpl
-                                   1266 ;	8051_i2c_eeprom.c:250: return (port_state >> pin) & 0x01;
+                                   1266 ;	8051_i2c_eeprom.c:249: return (port_state >> pin) & 0x01;
       00240E 90 04 04         [24] 1267 	mov	dptr,#_pcf8574_read_pin_pin_65536_79
       002411 E0               [24] 1268 	movx	a,@dptr
       002412 FE               [12] 1269 	mov	r6,a
@@ -1277,7 +1277,7 @@
       00241C                       1277 00104$:
       00241C D5 F0 FB         [24] 1278 	djnz	b,00103$
       00241F 54 01            [12] 1279 	anl	a,#0x01
-                                   1280 ;	8051_i2c_eeprom.c:251: }
+                                   1280 ;	8051_i2c_eeprom.c:250: }
       002421 F5 82            [12] 1281 	mov	dpl,a
       002423 22               [24] 1282 	ret
                                    1283 ;------------------------------------------------------------
@@ -1285,7 +1285,7 @@
                                    1285 ;------------------------------------------------------------
                                    1286 ;value                     Allocated with name '_pcf8574_write_port_value_65536_81'
                                    1287 ;------------------------------------------------------------
-                                   1288 ;	8051_i2c_eeprom.c:253: void pcf8574_write_port(uint8_t value)
+                                   1288 ;	8051_i2c_eeprom.c:252: void pcf8574_write_port(uint8_t value)
                                    1289 ;	-----------------------------------------
                                    1290 ;	 function pcf8574_write_port
                                    1291 ;	-----------------------------------------
@@ -1293,18 +1293,18 @@
       002424 E5 82            [12] 1293 	mov	a,dpl
       002426 90 04 05         [24] 1294 	mov	dptr,#_pcf8574_write_port_value_65536_81
       002429 F0               [24] 1295 	movx	@dptr,a
-                                   1296 ;	8051_i2c_eeprom.c:255: i2c_start();
+                                   1296 ;	8051_i2c_eeprom.c:254: i2c_start();
       00242A 12 2B 90         [24] 1297 	lcall	_i2c_start
-                                   1298 ;	8051_i2c_eeprom.c:256: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
+                                   1298 ;	8051_i2c_eeprom.c:255: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
       00242D 75 82 70         [24] 1299 	mov	dpl,#0x70
       002430 12 2A A3         [24] 1300 	lcall	_i2c_write
-                                   1301 ;	8051_i2c_eeprom.c:257: i2c_write(value);
+                                   1301 ;	8051_i2c_eeprom.c:256: i2c_write(value);
       002433 90 04 05         [24] 1302 	mov	dptr,#_pcf8574_write_port_value_65536_81
       002436 E0               [24] 1303 	movx	a,@dptr
       002437 F5 82            [12] 1304 	mov	dpl,a
       002439 12 2A A3         [24] 1305 	lcall	_i2c_write
-                                   1306 ;	8051_i2c_eeprom.c:258: i2c_stop();
-                                   1307 ;	8051_i2c_eeprom.c:259: }
+                                   1306 ;	8051_i2c_eeprom.c:257: i2c_stop();
+                                   1307 ;	8051_i2c_eeprom.c:258: }
       00243C 02 2F 73         [24] 1308 	ljmp	_i2c_stop
                                    1309 ;------------------------------------------------------------
                                    1310 ;Allocation info for local variables in function 'pcf8574_set_pin'
@@ -1313,7 +1313,7 @@
                                    1313 ;pin                       Allocated with name '_pcf8574_set_pin_pin_65536_83'
                                    1314 ;port_state                Allocated with name '_pcf8574_set_pin_port_state_65536_84'
                                    1315 ;------------------------------------------------------------
-                                   1316 ;	8051_i2c_eeprom.c:261: void pcf8574_set_pin(uint8_t pin, uint8_t value) {
+                                   1316 ;	8051_i2c_eeprom.c:260: void pcf8574_set_pin(uint8_t pin, uint8_t value) {
                                    1317 ;	-----------------------------------------
                                    1318 ;	 function pcf8574_set_pin
                                    1319 ;	-----------------------------------------
@@ -1321,14 +1321,14 @@
       00243F E5 82            [12] 1321 	mov	a,dpl
       002441 90 04 07         [24] 1322 	mov	dptr,#_pcf8574_set_pin_pin_65536_83
       002444 F0               [24] 1323 	movx	@dptr,a
-                                   1324 ;	8051_i2c_eeprom.c:262: uint8_t port_state = pcf8574_read_port();
+                                   1324 ;	8051_i2c_eeprom.c:261: uint8_t port_state = pcf8574_read_port();
       002445 12 23 E8         [24] 1325 	lcall	_pcf8574_read_port
       002448 AF 82            [24] 1326 	mov	r7,dpl
-                                   1327 ;	8051_i2c_eeprom.c:263: if (value) {
+                                   1327 ;	8051_i2c_eeprom.c:262: if (value) {
       00244A 90 04 06         [24] 1328 	mov	dptr,#_pcf8574_set_pin_PARM_2
       00244D E0               [24] 1329 	movx	a,@dptr
       00244E 60 1D            [24] 1330 	jz	00102$
-                                   1331 ;	8051_i2c_eeprom.c:264: port_state |= (1 << pin);  // Set pin high
+                                   1331 ;	8051_i2c_eeprom.c:263: port_state |= (1 << pin);  // Set pin high
       002450 90 04 07         [24] 1332 	mov	dptr,#_pcf8574_set_pin_pin_65536_83
       002453 E0               [24] 1333 	movx	a,@dptr
       002454 FE               [12] 1334 	mov	r6,a
@@ -1348,7 +1348,7 @@
       00246A F0               [24] 1348 	movx	@dptr,a
       00246B 80 19            [24] 1349 	sjmp	00103$
       00246D                       1350 00102$:
-                                   1351 ;	8051_i2c_eeprom.c:266: port_state &= ~(1 << pin); // Set pin low
+                                   1351 ;	8051_i2c_eeprom.c:265: port_state &= ~(1 << pin); // Set pin low
       00246D 90 04 07         [24] 1352 	mov	dptr,#_pcf8574_set_pin_pin_65536_83
       002470 E0               [24] 1353 	movx	a,@dptr
       002471 FE               [12] 1354 	mov	r6,a
@@ -1366,30 +1366,30 @@
       002484 5F               [12] 1366 	anl	a,r7
       002485 F0               [24] 1367 	movx	@dptr,a
       002486                       1368 00103$:
-                                   1369 ;	8051_i2c_eeprom.c:268: pcf8574_write_port(port_state);
+                                   1369 ;	8051_i2c_eeprom.c:267: pcf8574_write_port(port_state);
       002486 90 04 08         [24] 1370 	mov	dptr,#_pcf8574_set_pin_port_state_65536_84
       002489 E0               [24] 1371 	movx	a,@dptr
       00248A F5 82            [12] 1372 	mov	dpl,a
-                                   1373 ;	8051_i2c_eeprom.c:269: }
+                                   1373 ;	8051_i2c_eeprom.c:268: }
       00248C 02 24 24         [24] 1374 	ljmp	_pcf8574_write_port
                                    1375 ;------------------------------------------------------------
                                    1376 ;Allocation info for local variables in function 'enable_interrupt0'
                                    1377 ;------------------------------------------------------------
-                                   1378 ;	8051_i2c_eeprom.c:271: void enable_interrupt0(void)
+                                   1378 ;	8051_i2c_eeprom.c:270: void enable_interrupt0(void)
                                    1379 ;	-----------------------------------------
                                    1380 ;	 function enable_interrupt0
                                    1381 ;	-----------------------------------------
       00248F                       1382 _enable_interrupt0:
-                                   1383 ;	8051_i2c_eeprom.c:274: IT0 = 1;           // Set INT0 to be edge-triggered
+                                   1383 ;	8051_i2c_eeprom.c:273: IT0 = 1;           // Set INT0 to be edge-triggered
                                    1384 ;	assignBit
       00248F D2 88            [12] 1385 	setb	_IT0
-                                   1386 ;	8051_i2c_eeprom.c:275: EX0 = 1;          // Enable INT0 interrupt
+                                   1386 ;	8051_i2c_eeprom.c:274: EX0 = 1;          // Enable INT0 interrupt
                                    1387 ;	assignBit
       002491 D2 A8            [12] 1388 	setb	_EX0
-                                   1389 ;	8051_i2c_eeprom.c:276: EA = 1;           // Enable global interrupts
+                                   1389 ;	8051_i2c_eeprom.c:275: EA = 1;           // Enable global interrupts
                                    1390 ;	assignBit
       002493 D2 AF            [12] 1391 	setb	_EA
-                                   1392 ;	8051_i2c_eeprom.c:277: }
+                                   1392 ;	8051_i2c_eeprom.c:276: }
       002495 22               [24] 1393 	ret
                                    1394 ;------------------------------------------------------------
                                    1395 ;Allocation info for local variables in function 'take_address'
@@ -1400,13 +1400,13 @@
                                    1400 ;address                   Allocated with name '_take_address_address_65538_94'
                                    1401 ;block                     Allocated with name '_take_address_block_65539_98'
                                    1402 ;------------------------------------------------------------
-                                   1403 ;	8051_i2c_eeprom.c:285: unsigned int take_address() 
+                                   1403 ;	8051_i2c_eeprom.c:284: unsigned int take_address() 
                                    1404 ;	-----------------------------------------
                                    1405 ;	 function take_address
                                    1406 ;	-----------------------------------------
       002496                       1407 _take_address:
-                                   1408 ;	8051_i2c_eeprom.c:287: printf("│ Enter address (hex, up to 3 characters): \n\r|");
-      002496 74 FC            [12] 1409 	mov	a,#___str_24
+                                   1408 ;	8051_i2c_eeprom.c:286: printf("│ Enter address (hex, up to 3 characters): \n\r|");
+      002496 74 FE            [12] 1409 	mov	a,#___str_24
       002498 C0 E0            [24] 1410 	push	acc
       00249A 74 43            [12] 1411 	mov	a,#(___str_24 >> 8)
       00249C C0 E0            [24] 1412 	push	acc
@@ -1416,7 +1416,7 @@
       0024A5 15 81            [12] 1416 	dec	sp
       0024A7 15 81            [12] 1417 	dec	sp
       0024A9 15 81            [12] 1418 	dec	sp
-                                   1419 ;	8051_i2c_eeprom.c:288: char input[4] = {0};  // Array for 3 hex chars + null terminator
+                                   1419 ;	8051_i2c_eeprom.c:287: char input[4] = {0};  // Array for 3 hex chars + null terminator
       0024AB 90 04 09         [24] 1420 	mov	dptr,#_take_address_input_65537_90
       0024AE E4               [12] 1421 	clr	a
       0024AF F0               [24] 1422 	movx	@dptr,a
@@ -1426,8 +1426,8 @@
       0024B7 F0               [24] 1426 	movx	@dptr,a
       0024B8 90 04 0C         [24] 1427 	mov	dptr,#(_take_address_input_65537_90 + 0x0003)
       0024BB F0               [24] 1428 	movx	@dptr,a
-                                   1429 ;	8051_i2c_eeprom.c:292: printf("| $ ");
-      0024BC 74 2D            [12] 1430 	mov	a,#___str_25
+                                   1429 ;	8051_i2c_eeprom.c:291: printf("| $ ");
+      0024BC 74 2F            [12] 1430 	mov	a,#___str_25
       0024BE C0 E0            [24] 1431 	push	acc
       0024C0 74 44            [12] 1432 	mov	a,#(___str_25 >> 8)
       0024C2 C0 E0            [24] 1433 	push	acc
@@ -1437,7 +1437,7 @@
       0024CB 15 81            [12] 1437 	dec	sp
       0024CD 15 81            [12] 1438 	dec	sp
       0024CF 15 81            [12] 1439 	dec	sp
-                                   1440 ;	8051_i2c_eeprom.c:294: while (i < 3) {
+                                   1440 ;	8051_i2c_eeprom.c:293: while (i < 3) {
       0024D1 7E 00            [12] 1441 	mov	r6,#0x00
       0024D3 7F 00            [12] 1442 	mov	r7,#0x00
       0024D5                       1443 00111$:
@@ -1448,7 +1448,7 @@
       0024DA 64 80            [12] 1448 	xrl	a,#0x80
       0024DC 94 80            [12] 1449 	subb	a,#0x80
       0024DE 50 5B            [24] 1450 	jnc	00113$
-                                   1451 ;	8051_i2c_eeprom.c:296: c = getchar();
+                                   1451 ;	8051_i2c_eeprom.c:295: c = getchar();
       0024E0 C0 07            [24] 1452 	push	ar7
       0024E2 C0 06            [24] 1453 	push	ar6
       0024E4 12 20 84         [24] 1454 	lcall	_getchar
@@ -1456,14 +1456,14 @@
       0024E9 AD 83            [24] 1456 	mov	r5,dph
       0024EB D0 06            [24] 1457 	pop	ar6
       0024ED D0 07            [24] 1458 	pop	ar7
-                                   1459 ;	8051_i2c_eeprom.c:299: if (c == '\r' || c == '\n') {
+                                   1459 ;	8051_i2c_eeprom.c:298: if (c == '\r' || c == '\n') {
       0024EF BC 0D 02         [24] 1460 	cjne	r4,#0x0d,00200$
       0024F2 80 47            [24] 1461 	sjmp	00113$
       0024F4                       1462 00200$:
       0024F4 BC 0A 02         [24] 1463 	cjne	r4,#0x0a,00201$
       0024F7 80 42            [24] 1464 	sjmp	00113$
       0024F9                       1465 00201$:
-                                   1466 ;	8051_i2c_eeprom.c:304: if ((c >= '0' && c <= '9') || 
+                                   1466 ;	8051_i2c_eeprom.c:303: if ((c >= '0' && c <= '9') || 
       0024F9 BC 30 00         [24] 1467 	cjne	r4,#0x30,00202$
       0024FC                       1468 00202$:
       0024FC 40 05            [24] 1469 	jc	00108$
@@ -1471,7 +1471,7 @@
       0024FF 24 C6            [12] 1471 	add	a,#0xff - 0x39
       002501 50 14            [24] 1472 	jnc	00104$
       002503                       1473 00108$:
-                                   1474 ;	8051_i2c_eeprom.c:305: (c >= 'a' && c <= 'f') || 
+                                   1474 ;	8051_i2c_eeprom.c:304: (c >= 'a' && c <= 'f') || 
       002503 BC 61 00         [24] 1475 	cjne	r4,#0x61,00205$
       002506                       1476 00205$:
       002506 40 05            [24] 1477 	jc	00110$
@@ -1479,7 +1479,7 @@
       002509 24 99            [12] 1479 	add	a,#0xff - 0x66
       00250B 50 0A            [24] 1480 	jnc	00104$
       00250D                       1481 00110$:
-                                   1482 ;	8051_i2c_eeprom.c:306: (c >= 'A' && c <= 'F')) {
+                                   1482 ;	8051_i2c_eeprom.c:305: (c >= 'A' && c <= 'F')) {
       00250D BC 41 00         [24] 1483 	cjne	r4,#0x41,00208$
       002510                       1484 00208$:
       002510 40 C3            [24] 1485 	jc	00111$
@@ -1487,7 +1487,7 @@
       002513 24 B9            [12] 1487 	add	a,#0xff - 0x46
       002515 40 BE            [24] 1488 	jc	00111$
       002517                       1489 00104$:
-                                   1490 ;	8051_i2c_eeprom.c:308: input[i] = c;
+                                   1490 ;	8051_i2c_eeprom.c:307: input[i] = c;
       002517 EE               [12] 1491 	mov	a,r6
       002518 24 09            [12] 1492 	add	a,#_take_address_input_65537_90
       00251A F5 82            [12] 1493 	mov	dpl,a
@@ -1496,7 +1496,7 @@
       00251F F5 83            [12] 1496 	mov	dph,a
       002521 EC               [12] 1497 	mov	a,r4
       002522 F0               [24] 1498 	movx	@dptr,a
-                                   1499 ;	8051_i2c_eeprom.c:309: putchar(c);  // Echo character back
+                                   1499 ;	8051_i2c_eeprom.c:308: putchar(c);  // Echo character back
       002523 7D 00            [12] 1500 	mov	r5,#0x00
       002525 8C 82            [24] 1501 	mov	dpl,r4
       002527 8D 83            [24] 1502 	mov	dph,r5
@@ -1505,13 +1505,13 @@
       00252D 12 20 65         [24] 1505 	lcall	_putchar
       002530 D0 06            [24] 1506 	pop	ar6
       002532 D0 07            [24] 1507 	pop	ar7
-                                   1508 ;	8051_i2c_eeprom.c:310: i++;
+                                   1508 ;	8051_i2c_eeprom.c:309: i++;
       002534 0E               [12] 1509 	inc	r6
       002535 BE 00 9D         [24] 1510 	cjne	r6,#0x00,00111$
       002538 0F               [12] 1511 	inc	r7
       002539 80 9A            [24] 1512 	sjmp	00111$
       00253B                       1513 00113$:
-                                   1514 ;	8051_i2c_eeprom.c:314: input[i] = '\0';  // Null-terminate the string
+                                   1514 ;	8051_i2c_eeprom.c:313: input[i] = '\0';  // Null-terminate the string
       00253B EE               [12] 1515 	mov	a,r6
       00253C 24 09            [12] 1516 	add	a,#_take_address_input_65537_90
       00253E F5 82            [12] 1517 	mov	dpl,a
@@ -1520,12 +1520,12 @@
       002543 F5 83            [12] 1520 	mov	dph,a
       002545 E4               [12] 1521 	clr	a
       002546 F0               [24] 1522 	movx	@dptr,a
-                                   1523 ;	8051_i2c_eeprom.c:317: unsigned int address = 0;
+                                   1523 ;	8051_i2c_eeprom.c:316: unsigned int address = 0;
       002547 90 04 0D         [24] 1524 	mov	dptr,#_take_address_address_65538_94
       00254A F0               [24] 1525 	movx	@dptr,a
       00254B A3               [24] 1526 	inc	dptr
       00254C F0               [24] 1527 	movx	@dptr,a
-                                   1528 ;	8051_i2c_eeprom.c:318: for(i = 0; input[i] != '\0'; i++) {
+                                   1528 ;	8051_i2c_eeprom.c:317: for(i = 0; input[i] != '\0'; i++) {
       00254D 7E 00            [12] 1529 	mov	r6,#0x00
       00254F 7F 00            [12] 1530 	mov	r7,#0x00
       002551                       1531 00129$:
@@ -1540,7 +1540,7 @@
       00255D 70 03            [24] 1540 	jnz	00212$
       00255F 02 26 0A         [24] 1541 	ljmp	00125$
       002562                       1542 00212$:
-                                   1543 ;	8051_i2c_eeprom.c:319: address = address * 16;
+                                   1543 ;	8051_i2c_eeprom.c:318: address = address * 16;
       002562 90 04 0D         [24] 1544 	mov	dptr,#_take_address_address_65538_94
       002565 E0               [24] 1545 	movx	a,@dptr
       002566 FB               [12] 1546 	mov	r3,a
@@ -1563,14 +1563,14 @@
       00257B EC               [12] 1563 	mov	a,r4
       00257C A3               [24] 1564 	inc	dptr
       00257D F0               [24] 1565 	movx	@dptr,a
-                                   1566 ;	8051_i2c_eeprom.c:320: if(input[i] >= '0' && input[i] <= '9')
+                                   1566 ;	8051_i2c_eeprom.c:319: if(input[i] >= '0' && input[i] <= '9')
       00257E BD 30 00         [24] 1567 	cjne	r5,#0x30,00213$
       002581                       1568 00213$:
       002581 40 23            [24] 1569 	jc	00122$
       002583 ED               [12] 1570 	mov	a,r5
       002584 24 C6            [12] 1571 	add	a,#0xff - 0x39
       002586 40 1E            [24] 1572 	jc	00122$
-                                   1573 ;	8051_i2c_eeprom.c:321: address += input[i] - '0';
+                                   1573 ;	8051_i2c_eeprom.c:320: address += input[i] - '0';
       002588 7C 00            [12] 1574 	mov	r4,#0x00
       00258A ED               [12] 1575 	mov	a,r5
       00258B 24 D0            [12] 1576 	add	a,#0xd0
@@ -1594,7 +1594,7 @@
       0025A3 F0               [24] 1594 	movx	@dptr,a
       0025A4 80 5C            [24] 1595 	sjmp	00130$
       0025A6                       1596 00122$:
-                                   1597 ;	8051_i2c_eeprom.c:322: else if(input[i] >= 'A' && input[i] <= 'F')
+                                   1597 ;	8051_i2c_eeprom.c:321: else if(input[i] >= 'A' && input[i] <= 'F')
       0025A6 EE               [12] 1598 	mov	a,r6
       0025A7 24 09            [12] 1599 	add	a,#_take_address_input_65537_90
       0025A9 F5 82            [12] 1600 	mov	dpl,a
@@ -1609,7 +1609,7 @@
       0025B7 ED               [12] 1609 	mov	a,r5
       0025B8 24 B9            [12] 1610 	add	a,#0xff - 0x46
       0025BA 40 20            [24] 1611 	jc	00118$
-                                   1612 ;	8051_i2c_eeprom.c:323: address += input[i] - 'A' + 10;
+                                   1612 ;	8051_i2c_eeprom.c:322: address += input[i] - 'A' + 10;
       0025BC 8D 03            [24] 1613 	mov	ar3,r5
       0025BE 7C 00            [12] 1614 	mov	r4,#0x00
       0025C0 74 C9            [12] 1615 	mov	a,#0xc9
@@ -1634,14 +1634,14 @@
       0025D9 F0               [24] 1634 	movx	@dptr,a
       0025DA 80 26            [24] 1635 	sjmp	00130$
       0025DC                       1636 00118$:
-                                   1637 ;	8051_i2c_eeprom.c:324: else if(input[i] >= 'a' && input[i] <= 'f')
+                                   1637 ;	8051_i2c_eeprom.c:323: else if(input[i] >= 'a' && input[i] <= 'f')
       0025DC BD 61 00         [24] 1638 	cjne	r5,#0x61,00219$
       0025DF                       1639 00219$:
       0025DF 40 21            [24] 1640 	jc	00130$
       0025E1 ED               [12] 1641 	mov	a,r5
       0025E2 24 99            [12] 1642 	add	a,#0xff - 0x66
       0025E4 40 1C            [24] 1643 	jc	00130$
-                                   1644 ;	8051_i2c_eeprom.c:325: address += input[i] - 'a' + 10;
+                                   1644 ;	8051_i2c_eeprom.c:324: address += input[i] - 'a' + 10;
       0025E6 7C 00            [12] 1645 	mov	r4,#0x00
       0025E8 74 A9            [12] 1646 	mov	a,#0xa9
       0025EA 2D               [12] 1647 	add	a,r5
@@ -1664,14 +1664,14 @@
       002600 A3               [24] 1664 	inc	dptr
       002601 F0               [24] 1665 	movx	@dptr,a
       002602                       1666 00130$:
-                                   1667 ;	8051_i2c_eeprom.c:318: for(i = 0; input[i] != '\0'; i++) {
+                                   1667 ;	8051_i2c_eeprom.c:317: for(i = 0; input[i] != '\0'; i++) {
       002602 0E               [12] 1668 	inc	r6
       002603 BE 00 01         [24] 1669 	cjne	r6,#0x00,00222$
       002606 0F               [12] 1670 	inc	r7
       002607                       1671 00222$:
       002607 02 25 51         [24] 1672 	ljmp	00129$
       00260A                       1673 00125$:
-                                   1674 ;	8051_i2c_eeprom.c:328: printf("\n\r│ Entered address: 0x%03X\n\r", address);
+                                   1674 ;	8051_i2c_eeprom.c:327: printf("\n\r│ Entered address: 0x%03X\n\r", address);
       00260A 90 04 0D         [24] 1675 	mov	dptr,#_take_address_address_65538_94
       00260D E0               [24] 1676 	movx	a,@dptr
       00260E FE               [12] 1677 	mov	r6,a
@@ -1682,7 +1682,7 @@
       002614 C0 06            [24] 1682 	push	ar6
       002616 C0 06            [24] 1683 	push	ar6
       002618 C0 07            [24] 1684 	push	ar7
-      00261A 74 32            [12] 1685 	mov	a,#___str_26
+      00261A 74 34            [12] 1685 	mov	a,#___str_26
       00261C C0 E0            [24] 1686 	push	acc
       00261E 74 44            [12] 1687 	mov	a,#(___str_26 >> 8)
       002620 C0 E0            [24] 1688 	push	acc
@@ -1694,15 +1694,15 @@
       00262D F5 81            [12] 1694 	mov	sp,a
       00262F D0 06            [24] 1695 	pop	ar6
       002631 D0 07            [24] 1696 	pop	ar7
-                                   1697 ;	8051_i2c_eeprom.c:329: if(address > 0x7ff) 
+                                   1697 ;	8051_i2c_eeprom.c:328: if(address > 0x7ff) 
       002633 C3               [12] 1698 	clr	c
       002634 74 FF            [12] 1699 	mov	a,#0xff
       002636 9E               [12] 1700 	subb	a,r6
       002637 74 07            [12] 1701 	mov	a,#0x07
       002639 9F               [12] 1702 	subb	a,r7
       00263A 50 5F            [24] 1703 	jnc	00127$
-                                   1704 ;	8051_i2c_eeprom.c:331: printf("╔══════════════════════════════════════════╗\n\r");
-      00263C 74 52            [12] 1705 	mov	a,#___str_27
+                                   1704 ;	8051_i2c_eeprom.c:330: printf("╔══════════════════════════════════════════╗\n\r");
+      00263C 74 54            [12] 1705 	mov	a,#___str_27
       00263E C0 E0            [24] 1706 	push	acc
       002640 74 44            [12] 1707 	mov	a,#(___str_27 >> 8)
       002642 C0 E0            [24] 1708 	push	acc
@@ -1712,8 +1712,8 @@
       00264B 15 81            [12] 1712 	dec	sp
       00264D 15 81            [12] 1713 	dec	sp
       00264F 15 81            [12] 1714 	dec	sp
-                                   1715 ;	8051_i2c_eeprom.c:332: printf("║       ! ADDRESS OUT OF RANGE !         ║\n\r");
-      002651 74 D9            [12] 1716 	mov	a,#___str_28
+                                   1715 ;	8051_i2c_eeprom.c:331: printf("║       ! ADDRESS OUT OF RANGE !         ║\n\r");
+      002651 74 DB            [12] 1716 	mov	a,#___str_28
       002653 C0 E0            [24] 1717 	push	acc
       002655 74 44            [12] 1718 	mov	a,#(___str_28 >> 8)
       002657 C0 E0            [24] 1719 	push	acc
@@ -1723,8 +1723,8 @@
       002660 15 81            [12] 1723 	dec	sp
       002662 15 81            [12] 1724 	dec	sp
       002664 15 81            [12] 1725 	dec	sp
-                                   1726 ;	8051_i2c_eeprom.c:333: printf("║     Please Enter Valid Address         ║\n\r");
-      002666 74 0A            [12] 1727 	mov	a,#___str_29
+                                   1726 ;	8051_i2c_eeprom.c:332: printf("║     Please Enter Valid Address         ║\n\r");
+      002666 74 0C            [12] 1727 	mov	a,#___str_29
       002668 C0 E0            [24] 1728 	push	acc
       00266A 74 45            [12] 1729 	mov	a,#(___str_29 >> 8)
       00266C C0 E0            [24] 1730 	push	acc
@@ -1734,8 +1734,8 @@
       002675 15 81            [12] 1734 	dec	sp
       002677 15 81            [12] 1735 	dec	sp
       002679 15 81            [12] 1736 	dec	sp
-                                   1737 ;	8051_i2c_eeprom.c:334: printf("╚══════════════════════════════════════════╝\n\r");
-      00267B 74 3B            [12] 1738 	mov	a,#___str_30
+                                   1737 ;	8051_i2c_eeprom.c:333: printf("╚══════════════════════════════════════════╝\n\r");
+      00267B 74 3D            [12] 1738 	mov	a,#___str_30
       00267D C0 E0            [24] 1739 	push	acc
       00267F 74 45            [12] 1740 	mov	a,#(___str_30 >> 8)
       002681 C0 E0            [24] 1741 	push	acc
@@ -1745,25 +1745,25 @@
       00268A 15 81            [12] 1745 	dec	sp
       00268C 15 81            [12] 1746 	dec	sp
       00268E 15 81            [12] 1747 	dec	sp
-                                   1748 ;	8051_i2c_eeprom.c:335: address_range_flag = 0;
+                                   1748 ;	8051_i2c_eeprom.c:334: address_range_flag = 0;
       002690 90 04 5C         [24] 1749 	mov	dptr,#_address_range_flag
       002693 E4               [12] 1750 	clr	a
       002694 F0               [24] 1751 	movx	@dptr,a
       002695 A3               [24] 1752 	inc	dptr
       002696 F0               [24] 1753 	movx	@dptr,a
-                                   1754 ;	8051_i2c_eeprom.c:336: return 0;
+                                   1754 ;	8051_i2c_eeprom.c:335: return 0;
       002697 90 00 00         [24] 1755 	mov	dptr,#0x0000
       00269A 22               [24] 1756 	ret
       00269B                       1757 00127$:
-                                   1758 ;	8051_i2c_eeprom.c:338: unsigned int block = address/256;       //block address
+                                   1758 ;	8051_i2c_eeprom.c:337: unsigned int block = address/256;       //block address
       00269B 8F 04            [24] 1759 	mov	ar4,r7
       00269D 7D 00            [12] 1760 	mov	r5,#0x00
-                                   1761 ;	8051_i2c_eeprom.c:339: printf("| Block number %d                            \n\r", block);
+                                   1761 ;	8051_i2c_eeprom.c:338: printf("| Block number %d                            \n\r", block);
       00269F C0 07            [24] 1762 	push	ar7
       0026A1 C0 06            [24] 1763 	push	ar6
       0026A3 C0 04            [24] 1764 	push	ar4
       0026A5 C0 05            [24] 1765 	push	ar5
-      0026A7 74 C2            [12] 1766 	mov	a,#___str_31
+      0026A7 74 C4            [12] 1766 	mov	a,#___str_31
       0026A9 C0 E0            [24] 1767 	push	acc
       0026AB 74 45            [12] 1768 	mov	a,#(___str_31 >> 8)
       0026AD C0 E0            [24] 1769 	push	acc
@@ -1775,20 +1775,20 @@
       0026BA F5 81            [12] 1775 	mov	sp,a
       0026BC D0 06            [24] 1776 	pop	ar6
       0026BE D0 07            [24] 1777 	pop	ar7
-                                   1778 ;	8051_i2c_eeprom.c:340: address = address%256;     //word address
+                                   1778 ;	8051_i2c_eeprom.c:339: address = address%256;     //word address
       0026C0 90 04 0D         [24] 1779 	mov	dptr,#_take_address_address_65538_94
       0026C3 EE               [12] 1780 	mov	a,r6
       0026C4 F0               [24] 1781 	movx	@dptr,a
       0026C5 E4               [12] 1782 	clr	a
       0026C6 A3               [24] 1783 	inc	dptr
       0026C7 F0               [24] 1784 	movx	@dptr,a
-                                   1785 ;	8051_i2c_eeprom.c:343: return address;
+                                   1785 ;	8051_i2c_eeprom.c:342: return address;
       0026C8 90 04 0D         [24] 1786 	mov	dptr,#_take_address_address_65538_94
       0026CB E0               [24] 1787 	movx	a,@dptr
       0026CC FE               [12] 1788 	mov	r6,a
       0026CD A3               [24] 1789 	inc	dptr
       0026CE E0               [24] 1790 	movx	a,@dptr
-                                   1791 ;	8051_i2c_eeprom.c:344: }
+                                   1791 ;	8051_i2c_eeprom.c:343: }
       0026CF 8E 82            [24] 1792 	mov	dpl,r6
       0026D1 F5 83            [12] 1793 	mov	dph,a
       0026D3 22               [24] 1794 	ret
@@ -1800,13 +1800,13 @@
                                    1800 ;c                         Allocated with name '_take_data_c_65537_100'
                                    1801 ;data                      Allocated with name '_take_data_data_65538_104'
                                    1802 ;------------------------------------------------------------
-                                   1803 ;	8051_i2c_eeprom.c:352: unsigned char take_data()
+                                   1803 ;	8051_i2c_eeprom.c:351: unsigned char take_data()
                                    1804 ;	-----------------------------------------
                                    1805 ;	 function take_data
                                    1806 ;	-----------------------------------------
       0026D4                       1807 _take_data:
-                                   1808 ;	8051_i2c_eeprom.c:354: printf("│ Enter data (hex, up to 2 characters): \n\r|");
-      0026D4 74 F2            [12] 1809 	mov	a,#___str_32
+                                   1808 ;	8051_i2c_eeprom.c:353: printf("│ Enter data (hex, up to 2 characters): \n\r|");
+      0026D4 74 F4            [12] 1809 	mov	a,#___str_32
       0026D6 C0 E0            [24] 1810 	push	acc
       0026D8 74 45            [12] 1811 	mov	a,#(___str_32 >> 8)
       0026DA C0 E0            [24] 1812 	push	acc
@@ -1816,7 +1816,7 @@
       0026E3 15 81            [12] 1816 	dec	sp
       0026E5 15 81            [12] 1817 	dec	sp
       0026E7 15 81            [12] 1818 	dec	sp
-                                   1819 ;	8051_i2c_eeprom.c:355: char input[4] = {0};  // Array for 3 hex chars + null terminator
+                                   1819 ;	8051_i2c_eeprom.c:354: char input[4] = {0};  // Array for 3 hex chars + null terminator
       0026E9 90 04 0F         [24] 1820 	mov	dptr,#_take_data_input_65537_100
       0026EC E4               [12] 1821 	clr	a
       0026ED F0               [24] 1822 	movx	@dptr,a
@@ -1826,8 +1826,8 @@
       0026F5 F0               [24] 1826 	movx	@dptr,a
       0026F6 90 04 12         [24] 1827 	mov	dptr,#(_take_data_input_65537_100 + 0x0003)
       0026F9 F0               [24] 1828 	movx	@dptr,a
-                                   1829 ;	8051_i2c_eeprom.c:359: printf("$ ");
-      0026FA 74 20            [12] 1830 	mov	a,#___str_33
+                                   1829 ;	8051_i2c_eeprom.c:358: printf("$ ");
+      0026FA 74 22            [12] 1830 	mov	a,#___str_33
       0026FC C0 E0            [24] 1831 	push	acc
       0026FE 74 46            [12] 1832 	mov	a,#(___str_33 >> 8)
       002700 C0 E0            [24] 1833 	push	acc
@@ -1837,7 +1837,7 @@
       002709 15 81            [12] 1837 	dec	sp
       00270B 15 81            [12] 1838 	dec	sp
       00270D 15 81            [12] 1839 	dec	sp
-                                   1840 ;	8051_i2c_eeprom.c:361: while (i < 3) {
+                                   1840 ;	8051_i2c_eeprom.c:360: while (i < 3) {
       00270F 7E 00            [12] 1841 	mov	r6,#0x00
       002711 7F 00            [12] 1842 	mov	r7,#0x00
       002713                       1843 00111$:
@@ -1848,7 +1848,7 @@
       002718 64 80            [12] 1848 	xrl	a,#0x80
       00271A 94 80            [12] 1849 	subb	a,#0x80
       00271C 50 5B            [24] 1850 	jnc	00113$
-                                   1851 ;	8051_i2c_eeprom.c:363: c = getchar();
+                                   1851 ;	8051_i2c_eeprom.c:362: c = getchar();
       00271E C0 07            [24] 1852 	push	ar7
       002720 C0 06            [24] 1853 	push	ar6
       002722 12 20 84         [24] 1854 	lcall	_getchar
@@ -1856,14 +1856,14 @@
       002727 AD 83            [24] 1856 	mov	r5,dph
       002729 D0 06            [24] 1857 	pop	ar6
       00272B D0 07            [24] 1858 	pop	ar7
-                                   1859 ;	8051_i2c_eeprom.c:366: if (c == '\r' || c == '\n') {
+                                   1859 ;	8051_i2c_eeprom.c:365: if (c == '\r' || c == '\n') {
       00272D BC 0D 02         [24] 1860 	cjne	r4,#0x0d,00200$
       002730 80 47            [24] 1861 	sjmp	00113$
       002732                       1862 00200$:
       002732 BC 0A 02         [24] 1863 	cjne	r4,#0x0a,00201$
       002735 80 42            [24] 1864 	sjmp	00113$
       002737                       1865 00201$:
-                                   1866 ;	8051_i2c_eeprom.c:371: if ((c >= '0' && c <= '9') ||
+                                   1866 ;	8051_i2c_eeprom.c:370: if ((c >= '0' && c <= '9') ||
       002737 BC 30 00         [24] 1867 	cjne	r4,#0x30,00202$
       00273A                       1868 00202$:
       00273A 40 05            [24] 1869 	jc	00108$
@@ -1871,7 +1871,7 @@
       00273D 24 C6            [12] 1871 	add	a,#0xff - 0x39
       00273F 50 14            [24] 1872 	jnc	00104$
       002741                       1873 00108$:
-                                   1874 ;	8051_i2c_eeprom.c:372: (c >= 'a' && c <= 'f') ||
+                                   1874 ;	8051_i2c_eeprom.c:371: (c >= 'a' && c <= 'f') ||
       002741 BC 61 00         [24] 1875 	cjne	r4,#0x61,00205$
       002744                       1876 00205$:
       002744 40 05            [24] 1877 	jc	00110$
@@ -1879,7 +1879,7 @@
       002747 24 99            [12] 1879 	add	a,#0xff - 0x66
       002749 50 0A            [24] 1880 	jnc	00104$
       00274B                       1881 00110$:
-                                   1882 ;	8051_i2c_eeprom.c:373: (c >= 'A' && c <= 'F')) {
+                                   1882 ;	8051_i2c_eeprom.c:372: (c >= 'A' && c <= 'F')) {
       00274B BC 41 00         [24] 1883 	cjne	r4,#0x41,00208$
       00274E                       1884 00208$:
       00274E 40 C3            [24] 1885 	jc	00111$
@@ -1887,7 +1887,7 @@
       002751 24 B9            [12] 1887 	add	a,#0xff - 0x46
       002753 40 BE            [24] 1888 	jc	00111$
       002755                       1889 00104$:
-                                   1890 ;	8051_i2c_eeprom.c:375: input[i] = c;
+                                   1890 ;	8051_i2c_eeprom.c:374: input[i] = c;
       002755 EE               [12] 1891 	mov	a,r6
       002756 24 0F            [12] 1892 	add	a,#_take_data_input_65537_100
       002758 F5 82            [12] 1893 	mov	dpl,a
@@ -1896,7 +1896,7 @@
       00275D F5 83            [12] 1896 	mov	dph,a
       00275F EC               [12] 1897 	mov	a,r4
       002760 F0               [24] 1898 	movx	@dptr,a
-                                   1899 ;	8051_i2c_eeprom.c:376: putchar(c);  // Echo character back
+                                   1899 ;	8051_i2c_eeprom.c:375: putchar(c);  // Echo character back
       002761 7D 00            [12] 1900 	mov	r5,#0x00
       002763 8C 82            [24] 1901 	mov	dpl,r4
       002765 8D 83            [24] 1902 	mov	dph,r5
@@ -1905,13 +1905,13 @@
       00276B 12 20 65         [24] 1905 	lcall	_putchar
       00276E D0 06            [24] 1906 	pop	ar6
       002770 D0 07            [24] 1907 	pop	ar7
-                                   1908 ;	8051_i2c_eeprom.c:377: i++;
+                                   1908 ;	8051_i2c_eeprom.c:376: i++;
       002772 0E               [12] 1909 	inc	r6
       002773 BE 00 9D         [24] 1910 	cjne	r6,#0x00,00111$
       002776 0F               [12] 1911 	inc	r7
       002777 80 9A            [24] 1912 	sjmp	00111$
       002779                       1913 00113$:
-                                   1914 ;	8051_i2c_eeprom.c:381: input[i] = '\0';  // Null-terminate the string
+                                   1914 ;	8051_i2c_eeprom.c:380: input[i] = '\0';  // Null-terminate the string
       002779 EE               [12] 1915 	mov	a,r6
       00277A 24 0F            [12] 1916 	add	a,#_take_data_input_65537_100
       00277C F5 82            [12] 1917 	mov	dpl,a
@@ -1920,10 +1920,10 @@
       002781 F5 83            [12] 1920 	mov	dph,a
       002783 E4               [12] 1921 	clr	a
       002784 F0               [24] 1922 	movx	@dptr,a
-                                   1923 ;	8051_i2c_eeprom.c:384: unsigned char data = 0;
+                                   1923 ;	8051_i2c_eeprom.c:383: unsigned char data = 0;
       002785 90 04 13         [24] 1924 	mov	dptr,#_take_data_data_65538_104
       002788 F0               [24] 1925 	movx	@dptr,a
-                                   1926 ;	8051_i2c_eeprom.c:385: for (i = 0; input[i] != '\0'; i++) {
+                                   1926 ;	8051_i2c_eeprom.c:384: for (i = 0; input[i] != '\0'; i++) {
       002789 7E 00            [12] 1927 	mov	r6,#0x00
       00278B 7F 00            [12] 1928 	mov	r7,#0x00
       00278D                       1929 00129$:
@@ -1938,21 +1938,21 @@
       002799 70 03            [24] 1938 	jnz	00212$
       00279B 02 28 00         [24] 1939 	ljmp	00125$
       00279E                       1940 00212$:
-                                   1941 ;	8051_i2c_eeprom.c:386: data = data * 16;
+                                   1941 ;	8051_i2c_eeprom.c:385: data = data * 16;
       00279E 90 04 13         [24] 1942 	mov	dptr,#_take_data_data_65538_104
       0027A1 E0               [24] 1943 	movx	a,@dptr
       0027A2 C4               [12] 1944 	swap	a
       0027A3 54 F0            [12] 1945 	anl	a,#0xf0
       0027A5 FC               [12] 1946 	mov	r4,a
       0027A6 F0               [24] 1947 	movx	@dptr,a
-                                   1948 ;	8051_i2c_eeprom.c:387: if (input[i] >= '0' && input[i] <= '9')
+                                   1948 ;	8051_i2c_eeprom.c:386: if (input[i] >= '0' && input[i] <= '9')
       0027A7 BD 30 00         [24] 1949 	cjne	r5,#0x30,00213$
       0027AA                       1950 00213$:
       0027AA 40 12            [24] 1951 	jc	00122$
       0027AC ED               [12] 1952 	mov	a,r5
       0027AD 24 C6            [12] 1953 	add	a,#0xff - 0x39
       0027AF 40 0D            [24] 1954 	jc	00122$
-                                   1955 ;	8051_i2c_eeprom.c:388: data += input[i] - '0';
+                                   1955 ;	8051_i2c_eeprom.c:387: data += input[i] - '0';
       0027B1 ED               [12] 1956 	mov	a,r5
       0027B2 24 D0            [12] 1957 	add	a,#0xd0
       0027B4 FD               [12] 1958 	mov	r5,a
@@ -1963,7 +1963,7 @@
       0027BB F0               [24] 1963 	movx	@dptr,a
       0027BC 80 3A            [24] 1964 	sjmp	00130$
       0027BE                       1965 00122$:
-                                   1966 ;	8051_i2c_eeprom.c:389: else if (input[i] >= 'A' && input[i] <= 'F')
+                                   1966 ;	8051_i2c_eeprom.c:388: else if (input[i] >= 'A' && input[i] <= 'F')
       0027BE EE               [12] 1967 	mov	a,r6
       0027BF 24 0F            [12] 1968 	add	a,#_take_data_input_65537_100
       0027C1 F5 82            [12] 1969 	mov	dpl,a
@@ -1978,7 +1978,7 @@
       0027CF ED               [12] 1978 	mov	a,r5
       0027D0 24 B9            [12] 1979 	add	a,#0xff - 0x46
       0027D2 40 0F            [24] 1980 	jc	00118$
-                                   1981 ;	8051_i2c_eeprom.c:390: data += input[i] - 'A' + 10;
+                                   1981 ;	8051_i2c_eeprom.c:389: data += input[i] - 'A' + 10;
       0027D4 8D 04            [24] 1982 	mov	ar4,r5
       0027D6 74 C9            [12] 1983 	mov	a,#0xc9
       0027D8 2C               [12] 1984 	add	a,r4
@@ -1990,14 +1990,14 @@
       0027E0 F0               [24] 1990 	movx	@dptr,a
       0027E1 80 15            [24] 1991 	sjmp	00130$
       0027E3                       1992 00118$:
-                                   1993 ;	8051_i2c_eeprom.c:391: else if (input[i] >= 'a' && input[i] <= 'f')
+                                   1993 ;	8051_i2c_eeprom.c:390: else if (input[i] >= 'a' && input[i] <= 'f')
       0027E3 BD 61 00         [24] 1994 	cjne	r5,#0x61,00219$
       0027E6                       1995 00219$:
       0027E6 40 10            [24] 1996 	jc	00130$
       0027E8 ED               [12] 1997 	mov	a,r5
       0027E9 24 99            [12] 1998 	add	a,#0xff - 0x66
       0027EB 40 0B            [24] 1999 	jc	00130$
-                                   2000 ;	8051_i2c_eeprom.c:392: data += input[i] - 'a' + 10;
+                                   2000 ;	8051_i2c_eeprom.c:391: data += input[i] - 'a' + 10;
       0027ED 74 A9            [12] 2001 	mov	a,#0xa9
       0027EF 2D               [12] 2002 	add	a,r5
       0027F0 FD               [12] 2003 	mov	r5,a
@@ -2007,14 +2007,14 @@
       0027F6 2D               [12] 2007 	add	a,r5
       0027F7 F0               [24] 2008 	movx	@dptr,a
       0027F8                       2009 00130$:
-                                   2010 ;	8051_i2c_eeprom.c:385: for (i = 0; input[i] != '\0'; i++) {
+                                   2010 ;	8051_i2c_eeprom.c:384: for (i = 0; input[i] != '\0'; i++) {
       0027F8 0E               [12] 2011 	inc	r6
       0027F9 BE 00 01         [24] 2012 	cjne	r6,#0x00,00222$
       0027FC 0F               [12] 2013 	inc	r7
       0027FD                       2014 00222$:
       0027FD 02 27 8D         [24] 2015 	ljmp	00129$
       002800                       2016 00125$:
-                                   2017 ;	8051_i2c_eeprom.c:395: printf("\n\r│ Entered data: 0x%02X\n\r", data);
+                                   2017 ;	8051_i2c_eeprom.c:394: printf("\n\r│ Entered data: 0x%02X\n\r", data);
       002800 90 04 13         [24] 2018 	mov	dptr,#_take_data_data_65538_104
       002803 E0               [24] 2019 	movx	a,@dptr
       002804 FF               [12] 2020 	mov	r7,a
@@ -2023,7 +2023,7 @@
       002808 C0 07            [24] 2023 	push	ar7
       00280A C0 05            [24] 2024 	push	ar5
       00280C C0 06            [24] 2025 	push	ar6
-      00280E 74 23            [12] 2026 	mov	a,#___str_34
+      00280E 74 25            [12] 2026 	mov	a,#___str_34
       002810 C0 E0            [24] 2027 	push	acc
       002812 74 46            [12] 2028 	mov	a,#(___str_34 >> 8)
       002814 C0 E0            [24] 2029 	push	acc
@@ -2034,12 +2034,12 @@
       00281F 24 FB            [12] 2034 	add	a,#0xfb
       002821 F5 81            [12] 2035 	mov	sp,a
       002823 D0 07            [24] 2036 	pop	ar7
-                                   2037 ;	8051_i2c_eeprom.c:396: if(data > 0xfe)
+                                   2037 ;	8051_i2c_eeprom.c:395: if(data > 0xfe)
       002825 EF               [12] 2038 	mov	a,r7
       002826 24 01            [12] 2039 	add	a,#0xff - 0xfe
       002828 50 20            [24] 2040 	jnc	00127$
-                                   2041 ;	8051_i2c_eeprom.c:398: printf("Data out of Range\n\r");
-      00282A 74 40            [12] 2042 	mov	a,#___str_35
+                                   2041 ;	8051_i2c_eeprom.c:397: printf("Data out of Range\n\r");
+      00282A 74 42            [12] 2042 	mov	a,#___str_35
       00282C C0 E0            [24] 2043 	push	acc
       00282E 74 46            [12] 2044 	mov	a,#(___str_35 >> 8)
       002830 C0 E0            [24] 2045 	push	acc
@@ -2049,19 +2049,19 @@
       002839 15 81            [12] 2049 	dec	sp
       00283B 15 81            [12] 2050 	dec	sp
       00283D 15 81            [12] 2051 	dec	sp
-                                   2052 ;	8051_i2c_eeprom.c:399: data_range_flag = 0;
+                                   2052 ;	8051_i2c_eeprom.c:398: data_range_flag = 0;
       00283F 90 04 5E         [24] 2053 	mov	dptr,#_data_range_flag
       002842 E4               [12] 2054 	clr	a
       002843 F0               [24] 2055 	movx	@dptr,a
       002844 A3               [24] 2056 	inc	dptr
       002845 F0               [24] 2057 	movx	@dptr,a
-                                   2058 ;	8051_i2c_eeprom.c:400: return 0;
+                                   2058 ;	8051_i2c_eeprom.c:399: return 0;
       002846 75 82 00         [24] 2059 	mov	dpl,#0x00
       002849 22               [24] 2060 	ret
       00284A                       2061 00127$:
-                                   2062 ;	8051_i2c_eeprom.c:402: return data;
+                                   2062 ;	8051_i2c_eeprom.c:401: return data;
       00284A 8F 82            [24] 2063 	mov	dpl,r7
-                                   2064 ;	8051_i2c_eeprom.c:404: }
+                                   2064 ;	8051_i2c_eeprom.c:403: }
       00284C 22               [24] 2065 	ret
                                    2066 ;------------------------------------------------------------
                                    2067 ;Allocation info for local variables in function 'eeprom_write'
@@ -2070,7 +2070,7 @@
                                    2070 ;address                   Allocated with name '_eeprom_write_address_65536_108'
                                    2071 ;i                         Allocated with name '_eeprom_write_i_131072_113'
                                    2072 ;------------------------------------------------------------
-                                   2073 ;	8051_i2c_eeprom.c:420: int eeprom_write(unsigned int address, unsigned char data) 
+                                   2073 ;	8051_i2c_eeprom.c:419: int eeprom_write(unsigned int address, unsigned char data) 
                                    2074 ;	-----------------------------------------
                                    2075 ;	 function eeprom_write
                                    2076 ;	-----------------------------------------
@@ -2082,9 +2082,9 @@
       002855 EF               [12] 2082 	mov	a,r7
       002856 A3               [24] 2083 	inc	dptr
       002857 F0               [24] 2084 	movx	@dptr,a
-                                   2085 ;	8051_i2c_eeprom.c:423: i2c_start();
+                                   2085 ;	8051_i2c_eeprom.c:422: i2c_start();
       002858 12 2B 90         [24] 2086 	lcall	_i2c_start
-                                   2087 ;	8051_i2c_eeprom.c:426: if(!i2c_write(EEPROM_ID | block | WRITE)) {
+                                   2087 ;	8051_i2c_eeprom.c:425: if(!i2c_write(EEPROM_ID | block | WRITE)) {
       00285B 90 04 60         [24] 2088 	mov	dptr,#_block
       00285E E0               [24] 2089 	movx	a,@dptr
       00285F FE               [12] 2090 	mov	r6,a
@@ -2097,8 +2097,8 @@
       00286C 85 83 F0         [24] 2097 	mov	b,dph
       00286F 45 F0            [12] 2098 	orl	a,b
       002871 70 1C            [24] 2099 	jnz	00102$
-                                   2100 ;	8051_i2c_eeprom.c:427: printf("Error: No ACK for device address (write)\n\r");
-      002873 74 54            [12] 2101 	mov	a,#___str_36
+                                   2100 ;	8051_i2c_eeprom.c:426: printf("Error: No ACK for device address (write)\n\r");
+      002873 74 56            [12] 2101 	mov	a,#___str_36
       002875 C0 E0            [24] 2102 	push	acc
       002877 74 46            [12] 2103 	mov	a,#(___str_36 >> 8)
       002879 C0 E0            [24] 2104 	push	acc
@@ -2108,13 +2108,13 @@
       002882 15 81            [12] 2108 	dec	sp
       002884 15 81            [12] 2109 	dec	sp
       002886 15 81            [12] 2110 	dec	sp
-                                   2111 ;	8051_i2c_eeprom.c:428: i2c_stop();
+                                   2111 ;	8051_i2c_eeprom.c:427: i2c_stop();
       002888 12 2F 73         [24] 2112 	lcall	_i2c_stop
-                                   2113 ;	8051_i2c_eeprom.c:429: return 0;
+                                   2113 ;	8051_i2c_eeprom.c:428: return 0;
       00288B 90 00 00         [24] 2114 	mov	dptr,#0x0000
       00288E 22               [24] 2115 	ret
       00288F                       2116 00102$:
-                                   2117 ;	8051_i2c_eeprom.c:433: if(!i2c_write((unsigned char)address)) {
+                                   2117 ;	8051_i2c_eeprom.c:432: if(!i2c_write((unsigned char)address)) {
       00288F 90 04 15         [24] 2118 	mov	dptr,#_eeprom_write_address_65536_108
       002892 E0               [24] 2119 	movx	a,@dptr
       002893 FE               [12] 2120 	mov	r6,a
@@ -2132,8 +2132,8 @@
       0028A9 D0 07            [24] 2132 	pop	ar7
       0028AB 45 F0            [12] 2133 	orl	a,b
       0028AD 70 1C            [24] 2134 	jnz	00104$
-                                   2135 ;	8051_i2c_eeprom.c:434: printf("Error: No ACK for memory address\n\r");
-      0028AF 74 7F            [12] 2136 	mov	a,#___str_37
+                                   2135 ;	8051_i2c_eeprom.c:433: printf("Error: No ACK for memory address\n\r");
+      0028AF 74 81            [12] 2136 	mov	a,#___str_37
       0028B1 C0 E0            [24] 2137 	push	acc
       0028B3 74 46            [12] 2138 	mov	a,#(___str_37 >> 8)
       0028B5 C0 E0            [24] 2139 	push	acc
@@ -2143,13 +2143,13 @@
       0028BE 15 81            [12] 2143 	dec	sp
       0028C0 15 81            [12] 2144 	dec	sp
       0028C2 15 81            [12] 2145 	dec	sp
-                                   2146 ;	8051_i2c_eeprom.c:435: i2c_stop();
+                                   2146 ;	8051_i2c_eeprom.c:434: i2c_stop();
       0028C4 12 2F 73         [24] 2147 	lcall	_i2c_stop
-                                   2148 ;	8051_i2c_eeprom.c:436: return 0;
+                                   2148 ;	8051_i2c_eeprom.c:435: return 0;
       0028C7 90 00 00         [24] 2149 	mov	dptr,#0x0000
       0028CA 22               [24] 2150 	ret
       0028CB                       2151 00104$:
-                                   2152 ;	8051_i2c_eeprom.c:440: if(!i2c_write(data)) {
+                                   2152 ;	8051_i2c_eeprom.c:439: if(!i2c_write(data)) {
       0028CB 90 04 14         [24] 2153 	mov	dptr,#_eeprom_write_PARM_2
       0028CE E0               [24] 2154 	movx	a,@dptr
       0028CF FD               [12] 2155 	mov	r5,a
@@ -2165,8 +2165,8 @@
       0028E4 D0 07            [24] 2165 	pop	ar7
       0028E6 45 F0            [12] 2166 	orl	a,b
       0028E8 70 1C            [24] 2167 	jnz	00106$
-                                   2168 ;	8051_i2c_eeprom.c:441: printf("Error: No ACK for data\n\r");
-      0028EA 74 A2            [12] 2169 	mov	a,#___str_38
+                                   2168 ;	8051_i2c_eeprom.c:440: printf("Error: No ACK for data\n\r");
+      0028EA 74 A4            [12] 2169 	mov	a,#___str_38
       0028EC C0 E0            [24] 2170 	push	acc
       0028EE 74 46            [12] 2171 	mov	a,#(___str_38 >> 8)
       0028F0 C0 E0            [24] 2172 	push	acc
@@ -2176,13 +2176,13 @@
       0028F9 15 81            [12] 2176 	dec	sp
       0028FB 15 81            [12] 2177 	dec	sp
       0028FD 15 81            [12] 2178 	dec	sp
-                                   2179 ;	8051_i2c_eeprom.c:442: i2c_stop();
+                                   2179 ;	8051_i2c_eeprom.c:441: i2c_stop();
       0028FF 12 2F 73         [24] 2180 	lcall	_i2c_stop
-                                   2181 ;	8051_i2c_eeprom.c:443: return 0;
+                                   2181 ;	8051_i2c_eeprom.c:442: return 0;
       002902 90 00 00         [24] 2182 	mov	dptr,#0x0000
       002905 22               [24] 2183 	ret
       002906                       2184 00106$:
-                                   2185 ;	8051_i2c_eeprom.c:446: i2c_stop();
+                                   2185 ;	8051_i2c_eeprom.c:445: i2c_stop();
       002906 C0 07            [24] 2186 	push	ar7
       002908 C0 06            [24] 2187 	push	ar6
       00290A C0 05            [24] 2188 	push	ar5
@@ -2190,7 +2190,7 @@
       00290F D0 05            [24] 2190 	pop	ar5
       002911 D0 06            [24] 2191 	pop	ar6
       002913 D0 07            [24] 2192 	pop	ar7
-                                   2193 ;	8051_i2c_eeprom.c:448: for(int i = 0; i<10; i++)
+                                   2193 ;	8051_i2c_eeprom.c:447: for(int i = 0; i<10; i++)
       002915 7B 00            [12] 2194 	mov	r3,#0x00
       002917 7C 00            [12] 2195 	mov	r4,#0x00
       002919                       2196 00109$:
@@ -2201,7 +2201,7 @@
       00291E 64 80            [12] 2201 	xrl	a,#0x80
       002920 94 80            [12] 2202 	subb	a,#0x80
       002922 50 1E            [24] 2203 	jnc	00107$
-                                   2204 ;	8051_i2c_eeprom.c:450: i2c_delay();
+                                   2204 ;	8051_i2c_eeprom.c:449: i2c_delay();
       002924 C0 07            [24] 2205 	push	ar7
       002926 C0 06            [24] 2206 	push	ar6
       002928 C0 05            [24] 2207 	push	ar5
@@ -2213,19 +2213,19 @@
       002935 D0 05            [24] 2213 	pop	ar5
       002937 D0 06            [24] 2214 	pop	ar6
       002939 D0 07            [24] 2215 	pop	ar7
-                                   2216 ;	8051_i2c_eeprom.c:448: for(int i = 0; i<10; i++)
+                                   2216 ;	8051_i2c_eeprom.c:447: for(int i = 0; i<10; i++)
       00293B 0B               [12] 2217 	inc	r3
       00293C BB 00 DA         [24] 2218 	cjne	r3,#0x00,00109$
       00293F 0C               [12] 2219 	inc	r4
       002940 80 D7            [24] 2220 	sjmp	00109$
       002942                       2221 00107$:
-                                   2222 ;	8051_i2c_eeprom.c:453: printf("| Writing at Address 0x%03X Data 0x%02X          |\n\r", address, data);
+                                   2222 ;	8051_i2c_eeprom.c:452: printf("| Writing at Address 0x%03X Data 0x%02X          |\n\r", address, data);
       002942 7C 00            [12] 2223 	mov	r4,#0x00
       002944 C0 05            [24] 2224 	push	ar5
       002946 C0 04            [24] 2225 	push	ar4
       002948 C0 06            [24] 2226 	push	ar6
       00294A C0 07            [24] 2227 	push	ar7
-      00294C 74 BB            [12] 2228 	mov	a,#___str_39
+      00294C 74 BD            [12] 2228 	mov	a,#___str_39
       00294E C0 E0            [24] 2229 	push	acc
       002950 74 46            [12] 2230 	mov	a,#(___str_39 >> 8)
       002952 C0 E0            [24] 2231 	push	acc
@@ -2235,8 +2235,8 @@
       00295B E5 81            [12] 2235 	mov	a,sp
       00295D 24 F9            [12] 2236 	add	a,#0xf9
       00295F F5 81            [12] 2237 	mov	sp,a
-                                   2238 ;	8051_i2c_eeprom.c:454: printf("│ Write successful!                             │\n\r");
-      002961 74 F0            [12] 2239 	mov	a,#___str_40
+                                   2238 ;	8051_i2c_eeprom.c:453: printf("│ Write successful!                             │\n\r");
+      002961 74 F2            [12] 2239 	mov	a,#___str_40
       002963 C0 E0            [24] 2240 	push	acc
       002965 74 46            [12] 2241 	mov	a,#(___str_40 >> 8)
       002967 C0 E0            [24] 2242 	push	acc
@@ -2246,8 +2246,8 @@
       002970 15 81            [12] 2246 	dec	sp
       002972 15 81            [12] 2247 	dec	sp
       002974 15 81            [12] 2248 	dec	sp
-                                   2249 ;	8051_i2c_eeprom.c:455: printf("└───────────────────────────────────────────────┘\n\r");
-      002976 74 28            [12] 2250 	mov	a,#___str_41
+                                   2249 ;	8051_i2c_eeprom.c:454: printf("└───────────────────────────────────────────────┘\n\r");
+      002976 74 2A            [12] 2250 	mov	a,#___str_41
       002978 C0 E0            [24] 2251 	push	acc
       00297A 74 47            [12] 2252 	mov	a,#(___str_41 >> 8)
       00297C C0 E0            [24] 2253 	push	acc
@@ -2257,9 +2257,9 @@
       002985 15 81            [12] 2257 	dec	sp
       002987 15 81            [12] 2258 	dec	sp
       002989 15 81            [12] 2259 	dec	sp
-                                   2260 ;	8051_i2c_eeprom.c:456: return 1;  // Success
+                                   2260 ;	8051_i2c_eeprom.c:455: return 1;  // Success
       00298B 90 00 01         [24] 2261 	mov	dptr,#0x0001
-                                   2262 ;	8051_i2c_eeprom.c:466: }
+                                   2262 ;	8051_i2c_eeprom.c:465: }
       00298E 22               [24] 2263 	ret
                                    2264 ;------------------------------------------------------------
                                    2265 ;Allocation info for local variables in function 'eeprom_read'
@@ -2267,7 +2267,7 @@
                                    2267 ;address                   Allocated with name '_eeprom_read_address_65536_115'
                                    2268 ;result                    Allocated with name '_eeprom_read_result_65536_116'
                                    2269 ;------------------------------------------------------------
-                                   2270 ;	8051_i2c_eeprom.c:482: int eeprom_read(unsigned int address)
+                                   2270 ;	8051_i2c_eeprom.c:481: int eeprom_read(unsigned int address)
                                    2271 ;	-----------------------------------------
                                    2272 ;	 function eeprom_read
                                    2273 ;	-----------------------------------------
@@ -2279,17 +2279,17 @@
       002997 EF               [12] 2279 	mov	a,r7
       002998 A3               [24] 2280 	inc	dptr
       002999 F0               [24] 2281 	movx	@dptr,a
-                                   2282 ;	8051_i2c_eeprom.c:488: i2c_start();
+                                   2282 ;	8051_i2c_eeprom.c:487: i2c_start();
       00299A 12 2B 90         [24] 2283 	lcall	_i2c_start
-                                   2284 ;	8051_i2c_eeprom.c:491: if(!i2c_write(EEPROM_ID | WRITE)) {
+                                   2284 ;	8051_i2c_eeprom.c:490: if(!i2c_write(EEPROM_ID | WRITE)) {
       00299D 75 82 A0         [24] 2285 	mov	dpl,#0xa0
       0029A0 12 2A A3         [24] 2286 	lcall	_i2c_write
       0029A3 E5 82            [12] 2287 	mov	a,dpl
       0029A5 85 83 F0         [24] 2288 	mov	b,dph
       0029A8 45 F0            [12] 2289 	orl	a,b
       0029AA 70 1C            [24] 2290 	jnz	00102$
-                                   2291 ;	8051_i2c_eeprom.c:492: printf("Error: No ACK for device address (write mode)\n\r");
-      0029AC 74 BE            [12] 2292 	mov	a,#___str_42
+                                   2291 ;	8051_i2c_eeprom.c:491: printf("Error: No ACK for device address (write mode)\n\r");
+      0029AC 74 C0            [12] 2292 	mov	a,#___str_42
       0029AE C0 E0            [24] 2293 	push	acc
       0029B0 74 47            [12] 2294 	mov	a,#(___str_42 >> 8)
       0029B2 C0 E0            [24] 2295 	push	acc
@@ -2299,13 +2299,13 @@
       0029BB 15 81            [12] 2299 	dec	sp
       0029BD 15 81            [12] 2300 	dec	sp
       0029BF 15 81            [12] 2301 	dec	sp
-                                   2302 ;	8051_i2c_eeprom.c:493: i2c_stop();
+                                   2302 ;	8051_i2c_eeprom.c:492: i2c_stop();
       0029C1 12 2F 73         [24] 2303 	lcall	_i2c_stop
-                                   2304 ;	8051_i2c_eeprom.c:494: return -1;
+                                   2304 ;	8051_i2c_eeprom.c:493: return -1;
       0029C4 90 FF FF         [24] 2305 	mov	dptr,#0xffff
       0029C7 22               [24] 2306 	ret
       0029C8                       2307 00102$:
-                                   2308 ;	8051_i2c_eeprom.c:498: if(!i2c_write((unsigned char)address)) {
+                                   2308 ;	8051_i2c_eeprom.c:497: if(!i2c_write((unsigned char)address)) {
       0029C8 90 04 17         [24] 2309 	mov	dptr,#_eeprom_read_address_65536_115
       0029CB E0               [24] 2310 	movx	a,@dptr
       0029CC FE               [12] 2311 	mov	r6,a
@@ -2323,8 +2323,8 @@
       0029E2 D0 07            [24] 2323 	pop	ar7
       0029E4 45 F0            [12] 2324 	orl	a,b
       0029E6 70 1C            [24] 2325 	jnz	00104$
-                                   2326 ;	8051_i2c_eeprom.c:499: printf("Error: No ACK for memory address\n\r");
-      0029E8 74 7F            [12] 2327 	mov	a,#___str_37
+                                   2326 ;	8051_i2c_eeprom.c:498: printf("Error: No ACK for memory address\n\r");
+      0029E8 74 81            [12] 2327 	mov	a,#___str_37
       0029EA C0 E0            [24] 2328 	push	acc
       0029EC 74 46            [12] 2329 	mov	a,#(___str_37 >> 8)
       0029EE C0 E0            [24] 2330 	push	acc
@@ -2334,17 +2334,17 @@
       0029F7 15 81            [12] 2334 	dec	sp
       0029F9 15 81            [12] 2335 	dec	sp
       0029FB 15 81            [12] 2336 	dec	sp
-                                   2337 ;	8051_i2c_eeprom.c:500: i2c_stop();
+                                   2337 ;	8051_i2c_eeprom.c:499: i2c_stop();
       0029FD 12 2F 73         [24] 2338 	lcall	_i2c_stop
-                                   2339 ;	8051_i2c_eeprom.c:501: return -1;
+                                   2339 ;	8051_i2c_eeprom.c:500: return -1;
       002A00 90 FF FF         [24] 2340 	mov	dptr,#0xffff
       002A03 22               [24] 2341 	ret
       002A04                       2342 00104$:
-                                   2343 ;	8051_i2c_eeprom.c:505: i2c_start();
+                                   2343 ;	8051_i2c_eeprom.c:504: i2c_start();
       002A04 C0 07            [24] 2344 	push	ar7
       002A06 C0 06            [24] 2345 	push	ar6
       002A08 12 2B 90         [24] 2346 	lcall	_i2c_start
-                                   2347 ;	8051_i2c_eeprom.c:508: if(!i2c_write(EEPROM_ID | READ)) {
+                                   2347 ;	8051_i2c_eeprom.c:507: if(!i2c_write(EEPROM_ID | READ)) {
       002A0B 75 82 A1         [24] 2348 	mov	dpl,#0xa1
       002A0E 12 2A A3         [24] 2349 	lcall	_i2c_write
       002A11 E5 82            [12] 2350 	mov	a,dpl
@@ -2353,8 +2353,8 @@
       002A18 D0 07            [24] 2353 	pop	ar7
       002A1A 45 F0            [12] 2354 	orl	a,b
       002A1C 70 1C            [24] 2355 	jnz	00106$
-                                   2356 ;	8051_i2c_eeprom.c:509: printf("Error: No ACK for device address (read mode)\n\r");
-      002A1E 74 EE            [12] 2357 	mov	a,#___str_43
+                                   2356 ;	8051_i2c_eeprom.c:508: printf("Error: No ACK for device address (read mode)\n\r");
+      002A1E 74 F0            [12] 2357 	mov	a,#___str_43
       002A20 C0 E0            [24] 2358 	push	acc
       002A22 74 47            [12] 2359 	mov	a,#(___str_43 >> 8)
       002A24 C0 E0            [24] 2360 	push	acc
@@ -2364,13 +2364,13 @@
       002A2D 15 81            [12] 2364 	dec	sp
       002A2F 15 81            [12] 2365 	dec	sp
       002A31 15 81            [12] 2366 	dec	sp
-                                   2367 ;	8051_i2c_eeprom.c:510: i2c_stop();
+                                   2367 ;	8051_i2c_eeprom.c:509: i2c_stop();
       002A33 12 2F 73         [24] 2368 	lcall	_i2c_stop
-                                   2369 ;	8051_i2c_eeprom.c:511: return -1;
+                                   2369 ;	8051_i2c_eeprom.c:510: return -1;
       002A36 90 FF FF         [24] 2370 	mov	dptr,#0xffff
       002A39 22               [24] 2371 	ret
       002A3A                       2372 00106$:
-                                   2373 ;	8051_i2c_eeprom.c:515: result = i2c_read(0);  // 0 means send NACK
+                                   2373 ;	8051_i2c_eeprom.c:514: result = i2c_read(0);  // 0 means send NACK
       002A3A 90 00 00         [24] 2374 	mov	dptr,#0x0000
       002A3D C0 07            [24] 2375 	push	ar7
       002A3F C0 06            [24] 2376 	push	ar6
@@ -2378,7 +2378,7 @@
       002A44 AC 82            [24] 2378 	mov	r4,dpl
       002A46 D0 06            [24] 2379 	pop	ar6
       002A48 D0 07            [24] 2380 	pop	ar7
-                                   2381 ;	8051_i2c_eeprom.c:517: printf("| 0x%03X : 0x%02X \n\r", address, result);
+                                   2381 ;	8051_i2c_eeprom.c:516: printf("| 0x%03X : 0x%02X \n\r", address, result);
       002A4A 7D 00            [12] 2382 	mov	r5,#0x00
       002A4C C0 05            [24] 2383 	push	ar5
       002A4E C0 04            [24] 2384 	push	ar4
@@ -2386,7 +2386,7 @@
       002A52 C0 05            [24] 2386 	push	ar5
       002A54 C0 06            [24] 2387 	push	ar6
       002A56 C0 07            [24] 2388 	push	ar7
-      002A58 74 1D            [12] 2389 	mov	a,#___str_44
+      002A58 74 1F            [12] 2389 	mov	a,#___str_44
       002A5A C0 E0            [24] 2390 	push	acc
       002A5C 74 48            [12] 2391 	mov	a,#(___str_44 >> 8)
       002A5E C0 E0            [24] 2392 	push	acc
@@ -2396,8 +2396,8 @@
       002A67 E5 81            [12] 2396 	mov	a,sp
       002A69 24 F9            [12] 2397 	add	a,#0xf9
       002A6B F5 81            [12] 2398 	mov	sp,a
-                                   2399 ;	8051_i2c_eeprom.c:518: printf("│ Read successful!                 │\n\r");
-      002A6D 74 32            [12] 2400 	mov	a,#___str_45
+                                   2399 ;	8051_i2c_eeprom.c:517: printf("│ Read successful!                 │\n\r");
+      002A6D 74 34            [12] 2400 	mov	a,#___str_45
       002A6F C0 E0            [24] 2401 	push	acc
       002A71 74 48            [12] 2402 	mov	a,#(___str_45 >> 8)
       002A73 C0 E0            [24] 2403 	push	acc
@@ -2407,8 +2407,8 @@
       002A7C 15 81            [12] 2407 	dec	sp
       002A7E 15 81            [12] 2408 	dec	sp
       002A80 15 81            [12] 2409 	dec	sp
-                                   2410 ;	8051_i2c_eeprom.c:519: printf("└───────────────────────────────────────────────┘\n\r");
-      002A82 74 28            [12] 2411 	mov	a,#___str_41
+                                   2410 ;	8051_i2c_eeprom.c:518: printf("└───────────────────────────────────────────────┘\n\r");
+      002A82 74 2A            [12] 2411 	mov	a,#___str_41
       002A84 C0 E0            [24] 2412 	push	acc
       002A86 74 47            [12] 2413 	mov	a,#(___str_41 >> 8)
       002A88 C0 E0            [24] 2414 	push	acc
@@ -2418,14 +2418,14 @@
       002A91 15 81            [12] 2418 	dec	sp
       002A93 15 81            [12] 2419 	dec	sp
       002A95 15 81            [12] 2420 	dec	sp
-                                   2421 ;	8051_i2c_eeprom.c:520: i2c_stop();
+                                   2421 ;	8051_i2c_eeprom.c:519: i2c_stop();
       002A97 12 2F 73         [24] 2422 	lcall	_i2c_stop
       002A9A D0 04            [24] 2423 	pop	ar4
       002A9C D0 05            [24] 2424 	pop	ar5
-                                   2425 ;	8051_i2c_eeprom.c:521: return result;
+                                   2425 ;	8051_i2c_eeprom.c:520: return result;
       002A9E 8C 82            [24] 2426 	mov	dpl,r4
       002AA0 8D 83            [24] 2427 	mov	dph,r5
-                                   2428 ;	8051_i2c_eeprom.c:522: }
+                                   2428 ;	8051_i2c_eeprom.c:521: }
       002AA2 22               [24] 2429 	ret
                                    2430 ;------------------------------------------------------------
                                    2431 ;Allocation info for local variables in function 'i2c_write'
@@ -2433,7 +2433,7 @@
                                    2433 ;data                      Allocated with name '_i2c_write_data_65536_120'
                                    2434 ;i                         Allocated with name '_i2c_write_i_65536_121'
                                    2435 ;------------------------------------------------------------
-                                   2436 ;	8051_i2c_eeprom.c:533: int i2c_write(unsigned char data)
+                                   2436 ;	8051_i2c_eeprom.c:532: int i2c_write(unsigned char data)
                                    2437 ;	-----------------------------------------
                                    2438 ;	 function i2c_write
                                    2439 ;	-----------------------------------------
@@ -2441,11 +2441,11 @@
       002AA3 E5 82            [12] 2441 	mov	a,dpl
       002AA5 90 04 19         [24] 2442 	mov	dptr,#_i2c_write_data_65536_120
       002AA8 F0               [24] 2443 	movx	@dptr,a
-                                   2444 ;	8051_i2c_eeprom.c:537: for(i=0;i<=7;i++)
+                                   2444 ;	8051_i2c_eeprom.c:536: for(i=0;i<=7;i++)
       002AA9 7E 00            [12] 2445 	mov	r6,#0x00
       002AAB 7F 00            [12] 2446 	mov	r7,#0x00
       002AAD                       2447 00104$:
-                                   2448 ;	8051_i2c_eeprom.c:539: SDA = (data & 0x80) ? 1 : 0;    //msb first
+                                   2448 ;	8051_i2c_eeprom.c:538: SDA = (data & 0x80) ? 1 : 0;    //msb first
       002AAD 90 04 19         [24] 2449 	mov	dptr,#_i2c_write_data_65536_120
       002AB0 E0               [24] 2450 	movx	a,@dptr
       002AB1 FD               [12] 2451 	mov	r5,a
@@ -2453,28 +2453,28 @@
       002AB3 54 01            [12] 2453 	anl	a,#0x01
       002AB5 24 FF            [12] 2454 	add	a,#0xff
       002AB7 92 94            [24] 2455 	mov	_P1_4,c
-                                   2456 ;	8051_i2c_eeprom.c:540: i2c_delay();        // Setup time for data
+                                   2456 ;	8051_i2c_eeprom.c:539: i2c_delay();        // Setup time for data
       002AB9 C0 07            [24] 2457 	push	ar7
       002ABB C0 06            [24] 2458 	push	ar6
       002ABD C0 05            [24] 2459 	push	ar5
       002ABF 12 2F AC         [24] 2460 	lcall	_i2c_delay
-                                   2461 ;	8051_i2c_eeprom.c:541: SCL=1;
+                                   2461 ;	8051_i2c_eeprom.c:540: SCL=1;
                                    2462 ;	assignBit
       002AC2 D2 93            [12] 2463 	setb	_P1_3
-                                   2464 ;	8051_i2c_eeprom.c:542: i2c_delay();        // Hold time for clock
+                                   2464 ;	8051_i2c_eeprom.c:541: i2c_delay();        // Hold time for clock
       002AC4 12 2F AC         [24] 2465 	lcall	_i2c_delay
       002AC7 D0 05            [24] 2466 	pop	ar5
       002AC9 D0 06            [24] 2467 	pop	ar6
       002ACB D0 07            [24] 2468 	pop	ar7
-                                   2469 ;	8051_i2c_eeprom.c:543: SCL=0;
+                                   2469 ;	8051_i2c_eeprom.c:542: SCL=0;
                                    2470 ;	assignBit
       002ACD C2 93            [12] 2471 	clr	_P1_3
-                                   2472 ;	8051_i2c_eeprom.c:544: data = data << 1;
+                                   2472 ;	8051_i2c_eeprom.c:543: data = data << 1;
       002ACF ED               [12] 2473 	mov	a,r5
       002AD0 2D               [12] 2474 	add	a,r5
       002AD1 90 04 19         [24] 2475 	mov	dptr,#_i2c_write_data_65536_120
       002AD4 F0               [24] 2476 	movx	@dptr,a
-                                   2477 ;	8051_i2c_eeprom.c:537: for(i=0;i<=7;i++)
+                                   2477 ;	8051_i2c_eeprom.c:536: for(i=0;i<=7;i++)
       002AD5 0E               [12] 2478 	inc	r6
       002AD6 BE 00 01         [24] 2479 	cjne	r6,#0x00,00121$
       002AD9 0F               [12] 2480 	inc	r7
@@ -2485,18 +2485,18 @@
       002ADE E4               [12] 2485 	clr	a
       002ADF 9F               [12] 2486 	subb	a,r7
       002AE0 50 CB            [24] 2487 	jnc	00104$
-                                   2488 ;	8051_i2c_eeprom.c:548: SDA = 1;            // Release SDA for slave
+                                   2488 ;	8051_i2c_eeprom.c:547: SDA = 1;            // Release SDA for slave
                                    2489 ;	assignBit
       002AE2 D2 94            [12] 2490 	setb	_P1_4
-                                   2491 ;	8051_i2c_eeprom.c:549: SCL = 1;            // 9th clock pulse for ACK
+                                   2491 ;	8051_i2c_eeprom.c:548: SCL = 1;            // 9th clock pulse for ACK
                                    2492 ;	assignBit
       002AE4 D2 93            [12] 2493 	setb	_P1_3
-                                   2494 ;	8051_i2c_eeprom.c:550: i2c_delay();
+                                   2494 ;	8051_i2c_eeprom.c:549: i2c_delay();
       002AE6 12 2F AC         [24] 2495 	lcall	_i2c_delay
-                                   2496 ;	8051_i2c_eeprom.c:551: if(SDA == 1)        // If SDA is still high, no ACK received
+                                   2496 ;	8051_i2c_eeprom.c:550: if(SDA == 1)        // If SDA is still high, no ACK received
       002AE9 30 94 19         [24] 2497 	jnb	_P1_4,00103$
-                                   2498 ;	8051_i2c_eeprom.c:554: printf("ACK DID NOT ARRIVE\n\r");
-      002AEC 74 5D            [12] 2499 	mov	a,#___str_46
+                                   2498 ;	8051_i2c_eeprom.c:553: printf("ACK DID NOT ARRIVE\n\r");
+      002AEC 74 5F            [12] 2499 	mov	a,#___str_46
       002AEE C0 E0            [24] 2500 	push	acc
       002AF0 74 48            [12] 2501 	mov	a,#(___str_46 >> 8)
       002AF2 C0 E0            [24] 2502 	push	acc
@@ -2506,16 +2506,16 @@
       002AFB 15 81            [12] 2506 	dec	sp
       002AFD 15 81            [12] 2507 	dec	sp
       002AFF 15 81            [12] 2508 	dec	sp
-                                   2509 ;	8051_i2c_eeprom.c:555: return 0;       // Error
+                                   2509 ;	8051_i2c_eeprom.c:554: return 0;       // Error
       002B01 90 00 00         [24] 2510 	mov	dptr,#0x0000
       002B04 22               [24] 2511 	ret
       002B05                       2512 00103$:
-                                   2513 ;	8051_i2c_eeprom.c:557: SCL = 0;
+                                   2513 ;	8051_i2c_eeprom.c:556: SCL = 0;
                                    2514 ;	assignBit
       002B05 C2 93            [12] 2515 	clr	_P1_3
-                                   2516 ;	8051_i2c_eeprom.c:559: return 1;           // Success
+                                   2516 ;	8051_i2c_eeprom.c:558: return 1;           // Success
       002B07 90 00 01         [24] 2517 	mov	dptr,#0x0001
-                                   2518 ;	8051_i2c_eeprom.c:561: }
+                                   2518 ;	8051_i2c_eeprom.c:560: }
       002B0A 22               [24] 2519 	ret
                                    2520 ;------------------------------------------------------------
                                    2521 ;Allocation info for local variables in function 'i2c_read'
@@ -2524,7 +2524,7 @@
                                    2524 ;buff                      Allocated with name '_i2c_read_buff_65536_126'
                                    2525 ;i                         Allocated with name '_i2c_read_i_131072_127'
                                    2526 ;------------------------------------------------------------
-                                   2527 ;	8051_i2c_eeprom.c:571: int i2c_read(int ACK)
+                                   2527 ;	8051_i2c_eeprom.c:570: int i2c_read(int ACK)
                                    2528 ;	-----------------------------------------
                                    2529 ;	 function i2c_read
                                    2530 ;	-----------------------------------------
@@ -2536,14 +2536,14 @@
       002B13 EF               [12] 2536 	mov	a,r7
       002B14 A3               [24] 2537 	inc	dptr
       002B15 F0               [24] 2538 	movx	@dptr,a
-                                   2539 ;	8051_i2c_eeprom.c:573: unsigned char buff=0;
+                                   2539 ;	8051_i2c_eeprom.c:572: unsigned char buff=0;
       002B16 90 04 1C         [24] 2540 	mov	dptr,#_i2c_read_buff_65536_126
       002B19 E4               [12] 2541 	clr	a
       002B1A F0               [24] 2542 	movx	@dptr,a
-                                   2543 ;	8051_i2c_eeprom.c:574: SCL = 0;
+                                   2543 ;	8051_i2c_eeprom.c:573: SCL = 0;
                                    2544 ;	assignBit
       002B1B C2 93            [12] 2545 	clr	_P1_3
-                                   2546 ;	8051_i2c_eeprom.c:575: for(int i=0;i<8;i++)
+                                   2546 ;	8051_i2c_eeprom.c:574: for(int i=0;i<8;i++)
       002B1D 7E 00            [12] 2547 	mov	r6,#0x00
       002B1F 7F 00            [12] 2548 	mov	r7,#0x00
       002B21                       2549 00103$:
@@ -2554,16 +2554,16 @@
       002B26 64 80            [12] 2554 	xrl	a,#0x80
       002B28 94 80            [12] 2555 	subb	a,#0x80
       002B2A 50 40            [24] 2556 	jnc	00101$
-                                   2557 ;	8051_i2c_eeprom.c:577: SCL = 1;
+                                   2557 ;	8051_i2c_eeprom.c:576: SCL = 1;
                                    2558 ;	assignBit
       002B2C D2 93            [12] 2559 	setb	_P1_3
-                                   2560 ;	8051_i2c_eeprom.c:578: i2c_delay();
+                                   2560 ;	8051_i2c_eeprom.c:577: i2c_delay();
       002B2E C0 07            [24] 2561 	push	ar7
       002B30 C0 06            [24] 2562 	push	ar6
       002B32 12 2F AC         [24] 2563 	lcall	_i2c_delay
       002B35 D0 06            [24] 2564 	pop	ar6
       002B37 D0 07            [24] 2565 	pop	ar7
-                                   2566 ;	8051_i2c_eeprom.c:579: buff |= (SDA << (7 - i));
+                                   2566 ;	8051_i2c_eeprom.c:578: buff |= (SDA << (7 - i));
       002B39 A2 94            [12] 2567 	mov	c,_P1_4
       002B3B E4               [12] 2568 	clr	a
       002B3C 33               [12] 2569 	rlc	a
@@ -2586,22 +2586,22 @@
       002B55 E0               [24] 2586 	movx	a,@dptr
       002B56 4C               [12] 2587 	orl	a,r4
       002B57 F0               [24] 2588 	movx	@dptr,a
-                                   2589 ;	8051_i2c_eeprom.c:580: i2c_delay();
+                                   2589 ;	8051_i2c_eeprom.c:579: i2c_delay();
       002B58 C0 07            [24] 2590 	push	ar7
       002B5A C0 06            [24] 2591 	push	ar6
       002B5C 12 2F AC         [24] 2592 	lcall	_i2c_delay
       002B5F D0 06            [24] 2593 	pop	ar6
       002B61 D0 07            [24] 2594 	pop	ar7
-                                   2595 ;	8051_i2c_eeprom.c:581: SCL=0;
+                                   2595 ;	8051_i2c_eeprom.c:580: SCL=0;
                                    2596 ;	assignBit
       002B63 C2 93            [12] 2597 	clr	_P1_3
-                                   2598 ;	8051_i2c_eeprom.c:575: for(int i=0;i<8;i++)
+                                   2598 ;	8051_i2c_eeprom.c:574: for(int i=0;i<8;i++)
       002B65 0E               [12] 2599 	inc	r6
       002B66 BE 00 B8         [24] 2600 	cjne	r6,#0x00,00103$
       002B69 0F               [12] 2601 	inc	r7
       002B6A 80 B5            [24] 2602 	sjmp	00103$
       002B6C                       2603 00101$:
-                                   2604 ;	8051_i2c_eeprom.c:585: SDA = !ACK;         // ACK = 0, NACK = 1
+                                   2604 ;	8051_i2c_eeprom.c:584: SDA = !ACK;         // ACK = 0, NACK = 1
       002B6C 90 04 1A         [24] 2605 	mov	dptr,#_i2c_read_ACK_65536_125
       002B6F E0               [24] 2606 	movx	a,@dptr
       002B70 FE               [12] 2607 	mov	r6,a
@@ -2614,52 +2614,52 @@
       002B78 33               [12] 2614 	rlc	a
       002B79 24 FF            [12] 2615 	add	a,#0xff
       002B7B 92 94            [24] 2616 	mov	_P1_4,c
-                                   2617 ;	8051_i2c_eeprom.c:586: SCL = 1;
+                                   2617 ;	8051_i2c_eeprom.c:585: SCL = 1;
                                    2618 ;	assignBit
       002B7D D2 93            [12] 2619 	setb	_P1_3
-                                   2620 ;	8051_i2c_eeprom.c:587: i2c_delay();
+                                   2620 ;	8051_i2c_eeprom.c:586: i2c_delay();
       002B7F 12 2F AC         [24] 2621 	lcall	_i2c_delay
-                                   2622 ;	8051_i2c_eeprom.c:588: SCL = 0;
+                                   2622 ;	8051_i2c_eeprom.c:587: SCL = 0;
                                    2623 ;	assignBit
       002B82 C2 93            [12] 2624 	clr	_P1_3
-                                   2625 ;	8051_i2c_eeprom.c:590: return buff;
+                                   2625 ;	8051_i2c_eeprom.c:589: return buff;
       002B84 90 04 1C         [24] 2626 	mov	dptr,#_i2c_read_buff_65536_126
       002B87 E0               [24] 2627 	movx	a,@dptr
       002B88 FF               [12] 2628 	mov	r7,a
       002B89 7E 00            [12] 2629 	mov	r6,#0x00
       002B8B 8F 82            [24] 2630 	mov	dpl,r7
       002B8D 8E 83            [24] 2631 	mov	dph,r6
-                                   2632 ;	8051_i2c_eeprom.c:591: }
+                                   2632 ;	8051_i2c_eeprom.c:590: }
       002B8F 22               [24] 2633 	ret
                                    2634 ;------------------------------------------------------------
                                    2635 ;Allocation info for local variables in function 'i2c_start'
                                    2636 ;------------------------------------------------------------
-                                   2637 ;	8051_i2c_eeprom.c:598: void i2c_start(void)
+                                   2637 ;	8051_i2c_eeprom.c:597: void i2c_start(void)
                                    2638 ;	-----------------------------------------
                                    2639 ;	 function i2c_start
                                    2640 ;	-----------------------------------------
       002B90                       2641 _i2c_start:
-                                   2642 ;	8051_i2c_eeprom.c:600: i2c_delay();
+                                   2642 ;	8051_i2c_eeprom.c:599: i2c_delay();
       002B90 12 2F AC         [24] 2643 	lcall	_i2c_delay
-                                   2644 ;	8051_i2c_eeprom.c:601: SDA = 1;
+                                   2644 ;	8051_i2c_eeprom.c:600: SDA = 1;
                                    2645 ;	assignBit
       002B93 D2 94            [12] 2646 	setb	_P1_4
-                                   2647 ;	8051_i2c_eeprom.c:602: i2c_delay();
+                                   2647 ;	8051_i2c_eeprom.c:601: i2c_delay();
       002B95 12 2F AC         [24] 2648 	lcall	_i2c_delay
-                                   2649 ;	8051_i2c_eeprom.c:603: SCL = 1;
+                                   2649 ;	8051_i2c_eeprom.c:602: SCL = 1;
                                    2650 ;	assignBit
       002B98 D2 93            [12] 2651 	setb	_P1_3
-                                   2652 ;	8051_i2c_eeprom.c:604: i2c_delay();
+                                   2652 ;	8051_i2c_eeprom.c:603: i2c_delay();
       002B9A 12 2F AC         [24] 2653 	lcall	_i2c_delay
-                                   2654 ;	8051_i2c_eeprom.c:605: SDA = 0;
+                                   2654 ;	8051_i2c_eeprom.c:604: SDA = 0;
                                    2655 ;	assignBit
       002B9D C2 94            [12] 2656 	clr	_P1_4
-                                   2657 ;	8051_i2c_eeprom.c:606: i2c_delay();
+                                   2657 ;	8051_i2c_eeprom.c:605: i2c_delay();
       002B9F 12 2F AC         [24] 2658 	lcall	_i2c_delay
-                                   2659 ;	8051_i2c_eeprom.c:607: SCL = 0;
+                                   2659 ;	8051_i2c_eeprom.c:606: SCL = 0;
                                    2660 ;	assignBit
       002BA2 C2 93            [12] 2661 	clr	_P1_3
-                                   2662 ;	8051_i2c_eeprom.c:608: }
+                                   2662 ;	8051_i2c_eeprom.c:607: }
       002BA4 22               [24] 2663 	ret
                                    2664 ;------------------------------------------------------------
                                    2665 ;Allocation info for local variables in function 'EEPROM_hexdump'
@@ -2673,7 +2673,7 @@
                                    2673 ;i                         Allocated with name '_EEPROM_hexdump_i_196609_143'
                                    2674 ;data                      Allocated with name '_EEPROM_hexdump_data_327682_146'
                                    2675 ;------------------------------------------------------------
-                                   2676 ;	8051_i2c_eeprom.c:617: int EEPROM_hexdump(uint16_t start_address, uint16_t end_address) {
+                                   2676 ;	8051_i2c_eeprom.c:616: int EEPROM_hexdump(uint16_t start_address, uint16_t end_address) {
                                    2677 ;	-----------------------------------------
                                    2678 ;	 function EEPROM_hexdump
                                    2679 ;	-----------------------------------------
@@ -2685,8 +2685,8 @@
       002BAD EF               [12] 2685 	mov	a,r7
       002BAE A3               [24] 2686 	inc	dptr
       002BAF F0               [24] 2687 	movx	@dptr,a
-                                   2688 ;	8051_i2c_eeprom.c:619: printf("\r\n----------------------------------------------------------------\r\n");
-      002BB0 74 72            [12] 2689 	mov	a,#___str_47
+                                   2688 ;	8051_i2c_eeprom.c:618: printf("\r\n----------------------------------------------------------------\r\n");
+      002BB0 74 74            [12] 2689 	mov	a,#___str_47
       002BB2 C0 E0            [24] 2690 	push	acc
       002BB4 74 48            [12] 2691 	mov	a,#(___str_47 >> 8)
       002BB6 C0 E0            [24] 2692 	push	acc
@@ -2696,8 +2696,8 @@
       002BBF 15 81            [12] 2696 	dec	sp
       002BC1 15 81            [12] 2697 	dec	sp
       002BC3 15 81            [12] 2698 	dec	sp
-                                   2699 ;	8051_i2c_eeprom.c:620: printf("                    EEPROM Hex Dump                               \r\n");
-      002BC5 74 B7            [12] 2700 	mov	a,#___str_48
+                                   2699 ;	8051_i2c_eeprom.c:619: printf("                    EEPROM Hex Dump                               \r\n");
+      002BC5 74 B9            [12] 2700 	mov	a,#___str_48
       002BC7 C0 E0            [24] 2701 	push	acc
       002BC9 74 48            [12] 2702 	mov	a,#(___str_48 >> 8)
       002BCB C0 E0            [24] 2703 	push	acc
@@ -2707,8 +2707,8 @@
       002BD4 15 81            [12] 2707 	dec	sp
       002BD6 15 81            [12] 2708 	dec	sp
       002BD8 15 81            [12] 2709 	dec	sp
-                                   2710 ;	8051_i2c_eeprom.c:621: printf("----------------------------------------------------------------\r\n");
-      002BDA 74 FC            [12] 2711 	mov	a,#___str_49
+                                   2710 ;	8051_i2c_eeprom.c:620: printf("----------------------------------------------------------------\r\n");
+      002BDA 74 FE            [12] 2711 	mov	a,#___str_49
       002BDC C0 E0            [24] 2712 	push	acc
       002BDE 74 48            [12] 2713 	mov	a,#(___str_49 >> 8)
       002BE0 C0 E0            [24] 2714 	push	acc
@@ -2718,8 +2718,8 @@
       002BE9 15 81            [12] 2718 	dec	sp
       002BEB 15 81            [12] 2719 	dec	sp
       002BED 15 81            [12] 2720 	dec	sp
-                                   2721 ;	8051_i2c_eeprom.c:622: printf("     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\r\n");
-      002BEF 74 3F            [12] 2722 	mov	a,#___str_50
+                                   2721 ;	8051_i2c_eeprom.c:621: printf("     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\r\n");
+      002BEF 74 41            [12] 2722 	mov	a,#___str_50
       002BF1 C0 E0            [24] 2723 	push	acc
       002BF3 74 49            [12] 2724 	mov	a,#(___str_50 >> 8)
       002BF5 C0 E0            [24] 2725 	push	acc
@@ -2729,7 +2729,7 @@
       002BFE 15 81            [12] 2729 	dec	sp
       002C00 15 81            [12] 2730 	dec	sp
       002C02 15 81            [12] 2731 	dec	sp
-                                   2732 ;	8051_i2c_eeprom.c:626: uint16_t current_address = start_address;
+                                   2732 ;	8051_i2c_eeprom.c:625: uint16_t current_address = start_address;
       002C04 90 04 1F         [24] 2733 	mov	dptr,#_EEPROM_hexdump_start_address_65536_131
       002C07 E0               [24] 2734 	movx	a,@dptr
       002C08 FE               [12] 2735 	mov	r6,a
@@ -2742,7 +2742,7 @@
       002C11 EF               [12] 2742 	mov	a,r7
       002C12 A3               [24] 2743 	inc	dptr
       002C13 F0               [24] 2744 	movx	@dptr,a
-                                   2745 ;	8051_i2c_eeprom.c:629: while (current_address <= end_address) {
+                                   2745 ;	8051_i2c_eeprom.c:628: while (current_address <= end_address) {
       002C14 90 04 1D         [24] 2746 	mov	dptr,#_EEPROM_hexdump_PARM_2
       002C17 E0               [24] 2747 	movx	a,@dptr
       002C18 FE               [12] 2748 	mov	r6,a
@@ -2764,13 +2764,13 @@
       002C29 50 03            [24] 2764 	jnc	00183$
       002C2B 02 2E BB         [24] 2765 	ljmp	00121$
       002C2E                       2766 00183$:
-                                   2767 ;	8051_i2c_eeprom.c:631: printf("%03X: ", current_address & 0xFFF0);
+                                   2767 ;	8051_i2c_eeprom.c:630: printf("%03X: ", current_address & 0xFFF0);
       002C2E 53 04 F0         [24] 2768 	anl	ar4,#0xf0
       002C31 C0 07            [24] 2769 	push	ar7
       002C33 C0 06            [24] 2770 	push	ar6
       002C35 C0 04            [24] 2771 	push	ar4
       002C37 C0 05            [24] 2772 	push	ar5
-      002C39 74 75            [12] 2773 	mov	a,#___str_51
+      002C39 74 77            [12] 2773 	mov	a,#___str_51
       002C3B C0 E0            [24] 2774 	push	acc
       002C3D 74 49            [12] 2775 	mov	a,#(___str_51 >> 8)
       002C3F C0 E0            [24] 2776 	push	acc
@@ -2782,7 +2782,7 @@
       002C4C F5 81            [12] 2782 	mov	sp,a
       002C4E D0 06            [24] 2783 	pop	ar6
       002C50 D0 07            [24] 2784 	pop	ar7
-                                   2785 ;	8051_i2c_eeprom.c:634: for (uint8_t i = 0; i < 16; i++) {
+                                   2785 ;	8051_i2c_eeprom.c:633: for (uint8_t i = 0; i < 16; i++) {
       002C52 7D 00            [12] 2786 	mov	r5,#0x00
       002C54                       2787 00123$:
       002C54 BD 10 00         [24] 2788 	cjne	r5,#0x10,00184$
@@ -2790,7 +2790,7 @@
       002C57 40 03            [24] 2790 	jc	00185$
       002C59 02 2D 90         [24] 2791 	ljmp	00110$
       002C5C                       2792 00185$:
-                                   2793 ;	8051_i2c_eeprom.c:635: if (current_address + i <= end_address) {
+                                   2793 ;	8051_i2c_eeprom.c:634: if (current_address + i <= end_address) {
       002C5C 8D 03            [24] 2794 	mov	ar3,r5
       002C5E 7C 00            [12] 2795 	mov	r4,#0x00
       002C60 90 04 21         [24] 2796 	mov	dptr,#_EEPROM_hexdump_current_address_65537_133
@@ -2817,14 +2817,14 @@
       002C7B 50 03            [24] 2817 	jnc	00186$
       002C7D 02 2D 6B         [24] 2818 	ljmp	00108$
       002C80                       2819 00186$:
-                                   2820 ;	8051_i2c_eeprom.c:637: i2c_start();
+                                   2820 ;	8051_i2c_eeprom.c:636: i2c_start();
       002C80 C0 07            [24] 2821 	push	ar7
       002C82 C0 06            [24] 2822 	push	ar6
       002C84 C0 05            [24] 2823 	push	ar5
       002C86 C0 02            [24] 2824 	push	ar2
       002C88 C0 01            [24] 2825 	push	ar1
       002C8A 12 2B 90         [24] 2826 	lcall	_i2c_start
-                                   2827 ;	8051_i2c_eeprom.c:640: if (!i2c_write(EEPROM_ID | WRITE)) {
+                                   2827 ;	8051_i2c_eeprom.c:639: if (!i2c_write(EEPROM_ID | WRITE)) {
       002C8D 75 82 A0         [24] 2828 	mov	dpl,#0xa0
       002C90 12 2A A3         [24] 2829 	lcall	_i2c_write
       002C93 E5 82            [12] 2830 	mov	a,dpl
@@ -2836,8 +2836,8 @@
       002CA0 D0 07            [24] 2836 	pop	ar7
       002CA2 45 F0            [12] 2837 	orl	a,b
       002CA4 70 1C            [24] 2838 	jnz	00102$
-                                   2839 ;	8051_i2c_eeprom.c:641: printf("Error: Device not responding\r\n");
-      002CA6 74 7C            [12] 2840 	mov	a,#___str_52
+                                   2839 ;	8051_i2c_eeprom.c:640: printf("Error: Device not responding\r\n");
+      002CA6 74 7E            [12] 2840 	mov	a,#___str_52
       002CA8 C0 E0            [24] 2841 	push	acc
       002CAA 74 49            [12] 2842 	mov	a,#(___str_52 >> 8)
       002CAC C0 E0            [24] 2843 	push	acc
@@ -2847,13 +2847,13 @@
       002CB5 15 81            [12] 2847 	dec	sp
       002CB7 15 81            [12] 2848 	dec	sp
       002CB9 15 81            [12] 2849 	dec	sp
-                                   2850 ;	8051_i2c_eeprom.c:642: i2c_stop();
+                                   2850 ;	8051_i2c_eeprom.c:641: i2c_stop();
       002CBB 12 2F 73         [24] 2851 	lcall	_i2c_stop
-                                   2852 ;	8051_i2c_eeprom.c:643: return 0;
+                                   2852 ;	8051_i2c_eeprom.c:642: return 0;
       002CBE 90 00 00         [24] 2853 	mov	dptr,#0x0000
       002CC1 22               [24] 2854 	ret
       002CC2                       2855 00102$:
-                                   2856 ;	8051_i2c_eeprom.c:647: if (!i2c_write((unsigned char)(current_address + i))) {
+                                   2856 ;	8051_i2c_eeprom.c:646: if (!i2c_write((unsigned char)(current_address + i))) {
       002CC2 ED               [12] 2857 	mov	a,r5
       002CC3 29               [12] 2858 	add	a,r1
       002CC4 F5 82            [12] 2859 	mov	dpl,a
@@ -2868,8 +2868,8 @@
       002CD8 D0 07            [24] 2868 	pop	ar7
       002CDA 45 F0            [12] 2869 	orl	a,b
       002CDC 70 1C            [24] 2870 	jnz	00104$
-                                   2871 ;	8051_i2c_eeprom.c:648: printf("Error: Address write failed\r\n");
-      002CDE 74 9B            [12] 2872 	mov	a,#___str_53
+                                   2871 ;	8051_i2c_eeprom.c:647: printf("Error: Address write failed\r\n");
+      002CDE 74 9D            [12] 2872 	mov	a,#___str_53
       002CE0 C0 E0            [24] 2873 	push	acc
       002CE2 74 49            [12] 2874 	mov	a,#(___str_53 >> 8)
       002CE4 C0 E0            [24] 2875 	push	acc
@@ -2879,18 +2879,18 @@
       002CED 15 81            [12] 2879 	dec	sp
       002CEF 15 81            [12] 2880 	dec	sp
       002CF1 15 81            [12] 2881 	dec	sp
-                                   2882 ;	8051_i2c_eeprom.c:649: i2c_stop();
+                                   2882 ;	8051_i2c_eeprom.c:648: i2c_stop();
       002CF3 12 2F 73         [24] 2883 	lcall	_i2c_stop
-                                   2884 ;	8051_i2c_eeprom.c:650: return 0;
+                                   2884 ;	8051_i2c_eeprom.c:649: return 0;
       002CF6 90 00 00         [24] 2885 	mov	dptr,#0x0000
       002CF9 22               [24] 2886 	ret
       002CFA                       2887 00104$:
-                                   2888 ;	8051_i2c_eeprom.c:654: i2c_start();
+                                   2888 ;	8051_i2c_eeprom.c:653: i2c_start();
       002CFA C0 07            [24] 2889 	push	ar7
       002CFC C0 06            [24] 2890 	push	ar6
       002CFE C0 05            [24] 2891 	push	ar5
       002D00 12 2B 90         [24] 2892 	lcall	_i2c_start
-                                   2893 ;	8051_i2c_eeprom.c:657: if (!i2c_write(EEPROM_ID | READ)) {
+                                   2893 ;	8051_i2c_eeprom.c:656: if (!i2c_write(EEPROM_ID | READ)) {
       002D03 75 82 A1         [24] 2894 	mov	dpl,#0xa1
       002D06 12 2A A3         [24] 2895 	lcall	_i2c_write
       002D09 E5 82            [12] 2896 	mov	a,dpl
@@ -2900,8 +2900,8 @@
       002D12 D0 07            [24] 2900 	pop	ar7
       002D14 45 F0            [12] 2901 	orl	a,b
       002D16 70 1C            [24] 2902 	jnz	00106$
-                                   2903 ;	8051_i2c_eeprom.c:658: printf("Error: Device not responding in read mode\r\n");
-      002D18 74 B9            [12] 2904 	mov	a,#___str_54
+                                   2903 ;	8051_i2c_eeprom.c:657: printf("Error: Device not responding in read mode\r\n");
+      002D18 74 BB            [12] 2904 	mov	a,#___str_54
       002D1A C0 E0            [24] 2905 	push	acc
       002D1C 74 49            [12] 2906 	mov	a,#(___str_54 >> 8)
       002D1E C0 E0            [24] 2907 	push	acc
@@ -2911,24 +2911,24 @@
       002D27 15 81            [12] 2911 	dec	sp
       002D29 15 81            [12] 2912 	dec	sp
       002D2B 15 81            [12] 2913 	dec	sp
-                                   2914 ;	8051_i2c_eeprom.c:659: i2c_stop();
+                                   2914 ;	8051_i2c_eeprom.c:658: i2c_stop();
       002D2D 12 2F 73         [24] 2915 	lcall	_i2c_stop
-                                   2916 ;	8051_i2c_eeprom.c:660: return 0;
+                                   2916 ;	8051_i2c_eeprom.c:659: return 0;
       002D30 90 00 00         [24] 2917 	mov	dptr,#0x0000
       002D33 22               [24] 2918 	ret
       002D34                       2919 00106$:
-                                   2920 ;	8051_i2c_eeprom.c:664: unsigned char data = i2c_read(0);
+                                   2920 ;	8051_i2c_eeprom.c:663: unsigned char data = i2c_read(0);
       002D34 90 00 00         [24] 2921 	mov	dptr,#0x0000
       002D37 C0 07            [24] 2922 	push	ar7
       002D39 C0 06            [24] 2923 	push	ar6
       002D3B C0 05            [24] 2924 	push	ar5
       002D3D 12 2B 0B         [24] 2925 	lcall	_i2c_read
       002D40 AB 82            [24] 2926 	mov	r3,dpl
-                                   2927 ;	8051_i2c_eeprom.c:665: printf("%02X ", data);
+                                   2927 ;	8051_i2c_eeprom.c:664: printf("%02X ", data);
       002D42 7C 00            [12] 2928 	mov	r4,#0x00
       002D44 C0 03            [24] 2929 	push	ar3
       002D46 C0 04            [24] 2930 	push	ar4
-      002D48 74 E5            [12] 2931 	mov	a,#___str_55
+      002D48 74 E7            [12] 2931 	mov	a,#___str_55
       002D4A C0 E0            [24] 2932 	push	acc
       002D4C 74 49            [12] 2933 	mov	a,#(___str_55 >> 8)
       002D4E C0 E0            [24] 2934 	push	acc
@@ -2938,20 +2938,20 @@
       002D57 E5 81            [12] 2938 	mov	a,sp
       002D59 24 FB            [12] 2939 	add	a,#0xfb
       002D5B F5 81            [12] 2940 	mov	sp,a
-                                   2941 ;	8051_i2c_eeprom.c:667: i2c_stop();
+                                   2941 ;	8051_i2c_eeprom.c:666: i2c_stop();
       002D5D 12 2F 73         [24] 2942 	lcall	_i2c_stop
-                                   2943 ;	8051_i2c_eeprom.c:668: i2c_delay(); // Small delay between reads
+                                   2943 ;	8051_i2c_eeprom.c:667: i2c_delay(); // Small delay between reads
       002D60 12 2F AC         [24] 2944 	lcall	_i2c_delay
       002D63 D0 05            [24] 2945 	pop	ar5
       002D65 D0 06            [24] 2946 	pop	ar6
       002D67 D0 07            [24] 2947 	pop	ar7
       002D69 80 21            [24] 2948 	sjmp	00124$
       002D6B                       2949 00108$:
-                                   2950 ;	8051_i2c_eeprom.c:670: printf("   "); // Print spaces for addresses beyond end_address
+                                   2950 ;	8051_i2c_eeprom.c:669: printf("   "); // Print spaces for addresses beyond end_address
       002D6B C0 07            [24] 2951 	push	ar7
       002D6D C0 06            [24] 2952 	push	ar6
       002D6F C0 05            [24] 2953 	push	ar5
-      002D71 74 EB            [12] 2954 	mov	a,#___str_56
+      002D71 74 ED            [12] 2954 	mov	a,#___str_56
       002D73 C0 E0            [24] 2955 	push	acc
       002D75 74 49            [12] 2956 	mov	a,#(___str_56 >> 8)
       002D77 C0 E0            [24] 2957 	push	acc
@@ -2965,14 +2965,14 @@
       002D88 D0 06            [24] 2965 	pop	ar6
       002D8A D0 07            [24] 2966 	pop	ar7
       002D8C                       2967 00124$:
-                                   2968 ;	8051_i2c_eeprom.c:634: for (uint8_t i = 0; i < 16; i++) {
+                                   2968 ;	8051_i2c_eeprom.c:633: for (uint8_t i = 0; i < 16; i++) {
       002D8C 0D               [12] 2969 	inc	r5
       002D8D 02 2C 54         [24] 2970 	ljmp	00123$
       002D90                       2971 00110$:
-                                   2972 ;	8051_i2c_eeprom.c:675: printf(" | ");
+                                   2972 ;	8051_i2c_eeprom.c:674: printf(" | ");
       002D90 C0 07            [24] 2973 	push	ar7
       002D92 C0 06            [24] 2974 	push	ar6
-      002D94 74 EF            [12] 2975 	mov	a,#___str_57
+      002D94 74 F1            [12] 2975 	mov	a,#___str_57
       002D96 C0 E0            [24] 2976 	push	acc
       002D98 74 49            [12] 2977 	mov	a,#(___str_57 >> 8)
       002D9A C0 E0            [24] 2978 	push	acc
@@ -2984,7 +2984,7 @@
       002DA7 15 81            [12] 2984 	dec	sp
       002DA9 D0 06            [24] 2985 	pop	ar6
       002DAB D0 07            [24] 2986 	pop	ar7
-                                   2987 ;	8051_i2c_eeprom.c:676: for (uint8_t i = 0; i < 16; i++) {
+                                   2987 ;	8051_i2c_eeprom.c:675: for (uint8_t i = 0; i < 16; i++) {
       002DAD 90 04 21         [24] 2988 	mov	dptr,#_EEPROM_hexdump_current_address_65537_133
       002DB0 E0               [24] 2989 	movx	a,@dptr
       002DB1 FC               [12] 2990 	mov	r4,a
@@ -2998,7 +2998,7 @@
       002DBA 40 03            [24] 2998 	jc	00191$
       002DBC 02 2E 84         [24] 2999 	ljmp	00118$
       002DBF                       3000 00191$:
-                                   3001 ;	8051_i2c_eeprom.c:677: if (current_address + i <= end_address) {
+                                   3001 ;	8051_i2c_eeprom.c:676: if (current_address + i <= end_address) {
       002DBF 8B 01            [24] 3002 	mov	ar1,r3
       002DC1 7A 00            [12] 3003 	mov	r2,#0x00
       002DC3 C0 03            [24] 3004 	push	ar3
@@ -3019,19 +3019,19 @@
       002DD6 50 03            [24] 3019 	jnc	00192$
       002DD8 02 2E 66         [24] 3020 	ljmp	00116$
       002DDB                       3021 00192$:
-                                   3022 ;	8051_i2c_eeprom.c:679: i2c_start();
+                                   3022 ;	8051_i2c_eeprom.c:678: i2c_start();
       002DDB C0 07            [24] 3023 	push	ar7
       002DDD C0 06            [24] 3024 	push	ar6
       002DDF C0 05            [24] 3025 	push	ar5
       002DE1 C0 04            [24] 3026 	push	ar4
       002DE3 C0 03            [24] 3027 	push	ar3
       002DE5 12 2B 90         [24] 3028 	lcall	_i2c_start
-                                   3029 ;	8051_i2c_eeprom.c:680: i2c_write(EEPROM_ID | WRITE);
+                                   3029 ;	8051_i2c_eeprom.c:679: i2c_write(EEPROM_ID | WRITE);
       002DE8 75 82 A0         [24] 3030 	mov	dpl,#0xa0
       002DEB 12 2A A3         [24] 3031 	lcall	_i2c_write
       002DEE D0 03            [24] 3032 	pop	ar3
       002DF0 D0 04            [24] 3033 	pop	ar4
-                                   3034 ;	8051_i2c_eeprom.c:681: i2c_write((unsigned char)(current_address + i));
+                                   3034 ;	8051_i2c_eeprom.c:680: i2c_write((unsigned char)(current_address + i));
       002DF2 8C 02            [24] 3035 	mov	ar2,r4
       002DF4 EB               [12] 3036 	mov	a,r3
       002DF5 2A               [12] 3037 	add	a,r2
@@ -3039,16 +3039,16 @@
       002DF8 C0 04            [24] 3039 	push	ar4
       002DFA C0 03            [24] 3040 	push	ar3
       002DFC 12 2A A3         [24] 3041 	lcall	_i2c_write
-                                   3042 ;	8051_i2c_eeprom.c:682: i2c_start();
+                                   3042 ;	8051_i2c_eeprom.c:681: i2c_start();
       002DFF 12 2B 90         [24] 3043 	lcall	_i2c_start
-                                   3044 ;	8051_i2c_eeprom.c:683: i2c_write(EEPROM_ID | READ);
+                                   3044 ;	8051_i2c_eeprom.c:682: i2c_write(EEPROM_ID | READ);
       002E02 75 82 A1         [24] 3045 	mov	dpl,#0xa1
       002E05 12 2A A3         [24] 3046 	lcall	_i2c_write
-                                   3047 ;	8051_i2c_eeprom.c:684: unsigned char data = i2c_read(0);
+                                   3047 ;	8051_i2c_eeprom.c:683: unsigned char data = i2c_read(0);
       002E08 90 00 00         [24] 3048 	mov	dptr,#0x0000
       002E0B 12 2B 0B         [24] 3049 	lcall	_i2c_read
       002E0E A9 82            [24] 3050 	mov	r1,dpl
-                                   3051 ;	8051_i2c_eeprom.c:685: i2c_stop();
+                                   3051 ;	8051_i2c_eeprom.c:684: i2c_stop();
       002E10 C0 01            [24] 3052 	push	ar1
       002E12 12 2F 73         [24] 3053 	lcall	_i2c_stop
       002E15 D0 01            [24] 3054 	pop	ar1
@@ -3057,14 +3057,14 @@
       002E1B D0 05            [24] 3057 	pop	ar5
       002E1D D0 06            [24] 3058 	pop	ar6
       002E1F D0 07            [24] 3059 	pop	ar7
-                                   3060 ;	8051_i2c_eeprom.c:688: if (data >= 32 && data <= 126) {
+                                   3060 ;	8051_i2c_eeprom.c:687: if (data >= 32 && data <= 126) {
       002E21 B9 20 00         [24] 3061 	cjne	r1,#0x20,00193$
       002E24                       3062 00193$:
       002E24 40 24            [24] 3063 	jc	00112$
       002E26 E9               [12] 3064 	mov	a,r1
       002E27 24 81            [12] 3065 	add	a,#0xff - 0x7e
       002E29 40 1F            [24] 3066 	jc	00112$
-                                   3067 ;	8051_i2c_eeprom.c:689: putchar(data);
+                                   3067 ;	8051_i2c_eeprom.c:688: putchar(data);
       002E2B 7A 00            [12] 3068 	mov	r2,#0x00
       002E2D 89 82            [24] 3069 	mov	dpl,r1
       002E2F 8A 83            [24] 3070 	mov	dph,r2
@@ -3081,7 +3081,7 @@
       002E46 D0 07            [24] 3081 	pop	ar7
       002E48 80 36            [24] 3082 	sjmp	00127$
       002E4A                       3083 00112$:
-                                   3084 ;	8051_i2c_eeprom.c:691: putchar('.');
+                                   3084 ;	8051_i2c_eeprom.c:690: putchar('.');
       002E4A 90 00 2E         [24] 3085 	mov	dptr,#0x002e
       002E4D C0 07            [24] 3086 	push	ar7
       002E4F C0 06            [24] 3087 	push	ar6
@@ -3096,7 +3096,7 @@
       002E62 D0 07            [24] 3096 	pop	ar7
       002E64 80 1A            [24] 3097 	sjmp	00127$
       002E66                       3098 00116$:
-                                   3099 ;	8051_i2c_eeprom.c:694: putchar(' ');
+                                   3099 ;	8051_i2c_eeprom.c:693: putchar(' ');
       002E66 90 00 20         [24] 3100 	mov	dptr,#0x0020
       002E69 C0 07            [24] 3101 	push	ar7
       002E6B C0 06            [24] 3102 	push	ar6
@@ -3110,14 +3110,14 @@
       002E7C D0 06            [24] 3110 	pop	ar6
       002E7E D0 07            [24] 3111 	pop	ar7
       002E80                       3112 00127$:
-                                   3113 ;	8051_i2c_eeprom.c:676: for (uint8_t i = 0; i < 16; i++) {
+                                   3113 ;	8051_i2c_eeprom.c:675: for (uint8_t i = 0; i < 16; i++) {
       002E80 0B               [12] 3114 	inc	r3
       002E81 02 2D B7         [24] 3115 	ljmp	00126$
       002E84                       3116 00118$:
-                                   3117 ;	8051_i2c_eeprom.c:698: printf("\r\n");
+                                   3117 ;	8051_i2c_eeprom.c:697: printf("\r\n");
       002E84 C0 07            [24] 3118 	push	ar7
       002E86 C0 06            [24] 3119 	push	ar6
-      002E88 74 F3            [12] 3120 	mov	a,#___str_58
+      002E88 74 F5            [12] 3120 	mov	a,#___str_58
       002E8A C0 E0            [24] 3121 	push	acc
       002E8C 74 49            [12] 3122 	mov	a,#(___str_58 >> 8)
       002E8E C0 E0            [24] 3123 	push	acc
@@ -3129,7 +3129,7 @@
       002E9B 15 81            [12] 3129 	dec	sp
       002E9D D0 06            [24] 3130 	pop	ar6
       002E9F D0 07            [24] 3131 	pop	ar7
-                                   3132 ;	8051_i2c_eeprom.c:699: current_address += 16;
+                                   3132 ;	8051_i2c_eeprom.c:698: current_address += 16;
       002EA1 90 04 21         [24] 3133 	mov	dptr,#_EEPROM_hexdump_current_address_65537_133
       002EA4 E0               [24] 3134 	movx	a,@dptr
       002EA5 FC               [12] 3135 	mov	r4,a
@@ -3150,8 +3150,8 @@
       002EB7 F0               [24] 3150 	movx	@dptr,a
       002EB8 02 2C 1C         [24] 3151 	ljmp	00119$
       002EBB                       3152 00121$:
-                                   3153 ;	8051_i2c_eeprom.c:702: printf("----------------------------------------------------------------\r\n");
-      002EBB 74 FC            [12] 3154 	mov	a,#___str_49
+                                   3153 ;	8051_i2c_eeprom.c:701: printf("----------------------------------------------------------------\r\n");
+      002EBB 74 FE            [12] 3154 	mov	a,#___str_49
       002EBD C0 E0            [24] 3155 	push	acc
       002EBF 74 48            [12] 3156 	mov	a,#(___str_49 >> 8)
       002EC1 C0 E0            [24] 3157 	push	acc
@@ -3161,9 +3161,9 @@
       002ECA 15 81            [12] 3161 	dec	sp
       002ECC 15 81            [12] 3162 	dec	sp
       002ECE 15 81            [12] 3163 	dec	sp
-                                   3164 ;	8051_i2c_eeprom.c:703: return 1;
+                                   3164 ;	8051_i2c_eeprom.c:702: return 1;
       002ED0 90 00 01         [24] 3165 	mov	dptr,#0x0001
-                                   3166 ;	8051_i2c_eeprom.c:704: }
+                                   3166 ;	8051_i2c_eeprom.c:703: }
       002ED3 22               [24] 3167 	ret
                                    3168 ;------------------------------------------------------------
                                    3169 ;Allocation info for local variables in function 'handler_EEPROM_hexdump'
@@ -3171,13 +3171,13 @@
                                    3171 ;start_addr                Allocated with name '_handler_EEPROM_hexdump_start_addr_65537_152'
                                    3172 ;end_addr                  Allocated with name '_handler_EEPROM_hexdump_end_addr_65538_154'
                                    3173 ;------------------------------------------------------------
-                                   3174 ;	8051_i2c_eeprom.c:707: void handler_EEPROM_hexdump(void) {
+                                   3174 ;	8051_i2c_eeprom.c:706: void handler_EEPROM_hexdump(void) {
                                    3175 ;	-----------------------------------------
                                    3176 ;	 function handler_EEPROM_hexdump
                                    3177 ;	-----------------------------------------
       002ED4                       3178 _handler_EEPROM_hexdump:
-                                   3179 ;	8051_i2c_eeprom.c:708: printf("\nEnter Start Address for HEX Dump (000-7FF):\r\n");
-      002ED4 74 F6            [12] 3180 	mov	a,#___str_59
+                                   3179 ;	8051_i2c_eeprom.c:707: printf("\nEnter Start Address for HEX Dump (000-7FF):\r\n");
+      002ED4 74 F8            [12] 3180 	mov	a,#___str_59
       002ED6 C0 E0            [24] 3181 	push	acc
       002ED8 74 49            [12] 3182 	mov	a,#(___str_59 >> 8)
       002EDA C0 E0            [24] 3183 	push	acc
@@ -3187,11 +3187,11 @@
       002EE3 15 81            [12] 3187 	dec	sp
       002EE5 15 81            [12] 3188 	dec	sp
       002EE7 15 81            [12] 3189 	dec	sp
-                                   3190 ;	8051_i2c_eeprom.c:709: uint16_t start_addr = take_address();
+                                   3190 ;	8051_i2c_eeprom.c:708: uint16_t start_addr = take_address();
       002EE9 12 24 96         [24] 3191 	lcall	_take_address
       002EEC AE 82            [24] 3192 	mov	r6,dpl
       002EEE AF 83            [24] 3193 	mov	r7,dph
-                                   3194 ;	8051_i2c_eeprom.c:711: if (start_addr > ADDR_MAX) {
+                                   3194 ;	8051_i2c_eeprom.c:710: if (start_addr > ADDR_MAX) {
       002EF0 8E 04            [24] 3195 	mov	ar4,r6
       002EF2 8F 05            [24] 3196 	mov	ar5,r7
       002EF4 C3               [12] 3197 	clr	c
@@ -3200,8 +3200,8 @@
       002EF8 74 07            [12] 3200 	mov	a,#0x07
       002EFA 9D               [12] 3201 	subb	a,r5
       002EFB 50 16            [24] 3202 	jnc	00102$
-                                   3203 ;	8051_i2c_eeprom.c:712: printf("Invalid Start Address! Must be between 0x000 and 0x7FF\r\n");
-      002EFD 74 25            [12] 3204 	mov	a,#___str_60
+                                   3203 ;	8051_i2c_eeprom.c:711: printf("Invalid Start Address! Must be between 0x000 and 0x7FF\r\n");
+      002EFD 74 27            [12] 3204 	mov	a,#___str_60
       002EFF C0 E0            [24] 3205 	push	acc
       002F01 74 4A            [12] 3206 	mov	a,#(___str_60 >> 8)
       002F03 C0 E0            [24] 3207 	push	acc
@@ -3211,13 +3211,13 @@
       002F0C 15 81            [12] 3211 	dec	sp
       002F0E 15 81            [12] 3212 	dec	sp
       002F10 15 81            [12] 3213 	dec	sp
-                                   3214 ;	8051_i2c_eeprom.c:713: return;
+                                   3214 ;	8051_i2c_eeprom.c:712: return;
       002F12 22               [24] 3215 	ret
       002F13                       3216 00102$:
-                                   3217 ;	8051_i2c_eeprom.c:716: printf("\nEnter End Address for HEX Dump (000-7FF):\r\n");
+                                   3217 ;	8051_i2c_eeprom.c:715: printf("\nEnter End Address for HEX Dump (000-7FF):\r\n");
       002F13 C0 07            [24] 3218 	push	ar7
       002F15 C0 06            [24] 3219 	push	ar6
-      002F17 74 5E            [12] 3220 	mov	a,#___str_61
+      002F17 74 60            [12] 3220 	mov	a,#___str_61
       002F19 C0 E0            [24] 3221 	push	acc
       002F1B 74 4A            [12] 3222 	mov	a,#(___str_61 >> 8)
       002F1D C0 E0            [24] 3223 	push	acc
@@ -3227,13 +3227,13 @@
       002F26 15 81            [12] 3227 	dec	sp
       002F28 15 81            [12] 3228 	dec	sp
       002F2A 15 81            [12] 3229 	dec	sp
-                                   3230 ;	8051_i2c_eeprom.c:717: uint16_t end_addr = take_address();
+                                   3230 ;	8051_i2c_eeprom.c:716: uint16_t end_addr = take_address();
       002F2C 12 24 96         [24] 3231 	lcall	_take_address
       002F2F AC 82            [24] 3232 	mov	r4,dpl
       002F31 AD 83            [24] 3233 	mov	r5,dph
       002F33 D0 06            [24] 3234 	pop	ar6
       002F35 D0 07            [24] 3235 	pop	ar7
-                                   3236 ;	8051_i2c_eeprom.c:719: if (end_addr > ADDR_MAX || end_addr < start_addr) {
+                                   3236 ;	8051_i2c_eeprom.c:718: if (end_addr > ADDR_MAX || end_addr < start_addr) {
       002F37 8C 02            [24] 3237 	mov	ar2,r4
       002F39 8D 03            [24] 3238 	mov	ar3,r5
       002F3B C3               [12] 3239 	clr	c
@@ -3248,10 +3248,10 @@
       002F47 9F               [12] 3248 	subb	a,r7
       002F48 50 1A            [24] 3249 	jnc	00104$
       002F4A                       3250 00103$:
-                                   3251 ;	8051_i2c_eeprom.c:720: printf("Invalid End Address! Must be between 0x%03X and 0x7FF\r\n", start_addr);
+                                   3251 ;	8051_i2c_eeprom.c:719: printf("Invalid End Address! Must be between 0x%03X and 0x7FF\r\n", start_addr);
       002F4A C0 06            [24] 3252 	push	ar6
       002F4C C0 07            [24] 3253 	push	ar7
-      002F4E 74 8B            [12] 3254 	mov	a,#___str_62
+      002F4E 74 8D            [12] 3254 	mov	a,#___str_62
       002F50 C0 E0            [24] 3255 	push	acc
       002F52 74 4A            [12] 3256 	mov	a,#(___str_62 >> 8)
       002F54 C0 E0            [24] 3257 	push	acc
@@ -3261,10 +3261,10 @@
       002F5D E5 81            [12] 3261 	mov	a,sp
       002F5F 24 FB            [12] 3262 	add	a,#0xfb
       002F61 F5 81            [12] 3263 	mov	sp,a
-                                   3264 ;	8051_i2c_eeprom.c:721: return;
+                                   3264 ;	8051_i2c_eeprom.c:720: return;
       002F63 22               [24] 3265 	ret
       002F64                       3266 00104$:
-                                   3267 ;	8051_i2c_eeprom.c:724: EEPROM_hexdump(start_addr, end_addr);
+                                   3267 ;	8051_i2c_eeprom.c:723: EEPROM_hexdump(start_addr, end_addr);
       002F64 90 04 1D         [24] 3268 	mov	dptr,#_EEPROM_hexdump_PARM_2
       002F67 EC               [12] 3269 	mov	a,r4
       002F68 F0               [24] 3270 	movx	@dptr,a
@@ -3273,50 +3273,50 @@
       002F6B F0               [24] 3273 	movx	@dptr,a
       002F6C 8E 82            [24] 3274 	mov	dpl,r6
       002F6E 8F 83            [24] 3275 	mov	dph,r7
-                                   3276 ;	8051_i2c_eeprom.c:725: }
+                                   3276 ;	8051_i2c_eeprom.c:724: }
       002F70 02 2B A5         [24] 3277 	ljmp	_EEPROM_hexdump
                                    3278 ;------------------------------------------------------------
                                    3279 ;Allocation info for local variables in function 'i2c_stop'
                                    3280 ;------------------------------------------------------------
-                                   3281 ;	8051_i2c_eeprom.c:857: void i2c_stop(void)
+                                   3281 ;	8051_i2c_eeprom.c:856: void i2c_stop(void)
                                    3282 ;	-----------------------------------------
                                    3283 ;	 function i2c_stop
                                    3284 ;	-----------------------------------------
       002F73                       3285 _i2c_stop:
-                                   3286 ;	8051_i2c_eeprom.c:859: SDA = 0;
+                                   3286 ;	8051_i2c_eeprom.c:858: SDA = 0;
                                    3287 ;	assignBit
       002F73 C2 94            [12] 3288 	clr	_P1_4
-                                   3289 ;	8051_i2c_eeprom.c:860: i2c_delay();
+                                   3289 ;	8051_i2c_eeprom.c:859: i2c_delay();
       002F75 12 2F AC         [24] 3290 	lcall	_i2c_delay
-                                   3291 ;	8051_i2c_eeprom.c:861: SCL = 1;
+                                   3291 ;	8051_i2c_eeprom.c:860: SCL = 1;
                                    3292 ;	assignBit
       002F78 D2 93            [12] 3293 	setb	_P1_3
-                                   3294 ;	8051_i2c_eeprom.c:862: i2c_delay();
+                                   3294 ;	8051_i2c_eeprom.c:861: i2c_delay();
       002F7A 12 2F AC         [24] 3295 	lcall	_i2c_delay
-                                   3296 ;	8051_i2c_eeprom.c:863: SDA = 1; 
+                                   3296 ;	8051_i2c_eeprom.c:862: SDA = 1; 
                                    3297 ;	assignBit
       002F7D D2 94            [12] 3298 	setb	_P1_4
-                                   3299 ;	8051_i2c_eeprom.c:864: }
+                                   3299 ;	8051_i2c_eeprom.c:863: }
       002F7F 22               [24] 3300 	ret
                                    3301 ;------------------------------------------------------------
                                    3302 ;Allocation info for local variables in function 'eeprom_reset'
                                    3303 ;------------------------------------------------------------
                                    3304 ;i                         Allocated with name '_eeprom_reset_i_131072_159'
                                    3305 ;------------------------------------------------------------
-                                   3306 ;	8051_i2c_eeprom.c:874: void eeprom_reset()
+                                   3306 ;	8051_i2c_eeprom.c:873: void eeprom_reset()
                                    3307 ;	-----------------------------------------
                                    3308 ;	 function eeprom_reset
                                    3309 ;	-----------------------------------------
       002F80                       3310 _eeprom_reset:
-                                   3311 ;	8051_i2c_eeprom.c:876: i2c_start();
+                                   3311 ;	8051_i2c_eeprom.c:875: i2c_start();
       002F80 12 2B 90         [24] 3312 	lcall	_i2c_start
-                                   3313 ;	8051_i2c_eeprom.c:877: SDA = 0;
+                                   3313 ;	8051_i2c_eeprom.c:876: SDA = 0;
                                    3314 ;	assignBit
       002F83 C2 94            [12] 3315 	clr	_P1_4
-                                   3316 ;	8051_i2c_eeprom.c:878: SDA = 1;
+                                   3316 ;	8051_i2c_eeprom.c:877: SDA = 1;
                                    3317 ;	assignBit
       002F85 D2 94            [12] 3318 	setb	_P1_4
-                                   3319 ;	8051_i2c_eeprom.c:879: for(int i = 0; i<10; i++)
+                                   3319 ;	8051_i2c_eeprom.c:878: for(int i = 0; i<10; i++)
       002F87 7E 00            [12] 3320 	mov	r6,#0x00
       002F89 7F 00            [12] 3321 	mov	r7,#0x00
       002F8B                       3322 00103$:
@@ -3327,41 +3327,41 @@
       002F90 64 80            [12] 3327 	xrl	a,#0x80
       002F92 94 80            [12] 3328 	subb	a,#0x80
       002F94 50 0B            [24] 3329 	jnc	00101$
-                                   3330 ;	8051_i2c_eeprom.c:881: SCL = 0;
+                                   3330 ;	8051_i2c_eeprom.c:880: SCL = 0;
                                    3331 ;	assignBit
       002F96 C2 93            [12] 3332 	clr	_P1_3
-                                   3333 ;	8051_i2c_eeprom.c:882: SCL = 1;
+                                   3333 ;	8051_i2c_eeprom.c:881: SCL = 1;
                                    3334 ;	assignBit
       002F98 D2 93            [12] 3335 	setb	_P1_3
-                                   3336 ;	8051_i2c_eeprom.c:879: for(int i = 0; i<10; i++)
+                                   3336 ;	8051_i2c_eeprom.c:878: for(int i = 0; i<10; i++)
       002F9A 0E               [12] 3337 	inc	r6
       002F9B BE 00 ED         [24] 3338 	cjne	r6,#0x00,00103$
       002F9E 0F               [12] 3339 	inc	r7
       002F9F 80 EA            [24] 3340 	sjmp	00103$
       002FA1                       3341 00101$:
-                                   3342 ;	8051_i2c_eeprom.c:884: i2c_start();
+                                   3342 ;	8051_i2c_eeprom.c:883: i2c_start();
       002FA1 12 2B 90         [24] 3343 	lcall	_i2c_start
-                                   3344 ;	8051_i2c_eeprom.c:885: SDA = 0;
+                                   3344 ;	8051_i2c_eeprom.c:884: SDA = 0;
                                    3345 ;	assignBit
       002FA4 C2 94            [12] 3346 	clr	_P1_4
-                                   3347 ;	8051_i2c_eeprom.c:886: i2c_stop();
+                                   3347 ;	8051_i2c_eeprom.c:885: i2c_stop();
       002FA6 12 2F 73         [24] 3348 	lcall	_i2c_stop
-                                   3349 ;	8051_i2c_eeprom.c:887: SDA = 1;
+                                   3349 ;	8051_i2c_eeprom.c:886: SDA = 1;
                                    3350 ;	assignBit
       002FA9 D2 94            [12] 3351 	setb	_P1_4
-                                   3352 ;	8051_i2c_eeprom.c:888: }
+                                   3352 ;	8051_i2c_eeprom.c:887: }
       002FAB 22               [24] 3353 	ret
                                    3354 ;------------------------------------------------------------
                                    3355 ;Allocation info for local variables in function 'i2c_delay'
                                    3356 ;------------------------------------------------------------
                                    3357 ;i                         Allocated with name '_i2c_delay_i_131072_162'
                                    3358 ;------------------------------------------------------------
-                                   3359 ;	8051_i2c_eeprom.c:897: void i2c_delay() 
+                                   3359 ;	8051_i2c_eeprom.c:896: void i2c_delay() 
                                    3360 ;	-----------------------------------------
                                    3361 ;	 function i2c_delay
                                    3362 ;	-----------------------------------------
       002FAC                       3363 _i2c_delay:
-                                   3364 ;	8051_i2c_eeprom.c:905: for(int i = 0; i<500; i++);
+                                   3364 ;	8051_i2c_eeprom.c:904: for(int i = 0; i<500; i++);
       002FAC 7E 00            [12] 3365 	mov	r6,#0x00
       002FAE 7F 00            [12] 3366 	mov	r7,#0x00
       002FB0                       3367 00103$:
@@ -3377,7 +3377,7 @@
       002FBF 0F               [12] 3377 	inc	r7
       002FC0 80 EE            [24] 3378 	sjmp	00103$
       002FC2                       3379 00105$:
-                                   3380 ;	8051_i2c_eeprom.c:906: }
+                                   3380 ;	8051_i2c_eeprom.c:905: }
       002FC2 22               [24] 3381 	ret
                                    3382 ;------------------------------------------------------------
                                    3383 ;Allocation info for local variables in function 'test_function'
@@ -3387,16 +3387,16 @@
                                    3387 ;i                         Allocated with name '_test_function_i_131073_165'
                                    3388 ;read_data                 Allocated with name '_test_function_read_data_65538_167'
                                    3389 ;------------------------------------------------------------
-                                   3390 ;	8051_i2c_eeprom.c:908: void test_function()
+                                   3390 ;	8051_i2c_eeprom.c:907: void test_function()
                                    3391 ;	-----------------------------------------
                                    3392 ;	 function test_function
                                    3393 ;	-----------------------------------------
       002FC3                       3394 _test_function:
-                                   3395 ;	8051_i2c_eeprom.c:910: i2c_start();
+                                   3395 ;	8051_i2c_eeprom.c:909: i2c_start();
       002FC3 12 2B 90         [24] 3396 	lcall	_i2c_start
-                                   3397 ;	8051_i2c_eeprom.c:911: i2c_delay();
+                                   3397 ;	8051_i2c_eeprom.c:910: i2c_delay();
       002FC6 12 2F AC         [24] 3398 	lcall	_i2c_delay
-                                   3399 ;	8051_i2c_eeprom.c:917: printf("Writing data 0x%02X to address 0x%02X\n\r", test_data, address);
+                                   3399 ;	8051_i2c_eeprom.c:916: printf("Writing data 0x%02X to address 0x%02X\n\r", test_data, address);
       002FC9 74 02            [12] 3400 	mov	a,#0x02
       002FCB C0 E0            [24] 3401 	push	acc
       002FCD E4               [12] 3402 	clr	a
@@ -3405,7 +3405,7 @@
       002FD2 C0 E0            [24] 3405 	push	acc
       002FD4 E4               [12] 3406 	clr	a
       002FD5 C0 E0            [24] 3407 	push	acc
-      002FD7 74 C3            [12] 3408 	mov	a,#___str_63
+      002FD7 74 C5            [12] 3408 	mov	a,#___str_63
       002FD9 C0 E0            [24] 3409 	push	acc
       002FDB 74 4A            [12] 3410 	mov	a,#(___str_63 >> 8)
       002FDD C0 E0            [24] 3411 	push	acc
@@ -3415,15 +3415,15 @@
       002FE6 E5 81            [12] 3415 	mov	a,sp
       002FE8 24 F9            [12] 3416 	add	a,#0xf9
       002FEA F5 81            [12] 3417 	mov	sp,a
-                                   3418 ;	8051_i2c_eeprom.c:918: eeprom_write(address, test_data);
+                                   3418 ;	8051_i2c_eeprom.c:917: eeprom_write(address, test_data);
       002FEC 90 04 14         [24] 3419 	mov	dptr,#_eeprom_write_PARM_2
       002FEF 74 26            [12] 3420 	mov	a,#0x26
       002FF1 F0               [24] 3421 	movx	@dptr,a
       002FF2 90 00 02         [24] 3422 	mov	dptr,#0x0002
       002FF5 12 28 4D         [24] 3423 	lcall	_eeprom_write
-                                   3424 ;	8051_i2c_eeprom.c:919: i2c_stop();
+                                   3424 ;	8051_i2c_eeprom.c:918: i2c_stop();
       002FF8 12 2F 73         [24] 3425 	lcall	_i2c_stop
-                                   3426 ;	8051_i2c_eeprom.c:921: for(int i = 0; i<100; i++)
+                                   3426 ;	8051_i2c_eeprom.c:920: for(int i = 0; i<100; i++)
       002FFB 7E 00            [12] 3427 	mov	r6,#0x00
       002FFD 7F 00            [12] 3428 	mov	r7,#0x00
       002FFF                       3429 00106$:
@@ -3434,23 +3434,23 @@
       003004 64 80            [12] 3434 	xrl	a,#0x80
       003006 94 80            [12] 3435 	subb	a,#0x80
       003008 50 12            [24] 3436 	jnc	00101$
-                                   3437 ;	8051_i2c_eeprom.c:923: i2c_delay();
+                                   3437 ;	8051_i2c_eeprom.c:922: i2c_delay();
       00300A C0 07            [24] 3438 	push	ar7
       00300C C0 06            [24] 3439 	push	ar6
       00300E 12 2F AC         [24] 3440 	lcall	_i2c_delay
       003011 D0 06            [24] 3441 	pop	ar6
       003013 D0 07            [24] 3442 	pop	ar7
-                                   3443 ;	8051_i2c_eeprom.c:921: for(int i = 0; i<100; i++)
+                                   3443 ;	8051_i2c_eeprom.c:920: for(int i = 0; i<100; i++)
       003015 0E               [12] 3444 	inc	r6
       003016 BE 00 E6         [24] 3445 	cjne	r6,#0x00,00106$
       003019 0F               [12] 3446 	inc	r7
       00301A 80 E3            [24] 3447 	sjmp	00106$
       00301C                       3448 00101$:
-                                   3449 ;	8051_i2c_eeprom.c:927: unsigned char read_data = eeprom_read(address);
+                                   3449 ;	8051_i2c_eeprom.c:926: unsigned char read_data = eeprom_read(address);
       00301C 90 00 02         [24] 3450 	mov	dptr,#0x0002
       00301F 12 29 8F         [24] 3451 	lcall	_eeprom_read
       003022 AE 82            [24] 3452 	mov	r6,dpl
-                                   3453 ;	8051_i2c_eeprom.c:928: printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
+                                   3453 ;	8051_i2c_eeprom.c:927: printf("Read back from address 0x%02X: 0x%02X\n\r", address, read_data);
       003024 8E 05            [24] 3454 	mov	ar5,r6
       003026 7F 00            [12] 3455 	mov	r7,#0x00
       003028 C0 06            [24] 3456 	push	ar6
@@ -3460,7 +3460,7 @@
       003030 C0 E0            [24] 3460 	push	acc
       003032 E4               [12] 3461 	clr	a
       003033 C0 E0            [24] 3462 	push	acc
-      003035 74 EB            [12] 3463 	mov	a,#___str_64
+      003035 74 ED            [12] 3463 	mov	a,#___str_64
       003037 C0 E0            [24] 3464 	push	acc
       003039 74 4A            [12] 3465 	mov	a,#(___str_64 >> 8)
       00303B C0 E0            [24] 3466 	push	acc
@@ -3471,10 +3471,10 @@
       003046 24 F9            [12] 3471 	add	a,#0xf9
       003048 F5 81            [12] 3472 	mov	sp,a
       00304A D0 06            [24] 3473 	pop	ar6
-                                   3474 ;	8051_i2c_eeprom.c:931: if(read_data == test_data) {
+                                   3474 ;	8051_i2c_eeprom.c:930: if(read_data == test_data) {
       00304C BE 26 16         [24] 3475 	cjne	r6,#0x26,00103$
-                                   3476 ;	8051_i2c_eeprom.c:932: printf("MATCH - Write/Read successful!\n\r");
-      00304F 74 13            [12] 3477 	mov	a,#___str_65
+                                   3476 ;	8051_i2c_eeprom.c:931: printf("MATCH - Write/Read successful!\n\r");
+      00304F 74 15            [12] 3477 	mov	a,#___str_65
       003051 C0 E0            [24] 3478 	push	acc
       003053 74 4B            [12] 3479 	mov	a,#(___str_65 >> 8)
       003055 C0 E0            [24] 3480 	push	acc
@@ -3486,8 +3486,8 @@
       003062 15 81            [12] 3486 	dec	sp
       003064 22               [24] 3487 	ret
       003065                       3488 00103$:
-                                   3489 ;	8051_i2c_eeprom.c:934: printf("ERROR - Data mismatch!\n\r");
-      003065 74 34            [12] 3490 	mov	a,#___str_66
+                                   3489 ;	8051_i2c_eeprom.c:933: printf("ERROR - Data mismatch!\n\r");
+      003065 74 36            [12] 3490 	mov	a,#___str_66
       003067 C0 E0            [24] 3491 	push	acc
       003069 74 4B            [12] 3492 	mov	a,#(___str_66 >> 8)
       00306B C0 E0            [24] 3493 	push	acc
@@ -3497,7 +3497,7 @@
       003074 15 81            [12] 3497 	dec	sp
       003076 15 81            [12] 3498 	dec	sp
       003078 15 81            [12] 3499 	dec	sp
-                                   3500 ;	8051_i2c_eeprom.c:938: }
+                                   3500 ;	8051_i2c_eeprom.c:937: }
       00307A 22               [24] 3501 	ret
                                    3502 	.area CSEG    (CODE)
                                    3503 	.area CONST   (CODE)
@@ -4404,9 +4404,9 @@
       003FE0 E2                    4354 	.db 0xe2
       003FE1 94                    4355 	.db 0x94
       003FE2 82                    4356 	.db 0x82
-      003FE3 20 49 4F 20 45 78 70  4357 	.ascii " IO Expander                                "
-             61 6E 64 65 72 20 20
-             20 20 20 20 20 20 20
+      003FE3 20 49 4F 20 45 78 70  4357 	.ascii " IO Expander Mode                           "
+             61 6E 64 65 72 20 4D
+             6F 64 65 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
@@ -4428,10 +4428,10 @@
       004024 E2                    4371 	.db 0xe2
       004025 94                    4372 	.db 0x94
       004026 82                    4373 	.db 0x82
-      004027 20 4C 65 61 76 65 20  4374 	.ascii " Leave IO Expander                          "
-             49 4F 20 45 78 70 61
-             6E 64 65 72 20 20 20
-             20 20 20 20 20 20 20
+      004027 20 45 78 69 74 20 49  4374 	.ascii " Exit IO Expander Mode                      "
+             4F 20 45 78 70 61 6E
+             64 65 72 20 4D 6F 64
+             65 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20
@@ -5199,510 +5199,510 @@
       0043A3 E2                    5120 	.db 0xe2
       0043A4 94                    5121 	.db 0x94
       0043A5 80                    5122 	.db 0x80
-      0043A6 20 49 4F 20 45 58 50  5123 	.ascii " IO EXPANDER LEAVE "
-             41 4E 44 45 52 20 4C
-             45 41 56 45 20
-      0043B9 E2                    5124 	.db 0xe2
-      0043BA 94                    5125 	.db 0x94
-      0043BB 80                    5126 	.db 0x80
-      0043BC E2                    5127 	.db 0xe2
-      0043BD 94                    5128 	.db 0x94
-      0043BE 80                    5129 	.db 0x80
-      0043BF E2                    5130 	.db 0xe2
-      0043C0 94                    5131 	.db 0x94
-      0043C1 80                    5132 	.db 0x80
-      0043C2 E2                    5133 	.db 0xe2
-      0043C3 94                    5134 	.db 0x94
-      0043C4 80                    5135 	.db 0x80
-      0043C5 E2                    5136 	.db 0xe2
-      0043C6 94                    5137 	.db 0x94
-      0043C7 80                    5138 	.db 0x80
-      0043C8 E2                    5139 	.db 0xe2
-      0043C9 94                    5140 	.db 0x94
-      0043CA 80                    5141 	.db 0x80
-      0043CB E2                    5142 	.db 0xe2
-      0043CC 94                    5143 	.db 0x94
-      0043CD 80                    5144 	.db 0x80
-      0043CE E2                    5145 	.db 0xe2
-      0043CF 94                    5146 	.db 0x94
-      0043D0 80                    5147 	.db 0x80
-      0043D1 E2                    5148 	.db 0xe2
-      0043D2 94                    5149 	.db 0x94
-      0043D3 80                    5150 	.db 0x80
-      0043D4 E2                    5151 	.db 0xe2
-      0043D5 94                    5152 	.db 0x94
-      0043D6 80                    5153 	.db 0x80
-      0043D7 E2                    5154 	.db 0xe2
-      0043D8 94                    5155 	.db 0x94
-      0043D9 80                    5156 	.db 0x80
-      0043DA E2                    5157 	.db 0xe2
-      0043DB 94                    5158 	.db 0x94
-      0043DC 80                    5159 	.db 0x80
-      0043DD E2                    5160 	.db 0xe2
-      0043DE 94                    5161 	.db 0x94
-      0043DF 80                    5162 	.db 0x80
-      0043E0 E2                    5163 	.db 0xe2
-      0043E1 94                    5164 	.db 0x94
-      0043E2 80                    5165 	.db 0x80
-      0043E3 E2                    5166 	.db 0xe2
-      0043E4 94                    5167 	.db 0x94
-      0043E5 80                    5168 	.db 0x80
-      0043E6 E2                    5169 	.db 0xe2
-      0043E7 94                    5170 	.db 0x94
-      0043E8 90                    5171 	.db 0x90
-      0043E9 0A                    5172 	.db 0x0a
-      0043EA 0D                    5173 	.db 0x0d
-      0043EB 00                    5174 	.db 0x00
+      0043A6 20 20 45 58 49 54 20  5123 	.ascii "  EXIT IO EXPANDER   "
+             49 4F 20 45 58 50 41
+             4E 44 45 52 20 20 20
+      0043BB E2                    5124 	.db 0xe2
+      0043BC 94                    5125 	.db 0x94
+      0043BD 80                    5126 	.db 0x80
+      0043BE E2                    5127 	.db 0xe2
+      0043BF 94                    5128 	.db 0x94
+      0043C0 80                    5129 	.db 0x80
+      0043C1 E2                    5130 	.db 0xe2
+      0043C2 94                    5131 	.db 0x94
+      0043C3 80                    5132 	.db 0x80
+      0043C4 E2                    5133 	.db 0xe2
+      0043C5 94                    5134 	.db 0x94
+      0043C6 80                    5135 	.db 0x80
+      0043C7 E2                    5136 	.db 0xe2
+      0043C8 94                    5137 	.db 0x94
+      0043C9 80                    5138 	.db 0x80
+      0043CA E2                    5139 	.db 0xe2
+      0043CB 94                    5140 	.db 0x94
+      0043CC 80                    5141 	.db 0x80
+      0043CD E2                    5142 	.db 0xe2
+      0043CE 94                    5143 	.db 0x94
+      0043CF 80                    5144 	.db 0x80
+      0043D0 E2                    5145 	.db 0xe2
+      0043D1 94                    5146 	.db 0x94
+      0043D2 80                    5147 	.db 0x80
+      0043D3 E2                    5148 	.db 0xe2
+      0043D4 94                    5149 	.db 0x94
+      0043D5 80                    5150 	.db 0x80
+      0043D6 E2                    5151 	.db 0xe2
+      0043D7 94                    5152 	.db 0x94
+      0043D8 80                    5153 	.db 0x80
+      0043D9 E2                    5154 	.db 0xe2
+      0043DA 94                    5155 	.db 0x94
+      0043DB 80                    5156 	.db 0x80
+      0043DC E2                    5157 	.db 0xe2
+      0043DD 94                    5158 	.db 0x94
+      0043DE 80                    5159 	.db 0x80
+      0043DF E2                    5160 	.db 0xe2
+      0043E0 94                    5161 	.db 0x94
+      0043E1 80                    5162 	.db 0x80
+      0043E2 E2                    5163 	.db 0xe2
+      0043E3 94                    5164 	.db 0x94
+      0043E4 80                    5165 	.db 0x80
+      0043E5 E2                    5166 	.db 0xe2
+      0043E6 94                    5167 	.db 0x94
+      0043E7 80                    5168 	.db 0x80
+      0043E8 E2                    5169 	.db 0xe2
+      0043E9 94                    5170 	.db 0x94
+      0043EA 90                    5171 	.db 0x90
+      0043EB 0A                    5172 	.db 0x0a
+      0043EC 0D                    5173 	.db 0x0d
+      0043ED 00                    5174 	.db 0x00
                                    5175 	.area CSEG    (CODE)
                                    5176 	.area CONST   (CODE)
-      0043EC                       5177 ___str_23:
-      0043EC 49 4E 56 41 4C 49 44  5178 	.ascii "INVALID INPUT"
+      0043EE                       5177 ___str_23:
+      0043EE 49 4E 56 41 4C 49 44  5178 	.ascii "INVALID INPUT"
              20 49 4E 50 55 54
-      0043F9 0A                    5179 	.db 0x0a
-      0043FA 0D                    5180 	.db 0x0d
-      0043FB 00                    5181 	.db 0x00
+      0043FB 0A                    5179 	.db 0x0a
+      0043FC 0D                    5180 	.db 0x0d
+      0043FD 00                    5181 	.db 0x00
                                    5182 	.area CSEG    (CODE)
                                    5183 	.area CONST   (CODE)
-      0043FC                       5184 ___str_24:
-      0043FC E2                    5185 	.db 0xe2
-      0043FD 94                    5186 	.db 0x94
-      0043FE 82                    5187 	.db 0x82
-      0043FF 20 45 6E 74 65 72 20  5188 	.ascii " Enter address (hex, up to 3 characters): "
+      0043FE                       5184 ___str_24:
+      0043FE E2                    5185 	.db 0xe2
+      0043FF 94                    5186 	.db 0x94
+      004400 82                    5187 	.db 0x82
+      004401 20 45 6E 74 65 72 20  5188 	.ascii " Enter address (hex, up to 3 characters): "
              61 64 64 72 65 73 73
              20 28 68 65 78 2C 20
              75 70 20 74 6F 20 33
              20 63 68 61 72 61 63
              74 65 72 73 29 3A 20
-      004429 0A                    5189 	.db 0x0a
-      00442A 0D                    5190 	.db 0x0d
-      00442B 7C                    5191 	.ascii "|"
-      00442C 00                    5192 	.db 0x00
+      00442B 0A                    5189 	.db 0x0a
+      00442C 0D                    5190 	.db 0x0d
+      00442D 7C                    5191 	.ascii "|"
+      00442E 00                    5192 	.db 0x00
                                    5193 	.area CSEG    (CODE)
                                    5194 	.area CONST   (CODE)
-      00442D                       5195 ___str_25:
-      00442D 7C 20 24 20           5196 	.ascii "| $ "
-      004431 00                    5197 	.db 0x00
+      00442F                       5195 ___str_25:
+      00442F 7C 20 24 20           5196 	.ascii "| $ "
+      004433 00                    5197 	.db 0x00
                                    5198 	.area CSEG    (CODE)
                                    5199 	.area CONST   (CODE)
-      004432                       5200 ___str_26:
-      004432 0A                    5201 	.db 0x0a
-      004433 0D                    5202 	.db 0x0d
-      004434 E2                    5203 	.db 0xe2
-      004435 94                    5204 	.db 0x94
-      004436 82                    5205 	.db 0x82
-      004437 20 45 6E 74 65 72 65  5206 	.ascii " Entered address: 0x%03X"
+      004434                       5200 ___str_26:
+      004434 0A                    5201 	.db 0x0a
+      004435 0D                    5202 	.db 0x0d
+      004436 E2                    5203 	.db 0xe2
+      004437 94                    5204 	.db 0x94
+      004438 82                    5205 	.db 0x82
+      004439 20 45 6E 74 65 72 65  5206 	.ascii " Entered address: 0x%03X"
              64 20 61 64 64 72 65
              73 73 3A 20 30 78 25
              30 33 58
-      00444F 0A                    5207 	.db 0x0a
-      004450 0D                    5208 	.db 0x0d
-      004451 00                    5209 	.db 0x00
+      004451 0A                    5207 	.db 0x0a
+      004452 0D                    5208 	.db 0x0d
+      004453 00                    5209 	.db 0x00
                                    5210 	.area CSEG    (CODE)
                                    5211 	.area CONST   (CODE)
-      004452                       5212 ___str_27:
-      004452 E2                    5213 	.db 0xe2
-      004453 95                    5214 	.db 0x95
-      004454 94                    5215 	.db 0x94
-      004455 E2                    5216 	.db 0xe2
-      004456 95                    5217 	.db 0x95
-      004457 90                    5218 	.db 0x90
-      004458 E2                    5219 	.db 0xe2
-      004459 95                    5220 	.db 0x95
-      00445A 90                    5221 	.db 0x90
-      00445B E2                    5222 	.db 0xe2
-      00445C 95                    5223 	.db 0x95
-      00445D 90                    5224 	.db 0x90
-      00445E E2                    5225 	.db 0xe2
-      00445F 95                    5226 	.db 0x95
-      004460 90                    5227 	.db 0x90
-      004461 E2                    5228 	.db 0xe2
-      004462 95                    5229 	.db 0x95
-      004463 90                    5230 	.db 0x90
-      004464 E2                    5231 	.db 0xe2
-      004465 95                    5232 	.db 0x95
-      004466 90                    5233 	.db 0x90
-      004467 E2                    5234 	.db 0xe2
-      004468 95                    5235 	.db 0x95
-      004469 90                    5236 	.db 0x90
-      00446A E2                    5237 	.db 0xe2
-      00446B 95                    5238 	.db 0x95
-      00446C 90                    5239 	.db 0x90
-      00446D E2                    5240 	.db 0xe2
-      00446E 95                    5241 	.db 0x95
-      00446F 90                    5242 	.db 0x90
-      004470 E2                    5243 	.db 0xe2
-      004471 95                    5244 	.db 0x95
-      004472 90                    5245 	.db 0x90
-      004473 E2                    5246 	.db 0xe2
-      004474 95                    5247 	.db 0x95
-      004475 90                    5248 	.db 0x90
-      004476 E2                    5249 	.db 0xe2
-      004477 95                    5250 	.db 0x95
-      004478 90                    5251 	.db 0x90
-      004479 E2                    5252 	.db 0xe2
-      00447A 95                    5253 	.db 0x95
-      00447B 90                    5254 	.db 0x90
-      00447C E2                    5255 	.db 0xe2
-      00447D 95                    5256 	.db 0x95
-      00447E 90                    5257 	.db 0x90
-      00447F E2                    5258 	.db 0xe2
-      004480 95                    5259 	.db 0x95
-      004481 90                    5260 	.db 0x90
-      004482 E2                    5261 	.db 0xe2
-      004483 95                    5262 	.db 0x95
-      004484 90                    5263 	.db 0x90
-      004485 E2                    5264 	.db 0xe2
-      004486 95                    5265 	.db 0x95
-      004487 90                    5266 	.db 0x90
-      004488 E2                    5267 	.db 0xe2
-      004489 95                    5268 	.db 0x95
-      00448A 90                    5269 	.db 0x90
-      00448B E2                    5270 	.db 0xe2
-      00448C 95                    5271 	.db 0x95
-      00448D 90                    5272 	.db 0x90
-      00448E E2                    5273 	.db 0xe2
-      00448F 95                    5274 	.db 0x95
-      004490 90                    5275 	.db 0x90
-      004491 E2                    5276 	.db 0xe2
-      004492 95                    5277 	.db 0x95
-      004493 90                    5278 	.db 0x90
-      004494 E2                    5279 	.db 0xe2
-      004495 95                    5280 	.db 0x95
-      004496 90                    5281 	.db 0x90
-      004497 E2                    5282 	.db 0xe2
-      004498 95                    5283 	.db 0x95
-      004499 90                    5284 	.db 0x90
-      00449A E2                    5285 	.db 0xe2
-      00449B 95                    5286 	.db 0x95
-      00449C 90                    5287 	.db 0x90
-      00449D E2                    5288 	.db 0xe2
-      00449E 95                    5289 	.db 0x95
-      00449F 90                    5290 	.db 0x90
-      0044A0 E2                    5291 	.db 0xe2
-      0044A1 95                    5292 	.db 0x95
-      0044A2 90                    5293 	.db 0x90
-      0044A3 E2                    5294 	.db 0xe2
-      0044A4 95                    5295 	.db 0x95
-      0044A5 90                    5296 	.db 0x90
-      0044A6 E2                    5297 	.db 0xe2
-      0044A7 95                    5298 	.db 0x95
-      0044A8 90                    5299 	.db 0x90
-      0044A9 E2                    5300 	.db 0xe2
-      0044AA 95                    5301 	.db 0x95
-      0044AB 90                    5302 	.db 0x90
-      0044AC E2                    5303 	.db 0xe2
-      0044AD 95                    5304 	.db 0x95
-      0044AE 90                    5305 	.db 0x90
-      0044AF E2                    5306 	.db 0xe2
-      0044B0 95                    5307 	.db 0x95
-      0044B1 90                    5308 	.db 0x90
-      0044B2 E2                    5309 	.db 0xe2
-      0044B3 95                    5310 	.db 0x95
-      0044B4 90                    5311 	.db 0x90
-      0044B5 E2                    5312 	.db 0xe2
-      0044B6 95                    5313 	.db 0x95
-      0044B7 90                    5314 	.db 0x90
-      0044B8 E2                    5315 	.db 0xe2
-      0044B9 95                    5316 	.db 0x95
-      0044BA 90                    5317 	.db 0x90
-      0044BB E2                    5318 	.db 0xe2
-      0044BC 95                    5319 	.db 0x95
-      0044BD 90                    5320 	.db 0x90
-      0044BE E2                    5321 	.db 0xe2
-      0044BF 95                    5322 	.db 0x95
-      0044C0 90                    5323 	.db 0x90
-      0044C1 E2                    5324 	.db 0xe2
-      0044C2 95                    5325 	.db 0x95
-      0044C3 90                    5326 	.db 0x90
-      0044C4 E2                    5327 	.db 0xe2
-      0044C5 95                    5328 	.db 0x95
-      0044C6 90                    5329 	.db 0x90
-      0044C7 E2                    5330 	.db 0xe2
-      0044C8 95                    5331 	.db 0x95
-      0044C9 90                    5332 	.db 0x90
-      0044CA E2                    5333 	.db 0xe2
-      0044CB 95                    5334 	.db 0x95
-      0044CC 90                    5335 	.db 0x90
-      0044CD E2                    5336 	.db 0xe2
-      0044CE 95                    5337 	.db 0x95
-      0044CF 90                    5338 	.db 0x90
-      0044D0 E2                    5339 	.db 0xe2
-      0044D1 95                    5340 	.db 0x95
-      0044D2 90                    5341 	.db 0x90
-      0044D3 E2                    5342 	.db 0xe2
-      0044D4 95                    5343 	.db 0x95
-      0044D5 97                    5344 	.db 0x97
-      0044D6 0A                    5345 	.db 0x0a
-      0044D7 0D                    5346 	.db 0x0d
-      0044D8 00                    5347 	.db 0x00
+      004454                       5212 ___str_27:
+      004454 E2                    5213 	.db 0xe2
+      004455 95                    5214 	.db 0x95
+      004456 94                    5215 	.db 0x94
+      004457 E2                    5216 	.db 0xe2
+      004458 95                    5217 	.db 0x95
+      004459 90                    5218 	.db 0x90
+      00445A E2                    5219 	.db 0xe2
+      00445B 95                    5220 	.db 0x95
+      00445C 90                    5221 	.db 0x90
+      00445D E2                    5222 	.db 0xe2
+      00445E 95                    5223 	.db 0x95
+      00445F 90                    5224 	.db 0x90
+      004460 E2                    5225 	.db 0xe2
+      004461 95                    5226 	.db 0x95
+      004462 90                    5227 	.db 0x90
+      004463 E2                    5228 	.db 0xe2
+      004464 95                    5229 	.db 0x95
+      004465 90                    5230 	.db 0x90
+      004466 E2                    5231 	.db 0xe2
+      004467 95                    5232 	.db 0x95
+      004468 90                    5233 	.db 0x90
+      004469 E2                    5234 	.db 0xe2
+      00446A 95                    5235 	.db 0x95
+      00446B 90                    5236 	.db 0x90
+      00446C E2                    5237 	.db 0xe2
+      00446D 95                    5238 	.db 0x95
+      00446E 90                    5239 	.db 0x90
+      00446F E2                    5240 	.db 0xe2
+      004470 95                    5241 	.db 0x95
+      004471 90                    5242 	.db 0x90
+      004472 E2                    5243 	.db 0xe2
+      004473 95                    5244 	.db 0x95
+      004474 90                    5245 	.db 0x90
+      004475 E2                    5246 	.db 0xe2
+      004476 95                    5247 	.db 0x95
+      004477 90                    5248 	.db 0x90
+      004478 E2                    5249 	.db 0xe2
+      004479 95                    5250 	.db 0x95
+      00447A 90                    5251 	.db 0x90
+      00447B E2                    5252 	.db 0xe2
+      00447C 95                    5253 	.db 0x95
+      00447D 90                    5254 	.db 0x90
+      00447E E2                    5255 	.db 0xe2
+      00447F 95                    5256 	.db 0x95
+      004480 90                    5257 	.db 0x90
+      004481 E2                    5258 	.db 0xe2
+      004482 95                    5259 	.db 0x95
+      004483 90                    5260 	.db 0x90
+      004484 E2                    5261 	.db 0xe2
+      004485 95                    5262 	.db 0x95
+      004486 90                    5263 	.db 0x90
+      004487 E2                    5264 	.db 0xe2
+      004488 95                    5265 	.db 0x95
+      004489 90                    5266 	.db 0x90
+      00448A E2                    5267 	.db 0xe2
+      00448B 95                    5268 	.db 0x95
+      00448C 90                    5269 	.db 0x90
+      00448D E2                    5270 	.db 0xe2
+      00448E 95                    5271 	.db 0x95
+      00448F 90                    5272 	.db 0x90
+      004490 E2                    5273 	.db 0xe2
+      004491 95                    5274 	.db 0x95
+      004492 90                    5275 	.db 0x90
+      004493 E2                    5276 	.db 0xe2
+      004494 95                    5277 	.db 0x95
+      004495 90                    5278 	.db 0x90
+      004496 E2                    5279 	.db 0xe2
+      004497 95                    5280 	.db 0x95
+      004498 90                    5281 	.db 0x90
+      004499 E2                    5282 	.db 0xe2
+      00449A 95                    5283 	.db 0x95
+      00449B 90                    5284 	.db 0x90
+      00449C E2                    5285 	.db 0xe2
+      00449D 95                    5286 	.db 0x95
+      00449E 90                    5287 	.db 0x90
+      00449F E2                    5288 	.db 0xe2
+      0044A0 95                    5289 	.db 0x95
+      0044A1 90                    5290 	.db 0x90
+      0044A2 E2                    5291 	.db 0xe2
+      0044A3 95                    5292 	.db 0x95
+      0044A4 90                    5293 	.db 0x90
+      0044A5 E2                    5294 	.db 0xe2
+      0044A6 95                    5295 	.db 0x95
+      0044A7 90                    5296 	.db 0x90
+      0044A8 E2                    5297 	.db 0xe2
+      0044A9 95                    5298 	.db 0x95
+      0044AA 90                    5299 	.db 0x90
+      0044AB E2                    5300 	.db 0xe2
+      0044AC 95                    5301 	.db 0x95
+      0044AD 90                    5302 	.db 0x90
+      0044AE E2                    5303 	.db 0xe2
+      0044AF 95                    5304 	.db 0x95
+      0044B0 90                    5305 	.db 0x90
+      0044B1 E2                    5306 	.db 0xe2
+      0044B2 95                    5307 	.db 0x95
+      0044B3 90                    5308 	.db 0x90
+      0044B4 E2                    5309 	.db 0xe2
+      0044B5 95                    5310 	.db 0x95
+      0044B6 90                    5311 	.db 0x90
+      0044B7 E2                    5312 	.db 0xe2
+      0044B8 95                    5313 	.db 0x95
+      0044B9 90                    5314 	.db 0x90
+      0044BA E2                    5315 	.db 0xe2
+      0044BB 95                    5316 	.db 0x95
+      0044BC 90                    5317 	.db 0x90
+      0044BD E2                    5318 	.db 0xe2
+      0044BE 95                    5319 	.db 0x95
+      0044BF 90                    5320 	.db 0x90
+      0044C0 E2                    5321 	.db 0xe2
+      0044C1 95                    5322 	.db 0x95
+      0044C2 90                    5323 	.db 0x90
+      0044C3 E2                    5324 	.db 0xe2
+      0044C4 95                    5325 	.db 0x95
+      0044C5 90                    5326 	.db 0x90
+      0044C6 E2                    5327 	.db 0xe2
+      0044C7 95                    5328 	.db 0x95
+      0044C8 90                    5329 	.db 0x90
+      0044C9 E2                    5330 	.db 0xe2
+      0044CA 95                    5331 	.db 0x95
+      0044CB 90                    5332 	.db 0x90
+      0044CC E2                    5333 	.db 0xe2
+      0044CD 95                    5334 	.db 0x95
+      0044CE 90                    5335 	.db 0x90
+      0044CF E2                    5336 	.db 0xe2
+      0044D0 95                    5337 	.db 0x95
+      0044D1 90                    5338 	.db 0x90
+      0044D2 E2                    5339 	.db 0xe2
+      0044D3 95                    5340 	.db 0x95
+      0044D4 90                    5341 	.db 0x90
+      0044D5 E2                    5342 	.db 0xe2
+      0044D6 95                    5343 	.db 0x95
+      0044D7 97                    5344 	.db 0x97
+      0044D8 0A                    5345 	.db 0x0a
+      0044D9 0D                    5346 	.db 0x0d
+      0044DA 00                    5347 	.db 0x00
                                    5348 	.area CSEG    (CODE)
                                    5349 	.area CONST   (CODE)
-      0044D9                       5350 ___str_28:
-      0044D9 E2                    5351 	.db 0xe2
-      0044DA 95                    5352 	.db 0x95
-      0044DB 91                    5353 	.db 0x91
-      0044DC 20 20 20 20 20 20 20  5354 	.ascii "       ! ADDRESS OUT OF RANGE !         "
+      0044DB                       5350 ___str_28:
+      0044DB E2                    5351 	.db 0xe2
+      0044DC 95                    5352 	.db 0x95
+      0044DD 91                    5353 	.db 0x91
+      0044DE 20 20 20 20 20 20 20  5354 	.ascii "       ! ADDRESS OUT OF RANGE !         "
              21 20 41 44 44 52 45
              53 53 20 4F 55 54 20
              4F 46 20 52 41 4E 47
              45 20 21 20 20 20 20
              20 20 20 20 20
-      004504 E2                    5355 	.db 0xe2
-      004505 95                    5356 	.db 0x95
-      004506 91                    5357 	.db 0x91
-      004507 0A                    5358 	.db 0x0a
-      004508 0D                    5359 	.db 0x0d
-      004509 00                    5360 	.db 0x00
+      004506 E2                    5355 	.db 0xe2
+      004507 95                    5356 	.db 0x95
+      004508 91                    5357 	.db 0x91
+      004509 0A                    5358 	.db 0x0a
+      00450A 0D                    5359 	.db 0x0d
+      00450B 00                    5360 	.db 0x00
                                    5361 	.area CSEG    (CODE)
                                    5362 	.area CONST   (CODE)
-      00450A                       5363 ___str_29:
-      00450A E2                    5364 	.db 0xe2
-      00450B 95                    5365 	.db 0x95
-      00450C 91                    5366 	.db 0x91
-      00450D 20 20 20 20 20 50 6C  5367 	.ascii "     Please Enter Valid Address         "
+      00450C                       5363 ___str_29:
+      00450C E2                    5364 	.db 0xe2
+      00450D 95                    5365 	.db 0x95
+      00450E 91                    5366 	.db 0x91
+      00450F 20 20 20 20 20 50 6C  5367 	.ascii "     Please Enter Valid Address         "
              65 61 73 65 20 45 6E
              74 65 72 20 56 61 6C
              69 64 20 41 64 64 72
              65 73 73 20 20 20 20
              20 20 20 20 20
-      004535 E2                    5368 	.db 0xe2
-      004536 95                    5369 	.db 0x95
-      004537 91                    5370 	.db 0x91
-      004538 0A                    5371 	.db 0x0a
-      004539 0D                    5372 	.db 0x0d
-      00453A 00                    5373 	.db 0x00
+      004537 E2                    5368 	.db 0xe2
+      004538 95                    5369 	.db 0x95
+      004539 91                    5370 	.db 0x91
+      00453A 0A                    5371 	.db 0x0a
+      00453B 0D                    5372 	.db 0x0d
+      00453C 00                    5373 	.db 0x00
                                    5374 	.area CSEG    (CODE)
                                    5375 	.area CONST   (CODE)
-      00453B                       5376 ___str_30:
-      00453B E2                    5377 	.db 0xe2
-      00453C 95                    5378 	.db 0x95
-      00453D 9A                    5379 	.db 0x9a
-      00453E E2                    5380 	.db 0xe2
-      00453F 95                    5381 	.db 0x95
-      004540 90                    5382 	.db 0x90
-      004541 E2                    5383 	.db 0xe2
-      004542 95                    5384 	.db 0x95
-      004543 90                    5385 	.db 0x90
-      004544 E2                    5386 	.db 0xe2
-      004545 95                    5387 	.db 0x95
-      004546 90                    5388 	.db 0x90
-      004547 E2                    5389 	.db 0xe2
-      004548 95                    5390 	.db 0x95
-      004549 90                    5391 	.db 0x90
-      00454A E2                    5392 	.db 0xe2
-      00454B 95                    5393 	.db 0x95
-      00454C 90                    5394 	.db 0x90
-      00454D E2                    5395 	.db 0xe2
-      00454E 95                    5396 	.db 0x95
-      00454F 90                    5397 	.db 0x90
-      004550 E2                    5398 	.db 0xe2
-      004551 95                    5399 	.db 0x95
-      004552 90                    5400 	.db 0x90
-      004553 E2                    5401 	.db 0xe2
-      004554 95                    5402 	.db 0x95
-      004555 90                    5403 	.db 0x90
-      004556 E2                    5404 	.db 0xe2
-      004557 95                    5405 	.db 0x95
-      004558 90                    5406 	.db 0x90
-      004559 E2                    5407 	.db 0xe2
-      00455A 95                    5408 	.db 0x95
-      00455B 90                    5409 	.db 0x90
-      00455C E2                    5410 	.db 0xe2
-      00455D 95                    5411 	.db 0x95
-      00455E 90                    5412 	.db 0x90
-      00455F E2                    5413 	.db 0xe2
-      004560 95                    5414 	.db 0x95
-      004561 90                    5415 	.db 0x90
-      004562 E2                    5416 	.db 0xe2
-      004563 95                    5417 	.db 0x95
-      004564 90                    5418 	.db 0x90
-      004565 E2                    5419 	.db 0xe2
-      004566 95                    5420 	.db 0x95
-      004567 90                    5421 	.db 0x90
-      004568 E2                    5422 	.db 0xe2
-      004569 95                    5423 	.db 0x95
-      00456A 90                    5424 	.db 0x90
-      00456B E2                    5425 	.db 0xe2
-      00456C 95                    5426 	.db 0x95
-      00456D 90                    5427 	.db 0x90
-      00456E E2                    5428 	.db 0xe2
-      00456F 95                    5429 	.db 0x95
-      004570 90                    5430 	.db 0x90
-      004571 E2                    5431 	.db 0xe2
-      004572 95                    5432 	.db 0x95
-      004573 90                    5433 	.db 0x90
-      004574 E2                    5434 	.db 0xe2
-      004575 95                    5435 	.db 0x95
-      004576 90                    5436 	.db 0x90
-      004577 E2                    5437 	.db 0xe2
-      004578 95                    5438 	.db 0x95
-      004579 90                    5439 	.db 0x90
-      00457A E2                    5440 	.db 0xe2
-      00457B 95                    5441 	.db 0x95
-      00457C 90                    5442 	.db 0x90
-      00457D E2                    5443 	.db 0xe2
-      00457E 95                    5444 	.db 0x95
-      00457F 90                    5445 	.db 0x90
-      004580 E2                    5446 	.db 0xe2
-      004581 95                    5447 	.db 0x95
-      004582 90                    5448 	.db 0x90
-      004583 E2                    5449 	.db 0xe2
-      004584 95                    5450 	.db 0x95
-      004585 90                    5451 	.db 0x90
-      004586 E2                    5452 	.db 0xe2
-      004587 95                    5453 	.db 0x95
-      004588 90                    5454 	.db 0x90
-      004589 E2                    5455 	.db 0xe2
-      00458A 95                    5456 	.db 0x95
-      00458B 90                    5457 	.db 0x90
-      00458C E2                    5458 	.db 0xe2
-      00458D 95                    5459 	.db 0x95
-      00458E 90                    5460 	.db 0x90
-      00458F E2                    5461 	.db 0xe2
-      004590 95                    5462 	.db 0x95
-      004591 90                    5463 	.db 0x90
-      004592 E2                    5464 	.db 0xe2
-      004593 95                    5465 	.db 0x95
-      004594 90                    5466 	.db 0x90
-      004595 E2                    5467 	.db 0xe2
-      004596 95                    5468 	.db 0x95
-      004597 90                    5469 	.db 0x90
-      004598 E2                    5470 	.db 0xe2
-      004599 95                    5471 	.db 0x95
-      00459A 90                    5472 	.db 0x90
-      00459B E2                    5473 	.db 0xe2
-      00459C 95                    5474 	.db 0x95
-      00459D 90                    5475 	.db 0x90
-      00459E E2                    5476 	.db 0xe2
-      00459F 95                    5477 	.db 0x95
-      0045A0 90                    5478 	.db 0x90
-      0045A1 E2                    5479 	.db 0xe2
-      0045A2 95                    5480 	.db 0x95
-      0045A3 90                    5481 	.db 0x90
-      0045A4 E2                    5482 	.db 0xe2
-      0045A5 95                    5483 	.db 0x95
-      0045A6 90                    5484 	.db 0x90
-      0045A7 E2                    5485 	.db 0xe2
-      0045A8 95                    5486 	.db 0x95
-      0045A9 90                    5487 	.db 0x90
-      0045AA E2                    5488 	.db 0xe2
-      0045AB 95                    5489 	.db 0x95
-      0045AC 90                    5490 	.db 0x90
-      0045AD E2                    5491 	.db 0xe2
-      0045AE 95                    5492 	.db 0x95
-      0045AF 90                    5493 	.db 0x90
-      0045B0 E2                    5494 	.db 0xe2
-      0045B1 95                    5495 	.db 0x95
-      0045B2 90                    5496 	.db 0x90
-      0045B3 E2                    5497 	.db 0xe2
-      0045B4 95                    5498 	.db 0x95
-      0045B5 90                    5499 	.db 0x90
-      0045B6 E2                    5500 	.db 0xe2
-      0045B7 95                    5501 	.db 0x95
-      0045B8 90                    5502 	.db 0x90
-      0045B9 E2                    5503 	.db 0xe2
-      0045BA 95                    5504 	.db 0x95
-      0045BB 90                    5505 	.db 0x90
-      0045BC E2                    5506 	.db 0xe2
-      0045BD 95                    5507 	.db 0x95
-      0045BE 9D                    5508 	.db 0x9d
-      0045BF 0A                    5509 	.db 0x0a
-      0045C0 0D                    5510 	.db 0x0d
-      0045C1 00                    5511 	.db 0x00
+      00453D                       5376 ___str_30:
+      00453D E2                    5377 	.db 0xe2
+      00453E 95                    5378 	.db 0x95
+      00453F 9A                    5379 	.db 0x9a
+      004540 E2                    5380 	.db 0xe2
+      004541 95                    5381 	.db 0x95
+      004542 90                    5382 	.db 0x90
+      004543 E2                    5383 	.db 0xe2
+      004544 95                    5384 	.db 0x95
+      004545 90                    5385 	.db 0x90
+      004546 E2                    5386 	.db 0xe2
+      004547 95                    5387 	.db 0x95
+      004548 90                    5388 	.db 0x90
+      004549 E2                    5389 	.db 0xe2
+      00454A 95                    5390 	.db 0x95
+      00454B 90                    5391 	.db 0x90
+      00454C E2                    5392 	.db 0xe2
+      00454D 95                    5393 	.db 0x95
+      00454E 90                    5394 	.db 0x90
+      00454F E2                    5395 	.db 0xe2
+      004550 95                    5396 	.db 0x95
+      004551 90                    5397 	.db 0x90
+      004552 E2                    5398 	.db 0xe2
+      004553 95                    5399 	.db 0x95
+      004554 90                    5400 	.db 0x90
+      004555 E2                    5401 	.db 0xe2
+      004556 95                    5402 	.db 0x95
+      004557 90                    5403 	.db 0x90
+      004558 E2                    5404 	.db 0xe2
+      004559 95                    5405 	.db 0x95
+      00455A 90                    5406 	.db 0x90
+      00455B E2                    5407 	.db 0xe2
+      00455C 95                    5408 	.db 0x95
+      00455D 90                    5409 	.db 0x90
+      00455E E2                    5410 	.db 0xe2
+      00455F 95                    5411 	.db 0x95
+      004560 90                    5412 	.db 0x90
+      004561 E2                    5413 	.db 0xe2
+      004562 95                    5414 	.db 0x95
+      004563 90                    5415 	.db 0x90
+      004564 E2                    5416 	.db 0xe2
+      004565 95                    5417 	.db 0x95
+      004566 90                    5418 	.db 0x90
+      004567 E2                    5419 	.db 0xe2
+      004568 95                    5420 	.db 0x95
+      004569 90                    5421 	.db 0x90
+      00456A E2                    5422 	.db 0xe2
+      00456B 95                    5423 	.db 0x95
+      00456C 90                    5424 	.db 0x90
+      00456D E2                    5425 	.db 0xe2
+      00456E 95                    5426 	.db 0x95
+      00456F 90                    5427 	.db 0x90
+      004570 E2                    5428 	.db 0xe2
+      004571 95                    5429 	.db 0x95
+      004572 90                    5430 	.db 0x90
+      004573 E2                    5431 	.db 0xe2
+      004574 95                    5432 	.db 0x95
+      004575 90                    5433 	.db 0x90
+      004576 E2                    5434 	.db 0xe2
+      004577 95                    5435 	.db 0x95
+      004578 90                    5436 	.db 0x90
+      004579 E2                    5437 	.db 0xe2
+      00457A 95                    5438 	.db 0x95
+      00457B 90                    5439 	.db 0x90
+      00457C E2                    5440 	.db 0xe2
+      00457D 95                    5441 	.db 0x95
+      00457E 90                    5442 	.db 0x90
+      00457F E2                    5443 	.db 0xe2
+      004580 95                    5444 	.db 0x95
+      004581 90                    5445 	.db 0x90
+      004582 E2                    5446 	.db 0xe2
+      004583 95                    5447 	.db 0x95
+      004584 90                    5448 	.db 0x90
+      004585 E2                    5449 	.db 0xe2
+      004586 95                    5450 	.db 0x95
+      004587 90                    5451 	.db 0x90
+      004588 E2                    5452 	.db 0xe2
+      004589 95                    5453 	.db 0x95
+      00458A 90                    5454 	.db 0x90
+      00458B E2                    5455 	.db 0xe2
+      00458C 95                    5456 	.db 0x95
+      00458D 90                    5457 	.db 0x90
+      00458E E2                    5458 	.db 0xe2
+      00458F 95                    5459 	.db 0x95
+      004590 90                    5460 	.db 0x90
+      004591 E2                    5461 	.db 0xe2
+      004592 95                    5462 	.db 0x95
+      004593 90                    5463 	.db 0x90
+      004594 E2                    5464 	.db 0xe2
+      004595 95                    5465 	.db 0x95
+      004596 90                    5466 	.db 0x90
+      004597 E2                    5467 	.db 0xe2
+      004598 95                    5468 	.db 0x95
+      004599 90                    5469 	.db 0x90
+      00459A E2                    5470 	.db 0xe2
+      00459B 95                    5471 	.db 0x95
+      00459C 90                    5472 	.db 0x90
+      00459D E2                    5473 	.db 0xe2
+      00459E 95                    5474 	.db 0x95
+      00459F 90                    5475 	.db 0x90
+      0045A0 E2                    5476 	.db 0xe2
+      0045A1 95                    5477 	.db 0x95
+      0045A2 90                    5478 	.db 0x90
+      0045A3 E2                    5479 	.db 0xe2
+      0045A4 95                    5480 	.db 0x95
+      0045A5 90                    5481 	.db 0x90
+      0045A6 E2                    5482 	.db 0xe2
+      0045A7 95                    5483 	.db 0x95
+      0045A8 90                    5484 	.db 0x90
+      0045A9 E2                    5485 	.db 0xe2
+      0045AA 95                    5486 	.db 0x95
+      0045AB 90                    5487 	.db 0x90
+      0045AC E2                    5488 	.db 0xe2
+      0045AD 95                    5489 	.db 0x95
+      0045AE 90                    5490 	.db 0x90
+      0045AF E2                    5491 	.db 0xe2
+      0045B0 95                    5492 	.db 0x95
+      0045B1 90                    5493 	.db 0x90
+      0045B2 E2                    5494 	.db 0xe2
+      0045B3 95                    5495 	.db 0x95
+      0045B4 90                    5496 	.db 0x90
+      0045B5 E2                    5497 	.db 0xe2
+      0045B6 95                    5498 	.db 0x95
+      0045B7 90                    5499 	.db 0x90
+      0045B8 E2                    5500 	.db 0xe2
+      0045B9 95                    5501 	.db 0x95
+      0045BA 90                    5502 	.db 0x90
+      0045BB E2                    5503 	.db 0xe2
+      0045BC 95                    5504 	.db 0x95
+      0045BD 90                    5505 	.db 0x90
+      0045BE E2                    5506 	.db 0xe2
+      0045BF 95                    5507 	.db 0x95
+      0045C0 9D                    5508 	.db 0x9d
+      0045C1 0A                    5509 	.db 0x0a
+      0045C2 0D                    5510 	.db 0x0d
+      0045C3 00                    5511 	.db 0x00
                                    5512 	.area CSEG    (CODE)
                                    5513 	.area CONST   (CODE)
-      0045C2                       5514 ___str_31:
-      0045C2 7C 20 42 6C 6F 63 6B  5515 	.ascii "| Block number %d                            "
+      0045C4                       5514 ___str_31:
+      0045C4 7C 20 42 6C 6F 63 6B  5515 	.ascii "| Block number %d                            "
              20 6E 75 6D 62 65 72
              20 25 64 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20
-      0045EF 0A                    5516 	.db 0x0a
-      0045F0 0D                    5517 	.db 0x0d
-      0045F1 00                    5518 	.db 0x00
+      0045F1 0A                    5516 	.db 0x0a
+      0045F2 0D                    5517 	.db 0x0d
+      0045F3 00                    5518 	.db 0x00
                                    5519 	.area CSEG    (CODE)
                                    5520 	.area CONST   (CODE)
-      0045F2                       5521 ___str_32:
-      0045F2 E2                    5522 	.db 0xe2
-      0045F3 94                    5523 	.db 0x94
-      0045F4 82                    5524 	.db 0x82
-      0045F5 20 45 6E 74 65 72 20  5525 	.ascii " Enter data (hex, up to 2 characters): "
+      0045F4                       5521 ___str_32:
+      0045F4 E2                    5522 	.db 0xe2
+      0045F5 94                    5523 	.db 0x94
+      0045F6 82                    5524 	.db 0x82
+      0045F7 20 45 6E 74 65 72 20  5525 	.ascii " Enter data (hex, up to 2 characters): "
              64 61 74 61 20 28 68
              65 78 2C 20 75 70 20
              74 6F 20 32 20 63 68
              61 72 61 63 74 65 72
              73 29 3A 20
-      00461C 0A                    5526 	.db 0x0a
-      00461D 0D                    5527 	.db 0x0d
-      00461E 7C                    5528 	.ascii "|"
-      00461F 00                    5529 	.db 0x00
+      00461E 0A                    5526 	.db 0x0a
+      00461F 0D                    5527 	.db 0x0d
+      004620 7C                    5528 	.ascii "|"
+      004621 00                    5529 	.db 0x00
                                    5530 	.area CSEG    (CODE)
                                    5531 	.area CONST   (CODE)
-      004620                       5532 ___str_33:
-      004620 24 20                 5533 	.ascii "$ "
-      004622 00                    5534 	.db 0x00
+      004622                       5532 ___str_33:
+      004622 24 20                 5533 	.ascii "$ "
+      004624 00                    5534 	.db 0x00
                                    5535 	.area CSEG    (CODE)
                                    5536 	.area CONST   (CODE)
-      004623                       5537 ___str_34:
-      004623 0A                    5538 	.db 0x0a
-      004624 0D                    5539 	.db 0x0d
-      004625 E2                    5540 	.db 0xe2
-      004626 94                    5541 	.db 0x94
-      004627 82                    5542 	.db 0x82
-      004628 20 45 6E 74 65 72 65  5543 	.ascii " Entered data: 0x%02X"
+      004625                       5537 ___str_34:
+      004625 0A                    5538 	.db 0x0a
+      004626 0D                    5539 	.db 0x0d
+      004627 E2                    5540 	.db 0xe2
+      004628 94                    5541 	.db 0x94
+      004629 82                    5542 	.db 0x82
+      00462A 20 45 6E 74 65 72 65  5543 	.ascii " Entered data: 0x%02X"
              64 20 64 61 74 61 3A
              20 30 78 25 30 32 58
-      00463D 0A                    5544 	.db 0x0a
-      00463E 0D                    5545 	.db 0x0d
-      00463F 00                    5546 	.db 0x00
+      00463F 0A                    5544 	.db 0x0a
+      004640 0D                    5545 	.db 0x0d
+      004641 00                    5546 	.db 0x00
                                    5547 	.area CSEG    (CODE)
                                    5548 	.area CONST   (CODE)
-      004640                       5549 ___str_35:
-      004640 44 61 74 61 20 6F 75  5550 	.ascii "Data out of Range"
+      004642                       5549 ___str_35:
+      004642 44 61 74 61 20 6F 75  5550 	.ascii "Data out of Range"
              74 20 6F 66 20 52 61
              6E 67 65
-      004651 0A                    5551 	.db 0x0a
-      004652 0D                    5552 	.db 0x0d
-      004653 00                    5553 	.db 0x00
+      004653 0A                    5551 	.db 0x0a
+      004654 0D                    5552 	.db 0x0d
+      004655 00                    5553 	.db 0x00
                                    5554 	.area CSEG    (CODE)
                                    5555 	.area CONST   (CODE)
-      004654                       5556 ___str_36:
-      004654 45 72 72 6F 72 3A 20  5557 	.ascii "Error: No ACK for device address (write)"
+      004656                       5556 ___str_36:
+      004656 45 72 72 6F 72 3A 20  5557 	.ascii "Error: No ACK for device address (write)"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 65 76
              69 63 65 20 61 64 64
              72 65 73 73 20 28 77
              72 69 74 65 29
-      00467C 0A                    5558 	.db 0x0a
-      00467D 0D                    5559 	.db 0x0d
-      00467E 00                    5560 	.db 0x00
+      00467E 0A                    5558 	.db 0x0a
+      00467F 0D                    5559 	.db 0x0d
+      004680 00                    5560 	.db 0x00
                                    5561 	.area CSEG    (CODE)
                                    5562 	.area CONST   (CODE)
-      00467F                       5563 ___str_37:
-      00467F 45 72 72 6F 72 3A 20  5564 	.ascii "Error: No ACK for memory address"
+      004681                       5563 ___str_37:
+      004681 45 72 72 6F 72 3A 20  5564 	.ascii "Error: No ACK for memory address"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 6D 65 6D
              6F 72 79 20 61 64 64
              72 65 73 73
-      00469F 0A                    5565 	.db 0x0a
-      0046A0 0D                    5566 	.db 0x0d
-      0046A1 00                    5567 	.db 0x00
+      0046A1 0A                    5565 	.db 0x0a
+      0046A2 0D                    5566 	.db 0x0d
+      0046A3 00                    5567 	.db 0x00
                                    5568 	.area CSEG    (CODE)
                                    5569 	.area CONST   (CODE)
-      0046A2                       5570 ___str_38:
-      0046A2 45 72 72 6F 72 3A 20  5571 	.ascii "Error: No ACK for data"
+      0046A4                       5570 ___str_38:
+      0046A4 45 72 72 6F 72 3A 20  5571 	.ascii "Error: No ACK for data"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 61 74
              61
-      0046B8 0A                    5572 	.db 0x0a
-      0046B9 0D                    5573 	.db 0x0d
-      0046BA 00                    5574 	.db 0x00
+      0046BA 0A                    5572 	.db 0x0a
+      0046BB 0D                    5573 	.db 0x0d
+      0046BC 00                    5574 	.db 0x00
                                    5575 	.area CSEG    (CODE)
                                    5576 	.area CONST   (CODE)
-      0046BB                       5577 ___str_39:
-      0046BB 7C 20 57 72 69 74 69  5578 	.ascii "| Writing at Address 0x%03X Data 0x%02X          |"
+      0046BD                       5577 ___str_39:
+      0046BD 7C 20 57 72 69 74 69  5578 	.ascii "| Writing at Address 0x%03X Data 0x%02X          |"
              6E 67 20 61 74 20 41
              64 64 72 65 73 73 20
              30 78 25 30 33 58 20
@@ -5710,248 +5710,248 @@
              25 30 32 58 20 20 20
              20 20 20 20 20 20 20
              7C
-      0046ED 0A                    5579 	.db 0x0a
-      0046EE 0D                    5580 	.db 0x0d
-      0046EF 00                    5581 	.db 0x00
+      0046EF 0A                    5579 	.db 0x0a
+      0046F0 0D                    5580 	.db 0x0d
+      0046F1 00                    5581 	.db 0x00
                                    5582 	.area CSEG    (CODE)
                                    5583 	.area CONST   (CODE)
-      0046F0                       5584 ___str_40:
-      0046F0 E2                    5585 	.db 0xe2
-      0046F1 94                    5586 	.db 0x94
-      0046F2 82                    5587 	.db 0x82
-      0046F3 20 57 72 69 74 65 20  5588 	.ascii " Write successful!                             "
+      0046F2                       5584 ___str_40:
+      0046F2 E2                    5585 	.db 0xe2
+      0046F3 94                    5586 	.db 0x94
+      0046F4 82                    5587 	.db 0x82
+      0046F5 20 57 72 69 74 65 20  5588 	.ascii " Write successful!                             "
              73 75 63 63 65 73 73
              66 75 6C 21 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20
-      004722 E2                    5589 	.db 0xe2
-      004723 94                    5590 	.db 0x94
-      004724 82                    5591 	.db 0x82
-      004725 0A                    5592 	.db 0x0a
-      004726 0D                    5593 	.db 0x0d
-      004727 00                    5594 	.db 0x00
+      004724 E2                    5589 	.db 0xe2
+      004725 94                    5590 	.db 0x94
+      004726 82                    5591 	.db 0x82
+      004727 0A                    5592 	.db 0x0a
+      004728 0D                    5593 	.db 0x0d
+      004729 00                    5594 	.db 0x00
                                    5595 	.area CSEG    (CODE)
                                    5596 	.area CONST   (CODE)
-      004728                       5597 ___str_41:
-      004728 E2                    5598 	.db 0xe2
-      004729 94                    5599 	.db 0x94
-      00472A 94                    5600 	.db 0x94
-      00472B E2                    5601 	.db 0xe2
-      00472C 94                    5602 	.db 0x94
-      00472D 80                    5603 	.db 0x80
-      00472E E2                    5604 	.db 0xe2
-      00472F 94                    5605 	.db 0x94
-      004730 80                    5606 	.db 0x80
-      004731 E2                    5607 	.db 0xe2
-      004732 94                    5608 	.db 0x94
-      004733 80                    5609 	.db 0x80
-      004734 E2                    5610 	.db 0xe2
-      004735 94                    5611 	.db 0x94
-      004736 80                    5612 	.db 0x80
-      004737 E2                    5613 	.db 0xe2
-      004738 94                    5614 	.db 0x94
-      004739 80                    5615 	.db 0x80
-      00473A E2                    5616 	.db 0xe2
-      00473B 94                    5617 	.db 0x94
-      00473C 80                    5618 	.db 0x80
-      00473D E2                    5619 	.db 0xe2
-      00473E 94                    5620 	.db 0x94
-      00473F 80                    5621 	.db 0x80
-      004740 E2                    5622 	.db 0xe2
-      004741 94                    5623 	.db 0x94
-      004742 80                    5624 	.db 0x80
-      004743 E2                    5625 	.db 0xe2
-      004744 94                    5626 	.db 0x94
-      004745 80                    5627 	.db 0x80
-      004746 E2                    5628 	.db 0xe2
-      004747 94                    5629 	.db 0x94
-      004748 80                    5630 	.db 0x80
-      004749 E2                    5631 	.db 0xe2
-      00474A 94                    5632 	.db 0x94
-      00474B 80                    5633 	.db 0x80
-      00474C E2                    5634 	.db 0xe2
-      00474D 94                    5635 	.db 0x94
-      00474E 80                    5636 	.db 0x80
-      00474F E2                    5637 	.db 0xe2
-      004750 94                    5638 	.db 0x94
-      004751 80                    5639 	.db 0x80
-      004752 E2                    5640 	.db 0xe2
-      004753 94                    5641 	.db 0x94
-      004754 80                    5642 	.db 0x80
-      004755 E2                    5643 	.db 0xe2
-      004756 94                    5644 	.db 0x94
-      004757 80                    5645 	.db 0x80
-      004758 E2                    5646 	.db 0xe2
-      004759 94                    5647 	.db 0x94
-      00475A 80                    5648 	.db 0x80
-      00475B E2                    5649 	.db 0xe2
-      00475C 94                    5650 	.db 0x94
-      00475D 80                    5651 	.db 0x80
-      00475E E2                    5652 	.db 0xe2
-      00475F 94                    5653 	.db 0x94
-      004760 80                    5654 	.db 0x80
-      004761 E2                    5655 	.db 0xe2
-      004762 94                    5656 	.db 0x94
-      004763 80                    5657 	.db 0x80
-      004764 E2                    5658 	.db 0xe2
-      004765 94                    5659 	.db 0x94
-      004766 80                    5660 	.db 0x80
-      004767 E2                    5661 	.db 0xe2
-      004768 94                    5662 	.db 0x94
-      004769 80                    5663 	.db 0x80
-      00476A E2                    5664 	.db 0xe2
-      00476B 94                    5665 	.db 0x94
-      00476C 80                    5666 	.db 0x80
-      00476D E2                    5667 	.db 0xe2
-      00476E 94                    5668 	.db 0x94
-      00476F 80                    5669 	.db 0x80
-      004770 E2                    5670 	.db 0xe2
-      004771 94                    5671 	.db 0x94
-      004772 80                    5672 	.db 0x80
-      004773 E2                    5673 	.db 0xe2
-      004774 94                    5674 	.db 0x94
-      004775 80                    5675 	.db 0x80
-      004776 E2                    5676 	.db 0xe2
-      004777 94                    5677 	.db 0x94
-      004778 80                    5678 	.db 0x80
-      004779 E2                    5679 	.db 0xe2
-      00477A 94                    5680 	.db 0x94
-      00477B 80                    5681 	.db 0x80
-      00477C E2                    5682 	.db 0xe2
-      00477D 94                    5683 	.db 0x94
-      00477E 80                    5684 	.db 0x80
-      00477F E2                    5685 	.db 0xe2
-      004780 94                    5686 	.db 0x94
-      004781 80                    5687 	.db 0x80
-      004782 E2                    5688 	.db 0xe2
-      004783 94                    5689 	.db 0x94
-      004784 80                    5690 	.db 0x80
-      004785 E2                    5691 	.db 0xe2
-      004786 94                    5692 	.db 0x94
-      004787 80                    5693 	.db 0x80
-      004788 E2                    5694 	.db 0xe2
-      004789 94                    5695 	.db 0x94
-      00478A 80                    5696 	.db 0x80
-      00478B E2                    5697 	.db 0xe2
-      00478C 94                    5698 	.db 0x94
-      00478D 80                    5699 	.db 0x80
-      00478E E2                    5700 	.db 0xe2
-      00478F 94                    5701 	.db 0x94
-      004790 80                    5702 	.db 0x80
-      004791 E2                    5703 	.db 0xe2
-      004792 94                    5704 	.db 0x94
-      004793 80                    5705 	.db 0x80
-      004794 E2                    5706 	.db 0xe2
-      004795 94                    5707 	.db 0x94
-      004796 80                    5708 	.db 0x80
-      004797 E2                    5709 	.db 0xe2
-      004798 94                    5710 	.db 0x94
-      004799 80                    5711 	.db 0x80
-      00479A E2                    5712 	.db 0xe2
-      00479B 94                    5713 	.db 0x94
-      00479C 80                    5714 	.db 0x80
-      00479D E2                    5715 	.db 0xe2
-      00479E 94                    5716 	.db 0x94
-      00479F 80                    5717 	.db 0x80
-      0047A0 E2                    5718 	.db 0xe2
-      0047A1 94                    5719 	.db 0x94
-      0047A2 80                    5720 	.db 0x80
-      0047A3 E2                    5721 	.db 0xe2
-      0047A4 94                    5722 	.db 0x94
-      0047A5 80                    5723 	.db 0x80
-      0047A6 E2                    5724 	.db 0xe2
-      0047A7 94                    5725 	.db 0x94
-      0047A8 80                    5726 	.db 0x80
-      0047A9 E2                    5727 	.db 0xe2
-      0047AA 94                    5728 	.db 0x94
-      0047AB 80                    5729 	.db 0x80
-      0047AC E2                    5730 	.db 0xe2
-      0047AD 94                    5731 	.db 0x94
-      0047AE 80                    5732 	.db 0x80
-      0047AF E2                    5733 	.db 0xe2
-      0047B0 94                    5734 	.db 0x94
-      0047B1 80                    5735 	.db 0x80
-      0047B2 E2                    5736 	.db 0xe2
-      0047B3 94                    5737 	.db 0x94
-      0047B4 80                    5738 	.db 0x80
-      0047B5 E2                    5739 	.db 0xe2
-      0047B6 94                    5740 	.db 0x94
-      0047B7 80                    5741 	.db 0x80
-      0047B8 E2                    5742 	.db 0xe2
-      0047B9 94                    5743 	.db 0x94
-      0047BA 98                    5744 	.db 0x98
-      0047BB 0A                    5745 	.db 0x0a
-      0047BC 0D                    5746 	.db 0x0d
-      0047BD 00                    5747 	.db 0x00
+      00472A                       5597 ___str_41:
+      00472A E2                    5598 	.db 0xe2
+      00472B 94                    5599 	.db 0x94
+      00472C 94                    5600 	.db 0x94
+      00472D E2                    5601 	.db 0xe2
+      00472E 94                    5602 	.db 0x94
+      00472F 80                    5603 	.db 0x80
+      004730 E2                    5604 	.db 0xe2
+      004731 94                    5605 	.db 0x94
+      004732 80                    5606 	.db 0x80
+      004733 E2                    5607 	.db 0xe2
+      004734 94                    5608 	.db 0x94
+      004735 80                    5609 	.db 0x80
+      004736 E2                    5610 	.db 0xe2
+      004737 94                    5611 	.db 0x94
+      004738 80                    5612 	.db 0x80
+      004739 E2                    5613 	.db 0xe2
+      00473A 94                    5614 	.db 0x94
+      00473B 80                    5615 	.db 0x80
+      00473C E2                    5616 	.db 0xe2
+      00473D 94                    5617 	.db 0x94
+      00473E 80                    5618 	.db 0x80
+      00473F E2                    5619 	.db 0xe2
+      004740 94                    5620 	.db 0x94
+      004741 80                    5621 	.db 0x80
+      004742 E2                    5622 	.db 0xe2
+      004743 94                    5623 	.db 0x94
+      004744 80                    5624 	.db 0x80
+      004745 E2                    5625 	.db 0xe2
+      004746 94                    5626 	.db 0x94
+      004747 80                    5627 	.db 0x80
+      004748 E2                    5628 	.db 0xe2
+      004749 94                    5629 	.db 0x94
+      00474A 80                    5630 	.db 0x80
+      00474B E2                    5631 	.db 0xe2
+      00474C 94                    5632 	.db 0x94
+      00474D 80                    5633 	.db 0x80
+      00474E E2                    5634 	.db 0xe2
+      00474F 94                    5635 	.db 0x94
+      004750 80                    5636 	.db 0x80
+      004751 E2                    5637 	.db 0xe2
+      004752 94                    5638 	.db 0x94
+      004753 80                    5639 	.db 0x80
+      004754 E2                    5640 	.db 0xe2
+      004755 94                    5641 	.db 0x94
+      004756 80                    5642 	.db 0x80
+      004757 E2                    5643 	.db 0xe2
+      004758 94                    5644 	.db 0x94
+      004759 80                    5645 	.db 0x80
+      00475A E2                    5646 	.db 0xe2
+      00475B 94                    5647 	.db 0x94
+      00475C 80                    5648 	.db 0x80
+      00475D E2                    5649 	.db 0xe2
+      00475E 94                    5650 	.db 0x94
+      00475F 80                    5651 	.db 0x80
+      004760 E2                    5652 	.db 0xe2
+      004761 94                    5653 	.db 0x94
+      004762 80                    5654 	.db 0x80
+      004763 E2                    5655 	.db 0xe2
+      004764 94                    5656 	.db 0x94
+      004765 80                    5657 	.db 0x80
+      004766 E2                    5658 	.db 0xe2
+      004767 94                    5659 	.db 0x94
+      004768 80                    5660 	.db 0x80
+      004769 E2                    5661 	.db 0xe2
+      00476A 94                    5662 	.db 0x94
+      00476B 80                    5663 	.db 0x80
+      00476C E2                    5664 	.db 0xe2
+      00476D 94                    5665 	.db 0x94
+      00476E 80                    5666 	.db 0x80
+      00476F E2                    5667 	.db 0xe2
+      004770 94                    5668 	.db 0x94
+      004771 80                    5669 	.db 0x80
+      004772 E2                    5670 	.db 0xe2
+      004773 94                    5671 	.db 0x94
+      004774 80                    5672 	.db 0x80
+      004775 E2                    5673 	.db 0xe2
+      004776 94                    5674 	.db 0x94
+      004777 80                    5675 	.db 0x80
+      004778 E2                    5676 	.db 0xe2
+      004779 94                    5677 	.db 0x94
+      00477A 80                    5678 	.db 0x80
+      00477B E2                    5679 	.db 0xe2
+      00477C 94                    5680 	.db 0x94
+      00477D 80                    5681 	.db 0x80
+      00477E E2                    5682 	.db 0xe2
+      00477F 94                    5683 	.db 0x94
+      004780 80                    5684 	.db 0x80
+      004781 E2                    5685 	.db 0xe2
+      004782 94                    5686 	.db 0x94
+      004783 80                    5687 	.db 0x80
+      004784 E2                    5688 	.db 0xe2
+      004785 94                    5689 	.db 0x94
+      004786 80                    5690 	.db 0x80
+      004787 E2                    5691 	.db 0xe2
+      004788 94                    5692 	.db 0x94
+      004789 80                    5693 	.db 0x80
+      00478A E2                    5694 	.db 0xe2
+      00478B 94                    5695 	.db 0x94
+      00478C 80                    5696 	.db 0x80
+      00478D E2                    5697 	.db 0xe2
+      00478E 94                    5698 	.db 0x94
+      00478F 80                    5699 	.db 0x80
+      004790 E2                    5700 	.db 0xe2
+      004791 94                    5701 	.db 0x94
+      004792 80                    5702 	.db 0x80
+      004793 E2                    5703 	.db 0xe2
+      004794 94                    5704 	.db 0x94
+      004795 80                    5705 	.db 0x80
+      004796 E2                    5706 	.db 0xe2
+      004797 94                    5707 	.db 0x94
+      004798 80                    5708 	.db 0x80
+      004799 E2                    5709 	.db 0xe2
+      00479A 94                    5710 	.db 0x94
+      00479B 80                    5711 	.db 0x80
+      00479C E2                    5712 	.db 0xe2
+      00479D 94                    5713 	.db 0x94
+      00479E 80                    5714 	.db 0x80
+      00479F E2                    5715 	.db 0xe2
+      0047A0 94                    5716 	.db 0x94
+      0047A1 80                    5717 	.db 0x80
+      0047A2 E2                    5718 	.db 0xe2
+      0047A3 94                    5719 	.db 0x94
+      0047A4 80                    5720 	.db 0x80
+      0047A5 E2                    5721 	.db 0xe2
+      0047A6 94                    5722 	.db 0x94
+      0047A7 80                    5723 	.db 0x80
+      0047A8 E2                    5724 	.db 0xe2
+      0047A9 94                    5725 	.db 0x94
+      0047AA 80                    5726 	.db 0x80
+      0047AB E2                    5727 	.db 0xe2
+      0047AC 94                    5728 	.db 0x94
+      0047AD 80                    5729 	.db 0x80
+      0047AE E2                    5730 	.db 0xe2
+      0047AF 94                    5731 	.db 0x94
+      0047B0 80                    5732 	.db 0x80
+      0047B1 E2                    5733 	.db 0xe2
+      0047B2 94                    5734 	.db 0x94
+      0047B3 80                    5735 	.db 0x80
+      0047B4 E2                    5736 	.db 0xe2
+      0047B5 94                    5737 	.db 0x94
+      0047B6 80                    5738 	.db 0x80
+      0047B7 E2                    5739 	.db 0xe2
+      0047B8 94                    5740 	.db 0x94
+      0047B9 80                    5741 	.db 0x80
+      0047BA E2                    5742 	.db 0xe2
+      0047BB 94                    5743 	.db 0x94
+      0047BC 98                    5744 	.db 0x98
+      0047BD 0A                    5745 	.db 0x0a
+      0047BE 0D                    5746 	.db 0x0d
+      0047BF 00                    5747 	.db 0x00
                                    5748 	.area CSEG    (CODE)
                                    5749 	.area CONST   (CODE)
-      0047BE                       5750 ___str_42:
-      0047BE 45 72 72 6F 72 3A 20  5751 	.ascii "Error: No ACK for device address (write mode)"
+      0047C0                       5750 ___str_42:
+      0047C0 45 72 72 6F 72 3A 20  5751 	.ascii "Error: No ACK for device address (write mode)"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 65 76
              69 63 65 20 61 64 64
              72 65 73 73 20 28 77
              72 69 74 65 20 6D 6F
              64 65 29
-      0047EB 0A                    5752 	.db 0x0a
-      0047EC 0D                    5753 	.db 0x0d
-      0047ED 00                    5754 	.db 0x00
+      0047ED 0A                    5752 	.db 0x0a
+      0047EE 0D                    5753 	.db 0x0d
+      0047EF 00                    5754 	.db 0x00
                                    5755 	.area CSEG    (CODE)
                                    5756 	.area CONST   (CODE)
-      0047EE                       5757 ___str_43:
-      0047EE 45 72 72 6F 72 3A 20  5758 	.ascii "Error: No ACK for device address (read mode)"
+      0047F0                       5757 ___str_43:
+      0047F0 45 72 72 6F 72 3A 20  5758 	.ascii "Error: No ACK for device address (read mode)"
              4E 6F 20 41 43 4B 20
              66 6F 72 20 64 65 76
              69 63 65 20 61 64 64
              72 65 73 73 20 28 72
              65 61 64 20 6D 6F 64
              65 29
-      00481A 0A                    5759 	.db 0x0a
-      00481B 0D                    5760 	.db 0x0d
-      00481C 00                    5761 	.db 0x00
+      00481C 0A                    5759 	.db 0x0a
+      00481D 0D                    5760 	.db 0x0d
+      00481E 00                    5761 	.db 0x00
                                    5762 	.area CSEG    (CODE)
                                    5763 	.area CONST   (CODE)
-      00481D                       5764 ___str_44:
-      00481D 7C 20 30 78 25 30 33  5765 	.ascii "| 0x%03X : 0x%02X "
+      00481F                       5764 ___str_44:
+      00481F 7C 20 30 78 25 30 33  5765 	.ascii "| 0x%03X : 0x%02X "
              58 20 3A 20 30 78 25
              30 32 58 20
-      00482F 0A                    5766 	.db 0x0a
-      004830 0D                    5767 	.db 0x0d
-      004831 00                    5768 	.db 0x00
+      004831 0A                    5766 	.db 0x0a
+      004832 0D                    5767 	.db 0x0d
+      004833 00                    5768 	.db 0x00
                                    5769 	.area CSEG    (CODE)
                                    5770 	.area CONST   (CODE)
-      004832                       5771 ___str_45:
-      004832 E2                    5772 	.db 0xe2
-      004833 94                    5773 	.db 0x94
-      004834 82                    5774 	.db 0x82
-      004835 20 52 65 61 64 20 73  5775 	.ascii " Read successful!                 "
+      004834                       5771 ___str_45:
+      004834 E2                    5772 	.db 0xe2
+      004835 94                    5773 	.db 0x94
+      004836 82                    5774 	.db 0x82
+      004837 20 52 65 61 64 20 73  5775 	.ascii " Read successful!                 "
              75 63 63 65 73 73 66
              75 6C 21 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20
-      004857 E2                    5776 	.db 0xe2
-      004858 94                    5777 	.db 0x94
-      004859 82                    5778 	.db 0x82
-      00485A 0A                    5779 	.db 0x0a
-      00485B 0D                    5780 	.db 0x0d
-      00485C 00                    5781 	.db 0x00
+      004859 E2                    5776 	.db 0xe2
+      00485A 94                    5777 	.db 0x94
+      00485B 82                    5778 	.db 0x82
+      00485C 0A                    5779 	.db 0x0a
+      00485D 0D                    5780 	.db 0x0d
+      00485E 00                    5781 	.db 0x00
                                    5782 	.area CSEG    (CODE)
                                    5783 	.area CONST   (CODE)
-      00485D                       5784 ___str_46:
-      00485D 41 43 4B 20 44 49 44  5785 	.ascii "ACK DID NOT ARRIVE"
+      00485F                       5784 ___str_46:
+      00485F 41 43 4B 20 44 49 44  5785 	.ascii "ACK DID NOT ARRIVE"
              20 4E 4F 54 20 41 52
              52 49 56 45
-      00486F 0A                    5786 	.db 0x0a
-      004870 0D                    5787 	.db 0x0d
-      004871 00                    5788 	.db 0x00
+      004871 0A                    5786 	.db 0x0a
+      004872 0D                    5787 	.db 0x0d
+      004873 00                    5788 	.db 0x00
                                    5789 	.area CSEG    (CODE)
                                    5790 	.area CONST   (CODE)
-      004872                       5791 ___str_47:
-      004872 0D                    5792 	.db 0x0d
-      004873 0A                    5793 	.db 0x0a
-      004874 2D 2D 2D 2D 2D 2D 2D  5794 	.ascii "------------------------------------------------------------"
+      004874                       5791 ___str_47:
+      004874 0D                    5792 	.db 0x0d
+      004875 0A                    5793 	.db 0x0a
+      004876 2D 2D 2D 2D 2D 2D 2D  5794 	.ascii "------------------------------------------------------------"
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
@@ -5960,14 +5960,14 @@
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D
-      0048B0 2D 2D 2D 2D           5795 	.ascii "----"
-      0048B4 0D                    5796 	.db 0x0d
-      0048B5 0A                    5797 	.db 0x0a
-      0048B6 00                    5798 	.db 0x00
+      0048B2 2D 2D 2D 2D           5795 	.ascii "----"
+      0048B6 0D                    5796 	.db 0x0d
+      0048B7 0A                    5797 	.db 0x0a
+      0048B8 00                    5798 	.db 0x00
                                    5799 	.area CSEG    (CODE)
                                    5800 	.area CONST   (CODE)
-      0048B7                       5801 ___str_48:
-      0048B7 20 20 20 20 20 20 20  5802 	.ascii "                    EEPROM Hex Dump                         "
+      0048B9                       5801 ___str_48:
+      0048B9 20 20 20 20 20 20 20  5802 	.ascii "                    EEPROM Hex Dump                         "
              20 20 20 20 20 20 20
              20 20 20 20 20 20 45
              45 50 52 4F 4D 20 48
@@ -5976,14 +5976,14 @@
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20
-      0048F3 20 20 20 20 20 20     5803 	.ascii "      "
-      0048F9 0D                    5804 	.db 0x0d
-      0048FA 0A                    5805 	.db 0x0a
-      0048FB 00                    5806 	.db 0x00
+      0048F5 20 20 20 20 20 20     5803 	.ascii "      "
+      0048FB 0D                    5804 	.db 0x0d
+      0048FC 0A                    5805 	.db 0x0a
+      0048FD 00                    5806 	.db 0x00
                                    5807 	.area CSEG    (CODE)
                                    5808 	.area CONST   (CODE)
-      0048FC                       5809 ___str_49:
-      0048FC 2D 2D 2D 2D 2D 2D 2D  5810 	.ascii "------------------------------------------------------------"
+      0048FE                       5809 ___str_49:
+      0048FE 2D 2D 2D 2D 2D 2D 2D  5810 	.ascii "------------------------------------------------------------"
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
@@ -5992,14 +5992,14 @@
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D 2D 2D 2D
              2D 2D 2D 2D
-      004938 2D 2D 2D 2D           5811 	.ascii "----"
-      00493C 0D                    5812 	.db 0x0d
-      00493D 0A                    5813 	.db 0x0a
-      00493E 00                    5814 	.db 0x00
+      00493A 2D 2D 2D 2D           5811 	.ascii "----"
+      00493E 0D                    5812 	.db 0x0d
+      00493F 0A                    5813 	.db 0x0a
+      004940 00                    5814 	.db 0x00
                                    5815 	.area CSEG    (CODE)
                                    5816 	.area CONST   (CODE)
-      00493F                       5817 ___str_50:
-      00493F 20 20 20 20 20 30 20  5818 	.ascii "     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F"
+      004941                       5817 ___str_50:
+      004941 20 20 20 20 20 30 20  5818 	.ascii "     0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F"
              20 31 20 20 32 20 20
              33 20 20 34 20 20 35
              20 20 36 20 20 37 20
@@ -6007,85 +6007,85 @@
              41 20 20 42 20 20 43
              20 20 44 20 20 45 20
              20 46
-      004972 0D                    5819 	.db 0x0d
-      004973 0A                    5820 	.db 0x0a
-      004974 00                    5821 	.db 0x00
+      004974 0D                    5819 	.db 0x0d
+      004975 0A                    5820 	.db 0x0a
+      004976 00                    5821 	.db 0x00
                                    5822 	.area CSEG    (CODE)
                                    5823 	.area CONST   (CODE)
-      004975                       5824 ___str_51:
-      004975 25 30 33 58 3A 20     5825 	.ascii "%03X: "
-      00497B 00                    5826 	.db 0x00
+      004977                       5824 ___str_51:
+      004977 25 30 33 58 3A 20     5825 	.ascii "%03X: "
+      00497D 00                    5826 	.db 0x00
                                    5827 	.area CSEG    (CODE)
                                    5828 	.area CONST   (CODE)
-      00497C                       5829 ___str_52:
-      00497C 45 72 72 6F 72 3A 20  5830 	.ascii "Error: Device not responding"
+      00497E                       5829 ___str_52:
+      00497E 45 72 72 6F 72 3A 20  5830 	.ascii "Error: Device not responding"
              44 65 76 69 63 65 20
              6E 6F 74 20 72 65 73
              70 6F 6E 64 69 6E 67
-      004998 0D                    5831 	.db 0x0d
-      004999 0A                    5832 	.db 0x0a
-      00499A 00                    5833 	.db 0x00
+      00499A 0D                    5831 	.db 0x0d
+      00499B 0A                    5832 	.db 0x0a
+      00499C 00                    5833 	.db 0x00
                                    5834 	.area CSEG    (CODE)
                                    5835 	.area CONST   (CODE)
-      00499B                       5836 ___str_53:
-      00499B 45 72 72 6F 72 3A 20  5837 	.ascii "Error: Address write failed"
+      00499D                       5836 ___str_53:
+      00499D 45 72 72 6F 72 3A 20  5837 	.ascii "Error: Address write failed"
              41 64 64 72 65 73 73
              20 77 72 69 74 65 20
              66 61 69 6C 65 64
-      0049B6 0D                    5838 	.db 0x0d
-      0049B7 0A                    5839 	.db 0x0a
-      0049B8 00                    5840 	.db 0x00
+      0049B8 0D                    5838 	.db 0x0d
+      0049B9 0A                    5839 	.db 0x0a
+      0049BA 00                    5840 	.db 0x00
                                    5841 	.area CSEG    (CODE)
                                    5842 	.area CONST   (CODE)
-      0049B9                       5843 ___str_54:
-      0049B9 45 72 72 6F 72 3A 20  5844 	.ascii "Error: Device not responding in read mode"
+      0049BB                       5843 ___str_54:
+      0049BB 45 72 72 6F 72 3A 20  5844 	.ascii "Error: Device not responding in read mode"
              44 65 76 69 63 65 20
              6E 6F 74 20 72 65 73
              70 6F 6E 64 69 6E 67
              20 69 6E 20 72 65 61
              64 20 6D 6F 64 65
-      0049E2 0D                    5845 	.db 0x0d
-      0049E3 0A                    5846 	.db 0x0a
-      0049E4 00                    5847 	.db 0x00
+      0049E4 0D                    5845 	.db 0x0d
+      0049E5 0A                    5846 	.db 0x0a
+      0049E6 00                    5847 	.db 0x00
                                    5848 	.area CSEG    (CODE)
                                    5849 	.area CONST   (CODE)
-      0049E5                       5850 ___str_55:
-      0049E5 25 30 32 58 20        5851 	.ascii "%02X "
-      0049EA 00                    5852 	.db 0x00
+      0049E7                       5850 ___str_55:
+      0049E7 25 30 32 58 20        5851 	.ascii "%02X "
+      0049EC 00                    5852 	.db 0x00
                                    5853 	.area CSEG    (CODE)
                                    5854 	.area CONST   (CODE)
-      0049EB                       5855 ___str_56:
-      0049EB 20 20 20              5856 	.ascii "   "
-      0049EE 00                    5857 	.db 0x00
+      0049ED                       5855 ___str_56:
+      0049ED 20 20 20              5856 	.ascii "   "
+      0049F0 00                    5857 	.db 0x00
                                    5858 	.area CSEG    (CODE)
                                    5859 	.area CONST   (CODE)
-      0049EF                       5860 ___str_57:
-      0049EF 20 7C 20              5861 	.ascii " | "
-      0049F2 00                    5862 	.db 0x00
+      0049F1                       5860 ___str_57:
+      0049F1 20 7C 20              5861 	.ascii " | "
+      0049F4 00                    5862 	.db 0x00
                                    5863 	.area CSEG    (CODE)
                                    5864 	.area CONST   (CODE)
-      0049F3                       5865 ___str_58:
-      0049F3 0D                    5866 	.db 0x0d
-      0049F4 0A                    5867 	.db 0x0a
-      0049F5 00                    5868 	.db 0x00
+      0049F5                       5865 ___str_58:
+      0049F5 0D                    5866 	.db 0x0d
+      0049F6 0A                    5867 	.db 0x0a
+      0049F7 00                    5868 	.db 0x00
                                    5869 	.area CSEG    (CODE)
                                    5870 	.area CONST   (CODE)
-      0049F6                       5871 ___str_59:
-      0049F6 0A                    5872 	.db 0x0a
-      0049F7 45 6E 74 65 72 20 53  5873 	.ascii "Enter Start Address for HEX Dump (000-7FF):"
+      0049F8                       5871 ___str_59:
+      0049F8 0A                    5872 	.db 0x0a
+      0049F9 45 6E 74 65 72 20 53  5873 	.ascii "Enter Start Address for HEX Dump (000-7FF):"
              74 61 72 74 20 41 64
              64 72 65 73 73 20 66
              6F 72 20 48 45 58 20
              44 75 6D 70 20 28 30
              30 30 2D 37 46 46 29
              3A
-      004A22 0D                    5874 	.db 0x0d
-      004A23 0A                    5875 	.db 0x0a
-      004A24 00                    5876 	.db 0x00
+      004A24 0D                    5874 	.db 0x0d
+      004A25 0A                    5875 	.db 0x0a
+      004A26 00                    5876 	.db 0x00
                                    5877 	.area CSEG    (CODE)
                                    5878 	.area CONST   (CODE)
-      004A25                       5879 ___str_60:
-      004A25 49 6E 76 61 6C 69 64  5880 	.ascii "Invalid Start Address! Must be between 0x000 and 0x7FF"
+      004A27                       5879 ___str_60:
+      004A27 49 6E 76 61 6C 69 64  5880 	.ascii "Invalid Start Address! Must be between 0x000 and 0x7FF"
              20 53 74 61 72 74 20
              41 64 64 72 65 73 73
              21 20 4D 75 73 74 20
@@ -6093,26 +6093,26 @@
              65 65 6E 20 30 78 30
              30 30 20 61 6E 64 20
              30 78 37 46 46
-      004A5B 0D                    5881 	.db 0x0d
-      004A5C 0A                    5882 	.db 0x0a
-      004A5D 00                    5883 	.db 0x00
+      004A5D 0D                    5881 	.db 0x0d
+      004A5E 0A                    5882 	.db 0x0a
+      004A5F 00                    5883 	.db 0x00
                                    5884 	.area CSEG    (CODE)
                                    5885 	.area CONST   (CODE)
-      004A5E                       5886 ___str_61:
-      004A5E 0A                    5887 	.db 0x0a
-      004A5F 45 6E 74 65 72 20 45  5888 	.ascii "Enter End Address for HEX Dump (000-7FF):"
+      004A60                       5886 ___str_61:
+      004A60 0A                    5887 	.db 0x0a
+      004A61 45 6E 74 65 72 20 45  5888 	.ascii "Enter End Address for HEX Dump (000-7FF):"
              6E 64 20 41 64 64 72
              65 73 73 20 66 6F 72
              20 48 45 58 20 44 75
              6D 70 20 28 30 30 30
              2D 37 46 46 29 3A
-      004A88 0D                    5889 	.db 0x0d
-      004A89 0A                    5890 	.db 0x0a
-      004A8A 00                    5891 	.db 0x00
+      004A8A 0D                    5889 	.db 0x0d
+      004A8B 0A                    5890 	.db 0x0a
+      004A8C 00                    5891 	.db 0x00
                                    5892 	.area CSEG    (CODE)
                                    5893 	.area CONST   (CODE)
-      004A8B                       5894 ___str_62:
-      004A8B 49 6E 76 61 6C 69 64  5895 	.ascii "Invalid End Address! Must be between 0x%03X and 0x7FF"
+      004A8D                       5894 ___str_62:
+      004A8D 49 6E 76 61 6C 69 64  5895 	.ascii "Invalid End Address! Must be between 0x%03X and 0x7FF"
              20 45 6E 64 20 41 64
              64 72 65 73 73 21 20
              4D 75 73 74 20 62 65
@@ -6120,60 +6120,60 @@
              6E 20 30 78 25 30 33
              58 20 61 6E 64 20 30
              78 37 46 46
-      004AC0 0D                    5896 	.db 0x0d
-      004AC1 0A                    5897 	.db 0x0a
-      004AC2 00                    5898 	.db 0x00
+      004AC2 0D                    5896 	.db 0x0d
+      004AC3 0A                    5897 	.db 0x0a
+      004AC4 00                    5898 	.db 0x00
                                    5899 	.area CSEG    (CODE)
                                    5900 	.area CONST   (CODE)
-      004AC3                       5901 ___str_63:
-      004AC3 57 72 69 74 69 6E 67  5902 	.ascii "Writing data 0x%02X to address 0x%02X"
+      004AC5                       5901 ___str_63:
+      004AC5 57 72 69 74 69 6E 67  5902 	.ascii "Writing data 0x%02X to address 0x%02X"
              20 64 61 74 61 20 30
              78 25 30 32 58 20 74
              6F 20 61 64 64 72 65
              73 73 20 30 78 25 30
              32 58
-      004AE8 0A                    5903 	.db 0x0a
-      004AE9 0D                    5904 	.db 0x0d
-      004AEA 00                    5905 	.db 0x00
+      004AEA 0A                    5903 	.db 0x0a
+      004AEB 0D                    5904 	.db 0x0d
+      004AEC 00                    5905 	.db 0x00
                                    5906 	.area CSEG    (CODE)
                                    5907 	.area CONST   (CODE)
-      004AEB                       5908 ___str_64:
-      004AEB 52 65 61 64 20 62 61  5909 	.ascii "Read back from address 0x%02X: 0x%02X"
+      004AED                       5908 ___str_64:
+      004AED 52 65 61 64 20 62 61  5909 	.ascii "Read back from address 0x%02X: 0x%02X"
              63 6B 20 66 72 6F 6D
              20 61 64 64 72 65 73
              73 20 30 78 25 30 32
              58 3A 20 30 78 25 30
              32 58
-      004B10 0A                    5910 	.db 0x0a
-      004B11 0D                    5911 	.db 0x0d
-      004B12 00                    5912 	.db 0x00
+      004B12 0A                    5910 	.db 0x0a
+      004B13 0D                    5911 	.db 0x0d
+      004B14 00                    5912 	.db 0x00
                                    5913 	.area CSEG    (CODE)
                                    5914 	.area CONST   (CODE)
-      004B13                       5915 ___str_65:
-      004B13 4D 41 54 43 48 20 2D  5916 	.ascii "MATCH - Write/Read successful!"
+      004B15                       5915 ___str_65:
+      004B15 4D 41 54 43 48 20 2D  5916 	.ascii "MATCH - Write/Read successful!"
              20 57 72 69 74 65 2F
              52 65 61 64 20 73 75
              63 63 65 73 73 66 75
              6C 21
-      004B31 0A                    5917 	.db 0x0a
-      004B32 0D                    5918 	.db 0x0d
-      004B33 00                    5919 	.db 0x00
+      004B33 0A                    5917 	.db 0x0a
+      004B34 0D                    5918 	.db 0x0d
+      004B35 00                    5919 	.db 0x00
                                    5920 	.area CSEG    (CODE)
                                    5921 	.area CONST   (CODE)
-      004B34                       5922 ___str_66:
-      004B34 45 52 52 4F 52 20 2D  5923 	.ascii "ERROR - Data mismatch!"
+      004B36                       5922 ___str_66:
+      004B36 45 52 52 4F 52 20 2D  5923 	.ascii "ERROR - Data mismatch!"
              20 44 61 74 61 20 6D
              69 73 6D 61 74 63 68
              21
-      004B4A 0A                    5924 	.db 0x0a
-      004B4B 0D                    5925 	.db 0x0d
-      004B4C 00                    5926 	.db 0x00
+      004B4C 0A                    5924 	.db 0x0a
+      004B4D 0D                    5925 	.db 0x0d
+      004B4E 00                    5926 	.db 0x00
                                    5927 	.area CSEG    (CODE)
                                    5928 	.area XINIT   (CODE)
-      004B58                       5929 __xinit__address_range_flag:
-      004B58 01 00                 5930 	.byte #0x01, #0x00	;  1
-      004B5A                       5931 __xinit__data_range_flag:
-      004B5A 01 00                 5932 	.byte #0x01, #0x00	;  1
-      004B5C                       5933 __xinit__block:
-      004B5C 00 00                 5934 	.byte #0x00, #0x00	; 0
+      004B5A                       5929 __xinit__address_range_flag:
+      004B5A 01 00                 5930 	.byte #0x01, #0x00	;  1
+      004B5C                       5931 __xinit__data_range_flag:
+      004B5C 01 00                 5932 	.byte #0x01, #0x00	;  1
+      004B5E                       5933 __xinit__block:
+      004B5E 00 00                 5934 	.byte #0x00, #0x00	; 0
                                    5935 	.area CABS    (ABS,CODE)

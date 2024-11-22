@@ -435,59 +435,59 @@ Symbol Table
  19 ___str_20                                                      000769 R
  19 ___str_21                                                      0007DB R
  19 ___str_22                                                      000850 R
- 19 ___str_23                                                      0008C1 R
- 19 ___str_24                                                      0008D1 R
- 19 ___str_25                                                      000902 R
- 19 ___str_26                                                      000907 R
- 19 ___str_27                                                      000927 R
- 19 ___str_28                                                      0009AE R
- 19 ___str_29                                                      0009DF R
+ 19 ___str_23                                                      0008C3 R
+ 19 ___str_24                                                      0008D3 R
+ 19 ___str_25                                                      000904 R
+ 19 ___str_26                                                      000909 R
+ 19 ___str_27                                                      000929 R
+ 19 ___str_28                                                      0009B0 R
+ 19 ___str_29                                                      0009E1 R
  19 ___str_3                                                       0001A4 R
- 19 ___str_30                                                      000A10 R
- 19 ___str_31                                                      000A97 R
- 19 ___str_32                                                      000AC7 R
- 19 ___str_33                                                      000AF5 R
- 19 ___str_34                                                      000AF8 R
- 19 ___str_35                                                      000B15 R
- 19 ___str_36                                                      000B29 R
- 19 ___str_37                                                      000B54 R
- 19 ___str_38                                                      000B77 R
- 19 ___str_39                                                      000B90 R
+ 19 ___str_30                                                      000A12 R
+ 19 ___str_31                                                      000A99 R
+ 19 ___str_32                                                      000AC9 R
+ 19 ___str_33                                                      000AF7 R
+ 19 ___str_34                                                      000AFA R
+ 19 ___str_35                                                      000B17 R
+ 19 ___str_36                                                      000B2B R
+ 19 ___str_37                                                      000B56 R
+ 19 ___str_38                                                      000B79 R
+ 19 ___str_39                                                      000B92 R
  19 ___str_4                                                       00025A R
- 19 ___str_40                                                      000BC5 R
- 19 ___str_41                                                      000BFD R
- 19 ___str_42                                                      000C93 R
- 19 ___str_43                                                      000CC3 R
- 19 ___str_44                                                      000CF2 R
- 19 ___str_45                                                      000D07 R
- 19 ___str_46                                                      000D32 R
- 19 ___str_47                                                      000D47 R
- 19 ___str_48                                                      000D8C R
- 19 ___str_49                                                      000DD1 R
+ 19 ___str_40                                                      000BC7 R
+ 19 ___str_41                                                      000BFF R
+ 19 ___str_42                                                      000C95 R
+ 19 ___str_43                                                      000CC5 R
+ 19 ___str_44                                                      000CF4 R
+ 19 ___str_45                                                      000D09 R
+ 19 ___str_46                                                      000D34 R
+ 19 ___str_47                                                      000D49 R
+ 19 ___str_48                                                      000D8E R
+ 19 ___str_49                                                      000DD3 R
  19 ___str_5                                                       00029E R
- 19 ___str_50                                                      000E14 R
- 19 ___str_51                                                      000E4A R
- 19 ___str_52                                                      000E51 R
- 19 ___str_53                                                      000E70 R
- 19 ___str_54                                                      000E8E R
- 19 ___str_55                                                      000EBA R
- 19 ___str_56                                                      000EC0 R
- 19 ___str_57                                                      000EC4 R
- 19 ___str_58                                                      000EC8 R
- 19 ___str_59                                                      000ECB R
+ 19 ___str_50                                                      000E16 R
+ 19 ___str_51                                                      000E4C R
+ 19 ___str_52                                                      000E53 R
+ 19 ___str_53                                                      000E72 R
+ 19 ___str_54                                                      000E90 R
+ 19 ___str_55                                                      000EBC R
+ 19 ___str_56                                                      000EC2 R
+ 19 ___str_57                                                      000EC6 R
+ 19 ___str_58                                                      000ECA R
+ 19 ___str_59                                                      000ECD R
  19 ___str_6                                                       000352 R
- 19 ___str_60                                                      000EFA R
- 19 ___str_61                                                      000F33 R
+ 19 ___str_60                                                      000EFC R
+ 19 ___str_61                                                      000F35 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 19 ___str_62                                                      000F60 R
- 19 ___str_63                                                      000F98 R
- 19 ___str_64                                                      000FC0 R
- 19 ___str_65                                                      000FE8 R
- 19 ___str_66                                                      001009 R
+ 19 ___str_62                                                      000F62 R
+ 19 ___str_63                                                      000F9A R
+ 19 ___str_64                                                      000FC2 R
+ 19 ___str_65                                                      000FEA R
+ 19 ___str_66                                                      00100B R
  19 ___str_7                                                       000396 R
  19 ___str_8                                                       0003DA R
  19 ___str_9                                                       00041E R
@@ -790,7 +790,7 @@ Area Table
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
   18 CSEG                                       size   1016   flags   20
-  19 CONST                                      size   1022   flags   20
+  19 CONST                                      size   1024   flags   20
   1A XINIT                                      size      6   flags   20
   1B CABS                                       size      0   flags   28
 

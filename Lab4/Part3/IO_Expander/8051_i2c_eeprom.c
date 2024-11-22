@@ -114,8 +114,8 @@ void command_menu()
     printf("│     H      │ Display hex dump                           │\n\r");
     printf("│     X      │ Reset memory system                        │\n\r");
     printf("│     ?      │ Display this help menu                     │\n\r");
-    printf("│     I      │ IO Expander                                │\n\r");
-    printf("│     L      │ Leave IO Expander                          │\n\r");
+    printf("│     I      │ IO Expander Mode                           │\n\r");
+    printf("│     L      │ Exit IO Expander Mode                      │\n\r");
     printf("└────────────┴────────────────────────────────────────────┘\n\r");
 
 
@@ -129,7 +129,6 @@ void external_ISR0(void) __interrupt (0)
     data=pcf8574_read_pin(0);
     //Write Pin7
     pcf8574_set_pin(7,data);
-
 
 }
 
@@ -176,7 +175,7 @@ int main()
                     data_range_flag = 1;
                     break;
                 }
-                //printf("check point 1 \n\r");
+
                 eeprom_write(addr, data);
                 break;
             }
@@ -216,7 +215,7 @@ int main()
                 break;
 
             case 'L':
-                printf("\n┌───────────── IO EXPANDER LEAVE ───────────────┐\n\r");
+                printf("\n┌─────────────  EXIT IO EXPANDER   ───────────────┐\n\r");
                 disable_interrupt0();
                 break;
 
