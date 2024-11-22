@@ -1,0 +1,1692 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.0.0 #11528 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module ui_user_input
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _getchar
+                                     12 	.globl _putchar
+                                     13 	.globl _printf
+                                     14 	.globl _display_menu
+                                     15 	.globl _take_data
+                                     16 ;--------------------------------------------------------
+                                     17 ; special function registers
+                                     18 ;--------------------------------------------------------
+                                     19 	.area RSEG    (ABS,DATA)
+      000000                         20 	.org 0x0000
+                                     21 ;--------------------------------------------------------
+                                     22 ; special function bits
+                                     23 ;--------------------------------------------------------
+                                     24 	.area RSEG    (ABS,DATA)
+      000000                         25 	.org 0x0000
+                                     26 ;--------------------------------------------------------
+                                     27 ; overlayable register banks
+                                     28 ;--------------------------------------------------------
+                                     29 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                         30 	.ds 8
+                                     31 ;--------------------------------------------------------
+                                     32 ; internal ram data
+                                     33 ;--------------------------------------------------------
+                                     34 	.area DSEG    (DATA)
+                                     35 ;--------------------------------------------------------
+                                     36 ; overlayable items in internal ram 
+                                     37 ;--------------------------------------------------------
+                                     38 ;--------------------------------------------------------
+                                     39 ; indirectly addressable internal ram data
+                                     40 ;--------------------------------------------------------
+                                     41 	.area ISEG    (DATA)
+                                     42 ;--------------------------------------------------------
+                                     43 ; absolute internal ram data
+                                     44 ;--------------------------------------------------------
+                                     45 	.area IABS    (ABS,DATA)
+                                     46 	.area IABS    (ABS,DATA)
+                                     47 ;--------------------------------------------------------
+                                     48 ; bit data
+                                     49 ;--------------------------------------------------------
+                                     50 	.area BSEG    (BIT)
+                                     51 ;--------------------------------------------------------
+                                     52 ; paged external ram data
+                                     53 ;--------------------------------------------------------
+                                     54 	.area PSEG    (PAG,XDATA)
+                                     55 ;--------------------------------------------------------
+                                     56 ; external ram data
+                                     57 ;--------------------------------------------------------
+                                     58 	.area XSEG    (XDATA)
+      000000                         59 _take_data_input_65537_19:
+      000000                         60 	.ds 4
+      000004                         61 _take_data_data_65538_23:
+      000004                         62 	.ds 1
+                                     63 ;--------------------------------------------------------
+                                     64 ; absolute external ram data
+                                     65 ;--------------------------------------------------------
+                                     66 	.area XABS    (ABS,XDATA)
+                                     67 ;--------------------------------------------------------
+                                     68 ; external initialized ram data
+                                     69 ;--------------------------------------------------------
+                                     70 	.area XISEG   (XDATA)
+                                     71 	.area HOME    (CODE)
+                                     72 	.area GSINIT0 (CODE)
+                                     73 	.area GSINIT1 (CODE)
+                                     74 	.area GSINIT2 (CODE)
+                                     75 	.area GSINIT3 (CODE)
+                                     76 	.area GSINIT4 (CODE)
+                                     77 	.area GSINIT5 (CODE)
+                                     78 	.area GSINIT  (CODE)
+                                     79 	.area GSFINAL (CODE)
+                                     80 	.area CSEG    (CODE)
+                                     81 ;--------------------------------------------------------
+                                     82 ; global & static initialisations
+                                     83 ;--------------------------------------------------------
+                                     84 	.area HOME    (CODE)
+                                     85 	.area GSINIT  (CODE)
+                                     86 	.area GSFINAL (CODE)
+                                     87 	.area GSINIT  (CODE)
+                                     88 ;--------------------------------------------------------
+                                     89 ; Home
+                                     90 ;--------------------------------------------------------
+                                     91 	.area HOME    (CODE)
+                                     92 	.area HOME    (CODE)
+                                     93 ;--------------------------------------------------------
+                                     94 ; code
+                                     95 ;--------------------------------------------------------
+                                     96 	.area CSEG    (CODE)
+                                     97 ;------------------------------------------------------------
+                                     98 ;Allocation info for local variables in function 'display_menu'
+                                     99 ;------------------------------------------------------------
+                                    100 ;	src/ui_user_input.c:4: void display_menu(void) {
+                                    101 ;	-----------------------------------------
+                                    102 ;	 function display_menu
+                                    103 ;	-----------------------------------------
+      000000                        104 _display_menu:
+                           000007   105 	ar7 = 0x07
+                           000006   106 	ar6 = 0x06
+                           000005   107 	ar5 = 0x05
+                           000004   108 	ar4 = 0x04
+                           000003   109 	ar3 = 0x03
+                           000002   110 	ar2 = 0x02
+                           000001   111 	ar1 = 0x01
+                           000000   112 	ar0 = 0x00
+                                    113 ;	src/ui_user_input.c:5: printf("\n\r┌──────────────────────────────────────────────────────────────┐\n\r");
+      000000 74r00            [12]  114 	mov	a,#___str_0
+      000002 C0 E0            [24]  115 	push	acc
+      000004 74s00            [12]  116 	mov	a,#(___str_0 >> 8)
+      000006 C0 E0            [24]  117 	push	acc
+      000008 74 80            [12]  118 	mov	a,#0x80
+      00000A C0 E0            [24]  119 	push	acc
+      00000C 12r00r00         [24]  120 	lcall	_printf
+      00000F 15 81            [12]  121 	dec	sp
+      000011 15 81            [12]  122 	dec	sp
+      000013 15 81            [12]  123 	dec	sp
+                                    124 ;	src/ui_user_input.c:6: printf("│                        SPI PROGRAM                           │\n\r");
+      000015 74rC5            [12]  125 	mov	a,#___str_1
+      000017 C0 E0            [24]  126 	push	acc
+      000019 74s00            [12]  127 	mov	a,#(___str_1 >> 8)
+      00001B C0 E0            [24]  128 	push	acc
+      00001D 74 80            [12]  129 	mov	a,#0x80
+      00001F C0 E0            [24]  130 	push	acc
+      000021 12r00r00         [24]  131 	lcall	_printf
+      000024 15 81            [12]  132 	dec	sp
+      000026 15 81            [12]  133 	dec	sp
+      000028 15 81            [12]  134 	dec	sp
+                                    135 ;	src/ui_user_input.c:7: printf("├──────────────────────────────────────────────────────────────┤\n\r");
+      00002A 74r0C            [12]  136 	mov	a,#___str_2
+      00002C C0 E0            [24]  137 	push	acc
+      00002E 74s01            [12]  138 	mov	a,#(___str_2 >> 8)
+      000030 C0 E0            [24]  139 	push	acc
+      000032 74 80            [12]  140 	mov	a,#0x80
+      000034 C0 E0            [24]  141 	push	acc
+      000036 12r00r00         [24]  142 	lcall	_printf
+      000039 15 81            [12]  143 	dec	sp
+      00003B 15 81            [12]  144 	dec	sp
+      00003D 15 81            [12]  145 	dec	sp
+                                    146 ;	src/ui_user_input.c:8: printf("│  Command   │               Description                       │\n\r");
+      00003F 74rCF            [12]  147 	mov	a,#___str_3
+      000041 C0 E0            [24]  148 	push	acc
+      000043 74s01            [12]  149 	mov	a,#(___str_3 >> 8)
+      000045 C0 E0            [24]  150 	push	acc
+      000047 74 80            [12]  151 	mov	a,#0x80
+      000049 C0 E0            [24]  152 	push	acc
+      00004B 12r00r00         [24]  153 	lcall	_printf
+      00004E 15 81            [12]  154 	dec	sp
+      000050 15 81            [12]  155 	dec	sp
+      000052 15 81            [12]  156 	dec	sp
+                                    157 ;	src/ui_user_input.c:9: printf("├───────────┼───────────────────────────────────────────────┤\n\r");
+      000054 74r18            [12]  158 	mov	a,#___str_4
+      000056 C0 E0            [24]  159 	push	acc
+      000058 74s02            [12]  160 	mov	a,#(___str_4 >> 8)
+      00005A C0 E0            [24]  161 	push	acc
+      00005C 74 80            [12]  162 	mov	a,#0x80
+      00005E C0 E0            [24]  163 	push	acc
+      000060 12r00r00         [24]  164 	lcall	_printf
+      000063 15 81            [12]  165 	dec	sp
+      000065 15 81            [12]  166 	dec	sp
+      000067 15 81            [12]  167 	dec	sp
+                                    168 ;	src/ui_user_input.c:10: printf("│    M      │ Manual SPI Mode (Direct Register Control)      │\n\r");
+      000069 74rD2            [12]  169 	mov	a,#___str_5
+      00006B C0 E0            [24]  170 	push	acc
+      00006D 74s02            [12]  171 	mov	a,#(___str_5 >> 8)
+      00006F C0 E0            [24]  172 	push	acc
+      000071 74 80            [12]  173 	mov	a,#0x80
+      000073 C0 E0            [24]  174 	push	acc
+      000075 12r00r00         [24]  175 	lcall	_printf
+      000078 15 81            [12]  176 	dec	sp
+      00007A 15 81            [12]  177 	dec	sp
+      00007C 15 81            [12]  178 	dec	sp
+                                    179 ;	src/ui_user_input.c:11: printf("│    B      │ Bit Banging Mode (Software SPI)               │\n\r");
+      00007E 74r19            [12]  180 	mov	a,#___str_6
+      000080 C0 E0            [24]  181 	push	acc
+      000082 74s03            [12]  182 	mov	a,#(___str_6 >> 8)
+      000084 C0 E0            [24]  183 	push	acc
+      000086 74 80            [12]  184 	mov	a,#0x80
+      000088 C0 E0            [24]  185 	push	acc
+      00008A 12r00r00         [24]  186 	lcall	_printf
+      00008D 15 81            [12]  187 	dec	sp
+      00008F 15 81            [12]  188 	dec	sp
+      000091 15 81            [12]  189 	dec	sp
+                                    190 ;	src/ui_user_input.c:12: printf("│    S      │ Generate Sine Wave                            │\n\r");
+      000093 74r5F            [12]  191 	mov	a,#___str_7
+      000095 C0 E0            [24]  192 	push	acc
+      000097 74s03            [12]  193 	mov	a,#(___str_7 >> 8)
+      000099 C0 E0            [24]  194 	push	acc
+      00009B 74 80            [12]  195 	mov	a,#0x80
+      00009D C0 E0            [24]  196 	push	acc
+      00009F 12r00r00         [24]  197 	lcall	_printf
+      0000A2 15 81            [12]  198 	dec	sp
+      0000A4 15 81            [12]  199 	dec	sp
+      0000A6 15 81            [12]  200 	dec	sp
+                                    201 ;	src/ui_user_input.c:13: printf("│    Q      │ Generate Square Wave                          │\n\r");
+      0000A8 74rA5            [12]  202 	mov	a,#___str_8
+      0000AA C0 E0            [24]  203 	push	acc
+      0000AC 74s03            [12]  204 	mov	a,#(___str_8 >> 8)
+      0000AE C0 E0            [24]  205 	push	acc
+      0000B0 74 80            [12]  206 	mov	a,#0x80
+      0000B2 C0 E0            [24]  207 	push	acc
+      0000B4 12r00r00         [24]  208 	lcall	_printf
+      0000B7 15 81            [12]  209 	dec	sp
+      0000B9 15 81            [12]  210 	dec	sp
+      0000BB 15 81            [12]  211 	dec	sp
+                                    212 ;	src/ui_user_input.c:14: printf("│    T      │ Generate Triangular Wave                      │\n\r");
+      0000BD 74rEB            [12]  213 	mov	a,#___str_9
+      0000BF C0 E0            [24]  214 	push	acc
+      0000C1 74s03            [12]  215 	mov	a,#(___str_9 >> 8)
+      0000C3 C0 E0            [24]  216 	push	acc
+      0000C5 74 80            [12]  217 	mov	a,#0x80
+      0000C7 C0 E0            [24]  218 	push	acc
+      0000C9 12r00r00         [24]  219 	lcall	_printf
+      0000CC 15 81            [12]  220 	dec	sp
+      0000CE 15 81            [12]  221 	dec	sp
+      0000D0 15 81            [12]  222 	dec	sp
+                                    223 ;	src/ui_user_input.c:15: printf("│    D      │ Demo Mode (Cycle through all waveforms)       │\n\r");
+      0000D2 74r31            [12]  224 	mov	a,#___str_10
+      0000D4 C0 E0            [24]  225 	push	acc
+      0000D6 74s04            [12]  226 	mov	a,#(___str_10 >> 8)
+      0000D8 C0 E0            [24]  227 	push	acc
+      0000DA 74 80            [12]  228 	mov	a,#0x80
+      0000DC C0 E0            [24]  229 	push	acc
+      0000DE 12r00r00         [24]  230 	lcall	_printf
+      0000E1 15 81            [12]  231 	dec	sp
+      0000E3 15 81            [12]  232 	dec	sp
+      0000E5 15 81            [12]  233 	dec	sp
+                                    234 ;	src/ui_user_input.c:16: printf("│    C      │ Configure SPI Parameters                      │\n\r");
+      0000E7 74r77            [12]  235 	mov	a,#___str_11
+      0000E9 C0 E0            [24]  236 	push	acc
+      0000EB 74s04            [12]  237 	mov	a,#(___str_11 >> 8)
+      0000ED C0 E0            [24]  238 	push	acc
+      0000EF 74 80            [12]  239 	mov	a,#0x80
+      0000F1 C0 E0            [24]  240 	push	acc
+      0000F3 12r00r00         [24]  241 	lcall	_printf
+      0000F6 15 81            [12]  242 	dec	sp
+      0000F8 15 81            [12]  243 	dec	sp
+      0000FA 15 81            [12]  244 	dec	sp
+                                    245 ;	src/ui_user_input.c:17: printf("│    R      │ Read SPI Data                                 │\n\r");
+      0000FC 74rBD            [12]  246 	mov	a,#___str_12
+      0000FE C0 E0            [24]  247 	push	acc
+      000100 74s04            [12]  248 	mov	a,#(___str_12 >> 8)
+      000102 C0 E0            [24]  249 	push	acc
+      000104 74 80            [12]  250 	mov	a,#0x80
+      000106 C0 E0            [24]  251 	push	acc
+      000108 12r00r00         [24]  252 	lcall	_printf
+      00010B 15 81            [12]  253 	dec	sp
+      00010D 15 81            [12]  254 	dec	sp
+      00010F 15 81            [12]  255 	dec	sp
+                                    256 ;	src/ui_user_input.c:18: printf("│    W      │ Write SPI Data                                │\n\r");
+      000111 74r03            [12]  257 	mov	a,#___str_13
+      000113 C0 E0            [24]  258 	push	acc
+      000115 74s05            [12]  259 	mov	a,#(___str_13 >> 8)
+      000117 C0 E0            [24]  260 	push	acc
+      000119 74 80            [12]  261 	mov	a,#0x80
+      00011B C0 E0            [24]  262 	push	acc
+      00011D 12r00r00         [24]  263 	lcall	_printf
+      000120 15 81            [12]  264 	dec	sp
+      000122 15 81            [12]  265 	dec	sp
+      000124 15 81            [12]  266 	dec	sp
+                                    267 ;	src/ui_user_input.c:19: printf("│    ?      │ Display this help menu                        │\n\r");
+      000126 74r49            [12]  268 	mov	a,#___str_14
+      000128 C0 E0            [24]  269 	push	acc
+      00012A 74s05            [12]  270 	mov	a,#(___str_14 >> 8)
+      00012C C0 E0            [24]  271 	push	acc
+      00012E 74 80            [12]  272 	mov	a,#0x80
+      000130 C0 E0            [24]  273 	push	acc
+      000132 12r00r00         [24]  274 	lcall	_printf
+      000135 15 81            [12]  275 	dec	sp
+      000137 15 81            [12]  276 	dec	sp
+      000139 15 81            [12]  277 	dec	sp
+                                    278 ;	src/ui_user_input.c:20: printf("│    X      │ Exit Program                                  │\n\r");
+      00013B 74r8F            [12]  279 	mov	a,#___str_15
+      00013D C0 E0            [24]  280 	push	acc
+      00013F 74s05            [12]  281 	mov	a,#(___str_15 >> 8)
+      000141 C0 E0            [24]  282 	push	acc
+      000143 74 80            [12]  283 	mov	a,#0x80
+      000145 C0 E0            [24]  284 	push	acc
+      000147 12r00r00         [24]  285 	lcall	_printf
+      00014A 15 81            [12]  286 	dec	sp
+      00014C 15 81            [12]  287 	dec	sp
+      00014E 15 81            [12]  288 	dec	sp
+                                    289 ;	src/ui_user_input.c:21: printf("└───────────┴───────────────────────────────────────────────┘\n\r");
+      000150 74rD5            [12]  290 	mov	a,#___str_16
+      000152 C0 E0            [24]  291 	push	acc
+      000154 74s05            [12]  292 	mov	a,#(___str_16 >> 8)
+      000156 C0 E0            [24]  293 	push	acc
+      000158 74 80            [12]  294 	mov	a,#0x80
+      00015A C0 E0            [24]  295 	push	acc
+      00015C 12r00r00         [24]  296 	lcall	_printf
+      00015F 15 81            [12]  297 	dec	sp
+      000161 15 81            [12]  298 	dec	sp
+      000163 15 81            [12]  299 	dec	sp
+                                    300 ;	src/ui_user_input.c:22: printf("\n\rEnter command: ");
+      000165 74r8F            [12]  301 	mov	a,#___str_17
+      000167 C0 E0            [24]  302 	push	acc
+      000169 74s06            [12]  303 	mov	a,#(___str_17 >> 8)
+      00016B C0 E0            [24]  304 	push	acc
+      00016D 74 80            [12]  305 	mov	a,#0x80
+      00016F C0 E0            [24]  306 	push	acc
+      000171 12r00r00         [24]  307 	lcall	_printf
+      000174 15 81            [12]  308 	dec	sp
+      000176 15 81            [12]  309 	dec	sp
+      000178 15 81            [12]  310 	dec	sp
+                                    311 ;	src/ui_user_input.c:23: }
+      00017A 22               [24]  312 	ret
+                                    313 ;------------------------------------------------------------
+                                    314 ;Allocation info for local variables in function 'take_data'
+                                    315 ;------------------------------------------------------------
+                                    316 ;input                     Allocated with name '_take_data_input_65537_19'
+                                    317 ;i                         Allocated with name '_take_data_i_65537_19'
+                                    318 ;c                         Allocated with name '_take_data_c_65537_19'
+                                    319 ;data                      Allocated with name '_take_data_data_65538_23'
+                                    320 ;------------------------------------------------------------
+                                    321 ;	src/ui_user_input.c:25: unsigned char take_data()
+                                    322 ;	-----------------------------------------
+                                    323 ;	 function take_data
+                                    324 ;	-----------------------------------------
+      00017B                        325 _take_data:
+                                    326 ;	src/ui_user_input.c:27: printf("│ Enter number (hex, up to 2 characters): \n\r|");
+      00017B 74rA1            [12]  327 	mov	a,#___str_18
+      00017D C0 E0            [24]  328 	push	acc
+      00017F 74s06            [12]  329 	mov	a,#(___str_18 >> 8)
+      000181 C0 E0            [24]  330 	push	acc
+      000183 74 80            [12]  331 	mov	a,#0x80
+      000185 C0 E0            [24]  332 	push	acc
+      000187 12r00r00         [24]  333 	lcall	_printf
+      00018A 15 81            [12]  334 	dec	sp
+      00018C 15 81            [12]  335 	dec	sp
+      00018E 15 81            [12]  336 	dec	sp
+                                    337 ;	src/ui_user_input.c:28: char input[4] = {0};  // Array for 3 hex chars + null terminator
+      000190 90r00r00         [24]  338 	mov	dptr,#_take_data_input_65537_19
+      000193 E4               [12]  339 	clr	a
+      000194 F0               [24]  340 	movx	@dptr,a
+      000195 90r00r01         [24]  341 	mov	dptr,#(_take_data_input_65537_19 + 0x0001)
+      000198 F0               [24]  342 	movx	@dptr,a
+      000199 90r00r02         [24]  343 	mov	dptr,#(_take_data_input_65537_19 + 0x0002)
+      00019C F0               [24]  344 	movx	@dptr,a
+      00019D 90r00r03         [24]  345 	mov	dptr,#(_take_data_input_65537_19 + 0x0003)
+      0001A0 F0               [24]  346 	movx	@dptr,a
+                                    347 ;	src/ui_user_input.c:32: printf("$ ");
+      0001A1 74rD1            [12]  348 	mov	a,#___str_19
+      0001A3 C0 E0            [24]  349 	push	acc
+      0001A5 74s06            [12]  350 	mov	a,#(___str_19 >> 8)
+      0001A7 C0 E0            [24]  351 	push	acc
+      0001A9 74 80            [12]  352 	mov	a,#0x80
+      0001AB C0 E0            [24]  353 	push	acc
+      0001AD 12r00r00         [24]  354 	lcall	_printf
+      0001B0 15 81            [12]  355 	dec	sp
+      0001B2 15 81            [12]  356 	dec	sp
+      0001B4 15 81            [12]  357 	dec	sp
+                                    358 ;	src/ui_user_input.c:34: while (i < 3) {
+      0001B6 7E 00            [12]  359 	mov	r6,#0x00
+      0001B8 7F 00            [12]  360 	mov	r7,#0x00
+      0001BA                        361 00111$:
+      0001BA C3               [12]  362 	clr	c
+      0001BB EE               [12]  363 	mov	a,r6
+      0001BC 94 03            [12]  364 	subb	a,#0x03
+      0001BE EF               [12]  365 	mov	a,r7
+      0001BF 64 80            [12]  366 	xrl	a,#0x80
+      0001C1 94 80            [12]  367 	subb	a,#0x80
+      0001C3 50 5B            [24]  368 	jnc	00113$
+                                    369 ;	src/ui_user_input.c:36: c = getchar();
+      0001C5 C0 07            [24]  370 	push	ar7
+      0001C7 C0 06            [24]  371 	push	ar6
+      0001C9 12r00r00         [24]  372 	lcall	_getchar
+      0001CC AC 82            [24]  373 	mov	r4,dpl
+      0001CE AD 83            [24]  374 	mov	r5,dph
+      0001D0 D0 06            [24]  375 	pop	ar6
+      0001D2 D0 07            [24]  376 	pop	ar7
+                                    377 ;	src/ui_user_input.c:39: if (c == '\r' || c == '\n') {
+      0001D4 BC 0D 02         [24]  378 	cjne	r4,#0x0d,00194$
+      0001D7 80 47            [24]  379 	sjmp	00113$
+      0001D9                        380 00194$:
+      0001D9 BC 0A 02         [24]  381 	cjne	r4,#0x0a,00195$
+      0001DC 80 42            [24]  382 	sjmp	00113$
+      0001DE                        383 00195$:
+                                    384 ;	src/ui_user_input.c:44: if ((c >= '0' && c <= '9') ||
+      0001DE BC 30 00         [24]  385 	cjne	r4,#0x30,00196$
+      0001E1                        386 00196$:
+      0001E1 40 05            [24]  387 	jc	00108$
+      0001E3 EC               [12]  388 	mov	a,r4
+      0001E4 24 C6            [12]  389 	add	a,#0xff - 0x39
+      0001E6 50 14            [24]  390 	jnc	00104$
+      0001E8                        391 00108$:
+                                    392 ;	src/ui_user_input.c:45: (c >= 'a' && c <= 'f') ||
+      0001E8 BC 61 00         [24]  393 	cjne	r4,#0x61,00199$
+      0001EB                        394 00199$:
+      0001EB 40 05            [24]  395 	jc	00110$
+      0001ED EC               [12]  396 	mov	a,r4
+      0001EE 24 99            [12]  397 	add	a,#0xff - 0x66
+      0001F0 50 0A            [24]  398 	jnc	00104$
+      0001F2                        399 00110$:
+                                    400 ;	src/ui_user_input.c:46: (c >= 'A' && c <= 'F')) {
+      0001F2 BC 41 00         [24]  401 	cjne	r4,#0x41,00202$
+      0001F5                        402 00202$:
+      0001F5 40 C3            [24]  403 	jc	00111$
+      0001F7 EC               [12]  404 	mov	a,r4
+      0001F8 24 B9            [12]  405 	add	a,#0xff - 0x46
+      0001FA 40 BE            [24]  406 	jc	00111$
+      0001FC                        407 00104$:
+                                    408 ;	src/ui_user_input.c:48: input[i] = c;
+      0001FC EE               [12]  409 	mov	a,r6
+      0001FD 24r00            [12]  410 	add	a,#_take_data_input_65537_19
+      0001FF F5 82            [12]  411 	mov	dpl,a
+      000201 EF               [12]  412 	mov	a,r7
+      000202 34s00            [12]  413 	addc	a,#(_take_data_input_65537_19 >> 8)
+      000204 F5 83            [12]  414 	mov	dph,a
+      000206 EC               [12]  415 	mov	a,r4
+      000207 F0               [24]  416 	movx	@dptr,a
+                                    417 ;	src/ui_user_input.c:49: putchar(c);  // Echo character back
+      000208 7D 00            [12]  418 	mov	r5,#0x00
+      00020A 8C 82            [24]  419 	mov	dpl,r4
+      00020C 8D 83            [24]  420 	mov	dph,r5
+      00020E C0 07            [24]  421 	push	ar7
+      000210 C0 06            [24]  422 	push	ar6
+      000212 12r00r00         [24]  423 	lcall	_putchar
+      000215 D0 06            [24]  424 	pop	ar6
+      000217 D0 07            [24]  425 	pop	ar7
+                                    426 ;	src/ui_user_input.c:50: i++;
+      000219 0E               [12]  427 	inc	r6
+      00021A BE 00 9D         [24]  428 	cjne	r6,#0x00,00111$
+      00021D 0F               [12]  429 	inc	r7
+      00021E 80 9A            [24]  430 	sjmp	00111$
+      000220                        431 00113$:
+                                    432 ;	src/ui_user_input.c:54: input[i] = '\0';  // Null-terminate the string
+      000220 EE               [12]  433 	mov	a,r6
+      000221 24r00            [12]  434 	add	a,#_take_data_input_65537_19
+      000223 F5 82            [12]  435 	mov	dpl,a
+      000225 EF               [12]  436 	mov	a,r7
+      000226 34s00            [12]  437 	addc	a,#(_take_data_input_65537_19 >> 8)
+      000228 F5 83            [12]  438 	mov	dph,a
+      00022A E4               [12]  439 	clr	a
+      00022B F0               [24]  440 	movx	@dptr,a
+                                    441 ;	src/ui_user_input.c:57: unsigned char data = 0;
+      00022C 90r00r04         [24]  442 	mov	dptr,#_take_data_data_65538_23
+      00022F F0               [24]  443 	movx	@dptr,a
+                                    444 ;	src/ui_user_input.c:58: for (i = 0; input[i] != '\0'; i++) {
+      000230 7E 00            [12]  445 	mov	r6,#0x00
+      000232 7F 00            [12]  446 	mov	r7,#0x00
+      000234                        447 00127$:
+      000234 EE               [12]  448 	mov	a,r6
+      000235 24r00            [12]  449 	add	a,#_take_data_input_65537_19
+      000237 F5 82            [12]  450 	mov	dpl,a
+      000239 EF               [12]  451 	mov	a,r7
+      00023A 34s00            [12]  452 	addc	a,#(_take_data_input_65537_19 >> 8)
+      00023C F5 83            [12]  453 	mov	dph,a
+      00023E E0               [24]  454 	movx	a,@dptr
+      00023F FD               [12]  455 	mov	r5,a
+      000240 70 03            [24]  456 	jnz	00206$
+      000242 02r02rA7         [24]  457 	ljmp	00125$
+      000245                        458 00206$:
+                                    459 ;	src/ui_user_input.c:59: data = data * 16;
+      000245 90r00r04         [24]  460 	mov	dptr,#_take_data_data_65538_23
+      000248 E0               [24]  461 	movx	a,@dptr
+      000249 C4               [12]  462 	swap	a
+      00024A 54 F0            [12]  463 	anl	a,#0xf0
+      00024C FC               [12]  464 	mov	r4,a
+      00024D F0               [24]  465 	movx	@dptr,a
+                                    466 ;	src/ui_user_input.c:60: if (input[i] >= '0' && input[i] <= '9')
+      00024E BD 30 00         [24]  467 	cjne	r5,#0x30,00207$
+      000251                        468 00207$:
+      000251 40 12            [24]  469 	jc	00122$
+      000253 ED               [12]  470 	mov	a,r5
+      000254 24 C6            [12]  471 	add	a,#0xff - 0x39
+      000256 40 0D            [24]  472 	jc	00122$
+                                    473 ;	src/ui_user_input.c:61: data += input[i] - '0';
+      000258 ED               [12]  474 	mov	a,r5
+      000259 24 D0            [12]  475 	add	a,#0xd0
+      00025B FD               [12]  476 	mov	r5,a
+      00025C 90r00r04         [24]  477 	mov	dptr,#_take_data_data_65538_23
+      00025F E0               [24]  478 	movx	a,@dptr
+      000260 FC               [12]  479 	mov	r4,a
+      000261 2D               [12]  480 	add	a,r5
+      000262 F0               [24]  481 	movx	@dptr,a
+      000263 80 3A            [24]  482 	sjmp	00128$
+      000265                        483 00122$:
+                                    484 ;	src/ui_user_input.c:62: else if (input[i] >= 'A' && input[i] <= 'F')
+      000265 EE               [12]  485 	mov	a,r6
+      000266 24r00            [12]  486 	add	a,#_take_data_input_65537_19
+      000268 F5 82            [12]  487 	mov	dpl,a
+      00026A EF               [12]  488 	mov	a,r7
+      00026B 34s00            [12]  489 	addc	a,#(_take_data_input_65537_19 >> 8)
+      00026D F5 83            [12]  490 	mov	dph,a
+      00026F E0               [24]  491 	movx	a,@dptr
+      000270 FD               [12]  492 	mov	r5,a
+      000271 BD 41 00         [24]  493 	cjne	r5,#0x41,00210$
+      000274                        494 00210$:
+      000274 40 14            [24]  495 	jc	00118$
+      000276 ED               [12]  496 	mov	a,r5
+      000277 24 B9            [12]  497 	add	a,#0xff - 0x46
+      000279 40 0F            [24]  498 	jc	00118$
+                                    499 ;	src/ui_user_input.c:63: data += input[i] - 'A' + 10;
+      00027B 8D 04            [24]  500 	mov	ar4,r5
+      00027D 74 C9            [12]  501 	mov	a,#0xc9
+      00027F 2C               [12]  502 	add	a,r4
+      000280 FC               [12]  503 	mov	r4,a
+      000281 90r00r04         [24]  504 	mov	dptr,#_take_data_data_65538_23
+      000284 E0               [24]  505 	movx	a,@dptr
+      000285 FB               [12]  506 	mov	r3,a
+      000286 2C               [12]  507 	add	a,r4
+      000287 F0               [24]  508 	movx	@dptr,a
+      000288 80 15            [24]  509 	sjmp	00128$
+      00028A                        510 00118$:
+                                    511 ;	src/ui_user_input.c:64: else if (input[i] >= 'a' && input[i] <= 'f')
+      00028A BD 61 00         [24]  512 	cjne	r5,#0x61,00213$
+      00028D                        513 00213$:
+      00028D 40 10            [24]  514 	jc	00128$
+      00028F ED               [12]  515 	mov	a,r5
+      000290 24 99            [12]  516 	add	a,#0xff - 0x66
+      000292 40 0B            [24]  517 	jc	00128$
+                                    518 ;	src/ui_user_input.c:65: data += input[i] - 'a' + 10;
+      000294 74 A9            [12]  519 	mov	a,#0xa9
+      000296 2D               [12]  520 	add	a,r5
+      000297 FD               [12]  521 	mov	r5,a
+      000298 90r00r04         [24]  522 	mov	dptr,#_take_data_data_65538_23
+      00029B E0               [24]  523 	movx	a,@dptr
+      00029C FC               [12]  524 	mov	r4,a
+      00029D 2D               [12]  525 	add	a,r5
+      00029E F0               [24]  526 	movx	@dptr,a
+      00029F                        527 00128$:
+                                    528 ;	src/ui_user_input.c:58: for (i = 0; input[i] != '\0'; i++) {
+      00029F 0E               [12]  529 	inc	r6
+      0002A0 BE 00 01         [24]  530 	cjne	r6,#0x00,00216$
+      0002A3 0F               [12]  531 	inc	r7
+      0002A4                        532 00216$:
+      0002A4 02r02r34         [24]  533 	ljmp	00127$
+      0002A7                        534 00125$:
+                                    535 ;	src/ui_user_input.c:68: printf("\n\r│ Entered data: 0x%02X\n\r", data);
+      0002A7 90r00r04         [24]  536 	mov	dptr,#_take_data_data_65538_23
+      0002AA E0               [24]  537 	movx	a,@dptr
+      0002AB FF               [12]  538 	mov	r7,a
+      0002AC FD               [12]  539 	mov	r5,a
+      0002AD 7E 00            [12]  540 	mov	r6,#0x00
+      0002AF C0 07            [24]  541 	push	ar7
+      0002B1 C0 05            [24]  542 	push	ar5
+      0002B3 C0 06            [24]  543 	push	ar6
+      0002B5 74rD4            [12]  544 	mov	a,#___str_20
+      0002B7 C0 E0            [24]  545 	push	acc
+      0002B9 74s06            [12]  546 	mov	a,#(___str_20 >> 8)
+      0002BB C0 E0            [24]  547 	push	acc
+      0002BD 74 80            [12]  548 	mov	a,#0x80
+      0002BF C0 E0            [24]  549 	push	acc
+      0002C1 12r00r00         [24]  550 	lcall	_printf
+      0002C4 E5 81            [12]  551 	mov	a,sp
+      0002C6 24 FB            [12]  552 	add	a,#0xfb
+      0002C8 F5 81            [12]  553 	mov	sp,a
+      0002CA D0 07            [24]  554 	pop	ar7
+                                    555 ;	src/ui_user_input.c:75: return data;
+      0002CC 8F 82            [24]  556 	mov	dpl,r7
+                                    557 ;	src/ui_user_input.c:77: }
+      0002CE 22               [24]  558 	ret
+                                    559 	.area CSEG    (CODE)
+                                    560 	.area CONST   (CODE)
+                                    561 	.area CONST   (CODE)
+      000000                        562 ___str_0:
+      000000 0A                     563 	.db 0x0a
+      000001 0D                     564 	.db 0x0d
+      000002 E2                     565 	.db 0xe2
+      000003 94                     566 	.db 0x94
+      000004 8C                     567 	.db 0x8c
+      000005 E2                     568 	.db 0xe2
+      000006 94                     569 	.db 0x94
+      000007 80                     570 	.db 0x80
+      000008 E2                     571 	.db 0xe2
+      000009 94                     572 	.db 0x94
+      00000A 80                     573 	.db 0x80
+      00000B E2                     574 	.db 0xe2
+      00000C 94                     575 	.db 0x94
+      00000D 80                     576 	.db 0x80
+      00000E E2                     577 	.db 0xe2
+      00000F 94                     578 	.db 0x94
+      000010 80                     579 	.db 0x80
+      000011 E2                     580 	.db 0xe2
+      000012 94                     581 	.db 0x94
+      000013 80                     582 	.db 0x80
+      000014 E2                     583 	.db 0xe2
+      000015 94                     584 	.db 0x94
+      000016 80                     585 	.db 0x80
+      000017 E2                     586 	.db 0xe2
+      000018 94                     587 	.db 0x94
+      000019 80                     588 	.db 0x80
+      00001A E2                     589 	.db 0xe2
+      00001B 94                     590 	.db 0x94
+      00001C 80                     591 	.db 0x80
+      00001D E2                     592 	.db 0xe2
+      00001E 94                     593 	.db 0x94
+      00001F 80                     594 	.db 0x80
+      000020 E2                     595 	.db 0xe2
+      000021 94                     596 	.db 0x94
+      000022 80                     597 	.db 0x80
+      000023 E2                     598 	.db 0xe2
+      000024 94                     599 	.db 0x94
+      000025 80                     600 	.db 0x80
+      000026 E2                     601 	.db 0xe2
+      000027 94                     602 	.db 0x94
+      000028 80                     603 	.db 0x80
+      000029 E2                     604 	.db 0xe2
+      00002A 94                     605 	.db 0x94
+      00002B 80                     606 	.db 0x80
+      00002C E2                     607 	.db 0xe2
+      00002D 94                     608 	.db 0x94
+      00002E 80                     609 	.db 0x80
+      00002F E2                     610 	.db 0xe2
+      000030 94                     611 	.db 0x94
+      000031 80                     612 	.db 0x80
+      000032 E2                     613 	.db 0xe2
+      000033 94                     614 	.db 0x94
+      000034 80                     615 	.db 0x80
+      000035 E2                     616 	.db 0xe2
+      000036 94                     617 	.db 0x94
+      000037 80                     618 	.db 0x80
+      000038 E2                     619 	.db 0xe2
+      000039 94                     620 	.db 0x94
+      00003A 80                     621 	.db 0x80
+      00003B E2                     622 	.db 0xe2
+      00003C 94                     623 	.db 0x94
+      00003D 80                     624 	.db 0x80
+      00003E E2                     625 	.db 0xe2
+      00003F 94                     626 	.db 0x94
+      000040 80                     627 	.db 0x80
+      000041 E2                     628 	.db 0xe2
+      000042 94                     629 	.db 0x94
+      000043 80                     630 	.db 0x80
+      000044 E2                     631 	.db 0xe2
+      000045 94                     632 	.db 0x94
+      000046 80                     633 	.db 0x80
+      000047 E2                     634 	.db 0xe2
+      000048 94                     635 	.db 0x94
+      000049 80                     636 	.db 0x80
+      00004A E2                     637 	.db 0xe2
+      00004B 94                     638 	.db 0x94
+      00004C 80                     639 	.db 0x80
+      00004D E2                     640 	.db 0xe2
+      00004E 94                     641 	.db 0x94
+      00004F 80                     642 	.db 0x80
+      000050 E2                     643 	.db 0xe2
+      000051 94                     644 	.db 0x94
+      000052 80                     645 	.db 0x80
+      000053 E2                     646 	.db 0xe2
+      000054 94                     647 	.db 0x94
+      000055 80                     648 	.db 0x80
+      000056 E2                     649 	.db 0xe2
+      000057 94                     650 	.db 0x94
+      000058 80                     651 	.db 0x80
+      000059 E2                     652 	.db 0xe2
+      00005A 94                     653 	.db 0x94
+      00005B 80                     654 	.db 0x80
+      00005C E2                     655 	.db 0xe2
+      00005D 94                     656 	.db 0x94
+      00005E 80                     657 	.db 0x80
+      00005F E2                     658 	.db 0xe2
+      000060 94                     659 	.db 0x94
+      000061 80                     660 	.db 0x80
+      000062 E2                     661 	.db 0xe2
+      000063 94                     662 	.db 0x94
+      000064 80                     663 	.db 0x80
+      000065 E2                     664 	.db 0xe2
+      000066 94                     665 	.db 0x94
+      000067 80                     666 	.db 0x80
+      000068 E2                     667 	.db 0xe2
+      000069 94                     668 	.db 0x94
+      00006A 80                     669 	.db 0x80
+      00006B E2                     670 	.db 0xe2
+      00006C 94                     671 	.db 0x94
+      00006D 80                     672 	.db 0x80
+      00006E E2                     673 	.db 0xe2
+      00006F 94                     674 	.db 0x94
+      000070 80                     675 	.db 0x80
+      000071 E2                     676 	.db 0xe2
+      000072 94                     677 	.db 0x94
+      000073 80                     678 	.db 0x80
+      000074 E2                     679 	.db 0xe2
+      000075 94                     680 	.db 0x94
+      000076 80                     681 	.db 0x80
+      000077 E2                     682 	.db 0xe2
+      000078 94                     683 	.db 0x94
+      000079 80                     684 	.db 0x80
+      00007A E2                     685 	.db 0xe2
+      00007B 94                     686 	.db 0x94
+      00007C 80                     687 	.db 0x80
+      00007D E2                     688 	.db 0xe2
+      00007E 94                     689 	.db 0x94
+      00007F 80                     690 	.db 0x80
+      000080 E2                     691 	.db 0xe2
+      000081 94                     692 	.db 0x94
+      000082 80                     693 	.db 0x80
+      000083 E2                     694 	.db 0xe2
+      000084 94                     695 	.db 0x94
+      000085 80                     696 	.db 0x80
+      000086 E2                     697 	.db 0xe2
+      000087 94                     698 	.db 0x94
+      000088 80                     699 	.db 0x80
+      000089 E2                     700 	.db 0xe2
+      00008A 94                     701 	.db 0x94
+      00008B 80                     702 	.db 0x80
+      00008C E2                     703 	.db 0xe2
+      00008D 94                     704 	.db 0x94
+      00008E 80                     705 	.db 0x80
+      00008F E2                     706 	.db 0xe2
+      000090 94                     707 	.db 0x94
+      000091 80                     708 	.db 0x80
+      000092 E2                     709 	.db 0xe2
+      000093 94                     710 	.db 0x94
+      000094 80                     711 	.db 0x80
+      000095 E2                     712 	.db 0xe2
+      000096 94                     713 	.db 0x94
+      000097 80                     714 	.db 0x80
+      000098 E2                     715 	.db 0xe2
+      000099 94                     716 	.db 0x94
+      00009A 80                     717 	.db 0x80
+      00009B E2                     718 	.db 0xe2
+      00009C 94                     719 	.db 0x94
+      00009D 80                     720 	.db 0x80
+      00009E E2                     721 	.db 0xe2
+      00009F 94                     722 	.db 0x94
+      0000A0 80                     723 	.db 0x80
+      0000A1 E2                     724 	.db 0xe2
+      0000A2 94                     725 	.db 0x94
+      0000A3 80                     726 	.db 0x80
+      0000A4 E2                     727 	.db 0xe2
+      0000A5 94                     728 	.db 0x94
+      0000A6 80                     729 	.db 0x80
+      0000A7 E2                     730 	.db 0xe2
+      0000A8 94                     731 	.db 0x94
+      0000A9 80                     732 	.db 0x80
+      0000AA E2                     733 	.db 0xe2
+      0000AB 94                     734 	.db 0x94
+      0000AC 80                     735 	.db 0x80
+      0000AD E2                     736 	.db 0xe2
+      0000AE 94                     737 	.db 0x94
+      0000AF 80                     738 	.db 0x80
+      0000B0 E2                     739 	.db 0xe2
+      0000B1 94                     740 	.db 0x94
+      0000B2 80                     741 	.db 0x80
+      0000B3 E2                     742 	.db 0xe2
+      0000B4 94                     743 	.db 0x94
+      0000B5 80                     744 	.db 0x80
+      0000B6 E2                     745 	.db 0xe2
+      0000B7 94                     746 	.db 0x94
+      0000B8 80                     747 	.db 0x80
+      0000B9 E2                     748 	.db 0xe2
+      0000BA 94                     749 	.db 0x94
+      0000BB 80                     750 	.db 0x80
+      0000BC E2                     751 	.db 0xe2
+      0000BD 94                     752 	.db 0x94
+      0000BE 80                     753 	.db 0x80
+      0000BF E2                     754 	.db 0xe2
+      0000C0 94                     755 	.db 0x94
+      0000C1 90                     756 	.db 0x90
+      0000C2 0A                     757 	.db 0x0a
+      0000C3 0D                     758 	.db 0x0d
+      0000C4 00                     759 	.db 0x00
+                                    760 	.area CSEG    (CODE)
+                                    761 	.area CONST   (CODE)
+      0000C5                        762 ___str_1:
+      0000C5 E2                     763 	.db 0xe2
+      0000C6 94                     764 	.db 0x94
+      0000C7 82                     765 	.db 0x82
+      0000C8 20 20 20 20 20 20 20   766 	.ascii "                        SPI PROGRAM                         "
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 53 50 49 20
+             50 52 4F 47 52 41 4D
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20
+      000104 20 20                  767 	.ascii "  "
+      000106 E2                     768 	.db 0xe2
+      000107 94                     769 	.db 0x94
+      000108 82                     770 	.db 0x82
+      000109 0A                     771 	.db 0x0a
+      00010A 0D                     772 	.db 0x0d
+      00010B 00                     773 	.db 0x00
+                                    774 	.area CSEG    (CODE)
+                                    775 	.area CONST   (CODE)
+      00010C                        776 ___str_2:
+      00010C E2                     777 	.db 0xe2
+      00010D 94                     778 	.db 0x94
+      00010E 9C                     779 	.db 0x9c
+      00010F E2                     780 	.db 0xe2
+      000110 94                     781 	.db 0x94
+      000111 80                     782 	.db 0x80
+      000112 E2                     783 	.db 0xe2
+      000113 94                     784 	.db 0x94
+      000114 80                     785 	.db 0x80
+      000115 E2                     786 	.db 0xe2
+      000116 94                     787 	.db 0x94
+      000117 80                     788 	.db 0x80
+      000118 E2                     789 	.db 0xe2
+      000119 94                     790 	.db 0x94
+      00011A 80                     791 	.db 0x80
+      00011B E2                     792 	.db 0xe2
+      00011C 94                     793 	.db 0x94
+      00011D 80                     794 	.db 0x80
+      00011E E2                     795 	.db 0xe2
+      00011F 94                     796 	.db 0x94
+      000120 80                     797 	.db 0x80
+      000121 E2                     798 	.db 0xe2
+      000122 94                     799 	.db 0x94
+      000123 80                     800 	.db 0x80
+      000124 E2                     801 	.db 0xe2
+      000125 94                     802 	.db 0x94
+      000126 80                     803 	.db 0x80
+      000127 E2                     804 	.db 0xe2
+      000128 94                     805 	.db 0x94
+      000129 80                     806 	.db 0x80
+      00012A E2                     807 	.db 0xe2
+      00012B 94                     808 	.db 0x94
+      00012C 80                     809 	.db 0x80
+      00012D E2                     810 	.db 0xe2
+      00012E 94                     811 	.db 0x94
+      00012F 80                     812 	.db 0x80
+      000130 E2                     813 	.db 0xe2
+      000131 94                     814 	.db 0x94
+      000132 80                     815 	.db 0x80
+      000133 E2                     816 	.db 0xe2
+      000134 94                     817 	.db 0x94
+      000135 80                     818 	.db 0x80
+      000136 E2                     819 	.db 0xe2
+      000137 94                     820 	.db 0x94
+      000138 80                     821 	.db 0x80
+      000139 E2                     822 	.db 0xe2
+      00013A 94                     823 	.db 0x94
+      00013B 80                     824 	.db 0x80
+      00013C E2                     825 	.db 0xe2
+      00013D 94                     826 	.db 0x94
+      00013E 80                     827 	.db 0x80
+      00013F E2                     828 	.db 0xe2
+      000140 94                     829 	.db 0x94
+      000141 80                     830 	.db 0x80
+      000142 E2                     831 	.db 0xe2
+      000143 94                     832 	.db 0x94
+      000144 80                     833 	.db 0x80
+      000145 E2                     834 	.db 0xe2
+      000146 94                     835 	.db 0x94
+      000147 80                     836 	.db 0x80
+      000148 E2                     837 	.db 0xe2
+      000149 94                     838 	.db 0x94
+      00014A 80                     839 	.db 0x80
+      00014B E2                     840 	.db 0xe2
+      00014C 94                     841 	.db 0x94
+      00014D 80                     842 	.db 0x80
+      00014E E2                     843 	.db 0xe2
+      00014F 94                     844 	.db 0x94
+      000150 80                     845 	.db 0x80
+      000151 E2                     846 	.db 0xe2
+      000152 94                     847 	.db 0x94
+      000153 80                     848 	.db 0x80
+      000154 E2                     849 	.db 0xe2
+      000155 94                     850 	.db 0x94
+      000156 80                     851 	.db 0x80
+      000157 E2                     852 	.db 0xe2
+      000158 94                     853 	.db 0x94
+      000159 80                     854 	.db 0x80
+      00015A E2                     855 	.db 0xe2
+      00015B 94                     856 	.db 0x94
+      00015C 80                     857 	.db 0x80
+      00015D E2                     858 	.db 0xe2
+      00015E 94                     859 	.db 0x94
+      00015F 80                     860 	.db 0x80
+      000160 E2                     861 	.db 0xe2
+      000161 94                     862 	.db 0x94
+      000162 80                     863 	.db 0x80
+      000163 E2                     864 	.db 0xe2
+      000164 94                     865 	.db 0x94
+      000165 80                     866 	.db 0x80
+      000166 E2                     867 	.db 0xe2
+      000167 94                     868 	.db 0x94
+      000168 80                     869 	.db 0x80
+      000169 E2                     870 	.db 0xe2
+      00016A 94                     871 	.db 0x94
+      00016B 80                     872 	.db 0x80
+      00016C E2                     873 	.db 0xe2
+      00016D 94                     874 	.db 0x94
+      00016E 80                     875 	.db 0x80
+      00016F E2                     876 	.db 0xe2
+      000170 94                     877 	.db 0x94
+      000171 80                     878 	.db 0x80
+      000172 E2                     879 	.db 0xe2
+      000173 94                     880 	.db 0x94
+      000174 80                     881 	.db 0x80
+      000175 E2                     882 	.db 0xe2
+      000176 94                     883 	.db 0x94
+      000177 80                     884 	.db 0x80
+      000178 E2                     885 	.db 0xe2
+      000179 94                     886 	.db 0x94
+      00017A 80                     887 	.db 0x80
+      00017B E2                     888 	.db 0xe2
+      00017C 94                     889 	.db 0x94
+      00017D 80                     890 	.db 0x80
+      00017E E2                     891 	.db 0xe2
+      00017F 94                     892 	.db 0x94
+      000180 80                     893 	.db 0x80
+      000181 E2                     894 	.db 0xe2
+      000182 94                     895 	.db 0x94
+      000183 80                     896 	.db 0x80
+      000184 E2                     897 	.db 0xe2
+      000185 94                     898 	.db 0x94
+      000186 80                     899 	.db 0x80
+      000187 E2                     900 	.db 0xe2
+      000188 94                     901 	.db 0x94
+      000189 80                     902 	.db 0x80
+      00018A E2                     903 	.db 0xe2
+      00018B 94                     904 	.db 0x94
+      00018C 80                     905 	.db 0x80
+      00018D E2                     906 	.db 0xe2
+      00018E 94                     907 	.db 0x94
+      00018F 80                     908 	.db 0x80
+      000190 E2                     909 	.db 0xe2
+      000191 94                     910 	.db 0x94
+      000192 80                     911 	.db 0x80
+      000193 E2                     912 	.db 0xe2
+      000194 94                     913 	.db 0x94
+      000195 80                     914 	.db 0x80
+      000196 E2                     915 	.db 0xe2
+      000197 94                     916 	.db 0x94
+      000198 80                     917 	.db 0x80
+      000199 E2                     918 	.db 0xe2
+      00019A 94                     919 	.db 0x94
+      00019B 80                     920 	.db 0x80
+      00019C E2                     921 	.db 0xe2
+      00019D 94                     922 	.db 0x94
+      00019E 80                     923 	.db 0x80
+      00019F E2                     924 	.db 0xe2
+      0001A0 94                     925 	.db 0x94
+      0001A1 80                     926 	.db 0x80
+      0001A2 E2                     927 	.db 0xe2
+      0001A3 94                     928 	.db 0x94
+      0001A4 80                     929 	.db 0x80
+      0001A5 E2                     930 	.db 0xe2
+      0001A6 94                     931 	.db 0x94
+      0001A7 80                     932 	.db 0x80
+      0001A8 E2                     933 	.db 0xe2
+      0001A9 94                     934 	.db 0x94
+      0001AA 80                     935 	.db 0x80
+      0001AB E2                     936 	.db 0xe2
+      0001AC 94                     937 	.db 0x94
+      0001AD 80                     938 	.db 0x80
+      0001AE E2                     939 	.db 0xe2
+      0001AF 94                     940 	.db 0x94
+      0001B0 80                     941 	.db 0x80
+      0001B1 E2                     942 	.db 0xe2
+      0001B2 94                     943 	.db 0x94
+      0001B3 80                     944 	.db 0x80
+      0001B4 E2                     945 	.db 0xe2
+      0001B5 94                     946 	.db 0x94
+      0001B6 80                     947 	.db 0x80
+      0001B7 E2                     948 	.db 0xe2
+      0001B8 94                     949 	.db 0x94
+      0001B9 80                     950 	.db 0x80
+      0001BA E2                     951 	.db 0xe2
+      0001BB 94                     952 	.db 0x94
+      0001BC 80                     953 	.db 0x80
+      0001BD E2                     954 	.db 0xe2
+      0001BE 94                     955 	.db 0x94
+      0001BF 80                     956 	.db 0x80
+      0001C0 E2                     957 	.db 0xe2
+      0001C1 94                     958 	.db 0x94
+      0001C2 80                     959 	.db 0x80
+      0001C3 E2                     960 	.db 0xe2
+      0001C4 94                     961 	.db 0x94
+      0001C5 80                     962 	.db 0x80
+      0001C6 E2                     963 	.db 0xe2
+      0001C7 94                     964 	.db 0x94
+      0001C8 80                     965 	.db 0x80
+      0001C9 E2                     966 	.db 0xe2
+      0001CA 94                     967 	.db 0x94
+      0001CB A4                     968 	.db 0xa4
+      0001CC 0A                     969 	.db 0x0a
+      0001CD 0D                     970 	.db 0x0d
+      0001CE 00                     971 	.db 0x00
+                                    972 	.area CSEG    (CODE)
+                                    973 	.area CONST   (CODE)
+      0001CF                        974 ___str_3:
+      0001CF E2                     975 	.db 0xe2
+      0001D0 94                     976 	.db 0x94
+      0001D1 82                     977 	.db 0x82
+      0001D2 20 20 43 6F 6D 6D 61   978 	.ascii "  Command   "
+             6E 64 20 20 20
+      0001DE E2                     979 	.db 0xe2
+      0001DF 94                     980 	.db 0x94
+      0001E0 82                     981 	.db 0x82
+      0001E1 20 20 20 20 20 20 20   982 	.ascii "               Description                       "
+             20 20 20 20 20 20 20
+             20 44 65 73 63 72 69
+             70 74 69 6F 6E 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+      000212 E2                     983 	.db 0xe2
+      000213 94                     984 	.db 0x94
+      000214 82                     985 	.db 0x82
+      000215 0A                     986 	.db 0x0a
+      000216 0D                     987 	.db 0x0d
+      000217 00                     988 	.db 0x00
+                                    989 	.area CSEG    (CODE)
+                                    990 	.area CONST   (CODE)
+      000218                        991 ___str_4:
+      000218 E2                     992 	.db 0xe2
+      000219 94                     993 	.db 0x94
+      00021A 9C                     994 	.db 0x9c
+      00021B E2                     995 	.db 0xe2
+      00021C 94                     996 	.db 0x94
+      00021D 80                     997 	.db 0x80
+      00021E E2                     998 	.db 0xe2
+      00021F 94                     999 	.db 0x94
+      000220 80                    1000 	.db 0x80
+      000221 E2                    1001 	.db 0xe2
+      000222 94                    1002 	.db 0x94
+      000223 80                    1003 	.db 0x80
+      000224 E2                    1004 	.db 0xe2
+      000225 94                    1005 	.db 0x94
+      000226 80                    1006 	.db 0x80
+      000227 E2                    1007 	.db 0xe2
+      000228 94                    1008 	.db 0x94
+      000229 80                    1009 	.db 0x80
+      00022A E2                    1010 	.db 0xe2
+      00022B 94                    1011 	.db 0x94
+      00022C 80                    1012 	.db 0x80
+      00022D E2                    1013 	.db 0xe2
+      00022E 94                    1014 	.db 0x94
+      00022F 80                    1015 	.db 0x80
+      000230 E2                    1016 	.db 0xe2
+      000231 94                    1017 	.db 0x94
+      000232 80                    1018 	.db 0x80
+      000233 E2                    1019 	.db 0xe2
+      000234 94                    1020 	.db 0x94
+      000235 80                    1021 	.db 0x80
+      000236 E2                    1022 	.db 0xe2
+      000237 94                    1023 	.db 0x94
+      000238 80                    1024 	.db 0x80
+      000239 E2                    1025 	.db 0xe2
+      00023A 94                    1026 	.db 0x94
+      00023B 80                    1027 	.db 0x80
+      00023C E2                    1028 	.db 0xe2
+      00023D 94                    1029 	.db 0x94
+      00023E BC                    1030 	.db 0xbc
+      00023F E2                    1031 	.db 0xe2
+      000240 94                    1032 	.db 0x94
+      000241 80                    1033 	.db 0x80
+      000242 E2                    1034 	.db 0xe2
+      000243 94                    1035 	.db 0x94
+      000244 80                    1036 	.db 0x80
+      000245 E2                    1037 	.db 0xe2
+      000246 94                    1038 	.db 0x94
+      000247 80                    1039 	.db 0x80
+      000248 E2                    1040 	.db 0xe2
+      000249 94                    1041 	.db 0x94
+      00024A 80                    1042 	.db 0x80
+      00024B E2                    1043 	.db 0xe2
+      00024C 94                    1044 	.db 0x94
+      00024D 80                    1045 	.db 0x80
+      00024E E2                    1046 	.db 0xe2
+      00024F 94                    1047 	.db 0x94
+      000250 80                    1048 	.db 0x80
+      000251 E2                    1049 	.db 0xe2
+      000252 94                    1050 	.db 0x94
+      000253 80                    1051 	.db 0x80
+      000254 E2                    1052 	.db 0xe2
+      000255 94                    1053 	.db 0x94
+      000256 80                    1054 	.db 0x80
+      000257 E2                    1055 	.db 0xe2
+      000258 94                    1056 	.db 0x94
+      000259 80                    1057 	.db 0x80
+      00025A E2                    1058 	.db 0xe2
+      00025B 94                    1059 	.db 0x94
+      00025C 80                    1060 	.db 0x80
+      00025D E2                    1061 	.db 0xe2
+      00025E 94                    1062 	.db 0x94
+      00025F 80                    1063 	.db 0x80
+      000260 E2                    1064 	.db 0xe2
+      000261 94                    1065 	.db 0x94
+      000262 80                    1066 	.db 0x80
+      000263 E2                    1067 	.db 0xe2
+      000264 94                    1068 	.db 0x94
+      000265 80                    1069 	.db 0x80
+      000266 E2                    1070 	.db 0xe2
+      000267 94                    1071 	.db 0x94
+      000268 80                    1072 	.db 0x80
+      000269 E2                    1073 	.db 0xe2
+      00026A 94                    1074 	.db 0x94
+      00026B 80                    1075 	.db 0x80
+      00026C E2                    1076 	.db 0xe2
+      00026D 94                    1077 	.db 0x94
+      00026E 80                    1078 	.db 0x80
+      00026F E2                    1079 	.db 0xe2
+      000270 94                    1080 	.db 0x94
+      000271 80                    1081 	.db 0x80
+      000272 E2                    1082 	.db 0xe2
+      000273 94                    1083 	.db 0x94
+      000274 80                    1084 	.db 0x80
+      000275 E2                    1085 	.db 0xe2
+      000276 94                    1086 	.db 0x94
+      000277 80                    1087 	.db 0x80
+      000278 E2                    1088 	.db 0xe2
+      000279 94                    1089 	.db 0x94
+      00027A 80                    1090 	.db 0x80
+      00027B E2                    1091 	.db 0xe2
+      00027C 94                    1092 	.db 0x94
+      00027D 80                    1093 	.db 0x80
+      00027E E2                    1094 	.db 0xe2
+      00027F 94                    1095 	.db 0x94
+      000280 80                    1096 	.db 0x80
+      000281 E2                    1097 	.db 0xe2
+      000282 94                    1098 	.db 0x94
+      000283 80                    1099 	.db 0x80
+      000284 E2                    1100 	.db 0xe2
+      000285 94                    1101 	.db 0x94
+      000286 80                    1102 	.db 0x80
+      000287 E2                    1103 	.db 0xe2
+      000288 94                    1104 	.db 0x94
+      000289 80                    1105 	.db 0x80
+      00028A E2                    1106 	.db 0xe2
+      00028B 94                    1107 	.db 0x94
+      00028C 80                    1108 	.db 0x80
+      00028D E2                    1109 	.db 0xe2
+      00028E 94                    1110 	.db 0x94
+      00028F 80                    1111 	.db 0x80
+      000290 E2                    1112 	.db 0xe2
+      000291 94                    1113 	.db 0x94
+      000292 80                    1114 	.db 0x80
+      000293 E2                    1115 	.db 0xe2
+      000294 94                    1116 	.db 0x94
+      000295 80                    1117 	.db 0x80
+      000296 E2                    1118 	.db 0xe2
+      000297 94                    1119 	.db 0x94
+      000298 80                    1120 	.db 0x80
+      000299 E2                    1121 	.db 0xe2
+      00029A 94                    1122 	.db 0x94
+      00029B 80                    1123 	.db 0x80
+      00029C E2                    1124 	.db 0xe2
+      00029D 94                    1125 	.db 0x94
+      00029E 80                    1126 	.db 0x80
+      00029F E2                    1127 	.db 0xe2
+      0002A0 94                    1128 	.db 0x94
+      0002A1 80                    1129 	.db 0x80
+      0002A2 E2                    1130 	.db 0xe2
+      0002A3 94                    1131 	.db 0x94
+      0002A4 80                    1132 	.db 0x80
+      0002A5 E2                    1133 	.db 0xe2
+      0002A6 94                    1134 	.db 0x94
+      0002A7 80                    1135 	.db 0x80
+      0002A8 E2                    1136 	.db 0xe2
+      0002A9 94                    1137 	.db 0x94
+      0002AA 80                    1138 	.db 0x80
+      0002AB E2                    1139 	.db 0xe2
+      0002AC 94                    1140 	.db 0x94
+      0002AD 80                    1141 	.db 0x80
+      0002AE E2                    1142 	.db 0xe2
+      0002AF 94                    1143 	.db 0x94
+      0002B0 80                    1144 	.db 0x80
+      0002B1 E2                    1145 	.db 0xe2
+      0002B2 94                    1146 	.db 0x94
+      0002B3 80                    1147 	.db 0x80
+      0002B4 E2                    1148 	.db 0xe2
+      0002B5 94                    1149 	.db 0x94
+      0002B6 80                    1150 	.db 0x80
+      0002B7 E2                    1151 	.db 0xe2
+      0002B8 94                    1152 	.db 0x94
+      0002B9 80                    1153 	.db 0x80
+      0002BA E2                    1154 	.db 0xe2
+      0002BB 94                    1155 	.db 0x94
+      0002BC 80                    1156 	.db 0x80
+      0002BD E2                    1157 	.db 0xe2
+      0002BE 94                    1158 	.db 0x94
+      0002BF 80                    1159 	.db 0x80
+      0002C0 E2                    1160 	.db 0xe2
+      0002C1 94                    1161 	.db 0x94
+      0002C2 80                    1162 	.db 0x80
+      0002C3 E2                    1163 	.db 0xe2
+      0002C4 94                    1164 	.db 0x94
+      0002C5 80                    1165 	.db 0x80
+      0002C6 E2                    1166 	.db 0xe2
+      0002C7 94                    1167 	.db 0x94
+      0002C8 80                    1168 	.db 0x80
+      0002C9 E2                    1169 	.db 0xe2
+      0002CA 94                    1170 	.db 0x94
+      0002CB 80                    1171 	.db 0x80
+      0002CC E2                    1172 	.db 0xe2
+      0002CD 94                    1173 	.db 0x94
+      0002CE A4                    1174 	.db 0xa4
+      0002CF 0A                    1175 	.db 0x0a
+      0002D0 0D                    1176 	.db 0x0d
+      0002D1 00                    1177 	.db 0x00
+                                   1178 	.area CSEG    (CODE)
+                                   1179 	.area CONST   (CODE)
+      0002D2                       1180 ___str_5:
+      0002D2 E2                    1181 	.db 0xe2
+      0002D3 94                    1182 	.db 0x94
+      0002D4 82                    1183 	.db 0x82
+      0002D5 20 20 20 20 4D 20 20  1184 	.ascii "    M      "
+             20 20 20 20
+      0002E0 E2                    1185 	.db 0xe2
+      0002E1 94                    1186 	.db 0x94
+      0002E2 82                    1187 	.db 0x82
+      0002E3 20 4D 61 6E 75 61 6C  1188 	.ascii " Manual SPI Mode (Direct Register Control)      "
+             20 53 50 49 20 4D 6F
+             64 65 20 28 44 69 72
+             65 63 74 20 52 65 67
+             69 73 74 65 72 20 43
+             6F 6E 74 72 6F 6C 29
+             20 20 20 20 20 20
+      000313 E2                    1189 	.db 0xe2
+      000314 94                    1190 	.db 0x94
+      000315 82                    1191 	.db 0x82
+      000316 0A                    1192 	.db 0x0a
+      000317 0D                    1193 	.db 0x0d
+      000318 00                    1194 	.db 0x00
+                                   1195 	.area CSEG    (CODE)
+                                   1196 	.area CONST   (CODE)
+      000319                       1197 ___str_6:
+      000319 E2                    1198 	.db 0xe2
+      00031A 94                    1199 	.db 0x94
+      00031B 82                    1200 	.db 0x82
+      00031C 20 20 20 20 42 20 20  1201 	.ascii "    B      "
+             20 20 20 20
+      000327 E2                    1202 	.db 0xe2
+      000328 94                    1203 	.db 0x94
+      000329 82                    1204 	.db 0x82
+      00032A 20 42 69 74 20 42 61  1205 	.ascii " Bit Banging Mode (Software SPI)               "
+             6E 67 69 6E 67 20 4D
+             6F 64 65 20 28 53 6F
+             66 74 77 61 72 65 20
+             53 50 49 29 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20
+      000359 E2                    1206 	.db 0xe2
+      00035A 94                    1207 	.db 0x94
+      00035B 82                    1208 	.db 0x82
+      00035C 0A                    1209 	.db 0x0a
+      00035D 0D                    1210 	.db 0x0d
+      00035E 00                    1211 	.db 0x00
+                                   1212 	.area CSEG    (CODE)
+                                   1213 	.area CONST   (CODE)
+      00035F                       1214 ___str_7:
+      00035F E2                    1215 	.db 0xe2
+      000360 94                    1216 	.db 0x94
+      000361 82                    1217 	.db 0x82
+      000362 20 20 20 20 53 20 20  1218 	.ascii "    S      "
+             20 20 20 20
+      00036D E2                    1219 	.db 0xe2
+      00036E 94                    1220 	.db 0x94
+      00036F 82                    1221 	.db 0x82
+      000370 20 47 65 6E 65 72 61  1222 	.ascii " Generate Sine Wave                            "
+             74 65 20 53 69 6E 65
+             20 57 61 76 65 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20
+      00039F E2                    1223 	.db 0xe2
+      0003A0 94                    1224 	.db 0x94
+      0003A1 82                    1225 	.db 0x82
+      0003A2 0A                    1226 	.db 0x0a
+      0003A3 0D                    1227 	.db 0x0d
+      0003A4 00                    1228 	.db 0x00
+                                   1229 	.area CSEG    (CODE)
+                                   1230 	.area CONST   (CODE)
+      0003A5                       1231 ___str_8:
+      0003A5 E2                    1232 	.db 0xe2
+      0003A6 94                    1233 	.db 0x94
+      0003A7 82                    1234 	.db 0x82
+      0003A8 20 20 20 20 51 20 20  1235 	.ascii "    Q      "
+             20 20 20 20
+      0003B3 E2                    1236 	.db 0xe2
+      0003B4 94                    1237 	.db 0x94
+      0003B5 82                    1238 	.db 0x82
+      0003B6 20 47 65 6E 65 72 61  1239 	.ascii " Generate Square Wave                          "
+             74 65 20 53 71 75 61
+             72 65 20 57 61 76 65
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20
+      0003E5 E2                    1240 	.db 0xe2
+      0003E6 94                    1241 	.db 0x94
+      0003E7 82                    1242 	.db 0x82
+      0003E8 0A                    1243 	.db 0x0a
+      0003E9 0D                    1244 	.db 0x0d
+      0003EA 00                    1245 	.db 0x00
+                                   1246 	.area CSEG    (CODE)
+                                   1247 	.area CONST   (CODE)
+      0003EB                       1248 ___str_9:
+      0003EB E2                    1249 	.db 0xe2
+      0003EC 94                    1250 	.db 0x94
+      0003ED 82                    1251 	.db 0x82
+      0003EE 20 20 20 20 54 20 20  1252 	.ascii "    T      "
+             20 20 20 20
+      0003F9 E2                    1253 	.db 0xe2
+      0003FA 94                    1254 	.db 0x94
+      0003FB 82                    1255 	.db 0x82
+      0003FC 20 47 65 6E 65 72 61  1256 	.ascii " Generate Triangular Wave                      "
+             74 65 20 54 72 69 61
+             6E 67 75 6C 61 72 20
+             57 61 76 65 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20
+      00042B E2                    1257 	.db 0xe2
+      00042C 94                    1258 	.db 0x94
+      00042D 82                    1259 	.db 0x82
+      00042E 0A                    1260 	.db 0x0a
+      00042F 0D                    1261 	.db 0x0d
+      000430 00                    1262 	.db 0x00
+                                   1263 	.area CSEG    (CODE)
+                                   1264 	.area CONST   (CODE)
+      000431                       1265 ___str_10:
+      000431 E2                    1266 	.db 0xe2
+      000432 94                    1267 	.db 0x94
+      000433 82                    1268 	.db 0x82
+      000434 20 20 20 20 44 20 20  1269 	.ascii "    D      "
+             20 20 20 20
+      00043F E2                    1270 	.db 0xe2
+      000440 94                    1271 	.db 0x94
+      000441 82                    1272 	.db 0x82
+      000442 20 44 65 6D 6F 20 4D  1273 	.ascii " Demo Mode (Cycle through all waveforms)       "
+             6F 64 65 20 28 43 79
+             63 6C 65 20 74 68 72
+             6F 75 67 68 20 61 6C
+             6C 20 77 61 76 65 66
+             6F 72 6D 73 29 20 20
+             20 20 20 20 20
+      000471 E2                    1274 	.db 0xe2
+      000472 94                    1275 	.db 0x94
+      000473 82                    1276 	.db 0x82
+      000474 0A                    1277 	.db 0x0a
+      000475 0D                    1278 	.db 0x0d
+      000476 00                    1279 	.db 0x00
+                                   1280 	.area CSEG    (CODE)
+                                   1281 	.area CONST   (CODE)
+      000477                       1282 ___str_11:
+      000477 E2                    1283 	.db 0xe2
+      000478 94                    1284 	.db 0x94
+      000479 82                    1285 	.db 0x82
+      00047A 20 20 20 20 43 20 20  1286 	.ascii "    C      "
+             20 20 20 20
+      000485 E2                    1287 	.db 0xe2
+      000486 94                    1288 	.db 0x94
+      000487 82                    1289 	.db 0x82
+      000488 20 43 6F 6E 66 69 67  1290 	.ascii " Configure SPI Parameters                      "
+             75 72 65 20 53 50 49
+             20 50 61 72 61 6D 65
+             74 65 72 73 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20
+      0004B7 E2                    1291 	.db 0xe2
+      0004B8 94                    1292 	.db 0x94
+      0004B9 82                    1293 	.db 0x82
+      0004BA 0A                    1294 	.db 0x0a
+      0004BB 0D                    1295 	.db 0x0d
+      0004BC 00                    1296 	.db 0x00
+                                   1297 	.area CSEG    (CODE)
+                                   1298 	.area CONST   (CODE)
+      0004BD                       1299 ___str_12:
+      0004BD E2                    1300 	.db 0xe2
+      0004BE 94                    1301 	.db 0x94
+      0004BF 82                    1302 	.db 0x82
+      0004C0 20 20 20 20 52 20 20  1303 	.ascii "    R      "
+             20 20 20 20
+      0004CB E2                    1304 	.db 0xe2
+      0004CC 94                    1305 	.db 0x94
+      0004CD 82                    1306 	.db 0x82
+      0004CE 20 52 65 61 64 20 53  1307 	.ascii " Read SPI Data                                 "
+             50 49 20 44 61 74 61
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20
+      0004FD E2                    1308 	.db 0xe2
+      0004FE 94                    1309 	.db 0x94
+      0004FF 82                    1310 	.db 0x82
+      000500 0A                    1311 	.db 0x0a
+      000501 0D                    1312 	.db 0x0d
+      000502 00                    1313 	.db 0x00
+                                   1314 	.area CSEG    (CODE)
+                                   1315 	.area CONST   (CODE)
+      000503                       1316 ___str_13:
+      000503 E2                    1317 	.db 0xe2
+      000504 94                    1318 	.db 0x94
+      000505 82                    1319 	.db 0x82
+      000506 20 20 20 20 57 20 20  1320 	.ascii "    W      "
+             20 20 20 20
+      000511 E2                    1321 	.db 0xe2
+      000512 94                    1322 	.db 0x94
+      000513 82                    1323 	.db 0x82
+      000514 20 57 72 69 74 65 20  1324 	.ascii " Write SPI Data                                "
+             53 50 49 20 44 61 74
+             61 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20
+      000543 E2                    1325 	.db 0xe2
+      000544 94                    1326 	.db 0x94
+      000545 82                    1327 	.db 0x82
+      000546 0A                    1328 	.db 0x0a
+      000547 0D                    1329 	.db 0x0d
+      000548 00                    1330 	.db 0x00
+                                   1331 	.area CSEG    (CODE)
+                                   1332 	.area CONST   (CODE)
+      000549                       1333 ___str_14:
+      000549 E2                    1334 	.db 0xe2
+      00054A 94                    1335 	.db 0x94
+      00054B 82                    1336 	.db 0x82
+      00054C 20 20 20 20 3F 20 20  1337 	.ascii "    ?      "
+             20 20 20 20
+      000557 E2                    1338 	.db 0xe2
+      000558 94                    1339 	.db 0x94
+      000559 82                    1340 	.db 0x82
+      00055A 20 44 69 73 70 6C 61  1341 	.ascii " Display this help menu                        "
+             79 20 74 68 69 73 20
+             68 65 6C 70 20 6D 65
+             6E 75 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20
+      000589 E2                    1342 	.db 0xe2
+      00058A 94                    1343 	.db 0x94
+      00058B 82                    1344 	.db 0x82
+      00058C 0A                    1345 	.db 0x0a
+      00058D 0D                    1346 	.db 0x0d
+      00058E 00                    1347 	.db 0x00
+                                   1348 	.area CSEG    (CODE)
+                                   1349 	.area CONST   (CODE)
+      00058F                       1350 ___str_15:
+      00058F E2                    1351 	.db 0xe2
+      000590 94                    1352 	.db 0x94
+      000591 82                    1353 	.db 0x82
+      000592 20 20 20 20 58 20 20  1354 	.ascii "    X      "
+             20 20 20 20
+      00059D E2                    1355 	.db 0xe2
+      00059E 94                    1356 	.db 0x94
+      00059F 82                    1357 	.db 0x82
+      0005A0 20 45 78 69 74 20 50  1358 	.ascii " Exit Program                                  "
+             72 6F 67 72 61 6D 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20 20 20
+             20 20 20 20 20
+      0005CF E2                    1359 	.db 0xe2
+      0005D0 94                    1360 	.db 0x94
+      0005D1 82                    1361 	.db 0x82
+      0005D2 0A                    1362 	.db 0x0a
+      0005D3 0D                    1363 	.db 0x0d
+      0005D4 00                    1364 	.db 0x00
+                                   1365 	.area CSEG    (CODE)
+                                   1366 	.area CONST   (CODE)
+      0005D5                       1367 ___str_16:
+      0005D5 E2                    1368 	.db 0xe2
+      0005D6 94                    1369 	.db 0x94
+      0005D7 94                    1370 	.db 0x94
+      0005D8 E2                    1371 	.db 0xe2
+      0005D9 94                    1372 	.db 0x94
+      0005DA 80                    1373 	.db 0x80
+      0005DB E2                    1374 	.db 0xe2
+      0005DC 94                    1375 	.db 0x94
+      0005DD 80                    1376 	.db 0x80
+      0005DE E2                    1377 	.db 0xe2
+      0005DF 94                    1378 	.db 0x94
+      0005E0 80                    1379 	.db 0x80
+      0005E1 E2                    1380 	.db 0xe2
+      0005E2 94                    1381 	.db 0x94
+      0005E3 80                    1382 	.db 0x80
+      0005E4 E2                    1383 	.db 0xe2
+      0005E5 94                    1384 	.db 0x94
+      0005E6 80                    1385 	.db 0x80
+      0005E7 E2                    1386 	.db 0xe2
+      0005E8 94                    1387 	.db 0x94
+      0005E9 80                    1388 	.db 0x80
+      0005EA E2                    1389 	.db 0xe2
+      0005EB 94                    1390 	.db 0x94
+      0005EC 80                    1391 	.db 0x80
+      0005ED E2                    1392 	.db 0xe2
+      0005EE 94                    1393 	.db 0x94
+      0005EF 80                    1394 	.db 0x80
+      0005F0 E2                    1395 	.db 0xe2
+      0005F1 94                    1396 	.db 0x94
+      0005F2 80                    1397 	.db 0x80
+      0005F3 E2                    1398 	.db 0xe2
+      0005F4 94                    1399 	.db 0x94
+      0005F5 80                    1400 	.db 0x80
+      0005F6 E2                    1401 	.db 0xe2
+      0005F7 94                    1402 	.db 0x94
+      0005F8 80                    1403 	.db 0x80
+      0005F9 E2                    1404 	.db 0xe2
+      0005FA 94                    1405 	.db 0x94
+      0005FB B4                    1406 	.db 0xb4
+      0005FC E2                    1407 	.db 0xe2
+      0005FD 94                    1408 	.db 0x94
+      0005FE 80                    1409 	.db 0x80
+      0005FF E2                    1410 	.db 0xe2
+      000600 94                    1411 	.db 0x94
+      000601 80                    1412 	.db 0x80
+      000602 E2                    1413 	.db 0xe2
+      000603 94                    1414 	.db 0x94
+      000604 80                    1415 	.db 0x80
+      000605 E2                    1416 	.db 0xe2
+      000606 94                    1417 	.db 0x94
+      000607 80                    1418 	.db 0x80
+      000608 E2                    1419 	.db 0xe2
+      000609 94                    1420 	.db 0x94
+      00060A 80                    1421 	.db 0x80
+      00060B E2                    1422 	.db 0xe2
+      00060C 94                    1423 	.db 0x94
+      00060D 80                    1424 	.db 0x80
+      00060E E2                    1425 	.db 0xe2
+      00060F 94                    1426 	.db 0x94
+      000610 80                    1427 	.db 0x80
+      000611 E2                    1428 	.db 0xe2
+      000612 94                    1429 	.db 0x94
+      000613 80                    1430 	.db 0x80
+      000614 E2                    1431 	.db 0xe2
+      000615 94                    1432 	.db 0x94
+      000616 80                    1433 	.db 0x80
+      000617 E2                    1434 	.db 0xe2
+      000618 94                    1435 	.db 0x94
+      000619 80                    1436 	.db 0x80
+      00061A E2                    1437 	.db 0xe2
+      00061B 94                    1438 	.db 0x94
+      00061C 80                    1439 	.db 0x80
+      00061D E2                    1440 	.db 0xe2
+      00061E 94                    1441 	.db 0x94
+      00061F 80                    1442 	.db 0x80
+      000620 E2                    1443 	.db 0xe2
+      000621 94                    1444 	.db 0x94
+      000622 80                    1445 	.db 0x80
+      000623 E2                    1446 	.db 0xe2
+      000624 94                    1447 	.db 0x94
+      000625 80                    1448 	.db 0x80
+      000626 E2                    1449 	.db 0xe2
+      000627 94                    1450 	.db 0x94
+      000628 80                    1451 	.db 0x80
+      000629 E2                    1452 	.db 0xe2
+      00062A 94                    1453 	.db 0x94
+      00062B 80                    1454 	.db 0x80
+      00062C E2                    1455 	.db 0xe2
+      00062D 94                    1456 	.db 0x94
+      00062E 80                    1457 	.db 0x80
+      00062F E2                    1458 	.db 0xe2
+      000630 94                    1459 	.db 0x94
+      000631 80                    1460 	.db 0x80
+      000632 E2                    1461 	.db 0xe2
+      000633 94                    1462 	.db 0x94
+      000634 80                    1463 	.db 0x80
+      000635 E2                    1464 	.db 0xe2
+      000636 94                    1465 	.db 0x94
+      000637 80                    1466 	.db 0x80
+      000638 E2                    1467 	.db 0xe2
+      000639 94                    1468 	.db 0x94
+      00063A 80                    1469 	.db 0x80
+      00063B E2                    1470 	.db 0xe2
+      00063C 94                    1471 	.db 0x94
+      00063D 80                    1472 	.db 0x80
+      00063E E2                    1473 	.db 0xe2
+      00063F 94                    1474 	.db 0x94
+      000640 80                    1475 	.db 0x80
+      000641 E2                    1476 	.db 0xe2
+      000642 94                    1477 	.db 0x94
+      000643 80                    1478 	.db 0x80
+      000644 E2                    1479 	.db 0xe2
+      000645 94                    1480 	.db 0x94
+      000646 80                    1481 	.db 0x80
+      000647 E2                    1482 	.db 0xe2
+      000648 94                    1483 	.db 0x94
+      000649 80                    1484 	.db 0x80
+      00064A E2                    1485 	.db 0xe2
+      00064B 94                    1486 	.db 0x94
+      00064C 80                    1487 	.db 0x80
+      00064D E2                    1488 	.db 0xe2
+      00064E 94                    1489 	.db 0x94
+      00064F 80                    1490 	.db 0x80
+      000650 E2                    1491 	.db 0xe2
+      000651 94                    1492 	.db 0x94
+      000652 80                    1493 	.db 0x80
+      000653 E2                    1494 	.db 0xe2
+      000654 94                    1495 	.db 0x94
+      000655 80                    1496 	.db 0x80
+      000656 E2                    1497 	.db 0xe2
+      000657 94                    1498 	.db 0x94
+      000658 80                    1499 	.db 0x80
+      000659 E2                    1500 	.db 0xe2
+      00065A 94                    1501 	.db 0x94
+      00065B 80                    1502 	.db 0x80
+      00065C E2                    1503 	.db 0xe2
+      00065D 94                    1504 	.db 0x94
+      00065E 80                    1505 	.db 0x80
+      00065F E2                    1506 	.db 0xe2
+      000660 94                    1507 	.db 0x94
+      000661 80                    1508 	.db 0x80
+      000662 E2                    1509 	.db 0xe2
+      000663 94                    1510 	.db 0x94
+      000664 80                    1511 	.db 0x80
+      000665 E2                    1512 	.db 0xe2
+      000666 94                    1513 	.db 0x94
+      000667 80                    1514 	.db 0x80
+      000668 E2                    1515 	.db 0xe2
+      000669 94                    1516 	.db 0x94
+      00066A 80                    1517 	.db 0x80
+      00066B E2                    1518 	.db 0xe2
+      00066C 94                    1519 	.db 0x94
+      00066D 80                    1520 	.db 0x80
+      00066E E2                    1521 	.db 0xe2
+      00066F 94                    1522 	.db 0x94
+      000670 80                    1523 	.db 0x80
+      000671 E2                    1524 	.db 0xe2
+      000672 94                    1525 	.db 0x94
+      000673 80                    1526 	.db 0x80
+      000674 E2                    1527 	.db 0xe2
+      000675 94                    1528 	.db 0x94
+      000676 80                    1529 	.db 0x80
+      000677 E2                    1530 	.db 0xe2
+      000678 94                    1531 	.db 0x94
+      000679 80                    1532 	.db 0x80
+      00067A E2                    1533 	.db 0xe2
+      00067B 94                    1534 	.db 0x94
+      00067C 80                    1535 	.db 0x80
+      00067D E2                    1536 	.db 0xe2
+      00067E 94                    1537 	.db 0x94
+      00067F 80                    1538 	.db 0x80
+      000680 E2                    1539 	.db 0xe2
+      000681 94                    1540 	.db 0x94
+      000682 80                    1541 	.db 0x80
+      000683 E2                    1542 	.db 0xe2
+      000684 94                    1543 	.db 0x94
+      000685 80                    1544 	.db 0x80
+      000686 E2                    1545 	.db 0xe2
+      000687 94                    1546 	.db 0x94
+      000688 80                    1547 	.db 0x80
+      000689 E2                    1548 	.db 0xe2
+      00068A 94                    1549 	.db 0x94
+      00068B 98                    1550 	.db 0x98
+      00068C 0A                    1551 	.db 0x0a
+      00068D 0D                    1552 	.db 0x0d
+      00068E 00                    1553 	.db 0x00
+                                   1554 	.area CSEG    (CODE)
+                                   1555 	.area CONST   (CODE)
+      00068F                       1556 ___str_17:
+      00068F 0A                    1557 	.db 0x0a
+      000690 0D                    1558 	.db 0x0d
+      000691 45 6E 74 65 72 20 63  1559 	.ascii "Enter command: "
+             6F 6D 6D 61 6E 64 3A
+             20
+      0006A0 00                    1560 	.db 0x00
+                                   1561 	.area CSEG    (CODE)
+                                   1562 	.area CONST   (CODE)
+      0006A1                       1563 ___str_18:
+      0006A1 E2                    1564 	.db 0xe2
+      0006A2 94                    1565 	.db 0x94
+      0006A3 82                    1566 	.db 0x82
+      0006A4 20 45 6E 74 65 72 20  1567 	.ascii " Enter number (hex, up to 2 characters): "
+             6E 75 6D 62 65 72 20
+             28 68 65 78 2C 20 75
+             70 20 74 6F 20 32 20
+             63 68 61 72 61 63 74
+             65 72 73 29 3A 20
+      0006CD 0A                    1568 	.db 0x0a
+      0006CE 0D                    1569 	.db 0x0d
+      0006CF 7C                    1570 	.ascii "|"
+      0006D0 00                    1571 	.db 0x00
+                                   1572 	.area CSEG    (CODE)
+                                   1573 	.area CONST   (CODE)
+      0006D1                       1574 ___str_19:
+      0006D1 24 20                 1575 	.ascii "$ "
+      0006D3 00                    1576 	.db 0x00
+                                   1577 	.area CSEG    (CODE)
+                                   1578 	.area CONST   (CODE)
+      0006D4                       1579 ___str_20:
+      0006D4 0A                    1580 	.db 0x0a
+      0006D5 0D                    1581 	.db 0x0d
+      0006D6 E2                    1582 	.db 0xe2
+      0006D7 94                    1583 	.db 0x94
+      0006D8 82                    1584 	.db 0x82
+      0006D9 20 45 6E 74 65 72 65  1585 	.ascii " Entered data: 0x%02X"
+             64 20 64 61 74 61 3A
+             20 30 78 25 30 32 58
+      0006EE 0A                    1586 	.db 0x0a
+      0006EF 0D                    1587 	.db 0x0d
+      0006F0 00                    1588 	.db 0x00
+                                   1589 	.area CSEG    (CODE)
+                                   1590 	.area XINIT   (CODE)
+                                   1591 	.area CABS    (ABS,CODE)
