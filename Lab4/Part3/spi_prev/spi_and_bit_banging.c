@@ -423,7 +423,7 @@ void mannual_spi(unsigned char number)
     {
         printf("\r\n Number is %d",number);
         
-        for(int i = 0; i<256; i++)
+        for(int i = 0; i<255; i++)
         {
                     /* Calculate or lookup next sine wave value */
             if(dac_value_index < SINE_MAX_INDEX)
@@ -458,6 +458,8 @@ void mannual_spi(unsigned char number)
             // Send low byte
             SPDAT = low_byte;
             while (!(SPSTA & (1<<7))); 
+            printf("low %d\n\r", low_byte);
+            printf("high %d\n\r", high_byte);
     
             P1_1 = 1;  // Deselect DAC
     

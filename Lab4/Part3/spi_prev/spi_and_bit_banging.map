@@ -69,8 +69,8 @@ CABS                                00000000    00000000 =           0. bytes (A
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   00000456  s_XISEG                         
-C:   00000C6F  l_CONST                         
-C:   000011A6  l_CSEG                          
+C:   00000C82  l_CONST                         
+C:   000011F3  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002006  s_GSINIT0                       
 C:   00002009  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   0000205F  s_GSFINAL
 C:   0000205F  s_GSINIT                        
 C:   0000205F  s_GSINIT5                       
 C:   00002062  s_CSEG                          
-C:   00003208  s_CONST                         
-C:   00003E77  s_XINIT                         
+C:   00003255  s_CONST                         
+C:   00003ED7  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -456,7 +456,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002062    000011A6 =        4518. bytes (REL,CON,CODE)
+CSEG                                00002062    000011F3 =        4595. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -470,38 +470,38 @@ C:   0000228F  _demo_mode                         spi_and_bit_banging
 C:   000022A7  _bit_bang_spi                      spi_and_bit_banging
 C:   000022DA  _take_data                         spi_and_bit_banging
 C:   0000242E  _mannual_spi                       spi_and_bit_banging
-C:   00002538  _spi_init                          spi_and_bit_banging
-C:   00002542  _bit_bang_spi_init                 spi_and_bit_banging
-C:   0000254C  _bit_bang_spi_write                spi_and_bit_banging
-C:   00002596  _spi_transmission_start            spi_and_bit_banging
-C:   0000259C  _spi_triangular_wave               spi_and_bit_banging
-C:   0000267A  _spi_ramp_signal                   spi_and_bit_banging
-C:   00002767  _vprintf                           vprintf
-C:   000027A6  _printf                            vprintf
-C:   000028AF  __print_format                     printf_large
-C:   000031B0  _strlen                            _strlen
-C:   000031C8  __mulint                           _mulint
-C:   000031E8  __gptrget                          _gptrget
-C:   00003204  __sdcc_external_startup            _startup
+C:   00002585  _spi_init                          spi_and_bit_banging
+C:   0000258F  _bit_bang_spi_init                 spi_and_bit_banging
+C:   00002599  _bit_bang_spi_write                spi_and_bit_banging
+C:   000025E3  _spi_transmission_start            spi_and_bit_banging
+C:   000025E9  _spi_triangular_wave               spi_and_bit_banging
+C:   000026C7  _spi_ramp_signal                   spi_and_bit_banging
+C:   000027B4  _vprintf                           vprintf
+C:   000027F3  _printf                            vprintf
+C:   000028FC  __print_format                     printf_large
+C:   000031FD  _strlen                            _strlen
+C:   00003215  __mulint                           _mulint
+C:   00003235  __gptrget                          _gptrget
+C:   00003251  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003208    00000C6F =        3183. bytes (REL,CON,CODE)
+CONST                               00003255    00000C82 =        3202. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00003208  _dac_values                        spi_and_bit_banging
-C:   00003408  _trig_dac_values                   spi_and_bit_banging
+C:   00003255  _dac_values                        spi_and_bit_banging
+C:   00003455  _trig_dac_values                   spi_and_bit_banging
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00003E77    00000003 =           3. bytes (REL,CON,CODE)
+XINIT                               00003ED7    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
