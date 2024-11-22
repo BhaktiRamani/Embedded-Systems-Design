@@ -731,17 +731,6 @@ _main:
 	dec	sp
 ;	spi_dac.c:223: while(1)
 00111$:
-;	spi_dac.c:225: printf("w\n\r");
-	mov	a,#___str_2
-	push	acc
-	mov	a,#(___str_2 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
 ;	spi_dac.c:227: if(dac_value_index < SINE_MAX_INDEX)
 	mov	dptr,#_main_dac_value_index_65537_27
 	movx	a,@dptr
@@ -808,100 +797,35 @@ _main:
 	jnb	acc.3,00140$
 	orl	a,#0xf0
 00140$:
-	anl	ar4,#0x0f
-	mov	r5,#0x00
-	orl	ar4,#0x10
+	mov	a,#0x0f
+	anl	a,r4
+	orl	a,#0x10
+	mov	r5,a
 ;	spi_dac.c:245: low_byte = (dac_data & 0x0F) << 4;
 	anl	ar6,#0x0f
-	clr	a
-	xch	a,r6
+	mov	a,r6
 	swap	a
-	xch	a,r6
-	xrl	a,r6
-	xch	a,r6
 	anl	a,#0xf0
-	xch	a,r6
-	xrl	a,r6
 	mov	r7,a
-;	spi_dac.c:251: printf("Low byte %d\n\r", low_byte);
-	push	ar7
-	push	ar6
-	push	ar5
-	push	ar4
-	push	ar6
-	push	ar7
-	mov	a,#___str_3
-	push	acc
-	mov	a,#(___str_3 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar4
-	pop	ar5
-;	spi_dac.c:252: printf("High byte %d\n\r", high_byte);
-	push	ar5
-	push	ar4
-	push	ar4
-	push	ar5
-	mov	a,#___str_4
-	push	acc
-	mov	a,#(___str_4 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	spi_dac.c:254: P1_1 = 0;  // Select DAC
+;	spi_dac.c:251: P1_1 = 0;  // Select DAC
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:257: SPDAT = high_byte;
-	mov	_SPDAT,r4
-;	spi_dac.c:258: while (!(SPSTA & (1<<7))); 
+;	spi_dac.c:254: SPDAT = high_byte;
+	mov	_SPDAT,r5
+;	spi_dac.c:255: while (!(SPSTA & (1<<7))); 
 00104$:
 	mov	a,_SPSTA
 	jnb	acc.7,00104$
-;	spi_dac.c:262: SPDAT = low_byte;
-	mov	_SPDAT,r6
-;	spi_dac.c:263: while (!(SPSTA & (1<<7))); 
+;	spi_dac.c:259: SPDAT = low_byte;
+	mov	_SPDAT,r7
+;	spi_dac.c:260: while (!(SPSTA & (1<<7))); 
 00107$:
 	mov	a,_SPSTA
 	jnb	acc.7,00107$
-;	spi_dac.c:265: P1_1 = 1;  // Deselect DAC
+;	spi_dac.c:262: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
-;	spi_dac.c:268: printf("E\n\r");
-	mov	a,#___str_5
-	push	acc
-	mov	a,#(___str_5 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	spi_dac.c:269: printf("\n\r");
-	mov	a,#___str_6
-	push	acc
-	mov	a,#(___str_6 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	spi_dac.c:272: dac_value_index++;
+;	spi_dac.c:264: dac_value_index++;
 	mov	dptr,#_main_dac_value_index_65537_27
 	movx	a,@dptr
 	add	a,#0x01
@@ -910,36 +834,36 @@ _main:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-;	spi_dac.c:274: }
+;	spi_dac.c:266: }
 	ljmp	00111$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer0_init'
 ;------------------------------------------------------------
-;	spi_dac.c:276: void timer0_init(void)
+;	spi_dac.c:268: void timer0_init(void)
 ;	-----------------------------------------
 ;	 function timer0_init
 ;	-----------------------------------------
 _timer0_init:
-;	spi_dac.c:278: TMOD &= 0xF0;    // Clear Timer0 mode bits
+;	spi_dac.c:270: TMOD &= 0xF0;    // Clear Timer0 mode bits
 	anl	_TMOD,#0xf0
-;	spi_dac.c:279: TMOD |= TIMER0_MODE1;  // Set Timer0 mode 1 (16-bit)
+;	spi_dac.c:271: TMOD |= TIMER0_MODE1;  // Set Timer0 mode 1 (16-bit)
 	orl	_TMOD,#0x01
-;	spi_dac.c:282: TH0 = TH0_RELOAD;
+;	spi_dac.c:274: TH0 = TH0_RELOAD;
 	mov	_TH0,#0xfc
-;	spi_dac.c:283: TL0 = TL0_RELOAD;
+;	spi_dac.c:275: TL0 = TL0_RELOAD;
 	mov	_TL0,#0x66
-;	spi_dac.c:285: ET0 = 1;         // Enable Timer0 interrupt
+;	spi_dac.c:277: ET0 = 1;         // Enable Timer0 interrupt
 ;	assignBit
 	setb	_ET0
-;	spi_dac.c:286: TR0 = 1;         // Start Timer0
+;	spi_dac.c:278: TR0 = 1;         // Start Timer0
 ;	assignBit
 	setb	_TR0
-;	spi_dac.c:287: }
+;	spi_dac.c:279: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer0_isr'
 ;------------------------------------------------------------
-;	spi_dac.c:290: void timer0_isr(void) __interrupt 1
+;	spi_dac.c:282: void timer0_isr(void) __interrupt 1
 ;	-----------------------------------------
 ;	 function timer0_isr
 ;	-----------------------------------------
@@ -959,18 +883,18 @@ _timer0_isr:
 	push	(0+0)
 	push	psw
 	mov	psw,#0x00
-;	spi_dac.c:293: TH0 = 0x4B;
+;	spi_dac.c:285: TH0 = 0x4B;
 	mov	_TH0,#0x4b
-;	spi_dac.c:294: TL0 = 0x1C;
+;	spi_dac.c:286: TL0 = 0x1C;
 	mov	_TL0,#0x1c
-;	spi_dac.c:296: ms_flag = 1;     // Set 1ms flag
+;	spi_dac.c:288: ms_flag = 1;     // Set 1ms flag
 	mov	dptr,#_ms_flag
 	mov	a,#0x01
 	movx	@dptr,a
-;	spi_dac.c:298: printf("T \n\r");
-	mov	a,#___str_7
+;	spi_dac.c:290: printf("T \n\r");
+	mov	a,#___str_2
 	push	acc
-	mov	a,#(___str_7 >> 8)
+	mov	a,#(___str_2 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -978,7 +902,7 @@ _timer0_isr:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:301: }
+;	spi_dac.c:293: }
 	pop	psw
 	pop	(0+0)
 	pop	(0+1)
@@ -997,7 +921,7 @@ _timer0_isr:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_isr'
 ;------------------------------------------------------------
-;	spi_dac.c:309: void spi_isr(void) __interrupt 9
+;	spi_dac.c:301: void spi_isr(void) __interrupt 9
 ;	-----------------------------------------
 ;	 function spi_isr
 ;	-----------------------------------------
@@ -1017,20 +941,20 @@ _spi_isr:
 	push	(0+0)
 	push	psw
 	mov	psw,#0x00
-;	spi_dac.c:311: if(SPSTA == 0x80)  // Check for successful transmission
+;	spi_dac.c:303: if(SPSTA == 0x80)  // Check for successful transmission
 	mov	a,#0x80
 	cjne	a,_SPSTA,00103$
-;	spi_dac.c:313: transmission_complete = 1;
+;	spi_dac.c:305: transmission_complete = 1;
 	mov	dptr,#_transmission_complete
 	mov	a,#0x01
 	movx	@dptr,a
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-;	spi_dac.c:314: printf("spi isr \n\r");
-	mov	a,#___str_8
+;	spi_dac.c:306: printf("spi isr \n\r");
+	mov	a,#___str_3
 	push	acc
-	mov	a,#(___str_8 >> 8)
+	mov	a,#(___str_3 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1039,7 +963,7 @@ _spi_isr:
 	dec	sp
 	dec	sp
 00103$:
-;	spi_dac.c:317: }
+;	spi_dac.c:309: }
 	pop	psw
 	pop	(0+0)
 	pop	(0+1)
@@ -1058,45 +982,45 @@ _spi_isr:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_init'
 ;------------------------------------------------------------
-;	spi_dac.c:329: void spi_init(void) 
+;	spi_dac.c:321: void spi_init(void) 
 ;	-----------------------------------------
 ;	 function spi_init
 ;	-----------------------------------------
 _spi_init:
-;	spi_dac.c:350: SPCON |= 0x10;
+;	spi_dac.c:342: SPCON |= 0x10;
 	orl	_SPCON,#0x10
-;	spi_dac.c:351: SPCON |= 0x20;
+;	spi_dac.c:343: SPCON |= 0x20;
 	orl	_SPCON,#0x20
-;	spi_dac.c:352: SPCON |= 0x40;
+;	spi_dac.c:344: SPCON |= 0x40;
 	orl	_SPCON,#0x40
-;	spi_dac.c:359: }
+;	spi_dac.c:351: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_start'
 ;------------------------------------------------------------
-;	spi_dac.c:366: void spi_transmission_start(void)
+;	spi_dac.c:358: void spi_transmission_start(void)
 ;	-----------------------------------------
 ;	 function spi_transmission_start
 ;	-----------------------------------------
 _spi_transmission_start:
-;	spi_dac.c:368: SPCON |= SPI_ENABLE;           // Enable SPI
+;	spi_dac.c:360: SPCON |= SPI_ENABLE;           // Enable SPI
 	orl	_SPCON,#0x40
-;	spi_dac.c:369: P1_1 = 0;
+;	spi_dac.c:361: P1_1 = 0;
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:370: }
+;	spi_dac.c:362: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_stop'
 ;------------------------------------------------------------
-;	spi_dac.c:377: void spi_transmission_stop(void) 
+;	spi_dac.c:369: void spi_transmission_stop(void) 
 ;	-----------------------------------------
 ;	 function spi_transmission_stop
 ;	-----------------------------------------
 _spi_transmission_stop:
-;	spi_dac.c:379: SPCON &= ~SPI_ENABLE;          // Disable SPI
+;	spi_dac.c:371: SPCON &= ~SPI_ENABLE;          // Disable SPI
 	anl	_SPCON,#0xbf
-;	spi_dac.c:380: }
+;	spi_dac.c:372: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1373,47 +1297,13 @@ ___str_1:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_2:
-	.ascii "w"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_3:
-	.ascii "Low byte %d"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_4:
-	.ascii "High byte %d"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_5:
-	.ascii "E"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_6:
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_7:
 	.ascii "T "
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_8:
+___str_3:
 	.ascii "spi isr "
 	.db 0x0a
 	.db 0x0d

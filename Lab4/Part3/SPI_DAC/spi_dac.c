@@ -222,7 +222,7 @@ int main(void)
 
     while(1)
     {
-        printf("w\n\r");
+        
         /* Calculate or lookup next sine wave value */
         if(dac_value_index < SINE_MAX_INDEX)
         {
@@ -247,9 +247,6 @@ int main(void)
         // while(!ms_flag);
         // ms_flag = 0;
 
-        
-        printf("Low byte %d\n\r", low_byte);
-        printf("High byte %d\n\r", high_byte);
         // Begin transmission
         P1_1 = 0;  // Select DAC
 
@@ -263,11 +260,6 @@ int main(void)
         while (!(SPSTA & (1<<7))); 
 
         P1_1 = 1;  // Deselect DAC
-
-    
-        printf("E\n\r");
-        printf("\n\r");
-        
 
         dac_value_index++;
     }
