@@ -474,31 +474,31 @@ _putchar_charToSend_65536_17:
 	.ds 2
 _delay_ms_ms_65536_21:
 	.ds 2
-_bit_bang_spi_number_65536_44:
+_bit_bang_spi_number_65536_41:
 	.ds 1
-_take_data_input_65537_48:
+_take_data_input_65537_45:
 	.ds 4
-_take_data_data_65538_52:
+_take_data_data_65538_49:
 	.ds 1
-_mannual_spi_number_65536_55:
+_mannual_spi_number_65536_52:
 	.ds 1
-_mannual_spi_dac_value_index_65536_56:
+_mannual_spi_dac_value_index_65536_53:
 	.ds 2
-_mannual_spi_dac_data_65536_56:
+_mannual_spi_dac_data_65536_53:
 	.ds 2
-_bit_bang_spi_write_data_65536_66:
+_bit_bang_spi_write_data_65536_63:
 	.ds 2
-_spi_triangular_wave_number_65536_72:
+_spi_triangular_wave_number_65536_69:
 	.ds 2
-_spi_triangular_wave_dac_value_index_65536_73:
+_spi_triangular_wave_dac_value_index_65536_70:
 	.ds 2
-_spi_triangular_wave_dac_data_65536_73:
+_spi_triangular_wave_dac_data_65536_70:
 	.ds 2
-_spi_ramp_signal_number_65536_79:
+_spi_ramp_signal_number_65536_76:
 	.ds 2
-_spi_ramp_signal_dac_value_index_65536_80:
+_spi_ramp_signal_dac_value_index_65536_77:
 	.ds 2
-_spi_ramp_signal_dac_data_65536_80:
+_spi_ramp_signal_dac_data_65536_77:
 	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -845,10 +845,7 @@ _display_menu:
 ;------------------------------------------------------------
 ;user_input                Allocated with name '_main_user_input_131072_35'
 ;result                    Allocated with name '_main_result_196609_37'
-;result2                   Allocated with name '_main_result2_196610_38'
-;result3                   Allocated with name '_main_result3_262146_39'
-;result4                   Allocated with name '_main_result4_262146_40'
-;result5                   Allocated with name '_main_result5_262146_41'
+;result2                   Allocated with name '_main_result2_262146_39'
 ;------------------------------------------------------------
 ;	spi_and_bit_banging.c:255: int main(void)
 ;	-----------------------------------------
@@ -858,7 +855,7 @@ _main:
 ;	spi_and_bit_banging.c:257: display_menu();
 	lcall	_display_menu
 ;	spi_and_bit_banging.c:259: while(1)
-00111$:
+00106$:
 ;	spi_and_bit_banging.c:261: char user_input = getchar();
 	lcall	_getchar
 	mov	r6,dpl
@@ -891,30 +888,10 @@ _main:
 	dec	sp
 	pop	ar6
 ;	spi_and_bit_banging.c:264: switch(user_input)
-	cjne	r6,#0x3f,00147$
-	ljmp	00107$
-00147$:
-	cjne	r6,#0x42,00148$
+	cjne	r6,#0x42,00122$
 	sjmp	00102$
-00148$:
-	cjne	r6,#0x44,00149$
-	ljmp	00106$
-00149$:
-	cjne	r6,#0x4d,00150$
-	sjmp	00101$
-00150$:
-	cjne	r6,#0x52,00151$
-	ljmp	00105$
-00151$:
-	cjne	r6,#0x53,00152$
-	sjmp	00103$
-00152$:
-	cjne	r6,#0x54,00153$
-	sjmp	00104$
-00153$:
-	ljmp	00108$
-;	spi_and_bit_banging.c:266: case 'M':
-00101$:
+00122$:
+	cjne	r6,#0x4d,00103$
 ;	spi_and_bit_banging.c:267: spi_init();
 	lcall	_spi_init
 ;	spi_and_bit_banging.c:268: unsigned char result = take_data();
@@ -933,16 +910,16 @@ _main:
 	dec	sp
 	dec	sp
 ;	spi_and_bit_banging.c:271: break;
-	ljmp	00111$
 ;	spi_and_bit_banging.c:273: case 'B':
+	sjmp	00106$
 00102$:
-;	spi_and_bit_banging.c:274: bit_bang_spi_init();
+;	spi_and_bit_banging.c:276: bit_bang_spi_init();
 	lcall	_bit_bang_spi_init
-;	spi_and_bit_banging.c:275: unsigned char result2 = take_data();
+;	spi_and_bit_banging.c:277: unsigned char result2 = take_data();
 	lcall	_take_data
-;	spi_and_bit_banging.c:276: bit_bang_spi(result2);
+;	spi_and_bit_banging.c:278: bit_bang_spi(result2);
 	lcall	_bit_bang_spi
-;	spi_and_bit_banging.c:277: printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
+;	spi_and_bit_banging.c:279: printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
 	mov	a,#___str_17
 	push	acc
 	mov	a,#(___str_17 >> 8)
@@ -953,38 +930,11 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_and_bit_banging.c:278: spi_init();
-	lcall	_spi_init
-;	spi_and_bit_banging.c:279: break;
-	ljmp	00111$
-;	spi_and_bit_banging.c:281: case 'S':
+;	spi_and_bit_banging.c:281: break;
+	ljmp	00106$
+;	spi_and_bit_banging.c:321: default:
 00103$:
-;	spi_and_bit_banging.c:283: unsigned char result3 = take_data();
-	lcall	_take_data
-;	spi_and_bit_banging.c:284: mannual_spi(result3);
-	lcall	_mannual_spi
-;	spi_and_bit_banging.c:285: printf(">> SIN WAVE GENERATION COMPLETE\n\r");
-	mov	a,#___str_16
-	push	acc
-	mov	a,#(___str_16 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	spi_and_bit_banging.c:286: break;
-	ljmp	00111$
-;	spi_and_bit_banging.c:290: case 'T':
-00104$:
-;	spi_and_bit_banging.c:292: unsigned char result4 = take_data();
-	lcall	_take_data
-;	spi_and_bit_banging.c:293: spi_triangular_wave(result4);
-	mov	r6,#0x00
-	mov	dph,r6
-	lcall	_spi_triangular_wave
-;	spi_and_bit_banging.c:294: printf(">> TRIANGULAR WAVE GENERATION COMPLETE\n\r");
+;	spi_and_bit_banging.c:322: printf(">> INVALID INPUT\n\r");
 	mov	a,#___str_18
 	push	acc
 	mov	a,#(___str_18 >> 8)
@@ -995,17 +945,87 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_and_bit_banging.c:295: break;
-	ljmp	00111$
-;	spi_and_bit_banging.c:298: case 'R':
-00105$:
-;	spi_and_bit_banging.c:300: unsigned char result5 = take_data();
-	lcall	_take_data
-;	spi_and_bit_banging.c:301: spi_ramp_signal(result5);
-	mov	r6,#0x00
-	mov	dph,r6
+;	spi_and_bit_banging.c:327: }
+;	spi_and_bit_banging.c:329: }
+	ljmp	00106$
+;------------------------------------------------------------
+;Allocation info for local variables in function 'demo_mode'
+;------------------------------------------------------------
+;	spi_and_bit_banging.c:335: void demo_mode()
+;	-----------------------------------------
+;	 function demo_mode
+;	-----------------------------------------
+_demo_mode:
+;	spi_and_bit_banging.c:337: mannual_spi(7);
+	mov	dpl,#0x07
+	lcall	_mannual_spi
+;	spi_and_bit_banging.c:338: bit_bang_spi(7);
+	mov	dpl,#0x07
+	lcall	_bit_bang_spi
+;	spi_and_bit_banging.c:339: spi_ramp_signal(7);
+	mov	dptr,#0x0007
 	lcall	_spi_ramp_signal
-;	spi_and_bit_banging.c:302: printf(">> RAMP WAVE GENERATION COMPLETE\n\r");
+;	spi_and_bit_banging.c:340: spi_triangular_wave(7);
+	mov	dptr,#0x0007
+;	spi_and_bit_banging.c:341: }
+	ljmp	_spi_triangular_wave
+;------------------------------------------------------------
+;Allocation info for local variables in function 'bit_bang_spi'
+;------------------------------------------------------------
+;number                    Allocated with name '_bit_bang_spi_number_65536_41'
+;------------------------------------------------------------
+;	spi_and_bit_banging.c:347: void bit_bang_spi(unsigned char number)
+;	-----------------------------------------
+;	 function bit_bang_spi
+;	-----------------------------------------
+_bit_bang_spi:
+	mov	a,dpl
+	mov	dptr,#_bit_bang_spi_number_65536_41
+	movx	@dptr,a
+;	spi_and_bit_banging.c:349: while(number > 0)
+00101$:
+	mov	dptr,#_bit_bang_spi_number_65536_41
+	movx	a,@dptr
+	mov	r7,a
+	movx	a,@dptr
+	jz	00104$
+;	spi_and_bit_banging.c:351: bit_bang_spi_write(TEST_DATA);
+	mov	dptr,#0x1ff0
+	push	ar7
+	lcall	_bit_bang_spi_write
+;	spi_and_bit_banging.c:352: delay_ms(DELAY_PERIOD);
+	mov	dptr,#0x01f4
+	lcall	_delay_ms
+;	spi_and_bit_banging.c:353: bit_bang_spi_write(IDLE_DATA);
+	mov	dptr,#0x1000
+	lcall	_bit_bang_spi_write
+;	spi_and_bit_banging.c:354: delay_ms(DELAY_PERIOD);
+	mov	dptr,#0x01f4
+	lcall	_delay_ms
+	pop	ar7
+;	spi_and_bit_banging.c:355: number = number - 1;
+	mov	a,r7
+	dec	a
+	mov	dptr,#_bit_bang_spi_number_65536_41
+	movx	@dptr,a
+	sjmp	00101$
+00104$:
+;	spi_and_bit_banging.c:357: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'take_data'
+;------------------------------------------------------------
+;input                     Allocated with name '_take_data_input_65537_45'
+;i                         Allocated with name '_take_data_i_65537_45'
+;c                         Allocated with name '_take_data_c_65537_45'
+;data                      Allocated with name '_take_data_data_65538_49'
+;------------------------------------------------------------
+;	spi_and_bit_banging.c:358: unsigned char take_data()
+;	-----------------------------------------
+;	 function take_data
+;	-----------------------------------------
+_take_data:
+;	spi_and_bit_banging.c:360: printf("│ Enter number (hex, up to 2 characters): \n\r|");
 	mov	a,#___str_19
 	push	acc
 	mov	a,#(___str_19 >> 8)
@@ -1016,13 +1036,17 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_and_bit_banging.c:303: break;
-	ljmp	00111$
-;	spi_and_bit_banging.c:306: case 'D':
-00106$:
-;	spi_and_bit_banging.c:308: demo_mode();
-	lcall	_demo_mode
-;	spi_and_bit_banging.c:309: printf(">> DEMO COMPLETE\n\r");
+;	spi_and_bit_banging.c:361: char input[4] = {0};  // Array for 3 hex chars + null terminator
+	mov	dptr,#_take_data_input_65537_45
+	clr	a
+	movx	@dptr,a
+	mov	dptr,#(_take_data_input_65537_45 + 0x0001)
+	movx	@dptr,a
+	mov	dptr,#(_take_data_input_65537_45 + 0x0002)
+	movx	@dptr,a
+	mov	dptr,#(_take_data_input_65537_45 + 0x0003)
+	movx	@dptr,a
+;	spi_and_bit_banging.c:365: printf("$ ");
 	mov	a,#___str_20
 	push	acc
 	mov	a,#(___str_20 >> 8)
@@ -1033,140 +1057,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_and_bit_banging.c:310: break;
-	ljmp	00111$
-;	spi_and_bit_banging.c:312: case '?':
-00107$:
-;	spi_and_bit_banging.c:313: display_menu();
-	lcall	_display_menu
-;	spi_and_bit_banging.c:314: break;  
-	ljmp	00111$
-;	spi_and_bit_banging.c:316: default:
-00108$:
-;	spi_and_bit_banging.c:317: printf(">> INVALID INPUT\n\r");
-	mov	a,#___str_21
-	push	acc
-	mov	a,#(___str_21 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	spi_and_bit_banging.c:322: }
-;	spi_and_bit_banging.c:324: }
-	ljmp	00111$
-;------------------------------------------------------------
-;Allocation info for local variables in function 'demo_mode'
-;------------------------------------------------------------
-;	spi_and_bit_banging.c:330: void demo_mode()
-;	-----------------------------------------
-;	 function demo_mode
-;	-----------------------------------------
-_demo_mode:
-;	spi_and_bit_banging.c:332: mannual_spi(7);
-	mov	dpl,#0x07
-	lcall	_mannual_spi
-;	spi_and_bit_banging.c:333: bit_bang_spi(7);
-	mov	dpl,#0x07
-	lcall	_bit_bang_spi
-;	spi_and_bit_banging.c:334: spi_ramp_signal(7);
-	mov	dptr,#0x0007
-	lcall	_spi_ramp_signal
-;	spi_and_bit_banging.c:335: spi_triangular_wave(7);
-	mov	dptr,#0x0007
-;	spi_and_bit_banging.c:336: }
-	ljmp	_spi_triangular_wave
-;------------------------------------------------------------
-;Allocation info for local variables in function 'bit_bang_spi'
-;------------------------------------------------------------
-;number                    Allocated with name '_bit_bang_spi_number_65536_44'
-;------------------------------------------------------------
-;	spi_and_bit_banging.c:342: void bit_bang_spi(unsigned char number)
-;	-----------------------------------------
-;	 function bit_bang_spi
-;	-----------------------------------------
-_bit_bang_spi:
-	mov	a,dpl
-	mov	dptr,#_bit_bang_spi_number_65536_44
-	movx	@dptr,a
-;	spi_and_bit_banging.c:344: while(number > 0)
-00101$:
-	mov	dptr,#_bit_bang_spi_number_65536_44
-	movx	a,@dptr
-	mov	r7,a
-	movx	a,@dptr
-	jz	00104$
-;	spi_and_bit_banging.c:346: bit_bang_spi_write(TEST_DATA);
-	mov	dptr,#0x1ff0
-	push	ar7
-	lcall	_bit_bang_spi_write
-;	spi_and_bit_banging.c:347: delay_ms(DELAY_PERIOD);
-	mov	dptr,#0x01f4
-	lcall	_delay_ms
-;	spi_and_bit_banging.c:348: bit_bang_spi_write(IDLE_DATA);
-	mov	dptr,#0x1000
-	lcall	_bit_bang_spi_write
-;	spi_and_bit_banging.c:349: delay_ms(DELAY_PERIOD);
-	mov	dptr,#0x01f4
-	lcall	_delay_ms
-	pop	ar7
-;	spi_and_bit_banging.c:350: number = number - 1;
-	mov	a,r7
-	dec	a
-	mov	dptr,#_bit_bang_spi_number_65536_44
-	movx	@dptr,a
-	sjmp	00101$
-00104$:
-;	spi_and_bit_banging.c:352: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'take_data'
-;------------------------------------------------------------
-;input                     Allocated with name '_take_data_input_65537_48'
-;i                         Allocated with name '_take_data_i_65537_48'
-;c                         Allocated with name '_take_data_c_65537_48'
-;data                      Allocated with name '_take_data_data_65538_52'
-;------------------------------------------------------------
-;	spi_and_bit_banging.c:353: unsigned char take_data()
-;	-----------------------------------------
-;	 function take_data
-;	-----------------------------------------
-_take_data:
-;	spi_and_bit_banging.c:355: printf("│ Enter number (hex, up to 2 characters): \n\r|");
-	mov	a,#___str_22
-	push	acc
-	mov	a,#(___str_22 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	spi_and_bit_banging.c:356: char input[4] = {0};  // Array for 3 hex chars + null terminator
-	mov	dptr,#_take_data_input_65537_48
-	clr	a
-	movx	@dptr,a
-	mov	dptr,#(_take_data_input_65537_48 + 0x0001)
-	movx	@dptr,a
-	mov	dptr,#(_take_data_input_65537_48 + 0x0002)
-	movx	@dptr,a
-	mov	dptr,#(_take_data_input_65537_48 + 0x0003)
-	movx	@dptr,a
-;	spi_and_bit_banging.c:360: printf("$ ");
-	mov	a,#___str_23
-	push	acc
-	mov	a,#(___str_23 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	spi_and_bit_banging.c:362: while (i < 3) {
+;	spi_and_bit_banging.c:367: while (i < 3) {
 	mov	r6,#0x00
 	mov	r7,#0x00
 00111$:
@@ -1177,7 +1068,7 @@ _take_data:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00113$
-;	spi_and_bit_banging.c:364: c = getchar();
+;	spi_and_bit_banging.c:369: c = getchar();
 	push	ar7
 	push	ar6
 	lcall	_getchar
@@ -1185,14 +1076,14 @@ _take_data:
 	mov	r5,dph
 	pop	ar6
 	pop	ar7
-;	spi_and_bit_banging.c:367: if (c == '\r' || c == '\n') {
+;	spi_and_bit_banging.c:372: if (c == '\r' || c == '\n') {
 	cjne	r4,#0x0d,00194$
 	sjmp	00113$
 00194$:
 	cjne	r4,#0x0a,00195$
 	sjmp	00113$
 00195$:
-;	spi_and_bit_banging.c:372: if ((c >= '0' && c <= '9') ||
+;	spi_and_bit_banging.c:377: if ((c >= '0' && c <= '9') ||
 	cjne	r4,#0x30,00196$
 00196$:
 	jc	00108$
@@ -1200,7 +1091,7 @@ _take_data:
 	add	a,#0xff - 0x39
 	jnc	00104$
 00108$:
-;	spi_and_bit_banging.c:373: (c >= 'a' && c <= 'f') ||
+;	spi_and_bit_banging.c:378: (c >= 'a' && c <= 'f') ||
 	cjne	r4,#0x61,00199$
 00199$:
 	jc	00110$
@@ -1208,7 +1099,7 @@ _take_data:
 	add	a,#0xff - 0x66
 	jnc	00104$
 00110$:
-;	spi_and_bit_banging.c:374: (c >= 'A' && c <= 'F')) {
+;	spi_and_bit_banging.c:379: (c >= 'A' && c <= 'F')) {
 	cjne	r4,#0x41,00202$
 00202$:
 	jc	00111$
@@ -1216,16 +1107,16 @@ _take_data:
 	add	a,#0xff - 0x46
 	jc	00111$
 00104$:
-;	spi_and_bit_banging.c:376: input[i] = c;
+;	spi_and_bit_banging.c:381: input[i] = c;
 	mov	a,r6
-	add	a,#_take_data_input_65537_48
+	add	a,#_take_data_input_65537_45
 	mov	dpl,a
 	mov	a,r7
-	addc	a,#(_take_data_input_65537_48 >> 8)
+	addc	a,#(_take_data_input_65537_45 >> 8)
 	mov	dph,a
 	mov	a,r4
 	movx	@dptr,a
-;	spi_and_bit_banging.c:377: putchar(c);  // Echo character back
+;	spi_and_bit_banging.c:382: putchar(c);  // Echo character back
 	mov	r5,#0x00
 	mov	dpl,r4
 	mov	dph,r5
@@ -1234,70 +1125,70 @@ _take_data:
 	lcall	_putchar
 	pop	ar6
 	pop	ar7
-;	spi_and_bit_banging.c:378: i++;
+;	spi_and_bit_banging.c:383: i++;
 	inc	r6
 	cjne	r6,#0x00,00111$
 	inc	r7
 	sjmp	00111$
 00113$:
-;	spi_and_bit_banging.c:382: input[i] = '\0';  // Null-terminate the string
+;	spi_and_bit_banging.c:387: input[i] = '\0';  // Null-terminate the string
 	mov	a,r6
-	add	a,#_take_data_input_65537_48
+	add	a,#_take_data_input_65537_45
 	mov	dpl,a
 	mov	a,r7
-	addc	a,#(_take_data_input_65537_48 >> 8)
+	addc	a,#(_take_data_input_65537_45 >> 8)
 	mov	dph,a
 	clr	a
 	movx	@dptr,a
-;	spi_and_bit_banging.c:385: unsigned char data = 0;
-	mov	dptr,#_take_data_data_65538_52
+;	spi_and_bit_banging.c:390: unsigned char data = 0;
+	mov	dptr,#_take_data_data_65538_49
 	movx	@dptr,a
-;	spi_and_bit_banging.c:386: for (i = 0; input[i] != '\0'; i++) {
+;	spi_and_bit_banging.c:391: for (i = 0; input[i] != '\0'; i++) {
 	mov	r6,#0x00
 	mov	r7,#0x00
 00127$:
 	mov	a,r6
-	add	a,#_take_data_input_65537_48
+	add	a,#_take_data_input_65537_45
 	mov	dpl,a
 	mov	a,r7
-	addc	a,#(_take_data_input_65537_48 >> 8)
+	addc	a,#(_take_data_input_65537_45 >> 8)
 	mov	dph,a
 	movx	a,@dptr
 	mov	r5,a
 	jnz	00206$
 	ljmp	00125$
 00206$:
-;	spi_and_bit_banging.c:387: data = data * 16;
-	mov	dptr,#_take_data_data_65538_52
+;	spi_and_bit_banging.c:392: data = data * 16;
+	mov	dptr,#_take_data_data_65538_49
 	movx	a,@dptr
 	swap	a
 	anl	a,#0xf0
 	mov	r4,a
 	movx	@dptr,a
-;	spi_and_bit_banging.c:388: if (input[i] >= '0' && input[i] <= '9')
+;	spi_and_bit_banging.c:393: if (input[i] >= '0' && input[i] <= '9')
 	cjne	r5,#0x30,00207$
 00207$:
 	jc	00122$
 	mov	a,r5
 	add	a,#0xff - 0x39
 	jc	00122$
-;	spi_and_bit_banging.c:389: data += input[i] - '0';
+;	spi_and_bit_banging.c:394: data += input[i] - '0';
 	mov	a,r5
 	add	a,#0xd0
 	mov	r5,a
-	mov	dptr,#_take_data_data_65538_52
+	mov	dptr,#_take_data_data_65538_49
 	movx	a,@dptr
 	mov	r4,a
 	add	a,r5
 	movx	@dptr,a
 	sjmp	00128$
 00122$:
-;	spi_and_bit_banging.c:390: else if (input[i] >= 'A' && input[i] <= 'F')
+;	spi_and_bit_banging.c:395: else if (input[i] >= 'A' && input[i] <= 'F')
 	mov	a,r6
-	add	a,#_take_data_input_65537_48
+	add	a,#_take_data_input_65537_45
 	mov	dpl,a
 	mov	a,r7
-	addc	a,#(_take_data_input_65537_48 >> 8)
+	addc	a,#(_take_data_input_65537_45 >> 8)
 	mov	dph,a
 	movx	a,@dptr
 	mov	r5,a
@@ -1307,44 +1198,44 @@ _take_data:
 	mov	a,r5
 	add	a,#0xff - 0x46
 	jc	00118$
-;	spi_and_bit_banging.c:391: data += input[i] - 'A' + 10;
+;	spi_and_bit_banging.c:396: data += input[i] - 'A' + 10;
 	mov	ar4,r5
 	mov	a,#0xc9
 	add	a,r4
 	mov	r4,a
-	mov	dptr,#_take_data_data_65538_52
+	mov	dptr,#_take_data_data_65538_49
 	movx	a,@dptr
 	mov	r3,a
 	add	a,r4
 	movx	@dptr,a
 	sjmp	00128$
 00118$:
-;	spi_and_bit_banging.c:392: else if (input[i] >= 'a' && input[i] <= 'f')
+;	spi_and_bit_banging.c:397: else if (input[i] >= 'a' && input[i] <= 'f')
 	cjne	r5,#0x61,00213$
 00213$:
 	jc	00128$
 	mov	a,r5
 	add	a,#0xff - 0x66
 	jc	00128$
-;	spi_and_bit_banging.c:393: data += input[i] - 'a' + 10;
+;	spi_and_bit_banging.c:398: data += input[i] - 'a' + 10;
 	mov	a,#0xa9
 	add	a,r5
 	mov	r5,a
-	mov	dptr,#_take_data_data_65538_52
+	mov	dptr,#_take_data_data_65538_49
 	movx	a,@dptr
 	mov	r4,a
 	add	a,r5
 	movx	@dptr,a
 00128$:
-;	spi_and_bit_banging.c:386: for (i = 0; input[i] != '\0'; i++) {
+;	spi_and_bit_banging.c:391: for (i = 0; input[i] != '\0'; i++) {
 	inc	r6
 	cjne	r6,#0x00,00216$
 	inc	r7
 00216$:
 	ljmp	00127$
 00125$:
-;	spi_and_bit_banging.c:396: printf("\n\r│ Entered data: 0x%02X\n\r", data);
-	mov	dptr,#_take_data_data_65538_52
+;	spi_and_bit_banging.c:401: printf("\n\r│ Entered data: 0x%02X\n\r", data);
+	mov	dptr,#_take_data_data_65538_49
 	movx	a,@dptr
 	mov	r7,a
 	mov	r5,a
@@ -1352,9 +1243,9 @@ _take_data:
 	push	ar7
 	push	ar5
 	push	ar6
-	mov	a,#___str_24
+	mov	a,#___str_21
 	push	acc
-	mov	a,#(___str_24 >> 8)
+	mov	a,#(___str_21 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1363,47 +1254,47 @@ _take_data:
 	add	a,#0xfb
 	mov	sp,a
 	pop	ar7
-;	spi_and_bit_banging.c:403: return data;
+;	spi_and_bit_banging.c:408: return data;
 	mov	dpl,r7
-;	spi_and_bit_banging.c:405: }
+;	spi_and_bit_banging.c:410: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'mannual_spi'
 ;------------------------------------------------------------
-;number                    Allocated with name '_mannual_spi_number_65536_55'
-;dac_value_index           Allocated with name '_mannual_spi_dac_value_index_65536_56'
-;dac_data                  Allocated with name '_mannual_spi_dac_data_65536_56'
-;high_byte                 Allocated with name '_mannual_spi_high_byte_65536_56'
-;low_byte                  Allocated with name '_mannual_spi_low_byte_65536_56'
-;i                         Allocated with name '_mannual_spi_i_196608_58'
+;number                    Allocated with name '_mannual_spi_number_65536_52'
+;dac_value_index           Allocated with name '_mannual_spi_dac_value_index_65536_53'
+;dac_data                  Allocated with name '_mannual_spi_dac_data_65536_53'
+;high_byte                 Allocated with name '_mannual_spi_high_byte_65536_53'
+;low_byte                  Allocated with name '_mannual_spi_low_byte_65536_53'
+;i                         Allocated with name '_mannual_spi_i_196608_55'
 ;------------------------------------------------------------
-;	spi_and_bit_banging.c:407: void mannual_spi(unsigned char number)
+;	spi_and_bit_banging.c:412: void mannual_spi(unsigned char number)
 ;	-----------------------------------------
 ;	 function mannual_spi
 ;	-----------------------------------------
 _mannual_spi:
 	mov	a,dpl
-	mov	dptr,#_mannual_spi_number_65536_55
+	mov	dptr,#_mannual_spi_number_65536_52
 	movx	@dptr,a
-;	spi_and_bit_banging.c:409: int dac_value_index = 0;
-	mov	dptr,#_mannual_spi_dac_value_index_65536_56
+;	spi_and_bit_banging.c:414: int dac_value_index = 0;
+	mov	dptr,#_mannual_spi_dac_value_index_65536_53
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:410: int dac_data = 0;
-	mov	dptr,#_mannual_spi_dac_data_65536_56
+;	spi_and_bit_banging.c:415: int dac_data = 0;
+	mov	dptr,#_mannual_spi_dac_data_65536_53
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:412: while(number > 0)
+;	spi_and_bit_banging.c:417: while(number > 0)
 00111$:
-	mov	dptr,#_mannual_spi_number_65536_55
+	mov	dptr,#_mannual_spi_number_65536_52
 	movx	a,@dptr
 	jnz	00156$
 	ret
 00156$:
-;	spi_and_bit_banging.c:415: for(int i = 0; i<256; i++)
+;	spi_and_bit_banging.c:420: for(int i = 0; i<256; i++)
 	mov	r6,#0x00
 	mov	r7,#0x00
 00115$:
@@ -1414,8 +1305,8 @@ _mannual_spi:
 	jc	00157$
 	ljmp	00110$
 00157$:
-;	spi_and_bit_banging.c:418: if(dac_value_index < SINE_MAX_INDEX)
-	mov	dptr,#_mannual_spi_dac_value_index_65536_56
+;	spi_and_bit_banging.c:423: if(dac_value_index < SINE_MAX_INDEX)
+	mov	dptr,#_mannual_spi_dac_value_index_65536_53
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1425,7 +1316,7 @@ _mannual_spi:
 	xrl	a,#0x80
 	subb	a,#0x81
 	jnc	00102$
-;	spi_and_bit_banging.c:422: dac_data = dac_values[dac_value_index];
+;	spi_and_bit_banging.c:427: dac_data = dac_values[dac_value_index];
 	mov	a,r4
 	add	a,r4
 	mov	r4,a
@@ -1445,7 +1336,7 @@ _mannual_spi:
 	clr	a
 	movc	a,@a+dptr
 	mov	r5,a
-	mov	dptr,#_mannual_spi_dac_data_65536_56
+	mov	dptr,#_mannual_spi_dac_data_65536_53
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -1453,15 +1344,15 @@ _mannual_spi:
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	spi_and_bit_banging.c:426: dac_value_index = 0;  // Reset index for next cycle
-	mov	dptr,#_mannual_spi_dac_value_index_65536_56
+;	spi_and_bit_banging.c:431: dac_value_index = 0;  // Reset index for next cycle
+	mov	dptr,#_mannual_spi_dac_value_index_65536_53
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 00103$:
-;	spi_and_bit_banging.c:433: ((dac_data >> 4) & 0x0F);
-	mov	dptr,#_mannual_spi_dac_data_65536_56
+;	spi_and_bit_banging.c:438: ((dac_data >> 4) & 0x0F);
+	mov	dptr,#_mannual_spi_dac_data_65536_53
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1484,32 +1375,32 @@ _mannual_spi:
 	anl	a,r2
 	orl	a,#0x10
 	mov	r3,a
-;	spi_and_bit_banging.c:436: low_byte = (dac_data & 0x0F) << 4;
+;	spi_and_bit_banging.c:441: low_byte = (dac_data & 0x0F) << 4;
 	anl	ar4,#0x0f
 	mov	a,r4
 	swap	a
 	anl	a,#0xf0
 	mov	r5,a
-;	spi_and_bit_banging.c:440: P1_1 = 0;  // Select DAC
+;	spi_and_bit_banging.c:445: P1_1 = 0;  // Select DAC
 ;	assignBit
 	clr	_P1_1
-;	spi_and_bit_banging.c:443: SPDAT = high_byte;
+;	spi_and_bit_banging.c:448: SPDAT = high_byte;
 	mov	_SPDAT,r3
-;	spi_and_bit_banging.c:444: while (!(SPSTA & (1<<7))); 
+;	spi_and_bit_banging.c:449: while (!(SPSTA & (1<<7))); 
 00104$:
 	mov	a,_SPSTA
 	jnb	acc.7,00104$
-;	spi_and_bit_banging.c:448: SPDAT = low_byte;
+;	spi_and_bit_banging.c:453: SPDAT = low_byte;
 	mov	_SPDAT,r5
-;	spi_and_bit_banging.c:449: while (!(SPSTA & (1<<7))); 
+;	spi_and_bit_banging.c:454: while (!(SPSTA & (1<<7))); 
 00107$:
 	mov	a,_SPSTA
 	jnb	acc.7,00107$
-;	spi_and_bit_banging.c:451: P1_1 = 1;  // Deselect DAC
+;	spi_and_bit_banging.c:456: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
-;	spi_and_bit_banging.c:453: dac_value_index++;
-	mov	dptr,#_mannual_spi_dac_value_index_65536_56
+;	spi_and_bit_banging.c:458: dac_value_index++;
+	mov	dptr,#_mannual_spi_dac_value_index_65536_53
 	movx	a,@dptr
 	add	a,#0x01
 	movx	@dptr,a
@@ -1517,85 +1408,85 @@ _mannual_spi:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-;	spi_and_bit_banging.c:415: for(int i = 0; i<256; i++)
+;	spi_and_bit_banging.c:420: for(int i = 0; i<256; i++)
 	inc	r6
 	cjne	r6,#0x00,00162$
 	inc	r7
 00162$:
 	ljmp	00115$
 00110$:
-;	spi_and_bit_banging.c:456: number = number - 1;
-	mov	dptr,#_mannual_spi_number_65536_55
+;	spi_and_bit_banging.c:461: number = number - 1;
+	mov	dptr,#_mannual_spi_number_65536_52
 	movx	a,@dptr
 	mov	r7,a
 	dec	a
 	movx	@dptr,a
-;	spi_and_bit_banging.c:458: }
+;	spi_and_bit_banging.c:463: }
 	ljmp	00111$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_init'
 ;------------------------------------------------------------
-;	spi_and_bit_banging.c:469: void spi_init(void) 
+;	spi_and_bit_banging.c:474: void spi_init(void) 
 ;	-----------------------------------------
 ;	 function spi_init
 ;	-----------------------------------------
 _spi_init:
-;	spi_and_bit_banging.c:490: SPCON |= 0x10;
+;	spi_and_bit_banging.c:495: SPCON |= 0x10;
 	orl	_SPCON,#0x10
-;	spi_and_bit_banging.c:491: SPCON |= 0x20;
+;	spi_and_bit_banging.c:496: SPCON |= 0x20;
 	orl	_SPCON,#0x20
-;	spi_and_bit_banging.c:492: SPCON |= 0x40;
+;	spi_and_bit_banging.c:497: SPCON |= 0x40;
 	orl	_SPCON,#0x40
-;	spi_and_bit_banging.c:499: }
+;	spi_and_bit_banging.c:504: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'bit_bang_spi_init'
 ;------------------------------------------------------------
-;	spi_and_bit_banging.c:501: void bit_bang_spi_init(void) {
+;	spi_and_bit_banging.c:506: void bit_bang_spi_init(void) {
 ;	-----------------------------------------
 ;	 function bit_bang_spi_init
 ;	-----------------------------------------
 _bit_bang_spi_init:
-;	spi_and_bit_banging.c:502: SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
+;	spi_and_bit_banging.c:507: SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
 	mov	_SPCON,#0x00
-;	spi_and_bit_banging.c:503: SDA = DATA_HIGH;                 /* Set data line high */
+;	spi_and_bit_banging.c:508: SDA = DATA_HIGH;                 /* Set data line high */
 ;	assignBit
 	setb	_P1_7
-;	spi_and_bit_banging.c:504: SCL = CLOCK_LOW;                 /* Set clock line low */
+;	spi_and_bit_banging.c:509: SCL = CLOCK_LOW;                 /* Set clock line low */
 ;	assignBit
 	clr	_P1_6
-;	spi_and_bit_banging.c:505: SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
+;	spi_and_bit_banging.c:510: SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
 ;	assignBit
 	setb	_P1_1
-;	spi_and_bit_banging.c:506: }
+;	spi_and_bit_banging.c:511: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'bit_bang_spi_write'
 ;------------------------------------------------------------
-;data                      Allocated with name '_bit_bang_spi_write_data_65536_66'
-;i                         Allocated with name '_bit_bang_spi_write_i_65536_67'
+;data                      Allocated with name '_bit_bang_spi_write_data_65536_63'
+;i                         Allocated with name '_bit_bang_spi_write_i_65536_64'
 ;------------------------------------------------------------
-;	spi_and_bit_banging.c:508: int bit_bang_spi_write(uint16_t data) {
+;	spi_and_bit_banging.c:513: int bit_bang_spi_write(uint16_t data) {
 ;	-----------------------------------------
 ;	 function bit_bang_spi_write
 ;	-----------------------------------------
 _bit_bang_spi_write:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_bit_bang_spi_write_data_65536_66
+	mov	dptr,#_bit_bang_spi_write_data_65536_63
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:511: SS = SLAVE_SELECT_ACTIVE;        /* Assert slave select (active low) */
+;	spi_and_bit_banging.c:516: SS = SLAVE_SELECT_ACTIVE;        /* Assert slave select (active low) */
 ;	assignBit
 	clr	_P1_1
-;	spi_and_bit_banging.c:514: for(i = 0; i < SPI_DATA_WIDTH; i++) {
+;	spi_and_bit_banging.c:519: for(i = 0; i < SPI_DATA_WIDTH; i++) {
 	mov	r6,#0x00
 	mov	r7,#0x00
 00102$:
-;	spi_and_bit_banging.c:515: SDA = (data & MSB_FIRST_MASK) ? DATA_HIGH : DATA_LOW;    /* MSB first */
-	mov	dptr,#_bit_bang_spi_write_data_65536_66
+;	spi_and_bit_banging.c:520: SDA = (data & MSB_FIRST_MASK) ? DATA_HIGH : DATA_LOW;    /* MSB first */
+	mov	dptr,#_bit_bang_spi_write_data_65536_63
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1605,26 +1496,26 @@ _bit_bang_spi_write:
 	anl	a,#0x01
 	add	a,#0xff
 	mov	_P1_7,c
-;	spi_and_bit_banging.c:516: SCL = CLOCK_HIGH;            /* Clock high */
+;	spi_and_bit_banging.c:521: SCL = CLOCK_HIGH;            /* Clock high */
 ;	assignBit
 	setb	_P1_6
-;	spi_and_bit_banging.c:517: SCL = CLOCK_LOW;             /* Clock low */
+;	spi_and_bit_banging.c:522: SCL = CLOCK_LOW;             /* Clock low */
 ;	assignBit
 	clr	_P1_6
-;	spi_and_bit_banging.c:518: data <<= 1;                  /* Shift to next bit */
+;	spi_and_bit_banging.c:523: data <<= 1;                  /* Shift to next bit */
 	mov	a,r4
 	add	a,r4
 	mov	r4,a
 	mov	a,r5
 	rlc	a
 	mov	r5,a
-	mov	dptr,#_bit_bang_spi_write_data_65536_66
+	mov	dptr,#_bit_bang_spi_write_data_65536_63
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:514: for(i = 0; i < SPI_DATA_WIDTH; i++) {
+;	spi_and_bit_banging.c:519: for(i = 0; i < SPI_DATA_WIDTH; i++) {
 	inc	r6
 	cjne	r6,#0x00,00115$
 	inc	r7
@@ -1635,69 +1526,69 @@ _bit_bang_spi_write:
 	mov	a,r7
 	subb	a,#0x00
 	jc	00102$
-;	spi_and_bit_banging.c:522: SS = SLAVE_SELECT_INACTIVE;      /* Deassert slave select */
+;	spi_and_bit_banging.c:527: SS = SLAVE_SELECT_INACTIVE;      /* Deassert slave select */
 ;	assignBit
 	setb	_P1_1
-;	spi_and_bit_banging.c:523: SCL = CLOCK_LOW;                 /* Clock low */
+;	spi_and_bit_banging.c:528: SCL = CLOCK_LOW;                 /* Clock low */
 ;	assignBit
 	clr	_P1_6
-;	spi_and_bit_banging.c:524: SDA = DATA_HIGH;                 /* Data high */
+;	spi_and_bit_banging.c:529: SDA = DATA_HIGH;                 /* Data high */
 ;	assignBit
 	setb	_P1_7
-;	spi_and_bit_banging.c:526: return 0;
+;	spi_and_bit_banging.c:531: return 0;
 	mov	dptr,#0x0000
-;	spi_and_bit_banging.c:527: }
+;	spi_and_bit_banging.c:532: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_start'
 ;------------------------------------------------------------
-;	spi_and_bit_banging.c:534: void spi_transmission_start(void)
+;	spi_and_bit_banging.c:539: void spi_transmission_start(void)
 ;	-----------------------------------------
 ;	 function spi_transmission_start
 ;	-----------------------------------------
 _spi_transmission_start:
-;	spi_and_bit_banging.c:536: SPCON |= SPI_ENABLE;           // Enable SPI
+;	spi_and_bit_banging.c:541: SPCON |= SPI_ENABLE;           // Enable SPI
 	orl	_SPCON,#0x40
-;	spi_and_bit_banging.c:537: P1_1 = 0;
+;	spi_and_bit_banging.c:542: P1_1 = 0;
 ;	assignBit
 	clr	_P1_1
-;	spi_and_bit_banging.c:538: }
+;	spi_and_bit_banging.c:543: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_triangular_wave'
 ;------------------------------------------------------------
-;number                    Allocated with name '_spi_triangular_wave_number_65536_72'
-;dac_value_index           Allocated with name '_spi_triangular_wave_dac_value_index_65536_73'
-;dac_data                  Allocated with name '_spi_triangular_wave_dac_data_65536_73'
-;high_byte                 Allocated with name '_spi_triangular_wave_high_byte_65536_73'
-;low_byte                  Allocated with name '_spi_triangular_wave_low_byte_65536_73'
-;i                         Allocated with name '_spi_triangular_wave_i_196608_75'
+;number                    Allocated with name '_spi_triangular_wave_number_65536_69'
+;dac_value_index           Allocated with name '_spi_triangular_wave_dac_value_index_65536_70'
+;dac_data                  Allocated with name '_spi_triangular_wave_dac_data_65536_70'
+;high_byte                 Allocated with name '_spi_triangular_wave_high_byte_65536_70'
+;low_byte                  Allocated with name '_spi_triangular_wave_low_byte_65536_70'
+;i                         Allocated with name '_spi_triangular_wave_i_196608_72'
 ;------------------------------------------------------------
-;	spi_and_bit_banging.c:540: void spi_triangular_wave(int number)
+;	spi_and_bit_banging.c:545: void spi_triangular_wave(int number)
 ;	-----------------------------------------
 ;	 function spi_triangular_wave
 ;	-----------------------------------------
 _spi_triangular_wave:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_spi_triangular_wave_number_65536_72
+	mov	dptr,#_spi_triangular_wave_number_65536_69
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:542: int dac_value_index = 0;
-	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_73
+;	spi_and_bit_banging.c:547: int dac_value_index = 0;
+	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:543: int dac_data = 0;
-	mov	dptr,#_spi_triangular_wave_dac_data_65536_73
+;	spi_and_bit_banging.c:548: int dac_data = 0;
+	mov	dptr,#_spi_triangular_wave_dac_data_65536_70
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:545: while(number>0)
-	mov	dptr,#_spi_triangular_wave_number_65536_72
+;	spi_and_bit_banging.c:550: while(number>0)
+	mov	dptr,#_spi_triangular_wave_number_65536_69
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -1714,7 +1605,7 @@ _spi_triangular_wave:
 	jc	00157$
 	ljmp	00129$
 00157$:
-;	spi_and_bit_banging.c:547: for(int i = 0; i<512; i++)
+;	spi_and_bit_banging.c:552: for(int i = 0; i<512; i++)
 	mov	r4,#0x00
 	mov	r5,#0x00
 00115$:
@@ -1725,8 +1616,8 @@ _spi_triangular_wave:
 	jc	00158$
 	ljmp	00110$
 00158$:
-;	spi_and_bit_banging.c:550: if(dac_value_index < 512)
-	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_73
+;	spi_and_bit_banging.c:555: if(dac_value_index < 512)
+	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
 	movx	a,@dptr
 	mov	r2,a
 	inc	dptr
@@ -1736,7 +1627,7 @@ _spi_triangular_wave:
 	xrl	a,#0x80
 	subb	a,#0x82
 	jnc	00102$
-;	spi_and_bit_banging.c:554: dac_data = trig_dac_values[dac_value_index];
+;	spi_and_bit_banging.c:559: dac_data = trig_dac_values[dac_value_index];
 	mov	a,r2
 	add	a,r2
 	mov	r2,a
@@ -1756,7 +1647,7 @@ _spi_triangular_wave:
 	clr	a
 	movc	a,@a+dptr
 	mov	r3,a
-	mov	dptr,#_spi_triangular_wave_dac_data_65536_73
+	mov	dptr,#_spi_triangular_wave_dac_data_65536_70
 	mov	a,r2
 	movx	@dptr,a
 	mov	a,r3
@@ -1764,15 +1655,15 @@ _spi_triangular_wave:
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	spi_and_bit_banging.c:558: dac_value_index = 0;  // Reset index for next cycle
-	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_73
+;	spi_and_bit_banging.c:563: dac_value_index = 0;  // Reset index for next cycle
+	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 00103$:
-;	spi_and_bit_banging.c:565: ((dac_data >> 4) & 0x0F);
-	mov	dptr,#_spi_triangular_wave_dac_data_65536_73
+;	spi_and_bit_banging.c:570: ((dac_data >> 4) & 0x0F);
+	mov	dptr,#_spi_triangular_wave_dac_data_65536_70
 	movx	a,@dptr
 	mov	r2,a
 	inc	dptr
@@ -1795,32 +1686,32 @@ _spi_triangular_wave:
 	anl	a,r0
 	orl	a,#0x10
 	mov	r1,a
-;	spi_and_bit_banging.c:568: low_byte = (dac_data & 0x0F) << 4;
+;	spi_and_bit_banging.c:573: low_byte = (dac_data & 0x0F) << 4;
 	anl	ar2,#0x0f
 	mov	a,r2
 	swap	a
 	anl	a,#0xf0
 	mov	r3,a
-;	spi_and_bit_banging.c:572: P1_1 = 0;  // Select DAC
+;	spi_and_bit_banging.c:577: P1_1 = 0;  // Select DAC
 ;	assignBit
 	clr	_P1_1
-;	spi_and_bit_banging.c:575: SPDAT = high_byte;
+;	spi_and_bit_banging.c:580: SPDAT = high_byte;
 	mov	_SPDAT,r1
-;	spi_and_bit_banging.c:576: while (!(SPSTA & (1<<7))); 
+;	spi_and_bit_banging.c:581: while (!(SPSTA & (1<<7))); 
 00104$:
 	mov	a,_SPSTA
 	jnb	acc.7,00104$
-;	spi_and_bit_banging.c:580: SPDAT = low_byte;
+;	spi_and_bit_banging.c:585: SPDAT = low_byte;
 	mov	_SPDAT,r3
-;	spi_and_bit_banging.c:581: while (!(SPSTA & (1<<7))); 
+;	spi_and_bit_banging.c:586: while (!(SPSTA & (1<<7))); 
 00107$:
 	mov	a,_SPSTA
 	jnb	acc.7,00107$
-;	spi_and_bit_banging.c:583: P1_1 = 1;  // Deselect DAC
+;	spi_and_bit_banging.c:588: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
-;	spi_and_bit_banging.c:585: dac_value_index++;
-	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_73
+;	spi_and_bit_banging.c:590: dac_value_index++;
+	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
 	movx	a,@dptr
 	add	a,#0x01
 	movx	@dptr,a
@@ -1828,19 +1719,19 @@ _spi_triangular_wave:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-;	spi_and_bit_banging.c:547: for(int i = 0; i<512; i++)
+;	spi_and_bit_banging.c:552: for(int i = 0; i<512; i++)
 	inc	r4
 	cjne	r4,#0x00,00163$
 	inc	r5
 00163$:
 	ljmp	00115$
 00110$:
-;	spi_and_bit_banging.c:588: number = number - 1;
+;	spi_and_bit_banging.c:593: number = number - 1;
 	dec	r6
 	cjne	r6,#0xff,00164$
 	dec	r7
 00164$:
-	mov	dptr,#_spi_triangular_wave_number_65536_72
+	mov	dptr,#_spi_triangular_wave_number_65536_69
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
@@ -1848,49 +1739,49 @@ _spi_triangular_wave:
 	movx	@dptr,a
 	ljmp	00111$
 00129$:
-	mov	dptr,#_spi_triangular_wave_number_65536_72
+	mov	dptr,#_spi_triangular_wave_number_65536_69
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:591: }
+;	spi_and_bit_banging.c:596: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_ramp_signal'
 ;------------------------------------------------------------
-;number                    Allocated with name '_spi_ramp_signal_number_65536_79'
-;dac_value_index           Allocated with name '_spi_ramp_signal_dac_value_index_65536_80'
-;dac_data                  Allocated with name '_spi_ramp_signal_dac_data_65536_80'
-;high_byte                 Allocated with name '_spi_ramp_signal_high_byte_65536_80'
-;low_byte                  Allocated with name '_spi_ramp_signal_low_byte_65536_80'
-;i                         Allocated with name '_spi_ramp_signal_i_196608_82'
+;number                    Allocated with name '_spi_ramp_signal_number_65536_76'
+;dac_value_index           Allocated with name '_spi_ramp_signal_dac_value_index_65536_77'
+;dac_data                  Allocated with name '_spi_ramp_signal_dac_data_65536_77'
+;high_byte                 Allocated with name '_spi_ramp_signal_high_byte_65536_77'
+;low_byte                  Allocated with name '_spi_ramp_signal_low_byte_65536_77'
+;i                         Allocated with name '_spi_ramp_signal_i_196608_79'
 ;------------------------------------------------------------
-;	spi_and_bit_banging.c:593: void spi_ramp_signal(int number)
+;	spi_and_bit_banging.c:598: void spi_ramp_signal(int number)
 ;	-----------------------------------------
 ;	 function spi_ramp_signal
 ;	-----------------------------------------
 _spi_ramp_signal:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_spi_ramp_signal_number_65536_79
+	mov	dptr,#_spi_ramp_signal_number_65536_76
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:595: int dac_value_index = 0;
-	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_80
+;	spi_and_bit_banging.c:600: int dac_value_index = 0;
+	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:596: int dac_data = 0;
-	mov	dptr,#_spi_ramp_signal_dac_data_65536_80
+;	spi_and_bit_banging.c:601: int dac_data = 0;
+	mov	dptr,#_spi_ramp_signal_dac_data_65536_77
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:598: while(number>0)
-	mov	dptr,#_spi_ramp_signal_number_65536_79
+;	spi_and_bit_banging.c:603: while(number>0)
+	mov	dptr,#_spi_ramp_signal_number_65536_76
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -1907,7 +1798,7 @@ _spi_ramp_signal:
 	jc	00157$
 	ljmp	00129$
 00157$:
-;	spi_and_bit_banging.c:600: for(int i = 0; i<256; i++)
+;	spi_and_bit_banging.c:605: for(int i = 0; i<256; i++)
 	mov	r4,#0x00
 	mov	r5,#0x00
 00115$:
@@ -1918,8 +1809,8 @@ _spi_ramp_signal:
 	jc	00158$
 	ljmp	00110$
 00158$:
-;	spi_and_bit_banging.c:603: if(dac_value_index < 256)
-	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_80
+;	spi_and_bit_banging.c:608: if(dac_value_index < 256)
+	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
 	movx	a,@dptr
 	mov	r2,a
 	inc	dptr
@@ -1929,7 +1820,7 @@ _spi_ramp_signal:
 	xrl	a,#0x80
 	subb	a,#0x81
 	jnc	00102$
-;	spi_and_bit_banging.c:607: dac_data = trig_dac_values[dac_value_index];
+;	spi_and_bit_banging.c:612: dac_data = trig_dac_values[dac_value_index];
 	mov	a,r2
 	add	a,r2
 	mov	r2,a
@@ -1949,7 +1840,7 @@ _spi_ramp_signal:
 	clr	a
 	movc	a,@a+dptr
 	mov	r3,a
-	mov	dptr,#_spi_ramp_signal_dac_data_65536_80
+	mov	dptr,#_spi_ramp_signal_dac_data_65536_77
 	mov	a,r2
 	movx	@dptr,a
 	mov	a,r3
@@ -1957,15 +1848,15 @@ _spi_ramp_signal:
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	spi_and_bit_banging.c:611: dac_value_index = 0;  // Reset index for next cycle
-	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_80
+;	spi_and_bit_banging.c:616: dac_value_index = 0;  // Reset index for next cycle
+	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 00103$:
-;	spi_and_bit_banging.c:618: ((dac_data >> 4) & 0x0F);
-	mov	dptr,#_spi_ramp_signal_dac_data_65536_80
+;	spi_and_bit_banging.c:623: ((dac_data >> 4) & 0x0F);
+	mov	dptr,#_spi_ramp_signal_dac_data_65536_77
 	movx	a,@dptr
 	mov	r2,a
 	inc	dptr
@@ -1988,32 +1879,32 @@ _spi_ramp_signal:
 	anl	a,r0
 	orl	a,#0x10
 	mov	r1,a
-;	spi_and_bit_banging.c:621: low_byte = (dac_data & 0x0F) << 4;
+;	spi_and_bit_banging.c:626: low_byte = (dac_data & 0x0F) << 4;
 	anl	ar2,#0x0f
 	mov	a,r2
 	swap	a
 	anl	a,#0xf0
 	mov	r3,a
-;	spi_and_bit_banging.c:625: P1_1 = 0;  // Select DAC
+;	spi_and_bit_banging.c:630: P1_1 = 0;  // Select DAC
 ;	assignBit
 	clr	_P1_1
-;	spi_and_bit_banging.c:628: SPDAT = high_byte;
+;	spi_and_bit_banging.c:633: SPDAT = high_byte;
 	mov	_SPDAT,r1
-;	spi_and_bit_banging.c:629: while (!(SPSTA & (1<<7))); 
+;	spi_and_bit_banging.c:634: while (!(SPSTA & (1<<7))); 
 00104$:
 	mov	a,_SPSTA
 	jnb	acc.7,00104$
-;	spi_and_bit_banging.c:633: SPDAT = low_byte;
+;	spi_and_bit_banging.c:638: SPDAT = low_byte;
 	mov	_SPDAT,r3
-;	spi_and_bit_banging.c:634: while (!(SPSTA & (1<<7))); 
+;	spi_and_bit_banging.c:639: while (!(SPSTA & (1<<7))); 
 00107$:
 	mov	a,_SPSTA
 	jnb	acc.7,00107$
-;	spi_and_bit_banging.c:636: P1_1 = 1;  // Deselect DAC
+;	spi_and_bit_banging.c:641: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
-;	spi_and_bit_banging.c:638: dac_value_index++;
-	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_80
+;	spi_and_bit_banging.c:643: dac_value_index++;
+	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
 	movx	a,@dptr
 	add	a,#0x01
 	movx	@dptr,a
@@ -2021,19 +1912,19 @@ _spi_ramp_signal:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-;	spi_and_bit_banging.c:600: for(int i = 0; i<256; i++)
+;	spi_and_bit_banging.c:605: for(int i = 0; i<256; i++)
 	inc	r4
 	cjne	r4,#0x00,00163$
 	inc	r5
 00163$:
 	ljmp	00115$
 00110$:
-;	spi_and_bit_banging.c:641: number = number - 1;
+;	spi_and_bit_banging.c:646: number = number - 1;
 	dec	r6
 	cjne	r6,#0xff,00164$
 	dec	r7
 00164$:
-	mov	dptr,#_spi_ramp_signal_number_65536_79
+	mov	dptr,#_spi_ramp_signal_number_65536_76
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
@@ -2041,13 +1932,13 @@ _spi_ramp_signal:
 	movx	@dptr,a
 	ljmp	00111$
 00129$:
-	mov	dptr,#_spi_ramp_signal_number_65536_79
+	mov	dptr,#_spi_ramp_signal_number_65536_76
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_and_bit_banging.c:644: }
+;	spi_and_bit_banging.c:649: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -3783,34 +3674,13 @@ ___str_17:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_18:
-	.ascii ">> TRIANGULAR WAVE GENERATION COMPLETE"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_19:
-	.ascii ">> RAMP WAVE GENERATION COMPLETE"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_20:
-	.ascii ">> DEMO COMPLETE"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_21:
 	.ascii ">> INVALID INPUT"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_22:
+___str_19:
 	.db 0xe2
 	.db 0x94
 	.db 0x82
@@ -3821,12 +3691,12 @@ ___str_22:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_23:
+___str_20:
 	.ascii "$ "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_24:
+___str_21:
 	.db 0x0a
 	.db 0x0d
 	.db 0xe2

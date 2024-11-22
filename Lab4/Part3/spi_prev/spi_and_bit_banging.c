@@ -271,47 +271,52 @@ int main(void)
                     break;
                     
                 case 'B':
+                {
+                
                     bit_bang_spi_init();
                     unsigned char result2 = take_data();
                     bit_bang_spi(result2);
                     printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
-                    spi_init();
-                    break;
                     
-                case 'S':
-                {
-                    unsigned char result3 = take_data();
-                    mannual_spi(result3);
-                    printf(">> SIN WAVE GENERATION COMPLETE\n\r");
                     break;
                 }
+                    
+                // case 'S':
+                // {
+                //     spi_init();
+                //     unsigned char result3 = take_data();
+                //     mannual_spi(result3);
+                //     printf(">> SIN WAVE GENERATION COMPLETE\n\r");
+                //     break;
+                // }
 
                     
-                case 'T':
-                {
-                    unsigned char result4 = take_data();
-                    spi_triangular_wave(result4);
-                    printf(">> TRIANGULAR WAVE GENERATION COMPLETE\n\r");
-                    break;
-                }
+                // case 'T':
+                // {
+                //     spi_init();
+                //     unsigned char result4 = take_data();
+                //     spi_triangular_wave(result4);
+                //     printf(">> TRIANGULAR WAVE GENERATION COMPLETE\n\r");
+                //     break;
+                // }
                     
-                case 'R':
-                {
-                    unsigned char result5 = take_data();
-                    spi_ramp_signal(result5);
-                    printf(">> RAMP WAVE GENERATION COMPLETE\n\r");
-                    break;
-                }
+                // case 'R':
+                // {
+                //     unsigned char result5 = take_data();
+                //     spi_ramp_signal(result5);
+                //     printf(">> RAMP WAVE GENERATION COMPLETE\n\r");
+                //     break;
+                // }
                     
-                case 'D':
-                {
-                    demo_mode();
-                    printf(">> DEMO COMPLETE\n\r");
-                    break;
-                }
-                case '?':
-                    display_menu();
-                    break;  
+                // case 'D':
+                // {
+                //     demo_mode();
+                //     printf(">> DEMO COMPLETE\n\r");
+                //     break;
+                // }
+                // case '?':
+                //     display_menu();
+                //     break;  
                 
                 default:
                     printf(">> INVALID INPUT\n\r");
