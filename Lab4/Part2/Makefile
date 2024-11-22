@@ -1,51 +1,57 @@
-################################################################################
-# GNU makefile for SDCC
-# File Name: makefile
-# Only the targets which apply will be processed by GNU make.
-# To create the file 'prog.hex' using GNU make, execute 'make prog.hex'.
-# Note: GNU make requires a special format for the makefile:
-#       A tab character must be at the beginning of every command line!
-################################################################################
+ # ---------------------------------------------------------------------------------
+ # Induja Narayanan 
+ # ECEN 5613 - Fall 2024
+ # University of Colorado Boulder
+ # Revised 10/10/2024
+ #  --------------------------------------------------------------------------------
+ # This file 
+ # 1) Builds the component with sdcc
+ # 2) Cleans the component
+ # ---------------------------------------------------------------------------------
+# Define the code location
+ifndef CODE_LOC
+CODE_LOC = 0x2000
+endif
+
+ifndef HEAP_SIZE
+HEAP_SIZE = 0x1400
+endif
+
+ifndef CODE_SIZE
+CODE_SIZE = 0x8000
+endif
+
+ifndef XRAM_LOC
+XRAM_LOC = 0x0400
+endif
+
+ifndef XRAM_SIZE
+XRAM_SIZE = 0x7BFF
+endif
+
+# Define the output directory and target
+TARGET = lcd_demo.hex
+SRC = $(wildcard src/*.c)
+INC = inc
+
+# Object files derived from source files
+OBJS = $(SRC:src/%.c=%.rel)
 
 # Default target
-all: prog.hex
+all: $(TARGET)
 
-# Define your variables
-SRC = trial2.c
-OBJ = $(SRC:.c=.rel)
-HEX = prog.hex
-IHX = $(SRC:.c=.ihx)
+# Rule to compile _heap.c with the specified heap size
+_heap.rel: _heap.c
+	sdcc _heap.c -c -mmcs51 --model-large --std-sdcc99  -mmcs51 --verbose -D HEAP_SIZE=$(HEAP_SIZE) -o $@
 
-# Basic git operations
-git-add:
-	git add .
+# Rule to create the target from object files
+$(TARGET): $(OBJS) _heap.rel
+	sdcc _heap.rel -DDEBUG  -mmcs51 --code-loc $(CODE_LOC) --code-size $(CODE_SIZE) --xram-loc $(XRAM_LOC) --xram-size $(XRAM_SIZE) --verbose --model-large --out-fmt-ihx -o $@ $(OBJS)
 
-# Commit with a message (usage: make git-commit m="your message")
-git-commit:
-	@if [ "$(m)" = "" ]; then \
-		echo "Please provide a commit message using m=\"your message\""; \
-		exit 1; \
-	else \
-		git commit -m "$(m)"; \
-	fi
+# Rule to compile .c files into .rel files
+%.rel: src/%.c
+	sdcc $< -c -mmcs51 -DDEBUG --model-large  -mmcs51 --std-sdcc99 --verbose -I$(INC) -o $@
 
-# Push to current branch
-git-push:
-	git push origin $$(git rev-parse --abbrev-ref HEAD)
-
-# Combined target for all operations (usage: make git-all m="your message")
-git-all: git-add git-commit git-push
-
-# Compile phase
-$(OBJ): $(SRC)
-	sdcc -I/home/bhakti/Downloads/sdcc/share/sdcc/include -c -mmcs51 --std-sdcc99 --verbose --model-large $<
-
-# Link phase
-$(HEX): $(OBJ)
-	sdcc --code-loc 0x3000 --code-size 0x8000 --xram-loc 0x0400 --xram-size 0x7BFF --model-large --out-fmt-ihx $(OBJ)
-	packihx $(IHX) > $(HEX)
-
-# Clean generated files
+# Clean target to remove generated files
 clean:
-	rm -f *.rel *.lst *.rst *.hex *.mem *.map *.sym *.lnk *.ihx *.asm *.lk
-
+	rm -f $(OBJS) $(TARGET) *.mem *.map *.sym *.asm *.lst *.rst *.lk *.rel *.hex

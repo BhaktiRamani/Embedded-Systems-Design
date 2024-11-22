@@ -1,0 +1,28 @@
+Name     LAB4 ;
+PartNo   00 ;
+Date     11/21/2024 ;
+Revision 01 ;
+Designer Engineer ;
+Company  University of Colorado Boulder ;
+Assembly None ;
+Location  ;
+Device   g16v8 ;
+
+
+
+
+/* *************** INPUT PINS *********************/
+PIN  2   = A15                        ; /*                                 */ 
+PIN  6   = WR                        ; /*                                 */ 
+PIN  7   = RD                        ; /*                                 */ 
+
+/* *************** OUTPUT PINS *********************/
+PIN  12   =  CE                       ; /*                                 */ 
+PIN  13   =  OE                       ; /*                                 */ 
+PIN  14   =  WE                       ; /*                                 */ 
+PIN  17   =  LCD_ENABLE                       ; /*                                 */ 
+
+CE = A15;
+OE = RD;
+WE = WR;
+LCD_ENABLE = !(RD & WR)& A15;

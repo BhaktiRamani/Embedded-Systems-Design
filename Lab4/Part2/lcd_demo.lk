@@ -1,10 +1,10 @@
 -muwx
--i trial2.ihx
+-i lcd_demo.hex
 -M
 -Y
 -X 0x7bff
 -C 0x8000
--b HOME = 0x3000
+-b HOME = 0x2000
 -b XSEG = 0x0400
 -b PSEG = 0x0400
 -b ISEG = 0x0000
@@ -16,6 +16,11 @@
 -l libint
 -l liblong
 -l libfloat
-trial2.rel
+_heap.rel
+command_handlers.rel
+getchar_putchar.rel
+lcd.rel
+main.rel
+timer.rel
 
 -e
