@@ -254,7 +254,7 @@ void display_menu(void) {
 void demo_mode();
 int main(void)
 {
-    display_menu();
+  display_menu();
     
   while(1)
   {
@@ -276,32 +276,42 @@ int main(void)
                     bit_bang_spi(result2);
                     printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
                     spi_init();
+                    break;
                     
                 case 'S':
+                {
                     unsigned char result3 = take_data();
                     mannual_spi(result3);
                     printf(">> SIN WAVE GENERATION COMPLETE\n\r");
+                    break;
+                }
+
                     
                 case 'T':
+                {
                     unsigned char result4 = take_data();
                     spi_triangular_wave(result4);
                     printf(">> TRIANGULAR WAVE GENERATION COMPLETE\n\r");
                     break;
+                }
                     
                 case 'R':
+                {
                     unsigned char result5 = take_data();
                     spi_ramp_signal(result5);
                     printf(">> RAMP WAVE GENERATION COMPLETE\n\r");
                     break;
+                }
                     
                 case 'D':
+                {
                     demo_mode();
                     printf(">> DEMO COMPLETE\n\r");
                     break;
+                }
                 case '?':
                     display_menu();
-                    break;
-                    
+                    break;  
                 
                 default:
                     printf(">> INVALID INPUT\n\r");
@@ -310,6 +320,7 @@ int main(void)
                 
                     
       }
+    }
   }
 
 
@@ -326,7 +337,7 @@ void demo_mode()
 
 
 
-}
+
 
 void bit_bang_spi(unsigned char number)
 {
