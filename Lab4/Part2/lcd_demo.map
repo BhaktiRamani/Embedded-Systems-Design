@@ -72,7 +72,7 @@ C:   000000D5  l_SSEG
 C:   00000100  l_IRAM                          
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
-C:   0000145B  l_CONST                         
+C:   00001478  l_CONST                         
 C:   00001587  l_XSEG                          
 C:   00001987  s_XISEG                         
 C:   00002000  s_HOME                          
@@ -85,9 +85,9 @@ C:   0000206A  s_GSFINAL
 C:   0000206A  s_GSINIT                        
 C:   0000206A  s_GSINIT5                       
 C:   0000206D  s_CSEG                          
-C:   00002658  l_CSEG                          
-C:   000046C5  s_CONST                         
-C:   00005B20  s_XINIT                         
+C:   0000266D  l_CSEG                          
+C:   000046DA  s_CONST                         
+C:   00005B52  s_XINIT                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
@@ -516,7 +516,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                0000206D    00002658 =        9816. bytes (REL,CON,CODE)
+CSEG                                0000206D    0000266D =        9837. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -548,42 +548,42 @@ C:   000035BD  _lcd_go_to_cgram_addr              lcd
 C:   000035CE  _lcd_go_toxy                       lcd
 C:   00003619  _timer0_isr                        main
 C:   000036AE  _main                              main
-C:   0000386F  _timer0_init                       timer
-C:   0000388A  _timer_stop                        timer
-C:   000038A2  _timer_pause                       timer
-C:   000038A9  _timer_start                       timer
-C:   000038B6  _current_time_display              timer
-C:   00003969  _isxdigit                          isxdigit
-C:   000039E7  __gptrput                          _gptrput
-C:   00003A02  __modsint                          _modsint
-C:   00003A6A  __moduint                          _moduint
-C:   00003B16  __divsint                          _divsint
-C:   00003B88  __divuint                          _divuint
-C:   00003C24  _vprintf                           vprintf
-C:   00003C63  _printf                            vprintf
-C:   00003D6C  __print_format                     printf_large
-C:   0000466D  _strlen                            _strlen
-C:   00004685  __mulint                           _mulint
-C:   000046A5  __gptrget                          _gptrget
-C:   000046C1  __sdcc_external_startup            _startup
+C:   00003884  _timer0_init                       timer
+C:   0000389F  _timer_stop                        timer
+C:   000038B7  _timer_pause                       timer
+C:   000038BE  _timer_start                       timer
+C:   000038CB  _current_time_display              timer
+C:   0000397E  _isxdigit                          isxdigit
+C:   000039FC  __gptrput                          _gptrput
+C:   00003A17  __modsint                          _modsint
+C:   00003A7F  __moduint                          _moduint
+C:   00003B2B  __divsint                          _divsint
+C:   00003B9D  __divuint                          _divuint
+C:   00003C39  _vprintf                           vprintf
+C:   00003C78  _printf                            vprintf
+C:   00003D81  __print_format                     printf_large
+C:   00004682  _strlen                            _strlen
+C:   0000469A  __mulint                           _mulint
+C:   000046BA  __gptrget                          _gptrget
+C:   000046D6  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000046C5    0000145B =        5211. bytes (REL,CON,CODE)
+CONST                               000046DA    00001478 =        5240. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   000046C5  ___sdcc_heap_size                  _heap
+C:   000046DA  ___sdcc_heap_size                  _heap
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00005B20    0000000C =          12. bytes (REL,CON,CODE)
+XINIT                               00005B52    0000000C =          12. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

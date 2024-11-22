@@ -701,7 +701,7 @@ _main:
 	movx	@dptr,a
 ;	src/main.c:103: timer0_init();
 	lcall	_timer0_init
-;	src/main.c:106: printf("╔════════════════════════════════════════════════════════════════╗\n");
+;	src/main.c:106: printf("╔════════════════════════════════════════════════════════════════╗\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -712,7 +712,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:107: printf("║                     Welcome to LCD Demo                         ║\n");
+;	src/main.c:107: printf("║                     Welcome to LCD Demo                         ║\n\r");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -723,7 +723,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:108: printf("╠═══════════╦════════════════════════════════════════════════════╣\n");
+;	src/main.c:108: printf("╠═══════════╦════════════════════════════════════════════════════╣\n\r");
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -734,7 +734,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:109: printf("║ Command   ║                    Description                      ║\n");
+;	src/main.c:109: printf("║ Command   ║                    Description                      ║\n\r");
 	mov	a,#___str_3
 	push	acc
 	mov	a,#(___str_3 >> 8)
@@ -745,7 +745,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:110: printf("╠═══════════╬════════════════════════════════════════════════════╣\n");
+;	src/main.c:110: printf("╠═══════════╬════════════════════════════════════════════════════╣\n\r");
 	mov	a,#___str_4
 	push	acc
 	mov	a,#(___str_4 >> 8)
@@ -756,7 +756,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:111: printf("║    W      ║ Write a string                                     ║\n");
+;	src/main.c:111: printf("║    W      ║ Write a string                                     ║\n\r");
 	mov	a,#___str_5
 	push	acc
 	mov	a,#(___str_5 >> 8)
@@ -767,7 +767,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:112: printf("║    T      ║ Write to a specific position in the LCD           ║\n");
+;	src/main.c:112: printf("║    T      ║ Write to a specific position in the LCD           ║\n\r");
 	mov	a,#___str_6
 	push	acc
 	mov	a,#(___str_6 >> 8)
@@ -778,7 +778,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:113: printf("║    E      ║ Clear the display                                 ║\n");
+;	src/main.c:113: printf("║    E      ║ Clear the display                                 ║\n\r");
 	mov	a,#___str_7
 	push	acc
 	mov	a,#(___str_7 >> 8)
@@ -789,7 +789,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:114: printf("║    P      ║ Pause the Timer                                   ║\n");
+;	src/main.c:114: printf("║    P      ║ Pause the Timer                                   ║\n\r\r");
 	mov	a,#___str_8
 	push	acc
 	mov	a,#(___str_8 >> 8)
@@ -800,7 +800,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:115: printf("║    S      ║ Start the Timer                                   ║\n");
+;	src/main.c:115: printf("║    S      ║ Start the Timer                                   ║\n\r\r");
 	mov	a,#___str_9
 	push	acc
 	mov	a,#(___str_9 >> 8)
@@ -811,7 +811,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:116: printf("║    R      ║ Stop and reset the Timer                          ║\n");
+;	src/main.c:116: printf("║    R      ║ Stop and reset the Timer                          ║\n\r\r");
 	mov	a,#___str_10
 	push	acc
 	mov	a,#(___str_10 >> 8)
@@ -822,7 +822,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:117: printf("║    H      ║ Hexdump of DDRAM contents                         ║\n");
+;	src/main.c:117: printf("║    H      ║ Hexdump of DDRAM contents                         ║\n\r\r");
 	mov	a,#___str_11
 	push	acc
 	mov	a,#(___str_11 >> 8)
@@ -833,7 +833,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:118: printf("║    C      ║ Hexdump of CGRAM contents                         ║\n");
+;	src/main.c:118: printf("║    C      ║ Hexdump of CGRAM contents                         ║\n\r\r");
 	mov	a,#___str_12
 	push	acc
 	mov	a,#(___str_12 >> 8)
@@ -844,7 +844,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:119: printf("║    A      ║ Create a CGRAM character                          ║\n");
+;	src/main.c:119: printf("║    A      ║ Create a CGRAM character                          ║\n\r\r");
 	mov	a,#___str_13
 	push	acc
 	mov	a,#(___str_13 >> 8)
@@ -855,7 +855,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:120: printf("║    D      ║ Display a CGRAM character                         ║\n");
+;	src/main.c:120: printf("║    D      ║ Display a CGRAM character                         ║\n\r\r");
 	mov	a,#___str_14
 	push	acc
 	mov	a,#(___str_14 >> 8)
@@ -866,7 +866,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:121: printf("║    ?      ║ Help menu                                         ║\n");
+;	src/main.c:121: printf("║    ?      ║ Help menu                                         ║\n\r");
 	mov	a,#___str_15
 	push	acc
 	mov	a,#(___str_15 >> 8)
@@ -877,7 +877,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:122: printf("╚═══════════╩════════════════════════════════════════════════════╝\n");
+;	src/main.c:122: printf("╚═══════════╩════════════════════════════════════════════════════╝\n\r");
 	mov	a,#___str_16
 	push	acc
 	mov	a,#(___str_16 >> 8)
@@ -890,7 +890,7 @@ _main:
 	dec	sp
 ;	src/main.c:124: while(1) {
 00102$:
-;	src/main.c:126: printf("\r\n >> Enter Command:");
+;	src/main.c:126: printf("\r\n\r >> Enter Command:");
 	mov	a,#___str_17
 	push	acc
 	mov	a,#(___str_17 >> 8)
@@ -901,11 +901,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:127: char_received = getchar();  // Get user input
-	lcall	_getchar
-	mov	r6,dpl
-;	src/main.c:128: printf("$$ ");
-	push	ar6
+;	src/main.c:127: printf("\n\r");
 	mov	a,#___str_18
 	push	acc
 	mov	a,#(___str_18 >> 8)
@@ -916,8 +912,23 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
+;	src/main.c:128: char_received = getchar();  // Get user input
+	lcall	_getchar
+	mov	r6,dpl
+;	src/main.c:129: printf(" $$ ");
+	push	ar6
+	mov	a,#___str_19
+	push	acc
+	mov	a,#(___str_19 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
 	pop	ar6
-;	src/main.c:129: putchar(char_received);     // Echo the received character
+;	src/main.c:130: putchar(char_received);     // Echo the received character
 	mov	ar5,r6
 	mov	r7,#0x00
 	mov	dpl,r5
@@ -925,10 +936,10 @@ _main:
 	push	ar6
 	lcall	_putchar
 	pop	ar6
-;	src/main.c:130: command_parser(char_received);  // Parse the command and take appropriate action
+;	src/main.c:131: command_parser(char_received);  // Parse the command and take appropriate action
 	mov	dpl,r6
 	lcall	_command_parser
-;	src/main.c:132: }
+;	src/main.c:133: }
 	sjmp	00102$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1133,6 +1144,7 @@ ___str_0:
 	.db 0x95
 	.db 0x97
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1146,6 +1158,7 @@ ___str_1:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1349,6 +1362,7 @@ ___str_2:
 	.db 0x95
 	.db 0xa3
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1365,6 +1379,7 @@ ___str_3:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1568,6 +1583,7 @@ ___str_4:
 	.db 0x95
 	.db 0xa3
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1584,6 +1600,7 @@ ___str_5:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1600,6 +1617,7 @@ ___str_6:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1616,6 +1634,7 @@ ___str_7:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1632,6 +1651,8 @@ ___str_8:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1648,6 +1669,8 @@ ___str_9:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1664,6 +1687,8 @@ ___str_10:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1680,6 +1705,8 @@ ___str_11:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1696,6 +1723,8 @@ ___str_12:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1712,6 +1741,8 @@ ___str_13:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1728,6 +1759,8 @@ ___str_14:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1744,6 +1777,7 @@ ___str_15:
 	.db 0x95
 	.db 0x91
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1947,18 +1981,26 @@ ___str_16:
 	.db 0x95
 	.db 0x9d
 	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_17:
 	.db 0x0d
 	.db 0x0a
+	.db 0x0d
 	.ascii " >> Enter Command:"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_18:
-	.ascii "$$ "
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_19:
+	.ascii " $$ "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)

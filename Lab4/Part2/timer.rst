@@ -517,7 +517,7 @@
                                     517 ;	-----------------------------------------
                                     518 ;	 function timer0_init
                                     519 ;	-----------------------------------------
-      00386F                        520 _timer0_init:
+      003884                        520 _timer0_init:
                            000007   521 	ar7 = 0x07
                            000006   522 	ar6 = 0x06
                            000005   523 	ar5 = 0x05
@@ -528,30 +528,30 @@
                            000000   528 	ar0 = 0x00
                                     529 ;	src/timer.c:45: TR0 = 0;                 // Stop Timer 0
                                     530 ;	assignBit
-      00386F C2 8C            [12]  531 	clr	_TR0
+      003884 C2 8C            [12]  531 	clr	_TR0
                                     532 ;	src/timer.c:46: current_time_display();  // Display initial time on the LCD
-      003871 12 38 B6         [24]  533 	lcall	_current_time_display
+      003886 12 38 CB         [24]  533 	lcall	_current_time_display
                                     534 ;	src/timer.c:47: IEN0 |= 0x82;            // Enable Timer 0 interrupt and global interrupt
-      003874 43 A8 82         [24]  535 	orl	_IEN0,#0x82
+      003889 43 A8 82         [24]  535 	orl	_IEN0,#0x82
                                     536 ;	src/timer.c:48: TMOD &= 0xF0;            // Clear the upper 4 bits for Timer 0
-      003877 53 89 F0         [24]  537 	anl	_TMOD,#0xf0
+      00388C 53 89 F0         [24]  537 	anl	_TMOD,#0xf0
                                     538 ;	src/timer.c:49: TMOD |= 0x01;            // Timer 0 in Mode 1 (16-bit timer)
-      00387A 43 89 01         [24]  539 	orl	_TMOD,#0x01
+      00388F 43 89 01         [24]  539 	orl	_TMOD,#0x01
                                     540 ;	src/timer.c:50: TH0 = TH0_FOR_50MS;              // Load high byte for 100 ms delay
-      00387D 75 8C 4B         [24]  541 	mov	_TH0,#0x4b
+      003892 75 8C 4B         [24]  541 	mov	_TH0,#0x4b
                                     542 ;	src/timer.c:51: TL0 = TL0_FOR_50MS;              // Load low byte for 100 ms delay
-      003880 75 8A 1C         [24]  543 	mov	_TL0,#0x1c
+      003895 75 8A 1C         [24]  543 	mov	_TL0,#0x1c
                                     544 ;	src/timer.c:52: ET0 = 1;                 // Enable Timer 0 interrupt
                                     545 ;	assignBit
-      003883 D2 A9            [12]  546 	setb	_ET0
+      003898 D2 A9            [12]  546 	setb	_ET0
                                     547 ;	src/timer.c:53: EA = 1;                  // Enable global interrupts
                                     548 ;	assignBit
-      003885 D2 AF            [12]  549 	setb	_EA
+      00389A D2 AF            [12]  549 	setb	_EA
                                     550 ;	src/timer.c:54: TR0 = 1;                 // Start Timer 0
                                     551 ;	assignBit
-      003887 D2 8C            [12]  552 	setb	_TR0
+      00389C D2 8C            [12]  552 	setb	_TR0
                                     553 ;	src/timer.c:55: }
-      003889 22               [24]  554 	ret
+      00389E 22               [24]  554 	ret
                                     555 ;------------------------------------------------------------
                                     556 ;Allocation info for local variables in function 'timer_stop'
                                     557 ;------------------------------------------------------------
@@ -559,29 +559,29 @@
                                     559 ;	-----------------------------------------
                                     560 ;	 function timer_stop
                                     561 ;	-----------------------------------------
-      00388A                        562 _timer_stop:
+      00389F                        562 _timer_stop:
                                     563 ;	src/timer.c:59: EA = 0;                   // Disable global interrupts
                                     564 ;	assignBit
-      00388A C2 AF            [12]  565 	clr	_EA
+      00389F C2 AF            [12]  565 	clr	_EA
                                     566 ;	src/timer.c:60: TR0 = 0;                  // Stop Timer 0
                                     567 ;	assignBit
-      00388C C2 8C            [12]  568 	clr	_TR0
+      0038A1 C2 8C            [12]  568 	clr	_TR0
                                     569 ;	src/timer.c:61: minutes = 0;              // Reset minutes
-      00388E 90 19 92         [24]  570 	mov	dptr,#_minutes
-      003891 E4               [12]  571 	clr	a
-      003892 F0               [24]  572 	movx	@dptr,a
+      0038A3 90 19 92         [24]  570 	mov	dptr,#_minutes
+      0038A6 E4               [12]  571 	clr	a
+      0038A7 F0               [24]  572 	movx	@dptr,a
                                     573 ;	src/timer.c:62: seconds = 0;              // Reset seconds
-      003893 90 19 91         [24]  574 	mov	dptr,#_seconds
-      003896 F0               [24]  575 	movx	@dptr,a
+      0038A8 90 19 91         [24]  574 	mov	dptr,#_seconds
+      0038AB F0               [24]  575 	movx	@dptr,a
                                     576 ;	src/timer.c:63: one_twentyth_of_Second = 0;  // Reset tenths of a second
-      003897 90 19 8F         [24]  577 	mov	dptr,#_one_twentyth_of_Second
-      00389A F0               [24]  578 	movx	@dptr,a
+      0038AC 90 19 8F         [24]  577 	mov	dptr,#_one_twentyth_of_Second
+      0038AF F0               [24]  578 	movx	@dptr,a
                                     579 ;	src/timer.c:64: one_tenth_of_second=0; //Reset tenths of a second
-      00389B 90 19 90         [24]  580 	mov	dptr,#_one_tenth_of_second
-      00389E F0               [24]  581 	movx	@dptr,a
+      0038B0 90 19 90         [24]  580 	mov	dptr,#_one_tenth_of_second
+      0038B3 F0               [24]  581 	movx	@dptr,a
                                     582 ;	src/timer.c:65: current_time_display();   // Update time display on the LCD
                                     583 ;	src/timer.c:66: }
-      00389F 02 38 B6         [24]  584 	ljmp	_current_time_display
+      0038B4 02 38 CB         [24]  584 	ljmp	_current_time_display
                                     585 ;------------------------------------------------------------
                                     586 ;Allocation info for local variables in function 'timer_pause'
                                     587 ;------------------------------------------------------------
@@ -589,18 +589,18 @@
                                     589 ;	-----------------------------------------
                                     590 ;	 function timer_pause
                                     591 ;	-----------------------------------------
-      0038A2                        592 _timer_pause:
+      0038B7                        592 _timer_pause:
                                     593 ;	src/timer.c:69: ET0 = 0;  // Disable Timer 0 interrupt
                                     594 ;	assignBit
-      0038A2 C2 A9            [12]  595 	clr	_ET0
+      0038B7 C2 A9            [12]  595 	clr	_ET0
                                     596 ;	src/timer.c:70: EA = 0;   // Disable global interrupts
                                     597 ;	assignBit
-      0038A4 C2 AF            [12]  598 	clr	_EA
+      0038B9 C2 AF            [12]  598 	clr	_EA
                                     599 ;	src/timer.c:71: TR0 = 0;  // Stop Timer 0
                                     600 ;	assignBit
-      0038A6 C2 8C            [12]  601 	clr	_TR0
+      0038BB C2 8C            [12]  601 	clr	_TR0
                                     602 ;	src/timer.c:72: }
-      0038A8 22               [24]  603 	ret
+      0038BD 22               [24]  603 	ret
                                     604 ;------------------------------------------------------------
                                     605 ;Allocation info for local variables in function 'timer_start'
                                     606 ;------------------------------------------------------------
@@ -608,22 +608,22 @@
                                     608 ;	-----------------------------------------
                                     609 ;	 function timer_start
                                     610 ;	-----------------------------------------
-      0038A9                        611 _timer_start:
+      0038BE                        611 _timer_start:
                                     612 ;	src/timer.c:75: TH0 = 0x98;  // Load high byte for 100 ms delay
-      0038A9 75 8C 98         [24]  613 	mov	_TH0,#0x98
+      0038BE 75 8C 98         [24]  613 	mov	_TH0,#0x98
                                     614 ;	src/timer.c:76: TL0 = 0x00;  // Load low byte for 100 ms delay
-      0038AC 75 8A 00         [24]  615 	mov	_TL0,#0x00
+      0038C1 75 8A 00         [24]  615 	mov	_TL0,#0x00
                                     616 ;	src/timer.c:77: ET0 = 1;     // Enable Timer 0 interrupt
                                     617 ;	assignBit
-      0038AF D2 A9            [12]  618 	setb	_ET0
+      0038C4 D2 A9            [12]  618 	setb	_ET0
                                     619 ;	src/timer.c:78: EA = 1;      // Enable global interrupts
                                     620 ;	assignBit
-      0038B1 D2 AF            [12]  621 	setb	_EA
+      0038C6 D2 AF            [12]  621 	setb	_EA
                                     622 ;	src/timer.c:79: TR0 = 1;     // Start Timer 0
                                     623 ;	assignBit
-      0038B3 D2 8C            [12]  624 	setb	_TR0
+      0038C8 D2 8C            [12]  624 	setb	_TR0
                                     625 ;	src/timer.c:80: }
-      0038B5 22               [24]  626 	ret
+      0038CA 22               [24]  626 	ret
                                     627 ;------------------------------------------------------------
                                     628 ;Allocation info for local variables in function 'current_time_display'
                                     629 ;------------------------------------------------------------
@@ -631,110 +631,110 @@
                                     631 ;	-----------------------------------------
                                     632 ;	 function current_time_display
                                     633 ;	-----------------------------------------
-      0038B6                        634 _current_time_display:
-      0038B6 D3               [12]  635 	setb	c
-      0038B7 10 AF 01         [24]  636 	jbc	ea,00103$
-      0038BA C3               [12]  637 	clr	c
-      0038BB                        638 00103$:
-      0038BB C0 D0            [24]  639 	push	psw
+      0038CB                        634 _current_time_display:
+      0038CB D3               [12]  635 	setb	c
+      0038CC 10 AF 01         [24]  636 	jbc	ea,00103$
+      0038CF C3               [12]  637 	clr	c
+      0038D0                        638 00103$:
+      0038D0 C0 D0            [24]  639 	push	psw
                                     640 ;	src/timer.c:83: lcd_go_toxy(MSB_OF_MINUTE);
-      0038BD 90 19 34         [24]  641 	mov	dptr,#_lcd_go_toxy_PARM_2
-      0038C0 74 09            [12]  642 	mov	a,#0x09
-      0038C2 F0               [24]  643 	movx	@dptr,a
-      0038C3 75 82 03         [24]  644 	mov	dpl,#0x03
-      0038C6 12 35 CE         [24]  645 	lcall	_lcd_go_toxy
+      0038D2 90 19 34         [24]  641 	mov	dptr,#_lcd_go_toxy_PARM_2
+      0038D5 74 09            [12]  642 	mov	a,#0x09
+      0038D7 F0               [24]  643 	movx	@dptr,a
+      0038D8 75 82 03         [24]  644 	mov	dpl,#0x03
+      0038DB 12 35 CE         [24]  645 	lcall	_lcd_go_toxy
                                     646 ;	src/timer.c:84: lcd_put_char((minutes / 10) + '0');  // Display tens place of minutes
-      0038C9 90 19 92         [24]  647 	mov	dptr,#_minutes
-      0038CC E0               [24]  648 	movx	a,@dptr
-      0038CD FF               [12]  649 	mov	r7,a
-      0038CE 7E 00            [12]  650 	mov	r6,#0x00
-      0038D0 90 19 43         [24]  651 	mov	dptr,#__divsint_PARM_2
-      0038D3 74 0A            [12]  652 	mov	a,#0x0a
-      0038D5 F0               [24]  653 	movx	@dptr,a
-      0038D6 E4               [12]  654 	clr	a
-      0038D7 A3               [24]  655 	inc	dptr
-      0038D8 F0               [24]  656 	movx	@dptr,a
-      0038D9 8F 82            [24]  657 	mov	dpl,r7
-      0038DB 8E 83            [24]  658 	mov	dph,r6
-      0038DD 12 3B 16         [24]  659 	lcall	__divsint
-      0038E0 AE 82            [24]  660 	mov	r6,dpl
-      0038E2 74 30            [12]  661 	mov	a,#0x30
-      0038E4 2E               [12]  662 	add	a,r6
-      0038E5 F5 82            [12]  663 	mov	dpl,a
-      0038E7 12 34 77         [24]  664 	lcall	_lcd_put_char
+      0038DE 90 19 92         [24]  647 	mov	dptr,#_minutes
+      0038E1 E0               [24]  648 	movx	a,@dptr
+      0038E2 FF               [12]  649 	mov	r7,a
+      0038E3 7E 00            [12]  650 	mov	r6,#0x00
+      0038E5 90 19 43         [24]  651 	mov	dptr,#__divsint_PARM_2
+      0038E8 74 0A            [12]  652 	mov	a,#0x0a
+      0038EA F0               [24]  653 	movx	@dptr,a
+      0038EB E4               [12]  654 	clr	a
+      0038EC A3               [24]  655 	inc	dptr
+      0038ED F0               [24]  656 	movx	@dptr,a
+      0038EE 8F 82            [24]  657 	mov	dpl,r7
+      0038F0 8E 83            [24]  658 	mov	dph,r6
+      0038F2 12 3B 2B         [24]  659 	lcall	__divsint
+      0038F5 AE 82            [24]  660 	mov	r6,dpl
+      0038F7 74 30            [12]  661 	mov	a,#0x30
+      0038F9 2E               [12]  662 	add	a,r6
+      0038FA F5 82            [12]  663 	mov	dpl,a
+      0038FC 12 34 77         [24]  664 	lcall	_lcd_put_char
                                     665 ;	src/timer.c:85: lcd_put_char((minutes % 10) + '0');  // Display ones place of minutes
-      0038EA 90 19 92         [24]  666 	mov	dptr,#_minutes
-      0038ED E0               [24]  667 	movx	a,@dptr
-      0038EE FF               [12]  668 	mov	r7,a
-      0038EF 7E 00            [12]  669 	mov	r6,#0x00
-      0038F1 90 19 3A         [24]  670 	mov	dptr,#__modsint_PARM_2
-      0038F4 74 0A            [12]  671 	mov	a,#0x0a
-      0038F6 F0               [24]  672 	movx	@dptr,a
-      0038F7 E4               [12]  673 	clr	a
-      0038F8 A3               [24]  674 	inc	dptr
-      0038F9 F0               [24]  675 	movx	@dptr,a
-      0038FA 8F 82            [24]  676 	mov	dpl,r7
-      0038FC 8E 83            [24]  677 	mov	dph,r6
-      0038FE 12 3A 02         [24]  678 	lcall	__modsint
-      003901 AE 82            [24]  679 	mov	r6,dpl
-      003903 74 30            [12]  680 	mov	a,#0x30
-      003905 2E               [12]  681 	add	a,r6
-      003906 F5 82            [12]  682 	mov	dpl,a
-      003908 12 34 77         [24]  683 	lcall	_lcd_put_char
+      0038FF 90 19 92         [24]  666 	mov	dptr,#_minutes
+      003902 E0               [24]  667 	movx	a,@dptr
+      003903 FF               [12]  668 	mov	r7,a
+      003904 7E 00            [12]  669 	mov	r6,#0x00
+      003906 90 19 3A         [24]  670 	mov	dptr,#__modsint_PARM_2
+      003909 74 0A            [12]  671 	mov	a,#0x0a
+      00390B F0               [24]  672 	movx	@dptr,a
+      00390C E4               [12]  673 	clr	a
+      00390D A3               [24]  674 	inc	dptr
+      00390E F0               [24]  675 	movx	@dptr,a
+      00390F 8F 82            [24]  676 	mov	dpl,r7
+      003911 8E 83            [24]  677 	mov	dph,r6
+      003913 12 3A 17         [24]  678 	lcall	__modsint
+      003916 AE 82            [24]  679 	mov	r6,dpl
+      003918 74 30            [12]  680 	mov	a,#0x30
+      00391A 2E               [12]  681 	add	a,r6
+      00391B F5 82            [12]  682 	mov	dpl,a
+      00391D 12 34 77         [24]  683 	lcall	_lcd_put_char
                                     684 ;	src/timer.c:86: lcd_put_char(':');                   // Display colon
-      00390B 75 82 3A         [24]  685 	mov	dpl,#0x3a
-      00390E 12 34 77         [24]  686 	lcall	_lcd_put_char
+      003920 75 82 3A         [24]  685 	mov	dpl,#0x3a
+      003923 12 34 77         [24]  686 	lcall	_lcd_put_char
                                     687 ;	src/timer.c:87: lcd_put_char((seconds / 10) + '0');  // Display tens place of seconds
-      003911 90 19 91         [24]  688 	mov	dptr,#_seconds
-      003914 E0               [24]  689 	movx	a,@dptr
-      003915 FF               [12]  690 	mov	r7,a
-      003916 7E 00            [12]  691 	mov	r6,#0x00
-      003918 90 19 43         [24]  692 	mov	dptr,#__divsint_PARM_2
-      00391B 74 0A            [12]  693 	mov	a,#0x0a
-      00391D F0               [24]  694 	movx	@dptr,a
-      00391E E4               [12]  695 	clr	a
-      00391F A3               [24]  696 	inc	dptr
-      003920 F0               [24]  697 	movx	@dptr,a
-      003921 8F 82            [24]  698 	mov	dpl,r7
-      003923 8E 83            [24]  699 	mov	dph,r6
-      003925 12 3B 16         [24]  700 	lcall	__divsint
-      003928 AE 82            [24]  701 	mov	r6,dpl
-      00392A 74 30            [12]  702 	mov	a,#0x30
-      00392C 2E               [12]  703 	add	a,r6
-      00392D F5 82            [12]  704 	mov	dpl,a
-      00392F 12 34 77         [24]  705 	lcall	_lcd_put_char
+      003926 90 19 91         [24]  688 	mov	dptr,#_seconds
+      003929 E0               [24]  689 	movx	a,@dptr
+      00392A FF               [12]  690 	mov	r7,a
+      00392B 7E 00            [12]  691 	mov	r6,#0x00
+      00392D 90 19 43         [24]  692 	mov	dptr,#__divsint_PARM_2
+      003930 74 0A            [12]  693 	mov	a,#0x0a
+      003932 F0               [24]  694 	movx	@dptr,a
+      003933 E4               [12]  695 	clr	a
+      003934 A3               [24]  696 	inc	dptr
+      003935 F0               [24]  697 	movx	@dptr,a
+      003936 8F 82            [24]  698 	mov	dpl,r7
+      003938 8E 83            [24]  699 	mov	dph,r6
+      00393A 12 3B 2B         [24]  700 	lcall	__divsint
+      00393D AE 82            [24]  701 	mov	r6,dpl
+      00393F 74 30            [12]  702 	mov	a,#0x30
+      003941 2E               [12]  703 	add	a,r6
+      003942 F5 82            [12]  704 	mov	dpl,a
+      003944 12 34 77         [24]  705 	lcall	_lcd_put_char
                                     706 ;	src/timer.c:88: lcd_put_char((seconds % 10) + '0');  // Display ones place of seconds
-      003932 90 19 91         [24]  707 	mov	dptr,#_seconds
-      003935 E0               [24]  708 	movx	a,@dptr
-      003936 FF               [12]  709 	mov	r7,a
-      003937 7E 00            [12]  710 	mov	r6,#0x00
-      003939 90 19 3A         [24]  711 	mov	dptr,#__modsint_PARM_2
-      00393C 74 0A            [12]  712 	mov	a,#0x0a
-      00393E F0               [24]  713 	movx	@dptr,a
-      00393F E4               [12]  714 	clr	a
-      003940 A3               [24]  715 	inc	dptr
-      003941 F0               [24]  716 	movx	@dptr,a
-      003942 8F 82            [24]  717 	mov	dpl,r7
-      003944 8E 83            [24]  718 	mov	dph,r6
-      003946 12 3A 02         [24]  719 	lcall	__modsint
-      003949 AE 82            [24]  720 	mov	r6,dpl
-      00394B 74 30            [12]  721 	mov	a,#0x30
-      00394D 2E               [12]  722 	add	a,r6
-      00394E F5 82            [12]  723 	mov	dpl,a
-      003950 12 34 77         [24]  724 	lcall	_lcd_put_char
+      003947 90 19 91         [24]  707 	mov	dptr,#_seconds
+      00394A E0               [24]  708 	movx	a,@dptr
+      00394B FF               [12]  709 	mov	r7,a
+      00394C 7E 00            [12]  710 	mov	r6,#0x00
+      00394E 90 19 3A         [24]  711 	mov	dptr,#__modsint_PARM_2
+      003951 74 0A            [12]  712 	mov	a,#0x0a
+      003953 F0               [24]  713 	movx	@dptr,a
+      003954 E4               [12]  714 	clr	a
+      003955 A3               [24]  715 	inc	dptr
+      003956 F0               [24]  716 	movx	@dptr,a
+      003957 8F 82            [24]  717 	mov	dpl,r7
+      003959 8E 83            [24]  718 	mov	dph,r6
+      00395B 12 3A 17         [24]  719 	lcall	__modsint
+      00395E AE 82            [24]  720 	mov	r6,dpl
+      003960 74 30            [12]  721 	mov	a,#0x30
+      003962 2E               [12]  722 	add	a,r6
+      003963 F5 82            [12]  723 	mov	dpl,a
+      003965 12 34 77         [24]  724 	lcall	_lcd_put_char
                                     725 ;	src/timer.c:89: lcd_put_char('.');                   // Display decimal point
-      003953 75 82 2E         [24]  726 	mov	dpl,#0x2e
-      003956 12 34 77         [24]  727 	lcall	_lcd_put_char
+      003968 75 82 2E         [24]  726 	mov	dpl,#0x2e
+      00396B 12 34 77         [24]  727 	lcall	_lcd_put_char
                                     728 ;	src/timer.c:90: lcd_put_char(one_tenth_of_second + '0');  // Display tenths of a second
-      003959 90 19 90         [24]  729 	mov	dptr,#_one_tenth_of_second
-      00395C E0               [24]  730 	movx	a,@dptr
-      00395D 24 30            [12]  731 	add	a,#0x30
-      00395F F5 82            [12]  732 	mov	dpl,a
-      003961 12 34 77         [24]  733 	lcall	_lcd_put_char
+      00396E 90 19 90         [24]  729 	mov	dptr,#_one_tenth_of_second
+      003971 E0               [24]  730 	movx	a,@dptr
+      003972 24 30            [12]  731 	add	a,#0x30
+      003974 F5 82            [12]  732 	mov	dpl,a
+      003976 12 34 77         [24]  733 	lcall	_lcd_put_char
                                     734 ;	src/timer.c:91: }
-      003964 D0 D0            [24]  735 	pop	psw
-      003966 92 AF            [24]  736 	mov	ea,c
-      003968 22               [24]  737 	ret
+      003979 D0 D0            [24]  735 	pop	psw
+      00397B 92 AF            [24]  736 	mov	ea,c
+      00397D 22               [24]  737 	ret
                                     738 	.area CSEG    (CODE)
                                     739 	.area CONST   (CODE)
                                     740 	.area XINIT   (CODE)

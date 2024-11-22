@@ -103,29 +103,30 @@ void main() {
     timer0_init();
 
     // Display welcome and usage messages
-    printf("╔════════════════════════════════════════════════════════════════╗\n");
-    printf("║                     Welcome to LCD Demo                         ║\n");
-    printf("╠═══════════╦════════════════════════════════════════════════════╣\n");
-    printf("║ Command   ║                    Description                      ║\n");
-    printf("╠═══════════╬════════════════════════════════════════════════════╣\n");
-    printf("║    W      ║ Write a string                                     ║\n");
-    printf("║    T      ║ Write to a specific position in the LCD           ║\n");
-    printf("║    E      ║ Clear the display                                 ║\n");
-    printf("║    P      ║ Pause the Timer                                   ║\n");
-    printf("║    S      ║ Start the Timer                                   ║\n");
-    printf("║    R      ║ Stop and reset the Timer                          ║\n");
-    printf("║    H      ║ Hexdump of DDRAM contents                         ║\n");
-    printf("║    C      ║ Hexdump of CGRAM contents                         ║\n");
-    printf("║    A      ║ Create a CGRAM character                          ║\n");
-    printf("║    D      ║ Display a CGRAM character                         ║\n");
-    printf("║    ?      ║ Help menu                                         ║\n");
-    printf("╚═══════════╩════════════════════════════════════════════════════╝\n");
+    printf("╔════════════════════════════════════════════════════════════════╗\n\r");
+    printf("║                     Welcome to LCD Demo                         ║\n\r");
+    printf("╠═══════════╦════════════════════════════════════════════════════╣\n\r");
+    printf("║ Command   ║                    Description                      ║\n\r");
+    printf("╠═══════════╬════════════════════════════════════════════════════╣\n\r");
+    printf("║    W      ║ Write a string                                     ║\n\r");
+    printf("║    T      ║ Write to a specific position in the LCD           ║\n\r");
+    printf("║    E      ║ Clear the display                                 ║\n\r");
+    printf("║    P      ║ Pause the Timer                                   ║\n\r\r");
+    printf("║    S      ║ Start the Timer                                   ║\n\r\r");
+    printf("║    R      ║ Stop and reset the Timer                          ║\n\r\r");
+    printf("║    H      ║ Hexdump of DDRAM contents                         ║\n\r\r");
+    printf("║    C      ║ Hexdump of CGRAM contents                         ║\n\r\r");
+    printf("║    A      ║ Create a CGRAM character                          ║\n\r\r");
+    printf("║    D      ║ Display a CGRAM character                         ║\n\r\r");
+    printf("║    ?      ║ Help menu                                         ║\n\r");
+    printf("╚═══════════╩════════════════════════════════════════════════════╝\n\r");
 
     while(1) {
         // Main loop for waiting for user input
-        printf("\r\n >> Enter Command:");
+        printf("\r\n\r >> Enter Command:");
+        printf("\n\r");
         char_received = getchar();  // Get user input
-        printf("$$ ");
+        printf(" $$ ");
         putchar(char_received);     // Echo the received character
         command_parser(char_received);  // Parse the command and take appropriate action
     }

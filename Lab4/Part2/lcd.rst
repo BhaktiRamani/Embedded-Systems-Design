@@ -941,7 +941,7 @@
       0034EE 8D 82            [24]  941 	mov	dpl,r5
       0034F0 8E 83            [24]  942 	mov	dph,r6
       0034F2 8F F0            [24]  943 	mov	b,r7
-      0034F4 12 46 A5         [24]  944 	lcall	__gptrget
+      0034F4 12 46 BA         [24]  944 	lcall	__gptrget
       0034F7 70 03            [24]  945 	jnz	00129$
       0034F9 02 35 9C         [24]  946 	ljmp	00115$
       0034FC                        947 00129$:
@@ -978,7 +978,7 @@
       003528 C0 07            [24]  978 	push	ar7
       00352A C0 06            [24]  979 	push	ar6
       00352C C0 05            [24]  980 	push	ar5
-      00352E 12 3A 02         [24]  981 	lcall	__modsint
+      00352E 12 3A 17         [24]  981 	lcall	__modsint
       003531 AB 82            [24]  982 	mov	r3,dpl
       003533 D0 05            [24]  983 	pop	ar5
       003535 D0 06            [24]  984 	pop	ar6
@@ -1018,7 +1018,7 @@
       003567 8D 82            [24] 1018 	mov	dpl,r5
       003569 8E 83            [24] 1019 	mov	dph,r6
       00356B 8F F0            [24] 1020 	mov	b,r7
-      00356D 12 46 A5         [24] 1021 	lcall	__gptrget
+      00356D 12 46 BA         [24] 1021 	lcall	__gptrget
       003570 FC               [12] 1022 	mov	r4,a
       003571 A3               [24] 1023 	inc	dptr
       003572 AD 82            [24] 1024 	mov	r5,dpl
@@ -1170,12 +1170,12 @@
                                    1170 	.area CSEG    (CODE)
                                    1171 	.area CONST   (CODE)
                                    1172 	.area XINIT   (CODE)
-      005B20                       1173 __xinit__write_control_register:
-      005B20 00 F0                 1174 	.byte #0x00,#0xf0
-      005B22                       1175 __xinit__read_control_register:
-      005B22 00 F1                 1176 	.byte #0x00,#0xf1
-      005B24                       1177 __xinit__write_data_register:
-      005B24 00 F2                 1178 	.byte #0x00,#0xf2
-      005B26                       1179 __xinit__read_data_register:
-      005B26 00 F3                 1180 	.byte #0x00,#0xf3
+      005B52                       1173 __xinit__write_control_register:
+      005B52 00 F0                 1174 	.byte #0x00,#0xf0
+      005B54                       1175 __xinit__read_control_register:
+      005B54 00 F1                 1176 	.byte #0x00,#0xf1
+      005B56                       1177 __xinit__write_data_register:
+      005B56 00 F2                 1178 	.byte #0x00,#0xf2
+      005B58                       1179 __xinit__read_data_register:
+      005B58 00 F3                 1180 	.byte #0x00,#0xf3
                                    1181 	.area CABS    (ABS,CODE)

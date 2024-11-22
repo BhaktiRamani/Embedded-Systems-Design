@@ -535,7 +535,7 @@
       0032F5 85 1A 83         [24]  535 	mov	dph,(_getstr_sloc0_1_0 + 1)
       0032F8 85 1B F0         [24]  536 	mov	b,(_getstr_sloc0_1_0 + 2)
       0032FB E4               [12]  537 	clr	a
-      0032FC 12 39 E7         [24]  538 	lcall	__gptrput
+      0032FC 12 39 FC         [24]  538 	lcall	__gptrput
                                     539 ;	src/getchar_putchar.c:104: break;                 // Exit the loop
       0032FF 80 68            [24]  540 	sjmp	00114$
       003301                        541 00107$:
@@ -577,7 +577,7 @@
       003331 8A 83            [24]  577 	mov	dph,r2
       003333 8F F0            [24]  578 	mov	b,r7
       003335 E9               [12]  579 	mov	a,r1
-      003336 12 39 E7         [24]  580 	lcall	__gptrput
+      003336 12 39 FC         [24]  580 	lcall	__gptrput
       003339 D0 07            [24]  581 	pop	ar7
       00333B D0 06            [24]  582 	pop	ar6
       00333D 02 32 75         [24]  583 	ljmp	00113$
@@ -596,13 +596,13 @@
       003350 A3               [24]  596 	inc	dptr
       003351 E0               [24]  597 	movx	a,@dptr
       003352 C0 E0            [24]  598 	push	acc
-      003354 74 20            [12]  599 	mov	a,#___str_0
+      003354 74 35            [12]  599 	mov	a,#___str_0
       003356 C0 E0            [24]  600 	push	acc
       003358 74 54            [12]  601 	mov	a,#(___str_0 >> 8)
       00335A C0 E0            [24]  602 	push	acc
       00335C 74 80            [12]  603 	mov	a,#0x80
       00335E C0 E0            [24]  604 	push	acc
-      003360 12 3C 63         [24]  605 	lcall	_printf
+      003360 12 3C 78         [24]  605 	lcall	_printf
       003363 E5 81            [12]  606 	mov	a,sp
       003365 24 FA            [12]  607 	add	a,#0xfa
       003367 F5 81            [12]  608 	mov	sp,a
@@ -617,10 +617,10 @@
                                     617 	.area CSEG    (CODE)
                                     618 	.area CONST   (CODE)
                                     619 	.area CONST   (CODE)
-      005420                        620 ___str_0:
-      005420 25 73                  621 	.ascii "%s"
-      005422 0A                     622 	.db 0x0a
-      005423 00                     623 	.db 0x00
+      005435                        620 ___str_0:
+      005435 25 73                  621 	.ascii "%s"
+      005437 0A                     622 	.db 0x0a
+      005438 00                     623 	.db 0x00
                                     624 	.area CSEG    (CODE)
                                     625 	.area XINIT   (CODE)
                                     626 	.area CABS    (ABS,CODE)
