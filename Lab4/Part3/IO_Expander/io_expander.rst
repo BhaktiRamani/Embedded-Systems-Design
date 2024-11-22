@@ -628,7 +628,7 @@
                                     628 ;	io_expander.c:63: i2c_start();
       0030AA 12 32 D6         [24]  629 	lcall	_i2c_start
                                     630 ;	io_expander.c:64: i2c_write(IO_EXPANDER_ID | WRITE);
-      0030AD 75 82 40         [24]  631 	mov	dpl,#0x40
+      0030AD 75 82 38         [24]  631 	mov	dpl,#0x38
       0030B0 12 31 E9         [24]  632 	lcall	_i2c_write
                                     633 ;	io_expander.c:65: i2c_write(INPUT_OUTPUT);
       0030B3 75 82 03         [24]  634 	mov	dpl,#0x03
@@ -723,7 +723,7 @@
                                     723 ;	io_expander.c:94: i2c_start();
       003142 12 32 D6         [24]  724 	lcall	_i2c_start
                                     725 ;	io_expander.c:95: i2c_write(IO_EXPANDER_ID | READ);
-      003145 75 82 41         [24]  726 	mov	dpl,#0x41
+      003145 75 82 39         [24]  726 	mov	dpl,#0x39
       003148 12 31 E9         [24]  727 	lcall	_i2c_write
                                     728 ;	io_expander.c:96: data = i2c_read(0);
       00314B 90 00 00         [24]  729 	mov	dptr,#0x0000
@@ -787,7 +787,7 @@
                                     787 ;	io_expander.c:108: i2c_start();
       003184 12 32 D6         [24]  788 	lcall	_i2c_start
                                     789 ;	io_expander.c:109: i2c_write(IO_EXPANDER_ID | WRITE);
-      003187 75 82 40         [24]  790 	mov	dpl,#0x40
+      003187 75 82 38         [24]  790 	mov	dpl,#0x38
       00318A 12 31 E9         [24]  791 	lcall	_i2c_write
                                     792 ;	io_expander.c:110: i2c_write(value);
       00318D 90 04 03         [24]  793 	mov	dptr,#_pcf8574_write_port_value_65536_33

@@ -628,7 +628,7 @@ _main:
 ;	io_expander.c:63: i2c_start();
 	lcall	_i2c_start
 ;	io_expander.c:64: i2c_write(IO_EXPANDER_ID | WRITE);
-	mov	dpl,#0x40
+	mov	dpl,#0x38
 	lcall	_i2c_write
 ;	io_expander.c:65: i2c_write(INPUT_OUTPUT);
 	mov	dpl,#0x03
@@ -723,7 +723,7 @@ _pcf8574_read_port:
 ;	io_expander.c:94: i2c_start();
 	lcall	_i2c_start
 ;	io_expander.c:95: i2c_write(IO_EXPANDER_ID | READ);
-	mov	dpl,#0x41
+	mov	dpl,#0x39
 	lcall	_i2c_write
 ;	io_expander.c:96: data = i2c_read(0);
 	mov	dptr,#0x0000
@@ -787,7 +787,7 @@ _pcf8574_write_port:
 ;	io_expander.c:108: i2c_start();
 	lcall	_i2c_start
 ;	io_expander.c:109: i2c_write(IO_EXPANDER_ID | WRITE);
-	mov	dpl,#0x40
+	mov	dpl,#0x38
 	lcall	_i2c_write
 ;	io_expander.c:110: i2c_write(value);
 	mov	dptr,#_pcf8574_write_port_value_65536_33

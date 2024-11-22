@@ -6,7 +6,7 @@
 /* I2C Operation Mode Definitions */
 #define READ 0x01        /* I2C Read operation bit */
 #define WRITE 0x00       /* I2C Write operation bit */
-#define IO_EXPANDER_ID 0x40   
+#define IO_EXPANDER_ID 0x38   
 #define INPUT_OUTPUT 0x03
 #define INPUT_MASK 0x03
 
