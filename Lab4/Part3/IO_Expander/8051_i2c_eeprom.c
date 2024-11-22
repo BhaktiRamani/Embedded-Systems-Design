@@ -213,10 +213,12 @@ int main()
                 printf("\n┌───────────── IO EXPANDER OPERATION ───────────────┐\n\r");
                 enable_interrupt0();
                 pcf8574_init();
+                break;
 
             case 'L':
                 printf("\n┌───────────── IO EXPANDER LEAVE ───────────────┐\n\r");
                 disable_interrupt0();
+                break;
 
             
             default:

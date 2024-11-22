@@ -70,7 +70,7 @@ C:   00000400  s_PSEG
 C:   00000400  s_XSEG                          
 C:   0000045C  s_XISEG                         
 C:   0000102D  l_CONST                         
-C:   00001AC0  l_CSEG                          
+C:   00001AC6  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002009  s_GSINIT0                       
 C:   0000200C  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   00002062  s_GSFINAL
 C:   00002062  s_GSINIT                        
 C:   00002062  s_GSINIT5                       
 C:   00002065  s_CSEG                          
-C:   00003B25  s_CONST                         
-C:   00004B52  s_XINIT                         
+C:   00003B2B  s_CONST                         
+C:   00004B58  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -465,7 +465,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002065    00001AC0 =        6848. bytes (REL,CON,CODE)
+CSEG                                00002065    00001AC6 =        6854. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -476,38 +476,38 @@ C:   000020D2  _command_menu                      8051_i2c_eeprom
 C:   000021BA  _external_ISR0                     8051_i2c_eeprom
 C:   00002209  _disable_interrupt0                8051_i2c_eeprom
 C:   00002210  _main                              8051_i2c_eeprom
-C:   000023D0  _pcf8574_init                      8051_i2c_eeprom
-C:   000023E2  _pcf8574_read_port                 8051_i2c_eeprom
-C:   000023FD  _pcf8574_read_pin                  8051_i2c_eeprom
-C:   0000241E  _pcf8574_write_port                8051_i2c_eeprom
-C:   00002439  _pcf8574_set_pin                   8051_i2c_eeprom
-C:   00002489  _enable_interrupt0                 8051_i2c_eeprom
-C:   00002490  _take_address                      8051_i2c_eeprom
-C:   000026CE  _take_data                         8051_i2c_eeprom
-C:   00002847  _eeprom_write                      8051_i2c_eeprom
-C:   00002989  _eeprom_read                       8051_i2c_eeprom
-C:   00002A9D  _i2c_write                         8051_i2c_eeprom
-C:   00002B05  _i2c_read                          8051_i2c_eeprom
-C:   00002B8A  _i2c_start                         8051_i2c_eeprom
-C:   00002B9F  _EEPROM_hexdump                    8051_i2c_eeprom
-C:   00002ECE  _handler_EEPROM_hexdump            8051_i2c_eeprom
-C:   00002F6D  _i2c_stop                          8051_i2c_eeprom
-C:   00002F7A  _eeprom_reset                      8051_i2c_eeprom
-C:   00002FA6  _i2c_delay                         8051_i2c_eeprom
-C:   00002FBD  _test_function                     8051_i2c_eeprom
-C:   00003084  _vprintf                           vprintf
-C:   000030C3  _printf                            vprintf
-C:   000031CC  __print_format                     printf_large
-C:   00003ACD  _strlen                            _strlen
-C:   00003AE5  __mulint                           _mulint
-C:   00003B05  __gptrget                          _gptrget
-C:   00003B21  __sdcc_external_startup            _startup
+C:   000023D6  _pcf8574_init                      8051_i2c_eeprom
+C:   000023E8  _pcf8574_read_port                 8051_i2c_eeprom
+C:   00002403  _pcf8574_read_pin                  8051_i2c_eeprom
+C:   00002424  _pcf8574_write_port                8051_i2c_eeprom
+C:   0000243F  _pcf8574_set_pin                   8051_i2c_eeprom
+C:   0000248F  _enable_interrupt0                 8051_i2c_eeprom
+C:   00002496  _take_address                      8051_i2c_eeprom
+C:   000026D4  _take_data                         8051_i2c_eeprom
+C:   0000284D  _eeprom_write                      8051_i2c_eeprom
+C:   0000298F  _eeprom_read                       8051_i2c_eeprom
+C:   00002AA3  _i2c_write                         8051_i2c_eeprom
+C:   00002B0B  _i2c_read                          8051_i2c_eeprom
+C:   00002B90  _i2c_start                         8051_i2c_eeprom
+C:   00002BA5  _EEPROM_hexdump                    8051_i2c_eeprom
+C:   00002ED4  _handler_EEPROM_hexdump            8051_i2c_eeprom
+C:   00002F73  _i2c_stop                          8051_i2c_eeprom
+C:   00002F80  _eeprom_reset                      8051_i2c_eeprom
+C:   00002FAC  _i2c_delay                         8051_i2c_eeprom
+C:   00002FC3  _test_function                     8051_i2c_eeprom
+C:   0000308A  _vprintf                           vprintf
+C:   000030C9  _printf                            vprintf
+C:   000031D2  __print_format                     printf_large
+C:   00003AD3  _strlen                            _strlen
+C:   00003AEB  __mulint                           _mulint
+C:   00003B0B  __gptrget                          _gptrget
+C:   00003B27  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003B25    0000102D =        4141. bytes (REL,CON,CODE)
+CONST                               00003B2B    0000102D =        4141. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -516,7 +516,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00004B52    00000006 =           6. bytes (REL,CON,CODE)
+XINIT                               00004B58    00000006 =           6. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

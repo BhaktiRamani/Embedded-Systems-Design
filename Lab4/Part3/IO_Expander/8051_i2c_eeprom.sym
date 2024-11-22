@@ -248,7 +248,7 @@ Symbol Table
     _EA                                                         =  0000AF G
     _EC                                                         =  0000AE G
     _EECON                                                      =  0000D2 G
- 18 _EEPROM_hexdump                                                000B3A GR
+ 18 _EEPROM_hexdump                                                000B40 GR
   C _EEPROM_hexdump_PARM_2                                         00001D GR
   C _EEPROM_hexdump_current_address_65537_133                      000021 R
   C _EEPROM_hexdump_start_address_65536_131                        00001F R
@@ -506,34 +506,34 @@ Symbol Table
  18 _command_menu                                                  00006D GR
   E _data_range_flag                                               000002 R
  18 _disable_interrupt0                                            0001A4 GR
- 18 _eeprom_read                                                   000924 GR
+ 18 _eeprom_read                                                   00092A GR
   C _eeprom_read_address_65536_115                                 000017 R
- 18 _eeprom_reset                                                  000F15 GR
- 18 _eeprom_write                                                  0007E2 GR
+ 18 _eeprom_reset                                                  000F1B GR
+ 18 _eeprom_write                                                  0007E8 GR
   C _eeprom_write_PARM_2                                           000014 GR
   C _eeprom_write_address_65536_108                                000015 R
- 18 _enable_interrupt0                                             000424 GR
+ 18 _enable_interrupt0                                             00042A GR
  18 _external_ISR0                                                 000155 GR
  18 _getchar                                                       00001F GR
- 18 _handler_EEPROM_hexdump                                        000E69 GR
- 18 _i2c_delay                                                     000F41 GR
- 18 _i2c_read                                                      000AA0 GR
+ 18 _handler_EEPROM_hexdump                                        000E6F GR
+ 18 _i2c_delay                                                     000F47 GR
+ 18 _i2c_read                                                      000AA6 GR
   C _i2c_read_ACK_65536_125                                        00001A R
   C _i2c_read_buff_65536_126                                       00001C R
- 18 _i2c_start                                                     000B25 GR
- 18 _i2c_stop                                                      000F08 GR
- 18 _i2c_write                                                     000A38 GR
+ 18 _i2c_start                                                     000B2B GR
+ 18 _i2c_stop                                                      000F0E GR
+ 18 _i2c_write                                                     000A3E GR
   C _i2c_write_data_65536_120                                      000019 R
  18 _main                                                          0001AB GR
- 18 _pcf8574_init                                                  00036B GR
- 18 _pcf8574_read_pin                                              000398 GR
+ 18 _pcf8574_init                                                  000371 GR
+ 18 _pcf8574_read_pin                                              00039E GR
   C _pcf8574_read_pin_pin_65536_79                                 000004 R
- 18 _pcf8574_read_port                                             00037D GR
- 18 _pcf8574_set_pin                                               0003D4 GR
+ 18 _pcf8574_read_port                                             000383 GR
+ 18 _pcf8574_set_pin                                               0003DA GR
   C _pcf8574_set_pin_PARM_2                                        000006 GR
   C _pcf8574_set_pin_pin_65536_83                                  000007 R
   C _pcf8574_set_pin_port_state_65536_84                           000008 R
- 18 _pcf8574_write_port                                            0003B9 GR
+ 18 _pcf8574_write_port                                            0003BF GR
   C _pcf8574_write_port_value_65536_81                             000005 R
     _printf                                                        ****** GX
  18 _putchar                                                       000000 GR
@@ -543,13 +543,13 @@ Hexadecimal [24-Bits]
 
 Symbol Table
 
- 18 _take_address                                                  00042B GR
+ 18 _take_address                                                  000431 GR
   C _take_address_address_65538_94                                 00000D R
   C _take_address_input_65537_90                                   000009 R
- 18 _take_data                                                     000669 GR
+ 18 _take_data                                                     00066F GR
   C _take_data_data_65538_104                                      000013 R
   C _take_data_input_65537_100                                     00000F R
- 18 _test_function                                                 000F58 GR
+ 18 _test_function                                                 000F5E GR
  18 _ui                                                            00002D GR
     a                                                           =  0000E0 L
     a.0                                                         =  0000E0 L
@@ -789,7 +789,7 @@ Area Table
   15 GSINIT5                                    size      0   flags   20
   16 GSINIT                                     size      0   flags   20
   17 GSFINAL                                    size      3   flags   20
-  18 CSEG                                       size   1010   flags   20
+  18 CSEG                                       size   1016   flags   20
   19 CONST                                      size   1022   flags   20
   1A XINIT                                      size      6   flags   20
   1B CABS                                       size      0   flags   28
