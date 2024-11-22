@@ -67,22 +67,24 @@ int main()
     i2c_stop();
 
     printf("IO expander initialized\n\r");
-    while(1)
-    {
-        int result = pcf8574_read_pin(0);
-        if(result == 0)
-        {
-            pcf8574_set_pin(7, 0);
-            pcf8574_set_pin(6, 0);
-            printf("H\n\r");
-        }
-        else if(result == 1)
-        {
-            pcf8574_set_pin(7, 1);
-            pcf8574_set_pin(6, 1);
-            printf("L\n\r");
-        }
-    }
+    int result = pcf8574_read_pin(0);
+    printf("port 0 pin %d\n\r", result);
+    // while(1)
+    // {
+    //     int result = pcf8574_read_pin(0);
+    //     if(result == 0)
+    //     {
+    //         pcf8574_set_pin(7, 0);
+    //         pcf8574_set_pin(6, 0);
+    //         printf("H\n\r");
+    //     }
+    //     else if(result == 1)
+    //     {
+    //         pcf8574_set_pin(7, 1);
+    //         pcf8574_set_pin(6, 1);
+    //         printf("L\n\r");
+    //     }
+    // }
     
 
     
