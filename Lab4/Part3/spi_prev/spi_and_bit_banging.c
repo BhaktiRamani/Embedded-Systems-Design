@@ -504,7 +504,7 @@ void spi_init(void)
 }
 
 void bit_bang_spi_init(void) {
-    SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
+    //SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
     SDA = DATA_HIGH;                 /* Set data line high */
     SCL = CLOCK_LOW;                 /* Set clock line low */
     SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */

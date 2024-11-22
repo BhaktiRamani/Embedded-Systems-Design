@@ -70,7 +70,7 @@ C:   00000400  s_PSEG
 C:   00000400  s_XSEG                          
 C:   00000456  s_XISEG                         
 C:   00000C4A  l_CONST                         
-C:   0000114D  l_CSEG                          
+C:   0000114A  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002006  s_GSINIT0                       
 C:   00002009  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   0000205F  s_GSFINAL
 C:   0000205F  s_GSINIT                        
 C:   0000205F  s_GSINIT5                       
 C:   00002062  s_CSEG                          
-C:   000031AF  s_CONST                         
-C:   00003DF9  s_XINIT                         
+C:   000031AC  s_CONST                         
+C:   00003DF6  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -456,7 +456,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002062    0000114D =        4429. bytes (REL,CON,CODE)
+CSEG                                00002062    0000114A =        4426. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -471,36 +471,36 @@ C:   000022D3  _take_data                         spi_and_bit_banging
 C:   00002427  _mannual_spi                       spi_and_bit_banging
 C:   000024DF  _spi_init                          spi_and_bit_banging
 C:   000024E9  _bit_bang_spi_init                 spi_and_bit_banging
-C:   000024F3  _bit_bang_spi_write                spi_and_bit_banging
-C:   0000253D  _spi_transmission_start            spi_and_bit_banging
-C:   00002543  _spi_triangular_wave               spi_and_bit_banging
-C:   00002621  _spi_ramp_signal                   spi_and_bit_banging
-C:   0000270E  _vprintf                           vprintf
-C:   0000274D  _printf                            vprintf
-C:   00002856  __print_format                     printf_large
-C:   00003157  _strlen                            _strlen
-C:   0000316F  __mulint                           _mulint
-C:   0000318F  __gptrget                          _gptrget
-C:   000031AB  __sdcc_external_startup            _startup
+C:   000024F0  _bit_bang_spi_write                spi_and_bit_banging
+C:   0000253A  _spi_transmission_start            spi_and_bit_banging
+C:   00002540  _spi_triangular_wave               spi_and_bit_banging
+C:   0000261E  _spi_ramp_signal                   spi_and_bit_banging
+C:   0000270B  _vprintf                           vprintf
+C:   0000274A  _printf                            vprintf
+C:   00002853  __print_format                     printf_large
+C:   00003154  _strlen                            _strlen
+C:   0000316C  __mulint                           _mulint
+C:   0000318C  __gptrget                          _gptrget
+C:   000031A8  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000031AF    00000C4A =        3146. bytes (REL,CON,CODE)
+CONST                               000031AC    00000C4A =        3146. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   000031AF  _dac_values                        spi_and_bit_banging
-C:   000033AF  _trig_dac_values                   spi_and_bit_banging
+C:   000031AC  _dac_values                        spi_and_bit_banging
+C:   000033AC  _trig_dac_values                   spi_and_bit_banging
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               00003DF9    00000003 =           3. bytes (REL,CON,CODE)
+XINIT                               00003DF6    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

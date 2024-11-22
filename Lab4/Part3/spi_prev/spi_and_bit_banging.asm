@@ -1447,8 +1447,6 @@ _spi_init:
 ;	 function bit_bang_spi_init
 ;	-----------------------------------------
 _bit_bang_spi_init:
-;	spi_and_bit_banging.c:507: SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
-	mov	_SPCON,#0x00
 ;	spi_and_bit_banging.c:508: SDA = DATA_HIGH;                 /* Set data line high */
 ;	assignBit
 	setb	_P1_7

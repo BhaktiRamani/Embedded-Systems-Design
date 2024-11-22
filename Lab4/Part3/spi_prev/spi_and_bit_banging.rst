@@ -685,156 +685,156 @@
                                     685 ;	-----------------------------------------
       0020C2                        686 _display_menu:
                                     687 ;	spi_and_bit_banging.c:239: printf("\n\r┌──────────────────────────────────────────────────────────────┐\n\r");
-      0020C2 74 AF            [12]  688 	mov	a,#___str_0
+      0020C2 74 AC            [12]  688 	mov	a,#___str_0
       0020C4 C0 E0            [24]  689 	push	acc
       0020C6 74 37            [12]  690 	mov	a,#(___str_0 >> 8)
       0020C8 C0 E0            [24]  691 	push	acc
       0020CA 74 80            [12]  692 	mov	a,#0x80
       0020CC C0 E0            [24]  693 	push	acc
-      0020CE 12 27 4D         [24]  694 	lcall	_printf
+      0020CE 12 27 4A         [24]  694 	lcall	_printf
       0020D1 15 81            [12]  695 	dec	sp
       0020D3 15 81            [12]  696 	dec	sp
       0020D5 15 81            [12]  697 	dec	sp
                                     698 ;	spi_and_bit_banging.c:240: printf("│                        SPI PROGRAM                           │\n\r");
-      0020D7 74 74            [12]  699 	mov	a,#___str_1
+      0020D7 74 71            [12]  699 	mov	a,#___str_1
       0020D9 C0 E0            [24]  700 	push	acc
       0020DB 74 38            [12]  701 	mov	a,#(___str_1 >> 8)
       0020DD C0 E0            [24]  702 	push	acc
       0020DF 74 80            [12]  703 	mov	a,#0x80
       0020E1 C0 E0            [24]  704 	push	acc
-      0020E3 12 27 4D         [24]  705 	lcall	_printf
+      0020E3 12 27 4A         [24]  705 	lcall	_printf
       0020E6 15 81            [12]  706 	dec	sp
       0020E8 15 81            [12]  707 	dec	sp
       0020EA 15 81            [12]  708 	dec	sp
                                     709 ;	spi_and_bit_banging.c:241: printf("├──────────────────────────────────────────────────────────────┤\n\r");
-      0020EC 74 BB            [12]  710 	mov	a,#___str_2
+      0020EC 74 B8            [12]  710 	mov	a,#___str_2
       0020EE C0 E0            [24]  711 	push	acc
       0020F0 74 38            [12]  712 	mov	a,#(___str_2 >> 8)
       0020F2 C0 E0            [24]  713 	push	acc
       0020F4 74 80            [12]  714 	mov	a,#0x80
       0020F6 C0 E0            [24]  715 	push	acc
-      0020F8 12 27 4D         [24]  716 	lcall	_printf
+      0020F8 12 27 4A         [24]  716 	lcall	_printf
       0020FB 15 81            [12]  717 	dec	sp
       0020FD 15 81            [12]  718 	dec	sp
       0020FF 15 81            [12]  719 	dec	sp
                                     720 ;	spi_and_bit_banging.c:242: printf("│  Command   │               Description                       │\n\r");
-      002101 74 7E            [12]  721 	mov	a,#___str_3
+      002101 74 7B            [12]  721 	mov	a,#___str_3
       002103 C0 E0            [24]  722 	push	acc
       002105 74 39            [12]  723 	mov	a,#(___str_3 >> 8)
       002107 C0 E0            [24]  724 	push	acc
       002109 74 80            [12]  725 	mov	a,#0x80
       00210B C0 E0            [24]  726 	push	acc
-      00210D 12 27 4D         [24]  727 	lcall	_printf
+      00210D 12 27 4A         [24]  727 	lcall	_printf
       002110 15 81            [12]  728 	dec	sp
       002112 15 81            [12]  729 	dec	sp
       002114 15 81            [12]  730 	dec	sp
                                     731 ;	spi_and_bit_banging.c:243: printf("├───────────┼───────────────────────────────────────────────┤\n\r");
-      002116 74 C7            [12]  732 	mov	a,#___str_4
+      002116 74 C4            [12]  732 	mov	a,#___str_4
       002118 C0 E0            [24]  733 	push	acc
       00211A 74 39            [12]  734 	mov	a,#(___str_4 >> 8)
       00211C C0 E0            [24]  735 	push	acc
       00211E 74 80            [12]  736 	mov	a,#0x80
       002120 C0 E0            [24]  737 	push	acc
-      002122 12 27 4D         [24]  738 	lcall	_printf
+      002122 12 27 4A         [24]  738 	lcall	_printf
       002125 15 81            [12]  739 	dec	sp
       002127 15 81            [12]  740 	dec	sp
       002129 15 81            [12]  741 	dec	sp
                                     742 ;	spi_and_bit_banging.c:244: printf("│    M      │ Manual SPI Mode (Direct Register Control)      │\n\r");
-      00212B 74 81            [12]  743 	mov	a,#___str_5
+      00212B 74 7E            [12]  743 	mov	a,#___str_5
       00212D C0 E0            [24]  744 	push	acc
       00212F 74 3A            [12]  745 	mov	a,#(___str_5 >> 8)
       002131 C0 E0            [24]  746 	push	acc
       002133 74 80            [12]  747 	mov	a,#0x80
       002135 C0 E0            [24]  748 	push	acc
-      002137 12 27 4D         [24]  749 	lcall	_printf
+      002137 12 27 4A         [24]  749 	lcall	_printf
       00213A 15 81            [12]  750 	dec	sp
       00213C 15 81            [12]  751 	dec	sp
       00213E 15 81            [12]  752 	dec	sp
                                     753 ;	spi_and_bit_banging.c:245: printf("│    B      │ Bit Banging Mode (Software SPI)               │\n\r");
-      002140 74 C8            [12]  754 	mov	a,#___str_6
+      002140 74 C5            [12]  754 	mov	a,#___str_6
       002142 C0 E0            [24]  755 	push	acc
       002144 74 3A            [12]  756 	mov	a,#(___str_6 >> 8)
       002146 C0 E0            [24]  757 	push	acc
       002148 74 80            [12]  758 	mov	a,#0x80
       00214A C0 E0            [24]  759 	push	acc
-      00214C 12 27 4D         [24]  760 	lcall	_printf
+      00214C 12 27 4A         [24]  760 	lcall	_printf
       00214F 15 81            [12]  761 	dec	sp
       002151 15 81            [12]  762 	dec	sp
       002153 15 81            [12]  763 	dec	sp
                                     764 ;	spi_and_bit_banging.c:246: printf("│    S      │ Generate Sine Wave                            │\n\r");
-      002155 74 0E            [12]  765 	mov	a,#___str_7
+      002155 74 0B            [12]  765 	mov	a,#___str_7
       002157 C0 E0            [24]  766 	push	acc
       002159 74 3B            [12]  767 	mov	a,#(___str_7 >> 8)
       00215B C0 E0            [24]  768 	push	acc
       00215D 74 80            [12]  769 	mov	a,#0x80
       00215F C0 E0            [24]  770 	push	acc
-      002161 12 27 4D         [24]  771 	lcall	_printf
+      002161 12 27 4A         [24]  771 	lcall	_printf
       002164 15 81            [12]  772 	dec	sp
       002166 15 81            [12]  773 	dec	sp
       002168 15 81            [12]  774 	dec	sp
                                     775 ;	spi_and_bit_banging.c:247: printf("│    T      │ Generate Triangular Wave                      │\n\r");
-      00216A 74 54            [12]  776 	mov	a,#___str_8
+      00216A 74 51            [12]  776 	mov	a,#___str_8
       00216C C0 E0            [24]  777 	push	acc
       00216E 74 3B            [12]  778 	mov	a,#(___str_8 >> 8)
       002170 C0 E0            [24]  779 	push	acc
       002172 74 80            [12]  780 	mov	a,#0x80
       002174 C0 E0            [24]  781 	push	acc
-      002176 12 27 4D         [24]  782 	lcall	_printf
+      002176 12 27 4A         [24]  782 	lcall	_printf
       002179 15 81            [12]  783 	dec	sp
       00217B 15 81            [12]  784 	dec	sp
       00217D 15 81            [12]  785 	dec	sp
                                     786 ;	spi_and_bit_banging.c:248: printf("│    D      │ Demo Mode (Cycle through all waveforms)       │\n\r");
-      00217F 74 9A            [12]  787 	mov	a,#___str_9
+      00217F 74 97            [12]  787 	mov	a,#___str_9
       002181 C0 E0            [24]  788 	push	acc
       002183 74 3B            [12]  789 	mov	a,#(___str_9 >> 8)
       002185 C0 E0            [24]  790 	push	acc
       002187 74 80            [12]  791 	mov	a,#0x80
       002189 C0 E0            [24]  792 	push	acc
-      00218B 12 27 4D         [24]  793 	lcall	_printf
+      00218B 12 27 4A         [24]  793 	lcall	_printf
       00218E 15 81            [12]  794 	dec	sp
       002190 15 81            [12]  795 	dec	sp
       002192 15 81            [12]  796 	dec	sp
                                     797 ;	spi_and_bit_banging.c:249: printf("│    R      │ Ramp wave                                     │\n\r");
-      002194 74 E0            [12]  798 	mov	a,#___str_10
+      002194 74 DD            [12]  798 	mov	a,#___str_10
       002196 C0 E0            [24]  799 	push	acc
       002198 74 3B            [12]  800 	mov	a,#(___str_10 >> 8)
       00219A C0 E0            [24]  801 	push	acc
       00219C 74 80            [12]  802 	mov	a,#0x80
       00219E C0 E0            [24]  803 	push	acc
-      0021A0 12 27 4D         [24]  804 	lcall	_printf
+      0021A0 12 27 4A         [24]  804 	lcall	_printf
       0021A3 15 81            [12]  805 	dec	sp
       0021A5 15 81            [12]  806 	dec	sp
       0021A7 15 81            [12]  807 	dec	sp
                                     808 ;	spi_and_bit_banging.c:250: printf("│    ?      │ Display this help menu                        │\n\r");
-      0021A9 74 26            [12]  809 	mov	a,#___str_11
+      0021A9 74 23            [12]  809 	mov	a,#___str_11
       0021AB C0 E0            [24]  810 	push	acc
       0021AD 74 3C            [12]  811 	mov	a,#(___str_11 >> 8)
       0021AF C0 E0            [24]  812 	push	acc
       0021B1 74 80            [12]  813 	mov	a,#0x80
       0021B3 C0 E0            [24]  814 	push	acc
-      0021B5 12 27 4D         [24]  815 	lcall	_printf
+      0021B5 12 27 4A         [24]  815 	lcall	_printf
       0021B8 15 81            [12]  816 	dec	sp
       0021BA 15 81            [12]  817 	dec	sp
       0021BC 15 81            [12]  818 	dec	sp
                                     819 ;	spi_and_bit_banging.c:251: printf("└───────────┴───────────────────────────────────────────────┘\n\r");
-      0021BE 74 6C            [12]  820 	mov	a,#___str_12
+      0021BE 74 69            [12]  820 	mov	a,#___str_12
       0021C0 C0 E0            [24]  821 	push	acc
       0021C2 74 3C            [12]  822 	mov	a,#(___str_12 >> 8)
       0021C4 C0 E0            [24]  823 	push	acc
       0021C6 74 80            [12]  824 	mov	a,#0x80
       0021C8 C0 E0            [24]  825 	push	acc
-      0021CA 12 27 4D         [24]  826 	lcall	_printf
+      0021CA 12 27 4A         [24]  826 	lcall	_printf
       0021CD 15 81            [12]  827 	dec	sp
       0021CF 15 81            [12]  828 	dec	sp
       0021D1 15 81            [12]  829 	dec	sp
                                     830 ;	spi_and_bit_banging.c:252: printf("\n\rEnter command: ");
-      0021D3 74 26            [12]  831 	mov	a,#___str_13
+      0021D3 74 23            [12]  831 	mov	a,#___str_13
       0021D5 C0 E0            [24]  832 	push	acc
       0021D7 74 3D            [12]  833 	mov	a,#(___str_13 >> 8)
       0021D9 C0 E0            [24]  834 	push	acc
       0021DB 74 80            [12]  835 	mov	a,#0x80
       0021DD C0 E0            [24]  836 	push	acc
-      0021DF 12 27 4D         [24]  837 	lcall	_printf
+      0021DF 12 27 4A         [24]  837 	lcall	_printf
       0021E2 15 81            [12]  838 	dec	sp
       0021E4 15 81            [12]  839 	dec	sp
       0021E6 15 81            [12]  840 	dec	sp
@@ -865,24 +865,24 @@
       0021F5 C0 06            [24]  865 	push	ar6
       0021F7 C0 05            [24]  866 	push	ar5
       0021F9 C0 07            [24]  867 	push	ar7
-      0021FB 74 38            [12]  868 	mov	a,#___str_14
+      0021FB 74 35            [12]  868 	mov	a,#___str_14
       0021FD C0 E0            [24]  869 	push	acc
       0021FF 74 3D            [12]  870 	mov	a,#(___str_14 >> 8)
       002201 C0 E0            [24]  871 	push	acc
       002203 74 80            [12]  872 	mov	a,#0x80
       002205 C0 E0            [24]  873 	push	acc
-      002207 12 27 4D         [24]  874 	lcall	_printf
+      002207 12 27 4A         [24]  874 	lcall	_printf
       00220A E5 81            [12]  875 	mov	a,sp
       00220C 24 FB            [12]  876 	add	a,#0xfb
       00220E F5 81            [12]  877 	mov	sp,a
                                     878 ;	spi_and_bit_banging.c:263: printf("\n\r");
-      002210 74 41            [12]  879 	mov	a,#___str_15
+      002210 74 3E            [12]  879 	mov	a,#___str_15
       002212 C0 E0            [24]  880 	push	acc
       002214 74 3D            [12]  881 	mov	a,#(___str_15 >> 8)
       002216 C0 E0            [24]  882 	push	acc
       002218 74 80            [12]  883 	mov	a,#0x80
       00221A C0 E0            [24]  884 	push	acc
-      00221C 12 27 4D         [24]  885 	lcall	_printf
+      00221C 12 27 4A         [24]  885 	lcall	_printf
       00221F 15 81            [12]  886 	dec	sp
       002221 15 81            [12]  887 	dec	sp
       002223 15 81            [12]  888 	dec	sp
@@ -899,13 +899,13 @@
                                     899 ;	spi_and_bit_banging.c:269: mannual_spi(result);
       002235 12 24 27         [24]  900 	lcall	_mannual_spi
                                     901 ;	spi_and_bit_banging.c:270: printf(">> SIN WAVE GENERATION COMPLETE\n\r");
-      002238 74 44            [12]  902 	mov	a,#___str_16
+      002238 74 41            [12]  902 	mov	a,#___str_16
       00223A C0 E0            [24]  903 	push	acc
       00223C 74 3D            [12]  904 	mov	a,#(___str_16 >> 8)
       00223E C0 E0            [24]  905 	push	acc
       002240 74 80            [12]  906 	mov	a,#0x80
       002242 C0 E0            [24]  907 	push	acc
-      002244 12 27 4D         [24]  908 	lcall	_printf
+      002244 12 27 4A         [24]  908 	lcall	_printf
       002247 15 81            [12]  909 	dec	sp
       002249 15 81            [12]  910 	dec	sp
       00224B 15 81            [12]  911 	dec	sp
@@ -920,13 +920,13 @@
                                     920 ;	spi_and_bit_banging.c:278: bit_bang_spi(result2);
       002255 12 22 A0         [24]  921 	lcall	_bit_bang_spi
                                     922 ;	spi_and_bit_banging.c:279: printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
-      002258 74 66            [12]  923 	mov	a,#___str_17
+      002258 74 63            [12]  923 	mov	a,#___str_17
       00225A C0 E0            [24]  924 	push	acc
       00225C 74 3D            [12]  925 	mov	a,#(___str_17 >> 8)
       00225E C0 E0            [24]  926 	push	acc
       002260 74 80            [12]  927 	mov	a,#0x80
       002262 C0 E0            [24]  928 	push	acc
-      002264 12 27 4D         [24]  929 	lcall	_printf
+      002264 12 27 4A         [24]  929 	lcall	_printf
       002267 15 81            [12]  930 	dec	sp
       002269 15 81            [12]  931 	dec	sp
       00226B 15 81            [12]  932 	dec	sp
@@ -935,13 +935,13 @@
                                     935 ;	spi_and_bit_banging.c:321: default:
       002270                        936 00103$:
                                     937 ;	spi_and_bit_banging.c:322: printf(">> INVALID INPUT\n\r");
-      002270 74 8B            [12]  938 	mov	a,#___str_18
+      002270 74 88            [12]  938 	mov	a,#___str_18
       002272 C0 E0            [24]  939 	push	acc
       002274 74 3D            [12]  940 	mov	a,#(___str_18 >> 8)
       002276 C0 E0            [24]  941 	push	acc
       002278 74 80            [12]  942 	mov	a,#0x80
       00227A C0 E0            [24]  943 	push	acc
-      00227C 12 27 4D         [24]  944 	lcall	_printf
+      00227C 12 27 4A         [24]  944 	lcall	_printf
       00227F 15 81            [12]  945 	dec	sp
       002281 15 81            [12]  946 	dec	sp
       002283 15 81            [12]  947 	dec	sp
@@ -964,11 +964,11 @@
       002291 12 22 A0         [24]  964 	lcall	_bit_bang_spi
                                     965 ;	spi_and_bit_banging.c:339: spi_ramp_signal(7);
       002294 90 00 07         [24]  966 	mov	dptr,#0x0007
-      002297 12 26 21         [24]  967 	lcall	_spi_ramp_signal
+      002297 12 26 1E         [24]  967 	lcall	_spi_ramp_signal
                                     968 ;	spi_and_bit_banging.c:340: spi_triangular_wave(7);
       00229A 90 00 07         [24]  969 	mov	dptr,#0x0007
                                     970 ;	spi_and_bit_banging.c:341: }
-      00229D 02 25 43         [24]  971 	ljmp	_spi_triangular_wave
+      00229D 02 25 40         [24]  971 	ljmp	_spi_triangular_wave
                                     972 ;------------------------------------------------------------
                                     973 ;Allocation info for local variables in function 'bit_bang_spi'
                                     974 ;------------------------------------------------------------
@@ -992,13 +992,13 @@
                                     992 ;	spi_and_bit_banging.c:351: bit_bang_spi_write(TEST_DATA);
       0022AE 90 1F F0         [24]  993 	mov	dptr,#0x1ff0
       0022B1 C0 07            [24]  994 	push	ar7
-      0022B3 12 24 F3         [24]  995 	lcall	_bit_bang_spi_write
+      0022B3 12 24 F0         [24]  995 	lcall	_bit_bang_spi_write
                                     996 ;	spi_and_bit_banging.c:352: delay_ms(DELAY_PERIOD);
       0022B6 90 01 F4         [24]  997 	mov	dptr,#0x01f4
       0022B9 12 20 8F         [24]  998 	lcall	_delay_ms
                                     999 ;	spi_and_bit_banging.c:353: bit_bang_spi_write(IDLE_DATA);
       0022BC 90 10 00         [24] 1000 	mov	dptr,#0x1000
-      0022BF 12 24 F3         [24] 1001 	lcall	_bit_bang_spi_write
+      0022BF 12 24 F0         [24] 1001 	lcall	_bit_bang_spi_write
                                    1002 ;	spi_and_bit_banging.c:354: delay_ms(DELAY_PERIOD);
       0022C2 90 01 F4         [24] 1003 	mov	dptr,#0x01f4
       0022C5 12 20 8F         [24] 1004 	lcall	_delay_ms
@@ -1026,13 +1026,13 @@
                                    1026 ;	-----------------------------------------
       0022D3                       1027 _take_data:
                                    1028 ;	spi_and_bit_banging.c:360: printf("│ Enter number (hex, up to 2 characters): \n\r|");
-      0022D3 74 9E            [12] 1029 	mov	a,#___str_19
+      0022D3 74 9B            [12] 1029 	mov	a,#___str_19
       0022D5 C0 E0            [24] 1030 	push	acc
       0022D7 74 3D            [12] 1031 	mov	a,#(___str_19 >> 8)
       0022D9 C0 E0            [24] 1032 	push	acc
       0022DB 74 80            [12] 1033 	mov	a,#0x80
       0022DD C0 E0            [24] 1034 	push	acc
-      0022DF 12 27 4D         [24] 1035 	lcall	_printf
+      0022DF 12 27 4A         [24] 1035 	lcall	_printf
       0022E2 15 81            [12] 1036 	dec	sp
       0022E4 15 81            [12] 1037 	dec	sp
       0022E6 15 81            [12] 1038 	dec	sp
@@ -1047,13 +1047,13 @@
       0022F5 90 04 08         [24] 1047 	mov	dptr,#(_take_data_input_65537_45 + 0x0003)
       0022F8 F0               [24] 1048 	movx	@dptr,a
                                    1049 ;	spi_and_bit_banging.c:365: printf("$ ");
-      0022F9 74 CE            [12] 1050 	mov	a,#___str_20
+      0022F9 74 CB            [12] 1050 	mov	a,#___str_20
       0022FB C0 E0            [24] 1051 	push	acc
       0022FD 74 3D            [12] 1052 	mov	a,#(___str_20 >> 8)
       0022FF C0 E0            [24] 1053 	push	acc
       002301 74 80            [12] 1054 	mov	a,#0x80
       002303 C0 E0            [24] 1055 	push	acc
-      002305 12 27 4D         [24] 1056 	lcall	_printf
+      002305 12 27 4A         [24] 1056 	lcall	_printf
       002308 15 81            [12] 1057 	dec	sp
       00230A 15 81            [12] 1058 	dec	sp
       00230C 15 81            [12] 1059 	dec	sp
@@ -1243,13 +1243,13 @@
       002407 C0 07            [24] 1243 	push	ar7
       002409 C0 05            [24] 1244 	push	ar5
       00240B C0 06            [24] 1245 	push	ar6
-      00240D 74 D1            [12] 1246 	mov	a,#___str_21
+      00240D 74 CE            [12] 1246 	mov	a,#___str_21
       00240F C0 E0            [24] 1247 	push	acc
       002411 74 3D            [12] 1248 	mov	a,#(___str_21 >> 8)
       002413 C0 E0            [24] 1249 	push	acc
       002415 74 80            [12] 1250 	mov	a,#0x80
       002417 C0 E0            [24] 1251 	push	acc
-      002419 12 27 4D         [24] 1252 	lcall	_printf
+      002419 12 27 4A         [24] 1252 	lcall	_printf
       00241C E5 81            [12] 1253 	mov	a,sp
       00241E 24 FB            [12] 1254 	add	a,#0xfb
       002420 F5 81            [12] 1255 	mov	sp,a
@@ -1324,7 +1324,7 @@
       002463 33               [12] 1324 	rlc	a
       002464 FD               [12] 1325 	mov	r5,a
       002465 EC               [12] 1326 	mov	a,r4
-      002466 24 AF            [12] 1327 	add	a,#_dac_values
+      002466 24 AC            [12] 1327 	add	a,#_dac_values
       002468 F5 82            [12] 1328 	mov	dpl,a
       00246A ED               [12] 1329 	mov	a,r5
       00246B 34 31            [12] 1330 	addc	a,#(_dac_values >> 8)
@@ -1447,1477 +1447,1475 @@
                                    1447 ;	 function bit_bang_spi_init
                                    1448 ;	-----------------------------------------
       0024E9                       1449 _bit_bang_spi_init:
-                                   1450 ;	spi_and_bit_banging.c:507: SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
-      0024E9 75 C3 00         [24] 1451 	mov	_SPCON,#0x00
-                                   1452 ;	spi_and_bit_banging.c:508: SDA = DATA_HIGH;                 /* Set data line high */
-                                   1453 ;	assignBit
-      0024EC D2 97            [12] 1454 	setb	_P1_7
-                                   1455 ;	spi_and_bit_banging.c:509: SCL = CLOCK_LOW;                 /* Set clock line low */
-                                   1456 ;	assignBit
-      0024EE C2 96            [12] 1457 	clr	_P1_6
-                                   1458 ;	spi_and_bit_banging.c:510: SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
-                                   1459 ;	assignBit
-      0024F0 D2 91            [12] 1460 	setb	_P1_1
-                                   1461 ;	spi_and_bit_banging.c:511: }
-      0024F2 22               [24] 1462 	ret
+                                   1450 ;	spi_and_bit_banging.c:508: SDA = DATA_HIGH;                 /* Set data line high */
+                                   1451 ;	assignBit
+      0024E9 D2 97            [12] 1452 	setb	_P1_7
+                                   1453 ;	spi_and_bit_banging.c:509: SCL = CLOCK_LOW;                 /* Set clock line low */
+                                   1454 ;	assignBit
+      0024EB C2 96            [12] 1455 	clr	_P1_6
+                                   1456 ;	spi_and_bit_banging.c:510: SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
+                                   1457 ;	assignBit
+      0024ED D2 91            [12] 1458 	setb	_P1_1
+                                   1459 ;	spi_and_bit_banging.c:511: }
+      0024EF 22               [24] 1460 	ret
+                                   1461 ;------------------------------------------------------------
+                                   1462 ;Allocation info for local variables in function 'bit_bang_spi_write'
                                    1463 ;------------------------------------------------------------
-                                   1464 ;Allocation info for local variables in function 'bit_bang_spi_write'
-                                   1465 ;------------------------------------------------------------
-                                   1466 ;data                      Allocated with name '_bit_bang_spi_write_data_65536_63'
-                                   1467 ;i                         Allocated with name '_bit_bang_spi_write_i_65536_64'
-                                   1468 ;------------------------------------------------------------
-                                   1469 ;	spi_and_bit_banging.c:513: int bit_bang_spi_write(uint16_t data) {
+                                   1464 ;data                      Allocated with name '_bit_bang_spi_write_data_65536_63'
+                                   1465 ;i                         Allocated with name '_bit_bang_spi_write_i_65536_64'
+                                   1466 ;------------------------------------------------------------
+                                   1467 ;	spi_and_bit_banging.c:513: int bit_bang_spi_write(uint16_t data) {
+                                   1468 ;	-----------------------------------------
+                                   1469 ;	 function bit_bang_spi_write
                                    1470 ;	-----------------------------------------
-                                   1471 ;	 function bit_bang_spi_write
-                                   1472 ;	-----------------------------------------
-      0024F3                       1473 _bit_bang_spi_write:
-      0024F3 AF 83            [24] 1474 	mov	r7,dph
-      0024F5 E5 82            [12] 1475 	mov	a,dpl
-      0024F7 90 04 0F         [24] 1476 	mov	dptr,#_bit_bang_spi_write_data_65536_63
-      0024FA F0               [24] 1477 	movx	@dptr,a
-      0024FB EF               [12] 1478 	mov	a,r7
-      0024FC A3               [24] 1479 	inc	dptr
-      0024FD F0               [24] 1480 	movx	@dptr,a
-                                   1481 ;	spi_and_bit_banging.c:516: SS = SLAVE_SELECT_ACTIVE;        /* Assert slave select (active low) */
-                                   1482 ;	assignBit
-      0024FE C2 91            [12] 1483 	clr	_P1_1
-                                   1484 ;	spi_and_bit_banging.c:519: for(i = 0; i < SPI_DATA_WIDTH; i++) {
-      002500 7E 00            [12] 1485 	mov	r6,#0x00
-      002502 7F 00            [12] 1486 	mov	r7,#0x00
-      002504                       1487 00102$:
-                                   1488 ;	spi_and_bit_banging.c:520: SDA = (data & MSB_FIRST_MASK) ? DATA_HIGH : DATA_LOW;    /* MSB first */
-      002504 90 04 0F         [24] 1489 	mov	dptr,#_bit_bang_spi_write_data_65536_63
-      002507 E0               [24] 1490 	movx	a,@dptr
-      002508 FC               [12] 1491 	mov	r4,a
-      002509 A3               [24] 1492 	inc	dptr
-      00250A E0               [24] 1493 	movx	a,@dptr
-      00250B FD               [12] 1494 	mov	r5,a
-      00250C 23               [12] 1495 	rl	a
-      00250D 54 01            [12] 1496 	anl	a,#0x01
-      00250F 24 FF            [12] 1497 	add	a,#0xff
-      002511 92 97            [24] 1498 	mov	_P1_7,c
-                                   1499 ;	spi_and_bit_banging.c:521: SCL = CLOCK_HIGH;            /* Clock high */
-                                   1500 ;	assignBit
-      002513 D2 96            [12] 1501 	setb	_P1_6
-                                   1502 ;	spi_and_bit_banging.c:522: SCL = CLOCK_LOW;             /* Clock low */
-                                   1503 ;	assignBit
-      002515 C2 96            [12] 1504 	clr	_P1_6
-                                   1505 ;	spi_and_bit_banging.c:523: data <<= 1;                  /* Shift to next bit */
-      002517 EC               [12] 1506 	mov	a,r4
-      002518 2C               [12] 1507 	add	a,r4
-      002519 FC               [12] 1508 	mov	r4,a
-      00251A ED               [12] 1509 	mov	a,r5
-      00251B 33               [12] 1510 	rlc	a
-      00251C FD               [12] 1511 	mov	r5,a
-      00251D 90 04 0F         [24] 1512 	mov	dptr,#_bit_bang_spi_write_data_65536_63
-      002520 EC               [12] 1513 	mov	a,r4
-      002521 F0               [24] 1514 	movx	@dptr,a
-      002522 ED               [12] 1515 	mov	a,r5
-      002523 A3               [24] 1516 	inc	dptr
-      002524 F0               [24] 1517 	movx	@dptr,a
-                                   1518 ;	spi_and_bit_banging.c:519: for(i = 0; i < SPI_DATA_WIDTH; i++) {
-      002525 0E               [12] 1519 	inc	r6
-      002526 BE 00 01         [24] 1520 	cjne	r6,#0x00,00115$
-      002529 0F               [12] 1521 	inc	r7
-      00252A                       1522 00115$:
-      00252A C3               [12] 1523 	clr	c
-      00252B EE               [12] 1524 	mov	a,r6
-      00252C 94 10            [12] 1525 	subb	a,#0x10
-      00252E EF               [12] 1526 	mov	a,r7
-      00252F 94 00            [12] 1527 	subb	a,#0x00
-      002531 40 D1            [24] 1528 	jc	00102$
-                                   1529 ;	spi_and_bit_banging.c:527: SS = SLAVE_SELECT_INACTIVE;      /* Deassert slave select */
-                                   1530 ;	assignBit
-      002533 D2 91            [12] 1531 	setb	_P1_1
-                                   1532 ;	spi_and_bit_banging.c:528: SCL = CLOCK_LOW;                 /* Clock low */
-                                   1533 ;	assignBit
-      002535 C2 96            [12] 1534 	clr	_P1_6
-                                   1535 ;	spi_and_bit_banging.c:529: SDA = DATA_HIGH;                 /* Data high */
-                                   1536 ;	assignBit
-      002537 D2 97            [12] 1537 	setb	_P1_7
-                                   1538 ;	spi_and_bit_banging.c:531: return 0;
-      002539 90 00 00         [24] 1539 	mov	dptr,#0x0000
-                                   1540 ;	spi_and_bit_banging.c:532: }
-      00253C 22               [24] 1541 	ret
+      0024F0                       1471 _bit_bang_spi_write:
+      0024F0 AF 83            [24] 1472 	mov	r7,dph
+      0024F2 E5 82            [12] 1473 	mov	a,dpl
+      0024F4 90 04 0F         [24] 1474 	mov	dptr,#_bit_bang_spi_write_data_65536_63
+      0024F7 F0               [24] 1475 	movx	@dptr,a
+      0024F8 EF               [12] 1476 	mov	a,r7
+      0024F9 A3               [24] 1477 	inc	dptr
+      0024FA F0               [24] 1478 	movx	@dptr,a
+                                   1479 ;	spi_and_bit_banging.c:516: SS = SLAVE_SELECT_ACTIVE;        /* Assert slave select (active low) */
+                                   1480 ;	assignBit
+      0024FB C2 91            [12] 1481 	clr	_P1_1
+                                   1482 ;	spi_and_bit_banging.c:519: for(i = 0; i < SPI_DATA_WIDTH; i++) {
+      0024FD 7E 00            [12] 1483 	mov	r6,#0x00
+      0024FF 7F 00            [12] 1484 	mov	r7,#0x00
+      002501                       1485 00102$:
+                                   1486 ;	spi_and_bit_banging.c:520: SDA = (data & MSB_FIRST_MASK) ? DATA_HIGH : DATA_LOW;    /* MSB first */
+      002501 90 04 0F         [24] 1487 	mov	dptr,#_bit_bang_spi_write_data_65536_63
+      002504 E0               [24] 1488 	movx	a,@dptr
+      002505 FC               [12] 1489 	mov	r4,a
+      002506 A3               [24] 1490 	inc	dptr
+      002507 E0               [24] 1491 	movx	a,@dptr
+      002508 FD               [12] 1492 	mov	r5,a
+      002509 23               [12] 1493 	rl	a
+      00250A 54 01            [12] 1494 	anl	a,#0x01
+      00250C 24 FF            [12] 1495 	add	a,#0xff
+      00250E 92 97            [24] 1496 	mov	_P1_7,c
+                                   1497 ;	spi_and_bit_banging.c:521: SCL = CLOCK_HIGH;            /* Clock high */
+                                   1498 ;	assignBit
+      002510 D2 96            [12] 1499 	setb	_P1_6
+                                   1500 ;	spi_and_bit_banging.c:522: SCL = CLOCK_LOW;             /* Clock low */
+                                   1501 ;	assignBit
+      002512 C2 96            [12] 1502 	clr	_P1_6
+                                   1503 ;	spi_and_bit_banging.c:523: data <<= 1;                  /* Shift to next bit */
+      002514 EC               [12] 1504 	mov	a,r4
+      002515 2C               [12] 1505 	add	a,r4
+      002516 FC               [12] 1506 	mov	r4,a
+      002517 ED               [12] 1507 	mov	a,r5
+      002518 33               [12] 1508 	rlc	a
+      002519 FD               [12] 1509 	mov	r5,a
+      00251A 90 04 0F         [24] 1510 	mov	dptr,#_bit_bang_spi_write_data_65536_63
+      00251D EC               [12] 1511 	mov	a,r4
+      00251E F0               [24] 1512 	movx	@dptr,a
+      00251F ED               [12] 1513 	mov	a,r5
+      002520 A3               [24] 1514 	inc	dptr
+      002521 F0               [24] 1515 	movx	@dptr,a
+                                   1516 ;	spi_and_bit_banging.c:519: for(i = 0; i < SPI_DATA_WIDTH; i++) {
+      002522 0E               [12] 1517 	inc	r6
+      002523 BE 00 01         [24] 1518 	cjne	r6,#0x00,00115$
+      002526 0F               [12] 1519 	inc	r7
+      002527                       1520 00115$:
+      002527 C3               [12] 1521 	clr	c
+      002528 EE               [12] 1522 	mov	a,r6
+      002529 94 10            [12] 1523 	subb	a,#0x10
+      00252B EF               [12] 1524 	mov	a,r7
+      00252C 94 00            [12] 1525 	subb	a,#0x00
+      00252E 40 D1            [24] 1526 	jc	00102$
+                                   1527 ;	spi_and_bit_banging.c:527: SS = SLAVE_SELECT_INACTIVE;      /* Deassert slave select */
+                                   1528 ;	assignBit
+      002530 D2 91            [12] 1529 	setb	_P1_1
+                                   1530 ;	spi_and_bit_banging.c:528: SCL = CLOCK_LOW;                 /* Clock low */
+                                   1531 ;	assignBit
+      002532 C2 96            [12] 1532 	clr	_P1_6
+                                   1533 ;	spi_and_bit_banging.c:529: SDA = DATA_HIGH;                 /* Data high */
+                                   1534 ;	assignBit
+      002534 D2 97            [12] 1535 	setb	_P1_7
+                                   1536 ;	spi_and_bit_banging.c:531: return 0;
+      002536 90 00 00         [24] 1537 	mov	dptr,#0x0000
+                                   1538 ;	spi_and_bit_banging.c:532: }
+      002539 22               [24] 1539 	ret
+                                   1540 ;------------------------------------------------------------
+                                   1541 ;Allocation info for local variables in function 'spi_transmission_start'
                                    1542 ;------------------------------------------------------------
-                                   1543 ;Allocation info for local variables in function 'spi_transmission_start'
-                                   1544 ;------------------------------------------------------------
-                                   1545 ;	spi_and_bit_banging.c:539: void spi_transmission_start(void)
+                                   1543 ;	spi_and_bit_banging.c:539: void spi_transmission_start(void)
+                                   1544 ;	-----------------------------------------
+                                   1545 ;	 function spi_transmission_start
                                    1546 ;	-----------------------------------------
-                                   1547 ;	 function spi_transmission_start
-                                   1548 ;	-----------------------------------------
-      00253D                       1549 _spi_transmission_start:
-                                   1550 ;	spi_and_bit_banging.c:541: SPCON |= SPI_ENABLE;           // Enable SPI
-      00253D 43 C3 40         [24] 1551 	orl	_SPCON,#0x40
-                                   1552 ;	spi_and_bit_banging.c:542: P1_1 = 0;
-                                   1553 ;	assignBit
-      002540 C2 91            [12] 1554 	clr	_P1_1
-                                   1555 ;	spi_and_bit_banging.c:543: }
-      002542 22               [24] 1556 	ret
+      00253A                       1547 _spi_transmission_start:
+                                   1548 ;	spi_and_bit_banging.c:541: SPCON |= SPI_ENABLE;           // Enable SPI
+      00253A 43 C3 40         [24] 1549 	orl	_SPCON,#0x40
+                                   1550 ;	spi_and_bit_banging.c:542: P1_1 = 0;
+                                   1551 ;	assignBit
+      00253D C2 91            [12] 1552 	clr	_P1_1
+                                   1553 ;	spi_and_bit_banging.c:543: }
+      00253F 22               [24] 1554 	ret
+                                   1555 ;------------------------------------------------------------
+                                   1556 ;Allocation info for local variables in function 'spi_triangular_wave'
                                    1557 ;------------------------------------------------------------
-                                   1558 ;Allocation info for local variables in function 'spi_triangular_wave'
-                                   1559 ;------------------------------------------------------------
-                                   1560 ;number                    Allocated with name '_spi_triangular_wave_number_65536_69'
-                                   1561 ;dac_value_index           Allocated with name '_spi_triangular_wave_dac_value_index_65536_70'
-                                   1562 ;dac_data                  Allocated with name '_spi_triangular_wave_dac_data_65536_70'
-                                   1563 ;high_byte                 Allocated with name '_spi_triangular_wave_high_byte_65536_70'
-                                   1564 ;low_byte                  Allocated with name '_spi_triangular_wave_low_byte_65536_70'
-                                   1565 ;i                         Allocated with name '_spi_triangular_wave_i_196608_72'
-                                   1566 ;------------------------------------------------------------
-                                   1567 ;	spi_and_bit_banging.c:545: void spi_triangular_wave(int number)
+                                   1558 ;number                    Allocated with name '_spi_triangular_wave_number_65536_69'
+                                   1559 ;dac_value_index           Allocated with name '_spi_triangular_wave_dac_value_index_65536_70'
+                                   1560 ;dac_data                  Allocated with name '_spi_triangular_wave_dac_data_65536_70'
+                                   1561 ;high_byte                 Allocated with name '_spi_triangular_wave_high_byte_65536_70'
+                                   1562 ;low_byte                  Allocated with name '_spi_triangular_wave_low_byte_65536_70'
+                                   1563 ;i                         Allocated with name '_spi_triangular_wave_i_196608_72'
+                                   1564 ;------------------------------------------------------------
+                                   1565 ;	spi_and_bit_banging.c:545: void spi_triangular_wave(int number)
+                                   1566 ;	-----------------------------------------
+                                   1567 ;	 function spi_triangular_wave
                                    1568 ;	-----------------------------------------
-                                   1569 ;	 function spi_triangular_wave
-                                   1570 ;	-----------------------------------------
-      002543                       1571 _spi_triangular_wave:
-      002543 AF 83            [24] 1572 	mov	r7,dph
-      002545 E5 82            [12] 1573 	mov	a,dpl
-      002547 90 04 11         [24] 1574 	mov	dptr,#_spi_triangular_wave_number_65536_69
-      00254A F0               [24] 1575 	movx	@dptr,a
-      00254B EF               [12] 1576 	mov	a,r7
-      00254C A3               [24] 1577 	inc	dptr
-      00254D F0               [24] 1578 	movx	@dptr,a
-                                   1579 ;	spi_and_bit_banging.c:547: int dac_value_index = 0;
-      00254E 90 04 13         [24] 1580 	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
-      002551 E4               [12] 1581 	clr	a
-      002552 F0               [24] 1582 	movx	@dptr,a
-      002553 A3               [24] 1583 	inc	dptr
-      002554 F0               [24] 1584 	movx	@dptr,a
-                                   1585 ;	spi_and_bit_banging.c:548: int dac_data = 0;
-      002555 90 04 15         [24] 1586 	mov	dptr,#_spi_triangular_wave_dac_data_65536_70
-      002558 F0               [24] 1587 	movx	@dptr,a
-      002559 A3               [24] 1588 	inc	dptr
-      00255A F0               [24] 1589 	movx	@dptr,a
-                                   1590 ;	spi_and_bit_banging.c:550: while(number>0)
-      00255B 90 04 11         [24] 1591 	mov	dptr,#_spi_triangular_wave_number_65536_69
-      00255E E0               [24] 1592 	movx	a,@dptr
-      00255F FE               [12] 1593 	mov	r6,a
-      002560 A3               [24] 1594 	inc	dptr
-      002561 E0               [24] 1595 	movx	a,@dptr
-      002562 FF               [12] 1596 	mov	r7,a
-      002563                       1597 00111$:
-      002563 C3               [12] 1598 	clr	c
-      002564 E4               [12] 1599 	clr	a
-      002565 9E               [12] 1600 	subb	a,r6
-      002566 74 80            [12] 1601 	mov	a,#(0x00 ^ 0x80)
-      002568 8F F0            [24] 1602 	mov	b,r7
-      00256A 63 F0 80         [24] 1603 	xrl	b,#0x80
-      00256D 95 F0            [12] 1604 	subb	a,b
-      00256F 40 03            [24] 1605 	jc	00157$
-      002571 02 26 18         [24] 1606 	ljmp	00129$
-      002574                       1607 00157$:
-                                   1608 ;	spi_and_bit_banging.c:552: for(int i = 0; i<512; i++)
-      002574 7C 00            [12] 1609 	mov	r4,#0x00
-      002576 7D 00            [12] 1610 	mov	r5,#0x00
-      002578                       1611 00115$:
-      002578 C3               [12] 1612 	clr	c
-      002579 ED               [12] 1613 	mov	a,r5
-      00257A 64 80            [12] 1614 	xrl	a,#0x80
-      00257C 94 82            [12] 1615 	subb	a,#0x82
-      00257E 40 03            [24] 1616 	jc	00158$
-      002580 02 26 08         [24] 1617 	ljmp	00110$
-      002583                       1618 00158$:
-                                   1619 ;	spi_and_bit_banging.c:555: if(dac_value_index < 512)
-      002583 90 04 13         [24] 1620 	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
-      002586 E0               [24] 1621 	movx	a,@dptr
-      002587 FA               [12] 1622 	mov	r2,a
-      002588 A3               [24] 1623 	inc	dptr
-      002589 E0               [24] 1624 	movx	a,@dptr
-      00258A FB               [12] 1625 	mov	r3,a
-      00258B C3               [12] 1626 	clr	c
-      00258C 64 80            [12] 1627 	xrl	a,#0x80
-      00258E 94 82            [12] 1628 	subb	a,#0x82
-      002590 50 21            [24] 1629 	jnc	00102$
-                                   1630 ;	spi_and_bit_banging.c:559: dac_data = trig_dac_values[dac_value_index];
-      002592 EA               [12] 1631 	mov	a,r2
-      002593 2A               [12] 1632 	add	a,r2
-      002594 FA               [12] 1633 	mov	r2,a
-      002595 EB               [12] 1634 	mov	a,r3
-      002596 33               [12] 1635 	rlc	a
-      002597 FB               [12] 1636 	mov	r3,a
-      002598 EA               [12] 1637 	mov	a,r2
-      002599 24 AF            [12] 1638 	add	a,#_trig_dac_values
-      00259B F5 82            [12] 1639 	mov	dpl,a
-      00259D EB               [12] 1640 	mov	a,r3
-      00259E 34 33            [12] 1641 	addc	a,#(_trig_dac_values >> 8)
-      0025A0 F5 83            [12] 1642 	mov	dph,a
-      0025A2 E4               [12] 1643 	clr	a
-      0025A3 93               [24] 1644 	movc	a,@a+dptr
-      0025A4 FA               [12] 1645 	mov	r2,a
-      0025A5 A3               [24] 1646 	inc	dptr
-      0025A6 E4               [12] 1647 	clr	a
-      0025A7 93               [24] 1648 	movc	a,@a+dptr
-      0025A8 FB               [12] 1649 	mov	r3,a
-      0025A9 90 04 15         [24] 1650 	mov	dptr,#_spi_triangular_wave_dac_data_65536_70
-      0025AC EA               [12] 1651 	mov	a,r2
-      0025AD F0               [24] 1652 	movx	@dptr,a
-      0025AE EB               [12] 1653 	mov	a,r3
-      0025AF A3               [24] 1654 	inc	dptr
-      0025B0 F0               [24] 1655 	movx	@dptr,a
-      0025B1 80 07            [24] 1656 	sjmp	00103$
-      0025B3                       1657 00102$:
-                                   1658 ;	spi_and_bit_banging.c:563: dac_value_index = 0;  // Reset index for next cycle
-      0025B3 90 04 13         [24] 1659 	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
-      0025B6 E4               [12] 1660 	clr	a
-      0025B7 F0               [24] 1661 	movx	@dptr,a
-      0025B8 A3               [24] 1662 	inc	dptr
-      0025B9 F0               [24] 1663 	movx	@dptr,a
-      0025BA                       1664 00103$:
-                                   1665 ;	spi_and_bit_banging.c:570: ((dac_data >> 4) & 0x0F);
-      0025BA 90 04 15         [24] 1666 	mov	dptr,#_spi_triangular_wave_dac_data_65536_70
-      0025BD E0               [24] 1667 	movx	a,@dptr
-      0025BE FA               [12] 1668 	mov	r2,a
-      0025BF A3               [24] 1669 	inc	dptr
-      0025C0 E0               [24] 1670 	movx	a,@dptr
-      0025C1 8A 00            [24] 1671 	mov	ar0,r2
-      0025C3 C4               [12] 1672 	swap	a
-      0025C4 C8               [12] 1673 	xch	a,r0
-      0025C5 C4               [12] 1674 	swap	a
-      0025C6 54 0F            [12] 1675 	anl	a,#0x0f
-      0025C8 68               [12] 1676 	xrl	a,r0
+      002540                       1569 _spi_triangular_wave:
+      002540 AF 83            [24] 1570 	mov	r7,dph
+      002542 E5 82            [12] 1571 	mov	a,dpl
+      002544 90 04 11         [24] 1572 	mov	dptr,#_spi_triangular_wave_number_65536_69
+      002547 F0               [24] 1573 	movx	@dptr,a
+      002548 EF               [12] 1574 	mov	a,r7
+      002549 A3               [24] 1575 	inc	dptr
+      00254A F0               [24] 1576 	movx	@dptr,a
+                                   1577 ;	spi_and_bit_banging.c:547: int dac_value_index = 0;
+      00254B 90 04 13         [24] 1578 	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
+      00254E E4               [12] 1579 	clr	a
+      00254F F0               [24] 1580 	movx	@dptr,a
+      002550 A3               [24] 1581 	inc	dptr
+      002551 F0               [24] 1582 	movx	@dptr,a
+                                   1583 ;	spi_and_bit_banging.c:548: int dac_data = 0;
+      002552 90 04 15         [24] 1584 	mov	dptr,#_spi_triangular_wave_dac_data_65536_70
+      002555 F0               [24] 1585 	movx	@dptr,a
+      002556 A3               [24] 1586 	inc	dptr
+      002557 F0               [24] 1587 	movx	@dptr,a
+                                   1588 ;	spi_and_bit_banging.c:550: while(number>0)
+      002558 90 04 11         [24] 1589 	mov	dptr,#_spi_triangular_wave_number_65536_69
+      00255B E0               [24] 1590 	movx	a,@dptr
+      00255C FE               [12] 1591 	mov	r6,a
+      00255D A3               [24] 1592 	inc	dptr
+      00255E E0               [24] 1593 	movx	a,@dptr
+      00255F FF               [12] 1594 	mov	r7,a
+      002560                       1595 00111$:
+      002560 C3               [12] 1596 	clr	c
+      002561 E4               [12] 1597 	clr	a
+      002562 9E               [12] 1598 	subb	a,r6
+      002563 74 80            [12] 1599 	mov	a,#(0x00 ^ 0x80)
+      002565 8F F0            [24] 1600 	mov	b,r7
+      002567 63 F0 80         [24] 1601 	xrl	b,#0x80
+      00256A 95 F0            [12] 1602 	subb	a,b
+      00256C 40 03            [24] 1603 	jc	00157$
+      00256E 02 26 15         [24] 1604 	ljmp	00129$
+      002571                       1605 00157$:
+                                   1606 ;	spi_and_bit_banging.c:552: for(int i = 0; i<512; i++)
+      002571 7C 00            [12] 1607 	mov	r4,#0x00
+      002573 7D 00            [12] 1608 	mov	r5,#0x00
+      002575                       1609 00115$:
+      002575 C3               [12] 1610 	clr	c
+      002576 ED               [12] 1611 	mov	a,r5
+      002577 64 80            [12] 1612 	xrl	a,#0x80
+      002579 94 82            [12] 1613 	subb	a,#0x82
+      00257B 40 03            [24] 1614 	jc	00158$
+      00257D 02 26 05         [24] 1615 	ljmp	00110$
+      002580                       1616 00158$:
+                                   1617 ;	spi_and_bit_banging.c:555: if(dac_value_index < 512)
+      002580 90 04 13         [24] 1618 	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
+      002583 E0               [24] 1619 	movx	a,@dptr
+      002584 FA               [12] 1620 	mov	r2,a
+      002585 A3               [24] 1621 	inc	dptr
+      002586 E0               [24] 1622 	movx	a,@dptr
+      002587 FB               [12] 1623 	mov	r3,a
+      002588 C3               [12] 1624 	clr	c
+      002589 64 80            [12] 1625 	xrl	a,#0x80
+      00258B 94 82            [12] 1626 	subb	a,#0x82
+      00258D 50 21            [24] 1627 	jnc	00102$
+                                   1628 ;	spi_and_bit_banging.c:559: dac_data = trig_dac_values[dac_value_index];
+      00258F EA               [12] 1629 	mov	a,r2
+      002590 2A               [12] 1630 	add	a,r2
+      002591 FA               [12] 1631 	mov	r2,a
+      002592 EB               [12] 1632 	mov	a,r3
+      002593 33               [12] 1633 	rlc	a
+      002594 FB               [12] 1634 	mov	r3,a
+      002595 EA               [12] 1635 	mov	a,r2
+      002596 24 AC            [12] 1636 	add	a,#_trig_dac_values
+      002598 F5 82            [12] 1637 	mov	dpl,a
+      00259A EB               [12] 1638 	mov	a,r3
+      00259B 34 33            [12] 1639 	addc	a,#(_trig_dac_values >> 8)
+      00259D F5 83            [12] 1640 	mov	dph,a
+      00259F E4               [12] 1641 	clr	a
+      0025A0 93               [24] 1642 	movc	a,@a+dptr
+      0025A1 FA               [12] 1643 	mov	r2,a
+      0025A2 A3               [24] 1644 	inc	dptr
+      0025A3 E4               [12] 1645 	clr	a
+      0025A4 93               [24] 1646 	movc	a,@a+dptr
+      0025A5 FB               [12] 1647 	mov	r3,a
+      0025A6 90 04 15         [24] 1648 	mov	dptr,#_spi_triangular_wave_dac_data_65536_70
+      0025A9 EA               [12] 1649 	mov	a,r2
+      0025AA F0               [24] 1650 	movx	@dptr,a
+      0025AB EB               [12] 1651 	mov	a,r3
+      0025AC A3               [24] 1652 	inc	dptr
+      0025AD F0               [24] 1653 	movx	@dptr,a
+      0025AE 80 07            [24] 1654 	sjmp	00103$
+      0025B0                       1655 00102$:
+                                   1656 ;	spi_and_bit_banging.c:563: dac_value_index = 0;  // Reset index for next cycle
+      0025B0 90 04 13         [24] 1657 	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
+      0025B3 E4               [12] 1658 	clr	a
+      0025B4 F0               [24] 1659 	movx	@dptr,a
+      0025B5 A3               [24] 1660 	inc	dptr
+      0025B6 F0               [24] 1661 	movx	@dptr,a
+      0025B7                       1662 00103$:
+                                   1663 ;	spi_and_bit_banging.c:570: ((dac_data >> 4) & 0x0F);
+      0025B7 90 04 15         [24] 1664 	mov	dptr,#_spi_triangular_wave_dac_data_65536_70
+      0025BA E0               [24] 1665 	movx	a,@dptr
+      0025BB FA               [12] 1666 	mov	r2,a
+      0025BC A3               [24] 1667 	inc	dptr
+      0025BD E0               [24] 1668 	movx	a,@dptr
+      0025BE 8A 00            [24] 1669 	mov	ar0,r2
+      0025C0 C4               [12] 1670 	swap	a
+      0025C1 C8               [12] 1671 	xch	a,r0
+      0025C2 C4               [12] 1672 	swap	a
+      0025C3 54 0F            [12] 1673 	anl	a,#0x0f
+      0025C5 68               [12] 1674 	xrl	a,r0
+      0025C6 C8               [12] 1675 	xch	a,r0
+      0025C7 54 0F            [12] 1676 	anl	a,#0x0f
       0025C9 C8               [12] 1677 	xch	a,r0
-      0025CA 54 0F            [12] 1678 	anl	a,#0x0f
-      0025CC C8               [12] 1679 	xch	a,r0
-      0025CD 68               [12] 1680 	xrl	a,r0
-      0025CE C8               [12] 1681 	xch	a,r0
-      0025CF 30 E3 02         [24] 1682 	jnb	acc.3,00160$
-      0025D2 44 F0            [12] 1683 	orl	a,#0xf0
-      0025D4                       1684 00160$:
-      0025D4 74 0F            [12] 1685 	mov	a,#0x0f
-      0025D6 58               [12] 1686 	anl	a,r0
-      0025D7 44 10            [12] 1687 	orl	a,#0x10
-      0025D9 F9               [12] 1688 	mov	r1,a
-                                   1689 ;	spi_and_bit_banging.c:573: low_byte = (dac_data & 0x0F) << 4;
-      0025DA 53 02 0F         [24] 1690 	anl	ar2,#0x0f
-      0025DD EA               [12] 1691 	mov	a,r2
-      0025DE C4               [12] 1692 	swap	a
-      0025DF 54 F0            [12] 1693 	anl	a,#0xf0
-      0025E1 FB               [12] 1694 	mov	r3,a
-                                   1695 ;	spi_and_bit_banging.c:577: P1_1 = 0;  // Select DAC
-                                   1696 ;	assignBit
-      0025E2 C2 91            [12] 1697 	clr	_P1_1
-                                   1698 ;	spi_and_bit_banging.c:580: SPDAT = high_byte;
-      0025E4 89 C5            [24] 1699 	mov	_SPDAT,r1
-                                   1700 ;	spi_and_bit_banging.c:581: while (!(SPSTA & (1<<7))); 
-      0025E6                       1701 00104$:
-      0025E6 E5 C4            [12] 1702 	mov	a,_SPSTA
-      0025E8 30 E7 FB         [24] 1703 	jnb	acc.7,00104$
-                                   1704 ;	spi_and_bit_banging.c:585: SPDAT = low_byte;
-      0025EB 8B C5            [24] 1705 	mov	_SPDAT,r3
-                                   1706 ;	spi_and_bit_banging.c:586: while (!(SPSTA & (1<<7))); 
-      0025ED                       1707 00107$:
-      0025ED E5 C4            [12] 1708 	mov	a,_SPSTA
-      0025EF 30 E7 FB         [24] 1709 	jnb	acc.7,00107$
-                                   1710 ;	spi_and_bit_banging.c:588: P1_1 = 1;  // Deselect DAC
-                                   1711 ;	assignBit
-      0025F2 D2 91            [12] 1712 	setb	_P1_1
-                                   1713 ;	spi_and_bit_banging.c:590: dac_value_index++;
-      0025F4 90 04 13         [24] 1714 	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
-      0025F7 E0               [24] 1715 	movx	a,@dptr
-      0025F8 24 01            [12] 1716 	add	a,#0x01
-      0025FA F0               [24] 1717 	movx	@dptr,a
-      0025FB A3               [24] 1718 	inc	dptr
-      0025FC E0               [24] 1719 	movx	a,@dptr
-      0025FD 34 00            [12] 1720 	addc	a,#0x00
-      0025FF F0               [24] 1721 	movx	@dptr,a
-                                   1722 ;	spi_and_bit_banging.c:552: for(int i = 0; i<512; i++)
-      002600 0C               [12] 1723 	inc	r4
-      002601 BC 00 01         [24] 1724 	cjne	r4,#0x00,00163$
-      002604 0D               [12] 1725 	inc	r5
-      002605                       1726 00163$:
-      002605 02 25 78         [24] 1727 	ljmp	00115$
-      002608                       1728 00110$:
-                                   1729 ;	spi_and_bit_banging.c:593: number = number - 1;
-      002608 1E               [12] 1730 	dec	r6
-      002609 BE FF 01         [24] 1731 	cjne	r6,#0xff,00164$
-      00260C 1F               [12] 1732 	dec	r7
-      00260D                       1733 00164$:
-      00260D 90 04 11         [24] 1734 	mov	dptr,#_spi_triangular_wave_number_65536_69
-      002610 EE               [12] 1735 	mov	a,r6
-      002611 F0               [24] 1736 	movx	@dptr,a
-      002612 EF               [12] 1737 	mov	a,r7
-      002613 A3               [24] 1738 	inc	dptr
-      002614 F0               [24] 1739 	movx	@dptr,a
-      002615 02 25 63         [24] 1740 	ljmp	00111$
-      002618                       1741 00129$:
-      002618 90 04 11         [24] 1742 	mov	dptr,#_spi_triangular_wave_number_65536_69
-      00261B EE               [12] 1743 	mov	a,r6
-      00261C F0               [24] 1744 	movx	@dptr,a
-      00261D EF               [12] 1745 	mov	a,r7
-      00261E A3               [24] 1746 	inc	dptr
-      00261F F0               [24] 1747 	movx	@dptr,a
-                                   1748 ;	spi_and_bit_banging.c:596: }
-      002620 22               [24] 1749 	ret
+      0025CA 68               [12] 1678 	xrl	a,r0
+      0025CB C8               [12] 1679 	xch	a,r0
+      0025CC 30 E3 02         [24] 1680 	jnb	acc.3,00160$
+      0025CF 44 F0            [12] 1681 	orl	a,#0xf0
+      0025D1                       1682 00160$:
+      0025D1 74 0F            [12] 1683 	mov	a,#0x0f
+      0025D3 58               [12] 1684 	anl	a,r0
+      0025D4 44 10            [12] 1685 	orl	a,#0x10
+      0025D6 F9               [12] 1686 	mov	r1,a
+                                   1687 ;	spi_and_bit_banging.c:573: low_byte = (dac_data & 0x0F) << 4;
+      0025D7 53 02 0F         [24] 1688 	anl	ar2,#0x0f
+      0025DA EA               [12] 1689 	mov	a,r2
+      0025DB C4               [12] 1690 	swap	a
+      0025DC 54 F0            [12] 1691 	anl	a,#0xf0
+      0025DE FB               [12] 1692 	mov	r3,a
+                                   1693 ;	spi_and_bit_banging.c:577: P1_1 = 0;  // Select DAC
+                                   1694 ;	assignBit
+      0025DF C2 91            [12] 1695 	clr	_P1_1
+                                   1696 ;	spi_and_bit_banging.c:580: SPDAT = high_byte;
+      0025E1 89 C5            [24] 1697 	mov	_SPDAT,r1
+                                   1698 ;	spi_and_bit_banging.c:581: while (!(SPSTA & (1<<7))); 
+      0025E3                       1699 00104$:
+      0025E3 E5 C4            [12] 1700 	mov	a,_SPSTA
+      0025E5 30 E7 FB         [24] 1701 	jnb	acc.7,00104$
+                                   1702 ;	spi_and_bit_banging.c:585: SPDAT = low_byte;
+      0025E8 8B C5            [24] 1703 	mov	_SPDAT,r3
+                                   1704 ;	spi_and_bit_banging.c:586: while (!(SPSTA & (1<<7))); 
+      0025EA                       1705 00107$:
+      0025EA E5 C4            [12] 1706 	mov	a,_SPSTA
+      0025EC 30 E7 FB         [24] 1707 	jnb	acc.7,00107$
+                                   1708 ;	spi_and_bit_banging.c:588: P1_1 = 1;  // Deselect DAC
+                                   1709 ;	assignBit
+      0025EF D2 91            [12] 1710 	setb	_P1_1
+                                   1711 ;	spi_and_bit_banging.c:590: dac_value_index++;
+      0025F1 90 04 13         [24] 1712 	mov	dptr,#_spi_triangular_wave_dac_value_index_65536_70
+      0025F4 E0               [24] 1713 	movx	a,@dptr
+      0025F5 24 01            [12] 1714 	add	a,#0x01
+      0025F7 F0               [24] 1715 	movx	@dptr,a
+      0025F8 A3               [24] 1716 	inc	dptr
+      0025F9 E0               [24] 1717 	movx	a,@dptr
+      0025FA 34 00            [12] 1718 	addc	a,#0x00
+      0025FC F0               [24] 1719 	movx	@dptr,a
+                                   1720 ;	spi_and_bit_banging.c:552: for(int i = 0; i<512; i++)
+      0025FD 0C               [12] 1721 	inc	r4
+      0025FE BC 00 01         [24] 1722 	cjne	r4,#0x00,00163$
+      002601 0D               [12] 1723 	inc	r5
+      002602                       1724 00163$:
+      002602 02 25 75         [24] 1725 	ljmp	00115$
+      002605                       1726 00110$:
+                                   1727 ;	spi_and_bit_banging.c:593: number = number - 1;
+      002605 1E               [12] 1728 	dec	r6
+      002606 BE FF 01         [24] 1729 	cjne	r6,#0xff,00164$
+      002609 1F               [12] 1730 	dec	r7
+      00260A                       1731 00164$:
+      00260A 90 04 11         [24] 1732 	mov	dptr,#_spi_triangular_wave_number_65536_69
+      00260D EE               [12] 1733 	mov	a,r6
+      00260E F0               [24] 1734 	movx	@dptr,a
+      00260F EF               [12] 1735 	mov	a,r7
+      002610 A3               [24] 1736 	inc	dptr
+      002611 F0               [24] 1737 	movx	@dptr,a
+      002612 02 25 60         [24] 1738 	ljmp	00111$
+      002615                       1739 00129$:
+      002615 90 04 11         [24] 1740 	mov	dptr,#_spi_triangular_wave_number_65536_69
+      002618 EE               [12] 1741 	mov	a,r6
+      002619 F0               [24] 1742 	movx	@dptr,a
+      00261A EF               [12] 1743 	mov	a,r7
+      00261B A3               [24] 1744 	inc	dptr
+      00261C F0               [24] 1745 	movx	@dptr,a
+                                   1746 ;	spi_and_bit_banging.c:596: }
+      00261D 22               [24] 1747 	ret
+                                   1748 ;------------------------------------------------------------
+                                   1749 ;Allocation info for local variables in function 'spi_ramp_signal'
                                    1750 ;------------------------------------------------------------
-                                   1751 ;Allocation info for local variables in function 'spi_ramp_signal'
-                                   1752 ;------------------------------------------------------------
-                                   1753 ;number                    Allocated with name '_spi_ramp_signal_number_65536_76'
-                                   1754 ;dac_value_index           Allocated with name '_spi_ramp_signal_dac_value_index_65536_77'
-                                   1755 ;dac_data                  Allocated with name '_spi_ramp_signal_dac_data_65536_77'
-                                   1756 ;high_byte                 Allocated with name '_spi_ramp_signal_high_byte_65536_77'
-                                   1757 ;low_byte                  Allocated with name '_spi_ramp_signal_low_byte_65536_77'
-                                   1758 ;i                         Allocated with name '_spi_ramp_signal_i_196608_79'
-                                   1759 ;------------------------------------------------------------
-                                   1760 ;	spi_and_bit_banging.c:598: void spi_ramp_signal(int number)
+                                   1751 ;number                    Allocated with name '_spi_ramp_signal_number_65536_76'
+                                   1752 ;dac_value_index           Allocated with name '_spi_ramp_signal_dac_value_index_65536_77'
+                                   1753 ;dac_data                  Allocated with name '_spi_ramp_signal_dac_data_65536_77'
+                                   1754 ;high_byte                 Allocated with name '_spi_ramp_signal_high_byte_65536_77'
+                                   1755 ;low_byte                  Allocated with name '_spi_ramp_signal_low_byte_65536_77'
+                                   1756 ;i                         Allocated with name '_spi_ramp_signal_i_196608_79'
+                                   1757 ;------------------------------------------------------------
+                                   1758 ;	spi_and_bit_banging.c:598: void spi_ramp_signal(int number)
+                                   1759 ;	-----------------------------------------
+                                   1760 ;	 function spi_ramp_signal
                                    1761 ;	-----------------------------------------
-                                   1762 ;	 function spi_ramp_signal
-                                   1763 ;	-----------------------------------------
-      002621                       1764 _spi_ramp_signal:
-      002621 AF 83            [24] 1765 	mov	r7,dph
-      002623 E5 82            [12] 1766 	mov	a,dpl
-      002625 90 04 17         [24] 1767 	mov	dptr,#_spi_ramp_signal_number_65536_76
-      002628 F0               [24] 1768 	movx	@dptr,a
-      002629 EF               [12] 1769 	mov	a,r7
-      00262A A3               [24] 1770 	inc	dptr
-      00262B F0               [24] 1771 	movx	@dptr,a
-                                   1772 ;	spi_and_bit_banging.c:600: int dac_value_index = 0;
-      00262C 90 04 19         [24] 1773 	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
-      00262F E4               [12] 1774 	clr	a
-      002630 F0               [24] 1775 	movx	@dptr,a
-      002631 A3               [24] 1776 	inc	dptr
-      002632 F0               [24] 1777 	movx	@dptr,a
-                                   1778 ;	spi_and_bit_banging.c:601: int dac_data = 0;
-      002633 90 04 1B         [24] 1779 	mov	dptr,#_spi_ramp_signal_dac_data_65536_77
-      002636 F0               [24] 1780 	movx	@dptr,a
-      002637 A3               [24] 1781 	inc	dptr
-      002638 F0               [24] 1782 	movx	@dptr,a
-                                   1783 ;	spi_and_bit_banging.c:603: while(number>0)
-      002639 90 04 17         [24] 1784 	mov	dptr,#_spi_ramp_signal_number_65536_76
-      00263C E0               [24] 1785 	movx	a,@dptr
-      00263D FE               [12] 1786 	mov	r6,a
-      00263E A3               [24] 1787 	inc	dptr
-      00263F E0               [24] 1788 	movx	a,@dptr
-      002640 FF               [12] 1789 	mov	r7,a
-      002641                       1790 00111$:
-      002641 C3               [12] 1791 	clr	c
-      002642 E4               [12] 1792 	clr	a
-      002643 9E               [12] 1793 	subb	a,r6
-      002644 74 80            [12] 1794 	mov	a,#(0x00 ^ 0x80)
-      002646 8F F0            [24] 1795 	mov	b,r7
-      002648 63 F0 80         [24] 1796 	xrl	b,#0x80
-      00264B 95 F0            [12] 1797 	subb	a,b
-      00264D 40 03            [24] 1798 	jc	00157$
-      00264F 02 26 F6         [24] 1799 	ljmp	00129$
-      002652                       1800 00157$:
-                                   1801 ;	spi_and_bit_banging.c:605: for(int i = 0; i<256; i++)
-      002652 7C 00            [12] 1802 	mov	r4,#0x00
-      002654 7D 00            [12] 1803 	mov	r5,#0x00
-      002656                       1804 00115$:
-      002656 C3               [12] 1805 	clr	c
-      002657 ED               [12] 1806 	mov	a,r5
-      002658 64 80            [12] 1807 	xrl	a,#0x80
-      00265A 94 81            [12] 1808 	subb	a,#0x81
-      00265C 40 03            [24] 1809 	jc	00158$
-      00265E 02 26 E6         [24] 1810 	ljmp	00110$
-      002661                       1811 00158$:
-                                   1812 ;	spi_and_bit_banging.c:608: if(dac_value_index < 256)
-      002661 90 04 19         [24] 1813 	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
-      002664 E0               [24] 1814 	movx	a,@dptr
-      002665 FA               [12] 1815 	mov	r2,a
-      002666 A3               [24] 1816 	inc	dptr
-      002667 E0               [24] 1817 	movx	a,@dptr
-      002668 FB               [12] 1818 	mov	r3,a
-      002669 C3               [12] 1819 	clr	c
-      00266A 64 80            [12] 1820 	xrl	a,#0x80
-      00266C 94 81            [12] 1821 	subb	a,#0x81
-      00266E 50 21            [24] 1822 	jnc	00102$
-                                   1823 ;	spi_and_bit_banging.c:612: dac_data = trig_dac_values[dac_value_index];
-      002670 EA               [12] 1824 	mov	a,r2
-      002671 2A               [12] 1825 	add	a,r2
-      002672 FA               [12] 1826 	mov	r2,a
-      002673 EB               [12] 1827 	mov	a,r3
-      002674 33               [12] 1828 	rlc	a
-      002675 FB               [12] 1829 	mov	r3,a
-      002676 EA               [12] 1830 	mov	a,r2
-      002677 24 AF            [12] 1831 	add	a,#_trig_dac_values
-      002679 F5 82            [12] 1832 	mov	dpl,a
-      00267B EB               [12] 1833 	mov	a,r3
-      00267C 34 33            [12] 1834 	addc	a,#(_trig_dac_values >> 8)
-      00267E F5 83            [12] 1835 	mov	dph,a
-      002680 E4               [12] 1836 	clr	a
-      002681 93               [24] 1837 	movc	a,@a+dptr
-      002682 FA               [12] 1838 	mov	r2,a
-      002683 A3               [24] 1839 	inc	dptr
-      002684 E4               [12] 1840 	clr	a
-      002685 93               [24] 1841 	movc	a,@a+dptr
-      002686 FB               [12] 1842 	mov	r3,a
-      002687 90 04 1B         [24] 1843 	mov	dptr,#_spi_ramp_signal_dac_data_65536_77
-      00268A EA               [12] 1844 	mov	a,r2
-      00268B F0               [24] 1845 	movx	@dptr,a
-      00268C EB               [12] 1846 	mov	a,r3
-      00268D A3               [24] 1847 	inc	dptr
-      00268E F0               [24] 1848 	movx	@dptr,a
-      00268F 80 07            [24] 1849 	sjmp	00103$
-      002691                       1850 00102$:
-                                   1851 ;	spi_and_bit_banging.c:616: dac_value_index = 0;  // Reset index for next cycle
-      002691 90 04 19         [24] 1852 	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
-      002694 E4               [12] 1853 	clr	a
-      002695 F0               [24] 1854 	movx	@dptr,a
-      002696 A3               [24] 1855 	inc	dptr
-      002697 F0               [24] 1856 	movx	@dptr,a
-      002698                       1857 00103$:
-                                   1858 ;	spi_and_bit_banging.c:623: ((dac_data >> 4) & 0x0F);
-      002698 90 04 1B         [24] 1859 	mov	dptr,#_spi_ramp_signal_dac_data_65536_77
-      00269B E0               [24] 1860 	movx	a,@dptr
-      00269C FA               [12] 1861 	mov	r2,a
-      00269D A3               [24] 1862 	inc	dptr
-      00269E E0               [24] 1863 	movx	a,@dptr
-      00269F 8A 00            [24] 1864 	mov	ar0,r2
-      0026A1 C4               [12] 1865 	swap	a
-      0026A2 C8               [12] 1866 	xch	a,r0
-      0026A3 C4               [12] 1867 	swap	a
-      0026A4 54 0F            [12] 1868 	anl	a,#0x0f
-      0026A6 68               [12] 1869 	xrl	a,r0
+      00261E                       1762 _spi_ramp_signal:
+      00261E AF 83            [24] 1763 	mov	r7,dph
+      002620 E5 82            [12] 1764 	mov	a,dpl
+      002622 90 04 17         [24] 1765 	mov	dptr,#_spi_ramp_signal_number_65536_76
+      002625 F0               [24] 1766 	movx	@dptr,a
+      002626 EF               [12] 1767 	mov	a,r7
+      002627 A3               [24] 1768 	inc	dptr
+      002628 F0               [24] 1769 	movx	@dptr,a
+                                   1770 ;	spi_and_bit_banging.c:600: int dac_value_index = 0;
+      002629 90 04 19         [24] 1771 	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
+      00262C E4               [12] 1772 	clr	a
+      00262D F0               [24] 1773 	movx	@dptr,a
+      00262E A3               [24] 1774 	inc	dptr
+      00262F F0               [24] 1775 	movx	@dptr,a
+                                   1776 ;	spi_and_bit_banging.c:601: int dac_data = 0;
+      002630 90 04 1B         [24] 1777 	mov	dptr,#_spi_ramp_signal_dac_data_65536_77
+      002633 F0               [24] 1778 	movx	@dptr,a
+      002634 A3               [24] 1779 	inc	dptr
+      002635 F0               [24] 1780 	movx	@dptr,a
+                                   1781 ;	spi_and_bit_banging.c:603: while(number>0)
+      002636 90 04 17         [24] 1782 	mov	dptr,#_spi_ramp_signal_number_65536_76
+      002639 E0               [24] 1783 	movx	a,@dptr
+      00263A FE               [12] 1784 	mov	r6,a
+      00263B A3               [24] 1785 	inc	dptr
+      00263C E0               [24] 1786 	movx	a,@dptr
+      00263D FF               [12] 1787 	mov	r7,a
+      00263E                       1788 00111$:
+      00263E C3               [12] 1789 	clr	c
+      00263F E4               [12] 1790 	clr	a
+      002640 9E               [12] 1791 	subb	a,r6
+      002641 74 80            [12] 1792 	mov	a,#(0x00 ^ 0x80)
+      002643 8F F0            [24] 1793 	mov	b,r7
+      002645 63 F0 80         [24] 1794 	xrl	b,#0x80
+      002648 95 F0            [12] 1795 	subb	a,b
+      00264A 40 03            [24] 1796 	jc	00157$
+      00264C 02 26 F3         [24] 1797 	ljmp	00129$
+      00264F                       1798 00157$:
+                                   1799 ;	spi_and_bit_banging.c:605: for(int i = 0; i<256; i++)
+      00264F 7C 00            [12] 1800 	mov	r4,#0x00
+      002651 7D 00            [12] 1801 	mov	r5,#0x00
+      002653                       1802 00115$:
+      002653 C3               [12] 1803 	clr	c
+      002654 ED               [12] 1804 	mov	a,r5
+      002655 64 80            [12] 1805 	xrl	a,#0x80
+      002657 94 81            [12] 1806 	subb	a,#0x81
+      002659 40 03            [24] 1807 	jc	00158$
+      00265B 02 26 E3         [24] 1808 	ljmp	00110$
+      00265E                       1809 00158$:
+                                   1810 ;	spi_and_bit_banging.c:608: if(dac_value_index < 256)
+      00265E 90 04 19         [24] 1811 	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
+      002661 E0               [24] 1812 	movx	a,@dptr
+      002662 FA               [12] 1813 	mov	r2,a
+      002663 A3               [24] 1814 	inc	dptr
+      002664 E0               [24] 1815 	movx	a,@dptr
+      002665 FB               [12] 1816 	mov	r3,a
+      002666 C3               [12] 1817 	clr	c
+      002667 64 80            [12] 1818 	xrl	a,#0x80
+      002669 94 81            [12] 1819 	subb	a,#0x81
+      00266B 50 21            [24] 1820 	jnc	00102$
+                                   1821 ;	spi_and_bit_banging.c:612: dac_data = trig_dac_values[dac_value_index];
+      00266D EA               [12] 1822 	mov	a,r2
+      00266E 2A               [12] 1823 	add	a,r2
+      00266F FA               [12] 1824 	mov	r2,a
+      002670 EB               [12] 1825 	mov	a,r3
+      002671 33               [12] 1826 	rlc	a
+      002672 FB               [12] 1827 	mov	r3,a
+      002673 EA               [12] 1828 	mov	a,r2
+      002674 24 AC            [12] 1829 	add	a,#_trig_dac_values
+      002676 F5 82            [12] 1830 	mov	dpl,a
+      002678 EB               [12] 1831 	mov	a,r3
+      002679 34 33            [12] 1832 	addc	a,#(_trig_dac_values >> 8)
+      00267B F5 83            [12] 1833 	mov	dph,a
+      00267D E4               [12] 1834 	clr	a
+      00267E 93               [24] 1835 	movc	a,@a+dptr
+      00267F FA               [12] 1836 	mov	r2,a
+      002680 A3               [24] 1837 	inc	dptr
+      002681 E4               [12] 1838 	clr	a
+      002682 93               [24] 1839 	movc	a,@a+dptr
+      002683 FB               [12] 1840 	mov	r3,a
+      002684 90 04 1B         [24] 1841 	mov	dptr,#_spi_ramp_signal_dac_data_65536_77
+      002687 EA               [12] 1842 	mov	a,r2
+      002688 F0               [24] 1843 	movx	@dptr,a
+      002689 EB               [12] 1844 	mov	a,r3
+      00268A A3               [24] 1845 	inc	dptr
+      00268B F0               [24] 1846 	movx	@dptr,a
+      00268C 80 07            [24] 1847 	sjmp	00103$
+      00268E                       1848 00102$:
+                                   1849 ;	spi_and_bit_banging.c:616: dac_value_index = 0;  // Reset index for next cycle
+      00268E 90 04 19         [24] 1850 	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
+      002691 E4               [12] 1851 	clr	a
+      002692 F0               [24] 1852 	movx	@dptr,a
+      002693 A3               [24] 1853 	inc	dptr
+      002694 F0               [24] 1854 	movx	@dptr,a
+      002695                       1855 00103$:
+                                   1856 ;	spi_and_bit_banging.c:623: ((dac_data >> 4) & 0x0F);
+      002695 90 04 1B         [24] 1857 	mov	dptr,#_spi_ramp_signal_dac_data_65536_77
+      002698 E0               [24] 1858 	movx	a,@dptr
+      002699 FA               [12] 1859 	mov	r2,a
+      00269A A3               [24] 1860 	inc	dptr
+      00269B E0               [24] 1861 	movx	a,@dptr
+      00269C 8A 00            [24] 1862 	mov	ar0,r2
+      00269E C4               [12] 1863 	swap	a
+      00269F C8               [12] 1864 	xch	a,r0
+      0026A0 C4               [12] 1865 	swap	a
+      0026A1 54 0F            [12] 1866 	anl	a,#0x0f
+      0026A3 68               [12] 1867 	xrl	a,r0
+      0026A4 C8               [12] 1868 	xch	a,r0
+      0026A5 54 0F            [12] 1869 	anl	a,#0x0f
       0026A7 C8               [12] 1870 	xch	a,r0
-      0026A8 54 0F            [12] 1871 	anl	a,#0x0f
-      0026AA C8               [12] 1872 	xch	a,r0
-      0026AB 68               [12] 1873 	xrl	a,r0
-      0026AC C8               [12] 1874 	xch	a,r0
-      0026AD 30 E3 02         [24] 1875 	jnb	acc.3,00160$
-      0026B0 44 F0            [12] 1876 	orl	a,#0xf0
-      0026B2                       1877 00160$:
-      0026B2 74 0F            [12] 1878 	mov	a,#0x0f
-      0026B4 58               [12] 1879 	anl	a,r0
-      0026B5 44 10            [12] 1880 	orl	a,#0x10
-      0026B7 F9               [12] 1881 	mov	r1,a
-                                   1882 ;	spi_and_bit_banging.c:626: low_byte = (dac_data & 0x0F) << 4;
-      0026B8 53 02 0F         [24] 1883 	anl	ar2,#0x0f
-      0026BB EA               [12] 1884 	mov	a,r2
-      0026BC C4               [12] 1885 	swap	a
-      0026BD 54 F0            [12] 1886 	anl	a,#0xf0
-      0026BF FB               [12] 1887 	mov	r3,a
-                                   1888 ;	spi_and_bit_banging.c:630: P1_1 = 0;  // Select DAC
-                                   1889 ;	assignBit
-      0026C0 C2 91            [12] 1890 	clr	_P1_1
-                                   1891 ;	spi_and_bit_banging.c:633: SPDAT = high_byte;
-      0026C2 89 C5            [24] 1892 	mov	_SPDAT,r1
-                                   1893 ;	spi_and_bit_banging.c:634: while (!(SPSTA & (1<<7))); 
-      0026C4                       1894 00104$:
-      0026C4 E5 C4            [12] 1895 	mov	a,_SPSTA
-      0026C6 30 E7 FB         [24] 1896 	jnb	acc.7,00104$
-                                   1897 ;	spi_and_bit_banging.c:638: SPDAT = low_byte;
-      0026C9 8B C5            [24] 1898 	mov	_SPDAT,r3
-                                   1899 ;	spi_and_bit_banging.c:639: while (!(SPSTA & (1<<7))); 
-      0026CB                       1900 00107$:
-      0026CB E5 C4            [12] 1901 	mov	a,_SPSTA
-      0026CD 30 E7 FB         [24] 1902 	jnb	acc.7,00107$
-                                   1903 ;	spi_and_bit_banging.c:641: P1_1 = 1;  // Deselect DAC
-                                   1904 ;	assignBit
-      0026D0 D2 91            [12] 1905 	setb	_P1_1
-                                   1906 ;	spi_and_bit_banging.c:643: dac_value_index++;
-      0026D2 90 04 19         [24] 1907 	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
-      0026D5 E0               [24] 1908 	movx	a,@dptr
-      0026D6 24 01            [12] 1909 	add	a,#0x01
-      0026D8 F0               [24] 1910 	movx	@dptr,a
-      0026D9 A3               [24] 1911 	inc	dptr
-      0026DA E0               [24] 1912 	movx	a,@dptr
-      0026DB 34 00            [12] 1913 	addc	a,#0x00
-      0026DD F0               [24] 1914 	movx	@dptr,a
-                                   1915 ;	spi_and_bit_banging.c:605: for(int i = 0; i<256; i++)
-      0026DE 0C               [12] 1916 	inc	r4
-      0026DF BC 00 01         [24] 1917 	cjne	r4,#0x00,00163$
-      0026E2 0D               [12] 1918 	inc	r5
-      0026E3                       1919 00163$:
-      0026E3 02 26 56         [24] 1920 	ljmp	00115$
-      0026E6                       1921 00110$:
-                                   1922 ;	spi_and_bit_banging.c:646: number = number - 1;
-      0026E6 1E               [12] 1923 	dec	r6
-      0026E7 BE FF 01         [24] 1924 	cjne	r6,#0xff,00164$
-      0026EA 1F               [12] 1925 	dec	r7
-      0026EB                       1926 00164$:
-      0026EB 90 04 17         [24] 1927 	mov	dptr,#_spi_ramp_signal_number_65536_76
-      0026EE EE               [12] 1928 	mov	a,r6
-      0026EF F0               [24] 1929 	movx	@dptr,a
-      0026F0 EF               [12] 1930 	mov	a,r7
-      0026F1 A3               [24] 1931 	inc	dptr
-      0026F2 F0               [24] 1932 	movx	@dptr,a
-      0026F3 02 26 41         [24] 1933 	ljmp	00111$
-      0026F6                       1934 00129$:
-      0026F6 90 04 17         [24] 1935 	mov	dptr,#_spi_ramp_signal_number_65536_76
-      0026F9 EE               [12] 1936 	mov	a,r6
-      0026FA F0               [24] 1937 	movx	@dptr,a
-      0026FB EF               [12] 1938 	mov	a,r7
-      0026FC A3               [24] 1939 	inc	dptr
-      0026FD F0               [24] 1940 	movx	@dptr,a
-                                   1941 ;	spi_and_bit_banging.c:649: }
-      0026FE 22               [24] 1942 	ret
-                                   1943 	.area CSEG    (CODE)
-                                   1944 	.area CONST   (CODE)
-      0031AF                       1945 _dac_values:
-      0031AF 80 00                 1946 	.byte #0x80, #0x00	;  128
-      0031B1 83 00                 1947 	.byte #0x83, #0x00	;  131
-      0031B3 86 00                 1948 	.byte #0x86, #0x00	;  134
-      0031B5 89 00                 1949 	.byte #0x89, #0x00	;  137
-      0031B7 8C 00                 1950 	.byte #0x8c, #0x00	;  140
-      0031B9 90 00                 1951 	.byte #0x90, #0x00	;  144
-      0031BB 93 00                 1952 	.byte #0x93, #0x00	;  147
-      0031BD 96 00                 1953 	.byte #0x96, #0x00	;  150
-      0031BF 99 00                 1954 	.byte #0x99, #0x00	;  153
-      0031C1 9C 00                 1955 	.byte #0x9c, #0x00	;  156
-      0031C3 9F 00                 1956 	.byte #0x9f, #0x00	;  159
-      0031C5 A2 00                 1957 	.byte #0xa2, #0x00	;  162
-      0031C7 A5 00                 1958 	.byte #0xa5, #0x00	;  165
-      0031C9 A8 00                 1959 	.byte #0xa8, #0x00	;  168
-      0031CB AB 00                 1960 	.byte #0xab, #0x00	;  171
-      0031CD AE 00                 1961 	.byte #0xae, #0x00	;  174
-      0031CF B1 00                 1962 	.byte #0xb1, #0x00	;  177
-      0031D1 B3 00                 1963 	.byte #0xb3, #0x00	;  179
-      0031D3 B6 00                 1964 	.byte #0xb6, #0x00	;  182
-      0031D5 B9 00                 1965 	.byte #0xb9, #0x00	;  185
-      0031D7 BC 00                 1966 	.byte #0xbc, #0x00	;  188
-      0031D9 BF 00                 1967 	.byte #0xbf, #0x00	;  191
-      0031DB C1 00                 1968 	.byte #0xc1, #0x00	;  193
-      0031DD C4 00                 1969 	.byte #0xc4, #0x00	;  196
-      0031DF C7 00                 1970 	.byte #0xc7, #0x00	;  199
-      0031E1 C9 00                 1971 	.byte #0xc9, #0x00	;  201
-      0031E3 CC 00                 1972 	.byte #0xcc, #0x00	;  204
-      0031E5 CE 00                 1973 	.byte #0xce, #0x00	;  206
-      0031E7 D1 00                 1974 	.byte #0xd1, #0x00	;  209
-      0031E9 D3 00                 1975 	.byte #0xd3, #0x00	;  211
-      0031EB D5 00                 1976 	.byte #0xd5, #0x00	;  213
-      0031ED D8 00                 1977 	.byte #0xd8, #0x00	;  216
-      0031EF DA 00                 1978 	.byte #0xda, #0x00	;  218
-      0031F1 DC 00                 1979 	.byte #0xdc, #0x00	;  220
-      0031F3 DE 00                 1980 	.byte #0xde, #0x00	;  222
-      0031F5 E0 00                 1981 	.byte #0xe0, #0x00	;  224
-      0031F7 E2 00                 1982 	.byte #0xe2, #0x00	;  226
-      0031F9 E4 00                 1983 	.byte #0xe4, #0x00	;  228
-      0031FB E6 00                 1984 	.byte #0xe6, #0x00	;  230
-      0031FD E8 00                 1985 	.byte #0xe8, #0x00	;  232
-      0031FF EA 00                 1986 	.byte #0xea, #0x00	;  234
-      003201 EB 00                 1987 	.byte #0xeb, #0x00	;  235
-      003203 ED 00                 1988 	.byte #0xed, #0x00	;  237
-      003205 EF 00                 1989 	.byte #0xef, #0x00	;  239
-      003207 F0 00                 1990 	.byte #0xf0, #0x00	;  240
-      003209 F1 00                 1991 	.byte #0xf1, #0x00	;  241
-      00320B F3 00                 1992 	.byte #0xf3, #0x00	;  243
-      00320D F4 00                 1993 	.byte #0xf4, #0x00	;  244
-      00320F F5 00                 1994 	.byte #0xf5, #0x00	;  245
-      003211 F6 00                 1995 	.byte #0xf6, #0x00	;  246
-      003213 F8 00                 1996 	.byte #0xf8, #0x00	;  248
-      003215 F9 00                 1997 	.byte #0xf9, #0x00	;  249
-      003217 FA 00                 1998 	.byte #0xfa, #0x00	;  250
-      003219 FA 00                 1999 	.byte #0xfa, #0x00	;  250
-      00321B FB 00                 2000 	.byte #0xfb, #0x00	;  251
-      00321D FC 00                 2001 	.byte #0xfc, #0x00	;  252
-      00321F FD 00                 2002 	.byte #0xfd, #0x00	;  253
-      003221 FD 00                 2003 	.byte #0xfd, #0x00	;  253
-      003223 FE 00                 2004 	.byte #0xfe, #0x00	;  254
-      003225 FE 00                 2005 	.byte #0xfe, #0x00	;  254
-      003227 FE 00                 2006 	.byte #0xfe, #0x00	;  254
-      003229 FF 00                 2007 	.byte #0xff, #0x00	;  255
-      00322B FF 00                 2008 	.byte #0xff, #0x00	;  255
-      00322D FF 00                 2009 	.byte #0xff, #0x00	;  255
-      00322F FF 00                 2010 	.byte #0xff, #0x00	;  255
-      003231 FF 00                 2011 	.byte #0xff, #0x00	;  255
-      003233 FF 00                 2012 	.byte #0xff, #0x00	;  255
-      003235 FF 00                 2013 	.byte #0xff, #0x00	;  255
-      003237 FE 00                 2014 	.byte #0xfe, #0x00	;  254
-      003239 FE 00                 2015 	.byte #0xfe, #0x00	;  254
-      00323B FE 00                 2016 	.byte #0xfe, #0x00	;  254
-      00323D FD 00                 2017 	.byte #0xfd, #0x00	;  253
-      00323F FD 00                 2018 	.byte #0xfd, #0x00	;  253
-      003241 FC 00                 2019 	.byte #0xfc, #0x00	;  252
-      003243 FB 00                 2020 	.byte #0xfb, #0x00	;  251
-      003245 FA 00                 2021 	.byte #0xfa, #0x00	;  250
-      003247 FA 00                 2022 	.byte #0xfa, #0x00	;  250
-      003249 F9 00                 2023 	.byte #0xf9, #0x00	;  249
-      00324B F8 00                 2024 	.byte #0xf8, #0x00	;  248
-      00324D F6 00                 2025 	.byte #0xf6, #0x00	;  246
-      00324F F5 00                 2026 	.byte #0xf5, #0x00	;  245
-      003251 F4 00                 2027 	.byte #0xf4, #0x00	;  244
-      003253 F3 00                 2028 	.byte #0xf3, #0x00	;  243
-      003255 F1 00                 2029 	.byte #0xf1, #0x00	;  241
-      003257 F0 00                 2030 	.byte #0xf0, #0x00	;  240
-      003259 EF 00                 2031 	.byte #0xef, #0x00	;  239
-      00325B ED 00                 2032 	.byte #0xed, #0x00	;  237
-      00325D EB 00                 2033 	.byte #0xeb, #0x00	;  235
-      00325F EA 00                 2034 	.byte #0xea, #0x00	;  234
-      003261 E8 00                 2035 	.byte #0xe8, #0x00	;  232
-      003263 E6 00                 2036 	.byte #0xe6, #0x00	;  230
-      003265 E4 00                 2037 	.byte #0xe4, #0x00	;  228
-      003267 E2 00                 2038 	.byte #0xe2, #0x00	;  226
-      003269 E0 00                 2039 	.byte #0xe0, #0x00	;  224
-      00326B DE 00                 2040 	.byte #0xde, #0x00	;  222
-      00326D DC 00                 2041 	.byte #0xdc, #0x00	;  220
-      00326F DA 00                 2042 	.byte #0xda, #0x00	;  218
-      003271 D8 00                 2043 	.byte #0xd8, #0x00	;  216
-      003273 D5 00                 2044 	.byte #0xd5, #0x00	;  213
-      003275 D3 00                 2045 	.byte #0xd3, #0x00	;  211
-      003277 D1 00                 2046 	.byte #0xd1, #0x00	;  209
-      003279 CE 00                 2047 	.byte #0xce, #0x00	;  206
-      00327B CC 00                 2048 	.byte #0xcc, #0x00	;  204
-      00327D C9 00                 2049 	.byte #0xc9, #0x00	;  201
-      00327F C7 00                 2050 	.byte #0xc7, #0x00	;  199
-      003281 C4 00                 2051 	.byte #0xc4, #0x00	;  196
-      003283 C1 00                 2052 	.byte #0xc1, #0x00	;  193
-      003285 BF 00                 2053 	.byte #0xbf, #0x00	;  191
-      003287 BC 00                 2054 	.byte #0xbc, #0x00	;  188
-      003289 B9 00                 2055 	.byte #0xb9, #0x00	;  185
-      00328B B6 00                 2056 	.byte #0xb6, #0x00	;  182
-      00328D B3 00                 2057 	.byte #0xb3, #0x00	;  179
-      00328F B1 00                 2058 	.byte #0xb1, #0x00	;  177
-      003291 AE 00                 2059 	.byte #0xae, #0x00	;  174
-      003293 AB 00                 2060 	.byte #0xab, #0x00	;  171
-      003295 A8 00                 2061 	.byte #0xa8, #0x00	;  168
-      003297 A5 00                 2062 	.byte #0xa5, #0x00	;  165
-      003299 A2 00                 2063 	.byte #0xa2, #0x00	;  162
-      00329B 9F 00                 2064 	.byte #0x9f, #0x00	;  159
-      00329D 9C 00                 2065 	.byte #0x9c, #0x00	;  156
-      00329F 99 00                 2066 	.byte #0x99, #0x00	;  153
-      0032A1 96 00                 2067 	.byte #0x96, #0x00	;  150
-      0032A3 93 00                 2068 	.byte #0x93, #0x00	;  147
-      0032A5 90 00                 2069 	.byte #0x90, #0x00	;  144
-      0032A7 8C 00                 2070 	.byte #0x8c, #0x00	;  140
-      0032A9 89 00                 2071 	.byte #0x89, #0x00	;  137
-      0032AB 86 00                 2072 	.byte #0x86, #0x00	;  134
-      0032AD 83 00                 2073 	.byte #0x83, #0x00	;  131
-      0032AF 80 00                 2074 	.byte #0x80, #0x00	;  128
-      0032B1 7D 00                 2075 	.byte #0x7d, #0x00	;  125
-      0032B3 7A 00                 2076 	.byte #0x7a, #0x00	;  122
-      0032B5 77 00                 2077 	.byte #0x77, #0x00	;  119
-      0032B7 74 00                 2078 	.byte #0x74, #0x00	;  116
-      0032B9 70 00                 2079 	.byte #0x70, #0x00	;  112
-      0032BB 6D 00                 2080 	.byte #0x6d, #0x00	;  109
-      0032BD 6A 00                 2081 	.byte #0x6a, #0x00	;  106
-      0032BF 67 00                 2082 	.byte #0x67, #0x00	;  103
-      0032C1 64 00                 2083 	.byte #0x64, #0x00	;  100
-      0032C3 61 00                 2084 	.byte #0x61, #0x00	;  97
-      0032C5 5E 00                 2085 	.byte #0x5e, #0x00	;  94
-      0032C7 5B 00                 2086 	.byte #0x5b, #0x00	;  91
-      0032C9 58 00                 2087 	.byte #0x58, #0x00	;  88
-      0032CB 55 00                 2088 	.byte #0x55, #0x00	;  85
-      0032CD 52 00                 2089 	.byte #0x52, #0x00	;  82
-      0032CF 4F 00                 2090 	.byte #0x4f, #0x00	;  79
-      0032D1 4D 00                 2091 	.byte #0x4d, #0x00	;  77
-      0032D3 4A 00                 2092 	.byte #0x4a, #0x00	;  74
-      0032D5 47 00                 2093 	.byte #0x47, #0x00	;  71
-      0032D7 44 00                 2094 	.byte #0x44, #0x00	;  68
-      0032D9 41 00                 2095 	.byte #0x41, #0x00	;  65
-      0032DB 3F 00                 2096 	.byte #0x3f, #0x00	;  63
-      0032DD 3C 00                 2097 	.byte #0x3c, #0x00	;  60
-      0032DF 39 00                 2098 	.byte #0x39, #0x00	;  57
-      0032E1 37 00                 2099 	.byte #0x37, #0x00	;  55
-      0032E3 34 00                 2100 	.byte #0x34, #0x00	;  52
-      0032E5 32 00                 2101 	.byte #0x32, #0x00	;  50
-      0032E7 2F 00                 2102 	.byte #0x2f, #0x00	;  47
-      0032E9 2D 00                 2103 	.byte #0x2d, #0x00	;  45
-      0032EB 2B 00                 2104 	.byte #0x2b, #0x00	;  43
-      0032ED 28 00                 2105 	.byte #0x28, #0x00	;  40
-      0032EF 26 00                 2106 	.byte #0x26, #0x00	;  38
-      0032F1 24 00                 2107 	.byte #0x24, #0x00	;  36
-      0032F3 22 00                 2108 	.byte #0x22, #0x00	;  34
-      0032F5 20 00                 2109 	.byte #0x20, #0x00	;  32
-      0032F7 1E 00                 2110 	.byte #0x1e, #0x00	;  30
-      0032F9 1C 00                 2111 	.byte #0x1c, #0x00	;  28
-      0032FB 1A 00                 2112 	.byte #0x1a, #0x00	;  26
-      0032FD 18 00                 2113 	.byte #0x18, #0x00	;  24
-      0032FF 16 00                 2114 	.byte #0x16, #0x00	;  22
-      003301 15 00                 2115 	.byte #0x15, #0x00	;  21
-      003303 13 00                 2116 	.byte #0x13, #0x00	;  19
-      003305 11 00                 2117 	.byte #0x11, #0x00	;  17
-      003307 10 00                 2118 	.byte #0x10, #0x00	;  16
-      003309 0F 00                 2119 	.byte #0x0f, #0x00	;  15
-      00330B 0D 00                 2120 	.byte #0x0d, #0x00	;  13
-      00330D 0C 00                 2121 	.byte #0x0c, #0x00	;  12
-      00330F 0B 00                 2122 	.byte #0x0b, #0x00	;  11
-      003311 0A 00                 2123 	.byte #0x0a, #0x00	;  10
-      003313 08 00                 2124 	.byte #0x08, #0x00	;  8
-      003315 07 00                 2125 	.byte #0x07, #0x00	;  7
-      003317 06 00                 2126 	.byte #0x06, #0x00	;  6
-      003319 06 00                 2127 	.byte #0x06, #0x00	;  6
-      00331B 05 00                 2128 	.byte #0x05, #0x00	;  5
-      00331D 04 00                 2129 	.byte #0x04, #0x00	;  4
-      00331F 03 00                 2130 	.byte #0x03, #0x00	;  3
-      003321 03 00                 2131 	.byte #0x03, #0x00	;  3
-      003323 02 00                 2132 	.byte #0x02, #0x00	;  2
-      003325 02 00                 2133 	.byte #0x02, #0x00	;  2
-      003327 02 00                 2134 	.byte #0x02, #0x00	;  2
-      003329 01 00                 2135 	.byte #0x01, #0x00	;  1
-      00332B 01 00                 2136 	.byte #0x01, #0x00	;  1
-      00332D 01 00                 2137 	.byte #0x01, #0x00	;  1
-      00332F 01 00                 2138 	.byte #0x01, #0x00	;  1
-      003331 01 00                 2139 	.byte #0x01, #0x00	;  1
-      003333 01 00                 2140 	.byte #0x01, #0x00	;  1
-      003335 01 00                 2141 	.byte #0x01, #0x00	;  1
-      003337 02 00                 2142 	.byte #0x02, #0x00	;  2
-      003339 02 00                 2143 	.byte #0x02, #0x00	;  2
-      00333B 02 00                 2144 	.byte #0x02, #0x00	;  2
-      00333D 03 00                 2145 	.byte #0x03, #0x00	;  3
-      00333F 03 00                 2146 	.byte #0x03, #0x00	;  3
-      003341 04 00                 2147 	.byte #0x04, #0x00	;  4
-      003343 05 00                 2148 	.byte #0x05, #0x00	;  5
-      003345 06 00                 2149 	.byte #0x06, #0x00	;  6
-      003347 06 00                 2150 	.byte #0x06, #0x00	;  6
-      003349 07 00                 2151 	.byte #0x07, #0x00	;  7
-      00334B 08 00                 2152 	.byte #0x08, #0x00	;  8
-      00334D 0A 00                 2153 	.byte #0x0a, #0x00	;  10
-      00334F 0B 00                 2154 	.byte #0x0b, #0x00	;  11
-      003351 0C 00                 2155 	.byte #0x0c, #0x00	;  12
-      003353 0D 00                 2156 	.byte #0x0d, #0x00	;  13
-      003355 0F 00                 2157 	.byte #0x0f, #0x00	;  15
-      003357 10 00                 2158 	.byte #0x10, #0x00	;  16
-      003359 11 00                 2159 	.byte #0x11, #0x00	;  17
-      00335B 13 00                 2160 	.byte #0x13, #0x00	;  19
-      00335D 15 00                 2161 	.byte #0x15, #0x00	;  21
-      00335F 16 00                 2162 	.byte #0x16, #0x00	;  22
-      003361 18 00                 2163 	.byte #0x18, #0x00	;  24
-      003363 1A 00                 2164 	.byte #0x1a, #0x00	;  26
-      003365 1C 00                 2165 	.byte #0x1c, #0x00	;  28
-      003367 1E 00                 2166 	.byte #0x1e, #0x00	;  30
-      003369 20 00                 2167 	.byte #0x20, #0x00	;  32
-      00336B 22 00                 2168 	.byte #0x22, #0x00	;  34
-      00336D 24 00                 2169 	.byte #0x24, #0x00	;  36
-      00336F 26 00                 2170 	.byte #0x26, #0x00	;  38
-      003371 28 00                 2171 	.byte #0x28, #0x00	;  40
-      003373 2B 00                 2172 	.byte #0x2b, #0x00	;  43
-      003375 2D 00                 2173 	.byte #0x2d, #0x00	;  45
-      003377 2F 00                 2174 	.byte #0x2f, #0x00	;  47
-      003379 32 00                 2175 	.byte #0x32, #0x00	;  50
-      00337B 34 00                 2176 	.byte #0x34, #0x00	;  52
-      00337D 37 00                 2177 	.byte #0x37, #0x00	;  55
-      00337F 39 00                 2178 	.byte #0x39, #0x00	;  57
-      003381 3C 00                 2179 	.byte #0x3c, #0x00	;  60
-      003383 3F 00                 2180 	.byte #0x3f, #0x00	;  63
-      003385 41 00                 2181 	.byte #0x41, #0x00	;  65
-      003387 44 00                 2182 	.byte #0x44, #0x00	;  68
-      003389 47 00                 2183 	.byte #0x47, #0x00	;  71
-      00338B 4A 00                 2184 	.byte #0x4a, #0x00	;  74
-      00338D 4D 00                 2185 	.byte #0x4d, #0x00	;  77
-      00338F 4F 00                 2186 	.byte #0x4f, #0x00	;  79
-      003391 52 00                 2187 	.byte #0x52, #0x00	;  82
-      003393 55 00                 2188 	.byte #0x55, #0x00	;  85
-      003395 58 00                 2189 	.byte #0x58, #0x00	;  88
-      003397 5B 00                 2190 	.byte #0x5b, #0x00	;  91
-      003399 5E 00                 2191 	.byte #0x5e, #0x00	;  94
-      00339B 61 00                 2192 	.byte #0x61, #0x00	;  97
-      00339D 64 00                 2193 	.byte #0x64, #0x00	;  100
-      00339F 67 00                 2194 	.byte #0x67, #0x00	;  103
-      0033A1 6A 00                 2195 	.byte #0x6a, #0x00	;  106
-      0033A3 6D 00                 2196 	.byte #0x6d, #0x00	;  109
-      0033A5 70 00                 2197 	.byte #0x70, #0x00	;  112
-      0033A7 74 00                 2198 	.byte #0x74, #0x00	;  116
-      0033A9 77 00                 2199 	.byte #0x77, #0x00	;  119
-      0033AB 7A 00                 2200 	.byte #0x7a, #0x00	;  122
-      0033AD 7D 00                 2201 	.byte #0x7d, #0x00	;  125
-      0033AF                       2202 _trig_dac_values:
-      0033AF 00 00                 2203 	.byte #0x00, #0x00	;  0
-      0033B1 01 00                 2204 	.byte #0x01, #0x00	;  1
-      0033B3 02 00                 2205 	.byte #0x02, #0x00	;  2
-      0033B5 03 00                 2206 	.byte #0x03, #0x00	;  3
-      0033B7 04 00                 2207 	.byte #0x04, #0x00	;  4
-      0033B9 05 00                 2208 	.byte #0x05, #0x00	;  5
-      0033BB 06 00                 2209 	.byte #0x06, #0x00	;  6
-      0033BD 07 00                 2210 	.byte #0x07, #0x00	;  7
-      0033BF 08 00                 2211 	.byte #0x08, #0x00	;  8
-      0033C1 09 00                 2212 	.byte #0x09, #0x00	;  9
-      0033C3 0A 00                 2213 	.byte #0x0a, #0x00	;  10
-      0033C5 0B 00                 2214 	.byte #0x0b, #0x00	;  11
-      0033C7 0C 00                 2215 	.byte #0x0c, #0x00	;  12
-      0033C9 0D 00                 2216 	.byte #0x0d, #0x00	;  13
-      0033CB 0E 00                 2217 	.byte #0x0e, #0x00	;  14
-      0033CD 0F 00                 2218 	.byte #0x0f, #0x00	;  15
-      0033CF 10 00                 2219 	.byte #0x10, #0x00	;  16
-      0033D1 11 00                 2220 	.byte #0x11, #0x00	;  17
-      0033D3 12 00                 2221 	.byte #0x12, #0x00	;  18
-      0033D5 13 00                 2222 	.byte #0x13, #0x00	;  19
-      0033D7 14 00                 2223 	.byte #0x14, #0x00	;  20
-      0033D9 15 00                 2224 	.byte #0x15, #0x00	;  21
-      0033DB 16 00                 2225 	.byte #0x16, #0x00	;  22
-      0033DD 17 00                 2226 	.byte #0x17, #0x00	;  23
-      0033DF 18 00                 2227 	.byte #0x18, #0x00	;  24
-      0033E1 19 00                 2228 	.byte #0x19, #0x00	;  25
-      0033E3 1A 00                 2229 	.byte #0x1a, #0x00	;  26
-      0033E5 1B 00                 2230 	.byte #0x1b, #0x00	;  27
-      0033E7 1C 00                 2231 	.byte #0x1c, #0x00	;  28
-      0033E9 1D 00                 2232 	.byte #0x1d, #0x00	;  29
-      0033EB 1E 00                 2233 	.byte #0x1e, #0x00	;  30
-      0033ED 1F 00                 2234 	.byte #0x1f, #0x00	;  31
-      0033EF 20 00                 2235 	.byte #0x20, #0x00	;  32
-      0033F1 21 00                 2236 	.byte #0x21, #0x00	;  33
-      0033F3 22 00                 2237 	.byte #0x22, #0x00	;  34
-      0033F5 23 00                 2238 	.byte #0x23, #0x00	;  35
-      0033F7 24 00                 2239 	.byte #0x24, #0x00	;  36
-      0033F9 25 00                 2240 	.byte #0x25, #0x00	;  37
-      0033FB 26 00                 2241 	.byte #0x26, #0x00	;  38
-      0033FD 27 00                 2242 	.byte #0x27, #0x00	;  39
-      0033FF 28 00                 2243 	.byte #0x28, #0x00	;  40
-      003401 29 00                 2244 	.byte #0x29, #0x00	;  41
-      003403 2A 00                 2245 	.byte #0x2a, #0x00	;  42
-      003405 2B 00                 2246 	.byte #0x2b, #0x00	;  43
-      003407 2C 00                 2247 	.byte #0x2c, #0x00	;  44
-      003409 2D 00                 2248 	.byte #0x2d, #0x00	;  45
-      00340B 2E 00                 2249 	.byte #0x2e, #0x00	;  46
-      00340D 2F 00                 2250 	.byte #0x2f, #0x00	;  47
-      00340F 30 00                 2251 	.byte #0x30, #0x00	;  48
-      003411 31 00                 2252 	.byte #0x31, #0x00	;  49
-      003413 32 00                 2253 	.byte #0x32, #0x00	;  50
-      003415 33 00                 2254 	.byte #0x33, #0x00	;  51
-      003417 34 00                 2255 	.byte #0x34, #0x00	;  52
-      003419 35 00                 2256 	.byte #0x35, #0x00	;  53
-      00341B 36 00                 2257 	.byte #0x36, #0x00	;  54
-      00341D 37 00                 2258 	.byte #0x37, #0x00	;  55
-      00341F 38 00                 2259 	.byte #0x38, #0x00	;  56
-      003421 39 00                 2260 	.byte #0x39, #0x00	;  57
-      003423 3A 00                 2261 	.byte #0x3a, #0x00	;  58
-      003425 3B 00                 2262 	.byte #0x3b, #0x00	;  59
-      003427 3C 00                 2263 	.byte #0x3c, #0x00	;  60
-      003429 3D 00                 2264 	.byte #0x3d, #0x00	;  61
-      00342B 3E 00                 2265 	.byte #0x3e, #0x00	;  62
-      00342D 3F 00                 2266 	.byte #0x3f, #0x00	;  63
-      00342F 40 00                 2267 	.byte #0x40, #0x00	;  64
-      003431 41 00                 2268 	.byte #0x41, #0x00	;  65
-      003433 42 00                 2269 	.byte #0x42, #0x00	;  66
-      003435 43 00                 2270 	.byte #0x43, #0x00	;  67
-      003437 44 00                 2271 	.byte #0x44, #0x00	;  68
-      003439 45 00                 2272 	.byte #0x45, #0x00	;  69
-      00343B 46 00                 2273 	.byte #0x46, #0x00	;  70
-      00343D 47 00                 2274 	.byte #0x47, #0x00	;  71
-      00343F 48 00                 2275 	.byte #0x48, #0x00	;  72
-      003441 49 00                 2276 	.byte #0x49, #0x00	;  73
-      003443 4A 00                 2277 	.byte #0x4a, #0x00	;  74
-      003445 4B 00                 2278 	.byte #0x4b, #0x00	;  75
-      003447 4C 00                 2279 	.byte #0x4c, #0x00	;  76
-      003449 4D 00                 2280 	.byte #0x4d, #0x00	;  77
-      00344B 4E 00                 2281 	.byte #0x4e, #0x00	;  78
-      00344D 4F 00                 2282 	.byte #0x4f, #0x00	;  79
-      00344F 50 00                 2283 	.byte #0x50, #0x00	;  80
-      003451 51 00                 2284 	.byte #0x51, #0x00	;  81
-      003453 52 00                 2285 	.byte #0x52, #0x00	;  82
-      003455 53 00                 2286 	.byte #0x53, #0x00	;  83
-      003457 54 00                 2287 	.byte #0x54, #0x00	;  84
-      003459 55 00                 2288 	.byte #0x55, #0x00	;  85
-      00345B 56 00                 2289 	.byte #0x56, #0x00	;  86
-      00345D 57 00                 2290 	.byte #0x57, #0x00	;  87
-      00345F 58 00                 2291 	.byte #0x58, #0x00	;  88
-      003461 59 00                 2292 	.byte #0x59, #0x00	;  89
-      003463 5A 00                 2293 	.byte #0x5a, #0x00	;  90
-      003465 5B 00                 2294 	.byte #0x5b, #0x00	;  91
-      003467 5C 00                 2295 	.byte #0x5c, #0x00	;  92
-      003469 5D 00                 2296 	.byte #0x5d, #0x00	;  93
-      00346B 5E 00                 2297 	.byte #0x5e, #0x00	;  94
-      00346D 5F 00                 2298 	.byte #0x5f, #0x00	;  95
-      00346F 60 00                 2299 	.byte #0x60, #0x00	;  96
-      003471 61 00                 2300 	.byte #0x61, #0x00	;  97
-      003473 62 00                 2301 	.byte #0x62, #0x00	;  98
-      003475 63 00                 2302 	.byte #0x63, #0x00	;  99
-      003477 64 00                 2303 	.byte #0x64, #0x00	;  100
-      003479 65 00                 2304 	.byte #0x65, #0x00	;  101
-      00347B 66 00                 2305 	.byte #0x66, #0x00	;  102
-      00347D 67 00                 2306 	.byte #0x67, #0x00	;  103
-      00347F 68 00                 2307 	.byte #0x68, #0x00	;  104
-      003481 69 00                 2308 	.byte #0x69, #0x00	;  105
-      003483 6A 00                 2309 	.byte #0x6a, #0x00	;  106
-      003485 6B 00                 2310 	.byte #0x6b, #0x00	;  107
-      003487 6C 00                 2311 	.byte #0x6c, #0x00	;  108
-      003489 6D 00                 2312 	.byte #0x6d, #0x00	;  109
-      00348B 6E 00                 2313 	.byte #0x6e, #0x00	;  110
-      00348D 6F 00                 2314 	.byte #0x6f, #0x00	;  111
-      00348F 70 00                 2315 	.byte #0x70, #0x00	;  112
-      003491 71 00                 2316 	.byte #0x71, #0x00	;  113
-      003493 72 00                 2317 	.byte #0x72, #0x00	;  114
-      003495 73 00                 2318 	.byte #0x73, #0x00	;  115
-      003497 74 00                 2319 	.byte #0x74, #0x00	;  116
-      003499 75 00                 2320 	.byte #0x75, #0x00	;  117
-      00349B 76 00                 2321 	.byte #0x76, #0x00	;  118
-      00349D 77 00                 2322 	.byte #0x77, #0x00	;  119
-      00349F 78 00                 2323 	.byte #0x78, #0x00	;  120
-      0034A1 79 00                 2324 	.byte #0x79, #0x00	;  121
-      0034A3 7A 00                 2325 	.byte #0x7a, #0x00	;  122
-      0034A5 7B 00                 2326 	.byte #0x7b, #0x00	;  123
-      0034A7 7C 00                 2327 	.byte #0x7c, #0x00	;  124
-      0034A9 7D 00                 2328 	.byte #0x7d, #0x00	;  125
-      0034AB 7E 00                 2329 	.byte #0x7e, #0x00	;  126
-      0034AD 7F 00                 2330 	.byte #0x7f, #0x00	;  127
-      0034AF 80 00                 2331 	.byte #0x80, #0x00	;  128
-      0034B1 81 00                 2332 	.byte #0x81, #0x00	;  129
-      0034B3 82 00                 2333 	.byte #0x82, #0x00	;  130
-      0034B5 83 00                 2334 	.byte #0x83, #0x00	;  131
-      0034B7 84 00                 2335 	.byte #0x84, #0x00	;  132
-      0034B9 85 00                 2336 	.byte #0x85, #0x00	;  133
-      0034BB 86 00                 2337 	.byte #0x86, #0x00	;  134
-      0034BD 87 00                 2338 	.byte #0x87, #0x00	;  135
-      0034BF 88 00                 2339 	.byte #0x88, #0x00	;  136
-      0034C1 89 00                 2340 	.byte #0x89, #0x00	;  137
-      0034C3 8A 00                 2341 	.byte #0x8a, #0x00	;  138
-      0034C5 8B 00                 2342 	.byte #0x8b, #0x00	;  139
-      0034C7 8C 00                 2343 	.byte #0x8c, #0x00	;  140
-      0034C9 8D 00                 2344 	.byte #0x8d, #0x00	;  141
-      0034CB 8E 00                 2345 	.byte #0x8e, #0x00	;  142
-      0034CD 8F 00                 2346 	.byte #0x8f, #0x00	;  143
-      0034CF 90 00                 2347 	.byte #0x90, #0x00	;  144
-      0034D1 91 00                 2348 	.byte #0x91, #0x00	;  145
-      0034D3 92 00                 2349 	.byte #0x92, #0x00	;  146
-      0034D5 93 00                 2350 	.byte #0x93, #0x00	;  147
-      0034D7 94 00                 2351 	.byte #0x94, #0x00	;  148
-      0034D9 95 00                 2352 	.byte #0x95, #0x00	;  149
-      0034DB 96 00                 2353 	.byte #0x96, #0x00	;  150
-      0034DD 97 00                 2354 	.byte #0x97, #0x00	;  151
-      0034DF 98 00                 2355 	.byte #0x98, #0x00	;  152
-      0034E1 99 00                 2356 	.byte #0x99, #0x00	;  153
-      0034E3 9A 00                 2357 	.byte #0x9a, #0x00	;  154
-      0034E5 9B 00                 2358 	.byte #0x9b, #0x00	;  155
-      0034E7 9C 00                 2359 	.byte #0x9c, #0x00	;  156
-      0034E9 9D 00                 2360 	.byte #0x9d, #0x00	;  157
-      0034EB 9E 00                 2361 	.byte #0x9e, #0x00	;  158
-      0034ED 9F 00                 2362 	.byte #0x9f, #0x00	;  159
-      0034EF A0 00                 2363 	.byte #0xa0, #0x00	;  160
-      0034F1 A1 00                 2364 	.byte #0xa1, #0x00	;  161
-      0034F3 A2 00                 2365 	.byte #0xa2, #0x00	;  162
-      0034F5 A3 00                 2366 	.byte #0xa3, #0x00	;  163
-      0034F7 A4 00                 2367 	.byte #0xa4, #0x00	;  164
-      0034F9 A5 00                 2368 	.byte #0xa5, #0x00	;  165
-      0034FB A6 00                 2369 	.byte #0xa6, #0x00	;  166
-      0034FD A7 00                 2370 	.byte #0xa7, #0x00	;  167
-      0034FF A8 00                 2371 	.byte #0xa8, #0x00	;  168
-      003501 A9 00                 2372 	.byte #0xa9, #0x00	;  169
-      003503 AA 00                 2373 	.byte #0xaa, #0x00	;  170
-      003505 AB 00                 2374 	.byte #0xab, #0x00	;  171
-      003507 AC 00                 2375 	.byte #0xac, #0x00	;  172
-      003509 AD 00                 2376 	.byte #0xad, #0x00	;  173
-      00350B AE 00                 2377 	.byte #0xae, #0x00	;  174
-      00350D AF 00                 2378 	.byte #0xaf, #0x00	;  175
-      00350F B0 00                 2379 	.byte #0xb0, #0x00	;  176
-      003511 B1 00                 2380 	.byte #0xb1, #0x00	;  177
-      003513 B2 00                 2381 	.byte #0xb2, #0x00	;  178
-      003515 B3 00                 2382 	.byte #0xb3, #0x00	;  179
-      003517 B4 00                 2383 	.byte #0xb4, #0x00	;  180
-      003519 B5 00                 2384 	.byte #0xb5, #0x00	;  181
-      00351B B6 00                 2385 	.byte #0xb6, #0x00	;  182
-      00351D B7 00                 2386 	.byte #0xb7, #0x00	;  183
-      00351F B8 00                 2387 	.byte #0xb8, #0x00	;  184
-      003521 B9 00                 2388 	.byte #0xb9, #0x00	;  185
-      003523 BA 00                 2389 	.byte #0xba, #0x00	;  186
-      003525 BB 00                 2390 	.byte #0xbb, #0x00	;  187
-      003527 BC 00                 2391 	.byte #0xbc, #0x00	;  188
-      003529 BD 00                 2392 	.byte #0xbd, #0x00	;  189
-      00352B BE 00                 2393 	.byte #0xbe, #0x00	;  190
-      00352D BF 00                 2394 	.byte #0xbf, #0x00	;  191
-      00352F C0 00                 2395 	.byte #0xc0, #0x00	;  192
-      003531 C1 00                 2396 	.byte #0xc1, #0x00	;  193
-      003533 C2 00                 2397 	.byte #0xc2, #0x00	;  194
-      003535 C3 00                 2398 	.byte #0xc3, #0x00	;  195
-      003537 C4 00                 2399 	.byte #0xc4, #0x00	;  196
-      003539 C5 00                 2400 	.byte #0xc5, #0x00	;  197
-      00353B C6 00                 2401 	.byte #0xc6, #0x00	;  198
-      00353D C7 00                 2402 	.byte #0xc7, #0x00	;  199
-      00353F C8 00                 2403 	.byte #0xc8, #0x00	;  200
-      003541 C9 00                 2404 	.byte #0xc9, #0x00	;  201
-      003543 CA 00                 2405 	.byte #0xca, #0x00	;  202
-      003545 CB 00                 2406 	.byte #0xcb, #0x00	;  203
-      003547 CC 00                 2407 	.byte #0xcc, #0x00	;  204
-      003549 CD 00                 2408 	.byte #0xcd, #0x00	;  205
-      00354B CE 00                 2409 	.byte #0xce, #0x00	;  206
-      00354D CF 00                 2410 	.byte #0xcf, #0x00	;  207
-      00354F D0 00                 2411 	.byte #0xd0, #0x00	;  208
-      003551 D1 00                 2412 	.byte #0xd1, #0x00	;  209
-      003553 D2 00                 2413 	.byte #0xd2, #0x00	;  210
-      003555 D3 00                 2414 	.byte #0xd3, #0x00	;  211
-      003557 D4 00                 2415 	.byte #0xd4, #0x00	;  212
-      003559 D5 00                 2416 	.byte #0xd5, #0x00	;  213
-      00355B D6 00                 2417 	.byte #0xd6, #0x00	;  214
-      00355D D7 00                 2418 	.byte #0xd7, #0x00	;  215
-      00355F D8 00                 2419 	.byte #0xd8, #0x00	;  216
-      003561 D9 00                 2420 	.byte #0xd9, #0x00	;  217
-      003563 DA 00                 2421 	.byte #0xda, #0x00	;  218
-      003565 DB 00                 2422 	.byte #0xdb, #0x00	;  219
-      003567 DC 00                 2423 	.byte #0xdc, #0x00	;  220
-      003569 DD 00                 2424 	.byte #0xdd, #0x00	;  221
-      00356B DE 00                 2425 	.byte #0xde, #0x00	;  222
-      00356D DF 00                 2426 	.byte #0xdf, #0x00	;  223
-      00356F E0 00                 2427 	.byte #0xe0, #0x00	;  224
-      003571 E1 00                 2428 	.byte #0xe1, #0x00	;  225
-      003573 E2 00                 2429 	.byte #0xe2, #0x00	;  226
-      003575 E3 00                 2430 	.byte #0xe3, #0x00	;  227
-      003577 E4 00                 2431 	.byte #0xe4, #0x00	;  228
-      003579 E5 00                 2432 	.byte #0xe5, #0x00	;  229
-      00357B E6 00                 2433 	.byte #0xe6, #0x00	;  230
-      00357D E7 00                 2434 	.byte #0xe7, #0x00	;  231
-      00357F E8 00                 2435 	.byte #0xe8, #0x00	;  232
-      003581 E9 00                 2436 	.byte #0xe9, #0x00	;  233
-      003583 EA 00                 2437 	.byte #0xea, #0x00	;  234
-      003585 EB 00                 2438 	.byte #0xeb, #0x00	;  235
-      003587 EC 00                 2439 	.byte #0xec, #0x00	;  236
-      003589 ED 00                 2440 	.byte #0xed, #0x00	;  237
-      00358B EE 00                 2441 	.byte #0xee, #0x00	;  238
-      00358D EF 00                 2442 	.byte #0xef, #0x00	;  239
-      00358F F0 00                 2443 	.byte #0xf0, #0x00	;  240
-      003591 F1 00                 2444 	.byte #0xf1, #0x00	;  241
-      003593 F2 00                 2445 	.byte #0xf2, #0x00	;  242
-      003595 F3 00                 2446 	.byte #0xf3, #0x00	;  243
-      003597 F4 00                 2447 	.byte #0xf4, #0x00	;  244
-      003599 F5 00                 2448 	.byte #0xf5, #0x00	;  245
-      00359B F6 00                 2449 	.byte #0xf6, #0x00	;  246
-      00359D F7 00                 2450 	.byte #0xf7, #0x00	;  247
-      00359F F8 00                 2451 	.byte #0xf8, #0x00	;  248
-      0035A1 F9 00                 2452 	.byte #0xf9, #0x00	;  249
-      0035A3 FA 00                 2453 	.byte #0xfa, #0x00	;  250
-      0035A5 FB 00                 2454 	.byte #0xfb, #0x00	;  251
-      0035A7 FC 00                 2455 	.byte #0xfc, #0x00	;  252
-      0035A9 FD 00                 2456 	.byte #0xfd, #0x00	;  253
-      0035AB FE 00                 2457 	.byte #0xfe, #0x00	;  254
-      0035AD FF 00                 2458 	.byte #0xff, #0x00	;  255
-      0035AF FF 00                 2459 	.byte #0xff, #0x00	;  255
-      0035B1 FE 00                 2460 	.byte #0xfe, #0x00	;  254
-      0035B3 FD 00                 2461 	.byte #0xfd, #0x00	;  253
-      0035B5 FC 00                 2462 	.byte #0xfc, #0x00	;  252
-      0035B7 FB 00                 2463 	.byte #0xfb, #0x00	;  251
-      0035B9 FA 00                 2464 	.byte #0xfa, #0x00	;  250
-      0035BB F9 00                 2465 	.byte #0xf9, #0x00	;  249
-      0035BD F8 00                 2466 	.byte #0xf8, #0x00	;  248
-      0035BF F7 00                 2467 	.byte #0xf7, #0x00	;  247
-      0035C1 F6 00                 2468 	.byte #0xf6, #0x00	;  246
-      0035C3 F5 00                 2469 	.byte #0xf5, #0x00	;  245
-      0035C5 F4 00                 2470 	.byte #0xf4, #0x00	;  244
-      0035C7 F3 00                 2471 	.byte #0xf3, #0x00	;  243
-      0035C9 F2 00                 2472 	.byte #0xf2, #0x00	;  242
-      0035CB F1 00                 2473 	.byte #0xf1, #0x00	;  241
-      0035CD F0 00                 2474 	.byte #0xf0, #0x00	;  240
-      0035CF EF 00                 2475 	.byte #0xef, #0x00	;  239
-      0035D1 EE 00                 2476 	.byte #0xee, #0x00	;  238
-      0035D3 ED 00                 2477 	.byte #0xed, #0x00	;  237
-      0035D5 EC 00                 2478 	.byte #0xec, #0x00	;  236
-      0035D7 EB 00                 2479 	.byte #0xeb, #0x00	;  235
-      0035D9 EA 00                 2480 	.byte #0xea, #0x00	;  234
-      0035DB E9 00                 2481 	.byte #0xe9, #0x00	;  233
-      0035DD E8 00                 2482 	.byte #0xe8, #0x00	;  232
-      0035DF E7 00                 2483 	.byte #0xe7, #0x00	;  231
-      0035E1 E6 00                 2484 	.byte #0xe6, #0x00	;  230
-      0035E3 E5 00                 2485 	.byte #0xe5, #0x00	;  229
-      0035E5 E4 00                 2486 	.byte #0xe4, #0x00	;  228
-      0035E7 E3 00                 2487 	.byte #0xe3, #0x00	;  227
-      0035E9 E2 00                 2488 	.byte #0xe2, #0x00	;  226
-      0035EB E1 00                 2489 	.byte #0xe1, #0x00	;  225
-      0035ED E0 00                 2490 	.byte #0xe0, #0x00	;  224
-      0035EF DF 00                 2491 	.byte #0xdf, #0x00	;  223
-      0035F1 DE 00                 2492 	.byte #0xde, #0x00	;  222
-      0035F3 DD 00                 2493 	.byte #0xdd, #0x00	;  221
-      0035F5 DC 00                 2494 	.byte #0xdc, #0x00	;  220
-      0035F7 DB 00                 2495 	.byte #0xdb, #0x00	;  219
-      0035F9 DA 00                 2496 	.byte #0xda, #0x00	;  218
-      0035FB D9 00                 2497 	.byte #0xd9, #0x00	;  217
-      0035FD D8 00                 2498 	.byte #0xd8, #0x00	;  216
-      0035FF D7 00                 2499 	.byte #0xd7, #0x00	;  215
-      003601 D6 00                 2500 	.byte #0xd6, #0x00	;  214
-      003603 D5 00                 2501 	.byte #0xd5, #0x00	;  213
-      003605 D4 00                 2502 	.byte #0xd4, #0x00	;  212
-      003607 D3 00                 2503 	.byte #0xd3, #0x00	;  211
-      003609 D2 00                 2504 	.byte #0xd2, #0x00	;  210
-      00360B D1 00                 2505 	.byte #0xd1, #0x00	;  209
-      00360D D0 00                 2506 	.byte #0xd0, #0x00	;  208
-      00360F CF 00                 2507 	.byte #0xcf, #0x00	;  207
-      003611 CE 00                 2508 	.byte #0xce, #0x00	;  206
-      003613 CD 00                 2509 	.byte #0xcd, #0x00	;  205
-      003615 CC 00                 2510 	.byte #0xcc, #0x00	;  204
-      003617 CB 00                 2511 	.byte #0xcb, #0x00	;  203
-      003619 CA 00                 2512 	.byte #0xca, #0x00	;  202
-      00361B C9 00                 2513 	.byte #0xc9, #0x00	;  201
-      00361D C8 00                 2514 	.byte #0xc8, #0x00	;  200
-      00361F C7 00                 2515 	.byte #0xc7, #0x00	;  199
-      003621 C6 00                 2516 	.byte #0xc6, #0x00	;  198
-      003623 C5 00                 2517 	.byte #0xc5, #0x00	;  197
-      003625 C4 00                 2518 	.byte #0xc4, #0x00	;  196
-      003627 C3 00                 2519 	.byte #0xc3, #0x00	;  195
-      003629 C2 00                 2520 	.byte #0xc2, #0x00	;  194
-      00362B C1 00                 2521 	.byte #0xc1, #0x00	;  193
-      00362D C0 00                 2522 	.byte #0xc0, #0x00	;  192
-      00362F BF 00                 2523 	.byte #0xbf, #0x00	;  191
-      003631 BE 00                 2524 	.byte #0xbe, #0x00	;  190
-      003633 BD 00                 2525 	.byte #0xbd, #0x00	;  189
-      003635 BC 00                 2526 	.byte #0xbc, #0x00	;  188
-      003637 BB 00                 2527 	.byte #0xbb, #0x00	;  187
-      003639 BA 00                 2528 	.byte #0xba, #0x00	;  186
-      00363B B9 00                 2529 	.byte #0xb9, #0x00	;  185
-      00363D B8 00                 2530 	.byte #0xb8, #0x00	;  184
-      00363F B7 00                 2531 	.byte #0xb7, #0x00	;  183
-      003641 B6 00                 2532 	.byte #0xb6, #0x00	;  182
-      003643 B5 00                 2533 	.byte #0xb5, #0x00	;  181
-      003645 B4 00                 2534 	.byte #0xb4, #0x00	;  180
-      003647 B3 00                 2535 	.byte #0xb3, #0x00	;  179
-      003649 B2 00                 2536 	.byte #0xb2, #0x00	;  178
-      00364B B1 00                 2537 	.byte #0xb1, #0x00	;  177
-      00364D B0 00                 2538 	.byte #0xb0, #0x00	;  176
-      00364F AF 00                 2539 	.byte #0xaf, #0x00	;  175
-      003651 AE 00                 2540 	.byte #0xae, #0x00	;  174
-      003653 AD 00                 2541 	.byte #0xad, #0x00	;  173
-      003655 AC 00                 2542 	.byte #0xac, #0x00	;  172
-      003657 AB 00                 2543 	.byte #0xab, #0x00	;  171
-      003659 AA 00                 2544 	.byte #0xaa, #0x00	;  170
-      00365B A9 00                 2545 	.byte #0xa9, #0x00	;  169
-      00365D A8 00                 2546 	.byte #0xa8, #0x00	;  168
-      00365F A7 00                 2547 	.byte #0xa7, #0x00	;  167
-      003661 A6 00                 2548 	.byte #0xa6, #0x00	;  166
-      003663 A5 00                 2549 	.byte #0xa5, #0x00	;  165
-      003665 A4 00                 2550 	.byte #0xa4, #0x00	;  164
-      003667 A3 00                 2551 	.byte #0xa3, #0x00	;  163
-      003669 A2 00                 2552 	.byte #0xa2, #0x00	;  162
-      00366B A1 00                 2553 	.byte #0xa1, #0x00	;  161
-      00366D A0 00                 2554 	.byte #0xa0, #0x00	;  160
-      00366F 9F 00                 2555 	.byte #0x9f, #0x00	;  159
-      003671 9E 00                 2556 	.byte #0x9e, #0x00	;  158
-      003673 9D 00                 2557 	.byte #0x9d, #0x00	;  157
-      003675 9C 00                 2558 	.byte #0x9c, #0x00	;  156
-      003677 9B 00                 2559 	.byte #0x9b, #0x00	;  155
-      003679 9A 00                 2560 	.byte #0x9a, #0x00	;  154
-      00367B 99 00                 2561 	.byte #0x99, #0x00	;  153
-      00367D 98 00                 2562 	.byte #0x98, #0x00	;  152
-      00367F 97 00                 2563 	.byte #0x97, #0x00	;  151
-      003681 96 00                 2564 	.byte #0x96, #0x00	;  150
-      003683 95 00                 2565 	.byte #0x95, #0x00	;  149
-      003685 94 00                 2566 	.byte #0x94, #0x00	;  148
-      003687 93 00                 2567 	.byte #0x93, #0x00	;  147
-      003689 92 00                 2568 	.byte #0x92, #0x00	;  146
-      00368B 91 00                 2569 	.byte #0x91, #0x00	;  145
-      00368D 90 00                 2570 	.byte #0x90, #0x00	;  144
-      00368F 8F 00                 2571 	.byte #0x8f, #0x00	;  143
-      003691 8E 00                 2572 	.byte #0x8e, #0x00	;  142
-      003693 8D 00                 2573 	.byte #0x8d, #0x00	;  141
-      003695 8C 00                 2574 	.byte #0x8c, #0x00	;  140
-      003697 8B 00                 2575 	.byte #0x8b, #0x00	;  139
-      003699 8A 00                 2576 	.byte #0x8a, #0x00	;  138
-      00369B 89 00                 2577 	.byte #0x89, #0x00	;  137
-      00369D 88 00                 2578 	.byte #0x88, #0x00	;  136
-      00369F 87 00                 2579 	.byte #0x87, #0x00	;  135
-      0036A1 86 00                 2580 	.byte #0x86, #0x00	;  134
-      0036A3 85 00                 2581 	.byte #0x85, #0x00	;  133
-      0036A5 84 00                 2582 	.byte #0x84, #0x00	;  132
-      0036A7 83 00                 2583 	.byte #0x83, #0x00	;  131
-      0036A9 82 00                 2584 	.byte #0x82, #0x00	;  130
-      0036AB 81 00                 2585 	.byte #0x81, #0x00	;  129
-      0036AD 80 00                 2586 	.byte #0x80, #0x00	;  128
-      0036AF 7F 00                 2587 	.byte #0x7f, #0x00	;  127
-      0036B1 7E 00                 2588 	.byte #0x7e, #0x00	;  126
-      0036B3 7D 00                 2589 	.byte #0x7d, #0x00	;  125
-      0036B5 7C 00                 2590 	.byte #0x7c, #0x00	;  124
-      0036B7 7B 00                 2591 	.byte #0x7b, #0x00	;  123
-      0036B9 7A 00                 2592 	.byte #0x7a, #0x00	;  122
-      0036BB 79 00                 2593 	.byte #0x79, #0x00	;  121
-      0036BD 78 00                 2594 	.byte #0x78, #0x00	;  120
-      0036BF 77 00                 2595 	.byte #0x77, #0x00	;  119
-      0036C1 76 00                 2596 	.byte #0x76, #0x00	;  118
-      0036C3 75 00                 2597 	.byte #0x75, #0x00	;  117
-      0036C5 74 00                 2598 	.byte #0x74, #0x00	;  116
-      0036C7 73 00                 2599 	.byte #0x73, #0x00	;  115
-      0036C9 72 00                 2600 	.byte #0x72, #0x00	;  114
-      0036CB 71 00                 2601 	.byte #0x71, #0x00	;  113
-      0036CD 70 00                 2602 	.byte #0x70, #0x00	;  112
-      0036CF 6F 00                 2603 	.byte #0x6f, #0x00	;  111
-      0036D1 6E 00                 2604 	.byte #0x6e, #0x00	;  110
-      0036D3 6D 00                 2605 	.byte #0x6d, #0x00	;  109
-      0036D5 6C 00                 2606 	.byte #0x6c, #0x00	;  108
-      0036D7 6B 00                 2607 	.byte #0x6b, #0x00	;  107
-      0036D9 6A 00                 2608 	.byte #0x6a, #0x00	;  106
-      0036DB 69 00                 2609 	.byte #0x69, #0x00	;  105
-      0036DD 68 00                 2610 	.byte #0x68, #0x00	;  104
-      0036DF 67 00                 2611 	.byte #0x67, #0x00	;  103
-      0036E1 66 00                 2612 	.byte #0x66, #0x00	;  102
-      0036E3 65 00                 2613 	.byte #0x65, #0x00	;  101
-      0036E5 64 00                 2614 	.byte #0x64, #0x00	;  100
-      0036E7 63 00                 2615 	.byte #0x63, #0x00	;  99
-      0036E9 62 00                 2616 	.byte #0x62, #0x00	;  98
-      0036EB 61 00                 2617 	.byte #0x61, #0x00	;  97
-      0036ED 60 00                 2618 	.byte #0x60, #0x00	;  96
-      0036EF 5F 00                 2619 	.byte #0x5f, #0x00	;  95
-      0036F1 5E 00                 2620 	.byte #0x5e, #0x00	;  94
-      0036F3 5D 00                 2621 	.byte #0x5d, #0x00	;  93
-      0036F5 5C 00                 2622 	.byte #0x5c, #0x00	;  92
-      0036F7 5B 00                 2623 	.byte #0x5b, #0x00	;  91
-      0036F9 5A 00                 2624 	.byte #0x5a, #0x00	;  90
-      0036FB 59 00                 2625 	.byte #0x59, #0x00	;  89
-      0036FD 58 00                 2626 	.byte #0x58, #0x00	;  88
-      0036FF 57 00                 2627 	.byte #0x57, #0x00	;  87
-      003701 56 00                 2628 	.byte #0x56, #0x00	;  86
-      003703 55 00                 2629 	.byte #0x55, #0x00	;  85
-      003705 54 00                 2630 	.byte #0x54, #0x00	;  84
-      003707 53 00                 2631 	.byte #0x53, #0x00	;  83
-      003709 52 00                 2632 	.byte #0x52, #0x00	;  82
-      00370B 51 00                 2633 	.byte #0x51, #0x00	;  81
-      00370D 50 00                 2634 	.byte #0x50, #0x00	;  80
-      00370F 4F 00                 2635 	.byte #0x4f, #0x00	;  79
-      003711 4E 00                 2636 	.byte #0x4e, #0x00	;  78
-      003713 4D 00                 2637 	.byte #0x4d, #0x00	;  77
-      003715 4C 00                 2638 	.byte #0x4c, #0x00	;  76
-      003717 4B 00                 2639 	.byte #0x4b, #0x00	;  75
-      003719 4A 00                 2640 	.byte #0x4a, #0x00	;  74
-      00371B 49 00                 2641 	.byte #0x49, #0x00	;  73
-      00371D 48 00                 2642 	.byte #0x48, #0x00	;  72
-      00371F 47 00                 2643 	.byte #0x47, #0x00	;  71
-      003721 46 00                 2644 	.byte #0x46, #0x00	;  70
-      003723 45 00                 2645 	.byte #0x45, #0x00	;  69
-      003725 44 00                 2646 	.byte #0x44, #0x00	;  68
-      003727 43 00                 2647 	.byte #0x43, #0x00	;  67
-      003729 42 00                 2648 	.byte #0x42, #0x00	;  66
-      00372B 41 00                 2649 	.byte #0x41, #0x00	;  65
-      00372D 40 00                 2650 	.byte #0x40, #0x00	;  64
-      00372F 3F 00                 2651 	.byte #0x3f, #0x00	;  63
-      003731 3E 00                 2652 	.byte #0x3e, #0x00	;  62
-      003733 3D 00                 2653 	.byte #0x3d, #0x00	;  61
-      003735 3C 00                 2654 	.byte #0x3c, #0x00	;  60
-      003737 3B 00                 2655 	.byte #0x3b, #0x00	;  59
-      003739 3A 00                 2656 	.byte #0x3a, #0x00	;  58
-      00373B 39 00                 2657 	.byte #0x39, #0x00	;  57
-      00373D 38 00                 2658 	.byte #0x38, #0x00	;  56
-      00373F 37 00                 2659 	.byte #0x37, #0x00	;  55
-      003741 36 00                 2660 	.byte #0x36, #0x00	;  54
-      003743 35 00                 2661 	.byte #0x35, #0x00	;  53
-      003745 34 00                 2662 	.byte #0x34, #0x00	;  52
-      003747 33 00                 2663 	.byte #0x33, #0x00	;  51
-      003749 32 00                 2664 	.byte #0x32, #0x00	;  50
-      00374B 31 00                 2665 	.byte #0x31, #0x00	;  49
-      00374D 30 00                 2666 	.byte #0x30, #0x00	;  48
-      00374F 2F 00                 2667 	.byte #0x2f, #0x00	;  47
-      003751 2E 00                 2668 	.byte #0x2e, #0x00	;  46
-      003753 2D 00                 2669 	.byte #0x2d, #0x00	;  45
-      003755 2C 00                 2670 	.byte #0x2c, #0x00	;  44
-      003757 2B 00                 2671 	.byte #0x2b, #0x00	;  43
-      003759 2A 00                 2672 	.byte #0x2a, #0x00	;  42
-      00375B 29 00                 2673 	.byte #0x29, #0x00	;  41
-      00375D 28 00                 2674 	.byte #0x28, #0x00	;  40
-      00375F 27 00                 2675 	.byte #0x27, #0x00	;  39
-      003761 26 00                 2676 	.byte #0x26, #0x00	;  38
-      003763 25 00                 2677 	.byte #0x25, #0x00	;  37
-      003765 24 00                 2678 	.byte #0x24, #0x00	;  36
-      003767 23 00                 2679 	.byte #0x23, #0x00	;  35
-      003769 22 00                 2680 	.byte #0x22, #0x00	;  34
-      00376B 21 00                 2681 	.byte #0x21, #0x00	;  33
-      00376D 20 00                 2682 	.byte #0x20, #0x00	;  32
-      00376F 1F 00                 2683 	.byte #0x1f, #0x00	;  31
-      003771 1E 00                 2684 	.byte #0x1e, #0x00	;  30
-      003773 1D 00                 2685 	.byte #0x1d, #0x00	;  29
-      003775 1C 00                 2686 	.byte #0x1c, #0x00	;  28
-      003777 1B 00                 2687 	.byte #0x1b, #0x00	;  27
-      003779 1A 00                 2688 	.byte #0x1a, #0x00	;  26
-      00377B 19 00                 2689 	.byte #0x19, #0x00	;  25
-      00377D 18 00                 2690 	.byte #0x18, #0x00	;  24
-      00377F 17 00                 2691 	.byte #0x17, #0x00	;  23
-      003781 16 00                 2692 	.byte #0x16, #0x00	;  22
-      003783 15 00                 2693 	.byte #0x15, #0x00	;  21
-      003785 14 00                 2694 	.byte #0x14, #0x00	;  20
-      003787 13 00                 2695 	.byte #0x13, #0x00	;  19
-      003789 12 00                 2696 	.byte #0x12, #0x00	;  18
-      00378B 11 00                 2697 	.byte #0x11, #0x00	;  17
-      00378D 10 00                 2698 	.byte #0x10, #0x00	;  16
-      00378F 0F 00                 2699 	.byte #0x0f, #0x00	;  15
-      003791 0E 00                 2700 	.byte #0x0e, #0x00	;  14
-      003793 0D 00                 2701 	.byte #0x0d, #0x00	;  13
-      003795 0C 00                 2702 	.byte #0x0c, #0x00	;  12
-      003797 0B 00                 2703 	.byte #0x0b, #0x00	;  11
-      003799 0A 00                 2704 	.byte #0x0a, #0x00	;  10
-      00379B 09 00                 2705 	.byte #0x09, #0x00	;  9
-      00379D 08 00                 2706 	.byte #0x08, #0x00	;  8
-      00379F 07 00                 2707 	.byte #0x07, #0x00	;  7
-      0037A1 06 00                 2708 	.byte #0x06, #0x00	;  6
-      0037A3 05 00                 2709 	.byte #0x05, #0x00	;  5
-      0037A5 04 00                 2710 	.byte #0x04, #0x00	;  4
-      0037A7 03 00                 2711 	.byte #0x03, #0x00	;  3
-      0037A9 02 00                 2712 	.byte #0x02, #0x00	;  2
-      0037AB 01 00                 2713 	.byte #0x01, #0x00	;  1
-      0037AD 00 00                 2714 	.byte #0x00, #0x00	;  0
-                                   2715 	.area CONST   (CODE)
-      0037AF                       2716 ___str_0:
-      0037AF 0A                    2717 	.db 0x0a
-      0037B0 0D                    2718 	.db 0x0d
-      0037B1 E2                    2719 	.db 0xe2
-      0037B2 94                    2720 	.db 0x94
-      0037B3 8C                    2721 	.db 0x8c
-      0037B4 E2                    2722 	.db 0xe2
-      0037B5 94                    2723 	.db 0x94
-      0037B6 80                    2724 	.db 0x80
-      0037B7 E2                    2725 	.db 0xe2
-      0037B8 94                    2726 	.db 0x94
-      0037B9 80                    2727 	.db 0x80
-      0037BA E2                    2728 	.db 0xe2
-      0037BB 94                    2729 	.db 0x94
-      0037BC 80                    2730 	.db 0x80
-      0037BD E2                    2731 	.db 0xe2
-      0037BE 94                    2732 	.db 0x94
-      0037BF 80                    2733 	.db 0x80
-      0037C0 E2                    2734 	.db 0xe2
-      0037C1 94                    2735 	.db 0x94
-      0037C2 80                    2736 	.db 0x80
-      0037C3 E2                    2737 	.db 0xe2
-      0037C4 94                    2738 	.db 0x94
-      0037C5 80                    2739 	.db 0x80
-      0037C6 E2                    2740 	.db 0xe2
-      0037C7 94                    2741 	.db 0x94
-      0037C8 80                    2742 	.db 0x80
-      0037C9 E2                    2743 	.db 0xe2
-      0037CA 94                    2744 	.db 0x94
-      0037CB 80                    2745 	.db 0x80
-      0037CC E2                    2746 	.db 0xe2
-      0037CD 94                    2747 	.db 0x94
-      0037CE 80                    2748 	.db 0x80
-      0037CF E2                    2749 	.db 0xe2
-      0037D0 94                    2750 	.db 0x94
-      0037D1 80                    2751 	.db 0x80
-      0037D2 E2                    2752 	.db 0xe2
-      0037D3 94                    2753 	.db 0x94
-      0037D4 80                    2754 	.db 0x80
-      0037D5 E2                    2755 	.db 0xe2
-      0037D6 94                    2756 	.db 0x94
-      0037D7 80                    2757 	.db 0x80
-      0037D8 E2                    2758 	.db 0xe2
-      0037D9 94                    2759 	.db 0x94
-      0037DA 80                    2760 	.db 0x80
-      0037DB E2                    2761 	.db 0xe2
-      0037DC 94                    2762 	.db 0x94
-      0037DD 80                    2763 	.db 0x80
-      0037DE E2                    2764 	.db 0xe2
-      0037DF 94                    2765 	.db 0x94
-      0037E0 80                    2766 	.db 0x80
-      0037E1 E2                    2767 	.db 0xe2
-      0037E2 94                    2768 	.db 0x94
-      0037E3 80                    2769 	.db 0x80
-      0037E4 E2                    2770 	.db 0xe2
-      0037E5 94                    2771 	.db 0x94
-      0037E6 80                    2772 	.db 0x80
-      0037E7 E2                    2773 	.db 0xe2
-      0037E8 94                    2774 	.db 0x94
-      0037E9 80                    2775 	.db 0x80
-      0037EA E2                    2776 	.db 0xe2
-      0037EB 94                    2777 	.db 0x94
-      0037EC 80                    2778 	.db 0x80
-      0037ED E2                    2779 	.db 0xe2
-      0037EE 94                    2780 	.db 0x94
-      0037EF 80                    2781 	.db 0x80
-      0037F0 E2                    2782 	.db 0xe2
-      0037F1 94                    2783 	.db 0x94
-      0037F2 80                    2784 	.db 0x80
-      0037F3 E2                    2785 	.db 0xe2
-      0037F4 94                    2786 	.db 0x94
-      0037F5 80                    2787 	.db 0x80
-      0037F6 E2                    2788 	.db 0xe2
-      0037F7 94                    2789 	.db 0x94
-      0037F8 80                    2790 	.db 0x80
-      0037F9 E2                    2791 	.db 0xe2
-      0037FA 94                    2792 	.db 0x94
-      0037FB 80                    2793 	.db 0x80
-      0037FC E2                    2794 	.db 0xe2
-      0037FD 94                    2795 	.db 0x94
-      0037FE 80                    2796 	.db 0x80
-      0037FF E2                    2797 	.db 0xe2
-      003800 94                    2798 	.db 0x94
-      003801 80                    2799 	.db 0x80
-      003802 E2                    2800 	.db 0xe2
-      003803 94                    2801 	.db 0x94
-      003804 80                    2802 	.db 0x80
-      003805 E2                    2803 	.db 0xe2
-      003806 94                    2804 	.db 0x94
-      003807 80                    2805 	.db 0x80
-      003808 E2                    2806 	.db 0xe2
-      003809 94                    2807 	.db 0x94
-      00380A 80                    2808 	.db 0x80
-      00380B E2                    2809 	.db 0xe2
-      00380C 94                    2810 	.db 0x94
-      00380D 80                    2811 	.db 0x80
-      00380E E2                    2812 	.db 0xe2
-      00380F 94                    2813 	.db 0x94
-      003810 80                    2814 	.db 0x80
-      003811 E2                    2815 	.db 0xe2
-      003812 94                    2816 	.db 0x94
-      003813 80                    2817 	.db 0x80
-      003814 E2                    2818 	.db 0xe2
-      003815 94                    2819 	.db 0x94
-      003816 80                    2820 	.db 0x80
-      003817 E2                    2821 	.db 0xe2
-      003818 94                    2822 	.db 0x94
-      003819 80                    2823 	.db 0x80
-      00381A E2                    2824 	.db 0xe2
-      00381B 94                    2825 	.db 0x94
-      00381C 80                    2826 	.db 0x80
-      00381D E2                    2827 	.db 0xe2
-      00381E 94                    2828 	.db 0x94
-      00381F 80                    2829 	.db 0x80
-      003820 E2                    2830 	.db 0xe2
-      003821 94                    2831 	.db 0x94
-      003822 80                    2832 	.db 0x80
-      003823 E2                    2833 	.db 0xe2
-      003824 94                    2834 	.db 0x94
-      003825 80                    2835 	.db 0x80
-      003826 E2                    2836 	.db 0xe2
-      003827 94                    2837 	.db 0x94
-      003828 80                    2838 	.db 0x80
-      003829 E2                    2839 	.db 0xe2
-      00382A 94                    2840 	.db 0x94
-      00382B 80                    2841 	.db 0x80
-      00382C E2                    2842 	.db 0xe2
-      00382D 94                    2843 	.db 0x94
-      00382E 80                    2844 	.db 0x80
-      00382F E2                    2845 	.db 0xe2
-      003830 94                    2846 	.db 0x94
-      003831 80                    2847 	.db 0x80
-      003832 E2                    2848 	.db 0xe2
-      003833 94                    2849 	.db 0x94
-      003834 80                    2850 	.db 0x80
-      003835 E2                    2851 	.db 0xe2
-      003836 94                    2852 	.db 0x94
-      003837 80                    2853 	.db 0x80
-      003838 E2                    2854 	.db 0xe2
-      003839 94                    2855 	.db 0x94
-      00383A 80                    2856 	.db 0x80
-      00383B E2                    2857 	.db 0xe2
-      00383C 94                    2858 	.db 0x94
-      00383D 80                    2859 	.db 0x80
-      00383E E2                    2860 	.db 0xe2
-      00383F 94                    2861 	.db 0x94
-      003840 80                    2862 	.db 0x80
-      003841 E2                    2863 	.db 0xe2
-      003842 94                    2864 	.db 0x94
-      003843 80                    2865 	.db 0x80
-      003844 E2                    2866 	.db 0xe2
-      003845 94                    2867 	.db 0x94
-      003846 80                    2868 	.db 0x80
-      003847 E2                    2869 	.db 0xe2
-      003848 94                    2870 	.db 0x94
-      003849 80                    2871 	.db 0x80
-      00384A E2                    2872 	.db 0xe2
-      00384B 94                    2873 	.db 0x94
-      00384C 80                    2874 	.db 0x80
-      00384D E2                    2875 	.db 0xe2
-      00384E 94                    2876 	.db 0x94
-      00384F 80                    2877 	.db 0x80
-      003850 E2                    2878 	.db 0xe2
-      003851 94                    2879 	.db 0x94
-      003852 80                    2880 	.db 0x80
-      003853 E2                    2881 	.db 0xe2
-      003854 94                    2882 	.db 0x94
-      003855 80                    2883 	.db 0x80
-      003856 E2                    2884 	.db 0xe2
-      003857 94                    2885 	.db 0x94
-      003858 80                    2886 	.db 0x80
-      003859 E2                    2887 	.db 0xe2
-      00385A 94                    2888 	.db 0x94
-      00385B 80                    2889 	.db 0x80
-      00385C E2                    2890 	.db 0xe2
-      00385D 94                    2891 	.db 0x94
-      00385E 80                    2892 	.db 0x80
-      00385F E2                    2893 	.db 0xe2
-      003860 94                    2894 	.db 0x94
-      003861 80                    2895 	.db 0x80
-      003862 E2                    2896 	.db 0xe2
-      003863 94                    2897 	.db 0x94
-      003864 80                    2898 	.db 0x80
-      003865 E2                    2899 	.db 0xe2
-      003866 94                    2900 	.db 0x94
-      003867 80                    2901 	.db 0x80
-      003868 E2                    2902 	.db 0xe2
-      003869 94                    2903 	.db 0x94
-      00386A 80                    2904 	.db 0x80
-      00386B E2                    2905 	.db 0xe2
-      00386C 94                    2906 	.db 0x94
-      00386D 80                    2907 	.db 0x80
-      00386E E2                    2908 	.db 0xe2
-      00386F 94                    2909 	.db 0x94
-      003870 90                    2910 	.db 0x90
-      003871 0A                    2911 	.db 0x0a
-      003872 0D                    2912 	.db 0x0d
-      003873 00                    2913 	.db 0x00
-                                   2914 	.area CSEG    (CODE)
-                                   2915 	.area CONST   (CODE)
-      003874                       2916 ___str_1:
-      003874 E2                    2917 	.db 0xe2
-      003875 94                    2918 	.db 0x94
-      003876 82                    2919 	.db 0x82
-      003877 20 20 20 20 20 20 20  2920 	.ascii "                        SPI PROGRAM                         "
+      0026A8 68               [12] 1871 	xrl	a,r0
+      0026A9 C8               [12] 1872 	xch	a,r0
+      0026AA 30 E3 02         [24] 1873 	jnb	acc.3,00160$
+      0026AD 44 F0            [12] 1874 	orl	a,#0xf0
+      0026AF                       1875 00160$:
+      0026AF 74 0F            [12] 1876 	mov	a,#0x0f
+      0026B1 58               [12] 1877 	anl	a,r0
+      0026B2 44 10            [12] 1878 	orl	a,#0x10
+      0026B4 F9               [12] 1879 	mov	r1,a
+                                   1880 ;	spi_and_bit_banging.c:626: low_byte = (dac_data & 0x0F) << 4;
+      0026B5 53 02 0F         [24] 1881 	anl	ar2,#0x0f
+      0026B8 EA               [12] 1882 	mov	a,r2
+      0026B9 C4               [12] 1883 	swap	a
+      0026BA 54 F0            [12] 1884 	anl	a,#0xf0
+      0026BC FB               [12] 1885 	mov	r3,a
+                                   1886 ;	spi_and_bit_banging.c:630: P1_1 = 0;  // Select DAC
+                                   1887 ;	assignBit
+      0026BD C2 91            [12] 1888 	clr	_P1_1
+                                   1889 ;	spi_and_bit_banging.c:633: SPDAT = high_byte;
+      0026BF 89 C5            [24] 1890 	mov	_SPDAT,r1
+                                   1891 ;	spi_and_bit_banging.c:634: while (!(SPSTA & (1<<7))); 
+      0026C1                       1892 00104$:
+      0026C1 E5 C4            [12] 1893 	mov	a,_SPSTA
+      0026C3 30 E7 FB         [24] 1894 	jnb	acc.7,00104$
+                                   1895 ;	spi_and_bit_banging.c:638: SPDAT = low_byte;
+      0026C6 8B C5            [24] 1896 	mov	_SPDAT,r3
+                                   1897 ;	spi_and_bit_banging.c:639: while (!(SPSTA & (1<<7))); 
+      0026C8                       1898 00107$:
+      0026C8 E5 C4            [12] 1899 	mov	a,_SPSTA
+      0026CA 30 E7 FB         [24] 1900 	jnb	acc.7,00107$
+                                   1901 ;	spi_and_bit_banging.c:641: P1_1 = 1;  // Deselect DAC
+                                   1902 ;	assignBit
+      0026CD D2 91            [12] 1903 	setb	_P1_1
+                                   1904 ;	spi_and_bit_banging.c:643: dac_value_index++;
+      0026CF 90 04 19         [24] 1905 	mov	dptr,#_spi_ramp_signal_dac_value_index_65536_77
+      0026D2 E0               [24] 1906 	movx	a,@dptr
+      0026D3 24 01            [12] 1907 	add	a,#0x01
+      0026D5 F0               [24] 1908 	movx	@dptr,a
+      0026D6 A3               [24] 1909 	inc	dptr
+      0026D7 E0               [24] 1910 	movx	a,@dptr
+      0026D8 34 00            [12] 1911 	addc	a,#0x00
+      0026DA F0               [24] 1912 	movx	@dptr,a
+                                   1913 ;	spi_and_bit_banging.c:605: for(int i = 0; i<256; i++)
+      0026DB 0C               [12] 1914 	inc	r4
+      0026DC BC 00 01         [24] 1915 	cjne	r4,#0x00,00163$
+      0026DF 0D               [12] 1916 	inc	r5
+      0026E0                       1917 00163$:
+      0026E0 02 26 53         [24] 1918 	ljmp	00115$
+      0026E3                       1919 00110$:
+                                   1920 ;	spi_and_bit_banging.c:646: number = number - 1;
+      0026E3 1E               [12] 1921 	dec	r6
+      0026E4 BE FF 01         [24] 1922 	cjne	r6,#0xff,00164$
+      0026E7 1F               [12] 1923 	dec	r7
+      0026E8                       1924 00164$:
+      0026E8 90 04 17         [24] 1925 	mov	dptr,#_spi_ramp_signal_number_65536_76
+      0026EB EE               [12] 1926 	mov	a,r6
+      0026EC F0               [24] 1927 	movx	@dptr,a
+      0026ED EF               [12] 1928 	mov	a,r7
+      0026EE A3               [24] 1929 	inc	dptr
+      0026EF F0               [24] 1930 	movx	@dptr,a
+      0026F0 02 26 3E         [24] 1931 	ljmp	00111$
+      0026F3                       1932 00129$:
+      0026F3 90 04 17         [24] 1933 	mov	dptr,#_spi_ramp_signal_number_65536_76
+      0026F6 EE               [12] 1934 	mov	a,r6
+      0026F7 F0               [24] 1935 	movx	@dptr,a
+      0026F8 EF               [12] 1936 	mov	a,r7
+      0026F9 A3               [24] 1937 	inc	dptr
+      0026FA F0               [24] 1938 	movx	@dptr,a
+                                   1939 ;	spi_and_bit_banging.c:649: }
+      0026FB 22               [24] 1940 	ret
+                                   1941 	.area CSEG    (CODE)
+                                   1942 	.area CONST   (CODE)
+      0031AC                       1943 _dac_values:
+      0031AC 80 00                 1944 	.byte #0x80, #0x00	;  128
+      0031AE 83 00                 1945 	.byte #0x83, #0x00	;  131
+      0031B0 86 00                 1946 	.byte #0x86, #0x00	;  134
+      0031B2 89 00                 1947 	.byte #0x89, #0x00	;  137
+      0031B4 8C 00                 1948 	.byte #0x8c, #0x00	;  140
+      0031B6 90 00                 1949 	.byte #0x90, #0x00	;  144
+      0031B8 93 00                 1950 	.byte #0x93, #0x00	;  147
+      0031BA 96 00                 1951 	.byte #0x96, #0x00	;  150
+      0031BC 99 00                 1952 	.byte #0x99, #0x00	;  153
+      0031BE 9C 00                 1953 	.byte #0x9c, #0x00	;  156
+      0031C0 9F 00                 1954 	.byte #0x9f, #0x00	;  159
+      0031C2 A2 00                 1955 	.byte #0xa2, #0x00	;  162
+      0031C4 A5 00                 1956 	.byte #0xa5, #0x00	;  165
+      0031C6 A8 00                 1957 	.byte #0xa8, #0x00	;  168
+      0031C8 AB 00                 1958 	.byte #0xab, #0x00	;  171
+      0031CA AE 00                 1959 	.byte #0xae, #0x00	;  174
+      0031CC B1 00                 1960 	.byte #0xb1, #0x00	;  177
+      0031CE B3 00                 1961 	.byte #0xb3, #0x00	;  179
+      0031D0 B6 00                 1962 	.byte #0xb6, #0x00	;  182
+      0031D2 B9 00                 1963 	.byte #0xb9, #0x00	;  185
+      0031D4 BC 00                 1964 	.byte #0xbc, #0x00	;  188
+      0031D6 BF 00                 1965 	.byte #0xbf, #0x00	;  191
+      0031D8 C1 00                 1966 	.byte #0xc1, #0x00	;  193
+      0031DA C4 00                 1967 	.byte #0xc4, #0x00	;  196
+      0031DC C7 00                 1968 	.byte #0xc7, #0x00	;  199
+      0031DE C9 00                 1969 	.byte #0xc9, #0x00	;  201
+      0031E0 CC 00                 1970 	.byte #0xcc, #0x00	;  204
+      0031E2 CE 00                 1971 	.byte #0xce, #0x00	;  206
+      0031E4 D1 00                 1972 	.byte #0xd1, #0x00	;  209
+      0031E6 D3 00                 1973 	.byte #0xd3, #0x00	;  211
+      0031E8 D5 00                 1974 	.byte #0xd5, #0x00	;  213
+      0031EA D8 00                 1975 	.byte #0xd8, #0x00	;  216
+      0031EC DA 00                 1976 	.byte #0xda, #0x00	;  218
+      0031EE DC 00                 1977 	.byte #0xdc, #0x00	;  220
+      0031F0 DE 00                 1978 	.byte #0xde, #0x00	;  222
+      0031F2 E0 00                 1979 	.byte #0xe0, #0x00	;  224
+      0031F4 E2 00                 1980 	.byte #0xe2, #0x00	;  226
+      0031F6 E4 00                 1981 	.byte #0xe4, #0x00	;  228
+      0031F8 E6 00                 1982 	.byte #0xe6, #0x00	;  230
+      0031FA E8 00                 1983 	.byte #0xe8, #0x00	;  232
+      0031FC EA 00                 1984 	.byte #0xea, #0x00	;  234
+      0031FE EB 00                 1985 	.byte #0xeb, #0x00	;  235
+      003200 ED 00                 1986 	.byte #0xed, #0x00	;  237
+      003202 EF 00                 1987 	.byte #0xef, #0x00	;  239
+      003204 F0 00                 1988 	.byte #0xf0, #0x00	;  240
+      003206 F1 00                 1989 	.byte #0xf1, #0x00	;  241
+      003208 F3 00                 1990 	.byte #0xf3, #0x00	;  243
+      00320A F4 00                 1991 	.byte #0xf4, #0x00	;  244
+      00320C F5 00                 1992 	.byte #0xf5, #0x00	;  245
+      00320E F6 00                 1993 	.byte #0xf6, #0x00	;  246
+      003210 F8 00                 1994 	.byte #0xf8, #0x00	;  248
+      003212 F9 00                 1995 	.byte #0xf9, #0x00	;  249
+      003214 FA 00                 1996 	.byte #0xfa, #0x00	;  250
+      003216 FA 00                 1997 	.byte #0xfa, #0x00	;  250
+      003218 FB 00                 1998 	.byte #0xfb, #0x00	;  251
+      00321A FC 00                 1999 	.byte #0xfc, #0x00	;  252
+      00321C FD 00                 2000 	.byte #0xfd, #0x00	;  253
+      00321E FD 00                 2001 	.byte #0xfd, #0x00	;  253
+      003220 FE 00                 2002 	.byte #0xfe, #0x00	;  254
+      003222 FE 00                 2003 	.byte #0xfe, #0x00	;  254
+      003224 FE 00                 2004 	.byte #0xfe, #0x00	;  254
+      003226 FF 00                 2005 	.byte #0xff, #0x00	;  255
+      003228 FF 00                 2006 	.byte #0xff, #0x00	;  255
+      00322A FF 00                 2007 	.byte #0xff, #0x00	;  255
+      00322C FF 00                 2008 	.byte #0xff, #0x00	;  255
+      00322E FF 00                 2009 	.byte #0xff, #0x00	;  255
+      003230 FF 00                 2010 	.byte #0xff, #0x00	;  255
+      003232 FF 00                 2011 	.byte #0xff, #0x00	;  255
+      003234 FE 00                 2012 	.byte #0xfe, #0x00	;  254
+      003236 FE 00                 2013 	.byte #0xfe, #0x00	;  254
+      003238 FE 00                 2014 	.byte #0xfe, #0x00	;  254
+      00323A FD 00                 2015 	.byte #0xfd, #0x00	;  253
+      00323C FD 00                 2016 	.byte #0xfd, #0x00	;  253
+      00323E FC 00                 2017 	.byte #0xfc, #0x00	;  252
+      003240 FB 00                 2018 	.byte #0xfb, #0x00	;  251
+      003242 FA 00                 2019 	.byte #0xfa, #0x00	;  250
+      003244 FA 00                 2020 	.byte #0xfa, #0x00	;  250
+      003246 F9 00                 2021 	.byte #0xf9, #0x00	;  249
+      003248 F8 00                 2022 	.byte #0xf8, #0x00	;  248
+      00324A F6 00                 2023 	.byte #0xf6, #0x00	;  246
+      00324C F5 00                 2024 	.byte #0xf5, #0x00	;  245
+      00324E F4 00                 2025 	.byte #0xf4, #0x00	;  244
+      003250 F3 00                 2026 	.byte #0xf3, #0x00	;  243
+      003252 F1 00                 2027 	.byte #0xf1, #0x00	;  241
+      003254 F0 00                 2028 	.byte #0xf0, #0x00	;  240
+      003256 EF 00                 2029 	.byte #0xef, #0x00	;  239
+      003258 ED 00                 2030 	.byte #0xed, #0x00	;  237
+      00325A EB 00                 2031 	.byte #0xeb, #0x00	;  235
+      00325C EA 00                 2032 	.byte #0xea, #0x00	;  234
+      00325E E8 00                 2033 	.byte #0xe8, #0x00	;  232
+      003260 E6 00                 2034 	.byte #0xe6, #0x00	;  230
+      003262 E4 00                 2035 	.byte #0xe4, #0x00	;  228
+      003264 E2 00                 2036 	.byte #0xe2, #0x00	;  226
+      003266 E0 00                 2037 	.byte #0xe0, #0x00	;  224
+      003268 DE 00                 2038 	.byte #0xde, #0x00	;  222
+      00326A DC 00                 2039 	.byte #0xdc, #0x00	;  220
+      00326C DA 00                 2040 	.byte #0xda, #0x00	;  218
+      00326E D8 00                 2041 	.byte #0xd8, #0x00	;  216
+      003270 D5 00                 2042 	.byte #0xd5, #0x00	;  213
+      003272 D3 00                 2043 	.byte #0xd3, #0x00	;  211
+      003274 D1 00                 2044 	.byte #0xd1, #0x00	;  209
+      003276 CE 00                 2045 	.byte #0xce, #0x00	;  206
+      003278 CC 00                 2046 	.byte #0xcc, #0x00	;  204
+      00327A C9 00                 2047 	.byte #0xc9, #0x00	;  201
+      00327C C7 00                 2048 	.byte #0xc7, #0x00	;  199
+      00327E C4 00                 2049 	.byte #0xc4, #0x00	;  196
+      003280 C1 00                 2050 	.byte #0xc1, #0x00	;  193
+      003282 BF 00                 2051 	.byte #0xbf, #0x00	;  191
+      003284 BC 00                 2052 	.byte #0xbc, #0x00	;  188
+      003286 B9 00                 2053 	.byte #0xb9, #0x00	;  185
+      003288 B6 00                 2054 	.byte #0xb6, #0x00	;  182
+      00328A B3 00                 2055 	.byte #0xb3, #0x00	;  179
+      00328C B1 00                 2056 	.byte #0xb1, #0x00	;  177
+      00328E AE 00                 2057 	.byte #0xae, #0x00	;  174
+      003290 AB 00                 2058 	.byte #0xab, #0x00	;  171
+      003292 A8 00                 2059 	.byte #0xa8, #0x00	;  168
+      003294 A5 00                 2060 	.byte #0xa5, #0x00	;  165
+      003296 A2 00                 2061 	.byte #0xa2, #0x00	;  162
+      003298 9F 00                 2062 	.byte #0x9f, #0x00	;  159
+      00329A 9C 00                 2063 	.byte #0x9c, #0x00	;  156
+      00329C 99 00                 2064 	.byte #0x99, #0x00	;  153
+      00329E 96 00                 2065 	.byte #0x96, #0x00	;  150
+      0032A0 93 00                 2066 	.byte #0x93, #0x00	;  147
+      0032A2 90 00                 2067 	.byte #0x90, #0x00	;  144
+      0032A4 8C 00                 2068 	.byte #0x8c, #0x00	;  140
+      0032A6 89 00                 2069 	.byte #0x89, #0x00	;  137
+      0032A8 86 00                 2070 	.byte #0x86, #0x00	;  134
+      0032AA 83 00                 2071 	.byte #0x83, #0x00	;  131
+      0032AC 80 00                 2072 	.byte #0x80, #0x00	;  128
+      0032AE 7D 00                 2073 	.byte #0x7d, #0x00	;  125
+      0032B0 7A 00                 2074 	.byte #0x7a, #0x00	;  122
+      0032B2 77 00                 2075 	.byte #0x77, #0x00	;  119
+      0032B4 74 00                 2076 	.byte #0x74, #0x00	;  116
+      0032B6 70 00                 2077 	.byte #0x70, #0x00	;  112
+      0032B8 6D 00                 2078 	.byte #0x6d, #0x00	;  109
+      0032BA 6A 00                 2079 	.byte #0x6a, #0x00	;  106
+      0032BC 67 00                 2080 	.byte #0x67, #0x00	;  103
+      0032BE 64 00                 2081 	.byte #0x64, #0x00	;  100
+      0032C0 61 00                 2082 	.byte #0x61, #0x00	;  97
+      0032C2 5E 00                 2083 	.byte #0x5e, #0x00	;  94
+      0032C4 5B 00                 2084 	.byte #0x5b, #0x00	;  91
+      0032C6 58 00                 2085 	.byte #0x58, #0x00	;  88
+      0032C8 55 00                 2086 	.byte #0x55, #0x00	;  85
+      0032CA 52 00                 2087 	.byte #0x52, #0x00	;  82
+      0032CC 4F 00                 2088 	.byte #0x4f, #0x00	;  79
+      0032CE 4D 00                 2089 	.byte #0x4d, #0x00	;  77
+      0032D0 4A 00                 2090 	.byte #0x4a, #0x00	;  74
+      0032D2 47 00                 2091 	.byte #0x47, #0x00	;  71
+      0032D4 44 00                 2092 	.byte #0x44, #0x00	;  68
+      0032D6 41 00                 2093 	.byte #0x41, #0x00	;  65
+      0032D8 3F 00                 2094 	.byte #0x3f, #0x00	;  63
+      0032DA 3C 00                 2095 	.byte #0x3c, #0x00	;  60
+      0032DC 39 00                 2096 	.byte #0x39, #0x00	;  57
+      0032DE 37 00                 2097 	.byte #0x37, #0x00	;  55
+      0032E0 34 00                 2098 	.byte #0x34, #0x00	;  52
+      0032E2 32 00                 2099 	.byte #0x32, #0x00	;  50
+      0032E4 2F 00                 2100 	.byte #0x2f, #0x00	;  47
+      0032E6 2D 00                 2101 	.byte #0x2d, #0x00	;  45
+      0032E8 2B 00                 2102 	.byte #0x2b, #0x00	;  43
+      0032EA 28 00                 2103 	.byte #0x28, #0x00	;  40
+      0032EC 26 00                 2104 	.byte #0x26, #0x00	;  38
+      0032EE 24 00                 2105 	.byte #0x24, #0x00	;  36
+      0032F0 22 00                 2106 	.byte #0x22, #0x00	;  34
+      0032F2 20 00                 2107 	.byte #0x20, #0x00	;  32
+      0032F4 1E 00                 2108 	.byte #0x1e, #0x00	;  30
+      0032F6 1C 00                 2109 	.byte #0x1c, #0x00	;  28
+      0032F8 1A 00                 2110 	.byte #0x1a, #0x00	;  26
+      0032FA 18 00                 2111 	.byte #0x18, #0x00	;  24
+      0032FC 16 00                 2112 	.byte #0x16, #0x00	;  22
+      0032FE 15 00                 2113 	.byte #0x15, #0x00	;  21
+      003300 13 00                 2114 	.byte #0x13, #0x00	;  19
+      003302 11 00                 2115 	.byte #0x11, #0x00	;  17
+      003304 10 00                 2116 	.byte #0x10, #0x00	;  16
+      003306 0F 00                 2117 	.byte #0x0f, #0x00	;  15
+      003308 0D 00                 2118 	.byte #0x0d, #0x00	;  13
+      00330A 0C 00                 2119 	.byte #0x0c, #0x00	;  12
+      00330C 0B 00                 2120 	.byte #0x0b, #0x00	;  11
+      00330E 0A 00                 2121 	.byte #0x0a, #0x00	;  10
+      003310 08 00                 2122 	.byte #0x08, #0x00	;  8
+      003312 07 00                 2123 	.byte #0x07, #0x00	;  7
+      003314 06 00                 2124 	.byte #0x06, #0x00	;  6
+      003316 06 00                 2125 	.byte #0x06, #0x00	;  6
+      003318 05 00                 2126 	.byte #0x05, #0x00	;  5
+      00331A 04 00                 2127 	.byte #0x04, #0x00	;  4
+      00331C 03 00                 2128 	.byte #0x03, #0x00	;  3
+      00331E 03 00                 2129 	.byte #0x03, #0x00	;  3
+      003320 02 00                 2130 	.byte #0x02, #0x00	;  2
+      003322 02 00                 2131 	.byte #0x02, #0x00	;  2
+      003324 02 00                 2132 	.byte #0x02, #0x00	;  2
+      003326 01 00                 2133 	.byte #0x01, #0x00	;  1
+      003328 01 00                 2134 	.byte #0x01, #0x00	;  1
+      00332A 01 00                 2135 	.byte #0x01, #0x00	;  1
+      00332C 01 00                 2136 	.byte #0x01, #0x00	;  1
+      00332E 01 00                 2137 	.byte #0x01, #0x00	;  1
+      003330 01 00                 2138 	.byte #0x01, #0x00	;  1
+      003332 01 00                 2139 	.byte #0x01, #0x00	;  1
+      003334 02 00                 2140 	.byte #0x02, #0x00	;  2
+      003336 02 00                 2141 	.byte #0x02, #0x00	;  2
+      003338 02 00                 2142 	.byte #0x02, #0x00	;  2
+      00333A 03 00                 2143 	.byte #0x03, #0x00	;  3
+      00333C 03 00                 2144 	.byte #0x03, #0x00	;  3
+      00333E 04 00                 2145 	.byte #0x04, #0x00	;  4
+      003340 05 00                 2146 	.byte #0x05, #0x00	;  5
+      003342 06 00                 2147 	.byte #0x06, #0x00	;  6
+      003344 06 00                 2148 	.byte #0x06, #0x00	;  6
+      003346 07 00                 2149 	.byte #0x07, #0x00	;  7
+      003348 08 00                 2150 	.byte #0x08, #0x00	;  8
+      00334A 0A 00                 2151 	.byte #0x0a, #0x00	;  10
+      00334C 0B 00                 2152 	.byte #0x0b, #0x00	;  11
+      00334E 0C 00                 2153 	.byte #0x0c, #0x00	;  12
+      003350 0D 00                 2154 	.byte #0x0d, #0x00	;  13
+      003352 0F 00                 2155 	.byte #0x0f, #0x00	;  15
+      003354 10 00                 2156 	.byte #0x10, #0x00	;  16
+      003356 11 00                 2157 	.byte #0x11, #0x00	;  17
+      003358 13 00                 2158 	.byte #0x13, #0x00	;  19
+      00335A 15 00                 2159 	.byte #0x15, #0x00	;  21
+      00335C 16 00                 2160 	.byte #0x16, #0x00	;  22
+      00335E 18 00                 2161 	.byte #0x18, #0x00	;  24
+      003360 1A 00                 2162 	.byte #0x1a, #0x00	;  26
+      003362 1C 00                 2163 	.byte #0x1c, #0x00	;  28
+      003364 1E 00                 2164 	.byte #0x1e, #0x00	;  30
+      003366 20 00                 2165 	.byte #0x20, #0x00	;  32
+      003368 22 00                 2166 	.byte #0x22, #0x00	;  34
+      00336A 24 00                 2167 	.byte #0x24, #0x00	;  36
+      00336C 26 00                 2168 	.byte #0x26, #0x00	;  38
+      00336E 28 00                 2169 	.byte #0x28, #0x00	;  40
+      003370 2B 00                 2170 	.byte #0x2b, #0x00	;  43
+      003372 2D 00                 2171 	.byte #0x2d, #0x00	;  45
+      003374 2F 00                 2172 	.byte #0x2f, #0x00	;  47
+      003376 32 00                 2173 	.byte #0x32, #0x00	;  50
+      003378 34 00                 2174 	.byte #0x34, #0x00	;  52
+      00337A 37 00                 2175 	.byte #0x37, #0x00	;  55
+      00337C 39 00                 2176 	.byte #0x39, #0x00	;  57
+      00337E 3C 00                 2177 	.byte #0x3c, #0x00	;  60
+      003380 3F 00                 2178 	.byte #0x3f, #0x00	;  63
+      003382 41 00                 2179 	.byte #0x41, #0x00	;  65
+      003384 44 00                 2180 	.byte #0x44, #0x00	;  68
+      003386 47 00                 2181 	.byte #0x47, #0x00	;  71
+      003388 4A 00                 2182 	.byte #0x4a, #0x00	;  74
+      00338A 4D 00                 2183 	.byte #0x4d, #0x00	;  77
+      00338C 4F 00                 2184 	.byte #0x4f, #0x00	;  79
+      00338E 52 00                 2185 	.byte #0x52, #0x00	;  82
+      003390 55 00                 2186 	.byte #0x55, #0x00	;  85
+      003392 58 00                 2187 	.byte #0x58, #0x00	;  88
+      003394 5B 00                 2188 	.byte #0x5b, #0x00	;  91
+      003396 5E 00                 2189 	.byte #0x5e, #0x00	;  94
+      003398 61 00                 2190 	.byte #0x61, #0x00	;  97
+      00339A 64 00                 2191 	.byte #0x64, #0x00	;  100
+      00339C 67 00                 2192 	.byte #0x67, #0x00	;  103
+      00339E 6A 00                 2193 	.byte #0x6a, #0x00	;  106
+      0033A0 6D 00                 2194 	.byte #0x6d, #0x00	;  109
+      0033A2 70 00                 2195 	.byte #0x70, #0x00	;  112
+      0033A4 74 00                 2196 	.byte #0x74, #0x00	;  116
+      0033A6 77 00                 2197 	.byte #0x77, #0x00	;  119
+      0033A8 7A 00                 2198 	.byte #0x7a, #0x00	;  122
+      0033AA 7D 00                 2199 	.byte #0x7d, #0x00	;  125
+      0033AC                       2200 _trig_dac_values:
+      0033AC 00 00                 2201 	.byte #0x00, #0x00	;  0
+      0033AE 01 00                 2202 	.byte #0x01, #0x00	;  1
+      0033B0 02 00                 2203 	.byte #0x02, #0x00	;  2
+      0033B2 03 00                 2204 	.byte #0x03, #0x00	;  3
+      0033B4 04 00                 2205 	.byte #0x04, #0x00	;  4
+      0033B6 05 00                 2206 	.byte #0x05, #0x00	;  5
+      0033B8 06 00                 2207 	.byte #0x06, #0x00	;  6
+      0033BA 07 00                 2208 	.byte #0x07, #0x00	;  7
+      0033BC 08 00                 2209 	.byte #0x08, #0x00	;  8
+      0033BE 09 00                 2210 	.byte #0x09, #0x00	;  9
+      0033C0 0A 00                 2211 	.byte #0x0a, #0x00	;  10
+      0033C2 0B 00                 2212 	.byte #0x0b, #0x00	;  11
+      0033C4 0C 00                 2213 	.byte #0x0c, #0x00	;  12
+      0033C6 0D 00                 2214 	.byte #0x0d, #0x00	;  13
+      0033C8 0E 00                 2215 	.byte #0x0e, #0x00	;  14
+      0033CA 0F 00                 2216 	.byte #0x0f, #0x00	;  15
+      0033CC 10 00                 2217 	.byte #0x10, #0x00	;  16
+      0033CE 11 00                 2218 	.byte #0x11, #0x00	;  17
+      0033D0 12 00                 2219 	.byte #0x12, #0x00	;  18
+      0033D2 13 00                 2220 	.byte #0x13, #0x00	;  19
+      0033D4 14 00                 2221 	.byte #0x14, #0x00	;  20
+      0033D6 15 00                 2222 	.byte #0x15, #0x00	;  21
+      0033D8 16 00                 2223 	.byte #0x16, #0x00	;  22
+      0033DA 17 00                 2224 	.byte #0x17, #0x00	;  23
+      0033DC 18 00                 2225 	.byte #0x18, #0x00	;  24
+      0033DE 19 00                 2226 	.byte #0x19, #0x00	;  25
+      0033E0 1A 00                 2227 	.byte #0x1a, #0x00	;  26
+      0033E2 1B 00                 2228 	.byte #0x1b, #0x00	;  27
+      0033E4 1C 00                 2229 	.byte #0x1c, #0x00	;  28
+      0033E6 1D 00                 2230 	.byte #0x1d, #0x00	;  29
+      0033E8 1E 00                 2231 	.byte #0x1e, #0x00	;  30
+      0033EA 1F 00                 2232 	.byte #0x1f, #0x00	;  31
+      0033EC 20 00                 2233 	.byte #0x20, #0x00	;  32
+      0033EE 21 00                 2234 	.byte #0x21, #0x00	;  33
+      0033F0 22 00                 2235 	.byte #0x22, #0x00	;  34
+      0033F2 23 00                 2236 	.byte #0x23, #0x00	;  35
+      0033F4 24 00                 2237 	.byte #0x24, #0x00	;  36
+      0033F6 25 00                 2238 	.byte #0x25, #0x00	;  37
+      0033F8 26 00                 2239 	.byte #0x26, #0x00	;  38
+      0033FA 27 00                 2240 	.byte #0x27, #0x00	;  39
+      0033FC 28 00                 2241 	.byte #0x28, #0x00	;  40
+      0033FE 29 00                 2242 	.byte #0x29, #0x00	;  41
+      003400 2A 00                 2243 	.byte #0x2a, #0x00	;  42
+      003402 2B 00                 2244 	.byte #0x2b, #0x00	;  43
+      003404 2C 00                 2245 	.byte #0x2c, #0x00	;  44
+      003406 2D 00                 2246 	.byte #0x2d, #0x00	;  45
+      003408 2E 00                 2247 	.byte #0x2e, #0x00	;  46
+      00340A 2F 00                 2248 	.byte #0x2f, #0x00	;  47
+      00340C 30 00                 2249 	.byte #0x30, #0x00	;  48
+      00340E 31 00                 2250 	.byte #0x31, #0x00	;  49
+      003410 32 00                 2251 	.byte #0x32, #0x00	;  50
+      003412 33 00                 2252 	.byte #0x33, #0x00	;  51
+      003414 34 00                 2253 	.byte #0x34, #0x00	;  52
+      003416 35 00                 2254 	.byte #0x35, #0x00	;  53
+      003418 36 00                 2255 	.byte #0x36, #0x00	;  54
+      00341A 37 00                 2256 	.byte #0x37, #0x00	;  55
+      00341C 38 00                 2257 	.byte #0x38, #0x00	;  56
+      00341E 39 00                 2258 	.byte #0x39, #0x00	;  57
+      003420 3A 00                 2259 	.byte #0x3a, #0x00	;  58
+      003422 3B 00                 2260 	.byte #0x3b, #0x00	;  59
+      003424 3C 00                 2261 	.byte #0x3c, #0x00	;  60
+      003426 3D 00                 2262 	.byte #0x3d, #0x00	;  61
+      003428 3E 00                 2263 	.byte #0x3e, #0x00	;  62
+      00342A 3F 00                 2264 	.byte #0x3f, #0x00	;  63
+      00342C 40 00                 2265 	.byte #0x40, #0x00	;  64
+      00342E 41 00                 2266 	.byte #0x41, #0x00	;  65
+      003430 42 00                 2267 	.byte #0x42, #0x00	;  66
+      003432 43 00                 2268 	.byte #0x43, #0x00	;  67
+      003434 44 00                 2269 	.byte #0x44, #0x00	;  68
+      003436 45 00                 2270 	.byte #0x45, #0x00	;  69
+      003438 46 00                 2271 	.byte #0x46, #0x00	;  70
+      00343A 47 00                 2272 	.byte #0x47, #0x00	;  71
+      00343C 48 00                 2273 	.byte #0x48, #0x00	;  72
+      00343E 49 00                 2274 	.byte #0x49, #0x00	;  73
+      003440 4A 00                 2275 	.byte #0x4a, #0x00	;  74
+      003442 4B 00                 2276 	.byte #0x4b, #0x00	;  75
+      003444 4C 00                 2277 	.byte #0x4c, #0x00	;  76
+      003446 4D 00                 2278 	.byte #0x4d, #0x00	;  77
+      003448 4E 00                 2279 	.byte #0x4e, #0x00	;  78
+      00344A 4F 00                 2280 	.byte #0x4f, #0x00	;  79
+      00344C 50 00                 2281 	.byte #0x50, #0x00	;  80
+      00344E 51 00                 2282 	.byte #0x51, #0x00	;  81
+      003450 52 00                 2283 	.byte #0x52, #0x00	;  82
+      003452 53 00                 2284 	.byte #0x53, #0x00	;  83
+      003454 54 00                 2285 	.byte #0x54, #0x00	;  84
+      003456 55 00                 2286 	.byte #0x55, #0x00	;  85
+      003458 56 00                 2287 	.byte #0x56, #0x00	;  86
+      00345A 57 00                 2288 	.byte #0x57, #0x00	;  87
+      00345C 58 00                 2289 	.byte #0x58, #0x00	;  88
+      00345E 59 00                 2290 	.byte #0x59, #0x00	;  89
+      003460 5A 00                 2291 	.byte #0x5a, #0x00	;  90
+      003462 5B 00                 2292 	.byte #0x5b, #0x00	;  91
+      003464 5C 00                 2293 	.byte #0x5c, #0x00	;  92
+      003466 5D 00                 2294 	.byte #0x5d, #0x00	;  93
+      003468 5E 00                 2295 	.byte #0x5e, #0x00	;  94
+      00346A 5F 00                 2296 	.byte #0x5f, #0x00	;  95
+      00346C 60 00                 2297 	.byte #0x60, #0x00	;  96
+      00346E 61 00                 2298 	.byte #0x61, #0x00	;  97
+      003470 62 00                 2299 	.byte #0x62, #0x00	;  98
+      003472 63 00                 2300 	.byte #0x63, #0x00	;  99
+      003474 64 00                 2301 	.byte #0x64, #0x00	;  100
+      003476 65 00                 2302 	.byte #0x65, #0x00	;  101
+      003478 66 00                 2303 	.byte #0x66, #0x00	;  102
+      00347A 67 00                 2304 	.byte #0x67, #0x00	;  103
+      00347C 68 00                 2305 	.byte #0x68, #0x00	;  104
+      00347E 69 00                 2306 	.byte #0x69, #0x00	;  105
+      003480 6A 00                 2307 	.byte #0x6a, #0x00	;  106
+      003482 6B 00                 2308 	.byte #0x6b, #0x00	;  107
+      003484 6C 00                 2309 	.byte #0x6c, #0x00	;  108
+      003486 6D 00                 2310 	.byte #0x6d, #0x00	;  109
+      003488 6E 00                 2311 	.byte #0x6e, #0x00	;  110
+      00348A 6F 00                 2312 	.byte #0x6f, #0x00	;  111
+      00348C 70 00                 2313 	.byte #0x70, #0x00	;  112
+      00348E 71 00                 2314 	.byte #0x71, #0x00	;  113
+      003490 72 00                 2315 	.byte #0x72, #0x00	;  114
+      003492 73 00                 2316 	.byte #0x73, #0x00	;  115
+      003494 74 00                 2317 	.byte #0x74, #0x00	;  116
+      003496 75 00                 2318 	.byte #0x75, #0x00	;  117
+      003498 76 00                 2319 	.byte #0x76, #0x00	;  118
+      00349A 77 00                 2320 	.byte #0x77, #0x00	;  119
+      00349C 78 00                 2321 	.byte #0x78, #0x00	;  120
+      00349E 79 00                 2322 	.byte #0x79, #0x00	;  121
+      0034A0 7A 00                 2323 	.byte #0x7a, #0x00	;  122
+      0034A2 7B 00                 2324 	.byte #0x7b, #0x00	;  123
+      0034A4 7C 00                 2325 	.byte #0x7c, #0x00	;  124
+      0034A6 7D 00                 2326 	.byte #0x7d, #0x00	;  125
+      0034A8 7E 00                 2327 	.byte #0x7e, #0x00	;  126
+      0034AA 7F 00                 2328 	.byte #0x7f, #0x00	;  127
+      0034AC 80 00                 2329 	.byte #0x80, #0x00	;  128
+      0034AE 81 00                 2330 	.byte #0x81, #0x00	;  129
+      0034B0 82 00                 2331 	.byte #0x82, #0x00	;  130
+      0034B2 83 00                 2332 	.byte #0x83, #0x00	;  131
+      0034B4 84 00                 2333 	.byte #0x84, #0x00	;  132
+      0034B6 85 00                 2334 	.byte #0x85, #0x00	;  133
+      0034B8 86 00                 2335 	.byte #0x86, #0x00	;  134
+      0034BA 87 00                 2336 	.byte #0x87, #0x00	;  135
+      0034BC 88 00                 2337 	.byte #0x88, #0x00	;  136
+      0034BE 89 00                 2338 	.byte #0x89, #0x00	;  137
+      0034C0 8A 00                 2339 	.byte #0x8a, #0x00	;  138
+      0034C2 8B 00                 2340 	.byte #0x8b, #0x00	;  139
+      0034C4 8C 00                 2341 	.byte #0x8c, #0x00	;  140
+      0034C6 8D 00                 2342 	.byte #0x8d, #0x00	;  141
+      0034C8 8E 00                 2343 	.byte #0x8e, #0x00	;  142
+      0034CA 8F 00                 2344 	.byte #0x8f, #0x00	;  143
+      0034CC 90 00                 2345 	.byte #0x90, #0x00	;  144
+      0034CE 91 00                 2346 	.byte #0x91, #0x00	;  145
+      0034D0 92 00                 2347 	.byte #0x92, #0x00	;  146
+      0034D2 93 00                 2348 	.byte #0x93, #0x00	;  147
+      0034D4 94 00                 2349 	.byte #0x94, #0x00	;  148
+      0034D6 95 00                 2350 	.byte #0x95, #0x00	;  149
+      0034D8 96 00                 2351 	.byte #0x96, #0x00	;  150
+      0034DA 97 00                 2352 	.byte #0x97, #0x00	;  151
+      0034DC 98 00                 2353 	.byte #0x98, #0x00	;  152
+      0034DE 99 00                 2354 	.byte #0x99, #0x00	;  153
+      0034E0 9A 00                 2355 	.byte #0x9a, #0x00	;  154
+      0034E2 9B 00                 2356 	.byte #0x9b, #0x00	;  155
+      0034E4 9C 00                 2357 	.byte #0x9c, #0x00	;  156
+      0034E6 9D 00                 2358 	.byte #0x9d, #0x00	;  157
+      0034E8 9E 00                 2359 	.byte #0x9e, #0x00	;  158
+      0034EA 9F 00                 2360 	.byte #0x9f, #0x00	;  159
+      0034EC A0 00                 2361 	.byte #0xa0, #0x00	;  160
+      0034EE A1 00                 2362 	.byte #0xa1, #0x00	;  161
+      0034F0 A2 00                 2363 	.byte #0xa2, #0x00	;  162
+      0034F2 A3 00                 2364 	.byte #0xa3, #0x00	;  163
+      0034F4 A4 00                 2365 	.byte #0xa4, #0x00	;  164
+      0034F6 A5 00                 2366 	.byte #0xa5, #0x00	;  165
+      0034F8 A6 00                 2367 	.byte #0xa6, #0x00	;  166
+      0034FA A7 00                 2368 	.byte #0xa7, #0x00	;  167
+      0034FC A8 00                 2369 	.byte #0xa8, #0x00	;  168
+      0034FE A9 00                 2370 	.byte #0xa9, #0x00	;  169
+      003500 AA 00                 2371 	.byte #0xaa, #0x00	;  170
+      003502 AB 00                 2372 	.byte #0xab, #0x00	;  171
+      003504 AC 00                 2373 	.byte #0xac, #0x00	;  172
+      003506 AD 00                 2374 	.byte #0xad, #0x00	;  173
+      003508 AE 00                 2375 	.byte #0xae, #0x00	;  174
+      00350A AF 00                 2376 	.byte #0xaf, #0x00	;  175
+      00350C B0 00                 2377 	.byte #0xb0, #0x00	;  176
+      00350E B1 00                 2378 	.byte #0xb1, #0x00	;  177
+      003510 B2 00                 2379 	.byte #0xb2, #0x00	;  178
+      003512 B3 00                 2380 	.byte #0xb3, #0x00	;  179
+      003514 B4 00                 2381 	.byte #0xb4, #0x00	;  180
+      003516 B5 00                 2382 	.byte #0xb5, #0x00	;  181
+      003518 B6 00                 2383 	.byte #0xb6, #0x00	;  182
+      00351A B7 00                 2384 	.byte #0xb7, #0x00	;  183
+      00351C B8 00                 2385 	.byte #0xb8, #0x00	;  184
+      00351E B9 00                 2386 	.byte #0xb9, #0x00	;  185
+      003520 BA 00                 2387 	.byte #0xba, #0x00	;  186
+      003522 BB 00                 2388 	.byte #0xbb, #0x00	;  187
+      003524 BC 00                 2389 	.byte #0xbc, #0x00	;  188
+      003526 BD 00                 2390 	.byte #0xbd, #0x00	;  189
+      003528 BE 00                 2391 	.byte #0xbe, #0x00	;  190
+      00352A BF 00                 2392 	.byte #0xbf, #0x00	;  191
+      00352C C0 00                 2393 	.byte #0xc0, #0x00	;  192
+      00352E C1 00                 2394 	.byte #0xc1, #0x00	;  193
+      003530 C2 00                 2395 	.byte #0xc2, #0x00	;  194
+      003532 C3 00                 2396 	.byte #0xc3, #0x00	;  195
+      003534 C4 00                 2397 	.byte #0xc4, #0x00	;  196
+      003536 C5 00                 2398 	.byte #0xc5, #0x00	;  197
+      003538 C6 00                 2399 	.byte #0xc6, #0x00	;  198
+      00353A C7 00                 2400 	.byte #0xc7, #0x00	;  199
+      00353C C8 00                 2401 	.byte #0xc8, #0x00	;  200
+      00353E C9 00                 2402 	.byte #0xc9, #0x00	;  201
+      003540 CA 00                 2403 	.byte #0xca, #0x00	;  202
+      003542 CB 00                 2404 	.byte #0xcb, #0x00	;  203
+      003544 CC 00                 2405 	.byte #0xcc, #0x00	;  204
+      003546 CD 00                 2406 	.byte #0xcd, #0x00	;  205
+      003548 CE 00                 2407 	.byte #0xce, #0x00	;  206
+      00354A CF 00                 2408 	.byte #0xcf, #0x00	;  207
+      00354C D0 00                 2409 	.byte #0xd0, #0x00	;  208
+      00354E D1 00                 2410 	.byte #0xd1, #0x00	;  209
+      003550 D2 00                 2411 	.byte #0xd2, #0x00	;  210
+      003552 D3 00                 2412 	.byte #0xd3, #0x00	;  211
+      003554 D4 00                 2413 	.byte #0xd4, #0x00	;  212
+      003556 D5 00                 2414 	.byte #0xd5, #0x00	;  213
+      003558 D6 00                 2415 	.byte #0xd6, #0x00	;  214
+      00355A D7 00                 2416 	.byte #0xd7, #0x00	;  215
+      00355C D8 00                 2417 	.byte #0xd8, #0x00	;  216
+      00355E D9 00                 2418 	.byte #0xd9, #0x00	;  217
+      003560 DA 00                 2419 	.byte #0xda, #0x00	;  218
+      003562 DB 00                 2420 	.byte #0xdb, #0x00	;  219
+      003564 DC 00                 2421 	.byte #0xdc, #0x00	;  220
+      003566 DD 00                 2422 	.byte #0xdd, #0x00	;  221
+      003568 DE 00                 2423 	.byte #0xde, #0x00	;  222
+      00356A DF 00                 2424 	.byte #0xdf, #0x00	;  223
+      00356C E0 00                 2425 	.byte #0xe0, #0x00	;  224
+      00356E E1 00                 2426 	.byte #0xe1, #0x00	;  225
+      003570 E2 00                 2427 	.byte #0xe2, #0x00	;  226
+      003572 E3 00                 2428 	.byte #0xe3, #0x00	;  227
+      003574 E4 00                 2429 	.byte #0xe4, #0x00	;  228
+      003576 E5 00                 2430 	.byte #0xe5, #0x00	;  229
+      003578 E6 00                 2431 	.byte #0xe6, #0x00	;  230
+      00357A E7 00                 2432 	.byte #0xe7, #0x00	;  231
+      00357C E8 00                 2433 	.byte #0xe8, #0x00	;  232
+      00357E E9 00                 2434 	.byte #0xe9, #0x00	;  233
+      003580 EA 00                 2435 	.byte #0xea, #0x00	;  234
+      003582 EB 00                 2436 	.byte #0xeb, #0x00	;  235
+      003584 EC 00                 2437 	.byte #0xec, #0x00	;  236
+      003586 ED 00                 2438 	.byte #0xed, #0x00	;  237
+      003588 EE 00                 2439 	.byte #0xee, #0x00	;  238
+      00358A EF 00                 2440 	.byte #0xef, #0x00	;  239
+      00358C F0 00                 2441 	.byte #0xf0, #0x00	;  240
+      00358E F1 00                 2442 	.byte #0xf1, #0x00	;  241
+      003590 F2 00                 2443 	.byte #0xf2, #0x00	;  242
+      003592 F3 00                 2444 	.byte #0xf3, #0x00	;  243
+      003594 F4 00                 2445 	.byte #0xf4, #0x00	;  244
+      003596 F5 00                 2446 	.byte #0xf5, #0x00	;  245
+      003598 F6 00                 2447 	.byte #0xf6, #0x00	;  246
+      00359A F7 00                 2448 	.byte #0xf7, #0x00	;  247
+      00359C F8 00                 2449 	.byte #0xf8, #0x00	;  248
+      00359E F9 00                 2450 	.byte #0xf9, #0x00	;  249
+      0035A0 FA 00                 2451 	.byte #0xfa, #0x00	;  250
+      0035A2 FB 00                 2452 	.byte #0xfb, #0x00	;  251
+      0035A4 FC 00                 2453 	.byte #0xfc, #0x00	;  252
+      0035A6 FD 00                 2454 	.byte #0xfd, #0x00	;  253
+      0035A8 FE 00                 2455 	.byte #0xfe, #0x00	;  254
+      0035AA FF 00                 2456 	.byte #0xff, #0x00	;  255
+      0035AC FF 00                 2457 	.byte #0xff, #0x00	;  255
+      0035AE FE 00                 2458 	.byte #0xfe, #0x00	;  254
+      0035B0 FD 00                 2459 	.byte #0xfd, #0x00	;  253
+      0035B2 FC 00                 2460 	.byte #0xfc, #0x00	;  252
+      0035B4 FB 00                 2461 	.byte #0xfb, #0x00	;  251
+      0035B6 FA 00                 2462 	.byte #0xfa, #0x00	;  250
+      0035B8 F9 00                 2463 	.byte #0xf9, #0x00	;  249
+      0035BA F8 00                 2464 	.byte #0xf8, #0x00	;  248
+      0035BC F7 00                 2465 	.byte #0xf7, #0x00	;  247
+      0035BE F6 00                 2466 	.byte #0xf6, #0x00	;  246
+      0035C0 F5 00                 2467 	.byte #0xf5, #0x00	;  245
+      0035C2 F4 00                 2468 	.byte #0xf4, #0x00	;  244
+      0035C4 F3 00                 2469 	.byte #0xf3, #0x00	;  243
+      0035C6 F2 00                 2470 	.byte #0xf2, #0x00	;  242
+      0035C8 F1 00                 2471 	.byte #0xf1, #0x00	;  241
+      0035CA F0 00                 2472 	.byte #0xf0, #0x00	;  240
+      0035CC EF 00                 2473 	.byte #0xef, #0x00	;  239
+      0035CE EE 00                 2474 	.byte #0xee, #0x00	;  238
+      0035D0 ED 00                 2475 	.byte #0xed, #0x00	;  237
+      0035D2 EC 00                 2476 	.byte #0xec, #0x00	;  236
+      0035D4 EB 00                 2477 	.byte #0xeb, #0x00	;  235
+      0035D6 EA 00                 2478 	.byte #0xea, #0x00	;  234
+      0035D8 E9 00                 2479 	.byte #0xe9, #0x00	;  233
+      0035DA E8 00                 2480 	.byte #0xe8, #0x00	;  232
+      0035DC E7 00                 2481 	.byte #0xe7, #0x00	;  231
+      0035DE E6 00                 2482 	.byte #0xe6, #0x00	;  230
+      0035E0 E5 00                 2483 	.byte #0xe5, #0x00	;  229
+      0035E2 E4 00                 2484 	.byte #0xe4, #0x00	;  228
+      0035E4 E3 00                 2485 	.byte #0xe3, #0x00	;  227
+      0035E6 E2 00                 2486 	.byte #0xe2, #0x00	;  226
+      0035E8 E1 00                 2487 	.byte #0xe1, #0x00	;  225
+      0035EA E0 00                 2488 	.byte #0xe0, #0x00	;  224
+      0035EC DF 00                 2489 	.byte #0xdf, #0x00	;  223
+      0035EE DE 00                 2490 	.byte #0xde, #0x00	;  222
+      0035F0 DD 00                 2491 	.byte #0xdd, #0x00	;  221
+      0035F2 DC 00                 2492 	.byte #0xdc, #0x00	;  220
+      0035F4 DB 00                 2493 	.byte #0xdb, #0x00	;  219
+      0035F6 DA 00                 2494 	.byte #0xda, #0x00	;  218
+      0035F8 D9 00                 2495 	.byte #0xd9, #0x00	;  217
+      0035FA D8 00                 2496 	.byte #0xd8, #0x00	;  216
+      0035FC D7 00                 2497 	.byte #0xd7, #0x00	;  215
+      0035FE D6 00                 2498 	.byte #0xd6, #0x00	;  214
+      003600 D5 00                 2499 	.byte #0xd5, #0x00	;  213
+      003602 D4 00                 2500 	.byte #0xd4, #0x00	;  212
+      003604 D3 00                 2501 	.byte #0xd3, #0x00	;  211
+      003606 D2 00                 2502 	.byte #0xd2, #0x00	;  210
+      003608 D1 00                 2503 	.byte #0xd1, #0x00	;  209
+      00360A D0 00                 2504 	.byte #0xd0, #0x00	;  208
+      00360C CF 00                 2505 	.byte #0xcf, #0x00	;  207
+      00360E CE 00                 2506 	.byte #0xce, #0x00	;  206
+      003610 CD 00                 2507 	.byte #0xcd, #0x00	;  205
+      003612 CC 00                 2508 	.byte #0xcc, #0x00	;  204
+      003614 CB 00                 2509 	.byte #0xcb, #0x00	;  203
+      003616 CA 00                 2510 	.byte #0xca, #0x00	;  202
+      003618 C9 00                 2511 	.byte #0xc9, #0x00	;  201
+      00361A C8 00                 2512 	.byte #0xc8, #0x00	;  200
+      00361C C7 00                 2513 	.byte #0xc7, #0x00	;  199
+      00361E C6 00                 2514 	.byte #0xc6, #0x00	;  198
+      003620 C5 00                 2515 	.byte #0xc5, #0x00	;  197
+      003622 C4 00                 2516 	.byte #0xc4, #0x00	;  196
+      003624 C3 00                 2517 	.byte #0xc3, #0x00	;  195
+      003626 C2 00                 2518 	.byte #0xc2, #0x00	;  194
+      003628 C1 00                 2519 	.byte #0xc1, #0x00	;  193
+      00362A C0 00                 2520 	.byte #0xc0, #0x00	;  192
+      00362C BF 00                 2521 	.byte #0xbf, #0x00	;  191
+      00362E BE 00                 2522 	.byte #0xbe, #0x00	;  190
+      003630 BD 00                 2523 	.byte #0xbd, #0x00	;  189
+      003632 BC 00                 2524 	.byte #0xbc, #0x00	;  188
+      003634 BB 00                 2525 	.byte #0xbb, #0x00	;  187
+      003636 BA 00                 2526 	.byte #0xba, #0x00	;  186
+      003638 B9 00                 2527 	.byte #0xb9, #0x00	;  185
+      00363A B8 00                 2528 	.byte #0xb8, #0x00	;  184
+      00363C B7 00                 2529 	.byte #0xb7, #0x00	;  183
+      00363E B6 00                 2530 	.byte #0xb6, #0x00	;  182
+      003640 B5 00                 2531 	.byte #0xb5, #0x00	;  181
+      003642 B4 00                 2532 	.byte #0xb4, #0x00	;  180
+      003644 B3 00                 2533 	.byte #0xb3, #0x00	;  179
+      003646 B2 00                 2534 	.byte #0xb2, #0x00	;  178
+      003648 B1 00                 2535 	.byte #0xb1, #0x00	;  177
+      00364A B0 00                 2536 	.byte #0xb0, #0x00	;  176
+      00364C AF 00                 2537 	.byte #0xaf, #0x00	;  175
+      00364E AE 00                 2538 	.byte #0xae, #0x00	;  174
+      003650 AD 00                 2539 	.byte #0xad, #0x00	;  173
+      003652 AC 00                 2540 	.byte #0xac, #0x00	;  172
+      003654 AB 00                 2541 	.byte #0xab, #0x00	;  171
+      003656 AA 00                 2542 	.byte #0xaa, #0x00	;  170
+      003658 A9 00                 2543 	.byte #0xa9, #0x00	;  169
+      00365A A8 00                 2544 	.byte #0xa8, #0x00	;  168
+      00365C A7 00                 2545 	.byte #0xa7, #0x00	;  167
+      00365E A6 00                 2546 	.byte #0xa6, #0x00	;  166
+      003660 A5 00                 2547 	.byte #0xa5, #0x00	;  165
+      003662 A4 00                 2548 	.byte #0xa4, #0x00	;  164
+      003664 A3 00                 2549 	.byte #0xa3, #0x00	;  163
+      003666 A2 00                 2550 	.byte #0xa2, #0x00	;  162
+      003668 A1 00                 2551 	.byte #0xa1, #0x00	;  161
+      00366A A0 00                 2552 	.byte #0xa0, #0x00	;  160
+      00366C 9F 00                 2553 	.byte #0x9f, #0x00	;  159
+      00366E 9E 00                 2554 	.byte #0x9e, #0x00	;  158
+      003670 9D 00                 2555 	.byte #0x9d, #0x00	;  157
+      003672 9C 00                 2556 	.byte #0x9c, #0x00	;  156
+      003674 9B 00                 2557 	.byte #0x9b, #0x00	;  155
+      003676 9A 00                 2558 	.byte #0x9a, #0x00	;  154
+      003678 99 00                 2559 	.byte #0x99, #0x00	;  153
+      00367A 98 00                 2560 	.byte #0x98, #0x00	;  152
+      00367C 97 00                 2561 	.byte #0x97, #0x00	;  151
+      00367E 96 00                 2562 	.byte #0x96, #0x00	;  150
+      003680 95 00                 2563 	.byte #0x95, #0x00	;  149
+      003682 94 00                 2564 	.byte #0x94, #0x00	;  148
+      003684 93 00                 2565 	.byte #0x93, #0x00	;  147
+      003686 92 00                 2566 	.byte #0x92, #0x00	;  146
+      003688 91 00                 2567 	.byte #0x91, #0x00	;  145
+      00368A 90 00                 2568 	.byte #0x90, #0x00	;  144
+      00368C 8F 00                 2569 	.byte #0x8f, #0x00	;  143
+      00368E 8E 00                 2570 	.byte #0x8e, #0x00	;  142
+      003690 8D 00                 2571 	.byte #0x8d, #0x00	;  141
+      003692 8C 00                 2572 	.byte #0x8c, #0x00	;  140
+      003694 8B 00                 2573 	.byte #0x8b, #0x00	;  139
+      003696 8A 00                 2574 	.byte #0x8a, #0x00	;  138
+      003698 89 00                 2575 	.byte #0x89, #0x00	;  137
+      00369A 88 00                 2576 	.byte #0x88, #0x00	;  136
+      00369C 87 00                 2577 	.byte #0x87, #0x00	;  135
+      00369E 86 00                 2578 	.byte #0x86, #0x00	;  134
+      0036A0 85 00                 2579 	.byte #0x85, #0x00	;  133
+      0036A2 84 00                 2580 	.byte #0x84, #0x00	;  132
+      0036A4 83 00                 2581 	.byte #0x83, #0x00	;  131
+      0036A6 82 00                 2582 	.byte #0x82, #0x00	;  130
+      0036A8 81 00                 2583 	.byte #0x81, #0x00	;  129
+      0036AA 80 00                 2584 	.byte #0x80, #0x00	;  128
+      0036AC 7F 00                 2585 	.byte #0x7f, #0x00	;  127
+      0036AE 7E 00                 2586 	.byte #0x7e, #0x00	;  126
+      0036B0 7D 00                 2587 	.byte #0x7d, #0x00	;  125
+      0036B2 7C 00                 2588 	.byte #0x7c, #0x00	;  124
+      0036B4 7B 00                 2589 	.byte #0x7b, #0x00	;  123
+      0036B6 7A 00                 2590 	.byte #0x7a, #0x00	;  122
+      0036B8 79 00                 2591 	.byte #0x79, #0x00	;  121
+      0036BA 78 00                 2592 	.byte #0x78, #0x00	;  120
+      0036BC 77 00                 2593 	.byte #0x77, #0x00	;  119
+      0036BE 76 00                 2594 	.byte #0x76, #0x00	;  118
+      0036C0 75 00                 2595 	.byte #0x75, #0x00	;  117
+      0036C2 74 00                 2596 	.byte #0x74, #0x00	;  116
+      0036C4 73 00                 2597 	.byte #0x73, #0x00	;  115
+      0036C6 72 00                 2598 	.byte #0x72, #0x00	;  114
+      0036C8 71 00                 2599 	.byte #0x71, #0x00	;  113
+      0036CA 70 00                 2600 	.byte #0x70, #0x00	;  112
+      0036CC 6F 00                 2601 	.byte #0x6f, #0x00	;  111
+      0036CE 6E 00                 2602 	.byte #0x6e, #0x00	;  110
+      0036D0 6D 00                 2603 	.byte #0x6d, #0x00	;  109
+      0036D2 6C 00                 2604 	.byte #0x6c, #0x00	;  108
+      0036D4 6B 00                 2605 	.byte #0x6b, #0x00	;  107
+      0036D6 6A 00                 2606 	.byte #0x6a, #0x00	;  106
+      0036D8 69 00                 2607 	.byte #0x69, #0x00	;  105
+      0036DA 68 00                 2608 	.byte #0x68, #0x00	;  104
+      0036DC 67 00                 2609 	.byte #0x67, #0x00	;  103
+      0036DE 66 00                 2610 	.byte #0x66, #0x00	;  102
+      0036E0 65 00                 2611 	.byte #0x65, #0x00	;  101
+      0036E2 64 00                 2612 	.byte #0x64, #0x00	;  100
+      0036E4 63 00                 2613 	.byte #0x63, #0x00	;  99
+      0036E6 62 00                 2614 	.byte #0x62, #0x00	;  98
+      0036E8 61 00                 2615 	.byte #0x61, #0x00	;  97
+      0036EA 60 00                 2616 	.byte #0x60, #0x00	;  96
+      0036EC 5F 00                 2617 	.byte #0x5f, #0x00	;  95
+      0036EE 5E 00                 2618 	.byte #0x5e, #0x00	;  94
+      0036F0 5D 00                 2619 	.byte #0x5d, #0x00	;  93
+      0036F2 5C 00                 2620 	.byte #0x5c, #0x00	;  92
+      0036F4 5B 00                 2621 	.byte #0x5b, #0x00	;  91
+      0036F6 5A 00                 2622 	.byte #0x5a, #0x00	;  90
+      0036F8 59 00                 2623 	.byte #0x59, #0x00	;  89
+      0036FA 58 00                 2624 	.byte #0x58, #0x00	;  88
+      0036FC 57 00                 2625 	.byte #0x57, #0x00	;  87
+      0036FE 56 00                 2626 	.byte #0x56, #0x00	;  86
+      003700 55 00                 2627 	.byte #0x55, #0x00	;  85
+      003702 54 00                 2628 	.byte #0x54, #0x00	;  84
+      003704 53 00                 2629 	.byte #0x53, #0x00	;  83
+      003706 52 00                 2630 	.byte #0x52, #0x00	;  82
+      003708 51 00                 2631 	.byte #0x51, #0x00	;  81
+      00370A 50 00                 2632 	.byte #0x50, #0x00	;  80
+      00370C 4F 00                 2633 	.byte #0x4f, #0x00	;  79
+      00370E 4E 00                 2634 	.byte #0x4e, #0x00	;  78
+      003710 4D 00                 2635 	.byte #0x4d, #0x00	;  77
+      003712 4C 00                 2636 	.byte #0x4c, #0x00	;  76
+      003714 4B 00                 2637 	.byte #0x4b, #0x00	;  75
+      003716 4A 00                 2638 	.byte #0x4a, #0x00	;  74
+      003718 49 00                 2639 	.byte #0x49, #0x00	;  73
+      00371A 48 00                 2640 	.byte #0x48, #0x00	;  72
+      00371C 47 00                 2641 	.byte #0x47, #0x00	;  71
+      00371E 46 00                 2642 	.byte #0x46, #0x00	;  70
+      003720 45 00                 2643 	.byte #0x45, #0x00	;  69
+      003722 44 00                 2644 	.byte #0x44, #0x00	;  68
+      003724 43 00                 2645 	.byte #0x43, #0x00	;  67
+      003726 42 00                 2646 	.byte #0x42, #0x00	;  66
+      003728 41 00                 2647 	.byte #0x41, #0x00	;  65
+      00372A 40 00                 2648 	.byte #0x40, #0x00	;  64
+      00372C 3F 00                 2649 	.byte #0x3f, #0x00	;  63
+      00372E 3E 00                 2650 	.byte #0x3e, #0x00	;  62
+      003730 3D 00                 2651 	.byte #0x3d, #0x00	;  61
+      003732 3C 00                 2652 	.byte #0x3c, #0x00	;  60
+      003734 3B 00                 2653 	.byte #0x3b, #0x00	;  59
+      003736 3A 00                 2654 	.byte #0x3a, #0x00	;  58
+      003738 39 00                 2655 	.byte #0x39, #0x00	;  57
+      00373A 38 00                 2656 	.byte #0x38, #0x00	;  56
+      00373C 37 00                 2657 	.byte #0x37, #0x00	;  55
+      00373E 36 00                 2658 	.byte #0x36, #0x00	;  54
+      003740 35 00                 2659 	.byte #0x35, #0x00	;  53
+      003742 34 00                 2660 	.byte #0x34, #0x00	;  52
+      003744 33 00                 2661 	.byte #0x33, #0x00	;  51
+      003746 32 00                 2662 	.byte #0x32, #0x00	;  50
+      003748 31 00                 2663 	.byte #0x31, #0x00	;  49
+      00374A 30 00                 2664 	.byte #0x30, #0x00	;  48
+      00374C 2F 00                 2665 	.byte #0x2f, #0x00	;  47
+      00374E 2E 00                 2666 	.byte #0x2e, #0x00	;  46
+      003750 2D 00                 2667 	.byte #0x2d, #0x00	;  45
+      003752 2C 00                 2668 	.byte #0x2c, #0x00	;  44
+      003754 2B 00                 2669 	.byte #0x2b, #0x00	;  43
+      003756 2A 00                 2670 	.byte #0x2a, #0x00	;  42
+      003758 29 00                 2671 	.byte #0x29, #0x00	;  41
+      00375A 28 00                 2672 	.byte #0x28, #0x00	;  40
+      00375C 27 00                 2673 	.byte #0x27, #0x00	;  39
+      00375E 26 00                 2674 	.byte #0x26, #0x00	;  38
+      003760 25 00                 2675 	.byte #0x25, #0x00	;  37
+      003762 24 00                 2676 	.byte #0x24, #0x00	;  36
+      003764 23 00                 2677 	.byte #0x23, #0x00	;  35
+      003766 22 00                 2678 	.byte #0x22, #0x00	;  34
+      003768 21 00                 2679 	.byte #0x21, #0x00	;  33
+      00376A 20 00                 2680 	.byte #0x20, #0x00	;  32
+      00376C 1F 00                 2681 	.byte #0x1f, #0x00	;  31
+      00376E 1E 00                 2682 	.byte #0x1e, #0x00	;  30
+      003770 1D 00                 2683 	.byte #0x1d, #0x00	;  29
+      003772 1C 00                 2684 	.byte #0x1c, #0x00	;  28
+      003774 1B 00                 2685 	.byte #0x1b, #0x00	;  27
+      003776 1A 00                 2686 	.byte #0x1a, #0x00	;  26
+      003778 19 00                 2687 	.byte #0x19, #0x00	;  25
+      00377A 18 00                 2688 	.byte #0x18, #0x00	;  24
+      00377C 17 00                 2689 	.byte #0x17, #0x00	;  23
+      00377E 16 00                 2690 	.byte #0x16, #0x00	;  22
+      003780 15 00                 2691 	.byte #0x15, #0x00	;  21
+      003782 14 00                 2692 	.byte #0x14, #0x00	;  20
+      003784 13 00                 2693 	.byte #0x13, #0x00	;  19
+      003786 12 00                 2694 	.byte #0x12, #0x00	;  18
+      003788 11 00                 2695 	.byte #0x11, #0x00	;  17
+      00378A 10 00                 2696 	.byte #0x10, #0x00	;  16
+      00378C 0F 00                 2697 	.byte #0x0f, #0x00	;  15
+      00378E 0E 00                 2698 	.byte #0x0e, #0x00	;  14
+      003790 0D 00                 2699 	.byte #0x0d, #0x00	;  13
+      003792 0C 00                 2700 	.byte #0x0c, #0x00	;  12
+      003794 0B 00                 2701 	.byte #0x0b, #0x00	;  11
+      003796 0A 00                 2702 	.byte #0x0a, #0x00	;  10
+      003798 09 00                 2703 	.byte #0x09, #0x00	;  9
+      00379A 08 00                 2704 	.byte #0x08, #0x00	;  8
+      00379C 07 00                 2705 	.byte #0x07, #0x00	;  7
+      00379E 06 00                 2706 	.byte #0x06, #0x00	;  6
+      0037A0 05 00                 2707 	.byte #0x05, #0x00	;  5
+      0037A2 04 00                 2708 	.byte #0x04, #0x00	;  4
+      0037A4 03 00                 2709 	.byte #0x03, #0x00	;  3
+      0037A6 02 00                 2710 	.byte #0x02, #0x00	;  2
+      0037A8 01 00                 2711 	.byte #0x01, #0x00	;  1
+      0037AA 00 00                 2712 	.byte #0x00, #0x00	;  0
+                                   2713 	.area CONST   (CODE)
+      0037AC                       2714 ___str_0:
+      0037AC 0A                    2715 	.db 0x0a
+      0037AD 0D                    2716 	.db 0x0d
+      0037AE E2                    2717 	.db 0xe2
+      0037AF 94                    2718 	.db 0x94
+      0037B0 8C                    2719 	.db 0x8c
+      0037B1 E2                    2720 	.db 0xe2
+      0037B2 94                    2721 	.db 0x94
+      0037B3 80                    2722 	.db 0x80
+      0037B4 E2                    2723 	.db 0xe2
+      0037B5 94                    2724 	.db 0x94
+      0037B6 80                    2725 	.db 0x80
+      0037B7 E2                    2726 	.db 0xe2
+      0037B8 94                    2727 	.db 0x94
+      0037B9 80                    2728 	.db 0x80
+      0037BA E2                    2729 	.db 0xe2
+      0037BB 94                    2730 	.db 0x94
+      0037BC 80                    2731 	.db 0x80
+      0037BD E2                    2732 	.db 0xe2
+      0037BE 94                    2733 	.db 0x94
+      0037BF 80                    2734 	.db 0x80
+      0037C0 E2                    2735 	.db 0xe2
+      0037C1 94                    2736 	.db 0x94
+      0037C2 80                    2737 	.db 0x80
+      0037C3 E2                    2738 	.db 0xe2
+      0037C4 94                    2739 	.db 0x94
+      0037C5 80                    2740 	.db 0x80
+      0037C6 E2                    2741 	.db 0xe2
+      0037C7 94                    2742 	.db 0x94
+      0037C8 80                    2743 	.db 0x80
+      0037C9 E2                    2744 	.db 0xe2
+      0037CA 94                    2745 	.db 0x94
+      0037CB 80                    2746 	.db 0x80
+      0037CC E2                    2747 	.db 0xe2
+      0037CD 94                    2748 	.db 0x94
+      0037CE 80                    2749 	.db 0x80
+      0037CF E2                    2750 	.db 0xe2
+      0037D0 94                    2751 	.db 0x94
+      0037D1 80                    2752 	.db 0x80
+      0037D2 E2                    2753 	.db 0xe2
+      0037D3 94                    2754 	.db 0x94
+      0037D4 80                    2755 	.db 0x80
+      0037D5 E2                    2756 	.db 0xe2
+      0037D6 94                    2757 	.db 0x94
+      0037D7 80                    2758 	.db 0x80
+      0037D8 E2                    2759 	.db 0xe2
+      0037D9 94                    2760 	.db 0x94
+      0037DA 80                    2761 	.db 0x80
+      0037DB E2                    2762 	.db 0xe2
+      0037DC 94                    2763 	.db 0x94
+      0037DD 80                    2764 	.db 0x80
+      0037DE E2                    2765 	.db 0xe2
+      0037DF 94                    2766 	.db 0x94
+      0037E0 80                    2767 	.db 0x80
+      0037E1 E2                    2768 	.db 0xe2
+      0037E2 94                    2769 	.db 0x94
+      0037E3 80                    2770 	.db 0x80
+      0037E4 E2                    2771 	.db 0xe2
+      0037E5 94                    2772 	.db 0x94
+      0037E6 80                    2773 	.db 0x80
+      0037E7 E2                    2774 	.db 0xe2
+      0037E8 94                    2775 	.db 0x94
+      0037E9 80                    2776 	.db 0x80
+      0037EA E2                    2777 	.db 0xe2
+      0037EB 94                    2778 	.db 0x94
+      0037EC 80                    2779 	.db 0x80
+      0037ED E2                    2780 	.db 0xe2
+      0037EE 94                    2781 	.db 0x94
+      0037EF 80                    2782 	.db 0x80
+      0037F0 E2                    2783 	.db 0xe2
+      0037F1 94                    2784 	.db 0x94
+      0037F2 80                    2785 	.db 0x80
+      0037F3 E2                    2786 	.db 0xe2
+      0037F4 94                    2787 	.db 0x94
+      0037F5 80                    2788 	.db 0x80
+      0037F6 E2                    2789 	.db 0xe2
+      0037F7 94                    2790 	.db 0x94
+      0037F8 80                    2791 	.db 0x80
+      0037F9 E2                    2792 	.db 0xe2
+      0037FA 94                    2793 	.db 0x94
+      0037FB 80                    2794 	.db 0x80
+      0037FC E2                    2795 	.db 0xe2
+      0037FD 94                    2796 	.db 0x94
+      0037FE 80                    2797 	.db 0x80
+      0037FF E2                    2798 	.db 0xe2
+      003800 94                    2799 	.db 0x94
+      003801 80                    2800 	.db 0x80
+      003802 E2                    2801 	.db 0xe2
+      003803 94                    2802 	.db 0x94
+      003804 80                    2803 	.db 0x80
+      003805 E2                    2804 	.db 0xe2
+      003806 94                    2805 	.db 0x94
+      003807 80                    2806 	.db 0x80
+      003808 E2                    2807 	.db 0xe2
+      003809 94                    2808 	.db 0x94
+      00380A 80                    2809 	.db 0x80
+      00380B E2                    2810 	.db 0xe2
+      00380C 94                    2811 	.db 0x94
+      00380D 80                    2812 	.db 0x80
+      00380E E2                    2813 	.db 0xe2
+      00380F 94                    2814 	.db 0x94
+      003810 80                    2815 	.db 0x80
+      003811 E2                    2816 	.db 0xe2
+      003812 94                    2817 	.db 0x94
+      003813 80                    2818 	.db 0x80
+      003814 E2                    2819 	.db 0xe2
+      003815 94                    2820 	.db 0x94
+      003816 80                    2821 	.db 0x80
+      003817 E2                    2822 	.db 0xe2
+      003818 94                    2823 	.db 0x94
+      003819 80                    2824 	.db 0x80
+      00381A E2                    2825 	.db 0xe2
+      00381B 94                    2826 	.db 0x94
+      00381C 80                    2827 	.db 0x80
+      00381D E2                    2828 	.db 0xe2
+      00381E 94                    2829 	.db 0x94
+      00381F 80                    2830 	.db 0x80
+      003820 E2                    2831 	.db 0xe2
+      003821 94                    2832 	.db 0x94
+      003822 80                    2833 	.db 0x80
+      003823 E2                    2834 	.db 0xe2
+      003824 94                    2835 	.db 0x94
+      003825 80                    2836 	.db 0x80
+      003826 E2                    2837 	.db 0xe2
+      003827 94                    2838 	.db 0x94
+      003828 80                    2839 	.db 0x80
+      003829 E2                    2840 	.db 0xe2
+      00382A 94                    2841 	.db 0x94
+      00382B 80                    2842 	.db 0x80
+      00382C E2                    2843 	.db 0xe2
+      00382D 94                    2844 	.db 0x94
+      00382E 80                    2845 	.db 0x80
+      00382F E2                    2846 	.db 0xe2
+      003830 94                    2847 	.db 0x94
+      003831 80                    2848 	.db 0x80
+      003832 E2                    2849 	.db 0xe2
+      003833 94                    2850 	.db 0x94
+      003834 80                    2851 	.db 0x80
+      003835 E2                    2852 	.db 0xe2
+      003836 94                    2853 	.db 0x94
+      003837 80                    2854 	.db 0x80
+      003838 E2                    2855 	.db 0xe2
+      003839 94                    2856 	.db 0x94
+      00383A 80                    2857 	.db 0x80
+      00383B E2                    2858 	.db 0xe2
+      00383C 94                    2859 	.db 0x94
+      00383D 80                    2860 	.db 0x80
+      00383E E2                    2861 	.db 0xe2
+      00383F 94                    2862 	.db 0x94
+      003840 80                    2863 	.db 0x80
+      003841 E2                    2864 	.db 0xe2
+      003842 94                    2865 	.db 0x94
+      003843 80                    2866 	.db 0x80
+      003844 E2                    2867 	.db 0xe2
+      003845 94                    2868 	.db 0x94
+      003846 80                    2869 	.db 0x80
+      003847 E2                    2870 	.db 0xe2
+      003848 94                    2871 	.db 0x94
+      003849 80                    2872 	.db 0x80
+      00384A E2                    2873 	.db 0xe2
+      00384B 94                    2874 	.db 0x94
+      00384C 80                    2875 	.db 0x80
+      00384D E2                    2876 	.db 0xe2
+      00384E 94                    2877 	.db 0x94
+      00384F 80                    2878 	.db 0x80
+      003850 E2                    2879 	.db 0xe2
+      003851 94                    2880 	.db 0x94
+      003852 80                    2881 	.db 0x80
+      003853 E2                    2882 	.db 0xe2
+      003854 94                    2883 	.db 0x94
+      003855 80                    2884 	.db 0x80
+      003856 E2                    2885 	.db 0xe2
+      003857 94                    2886 	.db 0x94
+      003858 80                    2887 	.db 0x80
+      003859 E2                    2888 	.db 0xe2
+      00385A 94                    2889 	.db 0x94
+      00385B 80                    2890 	.db 0x80
+      00385C E2                    2891 	.db 0xe2
+      00385D 94                    2892 	.db 0x94
+      00385E 80                    2893 	.db 0x80
+      00385F E2                    2894 	.db 0xe2
+      003860 94                    2895 	.db 0x94
+      003861 80                    2896 	.db 0x80
+      003862 E2                    2897 	.db 0xe2
+      003863 94                    2898 	.db 0x94
+      003864 80                    2899 	.db 0x80
+      003865 E2                    2900 	.db 0xe2
+      003866 94                    2901 	.db 0x94
+      003867 80                    2902 	.db 0x80
+      003868 E2                    2903 	.db 0xe2
+      003869 94                    2904 	.db 0x94
+      00386A 80                    2905 	.db 0x80
+      00386B E2                    2906 	.db 0xe2
+      00386C 94                    2907 	.db 0x94
+      00386D 90                    2908 	.db 0x90
+      00386E 0A                    2909 	.db 0x0a
+      00386F 0D                    2910 	.db 0x0d
+      003870 00                    2911 	.db 0x00
+                                   2912 	.area CSEG    (CODE)
+                                   2913 	.area CONST   (CODE)
+      003871                       2914 ___str_1:
+      003871 E2                    2915 	.db 0xe2
+      003872 94                    2916 	.db 0x94
+      003873 82                    2917 	.db 0x82
+      003874 20 20 20 20 20 20 20  2918 	.ascii "                        SPI PROGRAM                         "
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 53 50 49 20
@@ -2926,873 +2924,873 @@
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20
-      0038B3 20 20                 2921 	.ascii "  "
-      0038B5 E2                    2922 	.db 0xe2
-      0038B6 94                    2923 	.db 0x94
-      0038B7 82                    2924 	.db 0x82
-      0038B8 0A                    2925 	.db 0x0a
-      0038B9 0D                    2926 	.db 0x0d
-      0038BA 00                    2927 	.db 0x00
-                                   2928 	.area CSEG    (CODE)
-                                   2929 	.area CONST   (CODE)
-      0038BB                       2930 ___str_2:
-      0038BB E2                    2931 	.db 0xe2
-      0038BC 94                    2932 	.db 0x94
-      0038BD 9C                    2933 	.db 0x9c
-      0038BE E2                    2934 	.db 0xe2
-      0038BF 94                    2935 	.db 0x94
-      0038C0 80                    2936 	.db 0x80
-      0038C1 E2                    2937 	.db 0xe2
-      0038C2 94                    2938 	.db 0x94
-      0038C3 80                    2939 	.db 0x80
-      0038C4 E2                    2940 	.db 0xe2
-      0038C5 94                    2941 	.db 0x94
-      0038C6 80                    2942 	.db 0x80
-      0038C7 E2                    2943 	.db 0xe2
-      0038C8 94                    2944 	.db 0x94
-      0038C9 80                    2945 	.db 0x80
-      0038CA E2                    2946 	.db 0xe2
-      0038CB 94                    2947 	.db 0x94
-      0038CC 80                    2948 	.db 0x80
-      0038CD E2                    2949 	.db 0xe2
-      0038CE 94                    2950 	.db 0x94
-      0038CF 80                    2951 	.db 0x80
-      0038D0 E2                    2952 	.db 0xe2
-      0038D1 94                    2953 	.db 0x94
-      0038D2 80                    2954 	.db 0x80
-      0038D3 E2                    2955 	.db 0xe2
-      0038D4 94                    2956 	.db 0x94
-      0038D5 80                    2957 	.db 0x80
-      0038D6 E2                    2958 	.db 0xe2
-      0038D7 94                    2959 	.db 0x94
-      0038D8 80                    2960 	.db 0x80
-      0038D9 E2                    2961 	.db 0xe2
-      0038DA 94                    2962 	.db 0x94
-      0038DB 80                    2963 	.db 0x80
-      0038DC E2                    2964 	.db 0xe2
-      0038DD 94                    2965 	.db 0x94
-      0038DE 80                    2966 	.db 0x80
-      0038DF E2                    2967 	.db 0xe2
-      0038E0 94                    2968 	.db 0x94
-      0038E1 80                    2969 	.db 0x80
-      0038E2 E2                    2970 	.db 0xe2
-      0038E3 94                    2971 	.db 0x94
-      0038E4 80                    2972 	.db 0x80
-      0038E5 E2                    2973 	.db 0xe2
-      0038E6 94                    2974 	.db 0x94
-      0038E7 80                    2975 	.db 0x80
-      0038E8 E2                    2976 	.db 0xe2
-      0038E9 94                    2977 	.db 0x94
-      0038EA 80                    2978 	.db 0x80
-      0038EB E2                    2979 	.db 0xe2
-      0038EC 94                    2980 	.db 0x94
-      0038ED 80                    2981 	.db 0x80
-      0038EE E2                    2982 	.db 0xe2
-      0038EF 94                    2983 	.db 0x94
-      0038F0 80                    2984 	.db 0x80
-      0038F1 E2                    2985 	.db 0xe2
-      0038F2 94                    2986 	.db 0x94
-      0038F3 80                    2987 	.db 0x80
-      0038F4 E2                    2988 	.db 0xe2
-      0038F5 94                    2989 	.db 0x94
-      0038F6 80                    2990 	.db 0x80
-      0038F7 E2                    2991 	.db 0xe2
-      0038F8 94                    2992 	.db 0x94
-      0038F9 80                    2993 	.db 0x80
-      0038FA E2                    2994 	.db 0xe2
-      0038FB 94                    2995 	.db 0x94
-      0038FC 80                    2996 	.db 0x80
-      0038FD E2                    2997 	.db 0xe2
-      0038FE 94                    2998 	.db 0x94
-      0038FF 80                    2999 	.db 0x80
-      003900 E2                    3000 	.db 0xe2
-      003901 94                    3001 	.db 0x94
-      003902 80                    3002 	.db 0x80
-      003903 E2                    3003 	.db 0xe2
-      003904 94                    3004 	.db 0x94
-      003905 80                    3005 	.db 0x80
-      003906 E2                    3006 	.db 0xe2
-      003907 94                    3007 	.db 0x94
-      003908 80                    3008 	.db 0x80
-      003909 E2                    3009 	.db 0xe2
-      00390A 94                    3010 	.db 0x94
-      00390B 80                    3011 	.db 0x80
-      00390C E2                    3012 	.db 0xe2
-      00390D 94                    3013 	.db 0x94
-      00390E 80                    3014 	.db 0x80
-      00390F E2                    3015 	.db 0xe2
-      003910 94                    3016 	.db 0x94
-      003911 80                    3017 	.db 0x80
-      003912 E2                    3018 	.db 0xe2
-      003913 94                    3019 	.db 0x94
-      003914 80                    3020 	.db 0x80
-      003915 E2                    3021 	.db 0xe2
-      003916 94                    3022 	.db 0x94
-      003917 80                    3023 	.db 0x80
-      003918 E2                    3024 	.db 0xe2
-      003919 94                    3025 	.db 0x94
-      00391A 80                    3026 	.db 0x80
-      00391B E2                    3027 	.db 0xe2
-      00391C 94                    3028 	.db 0x94
-      00391D 80                    3029 	.db 0x80
-      00391E E2                    3030 	.db 0xe2
-      00391F 94                    3031 	.db 0x94
-      003920 80                    3032 	.db 0x80
-      003921 E2                    3033 	.db 0xe2
-      003922 94                    3034 	.db 0x94
-      003923 80                    3035 	.db 0x80
-      003924 E2                    3036 	.db 0xe2
-      003925 94                    3037 	.db 0x94
-      003926 80                    3038 	.db 0x80
-      003927 E2                    3039 	.db 0xe2
-      003928 94                    3040 	.db 0x94
-      003929 80                    3041 	.db 0x80
-      00392A E2                    3042 	.db 0xe2
-      00392B 94                    3043 	.db 0x94
-      00392C 80                    3044 	.db 0x80
-      00392D E2                    3045 	.db 0xe2
-      00392E 94                    3046 	.db 0x94
-      00392F 80                    3047 	.db 0x80
-      003930 E2                    3048 	.db 0xe2
-      003931 94                    3049 	.db 0x94
-      003932 80                    3050 	.db 0x80
-      003933 E2                    3051 	.db 0xe2
-      003934 94                    3052 	.db 0x94
-      003935 80                    3053 	.db 0x80
-      003936 E2                    3054 	.db 0xe2
-      003937 94                    3055 	.db 0x94
-      003938 80                    3056 	.db 0x80
-      003939 E2                    3057 	.db 0xe2
-      00393A 94                    3058 	.db 0x94
-      00393B 80                    3059 	.db 0x80
-      00393C E2                    3060 	.db 0xe2
-      00393D 94                    3061 	.db 0x94
-      00393E 80                    3062 	.db 0x80
-      00393F E2                    3063 	.db 0xe2
-      003940 94                    3064 	.db 0x94
-      003941 80                    3065 	.db 0x80
-      003942 E2                    3066 	.db 0xe2
-      003943 94                    3067 	.db 0x94
-      003944 80                    3068 	.db 0x80
-      003945 E2                    3069 	.db 0xe2
-      003946 94                    3070 	.db 0x94
-      003947 80                    3071 	.db 0x80
-      003948 E2                    3072 	.db 0xe2
-      003949 94                    3073 	.db 0x94
-      00394A 80                    3074 	.db 0x80
-      00394B E2                    3075 	.db 0xe2
-      00394C 94                    3076 	.db 0x94
-      00394D 80                    3077 	.db 0x80
-      00394E E2                    3078 	.db 0xe2
-      00394F 94                    3079 	.db 0x94
-      003950 80                    3080 	.db 0x80
-      003951 E2                    3081 	.db 0xe2
-      003952 94                    3082 	.db 0x94
-      003953 80                    3083 	.db 0x80
-      003954 E2                    3084 	.db 0xe2
-      003955 94                    3085 	.db 0x94
-      003956 80                    3086 	.db 0x80
-      003957 E2                    3087 	.db 0xe2
-      003958 94                    3088 	.db 0x94
-      003959 80                    3089 	.db 0x80
-      00395A E2                    3090 	.db 0xe2
-      00395B 94                    3091 	.db 0x94
-      00395C 80                    3092 	.db 0x80
-      00395D E2                    3093 	.db 0xe2
-      00395E 94                    3094 	.db 0x94
-      00395F 80                    3095 	.db 0x80
-      003960 E2                    3096 	.db 0xe2
-      003961 94                    3097 	.db 0x94
-      003962 80                    3098 	.db 0x80
-      003963 E2                    3099 	.db 0xe2
-      003964 94                    3100 	.db 0x94
-      003965 80                    3101 	.db 0x80
-      003966 E2                    3102 	.db 0xe2
-      003967 94                    3103 	.db 0x94
-      003968 80                    3104 	.db 0x80
-      003969 E2                    3105 	.db 0xe2
-      00396A 94                    3106 	.db 0x94
-      00396B 80                    3107 	.db 0x80
-      00396C E2                    3108 	.db 0xe2
-      00396D 94                    3109 	.db 0x94
-      00396E 80                    3110 	.db 0x80
-      00396F E2                    3111 	.db 0xe2
-      003970 94                    3112 	.db 0x94
-      003971 80                    3113 	.db 0x80
-      003972 E2                    3114 	.db 0xe2
-      003973 94                    3115 	.db 0x94
-      003974 80                    3116 	.db 0x80
-      003975 E2                    3117 	.db 0xe2
-      003976 94                    3118 	.db 0x94
-      003977 80                    3119 	.db 0x80
-      003978 E2                    3120 	.db 0xe2
-      003979 94                    3121 	.db 0x94
-      00397A A4                    3122 	.db 0xa4
-      00397B 0A                    3123 	.db 0x0a
-      00397C 0D                    3124 	.db 0x0d
-      00397D 00                    3125 	.db 0x00
-                                   3126 	.area CSEG    (CODE)
-                                   3127 	.area CONST   (CODE)
-      00397E                       3128 ___str_3:
-      00397E E2                    3129 	.db 0xe2
-      00397F 94                    3130 	.db 0x94
-      003980 82                    3131 	.db 0x82
-      003981 20 20 43 6F 6D 6D 61  3132 	.ascii "  Command   "
+      0038B0 20 20                 2919 	.ascii "  "
+      0038B2 E2                    2920 	.db 0xe2
+      0038B3 94                    2921 	.db 0x94
+      0038B4 82                    2922 	.db 0x82
+      0038B5 0A                    2923 	.db 0x0a
+      0038B6 0D                    2924 	.db 0x0d
+      0038B7 00                    2925 	.db 0x00
+                                   2926 	.area CSEG    (CODE)
+                                   2927 	.area CONST   (CODE)
+      0038B8                       2928 ___str_2:
+      0038B8 E2                    2929 	.db 0xe2
+      0038B9 94                    2930 	.db 0x94
+      0038BA 9C                    2931 	.db 0x9c
+      0038BB E2                    2932 	.db 0xe2
+      0038BC 94                    2933 	.db 0x94
+      0038BD 80                    2934 	.db 0x80
+      0038BE E2                    2935 	.db 0xe2
+      0038BF 94                    2936 	.db 0x94
+      0038C0 80                    2937 	.db 0x80
+      0038C1 E2                    2938 	.db 0xe2
+      0038C2 94                    2939 	.db 0x94
+      0038C3 80                    2940 	.db 0x80
+      0038C4 E2                    2941 	.db 0xe2
+      0038C5 94                    2942 	.db 0x94
+      0038C6 80                    2943 	.db 0x80
+      0038C7 E2                    2944 	.db 0xe2
+      0038C8 94                    2945 	.db 0x94
+      0038C9 80                    2946 	.db 0x80
+      0038CA E2                    2947 	.db 0xe2
+      0038CB 94                    2948 	.db 0x94
+      0038CC 80                    2949 	.db 0x80
+      0038CD E2                    2950 	.db 0xe2
+      0038CE 94                    2951 	.db 0x94
+      0038CF 80                    2952 	.db 0x80
+      0038D0 E2                    2953 	.db 0xe2
+      0038D1 94                    2954 	.db 0x94
+      0038D2 80                    2955 	.db 0x80
+      0038D3 E2                    2956 	.db 0xe2
+      0038D4 94                    2957 	.db 0x94
+      0038D5 80                    2958 	.db 0x80
+      0038D6 E2                    2959 	.db 0xe2
+      0038D7 94                    2960 	.db 0x94
+      0038D8 80                    2961 	.db 0x80
+      0038D9 E2                    2962 	.db 0xe2
+      0038DA 94                    2963 	.db 0x94
+      0038DB 80                    2964 	.db 0x80
+      0038DC E2                    2965 	.db 0xe2
+      0038DD 94                    2966 	.db 0x94
+      0038DE 80                    2967 	.db 0x80
+      0038DF E2                    2968 	.db 0xe2
+      0038E0 94                    2969 	.db 0x94
+      0038E1 80                    2970 	.db 0x80
+      0038E2 E2                    2971 	.db 0xe2
+      0038E3 94                    2972 	.db 0x94
+      0038E4 80                    2973 	.db 0x80
+      0038E5 E2                    2974 	.db 0xe2
+      0038E6 94                    2975 	.db 0x94
+      0038E7 80                    2976 	.db 0x80
+      0038E8 E2                    2977 	.db 0xe2
+      0038E9 94                    2978 	.db 0x94
+      0038EA 80                    2979 	.db 0x80
+      0038EB E2                    2980 	.db 0xe2
+      0038EC 94                    2981 	.db 0x94
+      0038ED 80                    2982 	.db 0x80
+      0038EE E2                    2983 	.db 0xe2
+      0038EF 94                    2984 	.db 0x94
+      0038F0 80                    2985 	.db 0x80
+      0038F1 E2                    2986 	.db 0xe2
+      0038F2 94                    2987 	.db 0x94
+      0038F3 80                    2988 	.db 0x80
+      0038F4 E2                    2989 	.db 0xe2
+      0038F5 94                    2990 	.db 0x94
+      0038F6 80                    2991 	.db 0x80
+      0038F7 E2                    2992 	.db 0xe2
+      0038F8 94                    2993 	.db 0x94
+      0038F9 80                    2994 	.db 0x80
+      0038FA E2                    2995 	.db 0xe2
+      0038FB 94                    2996 	.db 0x94
+      0038FC 80                    2997 	.db 0x80
+      0038FD E2                    2998 	.db 0xe2
+      0038FE 94                    2999 	.db 0x94
+      0038FF 80                    3000 	.db 0x80
+      003900 E2                    3001 	.db 0xe2
+      003901 94                    3002 	.db 0x94
+      003902 80                    3003 	.db 0x80
+      003903 E2                    3004 	.db 0xe2
+      003904 94                    3005 	.db 0x94
+      003905 80                    3006 	.db 0x80
+      003906 E2                    3007 	.db 0xe2
+      003907 94                    3008 	.db 0x94
+      003908 80                    3009 	.db 0x80
+      003909 E2                    3010 	.db 0xe2
+      00390A 94                    3011 	.db 0x94
+      00390B 80                    3012 	.db 0x80
+      00390C E2                    3013 	.db 0xe2
+      00390D 94                    3014 	.db 0x94
+      00390E 80                    3015 	.db 0x80
+      00390F E2                    3016 	.db 0xe2
+      003910 94                    3017 	.db 0x94
+      003911 80                    3018 	.db 0x80
+      003912 E2                    3019 	.db 0xe2
+      003913 94                    3020 	.db 0x94
+      003914 80                    3021 	.db 0x80
+      003915 E2                    3022 	.db 0xe2
+      003916 94                    3023 	.db 0x94
+      003917 80                    3024 	.db 0x80
+      003918 E2                    3025 	.db 0xe2
+      003919 94                    3026 	.db 0x94
+      00391A 80                    3027 	.db 0x80
+      00391B E2                    3028 	.db 0xe2
+      00391C 94                    3029 	.db 0x94
+      00391D 80                    3030 	.db 0x80
+      00391E E2                    3031 	.db 0xe2
+      00391F 94                    3032 	.db 0x94
+      003920 80                    3033 	.db 0x80
+      003921 E2                    3034 	.db 0xe2
+      003922 94                    3035 	.db 0x94
+      003923 80                    3036 	.db 0x80
+      003924 E2                    3037 	.db 0xe2
+      003925 94                    3038 	.db 0x94
+      003926 80                    3039 	.db 0x80
+      003927 E2                    3040 	.db 0xe2
+      003928 94                    3041 	.db 0x94
+      003929 80                    3042 	.db 0x80
+      00392A E2                    3043 	.db 0xe2
+      00392B 94                    3044 	.db 0x94
+      00392C 80                    3045 	.db 0x80
+      00392D E2                    3046 	.db 0xe2
+      00392E 94                    3047 	.db 0x94
+      00392F 80                    3048 	.db 0x80
+      003930 E2                    3049 	.db 0xe2
+      003931 94                    3050 	.db 0x94
+      003932 80                    3051 	.db 0x80
+      003933 E2                    3052 	.db 0xe2
+      003934 94                    3053 	.db 0x94
+      003935 80                    3054 	.db 0x80
+      003936 E2                    3055 	.db 0xe2
+      003937 94                    3056 	.db 0x94
+      003938 80                    3057 	.db 0x80
+      003939 E2                    3058 	.db 0xe2
+      00393A 94                    3059 	.db 0x94
+      00393B 80                    3060 	.db 0x80
+      00393C E2                    3061 	.db 0xe2
+      00393D 94                    3062 	.db 0x94
+      00393E 80                    3063 	.db 0x80
+      00393F E2                    3064 	.db 0xe2
+      003940 94                    3065 	.db 0x94
+      003941 80                    3066 	.db 0x80
+      003942 E2                    3067 	.db 0xe2
+      003943 94                    3068 	.db 0x94
+      003944 80                    3069 	.db 0x80
+      003945 E2                    3070 	.db 0xe2
+      003946 94                    3071 	.db 0x94
+      003947 80                    3072 	.db 0x80
+      003948 E2                    3073 	.db 0xe2
+      003949 94                    3074 	.db 0x94
+      00394A 80                    3075 	.db 0x80
+      00394B E2                    3076 	.db 0xe2
+      00394C 94                    3077 	.db 0x94
+      00394D 80                    3078 	.db 0x80
+      00394E E2                    3079 	.db 0xe2
+      00394F 94                    3080 	.db 0x94
+      003950 80                    3081 	.db 0x80
+      003951 E2                    3082 	.db 0xe2
+      003952 94                    3083 	.db 0x94
+      003953 80                    3084 	.db 0x80
+      003954 E2                    3085 	.db 0xe2
+      003955 94                    3086 	.db 0x94
+      003956 80                    3087 	.db 0x80
+      003957 E2                    3088 	.db 0xe2
+      003958 94                    3089 	.db 0x94
+      003959 80                    3090 	.db 0x80
+      00395A E2                    3091 	.db 0xe2
+      00395B 94                    3092 	.db 0x94
+      00395C 80                    3093 	.db 0x80
+      00395D E2                    3094 	.db 0xe2
+      00395E 94                    3095 	.db 0x94
+      00395F 80                    3096 	.db 0x80
+      003960 E2                    3097 	.db 0xe2
+      003961 94                    3098 	.db 0x94
+      003962 80                    3099 	.db 0x80
+      003963 E2                    3100 	.db 0xe2
+      003964 94                    3101 	.db 0x94
+      003965 80                    3102 	.db 0x80
+      003966 E2                    3103 	.db 0xe2
+      003967 94                    3104 	.db 0x94
+      003968 80                    3105 	.db 0x80
+      003969 E2                    3106 	.db 0xe2
+      00396A 94                    3107 	.db 0x94
+      00396B 80                    3108 	.db 0x80
+      00396C E2                    3109 	.db 0xe2
+      00396D 94                    3110 	.db 0x94
+      00396E 80                    3111 	.db 0x80
+      00396F E2                    3112 	.db 0xe2
+      003970 94                    3113 	.db 0x94
+      003971 80                    3114 	.db 0x80
+      003972 E2                    3115 	.db 0xe2
+      003973 94                    3116 	.db 0x94
+      003974 80                    3117 	.db 0x80
+      003975 E2                    3118 	.db 0xe2
+      003976 94                    3119 	.db 0x94
+      003977 A4                    3120 	.db 0xa4
+      003978 0A                    3121 	.db 0x0a
+      003979 0D                    3122 	.db 0x0d
+      00397A 00                    3123 	.db 0x00
+                                   3124 	.area CSEG    (CODE)
+                                   3125 	.area CONST   (CODE)
+      00397B                       3126 ___str_3:
+      00397B E2                    3127 	.db 0xe2
+      00397C 94                    3128 	.db 0x94
+      00397D 82                    3129 	.db 0x82
+      00397E 20 20 43 6F 6D 6D 61  3130 	.ascii "  Command   "
              6E 64 20 20 20
-      00398D E2                    3133 	.db 0xe2
-      00398E 94                    3134 	.db 0x94
-      00398F 82                    3135 	.db 0x82
-      003990 20 20 20 20 20 20 20  3136 	.ascii "               Description                       "
+      00398A E2                    3131 	.db 0xe2
+      00398B 94                    3132 	.db 0x94
+      00398C 82                    3133 	.db 0x82
+      00398D 20 20 20 20 20 20 20  3134 	.ascii "               Description                       "
              20 20 20 20 20 20 20
              20 44 65 73 63 72 69
              70 74 69 6F 6E 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
-      0039C1 E2                    3137 	.db 0xe2
-      0039C2 94                    3138 	.db 0x94
-      0039C3 82                    3139 	.db 0x82
-      0039C4 0A                    3140 	.db 0x0a
-      0039C5 0D                    3141 	.db 0x0d
-      0039C6 00                    3142 	.db 0x00
-                                   3143 	.area CSEG    (CODE)
-                                   3144 	.area CONST   (CODE)
-      0039C7                       3145 ___str_4:
-      0039C7 E2                    3146 	.db 0xe2
-      0039C8 94                    3147 	.db 0x94
-      0039C9 9C                    3148 	.db 0x9c
-      0039CA E2                    3149 	.db 0xe2
-      0039CB 94                    3150 	.db 0x94
-      0039CC 80                    3151 	.db 0x80
-      0039CD E2                    3152 	.db 0xe2
-      0039CE 94                    3153 	.db 0x94
-      0039CF 80                    3154 	.db 0x80
-      0039D0 E2                    3155 	.db 0xe2
-      0039D1 94                    3156 	.db 0x94
-      0039D2 80                    3157 	.db 0x80
-      0039D3 E2                    3158 	.db 0xe2
-      0039D4 94                    3159 	.db 0x94
-      0039D5 80                    3160 	.db 0x80
-      0039D6 E2                    3161 	.db 0xe2
-      0039D7 94                    3162 	.db 0x94
-      0039D8 80                    3163 	.db 0x80
-      0039D9 E2                    3164 	.db 0xe2
-      0039DA 94                    3165 	.db 0x94
-      0039DB 80                    3166 	.db 0x80
-      0039DC E2                    3167 	.db 0xe2
-      0039DD 94                    3168 	.db 0x94
-      0039DE 80                    3169 	.db 0x80
-      0039DF E2                    3170 	.db 0xe2
-      0039E0 94                    3171 	.db 0x94
-      0039E1 80                    3172 	.db 0x80
-      0039E2 E2                    3173 	.db 0xe2
-      0039E3 94                    3174 	.db 0x94
-      0039E4 80                    3175 	.db 0x80
-      0039E5 E2                    3176 	.db 0xe2
-      0039E6 94                    3177 	.db 0x94
-      0039E7 80                    3178 	.db 0x80
-      0039E8 E2                    3179 	.db 0xe2
-      0039E9 94                    3180 	.db 0x94
-      0039EA 80                    3181 	.db 0x80
-      0039EB E2                    3182 	.db 0xe2
-      0039EC 94                    3183 	.db 0x94
-      0039ED BC                    3184 	.db 0xbc
-      0039EE E2                    3185 	.db 0xe2
-      0039EF 94                    3186 	.db 0x94
-      0039F0 80                    3187 	.db 0x80
-      0039F1 E2                    3188 	.db 0xe2
-      0039F2 94                    3189 	.db 0x94
-      0039F3 80                    3190 	.db 0x80
-      0039F4 E2                    3191 	.db 0xe2
-      0039F5 94                    3192 	.db 0x94
-      0039F6 80                    3193 	.db 0x80
-      0039F7 E2                    3194 	.db 0xe2
-      0039F8 94                    3195 	.db 0x94
-      0039F9 80                    3196 	.db 0x80
-      0039FA E2                    3197 	.db 0xe2
-      0039FB 94                    3198 	.db 0x94
-      0039FC 80                    3199 	.db 0x80
-      0039FD E2                    3200 	.db 0xe2
-      0039FE 94                    3201 	.db 0x94
-      0039FF 80                    3202 	.db 0x80
-      003A00 E2                    3203 	.db 0xe2
-      003A01 94                    3204 	.db 0x94
-      003A02 80                    3205 	.db 0x80
-      003A03 E2                    3206 	.db 0xe2
-      003A04 94                    3207 	.db 0x94
-      003A05 80                    3208 	.db 0x80
-      003A06 E2                    3209 	.db 0xe2
-      003A07 94                    3210 	.db 0x94
-      003A08 80                    3211 	.db 0x80
-      003A09 E2                    3212 	.db 0xe2
-      003A0A 94                    3213 	.db 0x94
-      003A0B 80                    3214 	.db 0x80
-      003A0C E2                    3215 	.db 0xe2
-      003A0D 94                    3216 	.db 0x94
-      003A0E 80                    3217 	.db 0x80
-      003A0F E2                    3218 	.db 0xe2
-      003A10 94                    3219 	.db 0x94
-      003A11 80                    3220 	.db 0x80
-      003A12 E2                    3221 	.db 0xe2
-      003A13 94                    3222 	.db 0x94
-      003A14 80                    3223 	.db 0x80
-      003A15 E2                    3224 	.db 0xe2
-      003A16 94                    3225 	.db 0x94
-      003A17 80                    3226 	.db 0x80
-      003A18 E2                    3227 	.db 0xe2
-      003A19 94                    3228 	.db 0x94
-      003A1A 80                    3229 	.db 0x80
-      003A1B E2                    3230 	.db 0xe2
-      003A1C 94                    3231 	.db 0x94
-      003A1D 80                    3232 	.db 0x80
-      003A1E E2                    3233 	.db 0xe2
-      003A1F 94                    3234 	.db 0x94
-      003A20 80                    3235 	.db 0x80
-      003A21 E2                    3236 	.db 0xe2
-      003A22 94                    3237 	.db 0x94
-      003A23 80                    3238 	.db 0x80
-      003A24 E2                    3239 	.db 0xe2
-      003A25 94                    3240 	.db 0x94
-      003A26 80                    3241 	.db 0x80
-      003A27 E2                    3242 	.db 0xe2
-      003A28 94                    3243 	.db 0x94
-      003A29 80                    3244 	.db 0x80
-      003A2A E2                    3245 	.db 0xe2
-      003A2B 94                    3246 	.db 0x94
-      003A2C 80                    3247 	.db 0x80
-      003A2D E2                    3248 	.db 0xe2
-      003A2E 94                    3249 	.db 0x94
-      003A2F 80                    3250 	.db 0x80
-      003A30 E2                    3251 	.db 0xe2
-      003A31 94                    3252 	.db 0x94
-      003A32 80                    3253 	.db 0x80
-      003A33 E2                    3254 	.db 0xe2
-      003A34 94                    3255 	.db 0x94
-      003A35 80                    3256 	.db 0x80
-      003A36 E2                    3257 	.db 0xe2
-      003A37 94                    3258 	.db 0x94
-      003A38 80                    3259 	.db 0x80
-      003A39 E2                    3260 	.db 0xe2
-      003A3A 94                    3261 	.db 0x94
-      003A3B 80                    3262 	.db 0x80
-      003A3C E2                    3263 	.db 0xe2
-      003A3D 94                    3264 	.db 0x94
-      003A3E 80                    3265 	.db 0x80
-      003A3F E2                    3266 	.db 0xe2
-      003A40 94                    3267 	.db 0x94
-      003A41 80                    3268 	.db 0x80
-      003A42 E2                    3269 	.db 0xe2
-      003A43 94                    3270 	.db 0x94
-      003A44 80                    3271 	.db 0x80
-      003A45 E2                    3272 	.db 0xe2
-      003A46 94                    3273 	.db 0x94
-      003A47 80                    3274 	.db 0x80
-      003A48 E2                    3275 	.db 0xe2
-      003A49 94                    3276 	.db 0x94
-      003A4A 80                    3277 	.db 0x80
-      003A4B E2                    3278 	.db 0xe2
-      003A4C 94                    3279 	.db 0x94
-      003A4D 80                    3280 	.db 0x80
-      003A4E E2                    3281 	.db 0xe2
-      003A4F 94                    3282 	.db 0x94
-      003A50 80                    3283 	.db 0x80
-      003A51 E2                    3284 	.db 0xe2
-      003A52 94                    3285 	.db 0x94
-      003A53 80                    3286 	.db 0x80
-      003A54 E2                    3287 	.db 0xe2
-      003A55 94                    3288 	.db 0x94
-      003A56 80                    3289 	.db 0x80
-      003A57 E2                    3290 	.db 0xe2
-      003A58 94                    3291 	.db 0x94
-      003A59 80                    3292 	.db 0x80
-      003A5A E2                    3293 	.db 0xe2
-      003A5B 94                    3294 	.db 0x94
-      003A5C 80                    3295 	.db 0x80
-      003A5D E2                    3296 	.db 0xe2
-      003A5E 94                    3297 	.db 0x94
-      003A5F 80                    3298 	.db 0x80
-      003A60 E2                    3299 	.db 0xe2
-      003A61 94                    3300 	.db 0x94
-      003A62 80                    3301 	.db 0x80
-      003A63 E2                    3302 	.db 0xe2
-      003A64 94                    3303 	.db 0x94
-      003A65 80                    3304 	.db 0x80
-      003A66 E2                    3305 	.db 0xe2
-      003A67 94                    3306 	.db 0x94
-      003A68 80                    3307 	.db 0x80
-      003A69 E2                    3308 	.db 0xe2
-      003A6A 94                    3309 	.db 0x94
-      003A6B 80                    3310 	.db 0x80
-      003A6C E2                    3311 	.db 0xe2
-      003A6D 94                    3312 	.db 0x94
-      003A6E 80                    3313 	.db 0x80
-      003A6F E2                    3314 	.db 0xe2
-      003A70 94                    3315 	.db 0x94
-      003A71 80                    3316 	.db 0x80
-      003A72 E2                    3317 	.db 0xe2
-      003A73 94                    3318 	.db 0x94
-      003A74 80                    3319 	.db 0x80
-      003A75 E2                    3320 	.db 0xe2
-      003A76 94                    3321 	.db 0x94
-      003A77 80                    3322 	.db 0x80
-      003A78 E2                    3323 	.db 0xe2
-      003A79 94                    3324 	.db 0x94
-      003A7A 80                    3325 	.db 0x80
-      003A7B E2                    3326 	.db 0xe2
-      003A7C 94                    3327 	.db 0x94
-      003A7D A4                    3328 	.db 0xa4
-      003A7E 0A                    3329 	.db 0x0a
-      003A7F 0D                    3330 	.db 0x0d
-      003A80 00                    3331 	.db 0x00
-                                   3332 	.area CSEG    (CODE)
-                                   3333 	.area CONST   (CODE)
-      003A81                       3334 ___str_5:
-      003A81 E2                    3335 	.db 0xe2
-      003A82 94                    3336 	.db 0x94
-      003A83 82                    3337 	.db 0x82
-      003A84 20 20 20 20 4D 20 20  3338 	.ascii "    M      "
+      0039BE E2                    3135 	.db 0xe2
+      0039BF 94                    3136 	.db 0x94
+      0039C0 82                    3137 	.db 0x82
+      0039C1 0A                    3138 	.db 0x0a
+      0039C2 0D                    3139 	.db 0x0d
+      0039C3 00                    3140 	.db 0x00
+                                   3141 	.area CSEG    (CODE)
+                                   3142 	.area CONST   (CODE)
+      0039C4                       3143 ___str_4:
+      0039C4 E2                    3144 	.db 0xe2
+      0039C5 94                    3145 	.db 0x94
+      0039C6 9C                    3146 	.db 0x9c
+      0039C7 E2                    3147 	.db 0xe2
+      0039C8 94                    3148 	.db 0x94
+      0039C9 80                    3149 	.db 0x80
+      0039CA E2                    3150 	.db 0xe2
+      0039CB 94                    3151 	.db 0x94
+      0039CC 80                    3152 	.db 0x80
+      0039CD E2                    3153 	.db 0xe2
+      0039CE 94                    3154 	.db 0x94
+      0039CF 80                    3155 	.db 0x80
+      0039D0 E2                    3156 	.db 0xe2
+      0039D1 94                    3157 	.db 0x94
+      0039D2 80                    3158 	.db 0x80
+      0039D3 E2                    3159 	.db 0xe2
+      0039D4 94                    3160 	.db 0x94
+      0039D5 80                    3161 	.db 0x80
+      0039D6 E2                    3162 	.db 0xe2
+      0039D7 94                    3163 	.db 0x94
+      0039D8 80                    3164 	.db 0x80
+      0039D9 E2                    3165 	.db 0xe2
+      0039DA 94                    3166 	.db 0x94
+      0039DB 80                    3167 	.db 0x80
+      0039DC E2                    3168 	.db 0xe2
+      0039DD 94                    3169 	.db 0x94
+      0039DE 80                    3170 	.db 0x80
+      0039DF E2                    3171 	.db 0xe2
+      0039E0 94                    3172 	.db 0x94
+      0039E1 80                    3173 	.db 0x80
+      0039E2 E2                    3174 	.db 0xe2
+      0039E3 94                    3175 	.db 0x94
+      0039E4 80                    3176 	.db 0x80
+      0039E5 E2                    3177 	.db 0xe2
+      0039E6 94                    3178 	.db 0x94
+      0039E7 80                    3179 	.db 0x80
+      0039E8 E2                    3180 	.db 0xe2
+      0039E9 94                    3181 	.db 0x94
+      0039EA BC                    3182 	.db 0xbc
+      0039EB E2                    3183 	.db 0xe2
+      0039EC 94                    3184 	.db 0x94
+      0039ED 80                    3185 	.db 0x80
+      0039EE E2                    3186 	.db 0xe2
+      0039EF 94                    3187 	.db 0x94
+      0039F0 80                    3188 	.db 0x80
+      0039F1 E2                    3189 	.db 0xe2
+      0039F2 94                    3190 	.db 0x94
+      0039F3 80                    3191 	.db 0x80
+      0039F4 E2                    3192 	.db 0xe2
+      0039F5 94                    3193 	.db 0x94
+      0039F6 80                    3194 	.db 0x80
+      0039F7 E2                    3195 	.db 0xe2
+      0039F8 94                    3196 	.db 0x94
+      0039F9 80                    3197 	.db 0x80
+      0039FA E2                    3198 	.db 0xe2
+      0039FB 94                    3199 	.db 0x94
+      0039FC 80                    3200 	.db 0x80
+      0039FD E2                    3201 	.db 0xe2
+      0039FE 94                    3202 	.db 0x94
+      0039FF 80                    3203 	.db 0x80
+      003A00 E2                    3204 	.db 0xe2
+      003A01 94                    3205 	.db 0x94
+      003A02 80                    3206 	.db 0x80
+      003A03 E2                    3207 	.db 0xe2
+      003A04 94                    3208 	.db 0x94
+      003A05 80                    3209 	.db 0x80
+      003A06 E2                    3210 	.db 0xe2
+      003A07 94                    3211 	.db 0x94
+      003A08 80                    3212 	.db 0x80
+      003A09 E2                    3213 	.db 0xe2
+      003A0A 94                    3214 	.db 0x94
+      003A0B 80                    3215 	.db 0x80
+      003A0C E2                    3216 	.db 0xe2
+      003A0D 94                    3217 	.db 0x94
+      003A0E 80                    3218 	.db 0x80
+      003A0F E2                    3219 	.db 0xe2
+      003A10 94                    3220 	.db 0x94
+      003A11 80                    3221 	.db 0x80
+      003A12 E2                    3222 	.db 0xe2
+      003A13 94                    3223 	.db 0x94
+      003A14 80                    3224 	.db 0x80
+      003A15 E2                    3225 	.db 0xe2
+      003A16 94                    3226 	.db 0x94
+      003A17 80                    3227 	.db 0x80
+      003A18 E2                    3228 	.db 0xe2
+      003A19 94                    3229 	.db 0x94
+      003A1A 80                    3230 	.db 0x80
+      003A1B E2                    3231 	.db 0xe2
+      003A1C 94                    3232 	.db 0x94
+      003A1D 80                    3233 	.db 0x80
+      003A1E E2                    3234 	.db 0xe2
+      003A1F 94                    3235 	.db 0x94
+      003A20 80                    3236 	.db 0x80
+      003A21 E2                    3237 	.db 0xe2
+      003A22 94                    3238 	.db 0x94
+      003A23 80                    3239 	.db 0x80
+      003A24 E2                    3240 	.db 0xe2
+      003A25 94                    3241 	.db 0x94
+      003A26 80                    3242 	.db 0x80
+      003A27 E2                    3243 	.db 0xe2
+      003A28 94                    3244 	.db 0x94
+      003A29 80                    3245 	.db 0x80
+      003A2A E2                    3246 	.db 0xe2
+      003A2B 94                    3247 	.db 0x94
+      003A2C 80                    3248 	.db 0x80
+      003A2D E2                    3249 	.db 0xe2
+      003A2E 94                    3250 	.db 0x94
+      003A2F 80                    3251 	.db 0x80
+      003A30 E2                    3252 	.db 0xe2
+      003A31 94                    3253 	.db 0x94
+      003A32 80                    3254 	.db 0x80
+      003A33 E2                    3255 	.db 0xe2
+      003A34 94                    3256 	.db 0x94
+      003A35 80                    3257 	.db 0x80
+      003A36 E2                    3258 	.db 0xe2
+      003A37 94                    3259 	.db 0x94
+      003A38 80                    3260 	.db 0x80
+      003A39 E2                    3261 	.db 0xe2
+      003A3A 94                    3262 	.db 0x94
+      003A3B 80                    3263 	.db 0x80
+      003A3C E2                    3264 	.db 0xe2
+      003A3D 94                    3265 	.db 0x94
+      003A3E 80                    3266 	.db 0x80
+      003A3F E2                    3267 	.db 0xe2
+      003A40 94                    3268 	.db 0x94
+      003A41 80                    3269 	.db 0x80
+      003A42 E2                    3270 	.db 0xe2
+      003A43 94                    3271 	.db 0x94
+      003A44 80                    3272 	.db 0x80
+      003A45 E2                    3273 	.db 0xe2
+      003A46 94                    3274 	.db 0x94
+      003A47 80                    3275 	.db 0x80
+      003A48 E2                    3276 	.db 0xe2
+      003A49 94                    3277 	.db 0x94
+      003A4A 80                    3278 	.db 0x80
+      003A4B E2                    3279 	.db 0xe2
+      003A4C 94                    3280 	.db 0x94
+      003A4D 80                    3281 	.db 0x80
+      003A4E E2                    3282 	.db 0xe2
+      003A4F 94                    3283 	.db 0x94
+      003A50 80                    3284 	.db 0x80
+      003A51 E2                    3285 	.db 0xe2
+      003A52 94                    3286 	.db 0x94
+      003A53 80                    3287 	.db 0x80
+      003A54 E2                    3288 	.db 0xe2
+      003A55 94                    3289 	.db 0x94
+      003A56 80                    3290 	.db 0x80
+      003A57 E2                    3291 	.db 0xe2
+      003A58 94                    3292 	.db 0x94
+      003A59 80                    3293 	.db 0x80
+      003A5A E2                    3294 	.db 0xe2
+      003A5B 94                    3295 	.db 0x94
+      003A5C 80                    3296 	.db 0x80
+      003A5D E2                    3297 	.db 0xe2
+      003A5E 94                    3298 	.db 0x94
+      003A5F 80                    3299 	.db 0x80
+      003A60 E2                    3300 	.db 0xe2
+      003A61 94                    3301 	.db 0x94
+      003A62 80                    3302 	.db 0x80
+      003A63 E2                    3303 	.db 0xe2
+      003A64 94                    3304 	.db 0x94
+      003A65 80                    3305 	.db 0x80
+      003A66 E2                    3306 	.db 0xe2
+      003A67 94                    3307 	.db 0x94
+      003A68 80                    3308 	.db 0x80
+      003A69 E2                    3309 	.db 0xe2
+      003A6A 94                    3310 	.db 0x94
+      003A6B 80                    3311 	.db 0x80
+      003A6C E2                    3312 	.db 0xe2
+      003A6D 94                    3313 	.db 0x94
+      003A6E 80                    3314 	.db 0x80
+      003A6F E2                    3315 	.db 0xe2
+      003A70 94                    3316 	.db 0x94
+      003A71 80                    3317 	.db 0x80
+      003A72 E2                    3318 	.db 0xe2
+      003A73 94                    3319 	.db 0x94
+      003A74 80                    3320 	.db 0x80
+      003A75 E2                    3321 	.db 0xe2
+      003A76 94                    3322 	.db 0x94
+      003A77 80                    3323 	.db 0x80
+      003A78 E2                    3324 	.db 0xe2
+      003A79 94                    3325 	.db 0x94
+      003A7A A4                    3326 	.db 0xa4
+      003A7B 0A                    3327 	.db 0x0a
+      003A7C 0D                    3328 	.db 0x0d
+      003A7D 00                    3329 	.db 0x00
+                                   3330 	.area CSEG    (CODE)
+                                   3331 	.area CONST   (CODE)
+      003A7E                       3332 ___str_5:
+      003A7E E2                    3333 	.db 0xe2
+      003A7F 94                    3334 	.db 0x94
+      003A80 82                    3335 	.db 0x82
+      003A81 20 20 20 20 4D 20 20  3336 	.ascii "    M      "
              20 20 20 20
-      003A8F E2                    3339 	.db 0xe2
-      003A90 94                    3340 	.db 0x94
-      003A91 82                    3341 	.db 0x82
-      003A92 20 4D 61 6E 75 61 6C  3342 	.ascii " Manual SPI Mode (Direct Register Control)      "
+      003A8C E2                    3337 	.db 0xe2
+      003A8D 94                    3338 	.db 0x94
+      003A8E 82                    3339 	.db 0x82
+      003A8F 20 4D 61 6E 75 61 6C  3340 	.ascii " Manual SPI Mode (Direct Register Control)      "
              20 53 50 49 20 4D 6F
              64 65 20 28 44 69 72
              65 63 74 20 52 65 67
              69 73 74 65 72 20 43
              6F 6E 74 72 6F 6C 29
              20 20 20 20 20 20
-      003AC2 E2                    3343 	.db 0xe2
-      003AC3 94                    3344 	.db 0x94
-      003AC4 82                    3345 	.db 0x82
-      003AC5 0A                    3346 	.db 0x0a
-      003AC6 0D                    3347 	.db 0x0d
-      003AC7 00                    3348 	.db 0x00
-                                   3349 	.area CSEG    (CODE)
-                                   3350 	.area CONST   (CODE)
-      003AC8                       3351 ___str_6:
-      003AC8 E2                    3352 	.db 0xe2
-      003AC9 94                    3353 	.db 0x94
-      003ACA 82                    3354 	.db 0x82
-      003ACB 20 20 20 20 42 20 20  3355 	.ascii "    B      "
+      003ABF E2                    3341 	.db 0xe2
+      003AC0 94                    3342 	.db 0x94
+      003AC1 82                    3343 	.db 0x82
+      003AC2 0A                    3344 	.db 0x0a
+      003AC3 0D                    3345 	.db 0x0d
+      003AC4 00                    3346 	.db 0x00
+                                   3347 	.area CSEG    (CODE)
+                                   3348 	.area CONST   (CODE)
+      003AC5                       3349 ___str_6:
+      003AC5 E2                    3350 	.db 0xe2
+      003AC6 94                    3351 	.db 0x94
+      003AC7 82                    3352 	.db 0x82
+      003AC8 20 20 20 20 42 20 20  3353 	.ascii "    B      "
              20 20 20 20
-      003AD6 E2                    3356 	.db 0xe2
-      003AD7 94                    3357 	.db 0x94
-      003AD8 82                    3358 	.db 0x82
-      003AD9 20 42 69 74 20 42 61  3359 	.ascii " Bit Banging Mode (Software SPI)               "
+      003AD3 E2                    3354 	.db 0xe2
+      003AD4 94                    3355 	.db 0x94
+      003AD5 82                    3356 	.db 0x82
+      003AD6 20 42 69 74 20 42 61  3357 	.ascii " Bit Banging Mode (Software SPI)               "
              6E 67 69 6E 67 20 4D
              6F 64 65 20 28 53 6F
              66 74 77 61 72 65 20
              53 50 49 29 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20
-      003B08 E2                    3360 	.db 0xe2
-      003B09 94                    3361 	.db 0x94
-      003B0A 82                    3362 	.db 0x82
-      003B0B 0A                    3363 	.db 0x0a
-      003B0C 0D                    3364 	.db 0x0d
-      003B0D 00                    3365 	.db 0x00
-                                   3366 	.area CSEG    (CODE)
-                                   3367 	.area CONST   (CODE)
-      003B0E                       3368 ___str_7:
-      003B0E E2                    3369 	.db 0xe2
-      003B0F 94                    3370 	.db 0x94
-      003B10 82                    3371 	.db 0x82
-      003B11 20 20 20 20 53 20 20  3372 	.ascii "    S      "
+      003B05 E2                    3358 	.db 0xe2
+      003B06 94                    3359 	.db 0x94
+      003B07 82                    3360 	.db 0x82
+      003B08 0A                    3361 	.db 0x0a
+      003B09 0D                    3362 	.db 0x0d
+      003B0A 00                    3363 	.db 0x00
+                                   3364 	.area CSEG    (CODE)
+                                   3365 	.area CONST   (CODE)
+      003B0B                       3366 ___str_7:
+      003B0B E2                    3367 	.db 0xe2
+      003B0C 94                    3368 	.db 0x94
+      003B0D 82                    3369 	.db 0x82
+      003B0E 20 20 20 20 53 20 20  3370 	.ascii "    S      "
              20 20 20 20
-      003B1C E2                    3373 	.db 0xe2
-      003B1D 94                    3374 	.db 0x94
-      003B1E 82                    3375 	.db 0x82
-      003B1F 20 47 65 6E 65 72 61  3376 	.ascii " Generate Sine Wave                            "
+      003B19 E2                    3371 	.db 0xe2
+      003B1A 94                    3372 	.db 0x94
+      003B1B 82                    3373 	.db 0x82
+      003B1C 20 47 65 6E 65 72 61  3374 	.ascii " Generate Sine Wave                            "
              74 65 20 53 69 6E 65
              20 57 61 76 65 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20
-      003B4E E2                    3377 	.db 0xe2
-      003B4F 94                    3378 	.db 0x94
-      003B50 82                    3379 	.db 0x82
-      003B51 0A                    3380 	.db 0x0a
-      003B52 0D                    3381 	.db 0x0d
-      003B53 00                    3382 	.db 0x00
-                                   3383 	.area CSEG    (CODE)
-                                   3384 	.area CONST   (CODE)
-      003B54                       3385 ___str_8:
-      003B54 E2                    3386 	.db 0xe2
-      003B55 94                    3387 	.db 0x94
-      003B56 82                    3388 	.db 0x82
-      003B57 20 20 20 20 54 20 20  3389 	.ascii "    T      "
+      003B4B E2                    3375 	.db 0xe2
+      003B4C 94                    3376 	.db 0x94
+      003B4D 82                    3377 	.db 0x82
+      003B4E 0A                    3378 	.db 0x0a
+      003B4F 0D                    3379 	.db 0x0d
+      003B50 00                    3380 	.db 0x00
+                                   3381 	.area CSEG    (CODE)
+                                   3382 	.area CONST   (CODE)
+      003B51                       3383 ___str_8:
+      003B51 E2                    3384 	.db 0xe2
+      003B52 94                    3385 	.db 0x94
+      003B53 82                    3386 	.db 0x82
+      003B54 20 20 20 20 54 20 20  3387 	.ascii "    T      "
              20 20 20 20
-      003B62 E2                    3390 	.db 0xe2
-      003B63 94                    3391 	.db 0x94
-      003B64 82                    3392 	.db 0x82
-      003B65 20 47 65 6E 65 72 61  3393 	.ascii " Generate Triangular Wave                      "
+      003B5F E2                    3388 	.db 0xe2
+      003B60 94                    3389 	.db 0x94
+      003B61 82                    3390 	.db 0x82
+      003B62 20 47 65 6E 65 72 61  3391 	.ascii " Generate Triangular Wave                      "
              74 65 20 54 72 69 61
              6E 67 75 6C 61 72 20
              57 61 76 65 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20
-      003B94 E2                    3394 	.db 0xe2
-      003B95 94                    3395 	.db 0x94
-      003B96 82                    3396 	.db 0x82
-      003B97 0A                    3397 	.db 0x0a
-      003B98 0D                    3398 	.db 0x0d
-      003B99 00                    3399 	.db 0x00
-                                   3400 	.area CSEG    (CODE)
-                                   3401 	.area CONST   (CODE)
-      003B9A                       3402 ___str_9:
-      003B9A E2                    3403 	.db 0xe2
-      003B9B 94                    3404 	.db 0x94
-      003B9C 82                    3405 	.db 0x82
-      003B9D 20 20 20 20 44 20 20  3406 	.ascii "    D      "
+      003B91 E2                    3392 	.db 0xe2
+      003B92 94                    3393 	.db 0x94
+      003B93 82                    3394 	.db 0x82
+      003B94 0A                    3395 	.db 0x0a
+      003B95 0D                    3396 	.db 0x0d
+      003B96 00                    3397 	.db 0x00
+                                   3398 	.area CSEG    (CODE)
+                                   3399 	.area CONST   (CODE)
+      003B97                       3400 ___str_9:
+      003B97 E2                    3401 	.db 0xe2
+      003B98 94                    3402 	.db 0x94
+      003B99 82                    3403 	.db 0x82
+      003B9A 20 20 20 20 44 20 20  3404 	.ascii "    D      "
              20 20 20 20
-      003BA8 E2                    3407 	.db 0xe2
-      003BA9 94                    3408 	.db 0x94
-      003BAA 82                    3409 	.db 0x82
-      003BAB 20 44 65 6D 6F 20 4D  3410 	.ascii " Demo Mode (Cycle through all waveforms)       "
+      003BA5 E2                    3405 	.db 0xe2
+      003BA6 94                    3406 	.db 0x94
+      003BA7 82                    3407 	.db 0x82
+      003BA8 20 44 65 6D 6F 20 4D  3408 	.ascii " Demo Mode (Cycle through all waveforms)       "
              6F 64 65 20 28 43 79
              63 6C 65 20 74 68 72
              6F 75 67 68 20 61 6C
              6C 20 77 61 76 65 66
              6F 72 6D 73 29 20 20
              20 20 20 20 20
-      003BDA E2                    3411 	.db 0xe2
-      003BDB 94                    3412 	.db 0x94
-      003BDC 82                    3413 	.db 0x82
-      003BDD 0A                    3414 	.db 0x0a
-      003BDE 0D                    3415 	.db 0x0d
-      003BDF 00                    3416 	.db 0x00
-                                   3417 	.area CSEG    (CODE)
-                                   3418 	.area CONST   (CODE)
-      003BE0                       3419 ___str_10:
-      003BE0 E2                    3420 	.db 0xe2
-      003BE1 94                    3421 	.db 0x94
-      003BE2 82                    3422 	.db 0x82
-      003BE3 20 20 20 20 52 20 20  3423 	.ascii "    R      "
+      003BD7 E2                    3409 	.db 0xe2
+      003BD8 94                    3410 	.db 0x94
+      003BD9 82                    3411 	.db 0x82
+      003BDA 0A                    3412 	.db 0x0a
+      003BDB 0D                    3413 	.db 0x0d
+      003BDC 00                    3414 	.db 0x00
+                                   3415 	.area CSEG    (CODE)
+                                   3416 	.area CONST   (CODE)
+      003BDD                       3417 ___str_10:
+      003BDD E2                    3418 	.db 0xe2
+      003BDE 94                    3419 	.db 0x94
+      003BDF 82                    3420 	.db 0x82
+      003BE0 20 20 20 20 52 20 20  3421 	.ascii "    R      "
              20 20 20 20
-      003BEE E2                    3424 	.db 0xe2
-      003BEF 94                    3425 	.db 0x94
-      003BF0 82                    3426 	.db 0x82
-      003BF1 20 52 61 6D 70 20 77  3427 	.ascii " Ramp wave                                     "
+      003BEB E2                    3422 	.db 0xe2
+      003BEC 94                    3423 	.db 0x94
+      003BED 82                    3424 	.db 0x82
+      003BEE 20 52 61 6D 70 20 77  3425 	.ascii " Ramp wave                                     "
              61 76 65 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20
-      003C20 E2                    3428 	.db 0xe2
-      003C21 94                    3429 	.db 0x94
-      003C22 82                    3430 	.db 0x82
-      003C23 0A                    3431 	.db 0x0a
-      003C24 0D                    3432 	.db 0x0d
-      003C25 00                    3433 	.db 0x00
-                                   3434 	.area CSEG    (CODE)
-                                   3435 	.area CONST   (CODE)
-      003C26                       3436 ___str_11:
-      003C26 E2                    3437 	.db 0xe2
-      003C27 94                    3438 	.db 0x94
-      003C28 82                    3439 	.db 0x82
-      003C29 20 20 20 20 3F 20 20  3440 	.ascii "    ?      "
+      003C1D E2                    3426 	.db 0xe2
+      003C1E 94                    3427 	.db 0x94
+      003C1F 82                    3428 	.db 0x82
+      003C20 0A                    3429 	.db 0x0a
+      003C21 0D                    3430 	.db 0x0d
+      003C22 00                    3431 	.db 0x00
+                                   3432 	.area CSEG    (CODE)
+                                   3433 	.area CONST   (CODE)
+      003C23                       3434 ___str_11:
+      003C23 E2                    3435 	.db 0xe2
+      003C24 94                    3436 	.db 0x94
+      003C25 82                    3437 	.db 0x82
+      003C26 20 20 20 20 3F 20 20  3438 	.ascii "    ?      "
              20 20 20 20
-      003C34 E2                    3441 	.db 0xe2
-      003C35 94                    3442 	.db 0x94
-      003C36 82                    3443 	.db 0x82
-      003C37 20 44 69 73 70 6C 61  3444 	.ascii " Display this help menu                        "
+      003C31 E2                    3439 	.db 0xe2
+      003C32 94                    3440 	.db 0x94
+      003C33 82                    3441 	.db 0x82
+      003C34 20 44 69 73 70 6C 61  3442 	.ascii " Display this help menu                        "
              79 20 74 68 69 73 20
              68 65 6C 70 20 6D 65
              6E 75 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20
-      003C66 E2                    3445 	.db 0xe2
-      003C67 94                    3446 	.db 0x94
-      003C68 82                    3447 	.db 0x82
-      003C69 0A                    3448 	.db 0x0a
-      003C6A 0D                    3449 	.db 0x0d
-      003C6B 00                    3450 	.db 0x00
-                                   3451 	.area CSEG    (CODE)
-                                   3452 	.area CONST   (CODE)
-      003C6C                       3453 ___str_12:
-      003C6C E2                    3454 	.db 0xe2
-      003C6D 94                    3455 	.db 0x94
-      003C6E 94                    3456 	.db 0x94
-      003C6F E2                    3457 	.db 0xe2
-      003C70 94                    3458 	.db 0x94
-      003C71 80                    3459 	.db 0x80
-      003C72 E2                    3460 	.db 0xe2
-      003C73 94                    3461 	.db 0x94
-      003C74 80                    3462 	.db 0x80
-      003C75 E2                    3463 	.db 0xe2
-      003C76 94                    3464 	.db 0x94
-      003C77 80                    3465 	.db 0x80
-      003C78 E2                    3466 	.db 0xe2
-      003C79 94                    3467 	.db 0x94
-      003C7A 80                    3468 	.db 0x80
-      003C7B E2                    3469 	.db 0xe2
-      003C7C 94                    3470 	.db 0x94
-      003C7D 80                    3471 	.db 0x80
-      003C7E E2                    3472 	.db 0xe2
-      003C7F 94                    3473 	.db 0x94
-      003C80 80                    3474 	.db 0x80
-      003C81 E2                    3475 	.db 0xe2
-      003C82 94                    3476 	.db 0x94
-      003C83 80                    3477 	.db 0x80
-      003C84 E2                    3478 	.db 0xe2
-      003C85 94                    3479 	.db 0x94
-      003C86 80                    3480 	.db 0x80
-      003C87 E2                    3481 	.db 0xe2
-      003C88 94                    3482 	.db 0x94
-      003C89 80                    3483 	.db 0x80
-      003C8A E2                    3484 	.db 0xe2
-      003C8B 94                    3485 	.db 0x94
-      003C8C 80                    3486 	.db 0x80
-      003C8D E2                    3487 	.db 0xe2
-      003C8E 94                    3488 	.db 0x94
-      003C8F 80                    3489 	.db 0x80
-      003C90 E2                    3490 	.db 0xe2
-      003C91 94                    3491 	.db 0x94
-      003C92 B4                    3492 	.db 0xb4
-      003C93 E2                    3493 	.db 0xe2
-      003C94 94                    3494 	.db 0x94
-      003C95 80                    3495 	.db 0x80
-      003C96 E2                    3496 	.db 0xe2
-      003C97 94                    3497 	.db 0x94
-      003C98 80                    3498 	.db 0x80
-      003C99 E2                    3499 	.db 0xe2
-      003C9A 94                    3500 	.db 0x94
-      003C9B 80                    3501 	.db 0x80
-      003C9C E2                    3502 	.db 0xe2
-      003C9D 94                    3503 	.db 0x94
-      003C9E 80                    3504 	.db 0x80
-      003C9F E2                    3505 	.db 0xe2
-      003CA0 94                    3506 	.db 0x94
-      003CA1 80                    3507 	.db 0x80
-      003CA2 E2                    3508 	.db 0xe2
-      003CA3 94                    3509 	.db 0x94
-      003CA4 80                    3510 	.db 0x80
-      003CA5 E2                    3511 	.db 0xe2
-      003CA6 94                    3512 	.db 0x94
-      003CA7 80                    3513 	.db 0x80
-      003CA8 E2                    3514 	.db 0xe2
-      003CA9 94                    3515 	.db 0x94
-      003CAA 80                    3516 	.db 0x80
-      003CAB E2                    3517 	.db 0xe2
-      003CAC 94                    3518 	.db 0x94
-      003CAD 80                    3519 	.db 0x80
-      003CAE E2                    3520 	.db 0xe2
-      003CAF 94                    3521 	.db 0x94
-      003CB0 80                    3522 	.db 0x80
-      003CB1 E2                    3523 	.db 0xe2
-      003CB2 94                    3524 	.db 0x94
-      003CB3 80                    3525 	.db 0x80
-      003CB4 E2                    3526 	.db 0xe2
-      003CB5 94                    3527 	.db 0x94
-      003CB6 80                    3528 	.db 0x80
-      003CB7 E2                    3529 	.db 0xe2
-      003CB8 94                    3530 	.db 0x94
-      003CB9 80                    3531 	.db 0x80
-      003CBA E2                    3532 	.db 0xe2
-      003CBB 94                    3533 	.db 0x94
-      003CBC 80                    3534 	.db 0x80
-      003CBD E2                    3535 	.db 0xe2
-      003CBE 94                    3536 	.db 0x94
-      003CBF 80                    3537 	.db 0x80
-      003CC0 E2                    3538 	.db 0xe2
-      003CC1 94                    3539 	.db 0x94
-      003CC2 80                    3540 	.db 0x80
-      003CC3 E2                    3541 	.db 0xe2
-      003CC4 94                    3542 	.db 0x94
-      003CC5 80                    3543 	.db 0x80
-      003CC6 E2                    3544 	.db 0xe2
-      003CC7 94                    3545 	.db 0x94
-      003CC8 80                    3546 	.db 0x80
-      003CC9 E2                    3547 	.db 0xe2
-      003CCA 94                    3548 	.db 0x94
-      003CCB 80                    3549 	.db 0x80
-      003CCC E2                    3550 	.db 0xe2
-      003CCD 94                    3551 	.db 0x94
-      003CCE 80                    3552 	.db 0x80
-      003CCF E2                    3553 	.db 0xe2
-      003CD0 94                    3554 	.db 0x94
-      003CD1 80                    3555 	.db 0x80
-      003CD2 E2                    3556 	.db 0xe2
-      003CD3 94                    3557 	.db 0x94
-      003CD4 80                    3558 	.db 0x80
-      003CD5 E2                    3559 	.db 0xe2
-      003CD6 94                    3560 	.db 0x94
-      003CD7 80                    3561 	.db 0x80
-      003CD8 E2                    3562 	.db 0xe2
-      003CD9 94                    3563 	.db 0x94
-      003CDA 80                    3564 	.db 0x80
-      003CDB E2                    3565 	.db 0xe2
-      003CDC 94                    3566 	.db 0x94
-      003CDD 80                    3567 	.db 0x80
-      003CDE E2                    3568 	.db 0xe2
-      003CDF 94                    3569 	.db 0x94
-      003CE0 80                    3570 	.db 0x80
-      003CE1 E2                    3571 	.db 0xe2
-      003CE2 94                    3572 	.db 0x94
-      003CE3 80                    3573 	.db 0x80
-      003CE4 E2                    3574 	.db 0xe2
-      003CE5 94                    3575 	.db 0x94
-      003CE6 80                    3576 	.db 0x80
-      003CE7 E2                    3577 	.db 0xe2
-      003CE8 94                    3578 	.db 0x94
-      003CE9 80                    3579 	.db 0x80
-      003CEA E2                    3580 	.db 0xe2
-      003CEB 94                    3581 	.db 0x94
-      003CEC 80                    3582 	.db 0x80
-      003CED E2                    3583 	.db 0xe2
-      003CEE 94                    3584 	.db 0x94
-      003CEF 80                    3585 	.db 0x80
-      003CF0 E2                    3586 	.db 0xe2
-      003CF1 94                    3587 	.db 0x94
-      003CF2 80                    3588 	.db 0x80
-      003CF3 E2                    3589 	.db 0xe2
-      003CF4 94                    3590 	.db 0x94
-      003CF5 80                    3591 	.db 0x80
-      003CF6 E2                    3592 	.db 0xe2
-      003CF7 94                    3593 	.db 0x94
-      003CF8 80                    3594 	.db 0x80
-      003CF9 E2                    3595 	.db 0xe2
-      003CFA 94                    3596 	.db 0x94
-      003CFB 80                    3597 	.db 0x80
-      003CFC E2                    3598 	.db 0xe2
-      003CFD 94                    3599 	.db 0x94
-      003CFE 80                    3600 	.db 0x80
-      003CFF E2                    3601 	.db 0xe2
-      003D00 94                    3602 	.db 0x94
-      003D01 80                    3603 	.db 0x80
-      003D02 E2                    3604 	.db 0xe2
-      003D03 94                    3605 	.db 0x94
-      003D04 80                    3606 	.db 0x80
-      003D05 E2                    3607 	.db 0xe2
-      003D06 94                    3608 	.db 0x94
-      003D07 80                    3609 	.db 0x80
-      003D08 E2                    3610 	.db 0xe2
-      003D09 94                    3611 	.db 0x94
-      003D0A 80                    3612 	.db 0x80
-      003D0B E2                    3613 	.db 0xe2
-      003D0C 94                    3614 	.db 0x94
-      003D0D 80                    3615 	.db 0x80
-      003D0E E2                    3616 	.db 0xe2
-      003D0F 94                    3617 	.db 0x94
-      003D10 80                    3618 	.db 0x80
-      003D11 E2                    3619 	.db 0xe2
-      003D12 94                    3620 	.db 0x94
-      003D13 80                    3621 	.db 0x80
-      003D14 E2                    3622 	.db 0xe2
-      003D15 94                    3623 	.db 0x94
-      003D16 80                    3624 	.db 0x80
-      003D17 E2                    3625 	.db 0xe2
-      003D18 94                    3626 	.db 0x94
-      003D19 80                    3627 	.db 0x80
-      003D1A E2                    3628 	.db 0xe2
-      003D1B 94                    3629 	.db 0x94
-      003D1C 80                    3630 	.db 0x80
-      003D1D E2                    3631 	.db 0xe2
-      003D1E 94                    3632 	.db 0x94
-      003D1F 80                    3633 	.db 0x80
-      003D20 E2                    3634 	.db 0xe2
-      003D21 94                    3635 	.db 0x94
-      003D22 98                    3636 	.db 0x98
-      003D23 0A                    3637 	.db 0x0a
-      003D24 0D                    3638 	.db 0x0d
-      003D25 00                    3639 	.db 0x00
-                                   3640 	.area CSEG    (CODE)
-                                   3641 	.area CONST   (CODE)
-      003D26                       3642 ___str_13:
-      003D26 0A                    3643 	.db 0x0a
-      003D27 0D                    3644 	.db 0x0d
-      003D28 45 6E 74 65 72 20 63  3645 	.ascii "Enter command: "
+      003C63 E2                    3443 	.db 0xe2
+      003C64 94                    3444 	.db 0x94
+      003C65 82                    3445 	.db 0x82
+      003C66 0A                    3446 	.db 0x0a
+      003C67 0D                    3447 	.db 0x0d
+      003C68 00                    3448 	.db 0x00
+                                   3449 	.area CSEG    (CODE)
+                                   3450 	.area CONST   (CODE)
+      003C69                       3451 ___str_12:
+      003C69 E2                    3452 	.db 0xe2
+      003C6A 94                    3453 	.db 0x94
+      003C6B 94                    3454 	.db 0x94
+      003C6C E2                    3455 	.db 0xe2
+      003C6D 94                    3456 	.db 0x94
+      003C6E 80                    3457 	.db 0x80
+      003C6F E2                    3458 	.db 0xe2
+      003C70 94                    3459 	.db 0x94
+      003C71 80                    3460 	.db 0x80
+      003C72 E2                    3461 	.db 0xe2
+      003C73 94                    3462 	.db 0x94
+      003C74 80                    3463 	.db 0x80
+      003C75 E2                    3464 	.db 0xe2
+      003C76 94                    3465 	.db 0x94
+      003C77 80                    3466 	.db 0x80
+      003C78 E2                    3467 	.db 0xe2
+      003C79 94                    3468 	.db 0x94
+      003C7A 80                    3469 	.db 0x80
+      003C7B E2                    3470 	.db 0xe2
+      003C7C 94                    3471 	.db 0x94
+      003C7D 80                    3472 	.db 0x80
+      003C7E E2                    3473 	.db 0xe2
+      003C7F 94                    3474 	.db 0x94
+      003C80 80                    3475 	.db 0x80
+      003C81 E2                    3476 	.db 0xe2
+      003C82 94                    3477 	.db 0x94
+      003C83 80                    3478 	.db 0x80
+      003C84 E2                    3479 	.db 0xe2
+      003C85 94                    3480 	.db 0x94
+      003C86 80                    3481 	.db 0x80
+      003C87 E2                    3482 	.db 0xe2
+      003C88 94                    3483 	.db 0x94
+      003C89 80                    3484 	.db 0x80
+      003C8A E2                    3485 	.db 0xe2
+      003C8B 94                    3486 	.db 0x94
+      003C8C 80                    3487 	.db 0x80
+      003C8D E2                    3488 	.db 0xe2
+      003C8E 94                    3489 	.db 0x94
+      003C8F B4                    3490 	.db 0xb4
+      003C90 E2                    3491 	.db 0xe2
+      003C91 94                    3492 	.db 0x94
+      003C92 80                    3493 	.db 0x80
+      003C93 E2                    3494 	.db 0xe2
+      003C94 94                    3495 	.db 0x94
+      003C95 80                    3496 	.db 0x80
+      003C96 E2                    3497 	.db 0xe2
+      003C97 94                    3498 	.db 0x94
+      003C98 80                    3499 	.db 0x80
+      003C99 E2                    3500 	.db 0xe2
+      003C9A 94                    3501 	.db 0x94
+      003C9B 80                    3502 	.db 0x80
+      003C9C E2                    3503 	.db 0xe2
+      003C9D 94                    3504 	.db 0x94
+      003C9E 80                    3505 	.db 0x80
+      003C9F E2                    3506 	.db 0xe2
+      003CA0 94                    3507 	.db 0x94
+      003CA1 80                    3508 	.db 0x80
+      003CA2 E2                    3509 	.db 0xe2
+      003CA3 94                    3510 	.db 0x94
+      003CA4 80                    3511 	.db 0x80
+      003CA5 E2                    3512 	.db 0xe2
+      003CA6 94                    3513 	.db 0x94
+      003CA7 80                    3514 	.db 0x80
+      003CA8 E2                    3515 	.db 0xe2
+      003CA9 94                    3516 	.db 0x94
+      003CAA 80                    3517 	.db 0x80
+      003CAB E2                    3518 	.db 0xe2
+      003CAC 94                    3519 	.db 0x94
+      003CAD 80                    3520 	.db 0x80
+      003CAE E2                    3521 	.db 0xe2
+      003CAF 94                    3522 	.db 0x94
+      003CB0 80                    3523 	.db 0x80
+      003CB1 E2                    3524 	.db 0xe2
+      003CB2 94                    3525 	.db 0x94
+      003CB3 80                    3526 	.db 0x80
+      003CB4 E2                    3527 	.db 0xe2
+      003CB5 94                    3528 	.db 0x94
+      003CB6 80                    3529 	.db 0x80
+      003CB7 E2                    3530 	.db 0xe2
+      003CB8 94                    3531 	.db 0x94
+      003CB9 80                    3532 	.db 0x80
+      003CBA E2                    3533 	.db 0xe2
+      003CBB 94                    3534 	.db 0x94
+      003CBC 80                    3535 	.db 0x80
+      003CBD E2                    3536 	.db 0xe2
+      003CBE 94                    3537 	.db 0x94
+      003CBF 80                    3538 	.db 0x80
+      003CC0 E2                    3539 	.db 0xe2
+      003CC1 94                    3540 	.db 0x94
+      003CC2 80                    3541 	.db 0x80
+      003CC3 E2                    3542 	.db 0xe2
+      003CC4 94                    3543 	.db 0x94
+      003CC5 80                    3544 	.db 0x80
+      003CC6 E2                    3545 	.db 0xe2
+      003CC7 94                    3546 	.db 0x94
+      003CC8 80                    3547 	.db 0x80
+      003CC9 E2                    3548 	.db 0xe2
+      003CCA 94                    3549 	.db 0x94
+      003CCB 80                    3550 	.db 0x80
+      003CCC E2                    3551 	.db 0xe2
+      003CCD 94                    3552 	.db 0x94
+      003CCE 80                    3553 	.db 0x80
+      003CCF E2                    3554 	.db 0xe2
+      003CD0 94                    3555 	.db 0x94
+      003CD1 80                    3556 	.db 0x80
+      003CD2 E2                    3557 	.db 0xe2
+      003CD3 94                    3558 	.db 0x94
+      003CD4 80                    3559 	.db 0x80
+      003CD5 E2                    3560 	.db 0xe2
+      003CD6 94                    3561 	.db 0x94
+      003CD7 80                    3562 	.db 0x80
+      003CD8 E2                    3563 	.db 0xe2
+      003CD9 94                    3564 	.db 0x94
+      003CDA 80                    3565 	.db 0x80
+      003CDB E2                    3566 	.db 0xe2
+      003CDC 94                    3567 	.db 0x94
+      003CDD 80                    3568 	.db 0x80
+      003CDE E2                    3569 	.db 0xe2
+      003CDF 94                    3570 	.db 0x94
+      003CE0 80                    3571 	.db 0x80
+      003CE1 E2                    3572 	.db 0xe2
+      003CE2 94                    3573 	.db 0x94
+      003CE3 80                    3574 	.db 0x80
+      003CE4 E2                    3575 	.db 0xe2
+      003CE5 94                    3576 	.db 0x94
+      003CE6 80                    3577 	.db 0x80
+      003CE7 E2                    3578 	.db 0xe2
+      003CE8 94                    3579 	.db 0x94
+      003CE9 80                    3580 	.db 0x80
+      003CEA E2                    3581 	.db 0xe2
+      003CEB 94                    3582 	.db 0x94
+      003CEC 80                    3583 	.db 0x80
+      003CED E2                    3584 	.db 0xe2
+      003CEE 94                    3585 	.db 0x94
+      003CEF 80                    3586 	.db 0x80
+      003CF0 E2                    3587 	.db 0xe2
+      003CF1 94                    3588 	.db 0x94
+      003CF2 80                    3589 	.db 0x80
+      003CF3 E2                    3590 	.db 0xe2
+      003CF4 94                    3591 	.db 0x94
+      003CF5 80                    3592 	.db 0x80
+      003CF6 E2                    3593 	.db 0xe2
+      003CF7 94                    3594 	.db 0x94
+      003CF8 80                    3595 	.db 0x80
+      003CF9 E2                    3596 	.db 0xe2
+      003CFA 94                    3597 	.db 0x94
+      003CFB 80                    3598 	.db 0x80
+      003CFC E2                    3599 	.db 0xe2
+      003CFD 94                    3600 	.db 0x94
+      003CFE 80                    3601 	.db 0x80
+      003CFF E2                    3602 	.db 0xe2
+      003D00 94                    3603 	.db 0x94
+      003D01 80                    3604 	.db 0x80
+      003D02 E2                    3605 	.db 0xe2
+      003D03 94                    3606 	.db 0x94
+      003D04 80                    3607 	.db 0x80
+      003D05 E2                    3608 	.db 0xe2
+      003D06 94                    3609 	.db 0x94
+      003D07 80                    3610 	.db 0x80
+      003D08 E2                    3611 	.db 0xe2
+      003D09 94                    3612 	.db 0x94
+      003D0A 80                    3613 	.db 0x80
+      003D0B E2                    3614 	.db 0xe2
+      003D0C 94                    3615 	.db 0x94
+      003D0D 80                    3616 	.db 0x80
+      003D0E E2                    3617 	.db 0xe2
+      003D0F 94                    3618 	.db 0x94
+      003D10 80                    3619 	.db 0x80
+      003D11 E2                    3620 	.db 0xe2
+      003D12 94                    3621 	.db 0x94
+      003D13 80                    3622 	.db 0x80
+      003D14 E2                    3623 	.db 0xe2
+      003D15 94                    3624 	.db 0x94
+      003D16 80                    3625 	.db 0x80
+      003D17 E2                    3626 	.db 0xe2
+      003D18 94                    3627 	.db 0x94
+      003D19 80                    3628 	.db 0x80
+      003D1A E2                    3629 	.db 0xe2
+      003D1B 94                    3630 	.db 0x94
+      003D1C 80                    3631 	.db 0x80
+      003D1D E2                    3632 	.db 0xe2
+      003D1E 94                    3633 	.db 0x94
+      003D1F 98                    3634 	.db 0x98
+      003D20 0A                    3635 	.db 0x0a
+      003D21 0D                    3636 	.db 0x0d
+      003D22 00                    3637 	.db 0x00
+                                   3638 	.area CSEG    (CODE)
+                                   3639 	.area CONST   (CODE)
+      003D23                       3640 ___str_13:
+      003D23 0A                    3641 	.db 0x0a
+      003D24 0D                    3642 	.db 0x0d
+      003D25 45 6E 74 65 72 20 63  3643 	.ascii "Enter command: "
              6F 6D 6D 61 6E 64 3A
              20
-      003D37 00                    3646 	.db 0x00
-                                   3647 	.area CSEG    (CODE)
-                                   3648 	.area CONST   (CODE)
-      003D38                       3649 ___str_14:
-      003D38 7C 20 24 20 25 63     3650 	.ascii "| $ %c"
-      003D3E 0A                    3651 	.db 0x0a
-      003D3F 0D                    3652 	.db 0x0d
-      003D40 00                    3653 	.db 0x00
-                                   3654 	.area CSEG    (CODE)
-                                   3655 	.area CONST   (CODE)
-      003D41                       3656 ___str_15:
-      003D41 0A                    3657 	.db 0x0a
-      003D42 0D                    3658 	.db 0x0d
-      003D43 00                    3659 	.db 0x00
-                                   3660 	.area CSEG    (CODE)
-                                   3661 	.area CONST   (CODE)
-      003D44                       3662 ___str_16:
-      003D44 3E 3E 20 53 49 4E 20  3663 	.ascii ">> SIN WAVE GENERATION COMPLETE"
+      003D34 00                    3644 	.db 0x00
+                                   3645 	.area CSEG    (CODE)
+                                   3646 	.area CONST   (CODE)
+      003D35                       3647 ___str_14:
+      003D35 7C 20 24 20 25 63     3648 	.ascii "| $ %c"
+      003D3B 0A                    3649 	.db 0x0a
+      003D3C 0D                    3650 	.db 0x0d
+      003D3D 00                    3651 	.db 0x00
+                                   3652 	.area CSEG    (CODE)
+                                   3653 	.area CONST   (CODE)
+      003D3E                       3654 ___str_15:
+      003D3E 0A                    3655 	.db 0x0a
+      003D3F 0D                    3656 	.db 0x0d
+      003D40 00                    3657 	.db 0x00
+                                   3658 	.area CSEG    (CODE)
+                                   3659 	.area CONST   (CODE)
+      003D41                       3660 ___str_16:
+      003D41 3E 3E 20 53 49 4E 20  3661 	.ascii ">> SIN WAVE GENERATION COMPLETE"
              57 41 56 45 20 47 45
              4E 45 52 41 54 49 4F
              4E 20 43 4F 4D 50 4C
              45 54 45
-      003D63 0A                    3664 	.db 0x0a
-      003D64 0D                    3665 	.db 0x0d
-      003D65 00                    3666 	.db 0x00
-                                   3667 	.area CSEG    (CODE)
-                                   3668 	.area CONST   (CODE)
-      003D66                       3669 ___str_17:
-      003D66 3E 3E 20 53 51 55 41  3670 	.ascii ">> SQUARE WAVE GENERATION COMPLETE"
+      003D60 0A                    3662 	.db 0x0a
+      003D61 0D                    3663 	.db 0x0d
+      003D62 00                    3664 	.db 0x00
+                                   3665 	.area CSEG    (CODE)
+                                   3666 	.area CONST   (CODE)
+      003D63                       3667 ___str_17:
+      003D63 3E 3E 20 53 51 55 41  3668 	.ascii ">> SQUARE WAVE GENERATION COMPLETE"
              52 45 20 57 41 56 45
              20 47 45 4E 45 52 41
              54 49 4F 4E 20 43 4F
              4D 50 4C 45 54 45
-      003D88 0A                    3671 	.db 0x0a
-      003D89 0D                    3672 	.db 0x0d
-      003D8A 00                    3673 	.db 0x00
-                                   3674 	.area CSEG    (CODE)
-                                   3675 	.area CONST   (CODE)
-      003D8B                       3676 ___str_18:
-      003D8B 3E 3E 20 49 4E 56 41  3677 	.ascii ">> INVALID INPUT"
+      003D85 0A                    3669 	.db 0x0a
+      003D86 0D                    3670 	.db 0x0d
+      003D87 00                    3671 	.db 0x00
+                                   3672 	.area CSEG    (CODE)
+                                   3673 	.area CONST   (CODE)
+      003D88                       3674 ___str_18:
+      003D88 3E 3E 20 49 4E 56 41  3675 	.ascii ">> INVALID INPUT"
              4C 49 44 20 49 4E 50
              55 54
-      003D9B 0A                    3678 	.db 0x0a
-      003D9C 0D                    3679 	.db 0x0d
-      003D9D 00                    3680 	.db 0x00
-                                   3681 	.area CSEG    (CODE)
-                                   3682 	.area CONST   (CODE)
-      003D9E                       3683 ___str_19:
-      003D9E E2                    3684 	.db 0xe2
-      003D9F 94                    3685 	.db 0x94
-      003DA0 82                    3686 	.db 0x82
-      003DA1 20 45 6E 74 65 72 20  3687 	.ascii " Enter number (hex, up to 2 characters): "
+      003D98 0A                    3676 	.db 0x0a
+      003D99 0D                    3677 	.db 0x0d
+      003D9A 00                    3678 	.db 0x00
+                                   3679 	.area CSEG    (CODE)
+                                   3680 	.area CONST   (CODE)
+      003D9B                       3681 ___str_19:
+      003D9B E2                    3682 	.db 0xe2
+      003D9C 94                    3683 	.db 0x94
+      003D9D 82                    3684 	.db 0x82
+      003D9E 20 45 6E 74 65 72 20  3685 	.ascii " Enter number (hex, up to 2 characters): "
              6E 75 6D 62 65 72 20
              28 68 65 78 2C 20 75
              70 20 74 6F 20 32 20
              63 68 61 72 61 63 74
              65 72 73 29 3A 20
-      003DCA 0A                    3688 	.db 0x0a
-      003DCB 0D                    3689 	.db 0x0d
-      003DCC 7C                    3690 	.ascii "|"
-      003DCD 00                    3691 	.db 0x00
-                                   3692 	.area CSEG    (CODE)
-                                   3693 	.area CONST   (CODE)
-      003DCE                       3694 ___str_20:
-      003DCE 24 20                 3695 	.ascii "$ "
-      003DD0 00                    3696 	.db 0x00
-                                   3697 	.area CSEG    (CODE)
-                                   3698 	.area CONST   (CODE)
-      003DD1                       3699 ___str_21:
-      003DD1 0A                    3700 	.db 0x0a
-      003DD2 0D                    3701 	.db 0x0d
-      003DD3 E2                    3702 	.db 0xe2
-      003DD4 94                    3703 	.db 0x94
-      003DD5 82                    3704 	.db 0x82
-      003DD6 20 45 6E 74 65 72 65  3705 	.ascii " Entered data: 0x%02X"
+      003DC7 0A                    3686 	.db 0x0a
+      003DC8 0D                    3687 	.db 0x0d
+      003DC9 7C                    3688 	.ascii "|"
+      003DCA 00                    3689 	.db 0x00
+                                   3690 	.area CSEG    (CODE)
+                                   3691 	.area CONST   (CODE)
+      003DCB                       3692 ___str_20:
+      003DCB 24 20                 3693 	.ascii "$ "
+      003DCD 00                    3694 	.db 0x00
+                                   3695 	.area CSEG    (CODE)
+                                   3696 	.area CONST   (CODE)
+      003DCE                       3697 ___str_21:
+      003DCE 0A                    3698 	.db 0x0a
+      003DCF 0D                    3699 	.db 0x0d
+      003DD0 E2                    3700 	.db 0xe2
+      003DD1 94                    3701 	.db 0x94
+      003DD2 82                    3702 	.db 0x82
+      003DD3 20 45 6E 74 65 72 65  3703 	.ascii " Entered data: 0x%02X"
              64 20 64 61 74 61 3A
              20 30 78 25 30 32 58
-      003DEB 0A                    3706 	.db 0x0a
-      003DEC 0D                    3707 	.db 0x0d
-      003DED 00                    3708 	.db 0x00
-                                   3709 	.area CSEG    (CODE)
-                                   3710 	.area XINIT   (CODE)
-      003DF9                       3711 __xinit__ms_flag:
-      003DF9 00                    3712 	.db #0x00	; 0
-      003DFA                       3713 __xinit__transmission_complete:
-      003DFA 00 00                 3714 	.byte #0x00, #0x00	;  0
-                                   3715 	.area CABS    (ABS,CODE)
+      003DE8 0A                    3704 	.db 0x0a
+      003DE9 0D                    3705 	.db 0x0d
+      003DEA 00                    3706 	.db 0x00
+                                   3707 	.area CSEG    (CODE)
+                                   3708 	.area XINIT   (CODE)
+      003DF6                       3709 __xinit__ms_flag:
+      003DF6 00                    3710 	.db #0x00	; 0
+      003DF7                       3711 __xinit__transmission_complete:
+      003DF7 00 00                 3712 	.byte #0x00, #0x00	;  0
+                                   3713 	.area CABS    (ABS,CODE)
