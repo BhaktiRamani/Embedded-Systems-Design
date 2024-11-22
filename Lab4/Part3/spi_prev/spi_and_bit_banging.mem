@@ -26,4 +26,4 @@ Other memory:
    ---------------- -------- -------- -------- --------
    PAGED EXT. RAM                         0      256   
    EXTERNAL RAM     0x0400   0x0458      89    31743   
-   ROM/EPROM/FLASH  0x2000   0x3dfd    7678    32768   
+   ROM/EPROM/FLASH  0x2000   0x3e00    7681    32768   

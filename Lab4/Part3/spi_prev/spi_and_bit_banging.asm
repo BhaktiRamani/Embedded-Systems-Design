@@ -945,6 +945,8 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
+;	spi_and_bit_banging.c:285: spi_init();
+	lcall	_spi_init
 ;	spi_and_bit_banging.c:286: break;
 	ljmp	00106$
 ;	spi_and_bit_banging.c:326: default:

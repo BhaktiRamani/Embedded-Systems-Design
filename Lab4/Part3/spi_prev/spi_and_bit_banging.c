@@ -282,7 +282,7 @@ int main(void)
                     unsigned char result2 = take_data();
                     bit_bang_spi(result2);
                     printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
-                    
+                    spi_init();
                     break;
                 }
                     
