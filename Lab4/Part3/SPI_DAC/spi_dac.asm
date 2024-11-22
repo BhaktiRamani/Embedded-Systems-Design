@@ -1187,6 +1187,7 @@ _take_data:
 ;dac_data                  Allocated with name '_mannual_spi_dac_data_65536_42'
 ;high_byte                 Allocated with name '_mannual_spi_high_byte_65536_42'
 ;low_byte                  Allocated with name '_mannual_spi_low_byte_65536_42'
+;i                         Allocated with name '_mannual_spi_i_196608_44'
 ;------------------------------------------------------------
 ;	spi_dac.c:312: void mannual_spi(unsigned char number)
 ;	-----------------------------------------
@@ -1208,107 +1209,118 @@ _mannual_spi:
 	inc	dptr
 	movx	@dptr,a
 ;	spi_dac.c:317: while(number > 0)
-00110$:
+00111$:
 	mov	dptr,#_mannual_spi_number_65536_41
 	movx	a,@dptr
-	jnz	00143$
+	jnz	00156$
 	ret
-00143$:
-;	spi_dac.c:322: if(dac_value_index < SINE_MAX_INDEX)
+00156$:
+;	spi_dac.c:320: for(int i = 0; i<256; i++)
+	mov	r6,#0x00
+	mov	r7,#0x00
+00115$:
+	clr	c
+	mov	a,r7
+	xrl	a,#0x80
+	subb	a,#0x81
+	jc	00157$
+	ljmp	00110$
+00157$:
+;	spi_dac.c:323: if(dac_value_index < SINE_MAX_INDEX)
 	mov	dptr,#_mannual_spi_dac_value_index_65536_42
 	movx	a,@dptr
-	mov	r6,a
+	mov	r4,a
 	inc	dptr
 	movx	a,@dptr
-	mov	r7,a
+	mov	r5,a
 	clr	c
 	xrl	a,#0x80
 	subb	a,#0x81
 	jnc	00102$
-;	spi_dac.c:326: dac_data = dac_values[dac_value_index];
-	mov	a,r6
-	add	a,r6
-	mov	r6,a
-	mov	a,r7
+;	spi_dac.c:327: dac_data = dac_values[dac_value_index];
+	mov	a,r4
+	add	a,r4
+	mov	r4,a
+	mov	a,r5
 	rlc	a
-	mov	r7,a
-	mov	a,r6
+	mov	r5,a
+	mov	a,r4
 	add	a,#_dac_values
 	mov	dpl,a
-	mov	a,r7
+	mov	a,r5
 	addc	a,#(_dac_values >> 8)
 	mov	dph,a
 	clr	a
 	movc	a,@a+dptr
-	mov	r6,a
+	mov	r4,a
 	inc	dptr
 	clr	a
 	movc	a,@a+dptr
-	mov	r7,a
+	mov	r5,a
 	mov	dptr,#_mannual_spi_dac_data_65536_42
-	mov	a,r6
+	mov	a,r4
 	movx	@dptr,a
-	mov	a,r7
+	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	spi_dac.c:330: dac_value_index = 0;  // Reset index for next cycle
+;	spi_dac.c:331: dac_value_index = 0;  // Reset index for next cycle
 	mov	dptr,#_mannual_spi_dac_value_index_65536_42
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 00103$:
-;	spi_dac.c:337: ((dac_data >> 4) & 0x0F);
+;	spi_dac.c:338: ((dac_data >> 4) & 0x0F);
 	mov	dptr,#_mannual_spi_dac_data_65536_42
 	movx	a,@dptr
-	mov	r6,a
+	mov	r4,a
 	inc	dptr
 	movx	a,@dptr
-	mov	ar4,r6
+	mov	ar2,r4
 	swap	a
-	xch	a,r4
+	xch	a,r2
 	swap	a
 	anl	a,#0x0f
-	xrl	a,r4
-	xch	a,r4
+	xrl	a,r2
+	xch	a,r2
 	anl	a,#0x0f
-	xch	a,r4
-	xrl	a,r4
-	xch	a,r4
-	jnb	acc.3,00145$
+	xch	a,r2
+	xrl	a,r2
+	xch	a,r2
+	jnb	acc.3,00159$
 	orl	a,#0xf0
-00145$:
+00159$:
 	mov	a,#0x0f
-	anl	a,r4
+	anl	a,r2
 	orl	a,#0x10
-	mov	r5,a
-;	spi_dac.c:340: low_byte = (dac_data & 0x0F) << 4;
-	anl	ar6,#0x0f
-	mov	a,r6
+	mov	r3,a
+;	spi_dac.c:341: low_byte = (dac_data & 0x0F) << 4;
+	anl	ar4,#0x0f
+	mov	a,r4
 	swap	a
 	anl	a,#0xf0
-	mov	r7,a
-;	spi_dac.c:344: P1_1 = 0;  // Select DAC
+	mov	r5,a
+;	spi_dac.c:345: P1_1 = 0;  // Select DAC
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:347: SPDAT = high_byte;
-	mov	_SPDAT,r5
-;	spi_dac.c:348: while (!(SPSTA & (1<<7))); 
+;	spi_dac.c:348: SPDAT = high_byte;
+	mov	_SPDAT,r3
+;	spi_dac.c:349: while (!(SPSTA & (1<<7))); 
 00104$:
 	mov	a,_SPSTA
 	jnb	acc.7,00104$
-;	spi_dac.c:352: SPDAT = low_byte;
-	mov	_SPDAT,r7
-;	spi_dac.c:353: while (!(SPSTA & (1<<7))); 
+;	spi_dac.c:353: SPDAT = low_byte;
+	mov	_SPDAT,r5
+;	spi_dac.c:354: while (!(SPSTA & (1<<7))); 
 00107$:
 	mov	a,_SPSTA
 	jnb	acc.7,00107$
-;	spi_dac.c:355: P1_1 = 1;  // Deselect DAC
+;	spi_dac.c:356: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
-;	spi_dac.c:357: dac_value_index++;
+;	spi_dac.c:358: dac_value_index++;
 	mov	dptr,#_mannual_spi_dac_value_index_65536_42
 	movx	a,@dptr
 	add	a,#0x01
@@ -1317,44 +1329,51 @@ _mannual_spi:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-;	spi_dac.c:358: number = number - 1;
+;	spi_dac.c:320: for(int i = 0; i<256; i++)
+	inc	r6
+	cjne	r6,#0x00,00162$
+	inc	r7
+00162$:
+	ljmp	00115$
+00110$:
+;	spi_dac.c:361: number = number - 1;
 	mov	dptr,#_mannual_spi_number_65536_41
 	movx	a,@dptr
 	mov	r7,a
 	dec	a
 	movx	@dptr,a
-;	spi_dac.c:360: }
-	ljmp	00110$
+;	spi_dac.c:363: }
+	ljmp	00111$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_init'
 ;------------------------------------------------------------
-;	spi_dac.c:371: void spi_init(void) 
+;	spi_dac.c:374: void spi_init(void) 
 ;	-----------------------------------------
 ;	 function spi_init
 ;	-----------------------------------------
 _spi_init:
-;	spi_dac.c:392: SPCON |= 0x10;
+;	spi_dac.c:395: SPCON |= 0x10;
 	orl	_SPCON,#0x10
-;	spi_dac.c:393: SPCON |= 0x20;
+;	spi_dac.c:396: SPCON |= 0x20;
 	orl	_SPCON,#0x20
-;	spi_dac.c:394: SPCON |= 0x40;
+;	spi_dac.c:397: SPCON |= 0x40;
 	orl	_SPCON,#0x40
-;	spi_dac.c:401: }
+;	spi_dac.c:404: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_start'
 ;------------------------------------------------------------
-;	spi_dac.c:408: void spi_transmission_start(void)
+;	spi_dac.c:411: void spi_transmission_start(void)
 ;	-----------------------------------------
 ;	 function spi_transmission_start
 ;	-----------------------------------------
 _spi_transmission_start:
-;	spi_dac.c:410: SPCON |= SPI_ENABLE;           // Enable SPI
+;	spi_dac.c:413: SPCON |= SPI_ENABLE;           // Enable SPI
 	orl	_SPCON,#0x40
-;	spi_dac.c:411: P1_1 = 0;
+;	spi_dac.c:414: P1_1 = 0;
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:412: }
+;	spi_dac.c:415: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

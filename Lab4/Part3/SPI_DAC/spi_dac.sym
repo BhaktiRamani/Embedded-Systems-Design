@@ -461,8 +461,8 @@ Symbol Table
     _printf                                                        ****** GX
  17 _putchar                                                       000000 GR
   B _putchar_charToSend_65536_17                                   000000 R
- 17 _spi_init                                                      000436 GR
- 17 _spi_transmission_start                                        000440 GR
+ 17 _spi_init                                                      00044D GR
+ 17 _spi_transmission_start                                        000457 GR
  17 _take_data                                                     000241 GR
   B _take_data_data_65538_38                                       000008 R
   B _take_data_input_65537_34                                      000004 R
@@ -701,7 +701,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size    446   flags   20
+  17 CSEG                                       size    45D   flags   20
   18 CONST                                      size    90D   flags   20
   19 XINIT                                      size      3   flags   20
   1A CABS                                       size      0   flags   28

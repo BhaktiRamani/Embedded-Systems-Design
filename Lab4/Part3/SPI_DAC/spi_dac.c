@@ -317,44 +317,47 @@ void mannual_spi(unsigned char number)
     while(number > 0)
     {
         
-
-        /* Calculate or lookup next sine wave value */
-        if(dac_value_index < SINE_MAX_INDEX)
+        for(int i = 0; i<256; i++)
         {
-
-            /* Alternatively, use lookup table:*/
-            dac_data = dac_values[dac_value_index];
+                    /* Calculate or lookup next sine wave value */
+            if(dac_value_index < SINE_MAX_INDEX)
+            {
+    
+                /* Alternatively, use lookup table:*/
+                dac_data = dac_values[dac_value_index];
+            }
+            else
+            {
+                dac_value_index = 0;  // Reset index for next cycle
+    
+            }
+    
+            
+                        //Format high byte: Channel A, 1x gain, Active
+            high_byte = 0x10 | 
+                           ((dac_data >> 4) & 0x0F);
+    
+                // Format low byte: Lower 4 bits of data, shifted left 4 positions
+            low_byte = (dac_data & 0x0F) << 4;
+    
+    
+            // Begin transmission
+            P1_1 = 0;  // Select DAC
+    
+            // Send high byte
+            SPDAT = high_byte;
+            while (!(SPSTA & (1<<7))); 
+    
+    
+            // Send low byte
+            SPDAT = low_byte;
+            while (!(SPSTA & (1<<7))); 
+    
+            P1_1 = 1;  // Deselect DAC
+    
+            dac_value_index++;
         }
-        else
-        {
-            dac_value_index = 0;  // Reset index for next cycle
 
-        }
-
-        
-                    //Format high byte: Channel A, 1x gain, Active
-        high_byte = 0x10 | 
-                       ((dac_data >> 4) & 0x0F);
-
-            // Format low byte: Lower 4 bits of data, shifted left 4 positions
-        low_byte = (dac_data & 0x0F) << 4;
-
-
-        // Begin transmission
-        P1_1 = 0;  // Select DAC
-
-        // Send high byte
-        SPDAT = high_byte;
-        while (!(SPSTA & (1<<7))); 
-
-
-        // Send low byte
-        SPDAT = low_byte;
-        while (!(SPSTA & (1<<7))); 
-
-        P1_1 = 1;  // Deselect DAC
-
-        dac_value_index++;
         number = number - 1;
     }
 }
