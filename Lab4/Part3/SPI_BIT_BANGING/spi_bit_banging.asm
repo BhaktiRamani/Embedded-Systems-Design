@@ -9,9 +9,6 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
-	.globl _delay_ms
-	.globl _getchar
-	.globl _putchar
 	.globl _printf
 	.globl _P5_7
 	.globl _P5_6
@@ -209,6 +206,10 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
+	.globl _putchar
+	.globl _getchar
+	.globl _delay_ms
+	.globl _spi_init
 	.globl _spi_write
 ;--------------------------------------------------------
 ; special function registers
@@ -456,12 +457,12 @@ __start__stack:
 ; external ram data
 ;--------------------------------------------------------
 	.area XSEG    (XDATA)
-_putchar_charToSend_65536_14:
+_putchar_charToSend_65536_18:
 	.ds 2
-_delay_ms_ms_65536_18:
+_delay_ms_ms_65536_22:
 	.ds 2
-_spi_write_data_65536_24:
-	.ds 1
+_spi_write_data_65536_31:
+	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -516,9 +517,9 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar'
 ;------------------------------------------------------------
-;charToSend                Allocated with name '_putchar_charToSend_65536_14'
+;charToSend                Allocated with name '_putchar_charToSend_65536_18'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:20: int putchar(int charToSend) {
+;	spi_bit_banging.c:54: int putchar(int charToSend) {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
@@ -533,74 +534,74 @@ _putchar:
 	ar0 = 0x00
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_putchar_charToSend_65536_14
+	mov	dptr,#_putchar_charToSend_65536_18
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_bit_banging.c:21: SBUF = charToSend;       /* Load character into serial buffer */
-	mov	dptr,#_putchar_charToSend_65536_14
+;	spi_bit_banging.c:55: SBUF = charToSend;       /* Load character into serial buffer */
+	mov	dptr,#_putchar_charToSend_65536_18
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	mov	r7,a
 	mov	_SBUF,r6
-;	spi_bit_banging.c:22: while (!TI);             /* Wait for transmission completion */
+;	spi_bit_banging.c:56: while (!TI);             /* Wait for transmission completion */
 00101$:
-;	spi_bit_banging.c:23: TI = 0;                  /* Clear transmission flag */
+;	spi_bit_banging.c:57: TI = 0;                  /* Clear transmission flag */
 ;	assignBit
 	jbc	_TI,00114$
 	sjmp	00101$
 00114$:
-;	spi_bit_banging.c:24: return charToSend;
+;	spi_bit_banging.c:58: return charToSend;
 	mov	dpl,r6
 	mov	dph,r7
-;	spi_bit_banging.c:25: }
+;	spi_bit_banging.c:59: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:31: int getchar(void) {
+;	spi_bit_banging.c:65: int getchar(void) {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
-;	spi_bit_banging.c:32: while (!RI);             /* Wait for reception completion */
+;	spi_bit_banging.c:66: while (!RI);             /* Wait for reception completion */
 00101$:
-;	spi_bit_banging.c:33: RI = 0;                  /* Clear reception flag */
+;	spi_bit_banging.c:67: RI = 0;                  /* Clear reception flag */
 ;	assignBit
 	jbc	_RI,00114$
 	sjmp	00101$
 00114$:
-;	spi_bit_banging.c:34: return SBUF;             /* Return received character */
+;	spi_bit_banging.c:68: return SBUF;             /* Return received character */
 	mov	r6,_SBUF
 	mov	r7,#0x00
 	mov	dpl,r6
 	mov	dph,r7
-;	spi_bit_banging.c:35: }
+;	spi_bit_banging.c:69: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'delay_ms'
 ;------------------------------------------------------------
-;ms                        Allocated with name '_delay_ms_ms_65536_18'
-;i                         Allocated with name '_delay_ms_i_65536_19'
-;j                         Allocated with name '_delay_ms_j_65536_19'
+;ms                        Allocated with name '_delay_ms_ms_65536_22'
+;i                         Allocated with name '_delay_ms_i_65536_23'
+;j                         Allocated with name '_delay_ms_j_65536_23'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:37: void delay_ms(unsigned int ms) {
+;	spi_bit_banging.c:76: void delay_ms(unsigned int ms) {
 ;	-----------------------------------------
 ;	 function delay_ms
 ;	-----------------------------------------
 _delay_ms:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_delay_ms_ms_65536_18
+	mov	dptr,#_delay_ms_ms_65536_22
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_bit_banging.c:39: for (i = 0; i < ms; i++)
-	mov	dptr,#_delay_ms_ms_65536_18
+;	spi_bit_banging.c:78: for (i = 0; i < ms; i++)
+	mov	dptr,#_delay_ms_ms_65536_22
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -615,7 +616,7 @@ _delay_ms:
 	mov	a,r5
 	subb	a,r7
 	jnc	00109$
-;	spi_bit_banging.c:40: for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
+;	spi_bit_banging.c:79: for (j = 0; j < DELAY_LOOP_COUNT; j++);
 	mov	r2,#0x7b
 	mov	r3,#0x00
 00105$:
@@ -626,32 +627,25 @@ _delay_ms:
 	mov	a,r2
 	orl	a,r3
 	jnz	00105$
-;	spi_bit_banging.c:39: for (i = 0; i < ms; i++)
+;	spi_bit_banging.c:78: for (i = 0; i < ms; i++)
 	inc	r4
 	cjne	r4,#0x00,00107$
 	inc	r5
 	sjmp	00107$
 00109$:
-;	spi_bit_banging.c:41: }
+;	spi_bit_banging.c:80: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:43: int main()
+;	spi_bit_banging.c:86: int main(void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	spi_bit_banging.c:46: SS = 1;  // Set SS high (inactive state)
-;	assignBit
-	setb	_P1_1
-;	spi_bit_banging.c:47: SDA = 0; // Initialize SDA to low
-;	assignBit
-	clr	_P1_7
-;	spi_bit_banging.c:48: SCL = 0; // Initialize SCL to low
-;	assignBit
-	clr	_P1_6
-;	spi_bit_banging.c:49: printf("  SPI BIT BANGING PROGRAM\n\r");
+;	spi_bit_banging.c:87: spi_init();
+	lcall	_spi_init
+;	spi_bit_banging.c:88: printf("SPI BIT BANGING PROGRAM\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -662,9 +656,9 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_bit_banging.c:51: while(1)
+;	spi_bit_banging.c:90: while(1) {
 00102$:
-;	spi_bit_banging.c:53: printf("r\n\r");
+;	spi_bit_banging.c:91: printf("r\n\r");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -675,113 +669,125 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_bit_banging.c:54: spi_write(0x1F);
-	mov	dpl,#0x1f
+;	spi_bit_banging.c:92: spi_write(TEST_DATA);
+	mov	dptr,#0x1ff0
 	lcall	_spi_write
-;	spi_bit_banging.c:55: spi_write(0xF0);
-	mov	dpl,#0xf0
-	lcall	_spi_write
-;	spi_bit_banging.c:56: delay_ms(500);
+;	spi_bit_banging.c:93: delay_ms(DELAY_PERIOD);
 	mov	dptr,#0x01f4
 	lcall	_delay_ms
-;	spi_bit_banging.c:57: spi_write(0x10);
-	mov	dpl,#0x10
+;	spi_bit_banging.c:94: spi_write(IDLE_DATA);
+	mov	dptr,#0x1000
 	lcall	_spi_write
-;	spi_bit_banging.c:58: spi_write(0x00);
-	mov	dpl,#0x00
-	lcall	_spi_write
-;	spi_bit_banging.c:64: }
+;	spi_bit_banging.c:95: delay_ms(DELAY_PERIOD);
+	mov	dptr,#0x01f4
+	lcall	_delay_ms
+;	spi_bit_banging.c:97: }
 	sjmp	00102$
+;------------------------------------------------------------
+;Allocation info for local variables in function 'spi_init'
+;------------------------------------------------------------
+;	spi_bit_banging.c:103: void spi_init(void) {
+;	-----------------------------------------
+;	 function spi_init
+;	-----------------------------------------
+_spi_init:
+;	spi_bit_banging.c:104: SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
+	mov	_SPCON,#0x00
+;	spi_bit_banging.c:105: SDA = DATA_HIGH;                 /* Set data line high */
+;	assignBit
+	setb	_P1_7
+;	spi_bit_banging.c:106: SCL = CLOCK_LOW;                 /* Set clock line low */
+;	assignBit
+	clr	_P1_6
+;	spi_bit_banging.c:107: SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
+;	assignBit
+	setb	_P1_1
+;	spi_bit_banging.c:108: }
+	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_write'
 ;------------------------------------------------------------
-;data                      Allocated with name '_spi_write_data_65536_24'
-;i                         Allocated with name '_spi_write_i_65537_26'
-;j                         Allocated with name '_spi_write_j_262145_29'
-;j                         Allocated with name '_spi_write_j_262145_30'
+;data                      Allocated with name '_spi_write_data_65536_31'
+;i                         Allocated with name '_spi_write_i_65536_32'
 ;------------------------------------------------------------
-;	spi_bit_banging.c:66: int spi_write(uint8_t data)
+;	spi_bit_banging.c:115: int spi_write(uint16_t data) {
 ;	-----------------------------------------
 ;	 function spi_write
 ;	-----------------------------------------
 _spi_write:
+	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_spi_write_data_65536_24
+	mov	dptr,#_spi_write_data_65536_31
 	movx	@dptr,a
-;	spi_bit_banging.c:69: SS = 0;
+	mov	a,r7
+	inc	dptr
+	movx	@dptr,a
+;	spi_bit_banging.c:118: SS = SLAVE_SELECT_ACTIVE;        /* Assert slave select (active low) */
 ;	assignBit
 	clr	_P1_1
-;	spi_bit_banging.c:71: for(i=0;i<=7;i++)
+;	spi_bit_banging.c:121: for(i = 0; i < SPI_DATA_WIDTH; i++) {
 	mov	r6,#0x00
 	mov	r7,#0x00
-00110$:
-;	spi_bit_banging.c:73: SDA = (data & 0x80) ? 1 : 0;    //msb first
-	mov	dptr,#_spi_write_data_65536_24
+00102$:
+;	spi_bit_banging.c:122: SDA = (data & MSB_FIRST_MASK) ? DATA_HIGH : DATA_LOW;    /* MSB first */
+	mov	dptr,#_spi_write_data_65536_31
 	movx	a,@dptr
+	mov	r4,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r5,a
 	rl	a
 	anl	a,#0x01
 	add	a,#0xff
 	mov	_P1_7,c
-;	spi_bit_banging.c:74: SCL=1;
+;	spi_bit_banging.c:123: SCL = CLOCK_HIGH;            /* Clock high */
 ;	assignBit
 	setb	_P1_6
-;	spi_bit_banging.c:76: for (int j = 0; j != 63; j++);
-	mov	r4,#0x00
-	mov	r5,#0x00
-00105$:
-	cjne	r4,#0x3f,00141$
-	cjne	r5,#0x00,00141$
-	sjmp	00101$
-00141$:
-	inc	r4
-	cjne	r4,#0x00,00105$
-	inc	r5
-	sjmp	00105$
-00101$:
-;	spi_bit_banging.c:77: SCL=0;
+;	spi_bit_banging.c:124: SCL = CLOCK_LOW;             /* Clock low */
 ;	assignBit
 	clr	_P1_6
-;	spi_bit_banging.c:79: for (int j = 0; j != 63; j++);
-	mov	r4,#0x00
-	mov	r5,#0x00
-00108$:
-	cjne	r4,#0x3f,00143$
-	cjne	r5,#0x00,00143$
-	sjmp	00102$
-00143$:
-	inc	r4
-	cjne	r4,#0x00,00108$
-	inc	r5
-	sjmp	00108$
-00102$:
-;	spi_bit_banging.c:80: data = data << 1;
-	mov	dptr,#_spi_write_data_65536_24
-	movx	a,@dptr
-	add	a,acc
+;	spi_bit_banging.c:125: data <<= 1;                  /* Shift to next bit */
+	mov	a,r4
+	add	a,r4
+	mov	r4,a
+	mov	a,r5
+	rlc	a
+	mov	r5,a
+	mov	dptr,#_spi_write_data_65536_31
+	mov	a,r4
 	movx	@dptr,a
-;	spi_bit_banging.c:71: for(i=0;i<=7;i++)
+	mov	a,r5
+	inc	dptr
+	movx	@dptr,a
+;	spi_bit_banging.c:121: for(i = 0; i < SPI_DATA_WIDTH; i++) {
 	inc	r6
-	cjne	r6,#0x00,00145$
+	cjne	r6,#0x00,00115$
 	inc	r7
-00145$:
+00115$:
 	clr	c
-	mov	a,#0x07
-	subb	a,r6
-	clr	a
-	subb	a,r7
-	jnc	00110$
-;	spi_bit_banging.c:82: SS = 1;
+	mov	a,r6
+	subb	a,#0x10
+	mov	a,r7
+	subb	a,#0x00
+	jc	00102$
+;	spi_bit_banging.c:129: SS = SLAVE_SELECT_INACTIVE;      /* Deassert slave select */
 ;	assignBit
 	setb	_P1_1
-;	spi_bit_banging.c:84: return 1;           // Success
-	mov	dptr,#0x0001
-;	spi_bit_banging.c:86: }
+;	spi_bit_banging.c:130: SCL = CLOCK_LOW;                 /* Clock low */
+;	assignBit
+	clr	_P1_6
+;	spi_bit_banging.c:131: SDA = DATA_HIGH;                 /* Data high */
+;	assignBit
+	setb	_P1_7
+;	spi_bit_banging.c:133: return 0;
+	mov	dptr,#0x0000
+;	spi_bit_banging.c:134: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
-	.ascii "  SPI BIT BANGING PROGRAM"
+	.ascii "SPI BIT BANGING PROGRAM"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00

@@ -50,7 +50,7 @@
 
 /* Sine Wave Parameters */
 #define SINE_SAMPLES      256      // Number of samples per sine wave cycle
-#define SINE_MAX_INDEX    256      // Maximum index for sine table (SINE_SAMPLES - 1)
+#define SINE_MAX_INDEX    256         // Maximum index for sine table (SINE_SAMPLES - 1)
 
 /* Timer0 Configuration for 1ms */
 #define TIMER0_VALUE  (0xFC66)     // Negative of number of machine cycles for 1ms
