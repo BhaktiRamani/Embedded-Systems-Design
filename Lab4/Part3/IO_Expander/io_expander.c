@@ -67,22 +67,22 @@ int main()
     i2c_stop();
 
     printf("IO expander initialized\n\r");
-    // while(1)
-    // {
-    //     int result = pcf8574_read_pin(0);
-    //     if(result == 0)
-    //     {
-    //         pcf8574_set_pin(7, 0);
-    //         pcf8574_set_pin(6, 0);
-    //         printf("H\n\r");
-    //     }
-    //     else if(result == 1)
-    //     {
-    //         pcf8574_set_pin(7, 1);
-    //         pcf8574_set_pin(6, 1);
-    //         printf("L\n\r");
-    //     }
-    // }
+    while(1)
+    {
+        int result = pcf8574_read_pin(0);
+        if(result == 0)
+        {
+            pcf8574_set_pin(7, 0);
+            pcf8574_set_pin(6, 0);
+            printf("H\n\r");
+        }
+        else if(result == 1)
+        {
+            pcf8574_set_pin(7, 1);
+            pcf8574_set_pin(6, 1);
+            printf("L\n\r");
+        }
+    }
     
 
     
@@ -93,7 +93,7 @@ int main()
 uint8_t pcf8574_read_port(void) {
     uint8_t data=0;
     i2c_start();
-    i2c_write(IO_EXPANDER_ID | READ);
+    i2c_write(PCF8574_I2C_READ_ADDRESS);
     data = i2c_read(0);
     i2c_stop();
     return data;
@@ -107,7 +107,7 @@ uint8_t pcf8574_read_pin(uint8_t pin) {
 void pcf8574_write_port(uint8_t value)
 {
     i2c_start();
-    i2c_write(IO_EXPANDER_ID | WRITE);
+    i2c_write(PCF8574_I2C_WRITE_ADDRESS);
     i2c_write(value);
     i2c_stop();
 }
