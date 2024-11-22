@@ -252,6 +252,11 @@ void display_menu(void) {
     printf("\n\rEnter command: ");
 }
 void demo_mode();
+#define SPI_ENABLE (1<<6)
+void spi_transmission_stop(void) 
+{
+    SPCON &= ~SPI_ENABLE;          // Disable SPI
+}
 int main(void)
 {
   display_menu();
@@ -268,11 +273,11 @@ int main(void)
                     unsigned char result = take_data();
                     mannual_spi(result);
                     printf(">> SIN WAVE GENERATION COMPLETE\n\r");
+                    spi_transmission_stop();
                     break;
                     
                 case 'B':
                 {
-                
                     bit_bang_spi_init();
                     unsigned char result2 = take_data();
                     bit_bang_spi(result2);
@@ -342,8 +347,6 @@ void demo_mode()
 
 
 
-
-
 void bit_bang_spi(unsigned char number)
 {
     while(number > 0)
@@ -357,7 +360,7 @@ void bit_bang_spi(unsigned char number)
 }
 unsigned char take_data()
 {
-    printf("│ Enter number (hex, up to 2 characters): \n\r|");
+    printf("│ Enter number (up to 2 characters): \n\r|");
     char input[4] = {0};  // Array for 3 hex chars + null terminator
     int i = 0;
     char c;
@@ -504,7 +507,7 @@ void spi_init(void)
 }
 
 void bit_bang_spi_init(void) {
-    //SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
+    SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
     SDA = DATA_HIGH;                 /* Set data line high */
     SCL = CLOCK_LOW;                 /* Set clock line low */
     SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
