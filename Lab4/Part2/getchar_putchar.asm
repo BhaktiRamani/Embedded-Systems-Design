@@ -328,7 +328,7 @@ _getstr_is_error_set_65536_73:
 ;------------------------------------------------------------
 ;charToSend                Allocated with name '_putchar_charToSend_65536_68'
 ;------------------------------------------------------------
-;	src/getchar_putchar.c:28: int putchar(int charToSend) {
+;	src/getchar_putchar.c:51: int putchar(int charToSend) {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
@@ -348,7 +348,7 @@ _putchar:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	src/getchar_putchar.c:29: SBUF = charToSend;  // Send character to serial buffer
+;	src/getchar_putchar.c:52: SBUF = charToSend;  // Send character to serial buffer
 	mov	dptr,#_putchar_charToSend_65536_68
 	movx	a,@dptr
 	mov	r6,a
@@ -356,39 +356,39 @@ _putchar:
 	movx	a,@dptr
 	mov	r7,a
 	mov	_SBUF,r6
-;	src/getchar_putchar.c:30: while (!TI);        // Wait for transmission to complete
+;	src/getchar_putchar.c:53: while (!TI);        // Wait for transmission to complete
 00101$:
-;	src/getchar_putchar.c:31: TI = 0;            // Clear transmission interrupt flag
+;	src/getchar_putchar.c:54: TI = 0;             // Clear transmission interrupt flag
 ;	assignBit
 	jbc	_TI,00114$
 	sjmp	00101$
 00114$:
-;	src/getchar_putchar.c:32: return charToSend;
+;	src/getchar_putchar.c:55: return charToSend;
 	mov	dpl,r6
 	mov	dph,r7
-;	src/getchar_putchar.c:33: }
+;	src/getchar_putchar.c:56: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	src/getchar_putchar.c:42: int getchar(void) {
+;	src/getchar_putchar.c:65: int getchar(void) {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
-;	src/getchar_putchar.c:43: while (!RI);        // Wait for reception to complete
+;	src/getchar_putchar.c:66: while (!RI);        // Wait for reception to complete
 00101$:
-;	src/getchar_putchar.c:44: RI = 0;            // Clear reception interrupt flag
+;	src/getchar_putchar.c:67: RI = 0;             // Clear reception interrupt flag
 ;	assignBit
 	jbc	_RI,00114$
 	sjmp	00101$
 00114$:
-;	src/getchar_putchar.c:45: return SBUF;       // Return received character
+;	src/getchar_putchar.c:68: return SBUF;        // Return received character
 	mov	r6,_SBUF
 	mov	r7,#0x00
 	mov	dpl,r6
 	mov	dph,r7
-;	src/getchar_putchar.c:46: }
+;	src/getchar_putchar.c:69: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getstr'
@@ -401,7 +401,7 @@ _getchar:
 ;index                     Allocated with name '_getstr_index_65536_73'
 ;is_error_set              Allocated with name '_getstr_is_error_set_65536_73'
 ;------------------------------------------------------------
-;	src/getchar_putchar.c:56: bool getstr(char *buffer,int buffer_len,char *error_string) {
+;	src/getchar_putchar.c:84: bool getstr(char *buffer, int buffer_len, char *error_string) {
 ;	-----------------------------------------
 ;	 function getstr
 ;	-----------------------------------------
@@ -417,16 +417,16 @@ _getstr:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	src/getchar_putchar.c:58: int index = 0;
+;	src/getchar_putchar.c:86: int index = 0;
 	mov	dptr,#_getstr_index_65536_73
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	src/getchar_putchar.c:59: bool is_error_set = false;
+;	src/getchar_putchar.c:87: bool is_error_set = false;
 	mov	dptr,#_getstr_is_error_set_65536_73
 	movx	@dptr,a
-;	src/getchar_putchar.c:61: while (1) {
+;	src/getchar_putchar.c:89: while (1) {
 	mov	dptr,#_getstr_PARM_2
 	movx	a,@dptr
 	mov	r6,a
@@ -447,7 +447,7 @@ _getstr:
 	movx	a,@dptr
 	mov	r5,a
 00113$:
-;	src/getchar_putchar.c:62: c = getchar(); // Receive a character
+;	src/getchar_putchar.c:90: c = getchar();  // Receive a character
 	push	ar7
 	push	ar6
 	push	ar5
@@ -455,7 +455,7 @@ _getstr:
 	push	ar3
 	lcall	_getchar
 	mov	r1,dpl
-;	src/getchar_putchar.c:63: putchar(c);
+;	src/getchar_putchar.c:91: putchar(c);     // Echo the received character back to the user
 	mov	ar0,r1
 	mov	r2,#0x00
 	mov	dpl,r0
@@ -468,13 +468,13 @@ _getstr:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	src/getchar_putchar.c:64: if (c == '\b' || c == BACKSPACE_DEC_VALUE) {
+;	src/getchar_putchar.c:94: if (c == '\b' || c == BACKSPACE_DEC_VALUE) {
 	cjne	r1,#0x08,00138$
 	sjmp	00103$
 00138$:
 	cjne	r1,#0x7f,00104$
 00103$:
-;	src/getchar_putchar.c:65: if (index > 0) 
+;	src/getchar_putchar.c:95: if (index > 0) {
 	mov	dptr,#_getstr_index_65536_73
 	movx	a,@dptr
 	mov	r0,a
@@ -489,7 +489,7 @@ _getstr:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00113$
-;	src/getchar_putchar.c:68: index--;
+;	src/getchar_putchar.c:96: index--;  // Remove last character if there's any
 	dec	r0
 	cjne	r0,#0xff,00142$
 	dec	r2
@@ -500,16 +500,16 @@ _getstr:
 	mov	a,r2
 	inc	dptr
 	movx	@dptr,a
-;	src/getchar_putchar.c:70: continue;
+;	src/getchar_putchar.c:98: continue;
 	sjmp	00113$
 00104$:
-;	src/getchar_putchar.c:74: if (c == '\r' || c == '\n') 
+;	src/getchar_putchar.c:102: if (c == '\r' || c == '\n') {
 	cjne	r1,#0x0d,00143$
 	sjmp	00106$
 00143$:
 	cjne	r1,#0x0a,00107$
 00106$:
-;	src/getchar_putchar.c:76: buffer[index] = '\0'; // Null-terminate the string
+;	src/getchar_putchar.c:103: buffer[index] = '\0';  // Null-terminate the string
 	mov	dptr,#_getstr_buffer_65536_72
 	movx	a,@dptr
 	mov	_getstr_sloc0_1_0,a
@@ -536,10 +536,10 @@ _getstr:
 	mov	b,(_getstr_sloc0_1_0 + 2)
 	clr	a
 	lcall	__gptrput
-;	src/getchar_putchar.c:77: break;                // Exit the loop
+;	src/getchar_putchar.c:104: break;                 // Exit the loop
 	sjmp	00114$
 00107$:
-;	src/getchar_putchar.c:81: if (index < buffer_len - 1 ) {
+;	src/getchar_putchar.c:108: if (index < buffer_len - 1) {
 	mov	dptr,#_getstr_index_65536_73
 	movx	a,@dptr
 	mov	r0,a
@@ -555,7 +555,7 @@ _getstr:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00110$
-;	src/getchar_putchar.c:82: buffer[index++] = c; // Save character and increment index
+;	src/getchar_putchar.c:109: buffer[index++] = c;  // Save character and increment index
 	push	ar6
 	push	ar7
 	mov	dptr,#_getstr_index_65536_73
@@ -582,11 +582,11 @@ _getstr:
 	pop	ar6
 	ljmp	00113$
 00110$:
-;	src/getchar_putchar.c:84: is_error_set = true;
+;	src/getchar_putchar.c:111: is_error_set = true;   // Set error flag if buffer is full
 	mov	dptr,#_getstr_is_error_set_65536_73
 	mov	a,#0x01
 	movx	@dptr,a
-;	src/getchar_putchar.c:85: printf("%s\n",error_string); //If the input exceeds the buffer_len then print error_string to console
+;	src/getchar_putchar.c:112: printf("%s\n", error_string);  // Print error message
 	mov	dptr,#_getstr_PARM_3
 	movx	a,@dptr
 	push	acc
@@ -606,12 +606,12 @@ _getstr:
 	mov	a,sp
 	add	a,#0xfa
 	mov	sp,a
-;	src/getchar_putchar.c:86: break;
+;	src/getchar_putchar.c:113: break;
 00114$:
-;	src/getchar_putchar.c:89: return is_error_set;
+;	src/getchar_putchar.c:116: return is_error_set;  // Return whether there was an error
 	mov	dptr,#_getstr_is_error_set_65536_73
 	movx	a,@dptr
-;	src/getchar_putchar.c:90: }
+;	src/getchar_putchar.c:117: }
 	mov	dpl,a
 	ret
 	.area CSEG    (CODE)

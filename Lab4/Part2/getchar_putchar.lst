@@ -328,7 +328,7 @@
                                     328 ;------------------------------------------------------------
                                     329 ;charToSend                Allocated with name '_putchar_charToSend_65536_68'
                                     330 ;------------------------------------------------------------
-                                    331 ;	src/getchar_putchar.c:28: int putchar(int charToSend) {
+                                    331 ;	src/getchar_putchar.c:51: int putchar(int charToSend) {
                                     332 ;	-----------------------------------------
                                     333 ;	 function putchar
                                     334 ;	-----------------------------------------
@@ -348,7 +348,7 @@
       000008 EF               [12]  348 	mov	a,r7
       000009 A3               [24]  349 	inc	dptr
       00000A F0               [24]  350 	movx	@dptr,a
-                                    351 ;	src/getchar_putchar.c:29: SBUF = charToSend;  // Send character to serial buffer
+                                    351 ;	src/getchar_putchar.c:52: SBUF = charToSend;  // Send character to serial buffer
       00000B 90r00r00         [24]  352 	mov	dptr,#_putchar_charToSend_65536_68
       00000E E0               [24]  353 	movx	a,@dptr
       00000F FE               [12]  354 	mov	r6,a
@@ -356,39 +356,39 @@
       000011 E0               [24]  356 	movx	a,@dptr
       000012 FF               [12]  357 	mov	r7,a
       000013 8E 99            [24]  358 	mov	_SBUF,r6
-                                    359 ;	src/getchar_putchar.c:30: while (!TI);        // Wait for transmission to complete
+                                    359 ;	src/getchar_putchar.c:53: while (!TI);        // Wait for transmission to complete
       000015                        360 00101$:
-                                    361 ;	src/getchar_putchar.c:31: TI = 0;            // Clear transmission interrupt flag
+                                    361 ;	src/getchar_putchar.c:54: TI = 0;             // Clear transmission interrupt flag
                                     362 ;	assignBit
       000015 10 99 02         [24]  363 	jbc	_TI,00114$
       000018 80 FB            [24]  364 	sjmp	00101$
       00001A                        365 00114$:
-                                    366 ;	src/getchar_putchar.c:32: return charToSend;
+                                    366 ;	src/getchar_putchar.c:55: return charToSend;
       00001A 8E 82            [24]  367 	mov	dpl,r6
       00001C 8F 83            [24]  368 	mov	dph,r7
-                                    369 ;	src/getchar_putchar.c:33: }
+                                    369 ;	src/getchar_putchar.c:56: }
       00001E 22               [24]  370 	ret
                                     371 ;------------------------------------------------------------
                                     372 ;Allocation info for local variables in function 'getchar'
                                     373 ;------------------------------------------------------------
-                                    374 ;	src/getchar_putchar.c:42: int getchar(void) {
+                                    374 ;	src/getchar_putchar.c:65: int getchar(void) {
                                     375 ;	-----------------------------------------
                                     376 ;	 function getchar
                                     377 ;	-----------------------------------------
       00001F                        378 _getchar:
-                                    379 ;	src/getchar_putchar.c:43: while (!RI);        // Wait for reception to complete
+                                    379 ;	src/getchar_putchar.c:66: while (!RI);        // Wait for reception to complete
       00001F                        380 00101$:
-                                    381 ;	src/getchar_putchar.c:44: RI = 0;            // Clear reception interrupt flag
+                                    381 ;	src/getchar_putchar.c:67: RI = 0;             // Clear reception interrupt flag
                                     382 ;	assignBit
       00001F 10 98 02         [24]  383 	jbc	_RI,00114$
       000022 80 FB            [24]  384 	sjmp	00101$
       000024                        385 00114$:
-                                    386 ;	src/getchar_putchar.c:45: return SBUF;       // Return received character
+                                    386 ;	src/getchar_putchar.c:68: return SBUF;        // Return received character
       000024 AE 99            [24]  387 	mov	r6,_SBUF
       000026 7F 00            [12]  388 	mov	r7,#0x00
       000028 8E 82            [24]  389 	mov	dpl,r6
       00002A 8F 83            [24]  390 	mov	dph,r7
-                                    391 ;	src/getchar_putchar.c:46: }
+                                    391 ;	src/getchar_putchar.c:69: }
       00002C 22               [24]  392 	ret
                                     393 ;------------------------------------------------------------
                                     394 ;Allocation info for local variables in function 'getstr'
@@ -401,7 +401,7 @@
                                     401 ;index                     Allocated with name '_getstr_index_65536_73'
                                     402 ;is_error_set              Allocated with name '_getstr_is_error_set_65536_73'
                                     403 ;------------------------------------------------------------
-                                    404 ;	src/getchar_putchar.c:56: bool getstr(char *buffer,int buffer_len,char *error_string) {
+                                    404 ;	src/getchar_putchar.c:84: bool getstr(char *buffer, int buffer_len, char *error_string) {
                                     405 ;	-----------------------------------------
                                     406 ;	 function getstr
                                     407 ;	-----------------------------------------
@@ -417,16 +417,16 @@
       00003A EF               [12]  417 	mov	a,r7
       00003B A3               [24]  418 	inc	dptr
       00003C F0               [24]  419 	movx	@dptr,a
-                                    420 ;	src/getchar_putchar.c:58: int index = 0;
+                                    420 ;	src/getchar_putchar.c:86: int index = 0;
       00003D 90r00r0A         [24]  421 	mov	dptr,#_getstr_index_65536_73
       000040 E4               [12]  422 	clr	a
       000041 F0               [24]  423 	movx	@dptr,a
       000042 A3               [24]  424 	inc	dptr
       000043 F0               [24]  425 	movx	@dptr,a
-                                    426 ;	src/getchar_putchar.c:59: bool is_error_set = false;
+                                    426 ;	src/getchar_putchar.c:87: bool is_error_set = false;
       000044 90r00r0C         [24]  427 	mov	dptr,#_getstr_is_error_set_65536_73
       000047 F0               [24]  428 	movx	@dptr,a
-                                    429 ;	src/getchar_putchar.c:61: while (1) {
+                                    429 ;	src/getchar_putchar.c:89: while (1) {
       000048 90r00r02         [24]  430 	mov	dptr,#_getstr_PARM_2
       00004B E0               [24]  431 	movx	a,@dptr
       00004C FE               [12]  432 	mov	r6,a
@@ -447,7 +447,7 @@
       00005E E0               [24]  447 	movx	a,@dptr
       00005F FD               [12]  448 	mov	r5,a
       000060                        449 00113$:
-                                    450 ;	src/getchar_putchar.c:62: c = getchar(); // Receive a character
+                                    450 ;	src/getchar_putchar.c:90: c = getchar();  // Receive a character
       000060 C0 07            [24]  451 	push	ar7
       000062 C0 06            [24]  452 	push	ar6
       000064 C0 05            [24]  453 	push	ar5
@@ -455,7 +455,7 @@
       000068 C0 03            [24]  455 	push	ar3
       00006A 12r00r1F         [24]  456 	lcall	_getchar
       00006D A9 82            [24]  457 	mov	r1,dpl
-                                    458 ;	src/getchar_putchar.c:63: putchar(c);
+                                    458 ;	src/getchar_putchar.c:91: putchar(c);     // Echo the received character back to the user
       00006F 89 00            [24]  459 	mov	ar0,r1
       000071 7A 00            [12]  460 	mov	r2,#0x00
       000073 88 82            [24]  461 	mov	dpl,r0
@@ -468,13 +468,13 @@
       000082 D0 05            [24]  468 	pop	ar5
       000084 D0 06            [24]  469 	pop	ar6
       000086 D0 07            [24]  470 	pop	ar7
-                                    471 ;	src/getchar_putchar.c:64: if (c == '\b' || c == BACKSPACE_DEC_VALUE) {
+                                    471 ;	src/getchar_putchar.c:94: if (c == '\b' || c == BACKSPACE_DEC_VALUE) {
       000088 B9 08 02         [24]  472 	cjne	r1,#0x08,00138$
       00008B 80 03            [24]  473 	sjmp	00103$
       00008D                        474 00138$:
       00008D B9 7F 25         [24]  475 	cjne	r1,#0x7f,00104$
       000090                        476 00103$:
-                                    477 ;	src/getchar_putchar.c:65: if (index > 0) 
+                                    477 ;	src/getchar_putchar.c:95: if (index > 0) {
       000090 90r00r0A         [24]  478 	mov	dptr,#_getstr_index_65536_73
       000093 E0               [24]  479 	movx	a,@dptr
       000094 F8               [12]  480 	mov	r0,a
@@ -489,7 +489,7 @@
       00009F 63 F0 80         [24]  489 	xrl	b,#0x80
       0000A2 95 F0            [12]  490 	subb	a,b
       0000A4 50 BA            [24]  491 	jnc	00113$
-                                    492 ;	src/getchar_putchar.c:68: index--;
+                                    492 ;	src/getchar_putchar.c:96: index--;  // Remove last character if there's any
       0000A6 18               [12]  493 	dec	r0
       0000A7 B8 FF 01         [24]  494 	cjne	r0,#0xff,00142$
       0000AA 1A               [12]  495 	dec	r2
@@ -500,16 +500,16 @@
       0000B0 EA               [12]  500 	mov	a,r2
       0000B1 A3               [24]  501 	inc	dptr
       0000B2 F0               [24]  502 	movx	@dptr,a
-                                    503 ;	src/getchar_putchar.c:70: continue;
+                                    503 ;	src/getchar_putchar.c:98: continue;
       0000B3 80 AB            [24]  504 	sjmp	00113$
       0000B5                        505 00104$:
-                                    506 ;	src/getchar_putchar.c:74: if (c == '\r' || c == '\n') 
+                                    506 ;	src/getchar_putchar.c:102: if (c == '\r' || c == '\n') {
       0000B5 B9 0D 02         [24]  507 	cjne	r1,#0x0d,00143$
       0000B8 80 03            [24]  508 	sjmp	00106$
       0000BA                        509 00143$:
       0000BA B9 0A 2F         [24]  510 	cjne	r1,#0x0a,00107$
       0000BD                        511 00106$:
-                                    512 ;	src/getchar_putchar.c:76: buffer[index] = '\0'; // Null-terminate the string
+                                    512 ;	src/getchar_putchar.c:103: buffer[index] = '\0';  // Null-terminate the string
       0000BD 90r00r07         [24]  513 	mov	dptr,#_getstr_buffer_65536_72
       0000C0 E0               [24]  514 	movx	a,@dptr
       0000C1 F5*00            [12]  515 	mov	_getstr_sloc0_1_0,a
@@ -536,10 +536,10 @@
       0000E3 85*02 F0         [24]  536 	mov	b,(_getstr_sloc0_1_0 + 2)
       0000E6 E4               [12]  537 	clr	a
       0000E7 12r00r00         [24]  538 	lcall	__gptrput
-                                    539 ;	src/getchar_putchar.c:77: break;                // Exit the loop
+                                    539 ;	src/getchar_putchar.c:104: break;                 // Exit the loop
       0000EA 80 68            [24]  540 	sjmp	00114$
       0000EC                        541 00107$:
-                                    542 ;	src/getchar_putchar.c:81: if (index < buffer_len - 1 ) {
+                                    542 ;	src/getchar_putchar.c:108: if (index < buffer_len - 1) {
       0000EC 90r00r0A         [24]  543 	mov	dptr,#_getstr_index_65536_73
       0000EF E0               [24]  544 	movx	a,@dptr
       0000F0 F8               [12]  545 	mov	r0,a
@@ -555,7 +555,7 @@
       0000FC 63 F0 80         [24]  555 	xrl	b,#0x80
       0000FF 95 F0            [12]  556 	subb	a,b
       000101 50 28            [24]  557 	jnc	00110$
-                                    558 ;	src/getchar_putchar.c:82: buffer[index++] = c; // Save character and increment index
+                                    558 ;	src/getchar_putchar.c:109: buffer[index++] = c;  // Save character and increment index
       000103 C0 06            [24]  559 	push	ar6
       000105 C0 07            [24]  560 	push	ar7
       000107 90r00r0A         [24]  561 	mov	dptr,#_getstr_index_65536_73
@@ -582,11 +582,11 @@
       000126 D0 06            [24]  582 	pop	ar6
       000128 02r00r60         [24]  583 	ljmp	00113$
       00012B                        584 00110$:
-                                    585 ;	src/getchar_putchar.c:84: is_error_set = true;
+                                    585 ;	src/getchar_putchar.c:111: is_error_set = true;   // Set error flag if buffer is full
       00012B 90r00r0C         [24]  586 	mov	dptr,#_getstr_is_error_set_65536_73
       00012E 74 01            [12]  587 	mov	a,#0x01
       000130 F0               [24]  588 	movx	@dptr,a
-                                    589 ;	src/getchar_putchar.c:85: printf("%s\n",error_string); //If the input exceeds the buffer_len then print error_string to console
+                                    589 ;	src/getchar_putchar.c:112: printf("%s\n", error_string);  // Print error message
       000131 90r00r04         [24]  590 	mov	dptr,#_getstr_PARM_3
       000134 E0               [24]  591 	movx	a,@dptr
       000135 C0 E0            [24]  592 	push	acc
@@ -606,12 +606,12 @@
       00014E E5 81            [12]  606 	mov	a,sp
       000150 24 FA            [12]  607 	add	a,#0xfa
       000152 F5 81            [12]  608 	mov	sp,a
-                                    609 ;	src/getchar_putchar.c:86: break;
+                                    609 ;	src/getchar_putchar.c:113: break;
       000154                        610 00114$:
-                                    611 ;	src/getchar_putchar.c:89: return is_error_set;
+                                    611 ;	src/getchar_putchar.c:116: return is_error_set;  // Return whether there was an error
       000154 90r00r0C         [24]  612 	mov	dptr,#_getstr_is_error_set_65536_73
       000157 E0               [24]  613 	movx	a,@dptr
-                                    614 ;	src/getchar_putchar.c:90: }
+                                    614 ;	src/getchar_putchar.c:117: }
       000158 F5 82            [12]  615 	mov	dpl,a
       00015A 22               [24]  616 	ret
                                     617 	.area CSEG    (CODE)

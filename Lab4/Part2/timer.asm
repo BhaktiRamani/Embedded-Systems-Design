@@ -513,7 +513,7 @@ _TF1	=	0x008f
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer0_init'
 ;------------------------------------------------------------
-;	src/timer.c:42: void timer0_init() {
+;	src/timer.c:44: void timer0_init() {
 ;	-----------------------------------------
 ;	 function timer0_init
 ;	-----------------------------------------
@@ -526,108 +526,108 @@ _timer0_init:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	src/timer.c:43: TR0 = 0;                 // Stop Timer 0
+;	src/timer.c:45: TR0 = 0;                 // Stop Timer 0
 ;	assignBit
 	clr	_TR0
-;	src/timer.c:44: current_time_display();  // Display initial time on the LCD
+;	src/timer.c:46: current_time_display();  // Display initial time on the LCD
 	lcall	_current_time_display
-;	src/timer.c:45: IEN0 |= 0x82;            // Enable Timer 0 interrupt and global interrupt
+;	src/timer.c:47: IEN0 |= 0x82;            // Enable Timer 0 interrupt and global interrupt
 	orl	_IEN0,#0x82
-;	src/timer.c:46: TMOD &= 0xF0;            // Clear the upper 4 bits for Timer 0
+;	src/timer.c:48: TMOD &= 0xF0;            // Clear the upper 4 bits for Timer 0
 	anl	_TMOD,#0xf0
-;	src/timer.c:47: TMOD |= 0x01;            // Timer 0 in Mode 1 (16-bit timer)
+;	src/timer.c:49: TMOD |= 0x01;            // Timer 0 in Mode 1 (16-bit timer)
 	orl	_TMOD,#0x01
-;	src/timer.c:48: TH0 = TH0_FOR_50MS;              // Load high byte for 100 ms delay
+;	src/timer.c:50: TH0 = TH0_FOR_50MS;              // Load high byte for 100 ms delay
 	mov	_TH0,#0x4b
-;	src/timer.c:49: TL0 = TL0_FOR_50MS;              // Load low byte for 100 ms delay
+;	src/timer.c:51: TL0 = TL0_FOR_50MS;              // Load low byte for 100 ms delay
 	mov	_TL0,#0x1c
-;	src/timer.c:50: ET0 = 1;                 // Enable Timer 0 interrupt
+;	src/timer.c:52: ET0 = 1;                 // Enable Timer 0 interrupt
 ;	assignBit
 	setb	_ET0
-;	src/timer.c:51: EA = 1;                  // Enable global interrupts
+;	src/timer.c:53: EA = 1;                  // Enable global interrupts
 ;	assignBit
 	setb	_EA
-;	src/timer.c:52: TR0 = 1;                 // Start Timer 0
+;	src/timer.c:54: TR0 = 1;                 // Start Timer 0
 ;	assignBit
 	setb	_TR0
-;	src/timer.c:53: }
+;	src/timer.c:55: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer_stop'
 ;------------------------------------------------------------
-;	src/timer.c:63: void timer_stop() {
+;	src/timer.c:58: void timer_stop() {
 ;	-----------------------------------------
 ;	 function timer_stop
 ;	-----------------------------------------
 _timer_stop:
-;	src/timer.c:64: EA = 0;                   // Disable global interrupts
+;	src/timer.c:59: EA = 0;                   // Disable global interrupts
 ;	assignBit
 	clr	_EA
-;	src/timer.c:65: TR0 = 0;                  // Stop Timer 0
+;	src/timer.c:60: TR0 = 0;                  // Stop Timer 0
 ;	assignBit
 	clr	_TR0
-;	src/timer.c:66: minutes = 0;              // Reset minutes
+;	src/timer.c:61: minutes = 0;              // Reset minutes
 	mov	dptr,#_minutes
 	clr	a
 	movx	@dptr,a
-;	src/timer.c:67: seconds = 0;              // Reset seconds
+;	src/timer.c:62: seconds = 0;              // Reset seconds
 	mov	dptr,#_seconds
 	movx	@dptr,a
-;	src/timer.c:68: one_twentyth_of_Second = 0;  // Reset tenths of a second
+;	src/timer.c:63: one_twentyth_of_Second = 0;  // Reset tenths of a second
 	mov	dptr,#_one_twentyth_of_Second
 	movx	@dptr,a
-;	src/timer.c:69: one_tenth_of_second=0; //Reset tenths of a second
+;	src/timer.c:64: one_tenth_of_second=0; //Reset tenths of a second
 	mov	dptr,#_one_tenth_of_second
 	movx	@dptr,a
-;	src/timer.c:70: current_time_display();   // Update time display on the LCD
-;	src/timer.c:71: }
+;	src/timer.c:65: current_time_display();   // Update time display on the LCD
+;	src/timer.c:66: }
 	ljmp	_current_time_display
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer_pause'
 ;------------------------------------------------------------
-;	src/timer.c:81: void timer_pause() {
+;	src/timer.c:68: void timer_pause() {
 ;	-----------------------------------------
 ;	 function timer_pause
 ;	-----------------------------------------
 _timer_pause:
-;	src/timer.c:82: ET0 = 0;  // Disable Timer 0 interrupt
+;	src/timer.c:69: ET0 = 0;  // Disable Timer 0 interrupt
 ;	assignBit
 	clr	_ET0
-;	src/timer.c:83: EA = 0;   // Disable global interrupts
+;	src/timer.c:70: EA = 0;   // Disable global interrupts
 ;	assignBit
 	clr	_EA
-;	src/timer.c:84: TR0 = 0;  // Stop Timer 0
+;	src/timer.c:71: TR0 = 0;  // Stop Timer 0
 ;	assignBit
 	clr	_TR0
-;	src/timer.c:85: }
+;	src/timer.c:72: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer_start'
 ;------------------------------------------------------------
-;	src/timer.c:95: void timer_start() {
+;	src/timer.c:74: void timer_start() {
 ;	-----------------------------------------
 ;	 function timer_start
 ;	-----------------------------------------
 _timer_start:
-;	src/timer.c:96: TH0 = 0x98;  // Load high byte for 100 ms delay
+;	src/timer.c:75: TH0 = 0x98;  // Load high byte for 100 ms delay
 	mov	_TH0,#0x98
-;	src/timer.c:97: TL0 = 0x00;  // Load low byte for 100 ms delay
+;	src/timer.c:76: TL0 = 0x00;  // Load low byte for 100 ms delay
 	mov	_TL0,#0x00
-;	src/timer.c:98: ET0 = 1;     // Enable Timer 0 interrupt
+;	src/timer.c:77: ET0 = 1;     // Enable Timer 0 interrupt
 ;	assignBit
 	setb	_ET0
-;	src/timer.c:99: EA = 1;      // Enable global interrupts
+;	src/timer.c:78: EA = 1;      // Enable global interrupts
 ;	assignBit
 	setb	_EA
-;	src/timer.c:100: TR0 = 1;     // Start Timer 0
+;	src/timer.c:79: TR0 = 1;     // Start Timer 0
 ;	assignBit
 	setb	_TR0
-;	src/timer.c:101: }
+;	src/timer.c:80: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'current_time_display'
 ;------------------------------------------------------------
-;	src/timer.c:111: void current_time_display() __critical {
+;	src/timer.c:82: void current_time_display() __critical {
 ;	-----------------------------------------
 ;	 function current_time_display
 ;	-----------------------------------------
@@ -637,13 +637,13 @@ _current_time_display:
 	clr	c
 00103$:
 	push	psw
-;	src/timer.c:112: lcd_go_toxy(MSB_OF_MINUTE);
+;	src/timer.c:83: lcd_go_toxy(MSB_OF_MINUTE);
 	mov	dptr,#_lcd_go_toxy_PARM_2
 	mov	a,#0x09
 	movx	@dptr,a
 	mov	dpl,#0x03
 	lcall	_lcd_go_toxy
-;	src/timer.c:113: lcd_put_char((minutes / 10) + '0');  // Display tens place of minutes
+;	src/timer.c:84: lcd_put_char((minutes / 10) + '0');  // Display tens place of minutes
 	mov	dptr,#_minutes
 	movx	a,@dptr
 	mov	r7,a
@@ -662,7 +662,7 @@ _current_time_display:
 	add	a,r6
 	mov	dpl,a
 	lcall	_lcd_put_char
-;	src/timer.c:114: lcd_put_char((minutes % 10) + '0');  // Display ones place of minutes
+;	src/timer.c:85: lcd_put_char((minutes % 10) + '0');  // Display ones place of minutes
 	mov	dptr,#_minutes
 	movx	a,@dptr
 	mov	r7,a
@@ -681,10 +681,10 @@ _current_time_display:
 	add	a,r6
 	mov	dpl,a
 	lcall	_lcd_put_char
-;	src/timer.c:115: lcd_put_char(':');                   // Display colon
+;	src/timer.c:86: lcd_put_char(':');                   // Display colon
 	mov	dpl,#0x3a
 	lcall	_lcd_put_char
-;	src/timer.c:116: lcd_put_char((seconds / 10) + '0');  // Display tens place of seconds
+;	src/timer.c:87: lcd_put_char((seconds / 10) + '0');  // Display tens place of seconds
 	mov	dptr,#_seconds
 	movx	a,@dptr
 	mov	r7,a
@@ -703,7 +703,7 @@ _current_time_display:
 	add	a,r6
 	mov	dpl,a
 	lcall	_lcd_put_char
-;	src/timer.c:117: lcd_put_char((seconds % 10) + '0');  // Display ones place of seconds
+;	src/timer.c:88: lcd_put_char((seconds % 10) + '0');  // Display ones place of seconds
 	mov	dptr,#_seconds
 	movx	a,@dptr
 	mov	r7,a
@@ -722,16 +722,16 @@ _current_time_display:
 	add	a,r6
 	mov	dpl,a
 	lcall	_lcd_put_char
-;	src/timer.c:118: lcd_put_char('.');                   // Display decimal point
+;	src/timer.c:89: lcd_put_char('.');                   // Display decimal point
 	mov	dpl,#0x2e
 	lcall	_lcd_put_char
-;	src/timer.c:119: lcd_put_char(one_tenth_of_second + '0');  // Display tenths of a second
+;	src/timer.c:90: lcd_put_char(one_tenth_of_second + '0');  // Display tenths of a second
 	mov	dptr,#_one_tenth_of_second
 	movx	a,@dptr
 	add	a,#0x30
 	mov	dpl,a
 	lcall	_lcd_put_char
-;	src/timer.c:120: }
+;	src/timer.c:91: }
 	pop	psw
 	mov	ea,c
 	ret

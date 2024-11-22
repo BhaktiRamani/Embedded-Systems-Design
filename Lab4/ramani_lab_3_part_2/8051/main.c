@@ -13,7 +13,6 @@
  * 
  * @hardware_configuration
  * - MCU: 8051 (AT89C51ED2)
- * - LCD: [Specify the LCD model]
  * - Timer: Timer 0 for 50ms interrupt
  *
  * @features
@@ -36,51 +35,20 @@
 #include "command_handlers.h"
 
 // Volatile variables for timekeeping
-volatile uint8_t one_twentyth_of_Second = 0;  /**< Holds the 1/20th of a second value */
-volatile uint8_t one_tenth_of_second = 0;     /**< Holds the 1/10th of a second value */
-volatile uint8_t seconds = 0;                 /**< Holds the current seconds value */
-volatile uint8_t minutes = 0;                 /**< Holds the current minutes value */
+volatile uint8_t frame_tick = 0;       /**< Holds the 1/20th of a second value */
+volatile uint8_t pulse_tick = 0;       /**< Holds the 1/10th of a second value */
+volatile uint8_t chrono_seconds = 0;   /**< Holds the current seconds value */
+volatile uint8_t chrono_minutes = 0;   /**< Holds the current minutes value */
 
 // Define positions on the LCD for displaying time
-#define ONE_TENTH_OF_SECOND_ROW_COLUMN  3,15
-#define LSB_OF_SECOND 3,13
-#define MSB_OF_SECOND 3,12
-#define LSB_OF_MINUTE 3,10
-#define MSB_OF_MINUTE 3,9
+#define LCD_POSITION_TICK_TENTH      3, 15
+#define LCD_POSITION_SEC_UNITS       3, 13
+#define LCD_POSITION_SEC_TENS        3, 12
+#define LCD_POSITION_MIN_UNITS       3, 10
+#define LCD_POSITION_MIN_TENS        3, 9
 
-/**
- * @brief Timer 0 Interrupt Service Routine
- * 
- * This function handles the Timer 0 interrupt, which occurs every 50ms.
- * It updates the time values (seconds and minutes) and refreshes the display
- * every 1/10th of a second.
- * 
- * @return None
- */
-void timer0_isr(void) __interrupt (1) {
-    TH0 = TH0_FOR_50MS;       // High byte for 50ms delay
-    TL0 = TL0_FOR_50MS;       // Low byte for 50ms delay
-    one_twentyth_of_Second++; // Increment 1/20th of a second counter
-    TR0 = 1;                  // Restart the timer
 
-    // If 1 second has passed, update the seconds counter
-    if (one_twentyth_of_Second == 20) {
-        one_twentyth_of_Second = 0;
-        seconds++;
-        
-        // If 60 seconds have passed, reset seconds and increment minutes
-        if (seconds == 60) {
-            seconds = 0;
-            minutes++;
-        }
-    }
 
-    // Display the time every 1/10th of a second
-    if (one_twentyth_of_Second % 2 == 0) {
-        one_tenth_of_second = one_twentyth_of_Second / 2;
-        current_time_display(); // Update time display on LCD
-    }
-}
 
 /**
  * @brief Main function of the program.
@@ -97,9 +65,10 @@ void main() {
 
     // Initialize LCD, time counters, and timer interrupt
     lcd_init();
-    one_twentyth_of_Second = 0;
-    seconds = 0;
-    minutes = 0;
+    frame_tick = 0;
+    chrono_seconds = 0;
+    chrono_minutes = 0;
+
     timer0_init();
 
     // Display welcome and usage messages
@@ -129,4 +98,39 @@ void main() {
         putchar(char_received);     // Echo the received character
         command_parser(char_received);  // Parse the command and take appropriate action
     }
+}
+
+/**
+ * @brief Timer 0 Interrupt Service Routine
+ *
+ * This function handles the Timer 0 interrupt, which occurs every 50ms.
+ * It updates the time values (seconds and minutes) and refreshes the display
+ * every 1/10th of a second.
+ *
+ * @return None
+ */
+void timer0_isr(void) __interrupt (1) {
+    TH0 = TH0_FOR_50MS;       // High byte for 50ms delay
+    TL0 = TL0_FOR_50MS;       // Low byte for 50ms delay
+    one_twentyth_of_Second++; // Increment 1/20th of a second counter
+    TR0 = 1;                  // Restart the timer
+
+    // If 1 second has passed, update the seconds counter
+    if (frame_tick == 20) {
+        frame_tick = 0;
+        chrono_seconds++;
+
+        // If 60 seconds have passed, reset seconds and increment minutes
+        if (chrono_seconds == 60) {
+            chrono_seconds = 0;
+            chrono_minutes++;
+        }
+    }
+
+    // Display the time every 1/10th of a second
+    if (frame_tick % 2 == 0) {
+        pulse_tick = frame_tick / 2;
+        current_time_display(); // Update time display on LCD
+    }
+
 }

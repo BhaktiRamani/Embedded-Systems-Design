@@ -1,12 +1,15 @@
-/* ---------------------------------------------------------------------------------
- * @Author: Induja Narayanan <Induja.Narayanan@in.bosch.com>
- * ECEN 5613, Command handler functions
- * Fall 2024, Prof.McClure
- * University of Colorado at Boulder
- *  ------------------------------------------------------------------------------------
- * This file contains the command handlers which displays a submenu for the command character
- * entered by the user , requests and takes necessary actions using memory handler functionality.
- * --------------------------------------------------------------------------------------*/
+/****************************************************************************
+ * @file getchar_putchar.c
+ * @author Bhakti Ramani
+ * @brief UART character and string handling functions.
+ * @date Fall 2024
+ * @course ECEN 5613, University of Colorado at Boulder
+ * 
+ *
+ * @copyright
+ * Copyright (c) 2024 Bhakti Ramani
+ * All rights reserved.
+ ****************************************************************************/
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -22,136 +25,139 @@
 #define WRITE_DATA_BUFFER_LEN 100
 #define ROW_COLUMN_NUMBER_LEN 3
 
-/* -------------------------------------------------------------------------------------
- * command_parser
- * ------------------------------------------------------------------------------------
- * Purpose: Parses input command and takes action
- * Param   : cmd - Input command character to be handled
- * Return  : None
- *-------------------------------------------------------------------------------------*/
 
 void command_parser(char cmd)
 {
     switch (cmd)
     {
-    //Handles + command
     case 'W':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             WRITE  MENU           ");
-        printf("\r\n-------------------------------------------------------------------");
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                        WRITE MENU                              ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
         action_for_write_command();
-        printf("\r\nExiting add menu...");
+        printf("\r\nExiting write menu...");
         break;
-    //Handles - command
+
     case 'E':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             Clearing the display        ");
-        printf("\r\n-------------------------------------------------------------------");
-        __critical{
-        lcd_clear();
-        current_time_display();
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                    CLEARING THE DISPLAY                        ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
+        __critical {
+            lcd_clear();
+            current_time_display();
         }
         printf("\r\nExiting clear menu...");
         break;
+
     case 'P':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             Pausing the timer        ");
-        printf("\r\n-------------------------------------------------------------------");
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                     PAUSING THE TIMER                          ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
         timer_pause();
         printf("\r\nExiting pause menu...");
         break;
+
     case 'S':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             Start the Timer        ");
-        printf("\r\n-------------------------------------------------------------------");
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                     START THE TIMER                            ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
         timer_start();
         printf("\r\nExiting start timer menu...");
         break;
+
     case 'R':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             Stop the Timer        ");
-        printf("\r\n-------------------------------------------------------------------");
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                      STOP THE TIMER                            ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
         timer_stop();
         printf("\r\nExiting stop timer menu...");
         break;
+
     case 'T':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             Write to specific position        ");
-        printf("\r\n-------------------------------------------------------------------");
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                WRITE TO SPECIFIC POSITION                      ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
         action_for_write_to_specific_position();
         printf("\r\nExiting write menu...");
         break;
+
     case 'H':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             Hexdump of DDRAM contents        ");
-        printf("\r\n-------------------------------------------------------------------");
-        __critical{
-        lcd_ddram_dump_16x4();
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                 HEXDUMP OF DDRAM CONTENTS                      ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
+        __critical {
+            lcd_ddram_dump_16x4();
         }
         printf("\r\nExiting hexdump menu...");
         break;
+
     case 'C':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             Hexdump of CGRAM contents        ");
-        printf("\r\n-------------------------------------------------------------------");
-        __critical{
-        lcd_cgram_dump();
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                 HEXDUMP OF CGRAM CONTENTS                      ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
+        __critical {
+            lcd_cgram_dump();
         }
         printf("\r\nExiting hexdump menu...");
         break;
+
     case 'A':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             Create a chaacter        ");
-        printf("\r\n-------------------------------------------------------------------");
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                   CREATE A CHARACTER                           ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
         action_for_character_creation();
-        printf("\r\nExiting hexdump menu...");
+        printf("\r\nExiting character creation menu...");
         break;
+
     case 'D':
-        printf("\r\n-------------------------------------------------------------------");
-        printf("\r\n                             Display custom char       ");
-        printf("\r\n-------------------------------------------------------------------");
-    action_for_display_custom_char();
-     case '?':
-   printf("\r\n----------------------------     Usage          --------------------------------------------\r\n");
-    printf(" W       : Write a string\r\n");
-    printf(" T       : Write to a specific position in the LCD\r\n");
-    printf(" E       : Clear the display\r\n");
-    printf(" P       : Pause the Timer\r\n");
-    printf(" S       : Start the Timer\r\n");
-    printf(" R       : Stop and reset the Timer\r\n");
-    printf(" H       : Hexdump of DDRAM contents\r\n");
-    printf(" C       : Hexdump of CGRAM contents\r\n");
-    printf(" A       : Create a CGRAM character\r\n");
-    printf(" D       : Display a CGRAM character\r\n");
-    printf(" ?       : Help menu\r\n");
-    printf("--------------------------------------------------------------------------------------------\r\n");
-        break;     
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                  DISPLAY CUSTOM CHAR                           ║");
+        printf("\r\n╚════════════════════════════════════════════════════════════════╝");
+        action_for_display_custom_char();
+        break;
+
+    case '?':
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                         HELP MENU                              ║");
+        printf("\r\n╠═══════════╦════════════════════════════════════════════════════╣");
+        printf("\r\n║ Command   ║                    Description                      ║");
+        printf("\r\n╠═══════════╬════════════════════════════════════════════════════╣");
+        printf("\r\n║    W      ║ Write a string                                     ║");
+        printf("\r\n║    T      ║ Write to a specific position in the LCD            ║");
+        printf("\r\n║    E      ║ Clear the display                                  ║");
+        printf("\r\n║    P      ║ Pause the Timer                                    ║");
+        printf("\r\n║    S      ║ Start the Timer                                    ║");
+        printf("\r\n║    R      ║ Stop and reset the Timer                           ║");
+        printf("\r\n║    H      ║ Hexdump of DDRAM contents                          ║");
+        printf("\r\n║    C      ║ Hexdump of CGRAM contents                          ║");
+        printf("\r\n║    A      ║ Create a CGRAM character                           ║");
+        printf("\r\n║    D      ║ Display a CGRAM character                          ║");
+        printf("\r\n║    ?      ║ Help menu                                          ║");
+        printf("\r\n╚═══════════╩════════════════════════════════════════════════════╝");
+        break;
 
     default:
-        printf("\r\n                         Invalid Input                              ");
-    printf("\r\n----------------------------     Usage          --------------------------------------------\r\n");
-    printf(" W       : Write a string\r\n");
-    printf(" T       : Write to a specific position in the LCD\r\n");
-    printf(" E       : Clear the display\r\n");
-    printf(" P       : Pause the Timer\r\n");
-    printf(" S       : Start the Timer\r\n");
-    printf(" R       : Stop and reset the Timer\r\n");
-    printf(" H       : Hexdump of DDRAM contents\r\n");
-    printf(" C       : Hexdump of CGRAM contents\r\n");
-    printf(" A       : Create a CGRAM character\r\n");
-    printf(" D       : Display a CGRAM character\r\n");
-    printf(" ?       : Help menu\r\n");
-    printf("--------------------------------------------------------------------------------------------\r\n");
+        printf("\r\n╔════════════════════════════════════════════════════════════════╗");
+        printf("\r\n║                      INVALID INPUT                             ║");
+        printf("\r\n╠═══════════╦════════════════════════════════════════════════════╣");
+        printf("\r\n║ Command   ║                    Description                      ║");
+        printf("\r\n╠═══════════╬════════════════════════════════════════════════════╣");
+        printf("\r\n║    W      ║ Write a string                                     ║");
+        printf("\r\n║    T      ║ Write to a specific position in the LCD            ║");
+        printf("\r\n║    E      ║ Clear the display                                  ║");
+        printf("\r\n║    P      ║ Pause the Timer                                    ║");
+        printf("\r\n║    S      ║ Start the Timer                                    ║");
+        printf("\r\n║    R      ║ Stop and reset the Timer                           ║");
+        printf("\r\n║    H      ║ Hexdump of DDRAM contents                          ║");
+        printf("\r\n║    C      ║ Hexdump of CGRAM contents                          ║");
+        printf("\r\n║    A      ║ Create a CGRAM character                           ║");
+        printf("\r\n║    D      ║ Display a CGRAM character                          ║");
+        printf("\r\n║    ?      ║ Help menu                                          ║");
+        printf("\r\n╚═══════════╩════════════════════════════════════════════════════╝");
         break;
     }
 }
-/* -------------------------------------------------------------------------------------
- * is_digit
- * ------------------------------------------------------------------------------------
- * Purpose : Checks if character is digit
- * Param   : c - character to be checked
- * Return  : true if character is digit else returns false
- *-------------------------------------------------------------------------------------*/
+
 bool is_digit(char c)
 {
     //Check If the character is digit
@@ -159,13 +165,6 @@ bool is_digit(char c)
 }
 
 
-/* -------------------------------------------------------------------------------------
- * action_for_writecommand
- * ------------------------------------------------------------------------------------
- * Purpose : This function takes action for write command in a state machine
- * Param   : None
- * Return  : None
- *-------------------------------------------------------------------------------------*/
 void action_for_write_command(void)
 {
     // Action for + command. Get input and allocate memory
@@ -206,16 +205,6 @@ void action_for_write_command(void)
     }
 }
 
-/* -------------------------------------------------------------------------------------
- * check_input_buffer_and_extract_number
- * ------------------------------------------------------------------------------------
- * Purpose : This function checks the input buffer for number string and extract
- * Param   : input_buffer - buffer holding the input string, 
- *           buffer_len - Length of buffer
- *           current_state - To change the current state of execution
- *           input_number - Hold the number extracted from string
- * Return  : None
- *-------------------------------------------------------------------------------------*/
 void check_input_buffer_and_extract_number(char *input_buffer, uint16_t buffer_len,get_in_mem_state *current_state,uint8_t *input_number,get_in_mem_state *next_state_on_error)
 {
 
@@ -296,16 +285,6 @@ uint16_t hex_to_uint16(const char *hex_str) {
 }
 
 
-/* -------------------------------------------------------------------------------------
- * check_input_buffer_and_extract_number
- * ------------------------------------------------------------------------------------
- * Purpose : This function checks the input buffer for number string and extract
- * Param   : input_buffer - buffer holding the input string, 
- *           buffer_len - Length of buffer
- *           current_state - To change the current state of execution
- *           input_number - Hold the number extracted from string
- * Return  : None
- *-------------------------------------------------------------------------------------*/
 void check_input_buffer_and_extract_hex_number(char *input_buffer, uint16_t buffer_len,get_in_mem_state *current_state,uint16_t *input_number,get_in_mem_state *next_state_on_error)
 {
 

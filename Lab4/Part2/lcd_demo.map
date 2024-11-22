@@ -7,6 +7,11 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+C:   00000000  _display_custom_char            
+C:   00000000  _lcd_cgram_dump                 
+C:   00000000  _lcd_create_char                
+C:   00000000  _lcd_create_char_PARM_2         
+C:   00000000  _lcd_ddram_dump_16x4            
 C:   00000000  l_BSEG                          
 C:   00000000  l_BSEG_BYTES                    
 C:   00000000  l_CABS                          
@@ -52,11 +57,6 @@ C:   00000020  s_BSEG_BYTES
 C:   00000020  s__CODE                         
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
-C:   0000002B  s_SSEG                          
-C:   0000007E  l_DSEG                          
-C:   000000D5  l_SSEG                          
-C:   00000100  l_IRAM                          
-C:   00000400  s_PSEG                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -66,10 +66,15 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+C:   0000002B  s_SSEG                          
+C:   0000007E  l_DSEG                          
+C:   000000D5  l_SSEG                          
+C:   00000100  l_IRAM                          
+C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
-C:   00000AF4  l_CONST                         
-C:   0000158D  l_XSEG                          
-C:   0000198D  s_XISEG                         
+C:   0000145B  l_CONST                         
+C:   00001587  l_XSEG                          
+C:   00001987  s_XISEG                         
 C:   00002000  s_HOME                          
 C:   00002011  s_GSINIT0                       
 C:   00002014  s_GSINIT1                       
@@ -80,10 +85,9 @@ C:   0000206A  s_GSFINAL
 C:   0000206A  s_GSINIT                        
 C:   0000206A  s_GSINIT5                       
 C:   0000206D  s_CSEG                          
-C:   00002790  l_CSEG                          
-C:   000047FD  s_CONST                         
-C:   000052F1  s_XINIT                         
-
+C:   00002658  l_CSEG                          
+C:   000046C5  s_CONST                         
+C:   00005B20  s_XINIT                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
@@ -398,7 +402,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00000400    0000158D =        5517. bytes (REL,CON,XDATA)
+XSEG                                00000400    00001587 =        5511. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -416,35 +420,33 @@ D:   0000191C  _getstr_PARM_3                     getchar_putchar
 D:   0000192A  _lcd_put_string_PARM_2             lcd
 D:   0000192B  _lcd_put_string_PARM_3             lcd
 D:   00001934  _lcd_go_toxy_PARM_2                lcd
-D:   00001938  _lcd_create_char_PARM_2            lcd
-D:   0000193F  __gptrput_PARM_2                   _gptrput
-D:   00001940  __modsint_PARM_2                   _modsint
-D:   00001944  __moduint_PARM_2                   _moduint
-D:   00001949  __divsint_PARM_2                   _divsint
-D:   0000194D  __divuint_PARM_2                   _divuint
-D:   00001954  _vprintf_PARM_2                    vprintf
-D:   00001969  __print_format_PARM_2              printf_large
-D:   0000196C  __print_format_PARM_3              printf_large
-D:   0000196F  __print_format_PARM_4              printf_large
-D:   0000198B  __mulint_PARM_2                    _mulint
-
+D:   00001939  __gptrput_PARM_2                   _gptrput
+D:   0000193A  __modsint_PARM_2                   _modsint
+D:   0000193E  __moduint_PARM_2                   _moduint
+D:   00001943  __divsint_PARM_2                   _divsint
+D:   00001947  __divuint_PARM_2                   _divuint
+D:   0000194E  _vprintf_PARM_2                    vprintf
+D:   00001963  __print_format_PARM_2              printf_large
+D:   00001966  __print_format_PARM_3              printf_large
+D:   00001969  __print_format_PARM_4              printf_large
+D:   00001985  __mulint_PARM_2                    _mulint
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XISEG                               0000198D    0000000C =          12. bytes (REL,CON,XDATA)
+XISEG                               00001987    0000000C =          12. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-D:   0000198D  _write_control_register            lcd
-D:   0000198F  _read_control_register             lcd
-D:   00001991  _write_data_register               lcd
-D:   00001993  _read_data_register                lcd
-D:   00001995  _one_twentyth_of_Second            main
-D:   00001996  _one_tenth_of_second               main
-D:   00001997  _seconds                           main
-D:   00001998  _minutes                           main
+D:   00001987  _write_control_register            lcd
+D:   00001989  _read_control_register             lcd
+D:   0000198B  _write_data_register               lcd
+D:   0000198D  _read_data_register                lcd
+D:   0000198F  _one_twentyth_of_Second            main
+D:   00001990  _one_tenth_of_second               main
+D:   00001991  _seconds                           main
+D:   00001992  _minutes                           main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
@@ -514,78 +516,74 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                0000206D    00002790 =       10128. bytes (REL,CON,CODE)
+CSEG                                0000206D    00002658 =        9816. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   0000206D  _command_parser                    command_handlers
-C:   0000267C  _is_digit                          command_handlers
-C:   00002697  _action_for_write_command          command_handlers
-C:   00002732  _check_input_buffer_and_extract_   command_handlers
-C:   0000287F  _is_valid_hex                      command_handlers
-C:   0000292A  _hex_to_uint16                     command_handlers
-C:   00002A7F  _check_input_buffer_and_extract_   command_handlers
-C:   00002B57  _action_for_write_to_specific_po   command_handlers
-C:   00002DBC  _action_for_display_custom_char    command_handlers
-C:   00002F23  _action_for_character_creation     command_handlers
-C:   00003182  _putchar                           getchar_putchar
-C:   000031A1  _getchar                           getchar_putchar
-C:   000031AF  _getstr                            getchar_putchar
-C:   000032DD  _delay_ms                          lcd
-C:   00003310  _lcd_wait                          lcd
-C:   00003329  _read_lcd_data                     lcd
-C:   00003339  _write_lcd_command                 lcd
-C:   00003351  _write_lcd_data                    lcd
-C:   00003369  _lcd_init                          lcd
-C:   000033E4  _lcd_put_char                      lcd
-C:   000033F3  _lcd_clear                         lcd
-C:   000033FC  _lcd_get_cursor_position           lcd
-C:   00003413  _lcd_put_string                    lcd
-C:   00003519  _lcd_go_to_ddram_addr              lcd
-C:   0000352A  _lcd_go_to_cgram_addr              lcd
-C:   0000353B  _lcd_go_toxy                       lcd
-C:   00003586  _lcd_ddram_dump_16x4               lcd
-C:   00003631  _lcd_cgram_dump                    lcd
-C:   000036E0  _lcd_create_char                   lcd
-C:   0000377A  _display_custom_char               lcd
-C:   00003794  _timer0_isr                        main
-C:   00003829  _main                              main
-C:   000039A7  _timer0_init                       timer
-C:   000039C2  _timer_stop                        timer
-C:   000039DA  _timer_pause                       timer
-C:   000039E1  _timer_start                       timer
-C:   000039EE  _current_time_display              timer
-C:   00003AA1  _isxdigit                          isxdigit
-C:   00003B1F  __gptrput                          _gptrput
-C:   00003B3A  __modsint                          _modsint
-C:   00003BA2  __moduint                          _moduint
-C:   00003C4E  __divsint                          _divsint
-C:   00003CC0  __divuint                          _divuint
-C:   00003D5C  _vprintf                           vprintf
-C:   00003D9B  _printf                            vprintf
-C:   00003EA4  __print_format                     printf_large
-C:   000047A5  _strlen                            _strlen
-C:   000047BD  __mulint                           _mulint
-C:   000047DD  __gptrget                          _gptrget
-C:   000047F9  __sdcc_external_startup            _startup
+C:   0000270F  _is_digit                          command_handlers
+C:   0000272A  _action_for_write_command          command_handlers
+C:   000027C5  _check_input_buffer_and_extract_   command_handlers
+C:   00002912  _is_valid_hex                      command_handlers
+C:   000029BD  _hex_to_uint16                     command_handlers
+C:   00002B12  _check_input_buffer_and_extract_   command_handlers
+C:   00002BEA  _action_for_write_to_specific_po   command_handlers
+C:   00002E4F  _action_for_display_custom_char    command_handlers
+C:   00002FB6  _action_for_character_creation     command_handlers
+C:   00003215  _putchar                           getchar_putchar
+C:   00003234  _getchar                           getchar_putchar
+C:   00003242  _getstr                            getchar_putchar
+C:   00003370  _delay_ms                          lcd
+C:   000033A3  _lcd_wait                          lcd
+C:   000033BC  _read_lcd_data                     lcd
+C:   000033CC  _write_lcd_command                 lcd
+C:   000033E4  _write_lcd_data                    lcd
+C:   000033FC  _lcd_init                          lcd
+C:   00003477  _lcd_put_char                      lcd
+C:   00003486  _lcd_clear                         lcd
+C:   0000348F  _lcd_get_cursor_position           lcd
+C:   000034A6  _lcd_put_string                    lcd
+C:   000035AC  _lcd_go_to_ddram_addr              lcd
+C:   000035BD  _lcd_go_to_cgram_addr              lcd
+C:   000035CE  _lcd_go_toxy                       lcd
+C:   00003619  _timer0_isr                        main
+C:   000036AE  _main                              main
+C:   0000386F  _timer0_init                       timer
+C:   0000388A  _timer_stop                        timer
+C:   000038A2  _timer_pause                       timer
+C:   000038A9  _timer_start                       timer
+C:   000038B6  _current_time_display              timer
+C:   00003969  _isxdigit                          isxdigit
+C:   000039E7  __gptrput                          _gptrput
+C:   00003A02  __modsint                          _modsint
+C:   00003A6A  __moduint                          _moduint
+C:   00003B16  __divsint                          _divsint
+C:   00003B88  __divuint                          _divuint
+C:   00003C24  _vprintf                           vprintf
+C:   00003C63  _printf                            vprintf
+C:   00003D6C  __print_format                     printf_large
+C:   0000466D  _strlen                            _strlen
+C:   00004685  __mulint                           _mulint
+C:   000046A5  __gptrget                          _gptrget
+C:   000046C1  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000047FD    00000AF4 =        2804. bytes (REL,CON,CODE)
+CONST                               000046C5    0000145B =        5211. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   000047FD  ___sdcc_heap_size                  _heap
+C:   000046C5  ___sdcc_heap_size                  _heap
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XINIT                               000052F1    0000000C =          12. bytes (REL,CON,CODE)
+XINIT                               00005B20    0000000C =          12. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -651,3 +649,12 @@ ISEG = 0x0000
 BSEG = 0x0000
 
 
+?ASlink-Warning-Undefined Global '_lcd_ddram_dump_16x4' referenced by module 'command_handlers'
+
+?ASlink-Warning-Undefined Global '_lcd_create_char_PARM_2' referenced by module 'command_handlers'
+
+?ASlink-Warning-Undefined Global '_display_custom_char' referenced by module 'command_handlers'
+
+?ASlink-Warning-Undefined Global '_lcd_cgram_dump' referenced by module 'command_handlers'
+
+?ASlink-Warning-Undefined Global '_lcd_create_char' referenced by module 'command_handlers'

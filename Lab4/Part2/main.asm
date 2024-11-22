@@ -568,7 +568,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'timer0_isr'
 ;------------------------------------------------------------
-;	src/main.c:23: void timer0_isr(void) __interrupt (1) {
+;	src/main.c:60: void timer0_isr(void) __interrupt (1) {
 ;	-----------------------------------------
 ;	 function timer0_isr
 ;	-----------------------------------------
@@ -596,51 +596,51 @@ _timer0_isr:
 	push	(0+0)
 	push	psw
 	mov	psw,#0x00
-;	src/main.c:24: TH0 = TH0_FOR_50MS;       // High byte for 100ms delay
+;	src/main.c:61: TH0 = TH0_FOR_50MS;       // High byte for 50ms delay
 	mov	_TH0,#0x4b
-;	src/main.c:25: TL0 = TL0_FOR_50MS;       // Low byte for 100ms delay
+;	src/main.c:62: TL0 = TL0_FOR_50MS;       // Low byte for 50ms delay
 	mov	_TL0,#0x1c
-;	src/main.c:26: one_twentyth_of_Second++;
+;	src/main.c:63: one_twentyth_of_Second++; // Increment 1/20th of a second counter
 	mov	dptr,#_one_twentyth_of_Second
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
-;	src/main.c:27: TR0 = 1;
+;	src/main.c:64: TR0 = 1;                  // Restart the timer
 ;	assignBit
 	setb	_TR0
-;	src/main.c:28: if(one_twentyth_of_Second==20)
+;	src/main.c:67: if (one_twentyth_of_Second == 20) {
 	mov	dptr,#_one_twentyth_of_Second
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x14,00104$
-;	src/main.c:30: one_twentyth_of_Second = 0;
+;	src/main.c:68: one_twentyth_of_Second = 0;
 	mov	dptr,#_one_twentyth_of_Second
 	clr	a
 	movx	@dptr,a
-;	src/main.c:31: seconds++;
+;	src/main.c:69: seconds++;
 	mov	dptr,#_seconds
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
-;	src/main.c:32: if(seconds==60)
+;	src/main.c:72: if (seconds == 60) {
 	movx	a,@dptr
 	mov	r7,a
 	cjne	r7,#0x3c,00104$
-;	src/main.c:34: seconds=0;
+;	src/main.c:73: seconds = 0;
 	mov	dptr,#_seconds
 	clr	a
 	movx	@dptr,a
-;	src/main.c:35: minutes++;
+;	src/main.c:74: minutes++;
 	mov	dptr,#_minutes
 	movx	a,@dptr
 	inc	a
 	movx	@dptr,a
 00104$:
-;	src/main.c:39: if(one_twentyth_of_Second%2==0)
+;	src/main.c:79: if (one_twentyth_of_Second % 2 == 0) {
 	mov	dptr,#_one_twentyth_of_Second
 	movx	a,@dptr
 	jb	acc.0,00107$
-;	src/main.c:41: one_tenth_of_second = one_twentyth_of_Second/2;
+;	src/main.c:80: one_tenth_of_second = one_twentyth_of_Second / 2;
 	mov	dptr,#_one_twentyth_of_Second
 	movx	a,@dptr
 	mov	r7,a
@@ -658,10 +658,10 @@ _timer0_isr:
 	mov	dptr,#_one_tenth_of_second
 	mov	a,r6
 	movx	@dptr,a
-;	src/main.c:42: current_time_display();
+;	src/main.c:81: current_time_display(); // Update time display on LCD
 	lcall	_current_time_display
 00107$:
-;	src/main.c:45: }
+;	src/main.c:83: }
 	pop	psw
 	pop	(0+0)
 	pop	(0+1)
@@ -682,26 +682,26 @@ _timer0_isr:
 ;------------------------------------------------------------
 ;char_received             Allocated with name '_main_char_received_65536_63'
 ;------------------------------------------------------------
-;	src/main.c:48: void main()
+;	src/main.c:95: void main() {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	src/main.c:51: lcd_init();
+;	src/main.c:99: lcd_init();
 	lcall	_lcd_init
-;	src/main.c:52: one_twentyth_of_Second = 0;
+;	src/main.c:100: one_twentyth_of_Second = 0;
 	mov	dptr,#_one_twentyth_of_Second
 	clr	a
 	movx	@dptr,a
-;	src/main.c:53: seconds = 0;
+;	src/main.c:101: seconds = 0;
 	mov	dptr,#_seconds
 	movx	@dptr,a
-;	src/main.c:54: minutes = 0;
+;	src/main.c:102: minutes = 0;
 	mov	dptr,#_minutes
 	movx	@dptr,a
-;	src/main.c:55: timer0_init();
+;	src/main.c:103: timer0_init();
 	lcall	_timer0_init
-;	src/main.c:56: printf("--------------------------------------------------------------------------------------------\r\n");
+;	src/main.c:106: printf("╔════════════════════════════════════════════════════════════════╗\n");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -712,7 +712,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:57: printf("                           Welcome to LCD demo                                       \r\n");
+;	src/main.c:107: printf("║                     Welcome to LCD Demo                         ║\n");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -723,7 +723,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:59: printf("----------------------------     Usage          --------------------------------------------\r\n");
+;	src/main.c:108: printf("╠═══════════╦════════════════════════════════════════════════════╣\n");
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -734,7 +734,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:60: printf(" W       : Write a string\r\n");
+;	src/main.c:109: printf("║ Command   ║                    Description                      ║\n");
 	mov	a,#___str_3
 	push	acc
 	mov	a,#(___str_3 >> 8)
@@ -745,7 +745,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:61: printf(" T       : Write to a specific position in the LCD\r\n");
+;	src/main.c:110: printf("╠═══════════╬════════════════════════════════════════════════════╣\n");
 	mov	a,#___str_4
 	push	acc
 	mov	a,#(___str_4 >> 8)
@@ -756,7 +756,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:62: printf(" E       : Clear the display\r\n");
+;	src/main.c:111: printf("║    W      ║ Write a string                                     ║\n");
 	mov	a,#___str_5
 	push	acc
 	mov	a,#(___str_5 >> 8)
@@ -767,7 +767,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:63: printf(" P       : Pause the Timer\r\n");
+;	src/main.c:112: printf("║    T      ║ Write to a specific position in the LCD           ║\n");
 	mov	a,#___str_6
 	push	acc
 	mov	a,#(___str_6 >> 8)
@@ -778,7 +778,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:64: printf(" S       : Start the Timer\r\n");
+;	src/main.c:113: printf("║    E      ║ Clear the display                                 ║\n");
 	mov	a,#___str_7
 	push	acc
 	mov	a,#(___str_7 >> 8)
@@ -789,7 +789,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:65: printf(" R       : Stop and reset the Timer\r\n");
+;	src/main.c:114: printf("║    P      ║ Pause the Timer                                   ║\n");
 	mov	a,#___str_8
 	push	acc
 	mov	a,#(___str_8 >> 8)
@@ -800,7 +800,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:66: printf(" H       : Hexdump of DDRAM contents\r\n");
+;	src/main.c:115: printf("║    S      ║ Start the Timer                                   ║\n");
 	mov	a,#___str_9
 	push	acc
 	mov	a,#(___str_9 >> 8)
@@ -811,7 +811,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:67: printf(" C       : Hexdump of CGRAM contents\r\n");
+;	src/main.c:116: printf("║    R      ║ Stop and reset the Timer                          ║\n");
 	mov	a,#___str_10
 	push	acc
 	mov	a,#(___str_10 >> 8)
@@ -822,7 +822,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:68: printf(" A       : Create a CGRAM character\r\n");
+;	src/main.c:117: printf("║    H      ║ Hexdump of DDRAM contents                         ║\n");
 	mov	a,#___str_11
 	push	acc
 	mov	a,#(___str_11 >> 8)
@@ -833,7 +833,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:69: printf(" D       : Display a CGRAM character\r\n");
+;	src/main.c:118: printf("║    C      ║ Hexdump of CGRAM contents                         ║\n");
 	mov	a,#___str_12
 	push	acc
 	mov	a,#(___str_12 >> 8)
@@ -844,7 +844,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:70: printf(" ?       : Help menu\r\n");
+;	src/main.c:119: printf("║    A      ║ Create a CGRAM character                          ║\n");
 	mov	a,#___str_13
 	push	acc
 	mov	a,#(___str_13 >> 8)
@@ -855,20 +855,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:71: printf("--------------------------------------------------------------------------------------------\r\n");
-	mov	a,#___str_0
-	push	acc
-	mov	a,#(___str_0 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	src/main.c:73: while(1)
-00102$:
-;	src/main.c:77: printf("\r\nEnter your option:");
+;	src/main.c:120: printf("║    D      ║ Display a CGRAM character                         ║\n");
 	mov	a,#___str_14
 	push	acc
 	mov	a,#(___str_14 >> 8)
@@ -879,10 +866,58 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/main.c:78: char_received = getchar();
+;	src/main.c:121: printf("║    ?      ║ Help menu                                         ║\n");
+	mov	a,#___str_15
+	push	acc
+	mov	a,#(___str_15 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	src/main.c:122: printf("╚═══════════╩════════════════════════════════════════════════════╝\n");
+	mov	a,#___str_16
+	push	acc
+	mov	a,#(___str_16 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	src/main.c:124: while(1) {
+00102$:
+;	src/main.c:126: printf("\r\n >> Enter Command:");
+	mov	a,#___str_17
+	push	acc
+	mov	a,#(___str_17 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	src/main.c:127: char_received = getchar();  // Get user input
 	lcall	_getchar
 	mov	r6,dpl
-;	src/main.c:79: putchar(char_received);
+;	src/main.c:128: printf("$$ ");
+	push	ar6
+	mov	a,#___str_18
+	push	acc
+	mov	a,#(___str_18 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar6
+;	src/main.c:129: putchar(char_received);     // Echo the received character
 	mov	ar5,r6
 	mov	r7,#0x00
 	mov	dpl,r5
@@ -890,119 +925,1040 @@ _main:
 	push	ar6
 	lcall	_putchar
 	pop	ar6
-;	src/main.c:80: command_parser(char_received);
+;	src/main.c:130: command_parser(char_received);  // Parse the command and take appropriate action
 	mov	dpl,r6
 	lcall	_command_parser
-;	src/main.c:82: }
+;	src/main.c:132: }
 	sjmp	00102$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
-	.ascii "------------------------------------------------------------"
-	.ascii "--------------------------------"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x94
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x97
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "                           Welcome to LCD demo              "
-	.ascii "                         "
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "                     Welcome to LCD Demo                    "
+	.ascii "     "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_2:
-	.ascii "----------------------------     Usage          ------------"
-	.ascii "--------------------------------"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0xa0
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0xa6
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0xa3
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_3:
-	.ascii " W       : Write a string"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Command   "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "                    Description                      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_4:
-	.ascii " T       : Write to a specific position in the LCD"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0xa0
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0xac
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0xa3
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_5:
-	.ascii " E       : Clear the display"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    W      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Write a string                                     "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_6:
-	.ascii " P       : Pause the Timer"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    T      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Write to a specific position in the LCD           "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_7:
-	.ascii " S       : Start the Timer"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    E      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Clear the display                                 "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_8:
-	.ascii " R       : Stop and reset the Timer"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    P      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Pause the Timer                                   "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_9:
-	.ascii " H       : Hexdump of DDRAM contents"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    S      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Start the Timer                                   "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_10:
-	.ascii " C       : Hexdump of CGRAM contents"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    R      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Stop and reset the Timer                          "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_11:
-	.ascii " A       : Create a CGRAM character"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    H      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Hexdump of DDRAM contents                         "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_12:
-	.ascii " D       : Display a CGRAM character"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    C      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Hexdump of CGRAM contents                         "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_13:
-	.ascii " ?       : Help menu"
-	.db 0x0d
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    A      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Create a CGRAM character                          "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
 	.db 0x0a
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_14:
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    D      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Display a CGRAM character                         "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.db 0x0a
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_15:
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii "    ?      "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.ascii " Help menu                                         "
+	.db 0xe2
+	.db 0x95
+	.db 0x91
+	.db 0x0a
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_16:
+	.db 0xe2
+	.db 0x95
+	.db 0x9a
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0xa9
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x90
+	.db 0xe2
+	.db 0x95
+	.db 0x9d
+	.db 0x0a
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_17:
 	.db 0x0d
 	.db 0x0a
-	.ascii "Enter your option:"
+	.ascii " >> Enter Command:"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_18:
+	.ascii "$$ "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)

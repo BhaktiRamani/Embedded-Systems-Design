@@ -8,15 +8,12 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _lcd_cgram_dump
-	.globl _lcd_ddram_dump_16x4
 	.globl _lcd_go_to_cgram_addr
 	.globl _lcd_get_cursor_position
 	.globl _write_lcd_data
 	.globl _write_lcd_command
 	.globl _read_lcd_data
 	.globl _delay_ms
-	.globl _printf
 	.globl _TF1
 	.globl _TR1
 	.globl _TF0
@@ -230,7 +227,6 @@
 	.globl _write_data_register
 	.globl _read_control_register
 	.globl _write_control_register
-	.globl _lcd_create_char_PARM_2
 	.globl _lcd_go_toxy_PARM_2
 	.globl _lcd_put_string_PARM_3
 	.globl _lcd_put_string_PARM_2
@@ -241,8 +237,6 @@
 	.globl _lcd_put_string
 	.globl _lcd_go_to_ddram_addr
 	.globl _lcd_go_toxy
-	.globl _lcd_create_char
-	.globl _display_custom_char
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -525,14 +519,6 @@ _lcd_go_toxy_row_65536_75:
 	.ds 1
 _lcd_go_toxy_address_65536_76:
 	.ds 1
-_lcd_ddram_dump_16x4_col_65536_81:
-	.ds 1
-_lcd_create_char_PARM_2:
-	.ds 3
-_lcd_create_char_ccode_65536_91:
-	.ds 1
-_display_custom_char_ccode_65536_96:
-	.ds 1
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -582,7 +568,7 @@ _read_data_register::
 ;i                         Allocated with name '_delay_ms_i_65536_49'
 ;j                         Allocated with name '_delay_ms_j_65536_49'
 ;------------------------------------------------------------
-;	src/lcd.c:46: void delay_ms(unsigned int ms) {
+;	src/lcd.c:75: void delay_ms(unsigned int ms) {
 ;	-----------------------------------------
 ;	 function delay_ms
 ;	-----------------------------------------
@@ -602,7 +588,7 @@ _delay_ms:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	src/lcd.c:48: for (i = 0; i < ms; i++)
+;	src/lcd.c:77: for (i = 0; i < ms; i++)
 	mov	dptr,#_delay_ms_ms_65536_48
 	movx	a,@dptr
 	mov	r6,a
@@ -618,7 +604,7 @@ _delay_ms:
 	mov	a,r5
 	subb	a,r7
 	jnc	00109$
-;	src/lcd.c:49: for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
+;	src/lcd.c:78: for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
 	mov	r2,#0x7b
 	mov	r3,#0x00
 00105$:
@@ -629,23 +615,23 @@ _delay_ms:
 	mov	a,r2
 	orl	a,r3
 	jnz	00105$
-;	src/lcd.c:48: for (i = 0; i < ms; i++)
+;	src/lcd.c:77: for (i = 0; i < ms; i++)
 	inc	r4
 	cjne	r4,#0x00,00107$
 	inc	r5
 	sjmp	00107$
 00109$:
-;	src/lcd.c:50: }
+;	src/lcd.c:79: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_wait'
 ;------------------------------------------------------------
-;	src/lcd.c:60: void lcd_wait(void) {
+;	src/lcd.c:90: void lcd_wait(void) {
 ;	-----------------------------------------
 ;	 function lcd_wait
 ;	-----------------------------------------
 _lcd_wait:
-;	src/lcd.c:61: while ((* read_control_register) & LCD_BUSY_FLAG)
+;	src/lcd.c:91: while ((*read_control_register) & LCD_BUSY_FLAG)
 00101$:
 	mov	dptr,#_read_control_register
 	movx	a,@dptr
@@ -657,22 +643,22 @@ _lcd_wait:
 	mov	dph,r7
 	movx	a,@dptr
 	jnb	acc.7,00104$
-;	src/lcd.c:64: delay_ms(1);
+;	src/lcd.c:94: delay_ms(1);
 	mov	dptr,#0x0001
 	lcall	_delay_ms
 	sjmp	00101$
 00104$:
-;	src/lcd.c:66: }
+;	src/lcd.c:96: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'read_lcd_data'
 ;------------------------------------------------------------
-;	src/lcd.c:74: uint8_t read_lcd_data()
+;	src/lcd.c:106: uint8_t read_lcd_data() {
 ;	-----------------------------------------
 ;	 function read_lcd_data
 ;	-----------------------------------------
 _read_lcd_data:
-;	src/lcd.c:76: return *read_data_register;
+;	src/lcd.c:107: return *read_data_register;
 	mov	dptr,#_read_data_register
 	movx	a,@dptr
 	mov	r6,a
@@ -682,7 +668,7 @@ _read_lcd_data:
 	mov	dpl,r6
 	mov	dph,r7
 	movx	a,@dptr
-;	src/lcd.c:77: }
+;	src/lcd.c:108: }
 	mov	dpl,a
 	ret
 ;------------------------------------------------------------
@@ -690,7 +676,7 @@ _read_lcd_data:
 ;------------------------------------------------------------
 ;command                   Allocated with name '_write_lcd_command_command_65536_56'
 ;------------------------------------------------------------
-;	src/lcd.c:87: void write_lcd_command(unsigned char command)
+;	src/lcd.c:119: void write_lcd_command(unsigned char command) {
 ;	-----------------------------------------
 ;	 function write_lcd_command
 ;	-----------------------------------------
@@ -698,7 +684,7 @@ _write_lcd_command:
 	mov	a,dpl
 	mov	dptr,#_write_lcd_command_command_65536_56
 	movx	@dptr,a
-;	src/lcd.c:89: *write_control_register = command;
+;	src/lcd.c:120: *write_control_register = command;
 	mov	dptr,#_write_control_register
 	movx	a,@dptr
 	mov	r6,a
@@ -710,14 +696,14 @@ _write_lcd_command:
 	mov	dpl,r6
 	mov	dph,r7
 	movx	@dptr,a
-;	src/lcd.c:90: }
+;	src/lcd.c:121: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'write_lcd_data'
 ;------------------------------------------------------------
 ;data                      Allocated with name '_write_lcd_data_data_65536_58'
 ;------------------------------------------------------------
-;	src/lcd.c:99: void write_lcd_data(unsigned char data)
+;	src/lcd.c:132: void write_lcd_data(unsigned char data) {
 ;	-----------------------------------------
 ;	 function write_lcd_data
 ;	-----------------------------------------
@@ -725,7 +711,7 @@ _write_lcd_data:
 	mov	a,dpl
 	mov	dptr,#_write_lcd_data_data_65536_58
 	movx	@dptr,a
-;	src/lcd.c:101: *write_data_register = data;
+;	src/lcd.c:133: *write_data_register = data;
 	mov	dptr,#_write_data_register
 	movx	a,@dptr
 	mov	r6,a
@@ -737,97 +723,97 @@ _write_lcd_data:
 	mov	dpl,r6
 	mov	dph,r7
 	movx	@dptr,a
-;	src/lcd.c:102: }
+;	src/lcd.c:134: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_init'
 ;------------------------------------------------------------
-;	src/lcd.c:110: void lcd_init()
+;	src/lcd.c:145: void lcd_init() {
 ;	-----------------------------------------
 ;	 function lcd_init
 ;	-----------------------------------------
 _lcd_init:
-;	src/lcd.c:113: write_control_register = (__xdata unsigned char *)(LCD_WRITE_CMD); // Ensure proper casting
+;	src/lcd.c:146: write_control_register = (__xdata unsigned char *)(LCD_WRITE_CMD); // Ensure proper casting
 	mov	dptr,#_write_control_register
 	clr	a
 	movx	@dptr,a
 	mov	a,#0xf0
 	inc	dptr
 	movx	@dptr,a
-;	src/lcd.c:114: read_control_register = (__xdata unsigned char *)(LCD_READ_CMD);
+;	src/lcd.c:147: read_control_register = (__xdata unsigned char *)(LCD_READ_CMD);
 	mov	dptr,#_read_control_register
 	clr	a
 	movx	@dptr,a
 	mov	a,#0xf1
 	inc	dptr
 	movx	@dptr,a
-;	src/lcd.c:115: write_data_register = (__xdata unsigned char *)(LCD_WRITE_DATA);
+;	src/lcd.c:148: write_data_register = (__xdata unsigned char *)(LCD_WRITE_DATA);
 	mov	dptr,#_write_data_register
 	clr	a
 	movx	@dptr,a
 	mov	a,#0xf2
 	inc	dptr
 	movx	@dptr,a
-;	src/lcd.c:116: read_data_register = (__xdata unsigned char *)(LCD_READ_DATA);
+;	src/lcd.c:149: read_data_register = (__xdata unsigned char *)(LCD_READ_DATA);
 	mov	dptr,#_read_data_register
 	clr	a
 	movx	@dptr,a
 	mov	a,#0xf3
 	inc	dptr
 	movx	@dptr,a
-;	src/lcd.c:117: delay_ms(40);
+;	src/lcd.c:150: delay_ms(40);
 	mov	dptr,#0x0028
 	lcall	_delay_ms
-;	src/lcd.c:118: write_lcd_command(LCD_INIT_SYNC);
+;	src/lcd.c:151: write_lcd_command(LCD_INIT_SYNC);
 	mov	dpl,#0x30
 	lcall	_write_lcd_command
-;	src/lcd.c:119: delay_ms(5);
+;	src/lcd.c:152: delay_ms(5);
 	mov	dptr,#0x0005
 	lcall	_delay_ms
-;	src/lcd.c:120: write_lcd_command(LCD_INIT_SYNC);
+;	src/lcd.c:153: write_lcd_command(LCD_INIT_SYNC);
 	mov	dpl,#0x30
 	lcall	_write_lcd_command
-;	src/lcd.c:121: delay_ms(1);
+;	src/lcd.c:154: delay_ms(1);
 	mov	dptr,#0x0001
 	lcall	_delay_ms
-;	src/lcd.c:122: write_lcd_command(LCD_INIT_SYNC);
+;	src/lcd.c:155: write_lcd_command(LCD_INIT_SYNC);
 	mov	dpl,#0x30
 	lcall	_write_lcd_command
-;	src/lcd.c:123: delay_ms(2);
+;	src/lcd.c:156: delay_ms(2);
 	mov	dptr,#0x0002
 	lcall	_delay_ms
-;	src/lcd.c:124: write_lcd_command(LCD_INIT_SYNC_CMD);
+;	src/lcd.c:157: write_lcd_command(LCD_INIT_SYNC_CMD);
 	mov	dpl,#0x38
 	lcall	_write_lcd_command
-;	src/lcd.c:126: lcd_wait();
+;	src/lcd.c:159: lcd_wait();
 	lcall	_lcd_wait
-;	src/lcd.c:127: write_lcd_command(LCD_DISPLAY_OFF_CMD);
+;	src/lcd.c:160: write_lcd_command(LCD_DISPLAY_OFF_CMD);
 	mov	dpl,#0x08
 	lcall	_write_lcd_command
-;	src/lcd.c:128: lcd_wait();
+;	src/lcd.c:161: lcd_wait();
 	lcall	_lcd_wait
-;	src/lcd.c:129: write_lcd_command(LCD_DISPLAY_ON_CMD);
+;	src/lcd.c:162: write_lcd_command(LCD_DISPLAY_ON_CMD);
 	mov	dpl,#0x0c
 	lcall	_write_lcd_command
-;	src/lcd.c:130: lcd_wait();
+;	src/lcd.c:163: lcd_wait();
 	lcall	_lcd_wait
-;	src/lcd.c:131: write_lcd_command(LCD_ENTRY_MODE_CMD);
+;	src/lcd.c:164: write_lcd_command(LCD_ENTRY_MODE_CMD);
 	mov	dpl,#0x06
 	lcall	_write_lcd_command
-;	src/lcd.c:132: lcd_wait();
+;	src/lcd.c:165: lcd_wait();
 	lcall	_lcd_wait
-;	src/lcd.c:133: write_lcd_command(LCD_CLEAR_CMD);
+;	src/lcd.c:166: write_lcd_command(LCD_CLEAR_CMD);
 	mov	dpl,#0x01
 	lcall	_write_lcd_command
-;	src/lcd.c:134: lcd_wait();
-;	src/lcd.c:136: }
+;	src/lcd.c:167: lcd_wait();
+;	src/lcd.c:168: }
 	ljmp	_lcd_wait
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_put_char'
 ;------------------------------------------------------------
 ;c                         Allocated with name '_lcd_put_char_c_65536_61'
 ;------------------------------------------------------------
-;	src/lcd.c:146: void lcd_put_char(uint8_t c) {
+;	src/lcd.c:178: void lcd_put_char(uint8_t c) {
 ;	-----------------------------------------
 ;	 function lcd_put_char
 ;	-----------------------------------------
@@ -835,40 +821,40 @@ _lcd_put_char:
 	mov	a,dpl
 	mov	dptr,#_lcd_put_char_c_65536_61
 	movx	@dptr,a
-;	src/lcd.c:147: write_lcd_data(c);
+;	src/lcd.c:179: write_lcd_data(c);
 	movx	a,@dptr
 	mov	dpl,a
 	lcall	_write_lcd_data
-;	src/lcd.c:148: lcd_wait();
-;	src/lcd.c:150: }
+;	src/lcd.c:180: lcd_wait();
+;	src/lcd.c:181: }
 	ljmp	_lcd_wait
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_clear'
 ;------------------------------------------------------------
-;	src/lcd.c:159: void lcd_clear()
+;	src/lcd.c:191: void lcd_clear() {
 ;	-----------------------------------------
 ;	 function lcd_clear
 ;	-----------------------------------------
 _lcd_clear:
-;	src/lcd.c:161: write_lcd_command(LCD_CLEAR_CMD);
+;	src/lcd.c:192: write_lcd_command(LCD_CLEAR_CMD);
 	mov	dpl,#0x01
 	lcall	_write_lcd_command
-;	src/lcd.c:162: lcd_wait();
-;	src/lcd.c:163: }
+;	src/lcd.c:193: lcd_wait();
+;	src/lcd.c:194: }
 	ljmp	_lcd_wait
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_get_cursor_position'
 ;------------------------------------------------------------
 ;address                   Allocated with name '_lcd_get_cursor_position_address_65536_64'
 ;------------------------------------------------------------
-;	src/lcd.c:171: uint8_t lcd_get_cursor_position() {
+;	src/lcd.c:204: uint8_t lcd_get_cursor_position() {
 ;	-----------------------------------------
 ;	 function lcd_get_cursor_position
 ;	-----------------------------------------
 _lcd_get_cursor_position:
-;	src/lcd.c:173: lcd_wait(); // Ensure LCD is not busy
+;	src/lcd.c:206: lcd_wait(); // Ensure LCD is not busy
 	lcall	_lcd_wait
-;	src/lcd.c:174: address = *read_control_register & 0x7F; // Mask to get the lower 7 bits
+;	src/lcd.c:207: address = *read_control_register & 0x7F; // Mask to get the lower 7 bits
 	mov	dptr,#_read_control_register
 	movx	a,@dptr
 	mov	r6,a
@@ -880,9 +866,9 @@ _lcd_get_cursor_position:
 	movx	a,@dptr
 	mov	r6,a
 	anl	ar6,#0x7f
-;	src/lcd.c:175: return address;
+;	src/lcd.c:208: return address;
 	mov	dpl,r6
-;	src/lcd.c:176: }
+;	src/lcd.c:209: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_put_string'
@@ -894,7 +880,7 @@ _lcd_get_cursor_position:
 ;char_count                Allocated with name '_lcd_put_string_char_count_65536_66'
 ;char_count_to_check       Allocated with name '_lcd_put_string_char_count_to_check_65536_66'
 ;------------------------------------------------------------
-;	src/lcd.c:187: void lcd_put_string(char *str,uint8_t row,uint8_t column) __critical
+;	src/lcd.c:222: void lcd_put_string(char *str, uint8_t row, uint8_t column) __critical {
 ;	-----------------------------------------
 ;	 function lcd_put_string
 ;	-----------------------------------------
@@ -915,17 +901,17 @@ _lcd_put_string:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	src/lcd.c:189: uint8_t current_row = row;
+;	src/lcd.c:223: uint8_t current_row = row;
 	mov	dptr,#_lcd_put_string_PARM_2
 	movx	a,@dptr
 	mov	r7,a
 	mov	dptr,#_lcd_put_string_current_row_65536_66
 	movx	@dptr,a
-;	src/lcd.c:190: uint8_t char_count = 0;
+;	src/lcd.c:224: uint8_t char_count = 0;
 	mov	dptr,#_lcd_put_string_char_count_65536_66
 	clr	a
 	movx	@dptr,a
-;	src/lcd.c:191: uint8_t char_count_to_check=CHAR_IN_FIRST_THREE_ROWS-column;
+;	src/lcd.c:225: uint8_t char_count_to_check = CHAR_IN_FIRST_THREE_ROWS - column;
 	mov	dptr,#_lcd_put_string_PARM_3
 	movx	a,@dptr
 	mov	r6,a
@@ -935,13 +921,13 @@ _lcd_put_string:
 	clr	c
 	subb	a,r5
 	movx	@dptr,a
-;	src/lcd.c:193: lcd_go_toxy(row,column);
+;	src/lcd.c:227: lcd_go_toxy(row, column);
 	mov	dptr,#_lcd_go_toxy_PARM_2
 	mov	a,r6
 	movx	@dptr,a
 	mov	dpl,r7
 	lcall	_lcd_go_toxy
-;	src/lcd.c:194: while (*str) {
+;	src/lcd.c:228: while (*str) {
 	mov	dptr,#_lcd_put_string_str_65536_65
 	movx	a,@dptr
 	mov	r5,a
@@ -959,7 +945,7 @@ _lcd_put_string:
 	jnz	00129$
 	ljmp	00115$
 00129$:
-;	src/lcd.c:195: if (char_count == char_count_to_check) { // Move to the next row after 16 characters
+;	src/lcd.c:229: if (char_count == char_count_to_check) { // Move to the next row after 16 characters
 	mov	dptr,#_lcd_put_string_char_count_65536_66
 	movx	a,@dptr
 	mov	r4,a
@@ -968,11 +954,11 @@ _lcd_put_string:
 	mov	r3,a
 	mov	a,r4
 	cjne	a,ar3,00105$
-;	src/lcd.c:196: char_count = 0;
+;	src/lcd.c:230: char_count = 0;
 	mov	dptr,#_lcd_put_string_char_count_65536_66
 	clr	a
 	movx	@dptr,a
-;	src/lcd.c:197: current_row = (current_row + 1) % 4;
+;	src/lcd.c:231: current_row = (current_row + 1) % 4;
 	mov	dptr,#_lcd_put_string_current_row_65536_66
 	movx	a,@dptr
 	mov	r4,a
@@ -1000,22 +986,22 @@ _lcd_put_string:
 	mov	dptr,#_lcd_put_string_current_row_65536_66
 	mov	a,r3
 	movx	@dptr,a
-;	src/lcd.c:198: if(current_row==3)
+;	src/lcd.c:232: if (current_row == 3) {
 	movx	a,@dptr
 	mov	r4,a
 	cjne	r4,#0x03,00102$
-;	src/lcd.c:200: char_count_to_check = CHAR_IN_LAST_ROW;
+;	src/lcd.c:233: char_count_to_check = CHAR_IN_LAST_ROW;
 	mov	dptr,#_lcd_put_string_char_count_to_check_65536_66
 	mov	a,#0x08
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	src/lcd.c:204: char_count_to_check = CHAR_IN_FIRST_THREE_ROWS;
+;	src/lcd.c:235: char_count_to_check = CHAR_IN_FIRST_THREE_ROWS;
 	mov	dptr,#_lcd_put_string_char_count_to_check_65536_66
 	mov	a,#0x10
 	movx	@dptr,a
 00103$:
-;	src/lcd.c:206: lcd_go_toxy(current_row,0);//Set to beginning of next row
+;	src/lcd.c:237: lcd_go_toxy(current_row, 0); // Set to beginning of next row
 	mov	dptr,#_lcd_go_toxy_PARM_2
 	clr	a
 	movx	@dptr,a
@@ -1028,7 +1014,7 @@ _lcd_put_string:
 	pop	ar6
 	pop	ar7
 00105$:
-;	src/lcd.c:209: lcd_put_char(*str++); // Write the character
+;	src/lcd.c:240: lcd_put_char(*str++); // Write the character
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
@@ -1054,7 +1040,7 @@ _lcd_put_string:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	src/lcd.c:210: char_count++;
+;	src/lcd.c:241: char_count++;
 	mov	dptr,#_lcd_put_string_char_count_65536_66
 	movx	a,@dptr
 	add	a,#0x01
@@ -1070,7 +1056,7 @@ _lcd_put_string:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	src/lcd.c:213: }
+;	src/lcd.c:243: }
 	pop	psw
 	mov	ea,c
 	ret
@@ -1079,7 +1065,7 @@ _lcd_put_string:
 ;------------------------------------------------------------
 ;addr                      Allocated with name '_lcd_go_to_ddram_addr_addr_65536_71'
 ;------------------------------------------------------------
-;	src/lcd.c:222: void lcd_go_to_ddram_addr(uint8_t addr)
+;	src/lcd.c:253: void lcd_go_to_ddram_addr(uint8_t addr) {
 ;	-----------------------------------------
 ;	 function lcd_go_to_ddram_addr
 ;	-----------------------------------------
@@ -1087,20 +1073,20 @@ _lcd_go_to_ddram_addr:
 	mov	a,dpl
 	mov	dptr,#_lcd_go_to_ddram_addr_addr_65536_71
 	movx	@dptr,a
-;	src/lcd.c:224: write_lcd_command(0x80 |addr );
+;	src/lcd.c:254: write_lcd_command(0x80 | addr);
 	movx	a,@dptr
 	orl	a,#0x80
 	mov	dpl,a
 	lcall	_write_lcd_command
-;	src/lcd.c:225: lcd_wait();
-;	src/lcd.c:226: }
+;	src/lcd.c:255: lcd_wait();
+;	src/lcd.c:256: }
 	ljmp	_lcd_wait
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_go_to_cgram_addr'
 ;------------------------------------------------------------
 ;addr                      Allocated with name '_lcd_go_to_cgram_addr_addr_65536_73'
 ;------------------------------------------------------------
-;	src/lcd.c:235: void lcd_go_to_cgram_addr(uint8_t addr)
+;	src/lcd.c:266: void lcd_go_to_cgram_addr(uint8_t addr) {
 ;	-----------------------------------------
 ;	 function lcd_go_to_cgram_addr
 ;	-----------------------------------------
@@ -1108,13 +1094,13 @@ _lcd_go_to_cgram_addr:
 	mov	a,dpl
 	mov	dptr,#_lcd_go_to_cgram_addr_addr_65536_73
 	movx	@dptr,a
-;	src/lcd.c:237: write_lcd_command(0x40 |addr );
+;	src/lcd.c:267: write_lcd_command(0x40 | addr);
 	movx	a,@dptr
 	orl	a,#0x40
 	mov	dpl,a
 	lcall	_write_lcd_command
-;	src/lcd.c:238: lcd_wait();
-;	src/lcd.c:239: }
+;	src/lcd.c:268: lcd_wait();
+;	src/lcd.c:269: }
 	ljmp	_lcd_wait
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'lcd_go_toxy'
@@ -1123,7 +1109,7 @@ _lcd_go_to_cgram_addr:
 ;row                       Allocated with name '_lcd_go_toxy_row_65536_75'
 ;address                   Allocated with name '_lcd_go_toxy_address_65536_76'
 ;------------------------------------------------------------
-;	src/lcd.c:248: void lcd_go_toxy(uint8_t row,uint8_t column)
+;	src/lcd.c:281: void lcd_go_toxy(uint8_t row, uint8_t column) {
 ;	-----------------------------------------
 ;	 function lcd_go_toxy
 ;	-----------------------------------------
@@ -1131,20 +1117,20 @@ _lcd_go_toxy:
 	mov	a,dpl
 	mov	dptr,#_lcd_go_toxy_row_65536_75
 	movx	@dptr,a
-;	src/lcd.c:252: if (row == 0) {
+;	src/lcd.c:284: if (row == 0) {
 	movx	a,@dptr
 	mov	r7,a
 	jnz	00108$
-;	src/lcd.c:253: address = ROW1_ADDR + column;  // First row
+;	src/lcd.c:285: address = ROW1_ADDR + column;  // First row
 	mov	dptr,#_lcd_go_toxy_PARM_2
 	movx	a,@dptr
 	mov	dptr,#_lcd_go_toxy_address_65536_76
 	movx	@dptr,a
 	sjmp	00109$
 00108$:
-;	src/lcd.c:254: } else if (row == 1) {
+;	src/lcd.c:286: } else if (row == 1) {
 	cjne	r7,#0x01,00105$
-;	src/lcd.c:255: address = ROW2_ADDR + column;  // Second row
+;	src/lcd.c:287: address = ROW2_ADDR + column;  // Second row
 	mov	dptr,#_lcd_go_toxy_PARM_2
 	movx	a,@dptr
 	mov	r6,a
@@ -1154,9 +1140,9 @@ _lcd_go_toxy:
 	movx	@dptr,a
 	sjmp	00109$
 00105$:
-;	src/lcd.c:256: } else if (row == 2) {
+;	src/lcd.c:288: } else if (row == 2) {
 	cjne	r7,#0x02,00102$
-;	src/lcd.c:257: address = ROW3_ADDR + column;  // Third row (for Ds)
+;	src/lcd.c:289: address = ROW3_ADDR + column;  // Third row (for Ds)
 	mov	dptr,#_lcd_go_toxy_PARM_2
 	movx	a,@dptr
 	mov	r7,a
@@ -1166,7 +1152,7 @@ _lcd_go_toxy:
 	movx	@dptr,a
 	sjmp	00109$
 00102$:
-;	src/lcd.c:259: address = ROW4_ADDR + column;  // Fourth row (for 20x4 LCDs)
+;	src/lcd.c:291: address = ROW4_ADDR + column;  // Fourth row (for 20x4 LCDs)
 	mov	dptr,#_lcd_go_toxy_PARM_2
 	movx	a,@dptr
 	mov	r7,a
@@ -1175,431 +1161,14 @@ _lcd_go_toxy:
 	add	a,r7
 	movx	@dptr,a
 00109$:
-;	src/lcd.c:261: lcd_go_to_ddram_addr(address); 
+;	src/lcd.c:293: lcd_go_to_ddram_addr(address);
 	mov	dptr,#_lcd_go_toxy_address_65536_76
 	movx	a,@dptr
 	mov	dpl,a
-;	src/lcd.c:262: }
+;	src/lcd.c:294: }
 	ljmp	_lcd_go_to_ddram_addr
-;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_ddram_dump_16x4'
-;------------------------------------------------------------
-;row                       Allocated with name '_lcd_ddram_dump_16x4_row_65536_81'
-;col                       Allocated with name '_lcd_ddram_dump_16x4_col_65536_81'
-;data                      Allocated with name '_lcd_ddram_dump_16x4_data_65536_81'
-;------------------------------------------------------------
-;	src/lcd.c:266: void lcd_ddram_dump_16x4() {
-;	-----------------------------------------
-;	 function lcd_ddram_dump_16x4
-;	-----------------------------------------
-_lcd_ddram_dump_16x4:
-;	src/lcd.c:267: unsigned char row=0, col=0, data=0;
-	mov	dptr,#_lcd_ddram_dump_16x4_col_65536_81
-	clr	a
-	movx	@dptr,a
-;	src/lcd.c:269: printf("\r\nDDRAM Contents (HEX):\r\n");
-	mov	a,#___str_0
-	push	acc
-	mov	a,#(___str_0 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	src/lcd.c:270: for (row = 0; row < 4; row++) {
-	mov	r7,#0x00
-00105$:
-;	src/lcd.c:271: lcd_go_toxy(row,col);
-	mov	dptr,#_lcd_ddram_dump_16x4_col_65536_81
-	movx	a,@dptr
-	mov	dptr,#_lcd_go_toxy_PARM_2
-	movx	@dptr,a
-	mov	dpl,r7
-	push	ar7
-	lcall	_lcd_go_toxy
-	pop	ar7
-;	src/lcd.c:272: printf("Row %d: ", row + 1);
-	mov	ar5,r7
-	mov	r6,#0x00
-	inc	r5
-	cjne	r5,#0x00,00123$
-	inc	r6
-00123$:
-	push	ar7
-	push	ar5
-	push	ar6
-	mov	a,#___str_1
-	push	acc
-	mov	a,#(___str_1 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar7
-;	src/lcd.c:274: for (col = 0; col < 16; col++) { // Read 16 bytes per row
-	mov	r6,#0x00
-00103$:
-;	src/lcd.c:275: data = read_lcd_data();
-	push	ar7
-	push	ar6
-	lcall	_read_lcd_data
-	mov	r5,dpl
-;	src/lcd.c:276: printf("%02X ", data); // Display as hex
-	mov	r4,#0x00
-	push	ar5
-	push	ar4
-	mov	a,#___str_2
-	push	acc
-	mov	a,#(___str_2 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar6
-	pop	ar7
-;	src/lcd.c:274: for (col = 0; col < 16; col++) { // Read 16 bytes per row
-	inc	r6
-	cjne	r6,#0x10,00124$
-00124$:
-	jc	00103$
-;	src/lcd.c:278: col=0;
-	mov	dptr,#_lcd_ddram_dump_16x4_col_65536_81
-	clr	a
-	movx	@dptr,a
-;	src/lcd.c:279: printf("\r\n");
-	push	ar7
-	mov	a,#___str_3
-	push	acc
-	mov	a,#(___str_3 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-	pop	ar7
-;	src/lcd.c:270: for (row = 0; row < 4; row++) {
-	inc	r7
-	cjne	r7,#0x04,00126$
-00126$:
-	jnc	00127$
-	ljmp	00105$
-00127$:
-;	src/lcd.c:281: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_cgram_dump'
-;------------------------------------------------------------
-;data                      Allocated with name '_lcd_cgram_dump_data_65536_86'
-;address                   Allocated with name '_lcd_cgram_dump_address_131072_87'
-;------------------------------------------------------------
-;	src/lcd.c:283: void lcd_cgram_dump() {
-;	-----------------------------------------
-;	 function lcd_cgram_dump
-;	-----------------------------------------
-_lcd_cgram_dump:
-;	src/lcd.c:286: printf("\r\nCGRAM Contents (HEX):\r\n");
-	mov	a,#___str_4
-	push	acc
-	mov	a,#(___str_4 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	src/lcd.c:288: for (unsigned char address = 0; address < 64; address++) {
-	mov	r7,#0x00
-00107$:
-	cjne	r7,#0x40,00128$
-00128$:
-	jc	00129$
-	ret
-00129$:
-;	src/lcd.c:290: if (address % 16 == 0) {
-	mov	ar5,r7
-	mov	r6,#0x00
-	mov	a,r5
-	anl	a,#0x0f
-	jnz	00102$
-;	src/lcd.c:291: printf("0x%02X: ", address);
-	push	ar7
-	push	ar5
-	push	ar6
-	mov	a,#___str_5
-	push	acc
-	mov	a,#(___str_5 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar7
-00102$:
-;	src/lcd.c:295: lcd_go_to_cgram_addr(address);
-	mov	dpl,r7
-	push	ar7
-	lcall	_lcd_go_to_cgram_addr
-;	src/lcd.c:296: data = read_lcd_data();
-	lcall	_read_lcd_data
-	mov	r6,dpl
-;	src/lcd.c:299: printf("%02X ", data);
-	mov	r5,#0x00
-	push	ar6
-	push	ar5
-	mov	a,#___str_2
-	push	acc
-	mov	a,#(___str_2 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar7
-;	src/lcd.c:302: if ((address + 1) % 16 == 0) {
-	mov	ar5,r7
-	mov	r6,#0x00
-	inc	r5
-	cjne	r5,#0x00,00132$
-	inc	r6
-00132$:
-	mov	dptr,#__modsint_PARM_2
-	mov	a,#0x10
-	movx	@dptr,a
-	clr	a
-	inc	dptr
-	movx	@dptr,a
-	mov	dpl,r5
-	mov	dph,r6
-	push	ar7
-	lcall	__modsint
-	mov	a,dpl
-	mov	b,dph
-	pop	ar7
-	orl	a,b
-	jnz	00108$
-;	src/lcd.c:303: printf("\r\n");
-	push	ar7
-	mov	a,#___str_3
-	push	acc
-	mov	a,#(___str_3 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-	pop	ar7
-00108$:
-;	src/lcd.c:288: for (unsigned char address = 0; address < 64; address++) {
-	inc	r7
-;	src/lcd.c:306: }
-	ljmp	00107$
-;------------------------------------------------------------
-;Allocation info for local variables in function 'lcd_create_char'
-;------------------------------------------------------------
-;row_vals                  Allocated with name '_lcd_create_char_PARM_2'
-;ccode                     Allocated with name '_lcd_create_char_ccode_65536_91'
-;i                         Allocated with name '_lcd_create_char_i_65536_92'
-;------------------------------------------------------------
-;	src/lcd.c:308: void lcd_create_char(unsigned char ccode, unsigned char row_vals[]) {
-;	-----------------------------------------
-;	 function lcd_create_char
-;	-----------------------------------------
-_lcd_create_char:
-	mov	a,dpl
-	mov	dptr,#_lcd_create_char_ccode_65536_91
-	movx	@dptr,a
-;	src/lcd.c:312: if (ccode > 7) {
-	movx	a,@dptr
-	mov  r7,a
-	add	a,#0xff - 0x07
-	jnc	00102$
-;	src/lcd.c:313: printf("Error: Invalid character code. Must be 0 to 7.\r\n");
-	mov	a,#___str_6
-	push	acc
-	mov	a,#(___str_6 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	src/lcd.c:314: return;
-	ret
-00102$:
-;	src/lcd.c:318: lcd_go_to_cgram_addr(ccode * 8);
-	mov	a,r7
-	swap	a
-	rr	a
-	anl	a,#0xf8
-	mov	dpl,a
-	lcall	_lcd_go_to_cgram_addr
-;	src/lcd.c:321: for (i = 0; i < 8; i++) {
-	mov	dptr,#_lcd_create_char_PARM_2
-	movx	a,@dptr
-	mov	r5,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r6,a
-	inc	dptr
-	movx	a,@dptr
-	mov	r7,a
-	mov	r4,#0x00
-00104$:
-;	src/lcd.c:322: write_lcd_data(row_vals[i]); // Write each byte to CGRAM
-	mov	a,r4
-	add	a,r5
-	mov	r1,a
-	clr	a
-	addc	a,r6
-	mov	r2,a
-	mov	ar3,r7
-	mov	dpl,r1
-	mov	dph,r2
-	mov	b,r3
-	lcall	__gptrget
-	mov	dpl,a
-	push	ar7
-	push	ar6
-	push	ar5
-	push	ar4
-	lcall	_write_lcd_data
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	src/lcd.c:321: for (i = 0; i < 8; i++) {
-	inc	r4
-	cjne	r4,#0x08,00122$
-00122$:
-	jc	00104$
-;	src/lcd.c:325: printf("\r\nCustom character %d created successfully.", ccode);
-	mov	dptr,#_lcd_create_char_ccode_65536_91
-	movx	a,@dptr
-	mov	r7,a
-	mov	r5,a
-	mov	r6,#0x00
-	push	ar7
-	push	ar5
-	push	ar6
-	mov	a,#___str_7
-	push	acc
-	mov	a,#(___str_7 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-;	src/lcd.c:328: lcd_go_toxy(0, 0);  // Example: Set cursor to the first row, first column
-	mov	dptr,#_lcd_go_toxy_PARM_2
-	clr	a
-	movx	@dptr,a
-	mov	dpl,#0x00
-	lcall	_lcd_go_toxy
-	pop	ar7
-;	src/lcd.c:331: lcd_put_char(ccode); 
-	mov	dpl,r7
-;	src/lcd.c:332: }
-	ljmp	_lcd_put_char
-;------------------------------------------------------------
-;Allocation info for local variables in function 'display_custom_char'
-;------------------------------------------------------------
-;ccode                     Allocated with name '_display_custom_char_ccode_65536_96'
-;------------------------------------------------------------
-;	src/lcd.c:335: void display_custom_char(unsigned char ccode) {
-;	-----------------------------------------
-;	 function display_custom_char
-;	-----------------------------------------
-_display_custom_char:
-	mov	a,dpl
-	mov	dptr,#_display_custom_char_ccode_65536_96
-	movx	@dptr,a
-;	src/lcd.c:337: lcd_go_toxy(0, 0);  // Example: Set cursor to the first row, first column
-	mov	dptr,#_lcd_go_toxy_PARM_2
-	clr	a
-	movx	@dptr,a
-	mov	dpl,#0x00
-	lcall	_lcd_go_toxy
-;	src/lcd.c:340: lcd_put_char(ccode); 
-	mov	dptr,#_display_custom_char_ccode_65536_96
-	movx	a,@dptr
-	mov	dpl,a
-;	src/lcd.c:341: }
-	ljmp	_lcd_put_char
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-	.area CONST   (CODE)
-___str_0:
-	.db 0x0d
-	.db 0x0a
-	.ascii "DDRAM Contents (HEX):"
-	.db 0x0d
-	.db 0x0a
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_1:
-	.ascii "Row %d: "
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_2:
-	.ascii "%02X "
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_3:
-	.db 0x0d
-	.db 0x0a
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_4:
-	.db 0x0d
-	.db 0x0a
-	.ascii "CGRAM Contents (HEX):"
-	.db 0x0d
-	.db 0x0a
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_5:
-	.ascii "0x%02X: "
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_6:
-	.ascii "Error: Invalid character code. Must be 0 to 7."
-	.db 0x0d
-	.db 0x0a
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_7:
-	.db 0x0d
-	.db 0x0a
-	.ascii "Custom character %d created successfully."
-	.db 0x00
-	.area CSEG    (CODE)
 	.area XINIT   (CODE)
 __xinit__write_control_register:
 	.byte #0x00,#0xf0

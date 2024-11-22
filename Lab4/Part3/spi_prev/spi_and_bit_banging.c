@@ -240,9 +240,8 @@ void display_menu(void) {
     printf("│                        SPI PROGRAM                           │\n\r");
     printf("├──────────────────────────────────────────────────────────────┤\n\r");
     printf("│  Command   │               Description                       │\n\r");
-    printf("├───────────┼───────────────────────────────────────────────┤\n\r");
-    printf("│    M      │ Manual SPI Mode (Direct Register Control)      │\n\r");
-    printf("│    B      │ Bit Banging Mode (Software SPI)               │\n\r");
+    printf("├──────────────────────────────────────────────────────────────┤\n\r");
+    printf("│    M      │ Manual SPI Mode (Direct Register Control)     │\n\r");
     printf("│    S      │ Generate Sine Wave                            │\n\r");
     printf("│    T      │ Generate Triangular Wave                      │\n\r");
     printf("│    D      │ Demo Mode (Cycle through all waveforms)       │\n\r");
@@ -277,52 +276,52 @@ int main(void)
                     break;
                 }
                     
-                case 'B':
+                // case 'B':
+                // {
+                //     bit_bang_spi_init();
+                //     unsigned char result2 = take_data();
+                //     bit_bang_spi(result2);
+                //     printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
+                //     spi_init(); 
+                //     break;
+                // }
+                    
+                case 'S':
                 {
-                    bit_bang_spi_init();
-                    unsigned char result2 = take_data();
-                    bit_bang_spi(result2);
-                    printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
-                    spi_init(); 
+                    spi_init();
+                    unsigned char result3 = take_data();
+                    mannual_spi(result3);
+                    printf(">> SIN WAVE GENERATION COMPLETE\n\r");
+                    break;
+                }
+
+                    
+                case 'T':
+                {
+                    spi_init();
+                    unsigned char result4 = take_data();
+                    spi_triangular_wave(result4);
+                    printf(">> TRIANGULAR WAVE GENERATION COMPLETE\n\r");
                     break;
                 }
                     
-                // case 'S':
-                // {
-                //     spi_init();
-                //     unsigned char result3 = take_data();
-                //     mannual_spi(result3);
-                //     printf(">> SIN WAVE GENERATION COMPLETE\n\r");
-                //     break;
-                // }
-
+                case 'R':
+                {
+                    unsigned char result5 = take_data();
+                    spi_ramp_signal(result5);
+                    printf(">> RAMP WAVE GENERATION COMPLETE\n\r");
+                    break;
+                }
                     
-                // case 'T':
-                // {
-                //     spi_init();
-                //     unsigned char result4 = take_data();
-                //     spi_triangular_wave(result4);
-                //     printf(">> TRIANGULAR WAVE GENERATION COMPLETE\n\r");
-                //     break;
-                // }
-                    
-                // case 'R':
-                // {
-                //     unsigned char result5 = take_data();
-                //     spi_ramp_signal(result5);
-                //     printf(">> RAMP WAVE GENERATION COMPLETE\n\r");
-                //     break;
-                // }
-                    
-                // case 'D':
-                // {
-                //     demo_mode();
-                //     printf(">> DEMO COMPLETE\n\r");
-                //     break;
-                // }
-                // case '?':
-                //     display_menu();
-                //     break;  
+                case 'D':
+                {
+                    demo_mode();
+                    printf(">> DEMO COMPLETE\n\r");
+                    break;
+                }
+                case '?':
+                    display_menu();
+                    break;  
                 
                 default:
                     printf(">> INVALID INPUT\n\r");
