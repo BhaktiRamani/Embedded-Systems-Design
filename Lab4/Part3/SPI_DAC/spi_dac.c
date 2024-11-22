@@ -199,30 +199,72 @@ void delay_ms(unsigned int ms) {
     for (i = 0; i < ms; i++)
         for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
 }
+void mannual_spi(int number);
+
+void display_menu(void) {
+    printf("\n\r┌──────────────────────────────────────────────────────────────┐\n\r");
+    printf("│                        SPI PROGRAM                           │\n\r");
+    printf("├──────────────────────────────────────────────────────────────┤\n\r");
+    printf("│  Command   │               Description                       │\n\r");
+    printf("├───────────┼───────────────────────────────────────────────┤\n\r");
+    printf("│    M      │ Manual SPI Mode (Direct Register Control)      │\n\r");
+    printf("│    B      │ Bit Banging Mode (Software SPI)               │\n\r");
+    printf("│    S      │ Generate Sine Wave                            │\n\r");
+    printf("│    Q      │ Generate Square Wave                          │\n\r");
+    printf("│    T      │ Generate Triangular Wave                      │\n\r");
+    printf("│    D      │ Demo Mode (Cycle through all waveforms)       │\n\r");
+    printf("│    C      │ Configure SPI Parameters                      │\n\r");
+    printf("│    R      │ Read SPI Data                                 │\n\r");
+    printf("│    W      │ Write SPI Data                                │\n\r");
+    printf("│    ?      │ Display this help menu                        │\n\r");
+    printf("│    X      │ Exit Program                                  │\n\r");
+    printf("└───────────┴───────────────────────────────────────────────┘\n\r");
+    printf("\n\rEnter command: ");
+}
+
 int main(void)
 {
-    printf(" SPI DAC PROGRAM\n\r");
-    /* Initialize variables */
-    int dac_value_index = 0;
-    int dac_data = 0;
+    display_menu();
+    
+  while(1)
+  {
+      char user_input = getchar();
+      printf("| $ %c\n\r", user_input);
+      printf("\n\r");
+      switch(user_input)
+      {
+                case 'M':
+                    spi_init();
+                    printf("ENTER THE VALUE OF n\n\r");
+                    int result = getchar();
+                    mannual_spi(result);
+                    printf("SIN WAVE DONE\n\r");
+                    break;
+                    
+                case 'B':
+                    break;
+                        //bit banging
+      }
+  }
 
 
-    //EA |= GLOBAL_INT_ENABLE;        // Enable global interrupts
 
-    /* Initialize SPI */
-    spi_init();
-    //spi_transmission_start();
-
-    printf("SPI TRANSMISSION STARTED\n\r");
-
-
-    int high_byte, low_byte;
-    // //timer0_init();
+ 
+ 
     
 
-    while(1)
+
+}
+
+void mannual_spi(int number)
+{
+    int dac_value_index = 0;
+    int dac_data = 0;
+    int high_byte, low_byte;
+    while(number > 0)
     {
         
+
         /* Calculate or lookup next sine wave value */
         if(dac_value_index < SINE_MAX_INDEX)
         {
@@ -260,52 +302,9 @@ int main(void)
         P1_1 = 1;  // Deselect DAC
 
         dac_value_index++;
+        number =-1;
     }
 }
-
-void timer0_init(void)
-{
-    TMOD &= 0xF0;    // Clear Timer0 mode bits
-    TMOD |= TIMER0_MODE1;  // Set Timer0 mode 1 (16-bit)
-    
-    // Load Timer0 values for 1ms
-    TH0 = TH0_RELOAD;
-    TL0 = TL0_RELOAD;
-    
-    ET0 = 1;         // Enable Timer0 interrupt
-    TR0 = 1;         // Start Timer0
-}
-
-// Timer0 ISR
-void timer0_isr(void) __interrupt 1
-{
-    // Reload timer values
-    TH0 = 0x4B;
-    TL0 = 0x1C;
-    
-    ms_flag = 1;     // Set 1ms flag
-    //P1_0 = !P1_0;    // Toggle P1.0 for verification
-    printf("T \n\r");
-    
-
-}
-
-/**
- * @brief SPI Interrupt Service Routine
- * 
- * Handles SPI transmission completion interrupt
- * SPSTA value of 0x80 indicates successful transmission
- */
-void spi_isr(void) __interrupt 9
-{
-    if(SPSTA == 0x80)  // Check for successful transmission
-    {
-        transmission_complete = 1;
-        printf("spi isr \n\r");
-    }
-    
-}
-
 /**
  * @brief Initializes the SPI peripheral
  * 
@@ -359,12 +358,3 @@ void spi_transmission_start(void)
     P1_1 = 0;
 }
 
-/**
- * @brief Stops SPI transmission
- * 
- * Clears the SPI enable bit to stop transmission
- */
-void spi_transmission_stop(void) 
-{
-    SPCON &= ~SPI_ENABLE;          // Disable SPI
-}

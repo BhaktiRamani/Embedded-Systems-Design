@@ -9,9 +9,8 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _dac_values
-	.globl _spi_isr
-	.globl _timer0_isr
 	.globl _main
+	.globl _display_menu
 	.globl _delay_ms
 	.globl _getchar
 	.globl _putchar
@@ -214,10 +213,9 @@
 	.globl _P0
 	.globl _transmission_complete
 	.globl _ms_flag
-	.globl _timer0_init
+	.globl _mannual_spi
 	.globl _spi_init
 	.globl _spi_transmission_start
-	.globl _spi_transmission_stop
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -430,20 +428,6 @@ _P5_7	=	0x00ef
 	.area REG_BANK_0	(REL,OVR,DATA)
 	.ds 8
 ;--------------------------------------------------------
-; overlayable bit register bank
-;--------------------------------------------------------
-	.area BIT_BANK	(REL,OVR,DATA)
-bits:
-	.ds 1
-	b0 = bits[0]
-	b1 = bits[1]
-	b2 = bits[2]
-	b3 = bits[3]
-	b4 = bits[4]
-	b5 = bits[5]
-	b6 = bits[6]
-	b7 = bits[7]
-;--------------------------------------------------------
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
@@ -482,9 +466,11 @@ _putchar_charToSend_65536_17:
 	.ds 2
 _delay_ms_ms_65536_21:
 	.ds 2
-_main_dac_value_index_65537_27:
+_mannual_spi_number_65536_33:
 	.ds 2
-_main_dac_data_65537_27:
+_mannual_spi_dac_value_index_65536_34:
+	.ds 2
+_mannual_spi_dac_data_65536_34:
 	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -514,25 +500,6 @@ _transmission_complete::
 	.area HOME    (CODE)
 __interrupt_vect:
 	ljmp	__sdcc_gsinit_startup
-	reti
-	.ds	7
-	ljmp	_timer0_isr
-	.ds	5
-	reti
-	.ds	7
-	reti
-	.ds	7
-	reti
-	.ds	7
-	reti
-	.ds	7
-	reti
-	.ds	7
-	reti
-	.ds	7
-	reti
-	.ds	7
-	ljmp	_spi_isr
 ;--------------------------------------------------------
 ; global & static initialisations
 ;--------------------------------------------------------
@@ -682,19 +649,14 @@ _delay_ms:
 ;	spi_dac.c:201: }
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
+;Allocation info for local variables in function 'display_menu'
 ;------------------------------------------------------------
-;dac_value_index           Allocated with name '_main_dac_value_index_65537_27'
-;dac_data                  Allocated with name '_main_dac_data_65537_27'
-;high_byte                 Allocated with name '_main_high_byte_65538_28'
-;low_byte                  Allocated with name '_main_low_byte_65538_28'
-;------------------------------------------------------------
-;	spi_dac.c:202: int main(void)
+;	spi_dac.c:204: void display_menu(void) {
 ;	-----------------------------------------
-;	 function main
+;	 function display_menu
 ;	-----------------------------------------
-_main:
-;	spi_dac.c:204: printf(" SPI DAC PROGRAM\n\r");
+_display_menu:
+;	spi_dac.c:205: printf("\n\r┌──────────────────────────────────────────────────────────────┐\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -705,20 +667,7 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:206: int dac_value_index = 0;
-	mov	dptr,#_main_dac_value_index_65537_27
-	clr	a
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-;	spi_dac.c:207: int dac_data = 0;
-	mov	dptr,#_main_dac_data_65537_27
-	movx	@dptr,a
-	inc	dptr
-	movx	@dptr,a
-;	spi_dac.c:213: spi_init();
-	lcall	_spi_init
-;	spi_dac.c:216: printf("SPI TRANSMISSION STARTED\n\r");
+;	spi_dac.c:206: printf("│                        SPI PROGRAM                           │\n\r");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -729,10 +678,319 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:223: while(1)
-00111$:
-;	spi_dac.c:227: if(dac_value_index < SINE_MAX_INDEX)
-	mov	dptr,#_main_dac_value_index_65537_27
+;	spi_dac.c:207: printf("├──────────────────────────────────────────────────────────────┤\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:208: printf("│  Command   │               Description                       │\n\r");
+	mov	a,#___str_3
+	push	acc
+	mov	a,#(___str_3 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:209: printf("├───────────┼───────────────────────────────────────────────┤\n\r");
+	mov	a,#___str_4
+	push	acc
+	mov	a,#(___str_4 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:210: printf("│    M      │ Manual SPI Mode (Direct Register Control)      │\n\r");
+	mov	a,#___str_5
+	push	acc
+	mov	a,#(___str_5 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:211: printf("│    B      │ Bit Banging Mode (Software SPI)               │\n\r");
+	mov	a,#___str_6
+	push	acc
+	mov	a,#(___str_6 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:212: printf("│    S      │ Generate Sine Wave                            │\n\r");
+	mov	a,#___str_7
+	push	acc
+	mov	a,#(___str_7 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:213: printf("│    Q      │ Generate Square Wave                          │\n\r");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:214: printf("│    T      │ Generate Triangular Wave                      │\n\r");
+	mov	a,#___str_9
+	push	acc
+	mov	a,#(___str_9 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:215: printf("│    D      │ Demo Mode (Cycle through all waveforms)       │\n\r");
+	mov	a,#___str_10
+	push	acc
+	mov	a,#(___str_10 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:216: printf("│    C      │ Configure SPI Parameters                      │\n\r");
+	mov	a,#___str_11
+	push	acc
+	mov	a,#(___str_11 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:217: printf("│    R      │ Read SPI Data                                 │\n\r");
+	mov	a,#___str_12
+	push	acc
+	mov	a,#(___str_12 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:218: printf("│    W      │ Write SPI Data                                │\n\r");
+	mov	a,#___str_13
+	push	acc
+	mov	a,#(___str_13 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:219: printf("│    ?      │ Display this help menu                        │\n\r");
+	mov	a,#___str_14
+	push	acc
+	mov	a,#(___str_14 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:220: printf("│    X      │ Exit Program                                  │\n\r");
+	mov	a,#___str_15
+	push	acc
+	mov	a,#(___str_15 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:221: printf("└───────────┴───────────────────────────────────────────────┘\n\r");
+	mov	a,#___str_16
+	push	acc
+	mov	a,#(___str_16 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:222: printf("\n\rEnter command: ");
+	mov	a,#___str_17
+	push	acc
+	mov	a,#(___str_17 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:223: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'main'
+;------------------------------------------------------------
+;user_input                Allocated with name '_main_user_input_131072_30'
+;result                    Allocated with name '_main_result_196609_32'
+;------------------------------------------------------------
+;	spi_dac.c:225: int main(void)
+;	-----------------------------------------
+;	 function main
+;	-----------------------------------------
+_main:
+;	spi_dac.c:227: display_menu();
+	lcall	_display_menu
+;	spi_dac.c:229: while(1)
+00105$:
+;	spi_dac.c:231: char user_input = getchar();
+	lcall	_getchar
+	mov	r6,dpl
+;	spi_dac.c:232: printf("| $ %c\n\r", user_input);
+	mov	ar5,r6
+	mov	r7,#0x00
+	push	ar6
+	push	ar5
+	push	ar7
+	mov	a,#___str_18
+	push	acc
+	mov	a,#(___str_18 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	spi_dac.c:233: printf("\n\r");
+	mov	a,#___str_19
+	push	acc
+	mov	a,#(___str_19 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar6
+;	spi_dac.c:234: switch(user_input)
+	cjne	r6,#0x42,00121$
+	sjmp	00105$
+00121$:
+	cjne	r6,#0x4d,00105$
+;	spi_dac.c:237: spi_init();
+	lcall	_spi_init
+;	spi_dac.c:238: printf("ENTER THE VALUE OF n\n\r");
+	mov	a,#___str_20
+	push	acc
+	mov	a,#(___str_20 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:239: int result = getchar();
+	lcall	_getchar
+;	spi_dac.c:240: mannual_spi(result);
+	lcall	_mannual_spi
+;	spi_dac.c:241: printf("SIN WAVE DONE\n\r");
+	mov	a,#___str_21
+	push	acc
+	mov	a,#(___str_21 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:242: break;
+;	spi_dac.c:247: }
+;	spi_dac.c:257: }
+	ljmp	00105$
+;------------------------------------------------------------
+;Allocation info for local variables in function 'mannual_spi'
+;------------------------------------------------------------
+;number                    Allocated with name '_mannual_spi_number_65536_33'
+;dac_value_index           Allocated with name '_mannual_spi_dac_value_index_65536_34'
+;dac_data                  Allocated with name '_mannual_spi_dac_data_65536_34'
+;high_byte                 Allocated with name '_mannual_spi_high_byte_65536_34'
+;low_byte                  Allocated with name '_mannual_spi_low_byte_65536_34'
+;------------------------------------------------------------
+;	spi_dac.c:259: void mannual_spi(int number)
+;	-----------------------------------------
+;	 function mannual_spi
+;	-----------------------------------------
+_mannual_spi:
+	mov	r7,dph
+	mov	a,dpl
+	mov	dptr,#_mannual_spi_number_65536_33
+	movx	@dptr,a
+	mov	a,r7
+	inc	dptr
+	movx	@dptr,a
+;	spi_dac.c:261: int dac_value_index = 0;
+	mov	dptr,#_mannual_spi_dac_value_index_65536_34
+	clr	a
+	movx	@dptr,a
+	inc	dptr
+	movx	@dptr,a
+;	spi_dac.c:262: int dac_data = 0;
+	mov	dptr,#_mannual_spi_dac_data_65536_34
+	movx	@dptr,a
+	inc	dptr
+	movx	@dptr,a
+;	spi_dac.c:264: while(number > 0)
+00110$:
+	mov	dptr,#_mannual_spi_number_65536_33
+	movx	a,@dptr
+	mov	r6,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r7,a
+	clr	c
+	clr	a
+	subb	a,r6
+	mov	a,#(0x00 ^ 0x80)
+	mov	b,r7
+	xrl	b,#0x80
+	subb	a,b
+	jc	00143$
+	ret
+00143$:
+;	spi_dac.c:269: if(dac_value_index < SINE_MAX_INDEX)
+	mov	dptr,#_mannual_spi_dac_value_index_65536_34
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -742,7 +1000,7 @@ _main:
 	xrl	a,#0x80
 	subb	a,#0x81
 	jnc	00102$
-;	spi_dac.c:231: dac_data = dac_values[dac_value_index];
+;	spi_dac.c:273: dac_data = dac_values[dac_value_index];
 	mov	a,r6
 	add	a,r6
 	mov	r6,a
@@ -762,7 +1020,7 @@ _main:
 	clr	a
 	movc	a,@a+dptr
 	mov	r7,a
-	mov	dptr,#_main_dac_data_65537_27
+	mov	dptr,#_mannual_spi_dac_data_65536_34
 	mov	a,r6
 	movx	@dptr,a
 	mov	a,r7
@@ -770,15 +1028,15 @@ _main:
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	spi_dac.c:235: dac_value_index = 0;  // Reset index for next cycle
-	mov	dptr,#_main_dac_value_index_65537_27
+;	spi_dac.c:277: dac_value_index = 0;  // Reset index for next cycle
+	mov	dptr,#_mannual_spi_dac_value_index_65536_34
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 00103$:
-;	spi_dac.c:242: ((dac_data >> 4) & 0x0F);
-	mov	dptr,#_main_dac_data_65537_27
+;	spi_dac.c:284: ((dac_data >> 4) & 0x0F);
+	mov	dptr,#_mannual_spi_dac_data_65536_34
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
@@ -794,39 +1052,39 @@ _main:
 	xch	a,r4
 	xrl	a,r4
 	xch	a,r4
-	jnb	acc.3,00140$
+	jnb	acc.3,00145$
 	orl	a,#0xf0
-00140$:
+00145$:
 	mov	a,#0x0f
 	anl	a,r4
 	orl	a,#0x10
 	mov	r5,a
-;	spi_dac.c:245: low_byte = (dac_data & 0x0F) << 4;
+;	spi_dac.c:287: low_byte = (dac_data & 0x0F) << 4;
 	anl	ar6,#0x0f
 	mov	a,r6
 	swap	a
 	anl	a,#0xf0
 	mov	r7,a
-;	spi_dac.c:249: P1_1 = 0;  // Select DAC
+;	spi_dac.c:291: P1_1 = 0;  // Select DAC
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:252: SPDAT = high_byte;
+;	spi_dac.c:294: SPDAT = high_byte;
 	mov	_SPDAT,r5
-;	spi_dac.c:253: while (!(SPSTA & (1<<7))); 
+;	spi_dac.c:295: while (!(SPSTA & (1<<7))); 
 00104$:
 	mov	a,_SPSTA
 	jnb	acc.7,00104$
-;	spi_dac.c:257: SPDAT = low_byte;
+;	spi_dac.c:299: SPDAT = low_byte;
 	mov	_SPDAT,r7
-;	spi_dac.c:258: while (!(SPSTA & (1<<7))); 
+;	spi_dac.c:300: while (!(SPSTA & (1<<7))); 
 00107$:
 	mov	a,_SPSTA
 	jnb	acc.7,00107$
-;	spi_dac.c:260: P1_1 = 1;  // Deselect DAC
+;	spi_dac.c:302: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
-;	spi_dac.c:262: dac_value_index++;
-	mov	dptr,#_main_dac_value_index_65537_27
+;	spi_dac.c:304: dac_value_index++;
+	mov	dptr,#_mannual_spi_dac_value_index_65536_34
 	movx	a,@dptr
 	add	a,#0x01
 	movx	@dptr,a
@@ -834,193 +1092,44 @@ _main:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-;	spi_dac.c:264: }
-	ljmp	00111$
-;------------------------------------------------------------
-;Allocation info for local variables in function 'timer0_init'
-;------------------------------------------------------------
-;	spi_dac.c:266: void timer0_init(void)
-;	-----------------------------------------
-;	 function timer0_init
-;	-----------------------------------------
-_timer0_init:
-;	spi_dac.c:268: TMOD &= 0xF0;    // Clear Timer0 mode bits
-	anl	_TMOD,#0xf0
-;	spi_dac.c:269: TMOD |= TIMER0_MODE1;  // Set Timer0 mode 1 (16-bit)
-	orl	_TMOD,#0x01
-;	spi_dac.c:272: TH0 = TH0_RELOAD;
-	mov	_TH0,#0xfc
-;	spi_dac.c:273: TL0 = TL0_RELOAD;
-	mov	_TL0,#0x66
-;	spi_dac.c:275: ET0 = 1;         // Enable Timer0 interrupt
-;	assignBit
-	setb	_ET0
-;	spi_dac.c:276: TR0 = 1;         // Start Timer0
-;	assignBit
-	setb	_TR0
-;	spi_dac.c:277: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'timer0_isr'
-;------------------------------------------------------------
-;	spi_dac.c:280: void timer0_isr(void) __interrupt 1
-;	-----------------------------------------
-;	 function timer0_isr
-;	-----------------------------------------
-_timer0_isr:
-	push	bits
-	push	acc
-	push	b
-	push	dpl
-	push	dph
-	push	(0+7)
-	push	(0+6)
-	push	(0+5)
-	push	(0+4)
-	push	(0+3)
-	push	(0+2)
-	push	(0+1)
-	push	(0+0)
-	push	psw
-	mov	psw,#0x00
-;	spi_dac.c:283: TH0 = 0x4B;
-	mov	_TH0,#0x4b
-;	spi_dac.c:284: TL0 = 0x1C;
-	mov	_TL0,#0x1c
-;	spi_dac.c:286: ms_flag = 1;     // Set 1ms flag
-	mov	dptr,#_ms_flag
-	mov	a,#0x01
+;	spi_dac.c:305: number =-1;
+	mov	dptr,#_mannual_spi_number_65536_33
+	mov	a,#0xff
 	movx	@dptr,a
-;	spi_dac.c:288: printf("T \n\r");
-	mov	a,#___str_2
-	push	acc
-	mov	a,#(___str_2 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-;	spi_dac.c:291: }
-	pop	psw
-	pop	(0+0)
-	pop	(0+1)
-	pop	(0+2)
-	pop	(0+3)
-	pop	(0+4)
-	pop	(0+5)
-	pop	(0+6)
-	pop	(0+7)
-	pop	dph
-	pop	dpl
-	pop	b
-	pop	acc
-	pop	bits
-	reti
-;------------------------------------------------------------
-;Allocation info for local variables in function 'spi_isr'
-;------------------------------------------------------------
-;	spi_dac.c:299: void spi_isr(void) __interrupt 9
-;	-----------------------------------------
-;	 function spi_isr
-;	-----------------------------------------
-_spi_isr:
-	push	bits
-	push	acc
-	push	b
-	push	dpl
-	push	dph
-	push	(0+7)
-	push	(0+6)
-	push	(0+5)
-	push	(0+4)
-	push	(0+3)
-	push	(0+2)
-	push	(0+1)
-	push	(0+0)
-	push	psw
-	mov	psw,#0x00
-;	spi_dac.c:301: if(SPSTA == 0x80)  // Check for successful transmission
-	mov	a,#0x80
-	cjne	a,_SPSTA,00103$
-;	spi_dac.c:303: transmission_complete = 1;
-	mov	dptr,#_transmission_complete
-	mov	a,#0x01
-	movx	@dptr,a
-	clr	a
 	inc	dptr
 	movx	@dptr,a
-;	spi_dac.c:304: printf("spi isr \n\r");
-	mov	a,#___str_3
-	push	acc
-	mov	a,#(___str_3 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-00103$:
 ;	spi_dac.c:307: }
-	pop	psw
-	pop	(0+0)
-	pop	(0+1)
-	pop	(0+2)
-	pop	(0+3)
-	pop	(0+4)
-	pop	(0+5)
-	pop	(0+6)
-	pop	(0+7)
-	pop	dph
-	pop	dpl
-	pop	b
-	pop	acc
-	pop	bits
-	reti
+	ljmp	00110$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_init'
 ;------------------------------------------------------------
-;	spi_dac.c:319: void spi_init(void) 
+;	spi_dac.c:318: void spi_init(void) 
 ;	-----------------------------------------
 ;	 function spi_init
 ;	-----------------------------------------
 _spi_init:
-;	spi_dac.c:340: SPCON |= 0x10;
+;	spi_dac.c:339: SPCON |= 0x10;
 	orl	_SPCON,#0x10
-;	spi_dac.c:341: SPCON |= 0x20;
+;	spi_dac.c:340: SPCON |= 0x20;
 	orl	_SPCON,#0x20
-;	spi_dac.c:342: SPCON |= 0x40;
+;	spi_dac.c:341: SPCON |= 0x40;
 	orl	_SPCON,#0x40
-;	spi_dac.c:349: }
+;	spi_dac.c:348: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_start'
 ;------------------------------------------------------------
-;	spi_dac.c:356: void spi_transmission_start(void)
+;	spi_dac.c:355: void spi_transmission_start(void)
 ;	-----------------------------------------
 ;	 function spi_transmission_start
 ;	-----------------------------------------
 _spi_transmission_start:
-;	spi_dac.c:358: SPCON |= SPI_ENABLE;           // Enable SPI
+;	spi_dac.c:357: SPCON |= SPI_ENABLE;           // Enable SPI
 	orl	_SPCON,#0x40
-;	spi_dac.c:359: P1_1 = 0;
+;	spi_dac.c:358: P1_1 = 0;
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:360: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'spi_transmission_stop'
-;------------------------------------------------------------
-;	spi_dac.c:367: void spi_transmission_stop(void) 
-;	-----------------------------------------
-;	 function spi_transmission_stop
-;	-----------------------------------------
-_spi_transmission_stop:
-;	spi_dac.c:369: SPCON &= ~SPI_ENABLE;          // Disable SPI
-	anl	_SPCON,#0xbf
-;	spi_dac.c:370: }
+;	spi_dac.c:359: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1283,28 +1392,1028 @@ _dac_values:
 	.byte #0x7d, #0x00	;  125
 	.area CONST   (CODE)
 ___str_0:
-	.ascii " SPI DAC PROGRAM"
+	.db 0x0a
+	.db 0x0d
+	.db 0xe2
+	.db 0x94
+	.db 0x8c
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x90
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "SPI TRANSMISSION STARTED"
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "                        SPI PROGRAM                         "
+	.ascii "  "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_2:
-	.ascii "T "
+	.db 0xe2
+	.db 0x94
+	.db 0x9c
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0xa4
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_3:
-	.ascii "spi isr "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "  Command   "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "               Description                       "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_4:
+	.db 0xe2
+	.db 0x94
+	.db 0x9c
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0xbc
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0xa4
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_5:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    M      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Manual SPI Mode (Direct Register Control)      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_6:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    B      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Bit Banging Mode (Software SPI)               "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_7:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    S      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Generate Sine Wave                            "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_8:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    Q      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Generate Square Wave                          "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_9:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    T      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Generate Triangular Wave                      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_10:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    D      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Demo Mode (Cycle through all waveforms)       "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_11:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    C      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Configure SPI Parameters                      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_12:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    R      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Read SPI Data                                 "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_13:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    W      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Write SPI Data                                "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_14:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    ?      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Display this help menu                        "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_15:
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii "    X      "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.ascii " Exit Program                                  "
+	.db 0xe2
+	.db 0x94
+	.db 0x82
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_16:
+	.db 0xe2
+	.db 0x94
+	.db 0x94
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0xb4
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x80
+	.db 0xe2
+	.db 0x94
+	.db 0x98
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_17:
+	.db 0x0a
+	.db 0x0d
+	.ascii "Enter command: "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_18:
+	.ascii "| $ %c"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_19:
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_20:
+	.ascii "ENTER THE VALUE OF n"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_21:
+	.ascii "SIN WAVE DONE"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
