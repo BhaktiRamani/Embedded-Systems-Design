@@ -61,27 +61,28 @@ int main()
     
     /*Configuration of io expander pins as inputs and outputs*/
     i2c_start();
-    i2c_write(IO_EXPANDER_ID | WRITE);
-    i2c_write(INPUT_OUTPUT);
+    i2c_write(PCF8574_I2C_WRITE_ADDRESS);
+    i2c_write(0xFF);
+    // i2c_write(INPUT_OUTPUT);
     i2c_stop();
 
     printf("IO expander initialized\n\r");
-    while(1)
-    {
-        int result = pcf8574_read_pin(0);
-        if(result == 0)
-        {
-            pcf8574_set_pin(7, 0);
-            pcf8574_set_pin(6, 0);
-            printf("H\n\r");
-        }
-        else if(result == 1)
-        {
-            pcf8574_set_pin(7, 1);
-            pcf8574_set_pin(6, 1);
-            printf("L\n\r");
-        }
-    }
+    // while(1)
+    // {
+    //     int result = pcf8574_read_pin(0);
+    //     if(result == 0)
+    //     {
+    //         pcf8574_set_pin(7, 0);
+    //         pcf8574_set_pin(6, 0);
+    //         printf("H\n\r");
+    //     }
+    //     else if(result == 1)
+    //     {
+    //         pcf8574_set_pin(7, 1);
+    //         pcf8574_set_pin(6, 1);
+    //         printf("L\n\r");
+    //     }
+    // }
     
 
     
