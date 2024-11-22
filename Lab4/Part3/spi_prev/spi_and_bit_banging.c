@@ -282,7 +282,7 @@ int main(void)
                     unsigned char result2 = take_data();
                     bit_bang_spi(result2);
                     printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
-                    spi_init();
+                    //spi_init(); 
                     break;
                 }
                     
@@ -417,8 +417,11 @@ void mannual_spi(unsigned char number)
     int dac_value_index = 0;
     int dac_data = 0;
     int high_byte, low_byte;
+    printf("\r\n Inside Manual SPI");
+    printf("%d\n\r", number);
     while(number > 0)
     {
+        printf("\r\n Number is %d",number);
         
         for(int i = 0; i<256; i++)
         {
