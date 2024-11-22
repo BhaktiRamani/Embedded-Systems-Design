@@ -199,8 +199,8 @@ void delay_ms(unsigned int ms) {
     for (i = 0; i < ms; i++)
         for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
 }
-void mannual_spi(int number);
-
+void mannual_spi(unsigned char number);
+unsigned char take_data();
 void display_menu(void) {
     printf("\n\r┌──────────────────────────────────────────────────────────────┐\n\r");
     printf("│                        SPI PROGRAM                           │\n\r");
@@ -235,15 +235,14 @@ int main(void)
       {
                 case 'M':
                     spi_init();
-                    printf("ENTER THE VALUE OF n\n\r");
-                    int result = getchar();
+                    unsigned char result = take_data();
                     mannual_spi(result);
                     printf("SIN WAVE DONE\n\r");
                     break;
                     
                 case 'B':
                     break;
-                        //bit banging
+                    //bit banging
       }
   }
 
@@ -256,7 +255,61 @@ int main(void)
 
 }
 
-void mannual_spi(int number)
+unsigned char take_data()
+{
+    printf("│ Enter number (hex, up to 2 characters): \n\r|");
+    char input[4] = {0};  // Array for 3 hex chars + null terminator
+    int i = 0;
+    char c;
+
+    printf("$ ");
+    // Read characters until Enter/Return is pressed or buffer is full
+    while (i < 3) {
+
+        c = getchar();
+
+        // Check for Enter/Return key
+        if (c == '\r' || c == '\n') {
+            break;
+        }
+
+        // Check if character is valid hex
+        if ((c >= '0' && c <= '9') ||
+            (c >= 'a' && c <= 'f') ||
+            (c >= 'A' && c <= 'F')) {
+
+            input[i] = c;
+            putchar(c);  // Echo character back
+            i++;
+        }
+    }
+
+    input[i] = '\0';  // Null-terminate the string
+
+    // Convert hex string to an unsigned char
+    unsigned char data = 0;
+    for (i = 0; input[i] != '\0'; i++) {
+        data = data * 16;
+        if (input[i] >= '0' && input[i] <= '9')
+            data += input[i] - '0';
+        else if (input[i] >= 'A' && input[i] <= 'F')
+            data += input[i] - 'A' + 10;
+        else if (input[i] >= 'a' && input[i] <= 'f')
+            data += input[i] - 'a' + 10;
+    }
+
+    printf("\n\r│ Entered data: 0x%02X\n\r", data);
+    // if(data > 0xfe)
+    // {
+    //     printf("Data out of Range\n\r");
+    //     data_range_flag = 0;
+    //     return 0;
+    // }
+    return data;
+
+}
+
+void mannual_spi(unsigned char number)
 {
     int dac_value_index = 0;
     int dac_data = 0;
@@ -302,7 +355,7 @@ void mannual_spi(int number)
         P1_1 = 1;  // Deselect DAC
 
         dac_value_index++;
-        number =-1;
+        number = number - 1;
     }
 }
 /**
