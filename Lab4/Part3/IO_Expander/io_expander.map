@@ -70,7 +70,7 @@ C:   00000100  l_IRAM
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   00000444  s_XISEG                         
-C:   00000D10  l_CSEG                          
+C:   00000D4A  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003006  s_GSINIT0                       
 C:   00003009  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   0000305F  s_GSFINAL
 C:   0000305F  s_GSINIT                        
 C:   0000305F  s_GSINIT5                       
 C:   00003062  s_CSEG                          
-C:   00003D72  s_CONST                         
-C:   00003DD2  s_XINIT                         
+C:   00003DAC  s_CONST                         
+C:   00003E0C  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -444,36 +444,36 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003062    00000D10 =        3344. bytes (REL,CON,CODE)
+CSEG                                00003062    00000D4A =        3402. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00003062  _putchar                           io_expander
 C:   00003081  _getchar                           io_expander
 C:   0000308F  _main                              io_expander
-C:   000030F5  _pcf8574_read_port                 io_expander
-C:   00003110  _pcf8574_read_pin                  io_expander
-C:   00003131  _pcf8574_write_port                io_expander
-C:   0000314C  _pcf8574_set_pin                   io_expander
-C:   0000319C  _i2c_write                         io_expander
-C:   00003204  _i2c_read                          io_expander
-C:   00003289  _i2c_start                         io_expander
-C:   0000329E  _i2c_stop                          io_expander
-C:   000032AB  _i2c_delay                         io_expander
-C:   000032D1  _vprintf                           vprintf
-C:   00003310  _printf                            vprintf
-C:   00003419  __print_format                     printf_large
-C:   00003D1A  _strlen                            _strlen
-C:   00003D32  __mulint                           _mulint
-C:   00003D52  __gptrget                          _gptrget
-C:   00003D6E  __sdcc_external_startup            _startup
+C:   0000312F  _pcf8574_read_port                 io_expander
+C:   0000314A  _pcf8574_read_pin                  io_expander
+C:   0000316B  _pcf8574_write_port                io_expander
+C:   00003186  _pcf8574_set_pin                   io_expander
+C:   000031D6  _i2c_write                         io_expander
+C:   0000323E  _i2c_read                          io_expander
+C:   000032C3  _i2c_start                         io_expander
+C:   000032D8  _i2c_stop                          io_expander
+C:   000032E5  _i2c_delay                         io_expander
+C:   0000330B  _vprintf                           vprintf
+C:   0000334A  _printf                            vprintf
+C:   00003453  __print_format                     printf_large
+C:   00003D54  _strlen                            _strlen
+C:   00003D6C  __mulint                           _mulint
+C:   00003D8C  __gptrget                          _gptrget
+C:   00003DA8  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003D72    00000060 =          96. bytes (REL,CON,CODE)
+CONST                               00003DAC    00000060 =          96. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
