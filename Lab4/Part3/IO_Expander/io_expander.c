@@ -55,11 +55,12 @@ int getchar(void) {
 void enable_interrupt0(void);
 void external_ISR0(void) __interrupt (0)
 {
-    uint8_t data=0;
+
+    uint8_t data = 0;
     //Read Pin 0 
     data=pcf8574_read_pin(0);
     //Write Pin7
-    pcf8574_set_pin(7,data);
+    pcf8574_set_pin(7,1);
     printf("isr\n\r");
    
 }
@@ -90,6 +91,11 @@ int main()
     while(1)
     {
         printf("W\n\r");
+        pcf8574_set_pin(5,0);
+        i2c_delay();
+        pcf8574_set_pin(5,1);
+        i2c_delay();
+        
     }
     // while(1)
     // {
