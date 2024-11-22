@@ -260,7 +260,7 @@ void spi_transmission_stop(void)
 int main(void)
 {
   display_menu();
-    
+  spi_init();
   while(1)
   {
       char user_input = getchar();
@@ -269,12 +269,13 @@ int main(void)
       switch(user_input)
       {
                 case 'M':
-                    spi_init();
+                {
                     unsigned char result = take_data();
                     mannual_spi(result);
-                    printf(">> SIN WAVE GENERATION COMPLETE\n\r");
+                    printf(">> SINE WAVE GENERATION COMPLETE\n\r");
                     spi_transmission_stop();
                     break;
+                }
                     
                 case 'B':
                 {
@@ -282,7 +283,7 @@ int main(void)
                     unsigned char result2 = take_data();
                     bit_bang_spi(result2);
                     printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
-                    //spi_init(); 
+                    spi_init(); 
                     break;
                 }
                     
