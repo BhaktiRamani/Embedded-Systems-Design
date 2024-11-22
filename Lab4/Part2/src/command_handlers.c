@@ -120,7 +120,7 @@ void command_parser(char cmd)
         printf("\r\n╔════════════════════════════════════════════════════════════════╗");
         printf("\r\n║                         HELP MENU                              ║");
         printf("\r\n╠═══════════╦════════════════════════════════════════════════════╣");
-        printf("\r\n║ Command   ║                    Description                      ║");
+        printf("\r\n║ Command   ║                    Description                     ║");
         printf("\r\n╠═══════════╬════════════════════════════════════════════════════╣");
         printf("\r\n║    W      ║ Write a string                                     ║");
         printf("\r\n║    T      ║ Write to a specific position in the LCD            ║");
@@ -140,7 +140,7 @@ void command_parser(char cmd)
         printf("\r\n╔════════════════════════════════════════════════════════════════╗");
         printf("\r\n║                      INVALID INPUT                             ║");
         printf("\r\n╠═══════════╦════════════════════════════════════════════════════╣");
-        printf("\r\n║ Command   ║                    Description                      ║");
+        printf("\r\n║ Command   ║                    Description                     ║");
         printf("\r\n╠═══════════╬════════════════════════════════════════════════════╣");
         printf("\r\n║    W      ║ Write a string                                     ║");
         printf("\r\n║    T      ║ Write to a specific position in the LCD            ║");

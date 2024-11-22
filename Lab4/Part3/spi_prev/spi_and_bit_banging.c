@@ -248,7 +248,7 @@ void display_menu(void) {
     printf("│    R      │ Ramp wave                                     │\n\r");
     printf("│    ?      │ Display this help menu                        │\n\r");
     printf("└───────────┴───────────────────────────────────────────────┘\n\r");
-    printf("\n\rEnter command: ");
+    printf("\n\r>> Enter command: ");
 }
 void demo_mode();
 #define SPI_ENABLE (1<<6)
@@ -276,15 +276,15 @@ int main(void)
                     break;
                 }
                     
-                // case 'B':
-                // {
-                //     bit_bang_spi_init();
-                //     unsigned char result2 = take_data();
-                //     bit_bang_spi(result2);
-                //     printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
-                //     spi_init(); 
-                //     break;
-                // }
+                case 'B':
+                {
+                    bit_bang_spi_init();
+                    unsigned char result2 = take_data();
+                    bit_bang_spi(result2);
+                    printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
+                    spi_init();
+                    break;
+                }
                     
                 case 'S':
                 {
