@@ -236,15 +236,14 @@ void bit_bang_spi_init(void);
 void spi_ramp_signal(int number);
 void spi_triangular_wave(int number);
 void display_menu(void) {
-    printf("\n\r┌──────────────────────────────────────────────────────────────┐\n\r");
-    printf("│                        SPI PROGRAM                           │\n\r");
-    printf("├──────────────────────────────────────────────────────────────┤\n\r");
-    printf("│  Command   │               Description                       │\n\r");
-    printf("├──────────────────────────────────────────────────────────────┤\n\r");
+    printf("\n\r┌───────────────────────────────────────────────────────┐\n\r");
+    printf("│                        SPI PROGRAM                        │\n\r");
+    printf("├───────────────────────────────────────────────────────────┤\n\r");
+    printf("│  Command   │               Description                    │\n\r");
+    printf("├───────────────────────────────────────────────────────────┤\n\r");
     printf("│    M      │ Manual SPI Mode (Direct Register Control)     │\n\r");
     printf("│    S      │ Generate Sine Wave                            │\n\r");
     printf("│    T      │ Generate Triangular Wave                      │\n\r");
-    printf("│    D      │ Demo Mode (Cycle through all waveforms)       │\n\r");
     printf("│    R      │ Ramp wave                                     │\n\r");
     printf("│    ?      │ Display this help menu                        │\n\r");
     printf("└───────────┴───────────────────────────────────────────────┘\n\r");
@@ -276,15 +275,15 @@ int main(void)
                     break;
                 }
                     
-                case 'B':
-                {
-                    bit_bang_spi_init();
-                    unsigned char result2 = take_data();
-                    bit_bang_spi(result2);
-                    printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
-                    spi_init();
-                    break;
-                }
+                // case 'B':
+                // {
+                //     bit_bang_spi_init();
+                //     unsigned char result2 = take_data();
+                //     bit_bang_spi(result2);
+                //     printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
+                //     spi_init();
+                //     break;
+                // }
                     
                 case 'S':
                 {
@@ -313,12 +312,12 @@ int main(void)
                     break;
                 }
                     
-                case 'D':
-                {
-                    demo_mode();
-                    printf(">> DEMO COMPLETE\n\r");
-                    break;
-                }
+                // case 'D':
+                // {
+                //     demo_mode();
+                //     printf(">> DEMO COMPLETE\n\r");
+                //     break;
+                // }
                 case '?':
                     display_menu();
                     break;  

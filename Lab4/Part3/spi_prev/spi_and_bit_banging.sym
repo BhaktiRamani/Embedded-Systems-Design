@@ -410,37 +410,34 @@ Symbol Table
     _WDTRST                                                     =  0000A6 G
     _WR                                                         =  0000B6 G
  18 ___str_0                                                       000600 R
- 18 ___str_1                                                       0006C5 R
- 18 ___str_10                                                      0009BC R
- 18 ___str_11                                                      000A76 R
- 18 ___str_12                                                      000A8B R
- 18 ___str_13                                                      000A94 R
- 18 ___str_14                                                      000A97 R
- 18 ___str_15                                                      000ABA R
- 18 ___str_16                                                      000ADF R
+ 18 ___str_1                                                       0006B0 R
+ 18 ___str_10                                                      000A0C R
+ 18 ___str_11                                                      000A21 R
+ 18 ___str_12                                                      000A2A R
+ 18 ___str_13                                                      000A2D R
+ 18 ___str_14                                                      000A50 R
+ 18 ___str_15                                                      000A72 R
+ 18 ___str_16                                                      000A9B R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 8.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
- 18 ___str_17                                                      000B01 R
- 18 ___str_18                                                      000B2A R
- 18 ___str_19                                                      000B4D R
- 18 ___str_2                                                       00070C R
- 18 ___str_20                                                      000B60 R
- 18 ___str_21                                                      000B73 R
- 18 ___str_22                                                      000B9E R
- 18 ___str_23                                                      000BA1 R
- 18 ___str_24                                                      000BBE R
- 18 ___str_25                                                      000BD3 R
- 18 ___str_26                                                      000BD8 R
- 18 ___str_3                                                       0007CF R
- 18 ___str_4                                                       000818 R
- 18 ___str_5                                                       00085E R
- 18 ___str_6                                                       0008A4 R
- 18 ___str_7                                                       0008EA R
- 18 ___str_8                                                       000930 R
- 18 ___str_9                                                       000976 R
+ 18 ___str_17                                                      000ABE R
+ 18 ___str_18                                                      000AD1 R
+ 18 ___str_19                                                      000AFC R
+ 18 ___str_2                                                       0006F4 R
+ 18 ___str_20                                                      000AFF R
+ 18 ___str_21                                                      000B1C R
+ 18 ___str_22                                                      000B31 R
+ 18 ___str_23                                                      000B36 R
+ 18 ___str_3                                                       0007AE R
+ 18 ___str_4                                                       0007F4 R
+ 18 ___str_5                                                       00083A R
+ 18 ___str_6                                                       000880 R
+ 18 ___str_7                                                       0008C6 R
+ 18 ___str_8                                                       00090C R
+ 18 ___str_9                                                       000952 R
   E __interrupt_vect                                               000000 R
     __mcs51_genRAMCLEAR                                            ****** GX
     __mcs51_genXINIT                                               ****** GX
@@ -450,45 +447,45 @@ Symbol Table
   6 __start__stack                                                 000000 GR
  19 __xinit__ms_flag                                               000000 R
  19 __xinit__transmission_complete                                 000001 R
- 17 _bit_bang_spi                                                  0002DE GR
- 17 _bit_bang_spi_init                                             00057C GR
-  B _bit_bang_spi_number_65536_49                                  000004 R
- 17 _bit_bang_spi_write                                            000586 GR
-  B _bit_bang_spi_write_data_65536_71                              00000F R
+ 17 _bit_bang_spi                                                  00027D GR
+ 17 _bit_bang_spi_init                                             00051B GR
+  B _bit_bang_spi_number_65536_46                                  000004 R
+ 17 _bit_bang_spi_write                                            000525 GR
+  B _bit_bang_spi_write_data_65536_68                              00000F R
  18 _dac_values                                                    000000 GR
  17 _delay_ms                                                      00002D GR
   B _delay_ms_ms_65536_21                                          000002 R
- 17 _demo_mode                                                     0002C6 GR
+ 17 _demo_mode                                                     000265 GR
  17 _display_menu                                                  000060 GR
  17 _getchar                                                       00001F GR
- 17 _main                                                          000176 GR
- 17 _mannual_spi                                                   000465 GR
-  B _mannual_spi_dac_data_65536_61                                 00000D R
-  B _mannual_spi_dac_value_index_65536_61                          00000B R
-  B _mannual_spi_number_65536_60                                   00000A R
+ 17 _main                                                          000161 GR
+ 17 _mannual_spi                                                   000404 GR
+  B _mannual_spi_dac_data_65536_58                                 00000D R
+  B _mannual_spi_dac_value_index_65536_58                          00000B R
+  B _mannual_spi_number_65536_57                                   00000A R
   D _ms_flag                                                       000000 GR
     _printf                                                        ****** GX
  17 _putchar                                                       000000 GR
   B _putchar_charToSend_65536_17                                   000000 R
- 17 _spi_init                                                      000572 GR
- 17 _spi_ramp_signal                                               0006B4 GR
-  B _spi_ramp_signal_dac_data_65536_85                             00001B R
-  B _spi_ramp_signal_dac_value_index_65536_85                      000019 R
-  B _spi_ramp_signal_number_65536_84                               000017 R
- 17 _spi_transmission_start                                        0005D0 GR
- 17 _spi_transmission_stop                                         000172 GR
- 17 _spi_triangular_wave                                           0005D6 GR
+ 17 _spi_init                                                      000511 GR
+ 17 _spi_ramp_signal                                               000653 GR
+  B _spi_ramp_signal_dac_data_65536_82                             00001B R
+  B _spi_ramp_signal_dac_value_index_65536_82                      000019 R
+  B _spi_ramp_signal_number_65536_81                               000017 R
+ 17 _spi_transmission_start                                        00056F GR
+ 17 _spi_transmission_stop                                         00015D GR
+ 17 _spi_triangular_wave                                           000575 GR
+  B _spi_triangular_wave_dac_data_65536_75                         000015 R
+  B _spi_triangular_wave_dac_value_index_65536_75                  000013 R
+  B _spi_triangular_wave_number_65536_74                           000011 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  B _spi_triangular_wave_dac_data_65536_78                         000015 R
-  B _spi_triangular_wave_dac_value_index_65536_78                  000013 R
-  B _spi_triangular_wave_number_65536_77                           000011 R
- 17 _take_data                                                     000311 GR
-  B _take_data_data_65538_57                                       000009 R
-  B _take_data_input_65537_53                                      000005 R
+ 17 _take_data                                                     0002B0 GR
+  B _take_data_data_65538_54                                       000009 R
+  B _take_data_input_65537_50                                      000005 R
   D _transmission_complete                                         000001 GR
  18 _trig_dac_values                                               000200 GR
     a                                                           =  0000E0 L
@@ -538,14 +535,14 @@ Symbol Table
     et1                                                         =  0000AB L
     et2                                                         =  0000AD L
     ex0                                                         =  0000A8 L
+    ex1                                                         =  0000AA L
+    exen2                                                       =  0000CB L
+    exf2                                                        =  0000CE L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 10.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    ex1                                                         =  0000AA L
-    exen2                                                       =  0000CB L
-    exf2                                                        =  0000CE L
     f0                                                          =  0000D5 L
     ie                                                          =  0000A8 L
     ie.0                                                        =  0000A8 L
@@ -598,14 +595,14 @@ Symbol Table
     p2.6                                                        =  0000A6 L
     p2.7                                                        =  0000A7 L
     p3                                                          =  0000B0 L
+    p3.0                                                        =  0000B0 L
+    p3.1                                                        =  0000B1 L
+    p3.2                                                        =  0000B2 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 11.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    p3.0                                                        =  0000B0 L
-    p3.1                                                        =  0000B1 L
-    p3.2                                                        =  0000B2 L
     p3.3                                                        =  0000B3 L
     p3.4                                                        =  0000B4 L
     p3.5                                                        =  0000B5 L
@@ -658,14 +655,14 @@ Symbol Table
     t2con.4                                                     =  0000CC L
     t2con.5                                                     =  0000CD L
     t2con.6                                                     =  0000CE L
+    t2con.7                                                     =  0000CF L
+    tb8                                                         =  00009B L
+    tclk                                                        =  0000CC L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 12.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    t2con.7                                                     =  0000CF L
-    tb8                                                         =  00009B L
-    tclk                                                        =  0000CC L
     tcon                                                        =  000088 L
     tcon.0                                                      =  000088 L
     tcon.1                                                      =  000089 L
@@ -720,8 +717,8 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size    792   flags   20
-  18 CONST                                      size    BE8   flags   20
+  17 CSEG                                       size    731   flags   20
+  18 CONST                                      size    B46   flags   20
   19 XINIT                                      size      3   flags   20
   1A CABS                                       size      0   flags   28
 
