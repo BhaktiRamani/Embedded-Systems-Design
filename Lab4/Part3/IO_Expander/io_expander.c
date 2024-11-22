@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <mcs51/8051.h>
 #include <at89c51ed2.h>
+#include<stdint.h>
 
 /* I2C Operation Mode Definitions */
 #define READ 0x01        /* I2C Read operation bit */
@@ -9,6 +10,11 @@
 #define INPUT_OUTPUT 0x03
 #define INPUT_MASK 0x03
 
+#define PCF8574_I2C_ADDRESS         0x38  // 7-bit base address for PCF8574A
+#define PCF8574_I2C_WRITE_ADDRESS   (PCF8574_I2C_ADDRESS << 1) // 0x70
+#define PCF8574_I2C_READ_ADDRESS    ((PCF8574_I2C_ADDRESS << 1) | 1) // 0x71
+#define SWITCH_PIN           0     // Pin 0 for the switch
+#define LED_PIN              7     // Pin 7 for the LED
 
 /* I2C Pin Definitions */
 #define SCL P1_3         /* Serial Clock Line on P1.3 */
@@ -19,6 +25,10 @@ void i2c_stop(void);
 void i2c_delay();
 int i2c_write(unsigned char data);
 int i2c_read(int ACK);
+uint8_t pcf8574_read_pin(uint8_t pin);
+uint8_t pcf8574_read_port(void) ;
+void pcf8574_write_port(uint8_t value);
+void pcf8574_set_pin(uint8_t pin, uint8_t value);
 
 /**
  * @brief Sends a character to the serial port
@@ -53,35 +63,63 @@ int main()
     i2c_start();
     i2c_write(IO_EXPANDER_ID | WRITE);
     i2c_write(INPUT_OUTPUT);
-    
-    /*Reading the pin 0 and 1*/
-    i2c_start();
-    i2c_write(IO_EXPANDER_ID | READ);
-    unsigned char read_value = i2c_read(0);
-    
-	if(read_value == 0)
-	{
-	    //write all output pins as 1
-	    i2c_start();
-	    i2c_write(IO_EXPANDER_ID | WRITE);
-        i2c_write(INPUT_MASK | 0xFF);
-           
-         
-	    
-	}
-    else
+    i2c_stop();
+
+    printf("IO expander initialized\n\r");
+    while(1)
     {
-        //write all output pins as 0 
-	    i2c_start();
-	    i2c_write(IO_EXPANDER_ID | WRITE);
-	    i2c_write(INPUT_MASK | 0x00);
+        int result = pcf8574_read_pin(0);
+        if(result == 0)
+        {
+            pcf8574_set_pin(7, 0);
+            pcf8574_set_pin(6, 0);
+            printf("H\n\r");
+        }
+        else if(result == 1)
+        {
+            pcf8574_set_pin(7, 1);
+            pcf8574_set_pin(6, 1);
+            printf("L\n\r");
+        }
     }
-    return 0;
+    
+
     
     
 }
 
 
+uint8_t pcf8574_read_port(void) {
+    uint8_t data=0;
+    i2c_start();
+    i2c_write(IO_EXPANDER_ID | READ);
+    data = i2c_read(0);
+    i2c_stop();
+    return data;
+}
+
+uint8_t pcf8574_read_pin(uint8_t pin) {
+    uint8_t port_state = pcf8574_read_port();
+    return (port_state >> pin) & 0x01;
+}
+
+void pcf8574_write_port(uint8_t value)
+{
+    i2c_start();
+    i2c_write(IO_EXPANDER_ID | WRITE);
+    i2c_write(value);
+    i2c_stop();
+}
+
+void pcf8574_set_pin(uint8_t pin, uint8_t value) {
+    uint8_t port_state = pcf8574_read_port();
+    if (value) {
+        port_state |= (1 << pin);  // Set pin high
+    } else {
+        port_state &= ~(1 << pin); // Set pin low
+    }
+    pcf8574_write_port(port_state);
+}
 /**
  * @brief Writes a byte to the I2C bus
  * @param data Byte to write

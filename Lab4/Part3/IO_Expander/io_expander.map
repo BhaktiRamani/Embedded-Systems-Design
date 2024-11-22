@@ -53,8 +53,8 @@ C:   00000020  s_BSEG_BYTES
 C:   00000020  s__CODE                         
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
-C:   00000036  l_CONST                         
-C:   0000003F  l_XSEG                          
+C:   00000044  l_XSEG                          
+C:   00000058  l_CONST                         
 C:   00000080  l_DSEG                          
 C:   000000EC  l_SSEG                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
@@ -69,8 +69,8 @@ CABS                                00000000    00000000 =           0. bytes (A
 C:   00000100  l_IRAM                          
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
-C:   0000043F  s_XISEG                         
-C:   00000C65  l_CSEG                          
+C:   00000444  s_XISEG                         
+C:   00000D5D  l_CSEG                          
 C:   00003000  s_HOME                          
 C:   00003006  s_GSINIT0                       
 C:   00003009  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   0000305F  s_GSFINAL
 C:   0000305F  s_GSINIT                        
 C:   0000305F  s_GSINIT5                       
 C:   00003062  s_CSEG                          
-C:   00003CC7  s_CONST                         
-C:   00003CFD  s_XINIT                         
+C:   00003DBF  s_CONST                         
+C:   00003E17  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -366,16 +366,16 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00000400    0000003F =          63. bytes (REL,CON,XDATA)
+XSEG                                00000400    00000044 =          68. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-D:   00000406  _vprintf_PARM_2                    vprintf
-D:   0000041B  __print_format_PARM_2              printf_large
-D:   0000041E  __print_format_PARM_3              printf_large
-D:   00000421  __print_format_PARM_4              printf_large
-D:   0000043D  __mulint_PARM_2                    _mulint
-
+D:   00000404  _pcf8574_set_pin_PARM_2            io_expander
+D:   0000040B  _vprintf_PARM_2                    vprintf
+D:   00000420  __print_format_PARM_2              printf_large
+D:   00000423  __print_format_PARM_3              printf_large
+D:   00000426  __print_format_PARM_4              printf_large
+D:   00000442  __mulint_PARM_2                    _mulint
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
@@ -444,31 +444,36 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00003062    00000C65 =        3173. bytes (REL,CON,CODE)
+CSEG                                00003062    00000D5D =        3421. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00003062  _putchar                           io_expander
 C:   00003081  _getchar                           io_expander
 C:   0000308F  _main                              io_expander
-C:   000030F1  _i2c_write                         io_expander
-C:   00003159  _i2c_read                          io_expander
-C:   000031DE  _i2c_start                         io_expander
-C:   000031F3  _i2c_stop                          io_expander
-C:   00003200  _i2c_delay                         io_expander
-C:   00003226  _vprintf                           vprintf
-C:   00003265  _printf                            vprintf
-C:   0000336E  __print_format                     printf_large
-C:   00003C6F  _strlen                            _strlen
-C:   00003C87  __mulint                           _mulint
-C:   00003CA7  __gptrget                          _gptrget
-C:   00003CC3  __sdcc_external_startup            _startup
+C:   00003142  _pcf8574_read_port                 io_expander
+C:   0000315D  _pcf8574_read_pin                  io_expander
+C:   0000317E  _pcf8574_write_port                io_expander
+C:   00003199  _pcf8574_set_pin                   io_expander
+C:   000031E9  _i2c_write                         io_expander
+C:   00003251  _i2c_read                          io_expander
+C:   000032D6  _i2c_start                         io_expander
+C:   000032EB  _i2c_stop                          io_expander
+C:   000032F8  _i2c_delay                         io_expander
+C:   0000331E  _vprintf                           vprintf
+C:   0000335D  _printf                            vprintf
+C:   00003466  __print_format                     printf_large
+C:   00003D67  _strlen                            _strlen
+C:   00003D7F  __mulint                           _mulint
+C:   00003D9F  __gptrget                          _gptrget
+C:   00003DBB  __sdcc_external_startup            _startup
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003CC7    00000036 =          54. bytes (REL,CON,CODE)
+CONST                               00003DBF    00000058 =          88. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
