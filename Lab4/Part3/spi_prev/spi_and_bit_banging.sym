@@ -432,8 +432,6 @@ Symbol Table
  18 ___str_22                                                      000C3A R
  18 ___str_23                                                      000C4F R
  18 ___str_24                                                      000C54 R
- 18 ___str_25                                                      000C64 R
- 18 ___str_26                                                      000C6D R
  18 ___str_3                                                       0007CF R
  18 ___str_4                                                       000818 R
  18 ___str_5                                                       0008D2 R
@@ -451,9 +449,9 @@ Symbol Table
  19 __xinit__ms_flag                                               000000 R
  19 __xinit__transmission_complete                                 000001 R
  17 _bit_bang_spi                                                  000245 GR
- 17 _bit_bang_spi_init                                             00052D GR
+ 17 _bit_bang_spi_init                                             0004E3 GR
   B _bit_bang_spi_number_65536_43                                  000004 R
- 17 _bit_bang_spi_write                                            000537 GR
+ 17 _bit_bang_spi_write                                            0004ED GR
   B _bit_bang_spi_write_data_65536_65                              00000F R
  18 _dac_values                                                    000000 GR
  17 _delay_ms                                                      00002D GR
@@ -470,21 +468,21 @@ Symbol Table
     _printf                                                        ****** GX
  17 _putchar                                                       000000 GR
   B _putchar_charToSend_65536_17                                   000000 R
- 17 _spi_init                                                      000523 GR
- 17 _spi_ramp_signal                                               000665 GR
+ 17 _spi_init                                                      0004D9 GR
+ 17 _spi_ramp_signal                                               00061B GR
   B _spi_ramp_signal_dac_data_65536_79                             00001B R
   B _spi_ramp_signal_dac_value_index_65536_79                      000019 R
   B _spi_ramp_signal_number_65536_78                               000017 R
- 17 _spi_transmission_start                                        000581 GR
+ 17 _spi_transmission_start                                        000537 GR
  17 _spi_transmission_stop                                         000187 GR
- 17 _spi_triangular_wave                                           000587 GR
+ 17 _spi_triangular_wave                                           00053D GR
+  B _spi_triangular_wave_dac_data_65536_72                         000015 R
+  B _spi_triangular_wave_dac_value_index_65536_72                  000013 R
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-  B _spi_triangular_wave_dac_data_65536_72                         000015 R
-  B _spi_triangular_wave_dac_value_index_65536_72                  000013 R
   B _spi_triangular_wave_number_65536_71                           000011 R
  17 _take_data                                                     000278 GR
   B _take_data_data_65538_51                                       000009 R
@@ -538,13 +536,13 @@ Symbol Table
     et1                                                         =  0000AB L
     et2                                                         =  0000AD L
     ex0                                                         =  0000A8 L
+    ex1                                                         =  0000AA L
+    exen2                                                       =  0000CB L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 10.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    ex1                                                         =  0000AA L
-    exen2                                                       =  0000CB L
     exf2                                                        =  0000CE L
     f0                                                          =  0000D5 L
     ie                                                          =  0000A8 L
@@ -598,13 +596,13 @@ Symbol Table
     p2.6                                                        =  0000A6 L
     p2.7                                                        =  0000A7 L
     p3                                                          =  0000B0 L
+    p3.0                                                        =  0000B0 L
+    p3.1                                                        =  0000B1 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 11.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    p3.0                                                        =  0000B0 L
-    p3.1                                                        =  0000B1 L
     p3.2                                                        =  0000B2 L
     p3.3                                                        =  0000B3 L
     p3.4                                                        =  0000B4 L
@@ -658,13 +656,13 @@ Symbol Table
     t2con.4                                                     =  0000CC L
     t2con.5                                                     =  0000CD L
     t2con.6                                                     =  0000CE L
+    t2con.7                                                     =  0000CF L
+    tb8                                                         =  00009B L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 12.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    t2con.7                                                     =  0000CF L
-    tb8                                                         =  00009B L
     tclk                                                        =  0000CC L
     tcon                                                        =  000088 L
     tcon.0                                                      =  000088 L
@@ -690,7 +688,6 @@ Symbol Table
     tr1                                                         =  00008E L
     tr2                                                         =  0000CA L
     txd                                                         =  0000B1 L
-
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 13.
 Hexadecimal [24-Bits]
@@ -720,8 +717,8 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size    743   flags   20
-  18 CONST                                      size    C77   flags   20
+  17 CSEG                                       size    6F9   flags   20
+  18 CONST                                      size    C64   flags   20
   19 XINIT                                      size      3   flags   20
   1A CABS                                       size      0   flags   28
 

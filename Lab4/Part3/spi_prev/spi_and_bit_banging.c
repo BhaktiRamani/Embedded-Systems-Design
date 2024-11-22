@@ -458,9 +458,7 @@ void mannual_spi(unsigned char number)
             // Send low byte
             SPDAT = low_byte;
             while (!(SPSTA & (1<<7))); 
-            printf("low %d\n\r", low_byte);
-            printf("high %d\n\r", high_byte);
-    
+  
             P1_1 = 1;  // Deselect DAC
     
             dac_value_index++;
