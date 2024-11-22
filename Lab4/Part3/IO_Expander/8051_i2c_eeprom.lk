@@ -1,5 +1,5 @@
 -muwx
--i io_expander.ihx
+-i 8051_i2c_eeprom.ihx
 -M
 -Y
 -X 0x7bff
@@ -16,6 +16,6 @@
 -l libint
 -l liblong
 -l libfloat
-io_expander.rel
+8051_i2c_eeprom.rel
 
 -e

@@ -11,7 +11,7 @@
 all: prog.hex
 
 # Define your variables
-SRC = io_expander.c
+SRC = 8051_i2c_eeprom.c
 OBJ = $(SRC:.c=.rel)
 HEX = prog.hex
 IHX = $(SRC:.c=.ihx)

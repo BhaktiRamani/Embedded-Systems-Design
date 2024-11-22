@@ -36,6 +36,12 @@
 #define MAX_HEX_CHAR_IN_SINGLE_LINE 16  /* Maximum characters per line in hex dump */
 #define ADDR_MAX 0x7ff                  /* Maximum EEPROM address (2KB - 1) */
 
+#define PCF8574_I2C_ADDRESS         0x38  // 7-bit base address for PCF8574A
+#define PCF8574_I2C_WRITE_ADDRESS   (PCF8574_I2C_ADDRESS << 1) // 0x70
+#define PCF8574_I2C_READ_ADDRESS    ((PCF8574_I2C_ADDRESS << 1) | 1) // 0x71
+#define SWITCH_PIN           0     // Pin 0 for the switch
+#define LED_PIN              7     // Pin 7 for the LED
+
 /* Global Variables */
 static int address_range_flag = 1;      /* Flag for valid address range */
 static int data_range_flag = 1;         /* Flag for valid data range */
@@ -55,6 +61,12 @@ unsigned int take_address();
 void eeprom_reset();
 void handler_EEPROM_hexdump(void);
 int EEPROM_hexump(uint16_t start_address, uint16_t end_address);
+uint8_t pcf8574_read_pin(uint8_t pin);
+uint8_t pcf8574_read_port(void) ;
+void pcf8574_write_port(uint8_t value);
+void pcf8574_set_pin(uint8_t pin, uint8_t value);
+void pcf8574_init();
+void enable_interrupt0(void);
 
 /**
  * @brief Sends a character to the serial port
@@ -102,12 +114,32 @@ void command_menu()
     printf("│     H      │ Display hex dump                           │\n\r");
     printf("│     X      │ Reset memory system                        │\n\r");
     printf("│     ?      │ Display this help menu                     │\n\r");
-    printf("│     Q      │ Quit program                               │\n\r");
+    printf("│     I      │ IO Expander                                │\n\r");
+    printf("│     L      │ Leave IO Expander                          │\n\r");
     printf("└────────────┴────────────────────────────────────────────┘\n\r");
 
 
 }
 
+void external_ISR0(void) __interrupt (0)
+{
+
+    uint8_t data = 0;
+    //Read Pin 0
+    data=pcf8574_read_pin(0);
+    //Write Pin7
+    pcf8574_set_pin(7,data);
+
+
+}
+
+void disable_interrupt0(void)
+{
+    // Configure INT0
+    IT0 = 0;           // Set INT0 to be edge-triggered
+    EX0 = 0;          // Enable INT0 interrupt
+    EA = 0;           // Enable global interrupts
+}
 /**
  * @brief Main program entry point
  * @return Program exit status
@@ -174,23 +206,18 @@ int main()
                 
             case 'H':
                 printf("\n┌───────────── HEX DUMP OPERATION ───────────────┐\n\r");
-                // unsigned int start_add;
-                // start_add = take_address();
-                // // if(!address_range_flag) 
-                // // {
-                // //     address_range_flag = 1;
-                // //     break;
-                // // }
-                // unsigned int end_add;
-                // // if(!address_range_flag) 
-                // // {
-                // //     address_range_flag = 1;
-                // //     break;
-                // // }
-                // end_add = take_address();
-                //eeprom_hex_dump(start_add, end_add );
+
                 handler_EEPROM_hexdump();
-                //EEPROM_hexump(start_add, end_add);
+
+            case 'I':
+                printf("\n┌───────────── IO EXPANDER OPERATION ───────────────┐\n\r");
+                enable_interrupt0();
+                pcf8574_init();
+
+            case 'L':
+                printf("\n┌───────────── IO EXPANDER LEAVE ───────────────┐\n\r");
+                disable_interrupt0();
+
             
             default:
                 printf("INVALID INPUT\n\r");
@@ -198,6 +225,53 @@ int main()
       }
   }
  
+}
+
+void pcf8574_init()
+{
+    i2c_start();
+    i2c_write(PCF8574_I2C_WRITE_ADDRESS);
+    i2c_write(0xFF);
+    i2c_stop();
+}
+uint8_t pcf8574_read_port(void) {
+    uint8_t data=0;
+    i2c_start();
+    i2c_write(PCF8574_I2C_READ_ADDRESS);
+    data = i2c_read(0);
+    i2c_stop();
+    return data;
+}
+
+uint8_t pcf8574_read_pin(uint8_t pin) {
+    uint8_t port_state = pcf8574_read_port();
+    return (port_state >> pin) & 0x01;
+}
+
+void pcf8574_write_port(uint8_t value)
+{
+    i2c_start();
+    i2c_write(PCF8574_I2C_WRITE_ADDRESS);
+    i2c_write(value);
+    i2c_stop();
+}
+
+void pcf8574_set_pin(uint8_t pin, uint8_t value) {
+    uint8_t port_state = pcf8574_read_port();
+    if (value) {
+        port_state |= (1 << pin);  // Set pin high
+    } else {
+        port_state &= ~(1 << pin); // Set pin low
+    }
+    pcf8574_write_port(port_state);
+}
+
+void enable_interrupt0(void)
+{
+    // Configure INT0
+    IT0 = 1;           // Set INT0 to be edge-triggered
+    EX0 = 1;          // Enable INT0 interrupt
+    EA = 1;           // Enable global interrupts
 }
 
 

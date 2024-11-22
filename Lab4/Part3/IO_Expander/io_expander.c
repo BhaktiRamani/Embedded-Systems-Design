@@ -61,7 +61,7 @@ void external_ISR0(void) __interrupt (0)
     data=pcf8574_read_pin(0);
     //Write Pin7
     pcf8574_set_pin(7,data);
-    printf("isr\n\r");
+
    
 }
 int main()
@@ -76,7 +76,6 @@ int main()
     i2c_start();
     i2c_write(PCF8574_I2C_WRITE_ADDRESS);
     i2c_write(0xFF);
-    // i2c_write(INPUT_OUTPUT);
     i2c_stop();
 
     printf("IO expander initialized\n\r");
@@ -86,32 +85,14 @@ int main()
     
     while(1)
     {
-        printf("W\n\r");
+        
         pcf8574_set_pin(5,0);
         i2c_delay();
         pcf8574_set_pin(5,1);
         i2c_delay();
         
     }
-    // while(1)
-    // {
-    //     int result = pcf8574_read_pin(0);
-    //     if(result == 0)
-    //     {
-    //         pcf8574_set_pin(7, 0);
-    //         pcf8574_set_pin(6, 0);
-    //         printf("H\n\r");
-    //     }
-    //     else if(result == 1)
-    //     {
-    //         pcf8574_set_pin(7, 1);
-    //         pcf8574_set_pin(6, 1);
-    //         printf("L\n\r");
-    //     }
-    // }
-    
-
-    
+ 
     
 }
 
