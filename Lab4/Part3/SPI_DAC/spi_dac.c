@@ -244,8 +244,6 @@ int main(void)
             // Format low byte: Lower 4 bits of data, shifted left 4 positions
         low_byte = (dac_data & 0x0F) << 4;
 
-        // while(!ms_flag);
-        // ms_flag = 0;
 
         // Begin transmission
         P1_1 = 0;  // Select DAC
