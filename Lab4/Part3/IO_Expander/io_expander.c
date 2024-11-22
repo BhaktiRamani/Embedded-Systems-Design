@@ -52,6 +52,17 @@ int getchar(void) {
     return SBUF;             /* Return received character */
 }
 
+void enable_interrupt0(void);
+void external_ISR0(void) __interrupt (0)
+{
+    uint8_t data=0;
+    //Read Pin 0 
+    data=pcf8574_read_pin(0);
+    //Write Pin7
+    pcf8574_set_pin(7,data);
+    printf("isr\n\r");
+   
+}
 int main()
 {
     P1 &= ~(1<<3);  // Set P1.3 as output
@@ -59,6 +70,7 @@ int main()
     
     printf("IO EXPANDER PROGRAM\n\r");
     
+    enable_interrupt0();
     /*Configuration of io expander pins as inputs and outputs*/
     i2c_start();
     i2c_write(PCF8574_I2C_WRITE_ADDRESS);
@@ -74,6 +86,7 @@ int main()
     pcf8574_set_pin(3,1);
     pcf8574_set_pin(4,1);
     pcf8574_set_pin(5,0);
+    
     
     // while(1)
     // {
@@ -97,6 +110,15 @@ int main()
     
 }
 
+
+
+void enable_interrupt0(void)
+{
+    // Configure INT0
+    IT0 = 1;           // Set INT0 to be edge-triggered
+    EX0 = 1;          // Enable INT0 interrupt
+    EA = 1;           // Enable global interrupts
+}
 
 uint8_t pcf8574_read_port(void) {
     uint8_t data=0;
