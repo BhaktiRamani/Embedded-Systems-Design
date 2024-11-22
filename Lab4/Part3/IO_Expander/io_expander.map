@@ -70,7 +70,7 @@ C:   00000100  l_IRAM
 C:   00000400  s_PSEG                          
 C:   00000400  s_XSEG                          
 C:   00000444  s_XISEG                         
-C:   00000DEB  l_CSEG                          
+C:   00000DB1  l_CSEG                          
 C:   00002000  s_HOME                          
 C:   00002009  s_GSINIT0                       
 C:   0000200C  s_GSINIT1                       
@@ -81,8 +81,8 @@ C:   00002062  s_GSFINAL
 C:   00002062  s_GSINIT                        
 C:   00002062  s_GSINIT5                       
 C:   00002065  s_CSEG                          
-C:   00002E50  s_CONST                         
-C:   00002EBA  s_XINIT                         
+C:   00002E16  s_CONST                         
+C:   00002E80  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -453,37 +453,37 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002065    00000DEB =        3563. bytes (REL,CON,CODE)
+CSEG                                00002065    00000DB1 =        3505. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00002065  _putchar                           io_expander
 C:   00002084  _getchar                           io_expander
 C:   00002092  _external_ISR0                     io_expander
-C:   000020F5  _main                              io_expander
-C:   000021CC  _enable_interrupt0                 io_expander
-C:   000021D3  _pcf8574_read_port                 io_expander
-C:   000021EE  _pcf8574_read_pin                  io_expander
-C:   0000220F  _pcf8574_write_port                io_expander
-C:   0000222A  _pcf8574_set_pin                   io_expander
-C:   0000227A  _i2c_write                         io_expander
-C:   000022E2  _i2c_read                          io_expander
-C:   00002367  _i2c_start                         io_expander
-C:   0000237C  _i2c_stop                          io_expander
-C:   00002389  _i2c_delay                         io_expander
-C:   000023AF  _vprintf                           vprintf
-C:   000023EE  _printf                            vprintf
-C:   000024F7  __print_format                     printf_large
-C:   00002DF8  _strlen                            _strlen
-C:   00002E10  __mulint                           _mulint
-C:   00002E30  __gptrget                          _gptrget
-C:   00002E4C  __sdcc_external_startup            _startup
+C:   000020F6  _main                              io_expander
+C:   00002192  _enable_interrupt0                 io_expander
+C:   00002199  _pcf8574_read_port                 io_expander
+C:   000021B4  _pcf8574_read_pin                  io_expander
+C:   000021D5  _pcf8574_write_port                io_expander
+C:   000021F0  _pcf8574_set_pin                   io_expander
+C:   00002240  _i2c_write                         io_expander
+C:   000022A8  _i2c_read                          io_expander
+C:   0000232D  _i2c_start                         io_expander
+C:   00002342  _i2c_stop                          io_expander
+C:   0000234F  _i2c_delay                         io_expander
+C:   00002375  _vprintf                           vprintf
+C:   000023B4  _printf                            vprintf
+C:   000024BD  __print_format                     printf_large
+C:   00002DBE  _strlen                            _strlen
+C:   00002DD6  __mulint                           _mulint
+C:   00002DF6  __gptrget                          _gptrget
+C:   00002E12  __sdcc_external_startup            _startup
 ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002E50    0000006A =         106. bytes (REL,CON,CODE)
+CONST                               00002E16    0000006A =         106. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

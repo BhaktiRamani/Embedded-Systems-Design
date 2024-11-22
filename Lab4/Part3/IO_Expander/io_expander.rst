@@ -544,7 +544,7 @@
                                     544 	.area HOME    (CODE)
                                     545 	.area HOME    (CODE)
       002006                        546 __sdcc_program_startup:
-      002006 02 20 F5         [24]  547 	ljmp	_main
+      002006 02 20 F6         [24]  547 	ljmp	_main
                                     548 ;	return from main will return to caller
                                     549 ;--------------------------------------------------------
                                     550 ; code
@@ -644,675 +644,646 @@
       0020AE 75 D0 00         [24]  644 	mov	psw,#0x00
                                     645 ;	io_expander.c:61: data=pcf8574_read_pin(0);
       0020B1 75 82 00         [24]  646 	mov	dpl,#0x00
-      0020B4 12 21 EE         [24]  647 	lcall	_pcf8574_read_pin
-                                    648 ;	io_expander.c:63: pcf8574_set_pin(7,1);
-      0020B7 90 04 04         [24]  649 	mov	dptr,#_pcf8574_set_pin_PARM_2
-      0020BA 74 01            [12]  650 	mov	a,#0x01
-      0020BC F0               [24]  651 	movx	@dptr,a
-      0020BD 75 82 07         [24]  652 	mov	dpl,#0x07
-      0020C0 12 22 2A         [24]  653 	lcall	_pcf8574_set_pin
-                                    654 ;	io_expander.c:64: printf("isr\n\r");
-      0020C3 74 50            [12]  655 	mov	a,#___str_0
-      0020C5 C0 E0            [24]  656 	push	acc
-      0020C7 74 2E            [12]  657 	mov	a,#(___str_0 >> 8)
-      0020C9 C0 E0            [24]  658 	push	acc
-      0020CB 74 80            [12]  659 	mov	a,#0x80
-      0020CD C0 E0            [24]  660 	push	acc
-      0020CF 12 23 EE         [24]  661 	lcall	_printf
-      0020D2 15 81            [12]  662 	dec	sp
-      0020D4 15 81            [12]  663 	dec	sp
-      0020D6 15 81            [12]  664 	dec	sp
-                                    665 ;	io_expander.c:66: }
-      0020D8 D0 D0            [24]  666 	pop	psw
-      0020DA D0 00            [24]  667 	pop	(0+0)
-      0020DC D0 01            [24]  668 	pop	(0+1)
-      0020DE D0 02            [24]  669 	pop	(0+2)
-      0020E0 D0 03            [24]  670 	pop	(0+3)
-      0020E2 D0 04            [24]  671 	pop	(0+4)
-      0020E4 D0 05            [24]  672 	pop	(0+5)
-      0020E6 D0 06            [24]  673 	pop	(0+6)
-      0020E8 D0 07            [24]  674 	pop	(0+7)
-      0020EA D0 83            [24]  675 	pop	dph
-      0020EC D0 82            [24]  676 	pop	dpl
-      0020EE D0 F0            [24]  677 	pop	b
-      0020F0 D0 E0            [24]  678 	pop	acc
-      0020F2 D0 20            [24]  679 	pop	bits
-      0020F4 32               [24]  680 	reti
-                                    681 ;------------------------------------------------------------
-                                    682 ;Allocation info for local variables in function 'main'
-                                    683 ;------------------------------------------------------------
-                                    684 ;result                    Allocated with name '_main_result_65537_29'
-                                    685 ;------------------------------------------------------------
-                                    686 ;	io_expander.c:67: int main()
-                                    687 ;	-----------------------------------------
-                                    688 ;	 function main
-                                    689 ;	-----------------------------------------
-      0020F5                        690 _main:
-                                    691 ;	io_expander.c:69: P1 &= ~(1<<3);  // Set P1.3 as output
-      0020F5 53 90 F7         [24]  692 	anl	_P1,#0xf7
-                                    693 ;	io_expander.c:70: P1 &= ~(1<<4);  // Set P1.4 as output
-      0020F8 53 90 EF         [24]  694 	anl	_P1,#0xef
-                                    695 ;	io_expander.c:72: printf("IO EXPANDER PROGRAM\n\r");
-      0020FB 74 56            [12]  696 	mov	a,#___str_1
-      0020FD C0 E0            [24]  697 	push	acc
-      0020FF 74 2E            [12]  698 	mov	a,#(___str_1 >> 8)
-      002101 C0 E0            [24]  699 	push	acc
-      002103 74 80            [12]  700 	mov	a,#0x80
-      002105 C0 E0            [24]  701 	push	acc
-      002107 12 23 EE         [24]  702 	lcall	_printf
-      00210A 15 81            [12]  703 	dec	sp
-      00210C 15 81            [12]  704 	dec	sp
-      00210E 15 81            [12]  705 	dec	sp
-                                    706 ;	io_expander.c:74: enable_interrupt0();
-      002110 12 21 CC         [24]  707 	lcall	_enable_interrupt0
-                                    708 ;	io_expander.c:76: i2c_start();
-      002113 12 23 67         [24]  709 	lcall	_i2c_start
-                                    710 ;	io_expander.c:77: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
-      002116 75 82 70         [24]  711 	mov	dpl,#0x70
-      002119 12 22 7A         [24]  712 	lcall	_i2c_write
-                                    713 ;	io_expander.c:78: i2c_write(0xFF);
-      00211C 75 82 FF         [24]  714 	mov	dpl,#0xff
-      00211F 12 22 7A         [24]  715 	lcall	_i2c_write
-                                    716 ;	io_expander.c:80: i2c_stop();
-      002122 12 23 7C         [24]  717 	lcall	_i2c_stop
-                                    718 ;	io_expander.c:82: printf("IO expander initialized\n\r");
-      002125 74 6C            [12]  719 	mov	a,#___str_2
-      002127 C0 E0            [24]  720 	push	acc
-      002129 74 2E            [12]  721 	mov	a,#(___str_2 >> 8)
-      00212B C0 E0            [24]  722 	push	acc
-      00212D 74 80            [12]  723 	mov	a,#0x80
-      00212F C0 E0            [24]  724 	push	acc
-      002131 12 23 EE         [24]  725 	lcall	_printf
-      002134 15 81            [12]  726 	dec	sp
-      002136 15 81            [12]  727 	dec	sp
-      002138 15 81            [12]  728 	dec	sp
-                                    729 ;	io_expander.c:83: int result = pcf8574_read_pin(0);
-      00213A 75 82 00         [24]  730 	mov	dpl,#0x00
-      00213D 12 21 EE         [24]  731 	lcall	_pcf8574_read_pin
-      002140 AF 82            [24]  732 	mov	r7,dpl
-      002142 7E 00            [12]  733 	mov	r6,#0x00
-                                    734 ;	io_expander.c:84: printf("port 0 pin %d\n\r", result);
-      002144 C0 07            [24]  735 	push	ar7
-      002146 C0 06            [24]  736 	push	ar6
-      002148 74 86            [12]  737 	mov	a,#___str_3
-      00214A C0 E0            [24]  738 	push	acc
-      00214C 74 2E            [12]  739 	mov	a,#(___str_3 >> 8)
-      00214E C0 E0            [24]  740 	push	acc
-      002150 74 80            [12]  741 	mov	a,#0x80
-      002152 C0 E0            [24]  742 	push	acc
-      002154 12 23 EE         [24]  743 	lcall	_printf
-      002157 E5 81            [12]  744 	mov	a,sp
-      002159 24 FB            [12]  745 	add	a,#0xfb
-      00215B F5 81            [12]  746 	mov	sp,a
-                                    747 ;	io_expander.c:85: pcf8574_set_pin(1,1);
-      00215D 90 04 04         [24]  748 	mov	dptr,#_pcf8574_set_pin_PARM_2
-      002160 74 01            [12]  749 	mov	a,#0x01
-      002162 F0               [24]  750 	movx	@dptr,a
-      002163 75 82 01         [24]  751 	mov	dpl,#0x01
-      002166 12 22 2A         [24]  752 	lcall	_pcf8574_set_pin
-                                    753 ;	io_expander.c:86: pcf8574_set_pin(2,1);
-      002169 90 04 04         [24]  754 	mov	dptr,#_pcf8574_set_pin_PARM_2
-      00216C 74 01            [12]  755 	mov	a,#0x01
-      00216E F0               [24]  756 	movx	@dptr,a
-      00216F 75 82 02         [24]  757 	mov	dpl,#0x02
-      002172 12 22 2A         [24]  758 	lcall	_pcf8574_set_pin
-                                    759 ;	io_expander.c:87: pcf8574_set_pin(3,1);
-      002175 90 04 04         [24]  760 	mov	dptr,#_pcf8574_set_pin_PARM_2
-      002178 74 01            [12]  761 	mov	a,#0x01
-      00217A F0               [24]  762 	movx	@dptr,a
-      00217B 75 82 03         [24]  763 	mov	dpl,#0x03
-      00217E 12 22 2A         [24]  764 	lcall	_pcf8574_set_pin
-                                    765 ;	io_expander.c:88: pcf8574_set_pin(4,1);
-      002181 90 04 04         [24]  766 	mov	dptr,#_pcf8574_set_pin_PARM_2
-      002184 74 01            [12]  767 	mov	a,#0x01
-      002186 F0               [24]  768 	movx	@dptr,a
-      002187 75 82 04         [24]  769 	mov	dpl,#0x04
-      00218A 12 22 2A         [24]  770 	lcall	_pcf8574_set_pin
-                                    771 ;	io_expander.c:89: pcf8574_set_pin(5,0);
-      00218D 90 04 04         [24]  772 	mov	dptr,#_pcf8574_set_pin_PARM_2
-      002190 E4               [12]  773 	clr	a
-      002191 F0               [24]  774 	movx	@dptr,a
-      002192 75 82 05         [24]  775 	mov	dpl,#0x05
-      002195 12 22 2A         [24]  776 	lcall	_pcf8574_set_pin
-                                    777 ;	io_expander.c:91: while(1)
-      002198                        778 00102$:
-                                    779 ;	io_expander.c:93: printf("W\n\r");
-      002198 74 96            [12]  780 	mov	a,#___str_4
-      00219A C0 E0            [24]  781 	push	acc
-      00219C 74 2E            [12]  782 	mov	a,#(___str_4 >> 8)
-      00219E C0 E0            [24]  783 	push	acc
-      0021A0 74 80            [12]  784 	mov	a,#0x80
-      0021A2 C0 E0            [24]  785 	push	acc
-      0021A4 12 23 EE         [24]  786 	lcall	_printf
-      0021A7 15 81            [12]  787 	dec	sp
-      0021A9 15 81            [12]  788 	dec	sp
-      0021AB 15 81            [12]  789 	dec	sp
-                                    790 ;	io_expander.c:94: pcf8574_set_pin(5,0);
-      0021AD 90 04 04         [24]  791 	mov	dptr,#_pcf8574_set_pin_PARM_2
-      0021B0 E4               [12]  792 	clr	a
-      0021B1 F0               [24]  793 	movx	@dptr,a
-      0021B2 75 82 05         [24]  794 	mov	dpl,#0x05
-      0021B5 12 22 2A         [24]  795 	lcall	_pcf8574_set_pin
-                                    796 ;	io_expander.c:95: i2c_delay();
-      0021B8 12 23 89         [24]  797 	lcall	_i2c_delay
-                                    798 ;	io_expander.c:96: pcf8574_set_pin(5,1);
-      0021BB 90 04 04         [24]  799 	mov	dptr,#_pcf8574_set_pin_PARM_2
-      0021BE 74 01            [12]  800 	mov	a,#0x01
-      0021C0 F0               [24]  801 	movx	@dptr,a
-      0021C1 75 82 05         [24]  802 	mov	dpl,#0x05
-      0021C4 12 22 2A         [24]  803 	lcall	_pcf8574_set_pin
-                                    804 ;	io_expander.c:97: i2c_delay();
-      0021C7 12 23 89         [24]  805 	lcall	_i2c_delay
-                                    806 ;	io_expander.c:120: }
-      0021CA 80 CC            [24]  807 	sjmp	00102$
-                                    808 ;------------------------------------------------------------
-                                    809 ;Allocation info for local variables in function 'enable_interrupt0'
-                                    810 ;------------------------------------------------------------
-                                    811 ;	io_expander.c:124: void enable_interrupt0(void)
-                                    812 ;	-----------------------------------------
-                                    813 ;	 function enable_interrupt0
-                                    814 ;	-----------------------------------------
-      0021CC                        815 _enable_interrupt0:
-                                    816 ;	io_expander.c:127: IT0 = 1;           // Set INT0 to be edge-triggered
-                                    817 ;	assignBit
-      0021CC D2 88            [12]  818 	setb	_IT0
-                                    819 ;	io_expander.c:128: EX0 = 1;          // Enable INT0 interrupt
-                                    820 ;	assignBit
-      0021CE D2 A8            [12]  821 	setb	_EX0
-                                    822 ;	io_expander.c:129: EA = 1;           // Enable global interrupts
-                                    823 ;	assignBit
-      0021D0 D2 AF            [12]  824 	setb	_EA
-                                    825 ;	io_expander.c:130: }
-      0021D2 22               [24]  826 	ret
+      0020B4 12 21 B4         [24]  647 	lcall	_pcf8574_read_pin
+      0020B7 AF 82            [24]  648 	mov	r7,dpl
+                                    649 ;	io_expander.c:63: pcf8574_set_pin(7,data);
+      0020B9 90 04 04         [24]  650 	mov	dptr,#_pcf8574_set_pin_PARM_2
+      0020BC EF               [12]  651 	mov	a,r7
+      0020BD F0               [24]  652 	movx	@dptr,a
+      0020BE 75 82 07         [24]  653 	mov	dpl,#0x07
+      0020C1 12 21 F0         [24]  654 	lcall	_pcf8574_set_pin
+                                    655 ;	io_expander.c:64: printf("isr\n\r");
+      0020C4 74 16            [12]  656 	mov	a,#___str_0
+      0020C6 C0 E0            [24]  657 	push	acc
+      0020C8 74 2E            [12]  658 	mov	a,#(___str_0 >> 8)
+      0020CA C0 E0            [24]  659 	push	acc
+      0020CC 74 80            [12]  660 	mov	a,#0x80
+      0020CE C0 E0            [24]  661 	push	acc
+      0020D0 12 23 B4         [24]  662 	lcall	_printf
+      0020D3 15 81            [12]  663 	dec	sp
+      0020D5 15 81            [12]  664 	dec	sp
+      0020D7 15 81            [12]  665 	dec	sp
+                                    666 ;	io_expander.c:66: }
+      0020D9 D0 D0            [24]  667 	pop	psw
+      0020DB D0 00            [24]  668 	pop	(0+0)
+      0020DD D0 01            [24]  669 	pop	(0+1)
+      0020DF D0 02            [24]  670 	pop	(0+2)
+      0020E1 D0 03            [24]  671 	pop	(0+3)
+      0020E3 D0 04            [24]  672 	pop	(0+4)
+      0020E5 D0 05            [24]  673 	pop	(0+5)
+      0020E7 D0 06            [24]  674 	pop	(0+6)
+      0020E9 D0 07            [24]  675 	pop	(0+7)
+      0020EB D0 83            [24]  676 	pop	dph
+      0020ED D0 82            [24]  677 	pop	dpl
+      0020EF D0 F0            [24]  678 	pop	b
+      0020F1 D0 E0            [24]  679 	pop	acc
+      0020F3 D0 20            [24]  680 	pop	bits
+      0020F5 32               [24]  681 	reti
+                                    682 ;------------------------------------------------------------
+                                    683 ;Allocation info for local variables in function 'main'
+                                    684 ;------------------------------------------------------------
+                                    685 ;result                    Allocated with name '_main_result_65537_29'
+                                    686 ;------------------------------------------------------------
+                                    687 ;	io_expander.c:67: int main()
+                                    688 ;	-----------------------------------------
+                                    689 ;	 function main
+                                    690 ;	-----------------------------------------
+      0020F6                        691 _main:
+                                    692 ;	io_expander.c:69: P1 &= ~(1<<3);  // Set P1.3 as output
+      0020F6 53 90 F7         [24]  693 	anl	_P1,#0xf7
+                                    694 ;	io_expander.c:70: P1 &= ~(1<<4);  // Set P1.4 as output
+      0020F9 53 90 EF         [24]  695 	anl	_P1,#0xef
+                                    696 ;	io_expander.c:72: printf("IO EXPANDER PROGRAM\n\r");
+      0020FC 74 1C            [12]  697 	mov	a,#___str_1
+      0020FE C0 E0            [24]  698 	push	acc
+      002100 74 2E            [12]  699 	mov	a,#(___str_1 >> 8)
+      002102 C0 E0            [24]  700 	push	acc
+      002104 74 80            [12]  701 	mov	a,#0x80
+      002106 C0 E0            [24]  702 	push	acc
+      002108 12 23 B4         [24]  703 	lcall	_printf
+      00210B 15 81            [12]  704 	dec	sp
+      00210D 15 81            [12]  705 	dec	sp
+      00210F 15 81            [12]  706 	dec	sp
+                                    707 ;	io_expander.c:74: enable_interrupt0();
+      002111 12 21 92         [24]  708 	lcall	_enable_interrupt0
+                                    709 ;	io_expander.c:76: i2c_start();
+      002114 12 23 2D         [24]  710 	lcall	_i2c_start
+                                    711 ;	io_expander.c:77: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
+      002117 75 82 70         [24]  712 	mov	dpl,#0x70
+      00211A 12 22 40         [24]  713 	lcall	_i2c_write
+                                    714 ;	io_expander.c:78: i2c_write(0xFF);
+      00211D 75 82 FF         [24]  715 	mov	dpl,#0xff
+      002120 12 22 40         [24]  716 	lcall	_i2c_write
+                                    717 ;	io_expander.c:80: i2c_stop();
+      002123 12 23 42         [24]  718 	lcall	_i2c_stop
+                                    719 ;	io_expander.c:82: printf("IO expander initialized\n\r");
+      002126 74 32            [12]  720 	mov	a,#___str_2
+      002128 C0 E0            [24]  721 	push	acc
+      00212A 74 2E            [12]  722 	mov	a,#(___str_2 >> 8)
+      00212C C0 E0            [24]  723 	push	acc
+      00212E 74 80            [12]  724 	mov	a,#0x80
+      002130 C0 E0            [24]  725 	push	acc
+      002132 12 23 B4         [24]  726 	lcall	_printf
+      002135 15 81            [12]  727 	dec	sp
+      002137 15 81            [12]  728 	dec	sp
+      002139 15 81            [12]  729 	dec	sp
+                                    730 ;	io_expander.c:83: int result = pcf8574_read_pin(0);
+      00213B 75 82 00         [24]  731 	mov	dpl,#0x00
+      00213E 12 21 B4         [24]  732 	lcall	_pcf8574_read_pin
+      002141 AF 82            [24]  733 	mov	r7,dpl
+      002143 7E 00            [12]  734 	mov	r6,#0x00
+                                    735 ;	io_expander.c:84: printf("port 0 pin %d\n\r", result);
+      002145 C0 07            [24]  736 	push	ar7
+      002147 C0 06            [24]  737 	push	ar6
+      002149 74 4C            [12]  738 	mov	a,#___str_3
+      00214B C0 E0            [24]  739 	push	acc
+      00214D 74 2E            [12]  740 	mov	a,#(___str_3 >> 8)
+      00214F C0 E0            [24]  741 	push	acc
+      002151 74 80            [12]  742 	mov	a,#0x80
+      002153 C0 E0            [24]  743 	push	acc
+      002155 12 23 B4         [24]  744 	lcall	_printf
+      002158 E5 81            [12]  745 	mov	a,sp
+      00215A 24 FB            [12]  746 	add	a,#0xfb
+      00215C F5 81            [12]  747 	mov	sp,a
+                                    748 ;	io_expander.c:87: while(1)
+      00215E                        749 00102$:
+                                    750 ;	io_expander.c:89: printf("W\n\r");
+      00215E 74 5C            [12]  751 	mov	a,#___str_4
+      002160 C0 E0            [24]  752 	push	acc
+      002162 74 2E            [12]  753 	mov	a,#(___str_4 >> 8)
+      002164 C0 E0            [24]  754 	push	acc
+      002166 74 80            [12]  755 	mov	a,#0x80
+      002168 C0 E0            [24]  756 	push	acc
+      00216A 12 23 B4         [24]  757 	lcall	_printf
+      00216D 15 81            [12]  758 	dec	sp
+      00216F 15 81            [12]  759 	dec	sp
+      002171 15 81            [12]  760 	dec	sp
+                                    761 ;	io_expander.c:90: pcf8574_set_pin(5,0);
+      002173 90 04 04         [24]  762 	mov	dptr,#_pcf8574_set_pin_PARM_2
+      002176 E4               [12]  763 	clr	a
+      002177 F0               [24]  764 	movx	@dptr,a
+      002178 75 82 05         [24]  765 	mov	dpl,#0x05
+      00217B 12 21 F0         [24]  766 	lcall	_pcf8574_set_pin
+                                    767 ;	io_expander.c:91: i2c_delay();
+      00217E 12 23 4F         [24]  768 	lcall	_i2c_delay
+                                    769 ;	io_expander.c:92: pcf8574_set_pin(5,1);
+      002181 90 04 04         [24]  770 	mov	dptr,#_pcf8574_set_pin_PARM_2
+      002184 74 01            [12]  771 	mov	a,#0x01
+      002186 F0               [24]  772 	movx	@dptr,a
+      002187 75 82 05         [24]  773 	mov	dpl,#0x05
+      00218A 12 21 F0         [24]  774 	lcall	_pcf8574_set_pin
+                                    775 ;	io_expander.c:93: i2c_delay();
+      00218D 12 23 4F         [24]  776 	lcall	_i2c_delay
+                                    777 ;	io_expander.c:116: }
+      002190 80 CC            [24]  778 	sjmp	00102$
+                                    779 ;------------------------------------------------------------
+                                    780 ;Allocation info for local variables in function 'enable_interrupt0'
+                                    781 ;------------------------------------------------------------
+                                    782 ;	io_expander.c:120: void enable_interrupt0(void)
+                                    783 ;	-----------------------------------------
+                                    784 ;	 function enable_interrupt0
+                                    785 ;	-----------------------------------------
+      002192                        786 _enable_interrupt0:
+                                    787 ;	io_expander.c:123: IT0 = 1;           // Set INT0 to be edge-triggered
+                                    788 ;	assignBit
+      002192 D2 88            [12]  789 	setb	_IT0
+                                    790 ;	io_expander.c:124: EX0 = 1;          // Enable INT0 interrupt
+                                    791 ;	assignBit
+      002194 D2 A8            [12]  792 	setb	_EX0
+                                    793 ;	io_expander.c:125: EA = 1;           // Enable global interrupts
+                                    794 ;	assignBit
+      002196 D2 AF            [12]  795 	setb	_EA
+                                    796 ;	io_expander.c:126: }
+      002198 22               [24]  797 	ret
+                                    798 ;------------------------------------------------------------
+                                    799 ;Allocation info for local variables in function 'pcf8574_read_port'
+                                    800 ;------------------------------------------------------------
+                                    801 ;data                      Allocated with name '_pcf8574_read_port_data_65536_34'
+                                    802 ;------------------------------------------------------------
+                                    803 ;	io_expander.c:128: uint8_t pcf8574_read_port(void) {
+                                    804 ;	-----------------------------------------
+                                    805 ;	 function pcf8574_read_port
+                                    806 ;	-----------------------------------------
+      002199                        807 _pcf8574_read_port:
+                                    808 ;	io_expander.c:130: i2c_start();
+      002199 12 23 2D         [24]  809 	lcall	_i2c_start
+                                    810 ;	io_expander.c:131: i2c_write(PCF8574_I2C_READ_ADDRESS);
+      00219C 75 82 71         [24]  811 	mov	dpl,#0x71
+      00219F 12 22 40         [24]  812 	lcall	_i2c_write
+                                    813 ;	io_expander.c:132: data = i2c_read(0);
+      0021A2 90 00 00         [24]  814 	mov	dptr,#0x0000
+      0021A5 12 22 A8         [24]  815 	lcall	_i2c_read
+      0021A8 AE 82            [24]  816 	mov	r6,dpl
+                                    817 ;	io_expander.c:133: i2c_stop();
+      0021AA C0 06            [24]  818 	push	ar6
+      0021AC 12 23 42         [24]  819 	lcall	_i2c_stop
+      0021AF D0 06            [24]  820 	pop	ar6
+                                    821 ;	io_expander.c:134: return data;
+      0021B1 8E 82            [24]  822 	mov	dpl,r6
+                                    823 ;	io_expander.c:135: }
+      0021B3 22               [24]  824 	ret
+                                    825 ;------------------------------------------------------------
+                                    826 ;Allocation info for local variables in function 'pcf8574_read_pin'
                                     827 ;------------------------------------------------------------
-                                    828 ;Allocation info for local variables in function 'pcf8574_read_port'
-                                    829 ;------------------------------------------------------------
-                                    830 ;data                      Allocated with name '_pcf8574_read_port_data_65536_34'
-                                    831 ;------------------------------------------------------------
-                                    832 ;	io_expander.c:132: uint8_t pcf8574_read_port(void) {
-                                    833 ;	-----------------------------------------
-                                    834 ;	 function pcf8574_read_port
-                                    835 ;	-----------------------------------------
-      0021D3                        836 _pcf8574_read_port:
-                                    837 ;	io_expander.c:134: i2c_start();
-      0021D3 12 23 67         [24]  838 	lcall	_i2c_start
-                                    839 ;	io_expander.c:135: i2c_write(PCF8574_I2C_READ_ADDRESS);
-      0021D6 75 82 71         [24]  840 	mov	dpl,#0x71
-      0021D9 12 22 7A         [24]  841 	lcall	_i2c_write
-                                    842 ;	io_expander.c:136: data = i2c_read(0);
-      0021DC 90 00 00         [24]  843 	mov	dptr,#0x0000
-      0021DF 12 22 E2         [24]  844 	lcall	_i2c_read
-      0021E2 AE 82            [24]  845 	mov	r6,dpl
-                                    846 ;	io_expander.c:137: i2c_stop();
-      0021E4 C0 06            [24]  847 	push	ar6
-      0021E6 12 23 7C         [24]  848 	lcall	_i2c_stop
-      0021E9 D0 06            [24]  849 	pop	ar6
-                                    850 ;	io_expander.c:138: return data;
-      0021EB 8E 82            [24]  851 	mov	dpl,r6
-                                    852 ;	io_expander.c:139: }
-      0021ED 22               [24]  853 	ret
-                                    854 ;------------------------------------------------------------
-                                    855 ;Allocation info for local variables in function 'pcf8574_read_pin'
-                                    856 ;------------------------------------------------------------
-                                    857 ;pin                       Allocated with name '_pcf8574_read_pin_pin_65536_35'
-                                    858 ;port_state                Allocated with name '_pcf8574_read_pin_port_state_65536_36'
+                                    828 ;pin                       Allocated with name '_pcf8574_read_pin_pin_65536_35'
+                                    829 ;port_state                Allocated with name '_pcf8574_read_pin_port_state_65536_36'
+                                    830 ;------------------------------------------------------------
+                                    831 ;	io_expander.c:137: uint8_t pcf8574_read_pin(uint8_t pin) {
+                                    832 ;	-----------------------------------------
+                                    833 ;	 function pcf8574_read_pin
+                                    834 ;	-----------------------------------------
+      0021B4                        835 _pcf8574_read_pin:
+      0021B4 E5 82            [12]  836 	mov	a,dpl
+      0021B6 90 04 02         [24]  837 	mov	dptr,#_pcf8574_read_pin_pin_65536_35
+      0021B9 F0               [24]  838 	movx	@dptr,a
+                                    839 ;	io_expander.c:138: uint8_t port_state = pcf8574_read_port();
+      0021BA 12 21 99         [24]  840 	lcall	_pcf8574_read_port
+      0021BD AF 82            [24]  841 	mov	r7,dpl
+                                    842 ;	io_expander.c:139: return (port_state >> pin) & 0x01;
+      0021BF 90 04 02         [24]  843 	mov	dptr,#_pcf8574_read_pin_pin_65536_35
+      0021C2 E0               [24]  844 	movx	a,@dptr
+      0021C3 FE               [12]  845 	mov	r6,a
+      0021C4 8E F0            [24]  846 	mov	b,r6
+      0021C6 05 F0            [12]  847 	inc	b
+      0021C8 EF               [12]  848 	mov	a,r7
+      0021C9 80 02            [24]  849 	sjmp	00104$
+      0021CB                        850 00103$:
+      0021CB C3               [12]  851 	clr	c
+      0021CC 13               [12]  852 	rrc	a
+      0021CD                        853 00104$:
+      0021CD D5 F0 FB         [24]  854 	djnz	b,00103$
+      0021D0 54 01            [12]  855 	anl	a,#0x01
+                                    856 ;	io_expander.c:140: }
+      0021D2 F5 82            [12]  857 	mov	dpl,a
+      0021D4 22               [24]  858 	ret
                                     859 ;------------------------------------------------------------
-                                    860 ;	io_expander.c:141: uint8_t pcf8574_read_pin(uint8_t pin) {
-                                    861 ;	-----------------------------------------
-                                    862 ;	 function pcf8574_read_pin
-                                    863 ;	-----------------------------------------
-      0021EE                        864 _pcf8574_read_pin:
-      0021EE E5 82            [12]  865 	mov	a,dpl
-      0021F0 90 04 02         [24]  866 	mov	dptr,#_pcf8574_read_pin_pin_65536_35
-      0021F3 F0               [24]  867 	movx	@dptr,a
-                                    868 ;	io_expander.c:142: uint8_t port_state = pcf8574_read_port();
-      0021F4 12 21 D3         [24]  869 	lcall	_pcf8574_read_port
-      0021F7 AF 82            [24]  870 	mov	r7,dpl
-                                    871 ;	io_expander.c:143: return (port_state >> pin) & 0x01;
-      0021F9 90 04 02         [24]  872 	mov	dptr,#_pcf8574_read_pin_pin_65536_35
-      0021FC E0               [24]  873 	movx	a,@dptr
-      0021FD FE               [12]  874 	mov	r6,a
-      0021FE 8E F0            [24]  875 	mov	b,r6
-      002200 05 F0            [12]  876 	inc	b
-      002202 EF               [12]  877 	mov	a,r7
-      002203 80 02            [24]  878 	sjmp	00104$
-      002205                        879 00103$:
-      002205 C3               [12]  880 	clr	c
-      002206 13               [12]  881 	rrc	a
-      002207                        882 00104$:
-      002207 D5 F0 FB         [24]  883 	djnz	b,00103$
-      00220A 54 01            [12]  884 	anl	a,#0x01
-                                    885 ;	io_expander.c:144: }
-      00220C F5 82            [12]  886 	mov	dpl,a
-      00220E 22               [24]  887 	ret
-                                    888 ;------------------------------------------------------------
-                                    889 ;Allocation info for local variables in function 'pcf8574_write_port'
-                                    890 ;------------------------------------------------------------
-                                    891 ;value                     Allocated with name '_pcf8574_write_port_value_65536_37'
-                                    892 ;------------------------------------------------------------
-                                    893 ;	io_expander.c:146: void pcf8574_write_port(uint8_t value)
-                                    894 ;	-----------------------------------------
-                                    895 ;	 function pcf8574_write_port
-                                    896 ;	-----------------------------------------
-      00220F                        897 _pcf8574_write_port:
-      00220F E5 82            [12]  898 	mov	a,dpl
-      002211 90 04 03         [24]  899 	mov	dptr,#_pcf8574_write_port_value_65536_37
-      002214 F0               [24]  900 	movx	@dptr,a
-                                    901 ;	io_expander.c:148: i2c_start();
-      002215 12 23 67         [24]  902 	lcall	_i2c_start
-                                    903 ;	io_expander.c:149: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
-      002218 75 82 70         [24]  904 	mov	dpl,#0x70
-      00221B 12 22 7A         [24]  905 	lcall	_i2c_write
-                                    906 ;	io_expander.c:150: i2c_write(value);
-      00221E 90 04 03         [24]  907 	mov	dptr,#_pcf8574_write_port_value_65536_37
-      002221 E0               [24]  908 	movx	a,@dptr
-      002222 F5 82            [12]  909 	mov	dpl,a
-      002224 12 22 7A         [24]  910 	lcall	_i2c_write
-                                    911 ;	io_expander.c:151: i2c_stop();
-                                    912 ;	io_expander.c:152: }
-      002227 02 23 7C         [24]  913 	ljmp	_i2c_stop
-                                    914 ;------------------------------------------------------------
-                                    915 ;Allocation info for local variables in function 'pcf8574_set_pin'
-                                    916 ;------------------------------------------------------------
-                                    917 ;value                     Allocated with name '_pcf8574_set_pin_PARM_2'
-                                    918 ;pin                       Allocated with name '_pcf8574_set_pin_pin_65536_39'
-                                    919 ;port_state                Allocated with name '_pcf8574_set_pin_port_state_65536_40'
-                                    920 ;------------------------------------------------------------
-                                    921 ;	io_expander.c:154: void pcf8574_set_pin(uint8_t pin, uint8_t value) {
-                                    922 ;	-----------------------------------------
-                                    923 ;	 function pcf8574_set_pin
-                                    924 ;	-----------------------------------------
-      00222A                        925 _pcf8574_set_pin:
-      00222A E5 82            [12]  926 	mov	a,dpl
-      00222C 90 04 05         [24]  927 	mov	dptr,#_pcf8574_set_pin_pin_65536_39
-      00222F F0               [24]  928 	movx	@dptr,a
-                                    929 ;	io_expander.c:155: uint8_t port_state = pcf8574_read_port();
-      002230 12 21 D3         [24]  930 	lcall	_pcf8574_read_port
-      002233 AF 82            [24]  931 	mov	r7,dpl
-                                    932 ;	io_expander.c:156: if (value) {
-      002235 90 04 04         [24]  933 	mov	dptr,#_pcf8574_set_pin_PARM_2
-      002238 E0               [24]  934 	movx	a,@dptr
-      002239 60 1D            [24]  935 	jz	00102$
-                                    936 ;	io_expander.c:157: port_state |= (1 << pin);  // Set pin high
-      00223B 90 04 05         [24]  937 	mov	dptr,#_pcf8574_set_pin_pin_65536_39
-      00223E E0               [24]  938 	movx	a,@dptr
-      00223F FE               [12]  939 	mov	r6,a
-      002240 8E F0            [24]  940 	mov	b,r6
-      002242 05 F0            [12]  941 	inc	b
-      002244 74 01            [12]  942 	mov	a,#0x01
-      002246 80 02            [24]  943 	sjmp	00113$
-      002248                        944 00111$:
-      002248 25 E0            [12]  945 	add	a,acc
-      00224A                        946 00113$:
-      00224A D5 F0 FB         [24]  947 	djnz	b,00111$
-      00224D FE               [12]  948 	mov	r6,a
-      00224E 8F 05            [24]  949 	mov	ar5,r7
-      002250 90 04 06         [24]  950 	mov	dptr,#_pcf8574_set_pin_port_state_65536_40
-      002253 EE               [12]  951 	mov	a,r6
-      002254 4D               [12]  952 	orl	a,r5
-      002255 F0               [24]  953 	movx	@dptr,a
-      002256 80 19            [24]  954 	sjmp	00103$
-      002258                        955 00102$:
-                                    956 ;	io_expander.c:159: port_state &= ~(1 << pin); // Set pin low
-      002258 90 04 05         [24]  957 	mov	dptr,#_pcf8574_set_pin_pin_65536_39
-      00225B E0               [24]  958 	movx	a,@dptr
-      00225C FE               [12]  959 	mov	r6,a
-      00225D 8E F0            [24]  960 	mov	b,r6
-      00225F 05 F0            [12]  961 	inc	b
-      002261 74 01            [12]  962 	mov	a,#0x01
-      002263 80 02            [24]  963 	sjmp	00116$
-      002265                        964 00114$:
-      002265 25 E0            [12]  965 	add	a,acc
-      002267                        966 00116$:
-      002267 D5 F0 FB         [24]  967 	djnz	b,00114$
-      00226A F4               [12]  968 	cpl	a
-      00226B FE               [12]  969 	mov	r6,a
-      00226C 90 04 06         [24]  970 	mov	dptr,#_pcf8574_set_pin_port_state_65536_40
-      00226F 5F               [12]  971 	anl	a,r7
-      002270 F0               [24]  972 	movx	@dptr,a
-      002271                        973 00103$:
-                                    974 ;	io_expander.c:161: pcf8574_write_port(port_state);
-      002271 90 04 06         [24]  975 	mov	dptr,#_pcf8574_set_pin_port_state_65536_40
-      002274 E0               [24]  976 	movx	a,@dptr
-      002275 F5 82            [12]  977 	mov	dpl,a
-                                    978 ;	io_expander.c:162: }
-      002277 02 22 0F         [24]  979 	ljmp	_pcf8574_write_port
-                                    980 ;------------------------------------------------------------
-                                    981 ;Allocation info for local variables in function 'i2c_write'
-                                    982 ;------------------------------------------------------------
-                                    983 ;data                      Allocated with name '_i2c_write_data_65536_43'
-                                    984 ;i                         Allocated with name '_i2c_write_i_65536_44'
-                                    985 ;------------------------------------------------------------
-                                    986 ;	io_expander.c:172: int i2c_write(unsigned char data)
-                                    987 ;	-----------------------------------------
-                                    988 ;	 function i2c_write
-                                    989 ;	-----------------------------------------
-      00227A                        990 _i2c_write:
-      00227A E5 82            [12]  991 	mov	a,dpl
-      00227C 90 04 07         [24]  992 	mov	dptr,#_i2c_write_data_65536_43
-      00227F F0               [24]  993 	movx	@dptr,a
-                                    994 ;	io_expander.c:176: for(i=0;i<=7;i++)
-      002280 7E 00            [12]  995 	mov	r6,#0x00
-      002282 7F 00            [12]  996 	mov	r7,#0x00
-      002284                        997 00104$:
-                                    998 ;	io_expander.c:178: SDA = (data & 0x80) ? 1 : 0;    //msb first
-      002284 90 04 07         [24]  999 	mov	dptr,#_i2c_write_data_65536_43
-      002287 E0               [24] 1000 	movx	a,@dptr
-      002288 FD               [12] 1001 	mov	r5,a
-      002289 23               [12] 1002 	rl	a
-      00228A 54 01            [12] 1003 	anl	a,#0x01
-      00228C 24 FF            [12] 1004 	add	a,#0xff
-      00228E 92 94            [24] 1005 	mov	_P1_4,c
-                                   1006 ;	io_expander.c:179: i2c_delay();        // Setup time for data
-      002290 C0 07            [24] 1007 	push	ar7
-      002292 C0 06            [24] 1008 	push	ar6
-      002294 C0 05            [24] 1009 	push	ar5
-      002296 12 23 89         [24] 1010 	lcall	_i2c_delay
-                                   1011 ;	io_expander.c:180: SCL=1;
-                                   1012 ;	assignBit
-      002299 D2 93            [12] 1013 	setb	_P1_3
-                                   1014 ;	io_expander.c:181: i2c_delay();        // Hold time for clock
-      00229B 12 23 89         [24] 1015 	lcall	_i2c_delay
-      00229E D0 05            [24] 1016 	pop	ar5
-      0022A0 D0 06            [24] 1017 	pop	ar6
-      0022A2 D0 07            [24] 1018 	pop	ar7
-                                   1019 ;	io_expander.c:182: SCL=0;
-                                   1020 ;	assignBit
-      0022A4 C2 93            [12] 1021 	clr	_P1_3
-                                   1022 ;	io_expander.c:183: data = data << 1;
-      0022A6 ED               [12] 1023 	mov	a,r5
-      0022A7 2D               [12] 1024 	add	a,r5
-      0022A8 90 04 07         [24] 1025 	mov	dptr,#_i2c_write_data_65536_43
-      0022AB F0               [24] 1026 	movx	@dptr,a
-                                   1027 ;	io_expander.c:176: for(i=0;i<=7;i++)
-      0022AC 0E               [12] 1028 	inc	r6
-      0022AD BE 00 01         [24] 1029 	cjne	r6,#0x00,00121$
-      0022B0 0F               [12] 1030 	inc	r7
-      0022B1                       1031 00121$:
-      0022B1 C3               [12] 1032 	clr	c
-      0022B2 74 07            [12] 1033 	mov	a,#0x07
-      0022B4 9E               [12] 1034 	subb	a,r6
-      0022B5 E4               [12] 1035 	clr	a
-      0022B6 9F               [12] 1036 	subb	a,r7
-      0022B7 50 CB            [24] 1037 	jnc	00104$
-                                   1038 ;	io_expander.c:187: SDA = 1;            // Release SDA for slave
-                                   1039 ;	assignBit
-      0022B9 D2 94            [12] 1040 	setb	_P1_4
-                                   1041 ;	io_expander.c:188: SCL = 1;            // 9th clock pulse for ACK
-                                   1042 ;	assignBit
-      0022BB D2 93            [12] 1043 	setb	_P1_3
-                                   1044 ;	io_expander.c:189: i2c_delay();
-      0022BD 12 23 89         [24] 1045 	lcall	_i2c_delay
-                                   1046 ;	io_expander.c:190: if(SDA == 1)        // If SDA is still high, no ACK received
-      0022C0 30 94 19         [24] 1047 	jnb	_P1_4,00103$
-                                   1048 ;	io_expander.c:193: printf("ACK DID NOT ARRIVE\n\r");
-      0022C3 74 9A            [12] 1049 	mov	a,#___str_5
-      0022C5 C0 E0            [24] 1050 	push	acc
-      0022C7 74 2E            [12] 1051 	mov	a,#(___str_5 >> 8)
-      0022C9 C0 E0            [24] 1052 	push	acc
-      0022CB 74 80            [12] 1053 	mov	a,#0x80
-      0022CD C0 E0            [24] 1054 	push	acc
-      0022CF 12 23 EE         [24] 1055 	lcall	_printf
-      0022D2 15 81            [12] 1056 	dec	sp
-      0022D4 15 81            [12] 1057 	dec	sp
-      0022D6 15 81            [12] 1058 	dec	sp
-                                   1059 ;	io_expander.c:194: return 0;       // Error
-      0022D8 90 00 00         [24] 1060 	mov	dptr,#0x0000
-      0022DB 22               [24] 1061 	ret
-      0022DC                       1062 00103$:
-                                   1063 ;	io_expander.c:196: SCL = 0;
-                                   1064 ;	assignBit
-      0022DC C2 93            [12] 1065 	clr	_P1_3
-                                   1066 ;	io_expander.c:198: return 1;           // Success
-      0022DE 90 00 01         [24] 1067 	mov	dptr,#0x0001
-                                   1068 ;	io_expander.c:200: }
-      0022E1 22               [24] 1069 	ret
-                                   1070 ;------------------------------------------------------------
-                                   1071 ;Allocation info for local variables in function 'i2c_read'
-                                   1072 ;------------------------------------------------------------
-                                   1073 ;ACK                       Allocated with name '_i2c_read_ACK_65536_48'
-                                   1074 ;buff                      Allocated with name '_i2c_read_buff_65536_49'
-                                   1075 ;i                         Allocated with name '_i2c_read_i_131072_50'
-                                   1076 ;------------------------------------------------------------
-                                   1077 ;	io_expander.c:210: int i2c_read(int ACK)
-                                   1078 ;	-----------------------------------------
-                                   1079 ;	 function i2c_read
-                                   1080 ;	-----------------------------------------
-      0022E2                       1081 _i2c_read:
-      0022E2 AF 83            [24] 1082 	mov	r7,dph
-      0022E4 E5 82            [12] 1083 	mov	a,dpl
-      0022E6 90 04 08         [24] 1084 	mov	dptr,#_i2c_read_ACK_65536_48
-      0022E9 F0               [24] 1085 	movx	@dptr,a
-      0022EA EF               [12] 1086 	mov	a,r7
-      0022EB A3               [24] 1087 	inc	dptr
-      0022EC F0               [24] 1088 	movx	@dptr,a
-                                   1089 ;	io_expander.c:212: unsigned char buff=0;
-      0022ED 90 04 0A         [24] 1090 	mov	dptr,#_i2c_read_buff_65536_49
-      0022F0 E4               [12] 1091 	clr	a
-      0022F1 F0               [24] 1092 	movx	@dptr,a
-                                   1093 ;	io_expander.c:213: SCL = 0;
-                                   1094 ;	assignBit
-      0022F2 C2 93            [12] 1095 	clr	_P1_3
-                                   1096 ;	io_expander.c:214: for(int i=0;i<8;i++)
-      0022F4 7E 00            [12] 1097 	mov	r6,#0x00
-      0022F6 7F 00            [12] 1098 	mov	r7,#0x00
-      0022F8                       1099 00103$:
-      0022F8 C3               [12] 1100 	clr	c
-      0022F9 EE               [12] 1101 	mov	a,r6
-      0022FA 94 08            [12] 1102 	subb	a,#0x08
-      0022FC EF               [12] 1103 	mov	a,r7
-      0022FD 64 80            [12] 1104 	xrl	a,#0x80
-      0022FF 94 80            [12] 1105 	subb	a,#0x80
-      002301 50 40            [24] 1106 	jnc	00101$
-                                   1107 ;	io_expander.c:216: SCL = 1;
-                                   1108 ;	assignBit
-      002303 D2 93            [12] 1109 	setb	_P1_3
-                                   1110 ;	io_expander.c:217: i2c_delay();
-      002305 C0 07            [24] 1111 	push	ar7
-      002307 C0 06            [24] 1112 	push	ar6
-      002309 12 23 89         [24] 1113 	lcall	_i2c_delay
-      00230C D0 06            [24] 1114 	pop	ar6
-      00230E D0 07            [24] 1115 	pop	ar7
-                                   1116 ;	io_expander.c:218: buff |= (SDA << (7 - i));
-      002310 A2 94            [12] 1117 	mov	c,_P1_4
-      002312 E4               [12] 1118 	clr	a
-      002313 33               [12] 1119 	rlc	a
-      002314 FD               [12] 1120 	mov	r5,a
-      002315 8E 04            [24] 1121 	mov	ar4,r6
-      002317 74 07            [12] 1122 	mov	a,#0x07
-      002319 C3               [12] 1123 	clr	c
-      00231A 9C               [12] 1124 	subb	a,r4
-      00231B FC               [12] 1125 	mov	r4,a
-      00231C 8C F0            [24] 1126 	mov	b,r4
-      00231E 05 F0            [12] 1127 	inc	b
-      002320 ED               [12] 1128 	mov	a,r5
-      002321 80 02            [24] 1129 	sjmp	00119$
-      002323                       1130 00117$:
-      002323 25 E0            [12] 1131 	add	a,acc
-      002325                       1132 00119$:
-      002325 D5 F0 FB         [24] 1133 	djnz	b,00117$
-      002328 FC               [12] 1134 	mov	r4,a
-      002329 90 04 0A         [24] 1135 	mov	dptr,#_i2c_read_buff_65536_49
-      00232C E0               [24] 1136 	movx	a,@dptr
-      00232D 4C               [12] 1137 	orl	a,r4
-      00232E F0               [24] 1138 	movx	@dptr,a
-                                   1139 ;	io_expander.c:219: i2c_delay();
-      00232F C0 07            [24] 1140 	push	ar7
-      002331 C0 06            [24] 1141 	push	ar6
-      002333 12 23 89         [24] 1142 	lcall	_i2c_delay
-      002336 D0 06            [24] 1143 	pop	ar6
-      002338 D0 07            [24] 1144 	pop	ar7
-                                   1145 ;	io_expander.c:220: SCL=0;
-                                   1146 ;	assignBit
-      00233A C2 93            [12] 1147 	clr	_P1_3
-                                   1148 ;	io_expander.c:214: for(int i=0;i<8;i++)
-      00233C 0E               [12] 1149 	inc	r6
-      00233D BE 00 B8         [24] 1150 	cjne	r6,#0x00,00103$
-      002340 0F               [12] 1151 	inc	r7
-      002341 80 B5            [24] 1152 	sjmp	00103$
-      002343                       1153 00101$:
-                                   1154 ;	io_expander.c:224: SDA = !ACK;         // ACK = 0, NACK = 1
-      002343 90 04 08         [24] 1155 	mov	dptr,#_i2c_read_ACK_65536_48
-      002346 E0               [24] 1156 	movx	a,@dptr
-      002347 FE               [12] 1157 	mov	r6,a
-      002348 A3               [24] 1158 	inc	dptr
-      002349 E0               [24] 1159 	movx	a,@dptr
-      00234A 4E               [12] 1160 	orl	a,r6
-      00234B B4 01 00         [24] 1161 	cjne	a,#0x01,00121$
-      00234E                       1162 00121$:
-      00234E E4               [12] 1163 	clr	a
-      00234F 33               [12] 1164 	rlc	a
-      002350 24 FF            [12] 1165 	add	a,#0xff
-      002352 92 94            [24] 1166 	mov	_P1_4,c
-                                   1167 ;	io_expander.c:225: SCL = 1;
-                                   1168 ;	assignBit
-      002354 D2 93            [12] 1169 	setb	_P1_3
-                                   1170 ;	io_expander.c:226: i2c_delay();
-      002356 12 23 89         [24] 1171 	lcall	_i2c_delay
-                                   1172 ;	io_expander.c:227: SCL = 0;
-                                   1173 ;	assignBit
-      002359 C2 93            [12] 1174 	clr	_P1_3
-                                   1175 ;	io_expander.c:229: return buff;
-      00235B 90 04 0A         [24] 1176 	mov	dptr,#_i2c_read_buff_65536_49
-      00235E E0               [24] 1177 	movx	a,@dptr
-      00235F FF               [12] 1178 	mov	r7,a
-      002360 7E 00            [12] 1179 	mov	r6,#0x00
-      002362 8F 82            [24] 1180 	mov	dpl,r7
-      002364 8E 83            [24] 1181 	mov	dph,r6
-                                   1182 ;	io_expander.c:230: }
-      002366 22               [24] 1183 	ret
-                                   1184 ;------------------------------------------------------------
-                                   1185 ;Allocation info for local variables in function 'i2c_start'
-                                   1186 ;------------------------------------------------------------
-                                   1187 ;	io_expander.c:237: void i2c_start(void)
-                                   1188 ;	-----------------------------------------
-                                   1189 ;	 function i2c_start
-                                   1190 ;	-----------------------------------------
-      002367                       1191 _i2c_start:
-                                   1192 ;	io_expander.c:239: i2c_delay();
-      002367 12 23 89         [24] 1193 	lcall	_i2c_delay
-                                   1194 ;	io_expander.c:240: SDA = 1;
-                                   1195 ;	assignBit
-      00236A D2 94            [12] 1196 	setb	_P1_4
-                                   1197 ;	io_expander.c:241: i2c_delay();
-      00236C 12 23 89         [24] 1198 	lcall	_i2c_delay
-                                   1199 ;	io_expander.c:242: SCL = 1;
-                                   1200 ;	assignBit
-      00236F D2 93            [12] 1201 	setb	_P1_3
-                                   1202 ;	io_expander.c:243: i2c_delay();
-      002371 12 23 89         [24] 1203 	lcall	_i2c_delay
-                                   1204 ;	io_expander.c:244: SDA = 0;
-                                   1205 ;	assignBit
-      002374 C2 94            [12] 1206 	clr	_P1_4
-                                   1207 ;	io_expander.c:245: i2c_delay();
-      002376 12 23 89         [24] 1208 	lcall	_i2c_delay
-                                   1209 ;	io_expander.c:246: SCL = 0;
-                                   1210 ;	assignBit
-      002379 C2 93            [12] 1211 	clr	_P1_3
-                                   1212 ;	io_expander.c:247: }
-      00237B 22               [24] 1213 	ret
-                                   1214 ;------------------------------------------------------------
-                                   1215 ;Allocation info for local variables in function 'i2c_stop'
-                                   1216 ;------------------------------------------------------------
-                                   1217 ;	io_expander.c:254: void i2c_stop(void)
-                                   1218 ;	-----------------------------------------
-                                   1219 ;	 function i2c_stop
-                                   1220 ;	-----------------------------------------
-      00237C                       1221 _i2c_stop:
-                                   1222 ;	io_expander.c:256: SDA = 0;
-                                   1223 ;	assignBit
-      00237C C2 94            [12] 1224 	clr	_P1_4
-                                   1225 ;	io_expander.c:257: i2c_delay();
-      00237E 12 23 89         [24] 1226 	lcall	_i2c_delay
-                                   1227 ;	io_expander.c:258: SCL = 1;
-                                   1228 ;	assignBit
-      002381 D2 93            [12] 1229 	setb	_P1_3
-                                   1230 ;	io_expander.c:259: i2c_delay();
-      002383 12 23 89         [24] 1231 	lcall	_i2c_delay
-                                   1232 ;	io_expander.c:260: SDA = 1; 
-                                   1233 ;	assignBit
-      002386 D2 94            [12] 1234 	setb	_P1_4
-                                   1235 ;	io_expander.c:261: }
-      002388 22               [24] 1236 	ret
-                                   1237 ;------------------------------------------------------------
-                                   1238 ;Allocation info for local variables in function 'i2c_delay'
-                                   1239 ;------------------------------------------------------------
-                                   1240 ;i                         Allocated with name '_i2c_delay_i_131072_57'
-                                   1241 ;------------------------------------------------------------
-                                   1242 ;	io_expander.c:270: void i2c_delay() 
-                                   1243 ;	-----------------------------------------
-                                   1244 ;	 function i2c_delay
-                                   1245 ;	-----------------------------------------
-      002389                       1246 _i2c_delay:
-                                   1247 ;	io_expander.c:272: for(int i = 0; i<500; i++);
-      002389 7E 00            [12] 1248 	mov	r6,#0x00
-      00238B 7F 00            [12] 1249 	mov	r7,#0x00
-      00238D                       1250 00103$:
-      00238D C3               [12] 1251 	clr	c
-      00238E EE               [12] 1252 	mov	a,r6
-      00238F 94 F4            [12] 1253 	subb	a,#0xf4
-      002391 EF               [12] 1254 	mov	a,r7
-      002392 64 80            [12] 1255 	xrl	a,#0x80
-      002394 94 81            [12] 1256 	subb	a,#0x81
-      002396 50 07            [24] 1257 	jnc	00105$
-      002398 0E               [12] 1258 	inc	r6
-      002399 BE 00 F1         [24] 1259 	cjne	r6,#0x00,00103$
-      00239C 0F               [12] 1260 	inc	r7
-      00239D 80 EE            [24] 1261 	sjmp	00103$
-      00239F                       1262 00105$:
-                                   1263 ;	io_expander.c:273: }
-      00239F 22               [24] 1264 	ret
-                                   1265 	.area CSEG    (CODE)
-                                   1266 	.area CONST   (CODE)
-                                   1267 	.area CONST   (CODE)
-      002E50                       1268 ___str_0:
-      002E50 69 73 72              1269 	.ascii "isr"
-      002E53 0A                    1270 	.db 0x0a
-      002E54 0D                    1271 	.db 0x0d
-      002E55 00                    1272 	.db 0x00
-                                   1273 	.area CSEG    (CODE)
-                                   1274 	.area CONST   (CODE)
-      002E56                       1275 ___str_1:
-      002E56 49 4F 20 45 58 50 41  1276 	.ascii "IO EXPANDER PROGRAM"
+                                    860 ;Allocation info for local variables in function 'pcf8574_write_port'
+                                    861 ;------------------------------------------------------------
+                                    862 ;value                     Allocated with name '_pcf8574_write_port_value_65536_37'
+                                    863 ;------------------------------------------------------------
+                                    864 ;	io_expander.c:142: void pcf8574_write_port(uint8_t value)
+                                    865 ;	-----------------------------------------
+                                    866 ;	 function pcf8574_write_port
+                                    867 ;	-----------------------------------------
+      0021D5                        868 _pcf8574_write_port:
+      0021D5 E5 82            [12]  869 	mov	a,dpl
+      0021D7 90 04 03         [24]  870 	mov	dptr,#_pcf8574_write_port_value_65536_37
+      0021DA F0               [24]  871 	movx	@dptr,a
+                                    872 ;	io_expander.c:144: i2c_start();
+      0021DB 12 23 2D         [24]  873 	lcall	_i2c_start
+                                    874 ;	io_expander.c:145: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
+      0021DE 75 82 70         [24]  875 	mov	dpl,#0x70
+      0021E1 12 22 40         [24]  876 	lcall	_i2c_write
+                                    877 ;	io_expander.c:146: i2c_write(value);
+      0021E4 90 04 03         [24]  878 	mov	dptr,#_pcf8574_write_port_value_65536_37
+      0021E7 E0               [24]  879 	movx	a,@dptr
+      0021E8 F5 82            [12]  880 	mov	dpl,a
+      0021EA 12 22 40         [24]  881 	lcall	_i2c_write
+                                    882 ;	io_expander.c:147: i2c_stop();
+                                    883 ;	io_expander.c:148: }
+      0021ED 02 23 42         [24]  884 	ljmp	_i2c_stop
+                                    885 ;------------------------------------------------------------
+                                    886 ;Allocation info for local variables in function 'pcf8574_set_pin'
+                                    887 ;------------------------------------------------------------
+                                    888 ;value                     Allocated with name '_pcf8574_set_pin_PARM_2'
+                                    889 ;pin                       Allocated with name '_pcf8574_set_pin_pin_65536_39'
+                                    890 ;port_state                Allocated with name '_pcf8574_set_pin_port_state_65536_40'
+                                    891 ;------------------------------------------------------------
+                                    892 ;	io_expander.c:150: void pcf8574_set_pin(uint8_t pin, uint8_t value) {
+                                    893 ;	-----------------------------------------
+                                    894 ;	 function pcf8574_set_pin
+                                    895 ;	-----------------------------------------
+      0021F0                        896 _pcf8574_set_pin:
+      0021F0 E5 82            [12]  897 	mov	a,dpl
+      0021F2 90 04 05         [24]  898 	mov	dptr,#_pcf8574_set_pin_pin_65536_39
+      0021F5 F0               [24]  899 	movx	@dptr,a
+                                    900 ;	io_expander.c:151: uint8_t port_state = pcf8574_read_port();
+      0021F6 12 21 99         [24]  901 	lcall	_pcf8574_read_port
+      0021F9 AF 82            [24]  902 	mov	r7,dpl
+                                    903 ;	io_expander.c:152: if (value) {
+      0021FB 90 04 04         [24]  904 	mov	dptr,#_pcf8574_set_pin_PARM_2
+      0021FE E0               [24]  905 	movx	a,@dptr
+      0021FF 60 1D            [24]  906 	jz	00102$
+                                    907 ;	io_expander.c:153: port_state |= (1 << pin);  // Set pin high
+      002201 90 04 05         [24]  908 	mov	dptr,#_pcf8574_set_pin_pin_65536_39
+      002204 E0               [24]  909 	movx	a,@dptr
+      002205 FE               [12]  910 	mov	r6,a
+      002206 8E F0            [24]  911 	mov	b,r6
+      002208 05 F0            [12]  912 	inc	b
+      00220A 74 01            [12]  913 	mov	a,#0x01
+      00220C 80 02            [24]  914 	sjmp	00113$
+      00220E                        915 00111$:
+      00220E 25 E0            [12]  916 	add	a,acc
+      002210                        917 00113$:
+      002210 D5 F0 FB         [24]  918 	djnz	b,00111$
+      002213 FE               [12]  919 	mov	r6,a
+      002214 8F 05            [24]  920 	mov	ar5,r7
+      002216 90 04 06         [24]  921 	mov	dptr,#_pcf8574_set_pin_port_state_65536_40
+      002219 EE               [12]  922 	mov	a,r6
+      00221A 4D               [12]  923 	orl	a,r5
+      00221B F0               [24]  924 	movx	@dptr,a
+      00221C 80 19            [24]  925 	sjmp	00103$
+      00221E                        926 00102$:
+                                    927 ;	io_expander.c:155: port_state &= ~(1 << pin); // Set pin low
+      00221E 90 04 05         [24]  928 	mov	dptr,#_pcf8574_set_pin_pin_65536_39
+      002221 E0               [24]  929 	movx	a,@dptr
+      002222 FE               [12]  930 	mov	r6,a
+      002223 8E F0            [24]  931 	mov	b,r6
+      002225 05 F0            [12]  932 	inc	b
+      002227 74 01            [12]  933 	mov	a,#0x01
+      002229 80 02            [24]  934 	sjmp	00116$
+      00222B                        935 00114$:
+      00222B 25 E0            [12]  936 	add	a,acc
+      00222D                        937 00116$:
+      00222D D5 F0 FB         [24]  938 	djnz	b,00114$
+      002230 F4               [12]  939 	cpl	a
+      002231 FE               [12]  940 	mov	r6,a
+      002232 90 04 06         [24]  941 	mov	dptr,#_pcf8574_set_pin_port_state_65536_40
+      002235 5F               [12]  942 	anl	a,r7
+      002236 F0               [24]  943 	movx	@dptr,a
+      002237                        944 00103$:
+                                    945 ;	io_expander.c:157: pcf8574_write_port(port_state);
+      002237 90 04 06         [24]  946 	mov	dptr,#_pcf8574_set_pin_port_state_65536_40
+      00223A E0               [24]  947 	movx	a,@dptr
+      00223B F5 82            [12]  948 	mov	dpl,a
+                                    949 ;	io_expander.c:158: }
+      00223D 02 21 D5         [24]  950 	ljmp	_pcf8574_write_port
+                                    951 ;------------------------------------------------------------
+                                    952 ;Allocation info for local variables in function 'i2c_write'
+                                    953 ;------------------------------------------------------------
+                                    954 ;data                      Allocated with name '_i2c_write_data_65536_43'
+                                    955 ;i                         Allocated with name '_i2c_write_i_65536_44'
+                                    956 ;------------------------------------------------------------
+                                    957 ;	io_expander.c:168: int i2c_write(unsigned char data)
+                                    958 ;	-----------------------------------------
+                                    959 ;	 function i2c_write
+                                    960 ;	-----------------------------------------
+      002240                        961 _i2c_write:
+      002240 E5 82            [12]  962 	mov	a,dpl
+      002242 90 04 07         [24]  963 	mov	dptr,#_i2c_write_data_65536_43
+      002245 F0               [24]  964 	movx	@dptr,a
+                                    965 ;	io_expander.c:172: for(i=0;i<=7;i++)
+      002246 7E 00            [12]  966 	mov	r6,#0x00
+      002248 7F 00            [12]  967 	mov	r7,#0x00
+      00224A                        968 00104$:
+                                    969 ;	io_expander.c:174: SDA = (data & 0x80) ? 1 : 0;    //msb first
+      00224A 90 04 07         [24]  970 	mov	dptr,#_i2c_write_data_65536_43
+      00224D E0               [24]  971 	movx	a,@dptr
+      00224E FD               [12]  972 	mov	r5,a
+      00224F 23               [12]  973 	rl	a
+      002250 54 01            [12]  974 	anl	a,#0x01
+      002252 24 FF            [12]  975 	add	a,#0xff
+      002254 92 94            [24]  976 	mov	_P1_4,c
+                                    977 ;	io_expander.c:175: i2c_delay();        // Setup time for data
+      002256 C0 07            [24]  978 	push	ar7
+      002258 C0 06            [24]  979 	push	ar6
+      00225A C0 05            [24]  980 	push	ar5
+      00225C 12 23 4F         [24]  981 	lcall	_i2c_delay
+                                    982 ;	io_expander.c:176: SCL=1;
+                                    983 ;	assignBit
+      00225F D2 93            [12]  984 	setb	_P1_3
+                                    985 ;	io_expander.c:177: i2c_delay();        // Hold time for clock
+      002261 12 23 4F         [24]  986 	lcall	_i2c_delay
+      002264 D0 05            [24]  987 	pop	ar5
+      002266 D0 06            [24]  988 	pop	ar6
+      002268 D0 07            [24]  989 	pop	ar7
+                                    990 ;	io_expander.c:178: SCL=0;
+                                    991 ;	assignBit
+      00226A C2 93            [12]  992 	clr	_P1_3
+                                    993 ;	io_expander.c:179: data = data << 1;
+      00226C ED               [12]  994 	mov	a,r5
+      00226D 2D               [12]  995 	add	a,r5
+      00226E 90 04 07         [24]  996 	mov	dptr,#_i2c_write_data_65536_43
+      002271 F0               [24]  997 	movx	@dptr,a
+                                    998 ;	io_expander.c:172: for(i=0;i<=7;i++)
+      002272 0E               [12]  999 	inc	r6
+      002273 BE 00 01         [24] 1000 	cjne	r6,#0x00,00121$
+      002276 0F               [12] 1001 	inc	r7
+      002277                       1002 00121$:
+      002277 C3               [12] 1003 	clr	c
+      002278 74 07            [12] 1004 	mov	a,#0x07
+      00227A 9E               [12] 1005 	subb	a,r6
+      00227B E4               [12] 1006 	clr	a
+      00227C 9F               [12] 1007 	subb	a,r7
+      00227D 50 CB            [24] 1008 	jnc	00104$
+                                   1009 ;	io_expander.c:183: SDA = 1;            // Release SDA for slave
+                                   1010 ;	assignBit
+      00227F D2 94            [12] 1011 	setb	_P1_4
+                                   1012 ;	io_expander.c:184: SCL = 1;            // 9th clock pulse for ACK
+                                   1013 ;	assignBit
+      002281 D2 93            [12] 1014 	setb	_P1_3
+                                   1015 ;	io_expander.c:185: i2c_delay();
+      002283 12 23 4F         [24] 1016 	lcall	_i2c_delay
+                                   1017 ;	io_expander.c:186: if(SDA == 1)        // If SDA is still high, no ACK received
+      002286 30 94 19         [24] 1018 	jnb	_P1_4,00103$
+                                   1019 ;	io_expander.c:189: printf("ACK DID NOT ARRIVE\n\r");
+      002289 74 60            [12] 1020 	mov	a,#___str_5
+      00228B C0 E0            [24] 1021 	push	acc
+      00228D 74 2E            [12] 1022 	mov	a,#(___str_5 >> 8)
+      00228F C0 E0            [24] 1023 	push	acc
+      002291 74 80            [12] 1024 	mov	a,#0x80
+      002293 C0 E0            [24] 1025 	push	acc
+      002295 12 23 B4         [24] 1026 	lcall	_printf
+      002298 15 81            [12] 1027 	dec	sp
+      00229A 15 81            [12] 1028 	dec	sp
+      00229C 15 81            [12] 1029 	dec	sp
+                                   1030 ;	io_expander.c:190: return 0;       // Error
+      00229E 90 00 00         [24] 1031 	mov	dptr,#0x0000
+      0022A1 22               [24] 1032 	ret
+      0022A2                       1033 00103$:
+                                   1034 ;	io_expander.c:192: SCL = 0;
+                                   1035 ;	assignBit
+      0022A2 C2 93            [12] 1036 	clr	_P1_3
+                                   1037 ;	io_expander.c:194: return 1;           // Success
+      0022A4 90 00 01         [24] 1038 	mov	dptr,#0x0001
+                                   1039 ;	io_expander.c:196: }
+      0022A7 22               [24] 1040 	ret
+                                   1041 ;------------------------------------------------------------
+                                   1042 ;Allocation info for local variables in function 'i2c_read'
+                                   1043 ;------------------------------------------------------------
+                                   1044 ;ACK                       Allocated with name '_i2c_read_ACK_65536_48'
+                                   1045 ;buff                      Allocated with name '_i2c_read_buff_65536_49'
+                                   1046 ;i                         Allocated with name '_i2c_read_i_131072_50'
+                                   1047 ;------------------------------------------------------------
+                                   1048 ;	io_expander.c:206: int i2c_read(int ACK)
+                                   1049 ;	-----------------------------------------
+                                   1050 ;	 function i2c_read
+                                   1051 ;	-----------------------------------------
+      0022A8                       1052 _i2c_read:
+      0022A8 AF 83            [24] 1053 	mov	r7,dph
+      0022AA E5 82            [12] 1054 	mov	a,dpl
+      0022AC 90 04 08         [24] 1055 	mov	dptr,#_i2c_read_ACK_65536_48
+      0022AF F0               [24] 1056 	movx	@dptr,a
+      0022B0 EF               [12] 1057 	mov	a,r7
+      0022B1 A3               [24] 1058 	inc	dptr
+      0022B2 F0               [24] 1059 	movx	@dptr,a
+                                   1060 ;	io_expander.c:208: unsigned char buff=0;
+      0022B3 90 04 0A         [24] 1061 	mov	dptr,#_i2c_read_buff_65536_49
+      0022B6 E4               [12] 1062 	clr	a
+      0022B7 F0               [24] 1063 	movx	@dptr,a
+                                   1064 ;	io_expander.c:209: SCL = 0;
+                                   1065 ;	assignBit
+      0022B8 C2 93            [12] 1066 	clr	_P1_3
+                                   1067 ;	io_expander.c:210: for(int i=0;i<8;i++)
+      0022BA 7E 00            [12] 1068 	mov	r6,#0x00
+      0022BC 7F 00            [12] 1069 	mov	r7,#0x00
+      0022BE                       1070 00103$:
+      0022BE C3               [12] 1071 	clr	c
+      0022BF EE               [12] 1072 	mov	a,r6
+      0022C0 94 08            [12] 1073 	subb	a,#0x08
+      0022C2 EF               [12] 1074 	mov	a,r7
+      0022C3 64 80            [12] 1075 	xrl	a,#0x80
+      0022C5 94 80            [12] 1076 	subb	a,#0x80
+      0022C7 50 40            [24] 1077 	jnc	00101$
+                                   1078 ;	io_expander.c:212: SCL = 1;
+                                   1079 ;	assignBit
+      0022C9 D2 93            [12] 1080 	setb	_P1_3
+                                   1081 ;	io_expander.c:213: i2c_delay();
+      0022CB C0 07            [24] 1082 	push	ar7
+      0022CD C0 06            [24] 1083 	push	ar6
+      0022CF 12 23 4F         [24] 1084 	lcall	_i2c_delay
+      0022D2 D0 06            [24] 1085 	pop	ar6
+      0022D4 D0 07            [24] 1086 	pop	ar7
+                                   1087 ;	io_expander.c:214: buff |= (SDA << (7 - i));
+      0022D6 A2 94            [12] 1088 	mov	c,_P1_4
+      0022D8 E4               [12] 1089 	clr	a
+      0022D9 33               [12] 1090 	rlc	a
+      0022DA FD               [12] 1091 	mov	r5,a
+      0022DB 8E 04            [24] 1092 	mov	ar4,r6
+      0022DD 74 07            [12] 1093 	mov	a,#0x07
+      0022DF C3               [12] 1094 	clr	c
+      0022E0 9C               [12] 1095 	subb	a,r4
+      0022E1 FC               [12] 1096 	mov	r4,a
+      0022E2 8C F0            [24] 1097 	mov	b,r4
+      0022E4 05 F0            [12] 1098 	inc	b
+      0022E6 ED               [12] 1099 	mov	a,r5
+      0022E7 80 02            [24] 1100 	sjmp	00119$
+      0022E9                       1101 00117$:
+      0022E9 25 E0            [12] 1102 	add	a,acc
+      0022EB                       1103 00119$:
+      0022EB D5 F0 FB         [24] 1104 	djnz	b,00117$
+      0022EE FC               [12] 1105 	mov	r4,a
+      0022EF 90 04 0A         [24] 1106 	mov	dptr,#_i2c_read_buff_65536_49
+      0022F2 E0               [24] 1107 	movx	a,@dptr
+      0022F3 4C               [12] 1108 	orl	a,r4
+      0022F4 F0               [24] 1109 	movx	@dptr,a
+                                   1110 ;	io_expander.c:215: i2c_delay();
+      0022F5 C0 07            [24] 1111 	push	ar7
+      0022F7 C0 06            [24] 1112 	push	ar6
+      0022F9 12 23 4F         [24] 1113 	lcall	_i2c_delay
+      0022FC D0 06            [24] 1114 	pop	ar6
+      0022FE D0 07            [24] 1115 	pop	ar7
+                                   1116 ;	io_expander.c:216: SCL=0;
+                                   1117 ;	assignBit
+      002300 C2 93            [12] 1118 	clr	_P1_3
+                                   1119 ;	io_expander.c:210: for(int i=0;i<8;i++)
+      002302 0E               [12] 1120 	inc	r6
+      002303 BE 00 B8         [24] 1121 	cjne	r6,#0x00,00103$
+      002306 0F               [12] 1122 	inc	r7
+      002307 80 B5            [24] 1123 	sjmp	00103$
+      002309                       1124 00101$:
+                                   1125 ;	io_expander.c:220: SDA = !ACK;         // ACK = 0, NACK = 1
+      002309 90 04 08         [24] 1126 	mov	dptr,#_i2c_read_ACK_65536_48
+      00230C E0               [24] 1127 	movx	a,@dptr
+      00230D FE               [12] 1128 	mov	r6,a
+      00230E A3               [24] 1129 	inc	dptr
+      00230F E0               [24] 1130 	movx	a,@dptr
+      002310 4E               [12] 1131 	orl	a,r6
+      002311 B4 01 00         [24] 1132 	cjne	a,#0x01,00121$
+      002314                       1133 00121$:
+      002314 E4               [12] 1134 	clr	a
+      002315 33               [12] 1135 	rlc	a
+      002316 24 FF            [12] 1136 	add	a,#0xff
+      002318 92 94            [24] 1137 	mov	_P1_4,c
+                                   1138 ;	io_expander.c:221: SCL = 1;
+                                   1139 ;	assignBit
+      00231A D2 93            [12] 1140 	setb	_P1_3
+                                   1141 ;	io_expander.c:222: i2c_delay();
+      00231C 12 23 4F         [24] 1142 	lcall	_i2c_delay
+                                   1143 ;	io_expander.c:223: SCL = 0;
+                                   1144 ;	assignBit
+      00231F C2 93            [12] 1145 	clr	_P1_3
+                                   1146 ;	io_expander.c:225: return buff;
+      002321 90 04 0A         [24] 1147 	mov	dptr,#_i2c_read_buff_65536_49
+      002324 E0               [24] 1148 	movx	a,@dptr
+      002325 FF               [12] 1149 	mov	r7,a
+      002326 7E 00            [12] 1150 	mov	r6,#0x00
+      002328 8F 82            [24] 1151 	mov	dpl,r7
+      00232A 8E 83            [24] 1152 	mov	dph,r6
+                                   1153 ;	io_expander.c:226: }
+      00232C 22               [24] 1154 	ret
+                                   1155 ;------------------------------------------------------------
+                                   1156 ;Allocation info for local variables in function 'i2c_start'
+                                   1157 ;------------------------------------------------------------
+                                   1158 ;	io_expander.c:233: void i2c_start(void)
+                                   1159 ;	-----------------------------------------
+                                   1160 ;	 function i2c_start
+                                   1161 ;	-----------------------------------------
+      00232D                       1162 _i2c_start:
+                                   1163 ;	io_expander.c:235: i2c_delay();
+      00232D 12 23 4F         [24] 1164 	lcall	_i2c_delay
+                                   1165 ;	io_expander.c:236: SDA = 1;
+                                   1166 ;	assignBit
+      002330 D2 94            [12] 1167 	setb	_P1_4
+                                   1168 ;	io_expander.c:237: i2c_delay();
+      002332 12 23 4F         [24] 1169 	lcall	_i2c_delay
+                                   1170 ;	io_expander.c:238: SCL = 1;
+                                   1171 ;	assignBit
+      002335 D2 93            [12] 1172 	setb	_P1_3
+                                   1173 ;	io_expander.c:239: i2c_delay();
+      002337 12 23 4F         [24] 1174 	lcall	_i2c_delay
+                                   1175 ;	io_expander.c:240: SDA = 0;
+                                   1176 ;	assignBit
+      00233A C2 94            [12] 1177 	clr	_P1_4
+                                   1178 ;	io_expander.c:241: i2c_delay();
+      00233C 12 23 4F         [24] 1179 	lcall	_i2c_delay
+                                   1180 ;	io_expander.c:242: SCL = 0;
+                                   1181 ;	assignBit
+      00233F C2 93            [12] 1182 	clr	_P1_3
+                                   1183 ;	io_expander.c:243: }
+      002341 22               [24] 1184 	ret
+                                   1185 ;------------------------------------------------------------
+                                   1186 ;Allocation info for local variables in function 'i2c_stop'
+                                   1187 ;------------------------------------------------------------
+                                   1188 ;	io_expander.c:250: void i2c_stop(void)
+                                   1189 ;	-----------------------------------------
+                                   1190 ;	 function i2c_stop
+                                   1191 ;	-----------------------------------------
+      002342                       1192 _i2c_stop:
+                                   1193 ;	io_expander.c:252: SDA = 0;
+                                   1194 ;	assignBit
+      002342 C2 94            [12] 1195 	clr	_P1_4
+                                   1196 ;	io_expander.c:253: i2c_delay();
+      002344 12 23 4F         [24] 1197 	lcall	_i2c_delay
+                                   1198 ;	io_expander.c:254: SCL = 1;
+                                   1199 ;	assignBit
+      002347 D2 93            [12] 1200 	setb	_P1_3
+                                   1201 ;	io_expander.c:255: i2c_delay();
+      002349 12 23 4F         [24] 1202 	lcall	_i2c_delay
+                                   1203 ;	io_expander.c:256: SDA = 1; 
+                                   1204 ;	assignBit
+      00234C D2 94            [12] 1205 	setb	_P1_4
+                                   1206 ;	io_expander.c:257: }
+      00234E 22               [24] 1207 	ret
+                                   1208 ;------------------------------------------------------------
+                                   1209 ;Allocation info for local variables in function 'i2c_delay'
+                                   1210 ;------------------------------------------------------------
+                                   1211 ;i                         Allocated with name '_i2c_delay_i_131072_57'
+                                   1212 ;------------------------------------------------------------
+                                   1213 ;	io_expander.c:266: void i2c_delay() 
+                                   1214 ;	-----------------------------------------
+                                   1215 ;	 function i2c_delay
+                                   1216 ;	-----------------------------------------
+      00234F                       1217 _i2c_delay:
+                                   1218 ;	io_expander.c:268: for(int i = 0; i<500; i++);
+      00234F 7E 00            [12] 1219 	mov	r6,#0x00
+      002351 7F 00            [12] 1220 	mov	r7,#0x00
+      002353                       1221 00103$:
+      002353 C3               [12] 1222 	clr	c
+      002354 EE               [12] 1223 	mov	a,r6
+      002355 94 F4            [12] 1224 	subb	a,#0xf4
+      002357 EF               [12] 1225 	mov	a,r7
+      002358 64 80            [12] 1226 	xrl	a,#0x80
+      00235A 94 81            [12] 1227 	subb	a,#0x81
+      00235C 50 07            [24] 1228 	jnc	00105$
+      00235E 0E               [12] 1229 	inc	r6
+      00235F BE 00 F1         [24] 1230 	cjne	r6,#0x00,00103$
+      002362 0F               [12] 1231 	inc	r7
+      002363 80 EE            [24] 1232 	sjmp	00103$
+      002365                       1233 00105$:
+                                   1234 ;	io_expander.c:269: }
+      002365 22               [24] 1235 	ret
+                                   1236 	.area CSEG    (CODE)
+                                   1237 	.area CONST   (CODE)
+                                   1238 	.area CONST   (CODE)
+      002E16                       1239 ___str_0:
+      002E16 69 73 72              1240 	.ascii "isr"
+      002E19 0A                    1241 	.db 0x0a
+      002E1A 0D                    1242 	.db 0x0d
+      002E1B 00                    1243 	.db 0x00
+                                   1244 	.area CSEG    (CODE)
+                                   1245 	.area CONST   (CODE)
+      002E1C                       1246 ___str_1:
+      002E1C 49 4F 20 45 58 50 41  1247 	.ascii "IO EXPANDER PROGRAM"
              4E 44 45 52 20 50 52
              4F 47 52 41 4D
-      002E69 0A                    1277 	.db 0x0a
-      002E6A 0D                    1278 	.db 0x0d
-      002E6B 00                    1279 	.db 0x00
-                                   1280 	.area CSEG    (CODE)
-                                   1281 	.area CONST   (CODE)
-      002E6C                       1282 ___str_2:
-      002E6C 49 4F 20 65 78 70 61  1283 	.ascii "IO expander initialized"
+      002E2F 0A                    1248 	.db 0x0a
+      002E30 0D                    1249 	.db 0x0d
+      002E31 00                    1250 	.db 0x00
+                                   1251 	.area CSEG    (CODE)
+                                   1252 	.area CONST   (CODE)
+      002E32                       1253 ___str_2:
+      002E32 49 4F 20 65 78 70 61  1254 	.ascii "IO expander initialized"
              6E 64 65 72 20 69 6E
              69 74 69 61 6C 69 7A
              65 64
-      002E83 0A                    1284 	.db 0x0a
-      002E84 0D                    1285 	.db 0x0d
-      002E85 00                    1286 	.db 0x00
-                                   1287 	.area CSEG    (CODE)
-                                   1288 	.area CONST   (CODE)
-      002E86                       1289 ___str_3:
-      002E86 70 6F 72 74 20 30 20  1290 	.ascii "port 0 pin %d"
+      002E49 0A                    1255 	.db 0x0a
+      002E4A 0D                    1256 	.db 0x0d
+      002E4B 00                    1257 	.db 0x00
+                                   1258 	.area CSEG    (CODE)
+                                   1259 	.area CONST   (CODE)
+      002E4C                       1260 ___str_3:
+      002E4C 70 6F 72 74 20 30 20  1261 	.ascii "port 0 pin %d"
              70 69 6E 20 25 64
-      002E93 0A                    1291 	.db 0x0a
-      002E94 0D                    1292 	.db 0x0d
-      002E95 00                    1293 	.db 0x00
-                                   1294 	.area CSEG    (CODE)
-                                   1295 	.area CONST   (CODE)
-      002E96                       1296 ___str_4:
-      002E96 57                    1297 	.ascii "W"
-      002E97 0A                    1298 	.db 0x0a
-      002E98 0D                    1299 	.db 0x0d
-      002E99 00                    1300 	.db 0x00
-                                   1301 	.area CSEG    (CODE)
-                                   1302 	.area CONST   (CODE)
-      002E9A                       1303 ___str_5:
-      002E9A 41 43 4B 20 44 49 44  1304 	.ascii "ACK DID NOT ARRIVE"
+      002E59 0A                    1262 	.db 0x0a
+      002E5A 0D                    1263 	.db 0x0d
+      002E5B 00                    1264 	.db 0x00
+                                   1265 	.area CSEG    (CODE)
+                                   1266 	.area CONST   (CODE)
+      002E5C                       1267 ___str_4:
+      002E5C 57                    1268 	.ascii "W"
+      002E5D 0A                    1269 	.db 0x0a
+      002E5E 0D                    1270 	.db 0x0d
+      002E5F 00                    1271 	.db 0x00
+                                   1272 	.area CSEG    (CODE)
+                                   1273 	.area CONST   (CODE)
+      002E60                       1274 ___str_5:
+      002E60 41 43 4B 20 44 49 44  1275 	.ascii "ACK DID NOT ARRIVE"
              20 4E 4F 54 20 41 52
              52 49 56 45
-      002EAC 0A                    1305 	.db 0x0a
-      002EAD 0D                    1306 	.db 0x0d
-      002EAE 00                    1307 	.db 0x00
-                                   1308 	.area CSEG    (CODE)
-                                   1309 	.area XINIT   (CODE)
-                                   1310 	.area CABS    (ABS,CODE)
+      002E72 0A                    1276 	.db 0x0a
+      002E73 0D                    1277 	.db 0x0d
+      002E74 00                    1278 	.db 0x00
+                                   1279 	.area CSEG    (CODE)
+                                   1280 	.area XINIT   (CODE)
+                                   1281 	.area CABS    (ABS,CODE)

@@ -60,7 +60,7 @@ void external_ISR0(void) __interrupt (0)
     //Read Pin 0 
     data=pcf8574_read_pin(0);
     //Write Pin7
-    pcf8574_set_pin(7,1);
+    pcf8574_set_pin(7,data);
     printf("isr\n\r");
    
 }
@@ -82,11 +82,7 @@ int main()
     printf("IO expander initialized\n\r");
     int result = pcf8574_read_pin(0);
     printf("port 0 pin %d\n\r", result);
-    pcf8574_set_pin(1,1);
-    pcf8574_set_pin(2,1);
-    pcf8574_set_pin(3,1);
-    pcf8574_set_pin(4,1);
-    pcf8574_set_pin(5,0);
+
     
     while(1)
     {
