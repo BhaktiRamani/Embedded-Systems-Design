@@ -213,9 +213,12 @@
 	.globl _P0
 	.globl _transmission_complete
 	.globl _ms_flag
+	.globl _bit_bang_spi
 	.globl _take_data
 	.globl _mannual_spi
 	.globl _spi_init
+	.globl _bit_bang_spi_init
+	.globl _bit_bang_spi_write
 	.globl _spi_transmission_start
 ;--------------------------------------------------------
 ; special function registers
@@ -467,15 +470,19 @@ _putchar_charToSend_65536_17:
 	.ds 2
 _delay_ms_ms_65536_21:
 	.ds 2
-_take_data_input_65537_34:
+_bit_bang_spi_number_65536_37:
+	.ds 1
+_take_data_input_65537_41:
 	.ds 4
-_take_data_data_65538_38:
+_take_data_data_65538_45:
 	.ds 1
-_mannual_spi_number_65536_41:
+_mannual_spi_number_65536_48:
 	.ds 1
-_mannual_spi_dac_value_index_65536_42:
+_mannual_spi_dac_value_index_65536_49:
 	.ds 2
-_mannual_spi_dac_data_65536_42:
+_mannual_spi_dac_data_65536_49:
+	.ds 2
+_bit_bang_spi_write_data_65536_59:
 	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -537,7 +544,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;charToSend                Allocated with name '_putchar_charToSend_65536_17'
 ;------------------------------------------------------------
-;	spi_dac.c:180: int putchar(int charToSend) {
+;	spi_dac.c:205: int putchar(int charToSend) {
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
@@ -557,7 +564,7 @@ _putchar:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_dac.c:181: SBUF = charToSend;       /* Load character into serial buffer */
+;	spi_dac.c:206: SBUF = charToSend;       /* Load character into serial buffer */
 	mov	dptr,#_putchar_charToSend_65536_17
 	movx	a,@dptr
 	mov	r6,a
@@ -565,39 +572,39 @@ _putchar:
 	movx	a,@dptr
 	mov	r7,a
 	mov	_SBUF,r6
-;	spi_dac.c:182: while (!TI);             /* Wait for transmission completion */
+;	spi_dac.c:207: while (!TI);             /* Wait for transmission completion */
 00101$:
-;	spi_dac.c:183: TI = 0;                  /* Clear transmission flag */
+;	spi_dac.c:208: TI = 0;                  /* Clear transmission flag */
 ;	assignBit
 	jbc	_TI,00114$
 	sjmp	00101$
 00114$:
-;	spi_dac.c:184: return charToSend;
+;	spi_dac.c:209: return charToSend;
 	mov	dpl,r6
 	mov	dph,r7
-;	spi_dac.c:185: }
+;	spi_dac.c:210: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	spi_dac.c:191: int getchar(void) {
+;	spi_dac.c:216: int getchar(void) {
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
-;	spi_dac.c:192: while (!RI);             /* Wait for reception completion */
+;	spi_dac.c:217: while (!RI);             /* Wait for reception completion */
 00101$:
-;	spi_dac.c:193: RI = 0;                  /* Clear reception flag */
+;	spi_dac.c:218: RI = 0;                  /* Clear reception flag */
 ;	assignBit
 	jbc	_RI,00114$
 	sjmp	00101$
 00114$:
-;	spi_dac.c:194: return SBUF;             /* Return received character */
+;	spi_dac.c:219: return SBUF;             /* Return received character */
 	mov	r6,_SBUF
 	mov	r7,#0x00
 	mov	dpl,r6
 	mov	dph,r7
-;	spi_dac.c:195: }
+;	spi_dac.c:220: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'delay_ms'
@@ -606,7 +613,7 @@ _getchar:
 ;i                         Allocated with name '_delay_ms_i_65536_22'
 ;j                         Allocated with name '_delay_ms_j_65536_22'
 ;------------------------------------------------------------
-;	spi_dac.c:197: void delay_ms(unsigned int ms) {
+;	spi_dac.c:222: void delay_ms(unsigned int ms) {
 ;	-----------------------------------------
 ;	 function delay_ms
 ;	-----------------------------------------
@@ -618,7 +625,7 @@ _delay_ms:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	spi_dac.c:199: for (i = 0; i < ms; i++)
+;	spi_dac.c:224: for (i = 0; i < ms; i++)
 	mov	dptr,#_delay_ms_ms_65536_21
 	movx	a,@dptr
 	mov	r6,a
@@ -634,7 +641,7 @@ _delay_ms:
 	mov	a,r5
 	subb	a,r7
 	jnc	00109$
-;	spi_dac.c:200: for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
+;	spi_dac.c:225: for (j = 0; j < 123; j++);  // Delay tuned for 12MHz crystal
 	mov	r2,#0x7b
 	mov	r3,#0x00
 00105$:
@@ -645,23 +652,23 @@ _delay_ms:
 	mov	a,r2
 	orl	a,r3
 	jnz	00105$
-;	spi_dac.c:199: for (i = 0; i < ms; i++)
+;	spi_dac.c:224: for (i = 0; i < ms; i++)
 	inc	r4
 	cjne	r4,#0x00,00107$
 	inc	r5
 	sjmp	00107$
 00109$:
-;	spi_dac.c:201: }
+;	spi_dac.c:226: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'display_menu'
 ;------------------------------------------------------------
-;	spi_dac.c:204: void display_menu(void) {
+;	spi_dac.c:233: void display_menu(void) {
 ;	-----------------------------------------
 ;	 function display_menu
 ;	-----------------------------------------
 _display_menu:
-;	spi_dac.c:205: printf("\n\r┌──────────────────────────────────────────────────────────────┐\n\r");
+;	spi_dac.c:234: printf("\n\r┌──────────────────────────────────────────────────────────────┐\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -672,7 +679,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:206: printf("│                        SPI PROGRAM                           │\n\r");
+;	spi_dac.c:235: printf("│                        SPI PROGRAM                           │\n\r");
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -683,7 +690,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:207: printf("├──────────────────────────────────────────────────────────────┤\n\r");
+;	spi_dac.c:236: printf("├──────────────────────────────────────────────────────────────┤\n\r");
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -694,7 +701,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:208: printf("│  Command   │               Description                       │\n\r");
+;	spi_dac.c:237: printf("│  Command   │               Description                       │\n\r");
 	mov	a,#___str_3
 	push	acc
 	mov	a,#(___str_3 >> 8)
@@ -705,7 +712,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:209: printf("├───────────┼───────────────────────────────────────────────┤\n\r");
+;	spi_dac.c:238: printf("├───────────┼───────────────────────────────────────────────┤\n\r");
 	mov	a,#___str_4
 	push	acc
 	mov	a,#(___str_4 >> 8)
@@ -716,7 +723,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:210: printf("│    M      │ Manual SPI Mode (Direct Register Control)      │\n\r");
+;	spi_dac.c:239: printf("│    M      │ Manual SPI Mode (Direct Register Control)      │\n\r");
 	mov	a,#___str_5
 	push	acc
 	mov	a,#(___str_5 >> 8)
@@ -727,7 +734,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:211: printf("│    B      │ Bit Banging Mode (Software SPI)               │\n\r");
+;	spi_dac.c:240: printf("│    B      │ Bit Banging Mode (Software SPI)               │\n\r");
 	mov	a,#___str_6
 	push	acc
 	mov	a,#(___str_6 >> 8)
@@ -738,7 +745,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:212: printf("│    S      │ Generate Sine Wave                            │\n\r");
+;	spi_dac.c:241: printf("│    S      │ Generate Sine Wave                            │\n\r");
 	mov	a,#___str_7
 	push	acc
 	mov	a,#(___str_7 >> 8)
@@ -749,7 +756,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:213: printf("│    Q      │ Generate Square Wave                          │\n\r");
+;	spi_dac.c:242: printf("│    Q      │ Generate Square Wave                          │\n\r");
 	mov	a,#___str_8
 	push	acc
 	mov	a,#(___str_8 >> 8)
@@ -760,7 +767,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:214: printf("│    T      │ Generate Triangular Wave                      │\n\r");
+;	spi_dac.c:243: printf("│    T      │ Generate Triangular Wave                      │\n\r");
 	mov	a,#___str_9
 	push	acc
 	mov	a,#(___str_9 >> 8)
@@ -771,7 +778,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:215: printf("│    D      │ Demo Mode (Cycle through all waveforms)       │\n\r");
+;	spi_dac.c:244: printf("│    D      │ Demo Mode (Cycle through all waveforms)       │\n\r");
 	mov	a,#___str_10
 	push	acc
 	mov	a,#(___str_10 >> 8)
@@ -782,7 +789,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:216: printf("│    C      │ Configure SPI Parameters                      │\n\r");
+;	spi_dac.c:245: printf("│    C      │ Configure SPI Parameters                      │\n\r");
 	mov	a,#___str_11
 	push	acc
 	mov	a,#(___str_11 >> 8)
@@ -793,7 +800,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:217: printf("│    R      │ Read SPI Data                                 │\n\r");
+;	spi_dac.c:246: printf("│    R      │ Read SPI Data                                 │\n\r");
 	mov	a,#___str_12
 	push	acc
 	mov	a,#(___str_12 >> 8)
@@ -804,7 +811,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:218: printf("│    W      │ Write SPI Data                                │\n\r");
+;	spi_dac.c:247: printf("│    W      │ Write SPI Data                                │\n\r");
 	mov	a,#___str_13
 	push	acc
 	mov	a,#(___str_13 >> 8)
@@ -815,7 +822,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:219: printf("│    ?      │ Display this help menu                        │\n\r");
+;	spi_dac.c:248: printf("│    ?      │ Display this help menu                        │\n\r");
 	mov	a,#___str_14
 	push	acc
 	mov	a,#(___str_14 >> 8)
@@ -826,7 +833,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:220: printf("│    X      │ Exit Program                                  │\n\r");
+;	spi_dac.c:249: printf("│    X      │ Exit Program                                  │\n\r");
 	mov	a,#___str_15
 	push	acc
 	mov	a,#(___str_15 >> 8)
@@ -837,7 +844,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:221: printf("└───────────┴───────────────────────────────────────────────┘\n\r");
+;	spi_dac.c:250: printf("└───────────┴───────────────────────────────────────────────┘\n\r");
 	mov	a,#___str_16
 	push	acc
 	mov	a,#(___str_16 >> 8)
@@ -848,7 +855,7 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:222: printf("\n\rEnter command: ");
+;	spi_dac.c:251: printf("\n\rEnter command: ");
 	mov	a,#___str_17
 	push	acc
 	mov	a,#(___str_17 >> 8)
@@ -859,27 +866,28 @@ _display_menu:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:223: }
+;	spi_dac.c:252: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;user_input                Allocated with name '_main_user_input_131072_30'
-;result                    Allocated with name '_main_result_196609_32'
+;user_input                Allocated with name '_main_user_input_131072_33'
+;result                    Allocated with name '_main_result_196609_35'
+;result2                   Allocated with name '_main_result2_196610_36'
 ;------------------------------------------------------------
-;	spi_dac.c:225: int main(void)
+;	spi_dac.c:254: int main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	spi_dac.c:227: display_menu();
+;	spi_dac.c:256: display_menu();
 	lcall	_display_menu
-;	spi_dac.c:229: while(1)
+;	spi_dac.c:258: while(1)
 00105$:
-;	spi_dac.c:231: char user_input = getchar();
+;	spi_dac.c:260: char user_input = getchar();
 	lcall	_getchar
 	mov	r6,dpl
-;	spi_dac.c:232: printf("| $ %c\n\r", user_input);
+;	spi_dac.c:261: printf("| $ %c\n\r", user_input);
 	mov	ar5,r6
 	mov	r7,#0x00
 	push	ar6
@@ -895,7 +903,7 @@ _main:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	spi_dac.c:233: printf("\n\r");
+;	spi_dac.c:262: printf("\n\r");
 	mov	a,#___str_19
 	push	acc
 	mov	a,#(___str_19 >> 8)
@@ -907,18 +915,18 @@ _main:
 	dec	sp
 	dec	sp
 	pop	ar6
-;	spi_dac.c:234: switch(user_input)
+;	spi_dac.c:263: switch(user_input)
 	cjne	r6,#0x42,00121$
-	sjmp	00105$
+	sjmp	00102$
 00121$:
 	cjne	r6,#0x4d,00105$
-;	spi_dac.c:237: spi_init();
+;	spi_dac.c:266: spi_init();
 	lcall	_spi_init
-;	spi_dac.c:238: unsigned char result = take_data();
+;	spi_dac.c:267: unsigned char result = take_data();
 	lcall	_take_data
-;	spi_dac.c:239: mannual_spi(result);
+;	spi_dac.c:268: mannual_spi(result);
 	lcall	_mannual_spi
-;	spi_dac.c:240: printf("SIN WAVE DONE\n\r");
+;	spi_dac.c:269: printf("SIN WAVE DONE\n\r");
 	mov	a,#___str_20
 	push	acc
 	mov	a,#(___str_20 >> 8)
@@ -929,24 +937,17 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:241: break;
-;	spi_dac.c:246: }
-;	spi_dac.c:256: }
+;	spi_dac.c:270: break;
+;	spi_dac.c:272: case 'B':
 	sjmp	00105$
-;------------------------------------------------------------
-;Allocation info for local variables in function 'take_data'
-;------------------------------------------------------------
-;input                     Allocated with name '_take_data_input_65537_34'
-;i                         Allocated with name '_take_data_i_65537_34'
-;c                         Allocated with name '_take_data_c_65537_34'
-;data                      Allocated with name '_take_data_data_65538_38'
-;------------------------------------------------------------
-;	spi_dac.c:258: unsigned char take_data()
-;	-----------------------------------------
-;	 function take_data
-;	-----------------------------------------
-_take_data:
-;	spi_dac.c:260: printf("│ Enter number (hex, up to 2 characters): \n\r|");
+00102$:
+;	spi_dac.c:273: bit_bang_spi_init();
+	lcall	_bit_bang_spi_init
+;	spi_dac.c:274: unsigned char result2 = take_data();
+	lcall	_take_data
+;	spi_dac.c:275: bit_bang_spi(result2);
+	lcall	_bit_bang_spi
+;	spi_dac.c:276: printf("SQUARE WAVE DONE\n\r");
 	mov	a,#___str_21
 	push	acc
 	mov	a,#(___str_21 >> 8)
@@ -957,17 +958,31 @@ _take_data:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:261: char input[4] = {0};  // Array for 3 hex chars + null terminator
-	mov	dptr,#_take_data_input_65537_34
-	clr	a
+;	spi_dac.c:280: }
+;	spi_dac.c:290: }
+	ljmp	00105$
+;------------------------------------------------------------
+;Allocation info for local variables in function 'bit_bang_spi'
+;------------------------------------------------------------
+;number                    Allocated with name '_bit_bang_spi_number_65536_37'
+;------------------------------------------------------------
+;	spi_dac.c:292: void bit_bang_spi(unsigned char number)
+;	-----------------------------------------
+;	 function bit_bang_spi
+;	-----------------------------------------
+_bit_bang_spi:
+	mov	a,dpl
+	mov	dptr,#_bit_bang_spi_number_65536_37
 	movx	@dptr,a
-	mov	dptr,#(_take_data_input_65537_34 + 0x0001)
-	movx	@dptr,a
-	mov	dptr,#(_take_data_input_65537_34 + 0x0002)
-	movx	@dptr,a
-	mov	dptr,#(_take_data_input_65537_34 + 0x0003)
-	movx	@dptr,a
-;	spi_dac.c:265: printf("$ ");
+;	spi_dac.c:294: while(number > 0)
+00101$:
+	mov	dptr,#_bit_bang_spi_number_65536_37
+	movx	a,@dptr
+	mov	r7,a
+	movx	a,@dptr
+	jz	00104$
+;	spi_dac.c:296: printf("r\n\r");
+	push	ar7
 	mov	a,#___str_22
 	push	acc
 	mov	a,#(___str_22 >> 8)
@@ -978,7 +993,74 @@ _take_data:
 	dec	sp
 	dec	sp
 	dec	sp
-;	spi_dac.c:267: while (i < 3) {
+;	spi_dac.c:297: bit_bang_spi_write(TEST_DATA);
+	mov	dptr,#0x1ff0
+	lcall	_bit_bang_spi_write
+;	spi_dac.c:298: delay_ms(DELAY_PERIOD);
+	mov	dptr,#0x01f4
+	lcall	_delay_ms
+;	spi_dac.c:299: bit_bang_spi_write(IDLE_DATA);
+	mov	dptr,#0x1000
+	lcall	_bit_bang_spi_write
+;	spi_dac.c:300: delay_ms(DELAY_PERIOD);
+	mov	dptr,#0x01f4
+	lcall	_delay_ms
+	pop	ar7
+;	spi_dac.c:301: number = number - 1;
+	mov	a,r7
+	dec	a
+	mov	dptr,#_bit_bang_spi_number_65536_37
+	movx	@dptr,a
+	sjmp	00101$
+00104$:
+;	spi_dac.c:303: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'take_data'
+;------------------------------------------------------------
+;input                     Allocated with name '_take_data_input_65537_41'
+;i                         Allocated with name '_take_data_i_65537_41'
+;c                         Allocated with name '_take_data_c_65537_41'
+;data                      Allocated with name '_take_data_data_65538_45'
+;------------------------------------------------------------
+;	spi_dac.c:304: unsigned char take_data()
+;	-----------------------------------------
+;	 function take_data
+;	-----------------------------------------
+_take_data:
+;	spi_dac.c:306: printf("│ Enter number (hex, up to 2 characters): \n\r|");
+	mov	a,#___str_23
+	push	acc
+	mov	a,#(___str_23 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:307: char input[4] = {0};  // Array for 3 hex chars + null terminator
+	mov	dptr,#_take_data_input_65537_41
+	clr	a
+	movx	@dptr,a
+	mov	dptr,#(_take_data_input_65537_41 + 0x0001)
+	movx	@dptr,a
+	mov	dptr,#(_take_data_input_65537_41 + 0x0002)
+	movx	@dptr,a
+	mov	dptr,#(_take_data_input_65537_41 + 0x0003)
+	movx	@dptr,a
+;	spi_dac.c:311: printf("$ ");
+	mov	a,#___str_24
+	push	acc
+	mov	a,#(___str_24 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_dac.c:313: while (i < 3) {
 	mov	r6,#0x00
 	mov	r7,#0x00
 00111$:
@@ -989,7 +1071,7 @@ _take_data:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00113$
-;	spi_dac.c:269: c = getchar();
+;	spi_dac.c:315: c = getchar();
 	push	ar7
 	push	ar6
 	lcall	_getchar
@@ -997,14 +1079,14 @@ _take_data:
 	mov	r5,dph
 	pop	ar6
 	pop	ar7
-;	spi_dac.c:272: if (c == '\r' || c == '\n') {
+;	spi_dac.c:318: if (c == '\r' || c == '\n') {
 	cjne	r4,#0x0d,00194$
 	sjmp	00113$
 00194$:
 	cjne	r4,#0x0a,00195$
 	sjmp	00113$
 00195$:
-;	spi_dac.c:277: if ((c >= '0' && c <= '9') ||
+;	spi_dac.c:323: if ((c >= '0' && c <= '9') ||
 	cjne	r4,#0x30,00196$
 00196$:
 	jc	00108$
@@ -1012,7 +1094,7 @@ _take_data:
 	add	a,#0xff - 0x39
 	jnc	00104$
 00108$:
-;	spi_dac.c:278: (c >= 'a' && c <= 'f') ||
+;	spi_dac.c:324: (c >= 'a' && c <= 'f') ||
 	cjne	r4,#0x61,00199$
 00199$:
 	jc	00110$
@@ -1020,7 +1102,7 @@ _take_data:
 	add	a,#0xff - 0x66
 	jnc	00104$
 00110$:
-;	spi_dac.c:279: (c >= 'A' && c <= 'F')) {
+;	spi_dac.c:325: (c >= 'A' && c <= 'F')) {
 	cjne	r4,#0x41,00202$
 00202$:
 	jc	00111$
@@ -1028,16 +1110,16 @@ _take_data:
 	add	a,#0xff - 0x46
 	jc	00111$
 00104$:
-;	spi_dac.c:281: input[i] = c;
+;	spi_dac.c:327: input[i] = c;
 	mov	a,r6
-	add	a,#_take_data_input_65537_34
+	add	a,#_take_data_input_65537_41
 	mov	dpl,a
 	mov	a,r7
-	addc	a,#(_take_data_input_65537_34 >> 8)
+	addc	a,#(_take_data_input_65537_41 >> 8)
 	mov	dph,a
 	mov	a,r4
 	movx	@dptr,a
-;	spi_dac.c:282: putchar(c);  // Echo character back
+;	spi_dac.c:328: putchar(c);  // Echo character back
 	mov	r5,#0x00
 	mov	dpl,r4
 	mov	dph,r5
@@ -1046,70 +1128,70 @@ _take_data:
 	lcall	_putchar
 	pop	ar6
 	pop	ar7
-;	spi_dac.c:283: i++;
+;	spi_dac.c:329: i++;
 	inc	r6
 	cjne	r6,#0x00,00111$
 	inc	r7
 	sjmp	00111$
 00113$:
-;	spi_dac.c:287: input[i] = '\0';  // Null-terminate the string
+;	spi_dac.c:333: input[i] = '\0';  // Null-terminate the string
 	mov	a,r6
-	add	a,#_take_data_input_65537_34
+	add	a,#_take_data_input_65537_41
 	mov	dpl,a
 	mov	a,r7
-	addc	a,#(_take_data_input_65537_34 >> 8)
+	addc	a,#(_take_data_input_65537_41 >> 8)
 	mov	dph,a
 	clr	a
 	movx	@dptr,a
-;	spi_dac.c:290: unsigned char data = 0;
-	mov	dptr,#_take_data_data_65538_38
+;	spi_dac.c:336: unsigned char data = 0;
+	mov	dptr,#_take_data_data_65538_45
 	movx	@dptr,a
-;	spi_dac.c:291: for (i = 0; input[i] != '\0'; i++) {
+;	spi_dac.c:337: for (i = 0; input[i] != '\0'; i++) {
 	mov	r6,#0x00
 	mov	r7,#0x00
 00127$:
 	mov	a,r6
-	add	a,#_take_data_input_65537_34
+	add	a,#_take_data_input_65537_41
 	mov	dpl,a
 	mov	a,r7
-	addc	a,#(_take_data_input_65537_34 >> 8)
+	addc	a,#(_take_data_input_65537_41 >> 8)
 	mov	dph,a
 	movx	a,@dptr
 	mov	r5,a
 	jnz	00206$
 	ljmp	00125$
 00206$:
-;	spi_dac.c:292: data = data * 16;
-	mov	dptr,#_take_data_data_65538_38
+;	spi_dac.c:338: data = data * 16;
+	mov	dptr,#_take_data_data_65538_45
 	movx	a,@dptr
 	swap	a
 	anl	a,#0xf0
 	mov	r4,a
 	movx	@dptr,a
-;	spi_dac.c:293: if (input[i] >= '0' && input[i] <= '9')
+;	spi_dac.c:339: if (input[i] >= '0' && input[i] <= '9')
 	cjne	r5,#0x30,00207$
 00207$:
 	jc	00122$
 	mov	a,r5
 	add	a,#0xff - 0x39
 	jc	00122$
-;	spi_dac.c:294: data += input[i] - '0';
+;	spi_dac.c:340: data += input[i] - '0';
 	mov	a,r5
 	add	a,#0xd0
 	mov	r5,a
-	mov	dptr,#_take_data_data_65538_38
+	mov	dptr,#_take_data_data_65538_45
 	movx	a,@dptr
 	mov	r4,a
 	add	a,r5
 	movx	@dptr,a
 	sjmp	00128$
 00122$:
-;	spi_dac.c:295: else if (input[i] >= 'A' && input[i] <= 'F')
+;	spi_dac.c:341: else if (input[i] >= 'A' && input[i] <= 'F')
 	mov	a,r6
-	add	a,#_take_data_input_65537_34
+	add	a,#_take_data_input_65537_41
 	mov	dpl,a
 	mov	a,r7
-	addc	a,#(_take_data_input_65537_34 >> 8)
+	addc	a,#(_take_data_input_65537_41 >> 8)
 	mov	dph,a
 	movx	a,@dptr
 	mov	r5,a
@@ -1119,44 +1201,44 @@ _take_data:
 	mov	a,r5
 	add	a,#0xff - 0x46
 	jc	00118$
-;	spi_dac.c:296: data += input[i] - 'A' + 10;
+;	spi_dac.c:342: data += input[i] - 'A' + 10;
 	mov	ar4,r5
 	mov	a,#0xc9
 	add	a,r4
 	mov	r4,a
-	mov	dptr,#_take_data_data_65538_38
+	mov	dptr,#_take_data_data_65538_45
 	movx	a,@dptr
 	mov	r3,a
 	add	a,r4
 	movx	@dptr,a
 	sjmp	00128$
 00118$:
-;	spi_dac.c:297: else if (input[i] >= 'a' && input[i] <= 'f')
+;	spi_dac.c:343: else if (input[i] >= 'a' && input[i] <= 'f')
 	cjne	r5,#0x61,00213$
 00213$:
 	jc	00128$
 	mov	a,r5
 	add	a,#0xff - 0x66
 	jc	00128$
-;	spi_dac.c:298: data += input[i] - 'a' + 10;
+;	spi_dac.c:344: data += input[i] - 'a' + 10;
 	mov	a,#0xa9
 	add	a,r5
 	mov	r5,a
-	mov	dptr,#_take_data_data_65538_38
+	mov	dptr,#_take_data_data_65538_45
 	movx	a,@dptr
 	mov	r4,a
 	add	a,r5
 	movx	@dptr,a
 00128$:
-;	spi_dac.c:291: for (i = 0; input[i] != '\0'; i++) {
+;	spi_dac.c:337: for (i = 0; input[i] != '\0'; i++) {
 	inc	r6
 	cjne	r6,#0x00,00216$
 	inc	r7
 00216$:
 	ljmp	00127$
 00125$:
-;	spi_dac.c:301: printf("\n\r│ Entered data: 0x%02X\n\r", data);
-	mov	dptr,#_take_data_data_65538_38
+;	spi_dac.c:347: printf("\n\r│ Entered data: 0x%02X\n\r", data);
+	mov	dptr,#_take_data_data_65538_45
 	movx	a,@dptr
 	mov	r7,a
 	mov	r5,a
@@ -1164,9 +1246,9 @@ _take_data:
 	push	ar7
 	push	ar5
 	push	ar6
-	mov	a,#___str_23
+	mov	a,#___str_25
 	push	acc
-	mov	a,#(___str_23 >> 8)
+	mov	a,#(___str_25 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1175,47 +1257,47 @@ _take_data:
 	add	a,#0xfb
 	mov	sp,a
 	pop	ar7
-;	spi_dac.c:308: return data;
+;	spi_dac.c:354: return data;
 	mov	dpl,r7
-;	spi_dac.c:310: }
+;	spi_dac.c:356: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'mannual_spi'
 ;------------------------------------------------------------
-;number                    Allocated with name '_mannual_spi_number_65536_41'
-;dac_value_index           Allocated with name '_mannual_spi_dac_value_index_65536_42'
-;dac_data                  Allocated with name '_mannual_spi_dac_data_65536_42'
-;high_byte                 Allocated with name '_mannual_spi_high_byte_65536_42'
-;low_byte                  Allocated with name '_mannual_spi_low_byte_65536_42'
-;i                         Allocated with name '_mannual_spi_i_196608_44'
+;number                    Allocated with name '_mannual_spi_number_65536_48'
+;dac_value_index           Allocated with name '_mannual_spi_dac_value_index_65536_49'
+;dac_data                  Allocated with name '_mannual_spi_dac_data_65536_49'
+;high_byte                 Allocated with name '_mannual_spi_high_byte_65536_49'
+;low_byte                  Allocated with name '_mannual_spi_low_byte_65536_49'
+;i                         Allocated with name '_mannual_spi_i_196608_51'
 ;------------------------------------------------------------
-;	spi_dac.c:312: void mannual_spi(unsigned char number)
+;	spi_dac.c:358: void mannual_spi(unsigned char number)
 ;	-----------------------------------------
 ;	 function mannual_spi
 ;	-----------------------------------------
 _mannual_spi:
 	mov	a,dpl
-	mov	dptr,#_mannual_spi_number_65536_41
+	mov	dptr,#_mannual_spi_number_65536_48
 	movx	@dptr,a
-;	spi_dac.c:314: int dac_value_index = 0;
-	mov	dptr,#_mannual_spi_dac_value_index_65536_42
+;	spi_dac.c:360: int dac_value_index = 0;
+	mov	dptr,#_mannual_spi_dac_value_index_65536_49
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	spi_dac.c:315: int dac_data = 0;
-	mov	dptr,#_mannual_spi_dac_data_65536_42
+;	spi_dac.c:361: int dac_data = 0;
+	mov	dptr,#_mannual_spi_dac_data_65536_49
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	spi_dac.c:317: while(number > 0)
+;	spi_dac.c:363: while(number > 0)
 00111$:
-	mov	dptr,#_mannual_spi_number_65536_41
+	mov	dptr,#_mannual_spi_number_65536_48
 	movx	a,@dptr
 	jnz	00156$
 	ret
 00156$:
-;	spi_dac.c:320: for(int i = 0; i<256; i++)
+;	spi_dac.c:366: for(int i = 0; i<256; i++)
 	mov	r6,#0x00
 	mov	r7,#0x00
 00115$:
@@ -1226,8 +1308,8 @@ _mannual_spi:
 	jc	00157$
 	ljmp	00110$
 00157$:
-;	spi_dac.c:323: if(dac_value_index < SINE_MAX_INDEX)
-	mov	dptr,#_mannual_spi_dac_value_index_65536_42
+;	spi_dac.c:369: if(dac_value_index < SINE_MAX_INDEX)
+	mov	dptr,#_mannual_spi_dac_value_index_65536_49
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1237,7 +1319,7 @@ _mannual_spi:
 	xrl	a,#0x80
 	subb	a,#0x81
 	jnc	00102$
-;	spi_dac.c:327: dac_data = dac_values[dac_value_index];
+;	spi_dac.c:373: dac_data = dac_values[dac_value_index];
 	mov	a,r4
 	add	a,r4
 	mov	r4,a
@@ -1257,7 +1339,7 @@ _mannual_spi:
 	clr	a
 	movc	a,@a+dptr
 	mov	r5,a
-	mov	dptr,#_mannual_spi_dac_data_65536_42
+	mov	dptr,#_mannual_spi_dac_data_65536_49
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
@@ -1265,15 +1347,15 @@ _mannual_spi:
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	spi_dac.c:331: dac_value_index = 0;  // Reset index for next cycle
-	mov	dptr,#_mannual_spi_dac_value_index_65536_42
+;	spi_dac.c:377: dac_value_index = 0;  // Reset index for next cycle
+	mov	dptr,#_mannual_spi_dac_value_index_65536_49
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
 00103$:
-;	spi_dac.c:338: ((dac_data >> 4) & 0x0F);
-	mov	dptr,#_mannual_spi_dac_data_65536_42
+;	spi_dac.c:384: ((dac_data >> 4) & 0x0F);
+	mov	dptr,#_mannual_spi_dac_data_65536_49
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -1296,32 +1378,32 @@ _mannual_spi:
 	anl	a,r2
 	orl	a,#0x10
 	mov	r3,a
-;	spi_dac.c:341: low_byte = (dac_data & 0x0F) << 4;
+;	spi_dac.c:387: low_byte = (dac_data & 0x0F) << 4;
 	anl	ar4,#0x0f
 	mov	a,r4
 	swap	a
 	anl	a,#0xf0
 	mov	r5,a
-;	spi_dac.c:345: P1_1 = 0;  // Select DAC
+;	spi_dac.c:391: P1_1 = 0;  // Select DAC
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:348: SPDAT = high_byte;
+;	spi_dac.c:394: SPDAT = high_byte;
 	mov	_SPDAT,r3
-;	spi_dac.c:349: while (!(SPSTA & (1<<7))); 
+;	spi_dac.c:395: while (!(SPSTA & (1<<7))); 
 00104$:
 	mov	a,_SPSTA
 	jnb	acc.7,00104$
-;	spi_dac.c:353: SPDAT = low_byte;
+;	spi_dac.c:399: SPDAT = low_byte;
 	mov	_SPDAT,r5
-;	spi_dac.c:354: while (!(SPSTA & (1<<7))); 
+;	spi_dac.c:400: while (!(SPSTA & (1<<7))); 
 00107$:
 	mov	a,_SPSTA
 	jnb	acc.7,00107$
-;	spi_dac.c:356: P1_1 = 1;  // Deselect DAC
+;	spi_dac.c:402: P1_1 = 1;  // Deselect DAC
 ;	assignBit
 	setb	_P1_1
-;	spi_dac.c:358: dac_value_index++;
-	mov	dptr,#_mannual_spi_dac_value_index_65536_42
+;	spi_dac.c:404: dac_value_index++;
+	mov	dptr,#_mannual_spi_dac_value_index_65536_49
 	movx	a,@dptr
 	add	a,#0x01
 	movx	@dptr,a
@@ -1329,51 +1411,151 @@ _mannual_spi:
 	movx	a,@dptr
 	addc	a,#0x00
 	movx	@dptr,a
-;	spi_dac.c:320: for(int i = 0; i<256; i++)
+;	spi_dac.c:366: for(int i = 0; i<256; i++)
 	inc	r6
 	cjne	r6,#0x00,00162$
 	inc	r7
 00162$:
 	ljmp	00115$
 00110$:
-;	spi_dac.c:361: number = number - 1;
-	mov	dptr,#_mannual_spi_number_65536_41
+;	spi_dac.c:407: number = number - 1;
+	mov	dptr,#_mannual_spi_number_65536_48
 	movx	a,@dptr
 	mov	r7,a
 	dec	a
 	movx	@dptr,a
-;	spi_dac.c:363: }
+;	spi_dac.c:409: }
 	ljmp	00111$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_init'
 ;------------------------------------------------------------
-;	spi_dac.c:374: void spi_init(void) 
+;	spi_dac.c:420: void spi_init(void) 
 ;	-----------------------------------------
 ;	 function spi_init
 ;	-----------------------------------------
 _spi_init:
-;	spi_dac.c:395: SPCON |= 0x10;
+;	spi_dac.c:441: SPCON |= 0x10;
 	orl	_SPCON,#0x10
-;	spi_dac.c:396: SPCON |= 0x20;
+;	spi_dac.c:442: SPCON |= 0x20;
 	orl	_SPCON,#0x20
-;	spi_dac.c:397: SPCON |= 0x40;
+;	spi_dac.c:443: SPCON |= 0x40;
 	orl	_SPCON,#0x40
-;	spi_dac.c:404: }
+;	spi_dac.c:450: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'bit_bang_spi_init'
+;------------------------------------------------------------
+;	spi_dac.c:452: void bit_bang_spi_init(void) {
+;	-----------------------------------------
+;	 function bit_bang_spi_init
+;	-----------------------------------------
+_bit_bang_spi_init:
+;	spi_dac.c:453: SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
+	mov	_SPCON,#0x00
+;	spi_dac.c:454: SDA = DATA_HIGH;                 /* Set data line high */
+;	assignBit
+	setb	_P1_7
+;	spi_dac.c:455: SCL = CLOCK_LOW;                 /* Set clock line low */
+;	assignBit
+	clr	_P1_6
+;	spi_dac.c:456: SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
+;	assignBit
+	setb	_P1_1
+;	spi_dac.c:457: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'bit_bang_spi_write'
+;------------------------------------------------------------
+;data                      Allocated with name '_bit_bang_spi_write_data_65536_59'
+;i                         Allocated with name '_bit_bang_spi_write_i_65536_60'
+;------------------------------------------------------------
+;	spi_dac.c:459: int bit_bang_spi_write(uint16_t data) {
+;	-----------------------------------------
+;	 function bit_bang_spi_write
+;	-----------------------------------------
+_bit_bang_spi_write:
+	mov	r7,dph
+	mov	a,dpl
+	mov	dptr,#_bit_bang_spi_write_data_65536_59
+	movx	@dptr,a
+	mov	a,r7
+	inc	dptr
+	movx	@dptr,a
+;	spi_dac.c:462: SS = SLAVE_SELECT_ACTIVE;        /* Assert slave select (active low) */
+;	assignBit
+	clr	_P1_1
+;	spi_dac.c:465: for(i = 0; i < SPI_DATA_WIDTH; i++) {
+	mov	r6,#0x00
+	mov	r7,#0x00
+00102$:
+;	spi_dac.c:466: SDA = (data & MSB_FIRST_MASK) ? DATA_HIGH : DATA_LOW;    /* MSB first */
+	mov	dptr,#_bit_bang_spi_write_data_65536_59
+	movx	a,@dptr
+	mov	r4,a
+	inc	dptr
+	movx	a,@dptr
+	mov	r5,a
+	rl	a
+	anl	a,#0x01
+	add	a,#0xff
+	mov	_P1_7,c
+;	spi_dac.c:467: SCL = CLOCK_HIGH;            /* Clock high */
+;	assignBit
+	setb	_P1_6
+;	spi_dac.c:468: SCL = CLOCK_LOW;             /* Clock low */
+;	assignBit
+	clr	_P1_6
+;	spi_dac.c:469: data <<= 1;                  /* Shift to next bit */
+	mov	a,r4
+	add	a,r4
+	mov	r4,a
+	mov	a,r5
+	rlc	a
+	mov	r5,a
+	mov	dptr,#_bit_bang_spi_write_data_65536_59
+	mov	a,r4
+	movx	@dptr,a
+	mov	a,r5
+	inc	dptr
+	movx	@dptr,a
+;	spi_dac.c:465: for(i = 0; i < SPI_DATA_WIDTH; i++) {
+	inc	r6
+	cjne	r6,#0x00,00115$
+	inc	r7
+00115$:
+	clr	c
+	mov	a,r6
+	subb	a,#0x10
+	mov	a,r7
+	subb	a,#0x00
+	jc	00102$
+;	spi_dac.c:473: SS = SLAVE_SELECT_INACTIVE;      /* Deassert slave select */
+;	assignBit
+	setb	_P1_1
+;	spi_dac.c:474: SCL = CLOCK_LOW;                 /* Clock low */
+;	assignBit
+	clr	_P1_6
+;	spi_dac.c:475: SDA = DATA_HIGH;                 /* Data high */
+;	assignBit
+	setb	_P1_7
+;	spi_dac.c:477: return 0;
+	mov	dptr,#0x0000
+;	spi_dac.c:478: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'spi_transmission_start'
 ;------------------------------------------------------------
-;	spi_dac.c:411: void spi_transmission_start(void)
+;	spi_dac.c:485: void spi_transmission_start(void)
 ;	-----------------------------------------
 ;	 function spi_transmission_start
 ;	-----------------------------------------
 _spi_transmission_start:
-;	spi_dac.c:413: SPCON |= SPI_ENABLE;           // Enable SPI
+;	spi_dac.c:487: SPCON |= SPI_ENABLE;           // Enable SPI
 	orl	_SPCON,#0x40
-;	spi_dac.c:414: P1_1 = 0;
+;	spi_dac.c:488: P1_1 = 0;
 ;	assignBit
 	clr	_P1_1
-;	spi_dac.c:415: }
+;	spi_dac.c:489: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -2657,6 +2839,20 @@ ___str_20:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_21:
+	.ascii "SQUARE WAVE DONE"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_22:
+	.ascii "r"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_23:
 	.db 0xe2
 	.db 0x94
 	.db 0x82
@@ -2667,12 +2863,12 @@ ___str_21:
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_22:
+___str_24:
 	.ascii "$ "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_23:
+___str_25:
 	.db 0x0a
 	.db 0x0d
 	.db 0xe2

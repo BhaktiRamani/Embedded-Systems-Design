@@ -64,6 +64,31 @@
 
 volatile unsigned char ms_flag = 0;  // Flag for 1ms interval
 
+/* Pin State Definitions */
+#define CLOCK_HIGH       1
+#define CLOCK_LOW        0
+#define DATA_HIGH        1
+#define DATA_LOW         0
+#define SLAVE_SELECT_ACTIVE    0
+#define SLAVE_SELECT_INACTIVE  1
+
+/* SPI Configuration */
+#define SPI_DATA_WIDTH   16      /* Width of SPI data in bits */
+#define MSB_FIRST_MASK   0x8000  /* Mask for MSB in 16-bit data */
+#define SPI_INIT_VALUE   0       /* Initial value for SPI control register */
+
+/* Timing Constants */
+#define CRYSTAL_FREQ     12000000    /* Crystal frequency in Hz */
+#define DELAY_LOOP_COUNT 123         /* Delay loop count for 1ms at 12MHz */
+#define TEST_DATA        0x1FF0      /* Test data pattern */
+#define IDLE_DATA        0x1000      /* Idle data pattern */
+#define DELAY_PERIOD     500          /* Delay period in milliseconds */
+
+/* Pin Definitions */
+#define SCL P1_6         /* Serial Clock Line */
+#define SDA P1_7         /* Serial Data Line */
+#define SS  P1_1         /* Slave Select (Chip Select) */
+
 /* Function Prototypes */
 void spi_init(void);
 void spi_transmission_start(void);
@@ -201,6 +226,10 @@ void delay_ms(unsigned int ms) {
 }
 void mannual_spi(unsigned char number);
 unsigned char take_data();
+
+void bit_bang_spi(unsigned char number);
+int bit_bang_spi_write(uint16_t data);
+void bit_bang_spi_init(void);
 void display_menu(void) {
     printf("\n\r┌──────────────────────────────────────────────────────────────┐\n\r");
     printf("│                        SPI PROGRAM                           │\n\r");
@@ -241,6 +270,11 @@ int main(void)
                     break;
                     
                 case 'B':
+                    bit_bang_spi_init();
+                    unsigned char result2 = take_data();
+                    bit_bang_spi(result2);
+                    printf("SQUARE WAVE DONE\n\r");
+                    
                     break;
                     //bit banging
       }
@@ -255,6 +289,18 @@ int main(void)
 
 }
 
+void bit_bang_spi(unsigned char number)
+{
+    while(number > 0)
+    {
+        printf("r\n\r");
+        bit_bang_spi_write(TEST_DATA);
+        delay_ms(DELAY_PERIOD);
+        bit_bang_spi_write(IDLE_DATA);
+        delay_ms(DELAY_PERIOD);
+        number = number - 1;
+    }    
+}
 unsigned char take_data()
 {
     printf("│ Enter number (hex, up to 2 characters): \n\r|");
@@ -401,6 +447,34 @@ void spi_init(void)
     // // Enable interrupts
     // IEN1 |= SPI_INT_ENABLE;        // Enable SPI interrupt
 
+}
+
+void bit_bang_spi_init(void) {
+    SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
+    SDA = DATA_HIGH;                 /* Set data line high */
+    SCL = CLOCK_LOW;                 /* Set clock line low */
+    SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
+}
+
+int bit_bang_spi_write(uint16_t data) {
+    unsigned int i;
+    
+    SS = SLAVE_SELECT_ACTIVE;        /* Assert slave select (active low) */
+    
+    /* Transmit data bits */
+    for(i = 0; i < SPI_DATA_WIDTH; i++) {
+        SDA = (data & MSB_FIRST_MASK) ? DATA_HIGH : DATA_LOW;    /* MSB first */
+        SCL = CLOCK_HIGH;            /* Clock high */
+        SCL = CLOCK_LOW;             /* Clock low */
+        data <<= 1;                  /* Shift to next bit */
+    }
+    
+    /* Set stop/idle condition */
+    SS = SLAVE_SELECT_INACTIVE;      /* Deassert slave select */
+    SCL = CLOCK_LOW;                 /* Clock low */
+    SDA = DATA_HIGH;                 /* Data high */
+    
+    return 0;
 }
 
 /**
