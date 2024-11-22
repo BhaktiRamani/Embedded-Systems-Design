@@ -87,7 +87,10 @@ int main()
     pcf8574_set_pin(4,1);
     pcf8574_set_pin(5,0);
     
-    
+    while(1)
+    {
+        printf("W\n\r");
+    }
     // while(1)
     // {
     //     int result = pcf8574_read_pin(0);
