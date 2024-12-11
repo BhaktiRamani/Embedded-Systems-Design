@@ -81,6 +81,41 @@ int main(void)
                 // Re-initialize SPI for further operations
                 spi_init();
                 break;
+                
+                            case 'S':
+                {
+                    spi_init();
+                    unsigned char result3 = take_data();
+                    mannual_spi(result3);
+                    printf(">> SIN WAVE GENERATION COMPLETE\n\r");
+                    break;
+                }
+
+                    
+                case 'T':
+                {
+                    spi_init();
+                    unsigned char result4 = take_data();
+                    spi_triangular_wave(result4);
+                    printf(">> TRIANGULAR WAVE GENERATION COMPLETE\n\r");
+                    break;
+                }
+                    
+                case 'R':
+                {
+                    unsigned char result5 = take_data();
+                    spi_ramp_signal(result5);
+                    printf(">> RAMP WAVE GENERATION COMPLETE\n\r");
+                    break;
+                }
+
+                case '?':
+                    display_menu();
+                    break;  
+                
+                default:
+                    printf(">> INVALID INPUT\n\r");
+                    break;
                     
             default:
                 // Handle any other invalid input or menu options here
@@ -88,4 +123,19 @@ int main(void)
                 break;
         }
     }
+}
+
+void display_menu(void) {
+    printf(" ───────────┴───────────────────────────────────────────────\n\r");
+    printf("│                        SPI PROGRAM                        │\n\r");
+    printf("├───────────────────────────────────────────────────────────┤\n\r");
+    printf("│  Command   │               Description                    │\n\r");
+    printf("├───────────────────────────────────────────────────────────┤\n\r");
+    printf("│    M      │ Manual SPI Mode (Direct Register Control)     │\n\r");
+    printf("│    S      │ Generate Sine Wave                            │\n\r");
+    printf("│    T      │ Generate Triangular Wave                      │\n\r");
+    printf("│    R      │ Ramp wave                                     │\n\r");
+    printf("│    ?      │ Display this help menu                        │\n\r");
+    printf("└───────────┴───────────────────────────────────────────────┘\n\r");
+    printf("\n\r>> Enter command: ");
 }

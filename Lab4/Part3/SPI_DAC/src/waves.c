@@ -150,3 +150,110 @@ const int ramp_dac_values[RAMP_SAMPLES] = {
     240, 241, 242, 243, 244, 245, 246, 247, // 240-247
     248, 249, 250, 251, 252, 253, 254, 255, // 248-255
 };
+
+
+void spi_triangular_wave(int number)
+{
+    int dac_value_index = 0;
+    int dac_data = 0;
+    int high_byte, low_byte;
+    while(number>0)
+    {
+            for(int i = 0; i<512; i++)
+        {
+                    /* Calculate or lookup next sine wave value */
+            if(dac_value_index < 512)
+            {
+    
+                /* Alternatively, use lookup table:*/
+                dac_data = trig_dac_values[dac_value_index];
+            }
+            else
+            {
+                dac_value_index = 0;  // Reset index for next cycle
+    
+            }
+    
+            
+                        //Format high byte: Channel A, 1x gain, Active
+            high_byte = 0x10 | 
+                           ((dac_data >> 4) & 0x0F);
+    
+                // Format low byte: Lower 4 bits of data, shifted left 4 positions
+            low_byte = (dac_data & 0x0F) << 4;
+    
+    
+            // Begin transmission
+            P1_1 = 0;  // Select DAC
+    
+            // Send high byte
+            SPDAT = high_byte;
+            while (!(SPSTA & (1<<7))); 
+    
+    
+            // Send low byte
+            SPDAT = low_byte;
+            while (!(SPSTA & (1<<7))); 
+    
+            P1_1 = 1;  // Deselect DAC
+    
+            dac_value_index++;
+        }
+
+        number = number - 1;
+    }
+
+}
+
+void spi_ramp_signal(int number)
+{
+    int dac_value_index = 0;
+    int dac_data = 0;
+    int high_byte, low_byte;
+    while(number>0)
+    {
+            for(int i = 0; i<256; i++)
+        {
+                    /* Calculate or lookup next sine wave value */
+            if(dac_value_index < 256)
+            {
+    
+                /* Alternatively, use lookup table:*/
+                dac_data = trig_dac_values[dac_value_index];
+            }
+            else
+            {
+                dac_value_index = 0;  // Reset index for next cycle
+    
+            }
+    
+            
+                        //Format high byte: Channel A, 1x gain, Active
+            high_byte = 0x10 | 
+                           ((dac_data >> 4) & 0x0F);
+    
+                // Format low byte: Lower 4 bits of data, shifted left 4 positions
+            low_byte = (dac_data & 0x0F) << 4;
+    
+    
+            // Begin transmission
+            P1_1 = 0;  // Select DAC
+    
+            // Send high byte
+            SPDAT = high_byte;
+            while (!(SPSTA & (1<<7))); 
+    
+    
+            // Send low byte
+            SPDAT = low_byte;
+            while (!(SPSTA & (1<<7))); 
+    
+            P1_1 = 1;  // Deselect DAC
+    
+            dac_value_index++;
+        }
+
+        number = number - 1;
+    }
+    
+}

@@ -236,7 +236,7 @@ void bit_bang_spi_init(void);
 void spi_ramp_signal(int number);
 void spi_triangular_wave(int number);
 void display_menu(void) {
-    printf("\n\r┌───────────────────────────────────────────────────────┐\n\r");
+    printf(" ───────────┴───────────────────────────────────────────────\n\r");
     printf("│                        SPI PROGRAM                        │\n\r");
     printf("├───────────────────────────────────────────────────────────┤\n\r");
     printf("│  Command   │               Description                    │\n\r");
@@ -258,7 +258,7 @@ void spi_transmission_stop(void)
 int main(void)
 {
   display_menu();
-  spi_init();
+
   while(1)
   {
       char user_input = getchar();
@@ -268,22 +268,14 @@ int main(void)
       {
                 case 'M':
                 {
+                    spi_init();
                     unsigned char result = take_data();
                     mannual_spi(result);
                     printf(">> SINE WAVE GENERATION COMPLETE\n\r");
-                    spi_transmission_stop();
+                    // spi_transmission_stop();
                     break;
                 }
                     
-                // case 'B':
-                // {
-                //     bit_bang_spi_init();
-                //     unsigned char result2 = take_data();
-                //     bit_bang_spi(result2);
-                //     printf(">> SQUARE WAVE GENERATION COMPLETE\n\r");
-                //     spi_init();
-                //     break;
-                // }
                     
                 case 'S':
                 {
@@ -311,13 +303,7 @@ int main(void)
                     printf(">> RAMP WAVE GENERATION COMPLETE\n\r");
                     break;
                 }
-                    
-                // case 'D':
-                // {
-                //     demo_mode();
-                //     printf(">> DEMO COMPLETE\n\r");
-                //     break;
-                // }
+
                 case '?':
                     display_menu();
                     break;  
@@ -416,11 +402,11 @@ void mannual_spi(unsigned char number)
     int dac_value_index = 0;
     int dac_data = 0;
     int high_byte, low_byte;
-    printf("\r\n Inside Manual SPI");
+
     printf("%d\n\r", number);
     while(number > 0)
     {
-        printf("\r\n Number is %d",number);
+
         
         for(int i = 0; i<255; i++)
         {

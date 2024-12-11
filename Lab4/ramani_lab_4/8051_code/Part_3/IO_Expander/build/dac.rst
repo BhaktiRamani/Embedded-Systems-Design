@@ -1,0 +1,683 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.0.0 #11528 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module dac
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _i2c_stop
+                                     12 	.globl _i2c_start
+                                     13 	.globl _i2c_read
+                                     14 	.globl _i2c_write
+                                     15 	.globl _CY
+                                     16 	.globl _AC
+                                     17 	.globl _F0
+                                     18 	.globl _RS1
+                                     19 	.globl _RS0
+                                     20 	.globl _OV
+                                     21 	.globl _F1
+                                     22 	.globl _P
+                                     23 	.globl _PS
+                                     24 	.globl _PT1
+                                     25 	.globl _PX1
+                                     26 	.globl _PT0
+                                     27 	.globl _PX0
+                                     28 	.globl _RD
+                                     29 	.globl _WR
+                                     30 	.globl _T1
+                                     31 	.globl _T0
+                                     32 	.globl _INT1
+                                     33 	.globl _INT0
+                                     34 	.globl _TXD
+                                     35 	.globl _RXD
+                                     36 	.globl _P3_7
+                                     37 	.globl _P3_6
+                                     38 	.globl _P3_5
+                                     39 	.globl _P3_4
+                                     40 	.globl _P3_3
+                                     41 	.globl _P3_2
+                                     42 	.globl _P3_1
+                                     43 	.globl _P3_0
+                                     44 	.globl _EA
+                                     45 	.globl _ES
+                                     46 	.globl _ET1
+                                     47 	.globl _EX1
+                                     48 	.globl _ET0
+                                     49 	.globl _EX0
+                                     50 	.globl _P2_7
+                                     51 	.globl _P2_6
+                                     52 	.globl _P2_5
+                                     53 	.globl _P2_4
+                                     54 	.globl _P2_3
+                                     55 	.globl _P2_2
+                                     56 	.globl _P2_1
+                                     57 	.globl _P2_0
+                                     58 	.globl _SM0
+                                     59 	.globl _SM1
+                                     60 	.globl _SM2
+                                     61 	.globl _REN
+                                     62 	.globl _TB8
+                                     63 	.globl _RB8
+                                     64 	.globl _TI
+                                     65 	.globl _RI
+                                     66 	.globl _P1_7
+                                     67 	.globl _P1_6
+                                     68 	.globl _P1_5
+                                     69 	.globl _P1_4
+                                     70 	.globl _P1_3
+                                     71 	.globl _P1_2
+                                     72 	.globl _P1_1
+                                     73 	.globl _P1_0
+                                     74 	.globl _TF1
+                                     75 	.globl _TR1
+                                     76 	.globl _TF0
+                                     77 	.globl _TR0
+                                     78 	.globl _IE1
+                                     79 	.globl _IT1
+                                     80 	.globl _IE0
+                                     81 	.globl _IT0
+                                     82 	.globl _P0_7
+                                     83 	.globl _P0_6
+                                     84 	.globl _P0_5
+                                     85 	.globl _P0_4
+                                     86 	.globl _P0_3
+                                     87 	.globl _P0_2
+                                     88 	.globl _P0_1
+                                     89 	.globl _P0_0
+                                     90 	.globl _P5_7
+                                     91 	.globl _P5_6
+                                     92 	.globl _P5_5
+                                     93 	.globl _P5_4
+                                     94 	.globl _P5_3
+                                     95 	.globl _P5_2
+                                     96 	.globl _P5_1
+                                     97 	.globl _P5_0
+                                     98 	.globl _P4_7
+                                     99 	.globl _P4_6
+                                    100 	.globl _P4_5
+                                    101 	.globl _P4_4
+                                    102 	.globl _P4_3
+                                    103 	.globl _P4_2
+                                    104 	.globl _P4_1
+                                    105 	.globl _P4_0
+                                    106 	.globl _PX0L
+                                    107 	.globl _PT0L
+                                    108 	.globl _PX1L
+                                    109 	.globl _PT1L
+                                    110 	.globl _PSL
+                                    111 	.globl _PT2L
+                                    112 	.globl _PPCL
+                                    113 	.globl _EC
+                                    114 	.globl _CCF0
+                                    115 	.globl _CCF1
+                                    116 	.globl _CCF2
+                                    117 	.globl _CCF3
+                                    118 	.globl _CCF4
+                                    119 	.globl _CR
+                                    120 	.globl _CF
+                                    121 	.globl _TF2
+                                    122 	.globl _EXF2
+                                    123 	.globl _RCLK
+                                    124 	.globl _TCLK
+                                    125 	.globl _EXEN2
+                                    126 	.globl _TR2
+                                    127 	.globl _C_T2
+                                    128 	.globl _CP_RL2
+                                    129 	.globl _T2CON_7
+                                    130 	.globl _T2CON_6
+                                    131 	.globl _T2CON_5
+                                    132 	.globl _T2CON_4
+                                    133 	.globl _T2CON_3
+                                    134 	.globl _T2CON_2
+                                    135 	.globl _T2CON_1
+                                    136 	.globl _T2CON_0
+                                    137 	.globl _PT2
+                                    138 	.globl _ET2
+                                    139 	.globl _B
+                                    140 	.globl _ACC
+                                    141 	.globl _PSW
+                                    142 	.globl _IP
+                                    143 	.globl _P3
+                                    144 	.globl _IE
+                                    145 	.globl _P2
+                                    146 	.globl _SBUF
+                                    147 	.globl _SCON
+                                    148 	.globl _P1
+                                    149 	.globl _TH1
+                                    150 	.globl _TH0
+                                    151 	.globl _TL1
+                                    152 	.globl _TL0
+                                    153 	.globl _TMOD
+                                    154 	.globl _TCON
+                                    155 	.globl _PCON
+                                    156 	.globl _DPH
+                                    157 	.globl _DPL
+                                    158 	.globl _SP
+                                    159 	.globl _P0
+                                    160 	.globl _EECON
+                                    161 	.globl _KBF
+                                    162 	.globl _KBE
+                                    163 	.globl _KBLS
+                                    164 	.globl _BRL
+                                    165 	.globl _BDRCON
+                                    166 	.globl _T2MOD
+                                    167 	.globl _SPDAT
+                                    168 	.globl _SPSTA
+                                    169 	.globl _SPCON
+                                    170 	.globl _SADEN
+                                    171 	.globl _SADDR
+                                    172 	.globl _WDTPRG
+                                    173 	.globl _WDTRST
+                                    174 	.globl _P5
+                                    175 	.globl _P4
+                                    176 	.globl _IPH1
+                                    177 	.globl _IPL1
+                                    178 	.globl _IPH0
+                                    179 	.globl _IPL0
+                                    180 	.globl _IEN1
+                                    181 	.globl _IEN0
+                                    182 	.globl _CMOD
+                                    183 	.globl _CL
+                                    184 	.globl _CH
+                                    185 	.globl _CCON
+                                    186 	.globl _CCAPM4
+                                    187 	.globl _CCAPM3
+                                    188 	.globl _CCAPM2
+                                    189 	.globl _CCAPM1
+                                    190 	.globl _CCAPM0
+                                    191 	.globl _CCAP4L
+                                    192 	.globl _CCAP3L
+                                    193 	.globl _CCAP2L
+                                    194 	.globl _CCAP1L
+                                    195 	.globl _CCAP0L
+                                    196 	.globl _CCAP4H
+                                    197 	.globl _CCAP3H
+                                    198 	.globl _CCAP2H
+                                    199 	.globl _CCAP1H
+                                    200 	.globl _CCAP0H
+                                    201 	.globl _CKCON1
+                                    202 	.globl _CKCON0
+                                    203 	.globl _CKRL
+                                    204 	.globl _AUXR1
+                                    205 	.globl _AUXR
+                                    206 	.globl _TH2
+                                    207 	.globl _TL2
+                                    208 	.globl _RCAP2H
+                                    209 	.globl _RCAP2L
+                                    210 	.globl _T2CON
+                                    211 	.globl _pcf8574_set_pin_PARM_2
+                                    212 	.globl _pcf8574_init
+                                    213 	.globl _pcf8574_read_port
+                                    214 	.globl _pcf8574_read_pin
+                                    215 	.globl _pcf8574_write_port
+                                    216 	.globl _pcf8574_set_pin
+                                    217 ;--------------------------------------------------------
+                                    218 ; special function registers
+                                    219 ;--------------------------------------------------------
+                                    220 	.area RSEG    (ABS,DATA)
+      000000                        221 	.org 0x0000
+                           0000C8   222 _T2CON	=	0x00c8
+                           0000CA   223 _RCAP2L	=	0x00ca
+                           0000CB   224 _RCAP2H	=	0x00cb
+                           0000CC   225 _TL2	=	0x00cc
+                           0000CD   226 _TH2	=	0x00cd
+                           00008E   227 _AUXR	=	0x008e
+                           0000A2   228 _AUXR1	=	0x00a2
+                           000097   229 _CKRL	=	0x0097
+                           00008F   230 _CKCON0	=	0x008f
+                           0000AF   231 _CKCON1	=	0x00af
+                           0000FA   232 _CCAP0H	=	0x00fa
+                           0000FB   233 _CCAP1H	=	0x00fb
+                           0000FC   234 _CCAP2H	=	0x00fc
+                           0000FD   235 _CCAP3H	=	0x00fd
+                           0000FE   236 _CCAP4H	=	0x00fe
+                           0000EA   237 _CCAP0L	=	0x00ea
+                           0000EB   238 _CCAP1L	=	0x00eb
+                           0000EC   239 _CCAP2L	=	0x00ec
+                           0000ED   240 _CCAP3L	=	0x00ed
+                           0000EE   241 _CCAP4L	=	0x00ee
+                           0000DA   242 _CCAPM0	=	0x00da
+                           0000DB   243 _CCAPM1	=	0x00db
+                           0000DC   244 _CCAPM2	=	0x00dc
+                           0000DD   245 _CCAPM3	=	0x00dd
+                           0000DE   246 _CCAPM4	=	0x00de
+                           0000D8   247 _CCON	=	0x00d8
+                           0000F9   248 _CH	=	0x00f9
+                           0000E9   249 _CL	=	0x00e9
+                           0000D9   250 _CMOD	=	0x00d9
+                           0000A8   251 _IEN0	=	0x00a8
+                           0000B1   252 _IEN1	=	0x00b1
+                           0000B8   253 _IPL0	=	0x00b8
+                           0000B7   254 _IPH0	=	0x00b7
+                           0000B2   255 _IPL1	=	0x00b2
+                           0000B3   256 _IPH1	=	0x00b3
+                           0000C0   257 _P4	=	0x00c0
+                           0000E8   258 _P5	=	0x00e8
+                           0000A6   259 _WDTRST	=	0x00a6
+                           0000A7   260 _WDTPRG	=	0x00a7
+                           0000A9   261 _SADDR	=	0x00a9
+                           0000B9   262 _SADEN	=	0x00b9
+                           0000C3   263 _SPCON	=	0x00c3
+                           0000C4   264 _SPSTA	=	0x00c4
+                           0000C5   265 _SPDAT	=	0x00c5
+                           0000C9   266 _T2MOD	=	0x00c9
+                           00009B   267 _BDRCON	=	0x009b
+                           00009A   268 _BRL	=	0x009a
+                           00009C   269 _KBLS	=	0x009c
+                           00009D   270 _KBE	=	0x009d
+                           00009E   271 _KBF	=	0x009e
+                           0000D2   272 _EECON	=	0x00d2
+                           000080   273 _P0	=	0x0080
+                           000081   274 _SP	=	0x0081
+                           000082   275 _DPL	=	0x0082
+                           000083   276 _DPH	=	0x0083
+                           000087   277 _PCON	=	0x0087
+                           000088   278 _TCON	=	0x0088
+                           000089   279 _TMOD	=	0x0089
+                           00008A   280 _TL0	=	0x008a
+                           00008B   281 _TL1	=	0x008b
+                           00008C   282 _TH0	=	0x008c
+                           00008D   283 _TH1	=	0x008d
+                           000090   284 _P1	=	0x0090
+                           000098   285 _SCON	=	0x0098
+                           000099   286 _SBUF	=	0x0099
+                           0000A0   287 _P2	=	0x00a0
+                           0000A8   288 _IE	=	0x00a8
+                           0000B0   289 _P3	=	0x00b0
+                           0000B8   290 _IP	=	0x00b8
+                           0000D0   291 _PSW	=	0x00d0
+                           0000E0   292 _ACC	=	0x00e0
+                           0000F0   293 _B	=	0x00f0
+                                    294 ;--------------------------------------------------------
+                                    295 ; special function bits
+                                    296 ;--------------------------------------------------------
+                                    297 	.area RSEG    (ABS,DATA)
+      000000                        298 	.org 0x0000
+                           0000AD   299 _ET2	=	0x00ad
+                           0000BD   300 _PT2	=	0x00bd
+                           0000C8   301 _T2CON_0	=	0x00c8
+                           0000C9   302 _T2CON_1	=	0x00c9
+                           0000CA   303 _T2CON_2	=	0x00ca
+                           0000CB   304 _T2CON_3	=	0x00cb
+                           0000CC   305 _T2CON_4	=	0x00cc
+                           0000CD   306 _T2CON_5	=	0x00cd
+                           0000CE   307 _T2CON_6	=	0x00ce
+                           0000CF   308 _T2CON_7	=	0x00cf
+                           0000C8   309 _CP_RL2	=	0x00c8
+                           0000C9   310 _C_T2	=	0x00c9
+                           0000CA   311 _TR2	=	0x00ca
+                           0000CB   312 _EXEN2	=	0x00cb
+                           0000CC   313 _TCLK	=	0x00cc
+                           0000CD   314 _RCLK	=	0x00cd
+                           0000CE   315 _EXF2	=	0x00ce
+                           0000CF   316 _TF2	=	0x00cf
+                           0000DF   317 _CF	=	0x00df
+                           0000DE   318 _CR	=	0x00de
+                           0000DC   319 _CCF4	=	0x00dc
+                           0000DB   320 _CCF3	=	0x00db
+                           0000DA   321 _CCF2	=	0x00da
+                           0000D9   322 _CCF1	=	0x00d9
+                           0000D8   323 _CCF0	=	0x00d8
+                           0000AE   324 _EC	=	0x00ae
+                           0000BE   325 _PPCL	=	0x00be
+                           0000BD   326 _PT2L	=	0x00bd
+                           0000BC   327 _PSL	=	0x00bc
+                           0000BB   328 _PT1L	=	0x00bb
+                           0000BA   329 _PX1L	=	0x00ba
+                           0000B9   330 _PT0L	=	0x00b9
+                           0000B8   331 _PX0L	=	0x00b8
+                           0000C0   332 _P4_0	=	0x00c0
+                           0000C1   333 _P4_1	=	0x00c1
+                           0000C2   334 _P4_2	=	0x00c2
+                           0000C3   335 _P4_3	=	0x00c3
+                           0000C4   336 _P4_4	=	0x00c4
+                           0000C5   337 _P4_5	=	0x00c5
+                           0000C6   338 _P4_6	=	0x00c6
+                           0000C7   339 _P4_7	=	0x00c7
+                           0000E8   340 _P5_0	=	0x00e8
+                           0000E9   341 _P5_1	=	0x00e9
+                           0000EA   342 _P5_2	=	0x00ea
+                           0000EB   343 _P5_3	=	0x00eb
+                           0000EC   344 _P5_4	=	0x00ec
+                           0000ED   345 _P5_5	=	0x00ed
+                           0000EE   346 _P5_6	=	0x00ee
+                           0000EF   347 _P5_7	=	0x00ef
+                           000080   348 _P0_0	=	0x0080
+                           000081   349 _P0_1	=	0x0081
+                           000082   350 _P0_2	=	0x0082
+                           000083   351 _P0_3	=	0x0083
+                           000084   352 _P0_4	=	0x0084
+                           000085   353 _P0_5	=	0x0085
+                           000086   354 _P0_6	=	0x0086
+                           000087   355 _P0_7	=	0x0087
+                           000088   356 _IT0	=	0x0088
+                           000089   357 _IE0	=	0x0089
+                           00008A   358 _IT1	=	0x008a
+                           00008B   359 _IE1	=	0x008b
+                           00008C   360 _TR0	=	0x008c
+                           00008D   361 _TF0	=	0x008d
+                           00008E   362 _TR1	=	0x008e
+                           00008F   363 _TF1	=	0x008f
+                           000090   364 _P1_0	=	0x0090
+                           000091   365 _P1_1	=	0x0091
+                           000092   366 _P1_2	=	0x0092
+                           000093   367 _P1_3	=	0x0093
+                           000094   368 _P1_4	=	0x0094
+                           000095   369 _P1_5	=	0x0095
+                           000096   370 _P1_6	=	0x0096
+                           000097   371 _P1_7	=	0x0097
+                           000098   372 _RI	=	0x0098
+                           000099   373 _TI	=	0x0099
+                           00009A   374 _RB8	=	0x009a
+                           00009B   375 _TB8	=	0x009b
+                           00009C   376 _REN	=	0x009c
+                           00009D   377 _SM2	=	0x009d
+                           00009E   378 _SM1	=	0x009e
+                           00009F   379 _SM0	=	0x009f
+                           0000A0   380 _P2_0	=	0x00a0
+                           0000A1   381 _P2_1	=	0x00a1
+                           0000A2   382 _P2_2	=	0x00a2
+                           0000A3   383 _P2_3	=	0x00a3
+                           0000A4   384 _P2_4	=	0x00a4
+                           0000A5   385 _P2_5	=	0x00a5
+                           0000A6   386 _P2_6	=	0x00a6
+                           0000A7   387 _P2_7	=	0x00a7
+                           0000A8   388 _EX0	=	0x00a8
+                           0000A9   389 _ET0	=	0x00a9
+                           0000AA   390 _EX1	=	0x00aa
+                           0000AB   391 _ET1	=	0x00ab
+                           0000AC   392 _ES	=	0x00ac
+                           0000AF   393 _EA	=	0x00af
+                           0000B0   394 _P3_0	=	0x00b0
+                           0000B1   395 _P3_1	=	0x00b1
+                           0000B2   396 _P3_2	=	0x00b2
+                           0000B3   397 _P3_3	=	0x00b3
+                           0000B4   398 _P3_4	=	0x00b4
+                           0000B5   399 _P3_5	=	0x00b5
+                           0000B6   400 _P3_6	=	0x00b6
+                           0000B7   401 _P3_7	=	0x00b7
+                           0000B0   402 _RXD	=	0x00b0
+                           0000B1   403 _TXD	=	0x00b1
+                           0000B2   404 _INT0	=	0x00b2
+                           0000B3   405 _INT1	=	0x00b3
+                           0000B4   406 _T0	=	0x00b4
+                           0000B5   407 _T1	=	0x00b5
+                           0000B6   408 _WR	=	0x00b6
+                           0000B7   409 _RD	=	0x00b7
+                           0000B8   410 _PX0	=	0x00b8
+                           0000B9   411 _PT0	=	0x00b9
+                           0000BA   412 _PX1	=	0x00ba
+                           0000BB   413 _PT1	=	0x00bb
+                           0000BC   414 _PS	=	0x00bc
+                           0000D0   415 _P	=	0x00d0
+                           0000D1   416 _F1	=	0x00d1
+                           0000D2   417 _OV	=	0x00d2
+                           0000D3   418 _RS0	=	0x00d3
+                           0000D4   419 _RS1	=	0x00d4
+                           0000D5   420 _F0	=	0x00d5
+                           0000D6   421 _AC	=	0x00d6
+                           0000D7   422 _CY	=	0x00d7
+                                    423 ;--------------------------------------------------------
+                                    424 ; overlayable register banks
+                                    425 ;--------------------------------------------------------
+                                    426 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        427 	.ds 8
+                                    428 ;--------------------------------------------------------
+                                    429 ; internal ram data
+                                    430 ;--------------------------------------------------------
+                                    431 	.area DSEG    (DATA)
+                                    432 ;--------------------------------------------------------
+                                    433 ; overlayable items in internal ram 
+                                    434 ;--------------------------------------------------------
+                                    435 ;--------------------------------------------------------
+                                    436 ; indirectly addressable internal ram data
+                                    437 ;--------------------------------------------------------
+                                    438 	.area ISEG    (DATA)
+                                    439 ;--------------------------------------------------------
+                                    440 ; absolute internal ram data
+                                    441 ;--------------------------------------------------------
+                                    442 	.area IABS    (ABS,DATA)
+                                    443 	.area IABS    (ABS,DATA)
+                                    444 ;--------------------------------------------------------
+                                    445 ; bit data
+                                    446 ;--------------------------------------------------------
+                                    447 	.area BSEG    (BIT)
+                                    448 ;--------------------------------------------------------
+                                    449 ; paged external ram data
+                                    450 ;--------------------------------------------------------
+                                    451 	.area PSEG    (PAG,XDATA)
+                                    452 ;--------------------------------------------------------
+                                    453 ; external ram data
+                                    454 ;--------------------------------------------------------
+                                    455 	.area XSEG    (XDATA)
+      000400                        456 _pcf8574_read_pin_pin_65536_30:
+      000400                        457 	.ds 1
+      000401                        458 _pcf8574_write_port_value_65536_32:
+      000401                        459 	.ds 1
+      000402                        460 _pcf8574_set_pin_PARM_2:
+      000402                        461 	.ds 1
+      000403                        462 _pcf8574_set_pin_pin_65536_34:
+      000403                        463 	.ds 1
+      000404                        464 _pcf8574_set_pin_port_state_65536_35:
+      000404                        465 	.ds 1
+                                    466 ;--------------------------------------------------------
+                                    467 ; absolute external ram data
+                                    468 ;--------------------------------------------------------
+                                    469 	.area XABS    (ABS,XDATA)
+                                    470 ;--------------------------------------------------------
+                                    471 ; external initialized ram data
+                                    472 ;--------------------------------------------------------
+                                    473 	.area XISEG   (XDATA)
+                                    474 	.area HOME    (CODE)
+                                    475 	.area GSINIT0 (CODE)
+                                    476 	.area GSINIT1 (CODE)
+                                    477 	.area GSINIT2 (CODE)
+                                    478 	.area GSINIT3 (CODE)
+                                    479 	.area GSINIT4 (CODE)
+                                    480 	.area GSINIT5 (CODE)
+                                    481 	.area GSINIT  (CODE)
+                                    482 	.area GSFINAL (CODE)
+                                    483 	.area CSEG    (CODE)
+                                    484 ;--------------------------------------------------------
+                                    485 ; global & static initialisations
+                                    486 ;--------------------------------------------------------
+                                    487 	.area HOME    (CODE)
+                                    488 	.area GSINIT  (CODE)
+                                    489 	.area GSFINAL (CODE)
+                                    490 	.area GSINIT  (CODE)
+                                    491 ;--------------------------------------------------------
+                                    492 ; Home
+                                    493 ;--------------------------------------------------------
+                                    494 	.area HOME    (CODE)
+                                    495 	.area HOME    (CODE)
+                                    496 ;--------------------------------------------------------
+                                    497 ; code
+                                    498 ;--------------------------------------------------------
+                                    499 	.area CSEG    (CODE)
+                                    500 ;------------------------------------------------------------
+                                    501 ;Allocation info for local variables in function 'pcf8574_init'
+                                    502 ;------------------------------------------------------------
+                                    503 ;	src/dac.c:2: void pcf8574_init()
+                                    504 ;	-----------------------------------------
+                                    505 ;	 function pcf8574_init
+                                    506 ;	-----------------------------------------
+      00227A                        507 _pcf8574_init:
+                           000007   508 	ar7 = 0x07
+                           000006   509 	ar6 = 0x06
+                           000005   510 	ar5 = 0x05
+                           000004   511 	ar4 = 0x04
+                           000003   512 	ar3 = 0x03
+                           000002   513 	ar2 = 0x02
+                           000001   514 	ar1 = 0x01
+                           000000   515 	ar0 = 0x00
+                                    516 ;	src/dac.c:4: i2c_start();
+      00227A 12 29 D4         [24]  517 	lcall	_i2c_start
+                                    518 ;	src/dac.c:5: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
+      00227D 75 82 70         [24]  519 	mov	dpl,#0x70
+      002280 12 2A 6E         [24]  520 	lcall	_i2c_write
+                                    521 ;	src/dac.c:6: i2c_write(0xFF);
+      002283 75 82 FF         [24]  522 	mov	dpl,#0xff
+      002286 12 2A 6E         [24]  523 	lcall	_i2c_write
+                                    524 ;	src/dac.c:7: i2c_stop();
+                                    525 ;	src/dac.c:8: }
+      002289 02 29 C7         [24]  526 	ljmp	_i2c_stop
+                                    527 ;------------------------------------------------------------
+                                    528 ;Allocation info for local variables in function 'pcf8574_read_port'
+                                    529 ;------------------------------------------------------------
+                                    530 ;data                      Allocated with name '_pcf8574_read_port_data_65536_29'
+                                    531 ;------------------------------------------------------------
+                                    532 ;	src/dac.c:9: uint8_t pcf8574_read_port(void) {
+                                    533 ;	-----------------------------------------
+                                    534 ;	 function pcf8574_read_port
+                                    535 ;	-----------------------------------------
+      00228C                        536 _pcf8574_read_port:
+                                    537 ;	src/dac.c:11: i2c_start();
+      00228C 12 29 D4         [24]  538 	lcall	_i2c_start
+                                    539 ;	src/dac.c:12: i2c_write(PCF8574_I2C_READ_ADDRESS);
+      00228F 75 82 71         [24]  540 	mov	dpl,#0x71
+      002292 12 2A 6E         [24]  541 	lcall	_i2c_write
+                                    542 ;	src/dac.c:13: data = i2c_read(0);
+      002295 90 00 00         [24]  543 	mov	dptr,#0x0000
+      002298 12 29 E9         [24]  544 	lcall	_i2c_read
+      00229B AE 82            [24]  545 	mov	r6,dpl
+                                    546 ;	src/dac.c:14: i2c_stop();
+      00229D C0 06            [24]  547 	push	ar6
+      00229F 12 29 C7         [24]  548 	lcall	_i2c_stop
+      0022A2 D0 06            [24]  549 	pop	ar6
+                                    550 ;	src/dac.c:15: return data;
+      0022A4 8E 82            [24]  551 	mov	dpl,r6
+                                    552 ;	src/dac.c:16: }
+      0022A6 22               [24]  553 	ret
+                                    554 ;------------------------------------------------------------
+                                    555 ;Allocation info for local variables in function 'pcf8574_read_pin'
+                                    556 ;------------------------------------------------------------
+                                    557 ;pin                       Allocated with name '_pcf8574_read_pin_pin_65536_30'
+                                    558 ;port_state                Allocated with name '_pcf8574_read_pin_port_state_65536_31'
+                                    559 ;------------------------------------------------------------
+                                    560 ;	src/dac.c:18: uint8_t pcf8574_read_pin(uint8_t pin) {
+                                    561 ;	-----------------------------------------
+                                    562 ;	 function pcf8574_read_pin
+                                    563 ;	-----------------------------------------
+      0022A7                        564 _pcf8574_read_pin:
+      0022A7 E5 82            [12]  565 	mov	a,dpl
+      0022A9 90 04 00         [24]  566 	mov	dptr,#_pcf8574_read_pin_pin_65536_30
+      0022AC F0               [24]  567 	movx	@dptr,a
+                                    568 ;	src/dac.c:19: uint8_t port_state = pcf8574_read_port();
+      0022AD 12 22 8C         [24]  569 	lcall	_pcf8574_read_port
+      0022B0 AF 82            [24]  570 	mov	r7,dpl
+                                    571 ;	src/dac.c:20: return (port_state >> pin) & 0x01;
+      0022B2 90 04 00         [24]  572 	mov	dptr,#_pcf8574_read_pin_pin_65536_30
+      0022B5 E0               [24]  573 	movx	a,@dptr
+      0022B6 FE               [12]  574 	mov	r6,a
+      0022B7 8E F0            [24]  575 	mov	b,r6
+      0022B9 05 F0            [12]  576 	inc	b
+      0022BB EF               [12]  577 	mov	a,r7
+      0022BC 80 02            [24]  578 	sjmp	00104$
+      0022BE                        579 00103$:
+      0022BE C3               [12]  580 	clr	c
+      0022BF 13               [12]  581 	rrc	a
+      0022C0                        582 00104$:
+      0022C0 D5 F0 FB         [24]  583 	djnz	b,00103$
+      0022C3 54 01            [12]  584 	anl	a,#0x01
+                                    585 ;	src/dac.c:21: }
+      0022C5 F5 82            [12]  586 	mov	dpl,a
+      0022C7 22               [24]  587 	ret
+                                    588 ;------------------------------------------------------------
+                                    589 ;Allocation info for local variables in function 'pcf8574_write_port'
+                                    590 ;------------------------------------------------------------
+                                    591 ;value                     Allocated with name '_pcf8574_write_port_value_65536_32'
+                                    592 ;------------------------------------------------------------
+                                    593 ;	src/dac.c:23: void pcf8574_write_port(uint8_t value)
+                                    594 ;	-----------------------------------------
+                                    595 ;	 function pcf8574_write_port
+                                    596 ;	-----------------------------------------
+      0022C8                        597 _pcf8574_write_port:
+      0022C8 E5 82            [12]  598 	mov	a,dpl
+      0022CA 90 04 01         [24]  599 	mov	dptr,#_pcf8574_write_port_value_65536_32
+      0022CD F0               [24]  600 	movx	@dptr,a
+                                    601 ;	src/dac.c:25: i2c_start();
+      0022CE 12 29 D4         [24]  602 	lcall	_i2c_start
+                                    603 ;	src/dac.c:26: i2c_write(PCF8574_I2C_WRITE_ADDRESS);
+      0022D1 75 82 70         [24]  604 	mov	dpl,#0x70
+      0022D4 12 2A 6E         [24]  605 	lcall	_i2c_write
+                                    606 ;	src/dac.c:27: i2c_write(value);
+      0022D7 90 04 01         [24]  607 	mov	dptr,#_pcf8574_write_port_value_65536_32
+      0022DA E0               [24]  608 	movx	a,@dptr
+      0022DB F5 82            [12]  609 	mov	dpl,a
+      0022DD 12 2A 6E         [24]  610 	lcall	_i2c_write
+                                    611 ;	src/dac.c:28: i2c_stop();
+                                    612 ;	src/dac.c:29: }
+      0022E0 02 29 C7         [24]  613 	ljmp	_i2c_stop
+                                    614 ;------------------------------------------------------------
+                                    615 ;Allocation info for local variables in function 'pcf8574_set_pin'
+                                    616 ;------------------------------------------------------------
+                                    617 ;value                     Allocated with name '_pcf8574_set_pin_PARM_2'
+                                    618 ;pin                       Allocated with name '_pcf8574_set_pin_pin_65536_34'
+                                    619 ;port_state                Allocated with name '_pcf8574_set_pin_port_state_65536_35'
+                                    620 ;------------------------------------------------------------
+                                    621 ;	src/dac.c:31: void pcf8574_set_pin(uint8_t pin, uint8_t value) {
+                                    622 ;	-----------------------------------------
+                                    623 ;	 function pcf8574_set_pin
+                                    624 ;	-----------------------------------------
+      0022E3                        625 _pcf8574_set_pin:
+      0022E3 E5 82            [12]  626 	mov	a,dpl
+      0022E5 90 04 03         [24]  627 	mov	dptr,#_pcf8574_set_pin_pin_65536_34
+      0022E8 F0               [24]  628 	movx	@dptr,a
+                                    629 ;	src/dac.c:32: uint8_t port_state = pcf8574_read_port();
+      0022E9 12 22 8C         [24]  630 	lcall	_pcf8574_read_port
+      0022EC AF 82            [24]  631 	mov	r7,dpl
+                                    632 ;	src/dac.c:33: if (value) {
+      0022EE 90 04 02         [24]  633 	mov	dptr,#_pcf8574_set_pin_PARM_2
+      0022F1 E0               [24]  634 	movx	a,@dptr
+      0022F2 60 1D            [24]  635 	jz	00102$
+                                    636 ;	src/dac.c:34: port_state |= (1 << pin);  // Set pin high
+      0022F4 90 04 03         [24]  637 	mov	dptr,#_pcf8574_set_pin_pin_65536_34
+      0022F7 E0               [24]  638 	movx	a,@dptr
+      0022F8 FE               [12]  639 	mov	r6,a
+      0022F9 8E F0            [24]  640 	mov	b,r6
+      0022FB 05 F0            [12]  641 	inc	b
+      0022FD 74 01            [12]  642 	mov	a,#0x01
+      0022FF 80 02            [24]  643 	sjmp	00113$
+      002301                        644 00111$:
+      002301 25 E0            [12]  645 	add	a,acc
+      002303                        646 00113$:
+      002303 D5 F0 FB         [24]  647 	djnz	b,00111$
+      002306 FE               [12]  648 	mov	r6,a
+      002307 8F 05            [24]  649 	mov	ar5,r7
+      002309 90 04 04         [24]  650 	mov	dptr,#_pcf8574_set_pin_port_state_65536_35
+      00230C EE               [12]  651 	mov	a,r6
+      00230D 4D               [12]  652 	orl	a,r5
+      00230E F0               [24]  653 	movx	@dptr,a
+      00230F 80 19            [24]  654 	sjmp	00103$
+      002311                        655 00102$:
+                                    656 ;	src/dac.c:36: port_state &= ~(1 << pin); // Set pin low
+      002311 90 04 03         [24]  657 	mov	dptr,#_pcf8574_set_pin_pin_65536_34
+      002314 E0               [24]  658 	movx	a,@dptr
+      002315 FE               [12]  659 	mov	r6,a
+      002316 8E F0            [24]  660 	mov	b,r6
+      002318 05 F0            [12]  661 	inc	b
+      00231A 74 01            [12]  662 	mov	a,#0x01
+      00231C 80 02            [24]  663 	sjmp	00116$
+      00231E                        664 00114$:
+      00231E 25 E0            [12]  665 	add	a,acc
+      002320                        666 00116$:
+      002320 D5 F0 FB         [24]  667 	djnz	b,00114$
+      002323 F4               [12]  668 	cpl	a
+      002324 FE               [12]  669 	mov	r6,a
+      002325 90 04 04         [24]  670 	mov	dptr,#_pcf8574_set_pin_port_state_65536_35
+      002328 5F               [12]  671 	anl	a,r7
+      002329 F0               [24]  672 	movx	@dptr,a
+      00232A                        673 00103$:
+                                    674 ;	src/dac.c:38: pcf8574_write_port(port_state);
+      00232A 90 04 04         [24]  675 	mov	dptr,#_pcf8574_set_pin_port_state_65536_35
+      00232D E0               [24]  676 	movx	a,@dptr
+      00232E F5 82            [12]  677 	mov	dpl,a
+                                    678 ;	src/dac.c:39: }
+      002330 02 22 C8         [24]  679 	ljmp	_pcf8574_write_port
+                                    680 	.area CSEG    (CODE)
+                                    681 	.area CONST   (CODE)
+                                    682 	.area XINIT   (CODE)
+                                    683 	.area CABS    (ABS,CODE)

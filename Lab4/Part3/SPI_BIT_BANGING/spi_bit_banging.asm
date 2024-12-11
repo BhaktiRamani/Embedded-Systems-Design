@@ -645,10 +645,21 @@ _delay_ms:
 _main:
 ;	spi_bit_banging.c:87: spi_init();
 	lcall	_spi_init
-;	spi_bit_banging.c:88: printf(" SPI BIT BANGING PROGRAM\n\r");
+;	spi_bit_banging.c:88: printf("  SPI BIT BANGING PROGRAM    \n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	spi_bit_banging.c:89: printf(" SQUARE WAVE \n\r");
+	mov	a,#___str_1
+	push	acc
+	mov	a,#(___str_1 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -776,7 +787,14 @@ _spi_write:
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
-	.ascii " SPI BIT BANGING PROGRAM"
+	.ascii "  SPI BIT BANGING PROGRAM    "
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_1:
+	.ascii " SQUARE WAVE "
 	.db 0x0a
 	.db 0x0d
 	.db 0x00

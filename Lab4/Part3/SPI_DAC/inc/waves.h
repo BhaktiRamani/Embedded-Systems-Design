@@ -51,4 +51,8 @@ extern const int ramp_dac_values[RAMP_SAMPLES];
  */
 extern const int trig_dac_values[TRIG_SAMPLES];
 
+void spi_ramp_signal(int number);
+
+void spi_triangular_wave(int number);
+
 #endif /* _WAVES_H_ */

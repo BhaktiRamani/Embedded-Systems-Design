@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "i2c.h": "c",
+        "random": "c",
+        "ui_user_input.h": "c",
+        "stdio.h": "c",
+        "getchar_putchar.h": "c",
+        "eeprom.h": "c"
+    }
+}

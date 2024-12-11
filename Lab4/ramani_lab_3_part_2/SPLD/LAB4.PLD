@@ -1,3 +1,15 @@
+// Author:     Bhakti Ramani
+// Description:
+//   This file contains the logic for configuring input and output pins
+//   for LAB4 Part 3. It includes signal definitions and logic equations
+//   for controlling the CE, OE, WE, and LCD_ENABLE signals based on the
+//   input signals A15, RD, and WR.
+//
+// Context:
+//   This is part of the Embedded System Design Lab 4 project at the
+//   University of Colorado Boulder, aimed at implementing logic for
+//   memory and peripheral control signals.
+// ----------------------------------------
 Name     LAB4 ;
 PartNo   00 ;
 Date     11/21/2024 ;
@@ -10,19 +22,39 @@ Device   g16v8 ;
 
 
 
-
 /* *************** INPUT PINS *********************/
-PIN  2   = A15                        ; /*                                 */ 
-PIN  6   = WR                        ; /*                                 */ 
-PIN  7   = RD                        ; /*                                 */ 
+// A15: Address line 15 used to enable/disable specific memory/peripheral blocks.
+PIN  2   = A15;
+
+// WR: Write enable signal, active when writing data.
+PIN  6   = WR;
+
+// RD: Read enable signal, active when reading data.
+PIN  7   = RD;
 
 /* *************** OUTPUT PINS *********************/
-PIN  12   =  CE                       ; /*                                 */ 
-PIN  13   =  OE                       ; /*                                 */ 
-PIN  14   =  WE                       ; /*                                 */ 
-PIN  17   =  LCD_ENABLE                       ; /*                                 */ 
+// CE: Chip enable signal, enabled based on address line A15.
+PIN  12  = CE;
 
+// OE: Output enable signal, active when a read operation is performed.
+PIN  13  = OE;
+
+// WE: Write enable signal, active during write operations.
+PIN  14  = WE;
+
+// LCD_ENABLE: Control signal for LCD, based on read/write activity and address line A15.
+PIN  17  = LCD_ENABLE;
+
+/* *************** LOGIC EQUATIONS *****************/
+// Chip Enable (CE) is directly controlled by address line A15.
 CE = A15;
+
+// Output Enable (OE) is controlled by the RD signal, active during reads.
 OE = RD;
+
+// Write Enable (WE) is controlled by the WR signal, active during writes.
 WE = WR;
-LCD_ENABLE = !(RD & WR)& A15;
+
+// LCD_ENABLE is active when neither a read nor a write operation is occurring,
+// and the address line A15 is high.
+LCD_ENABLE = !(RD & WR) & A15;

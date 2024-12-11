@@ -85,8 +85,8 @@ void delay_ms(unsigned int ms) {
  */
 int main(void) {
     spi_init();
-    printf(" SPI BIT BANGING PROGRAM\n\r");
-    
+    printf("  SPI BIT BANGING PROGRAM    \n\r");
+    printf(" SQUARE WAVE \n\r");
     while(1)
     {
         spi_write(TEST_DATA);

@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "functional": "c",
+        "bit_banging_spi.h": "c",
+        "getchar_putchar.h": "c",
+        "waves.h": "c"
+    }
+}

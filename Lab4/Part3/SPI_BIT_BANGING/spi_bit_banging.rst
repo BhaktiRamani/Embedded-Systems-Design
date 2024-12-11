@@ -644,145 +644,165 @@
                                     644 ;	-----------------------------------------
       0020C2                        645 _main:
                                     646 ;	spi_bit_banging.c:87: spi_init();
-      0020C2 12 20 F4         [24]  647 	lcall	_spi_init
-                                    648 ;	spi_bit_banging.c:88: printf(" SPI BIT BANGING PROGRAM\n\r");
-      0020C5 74 F8            [12]  649 	mov	a,#___str_0
+      0020C2 12 21 09         [24]  647 	lcall	_spi_init
+                                    648 ;	spi_bit_banging.c:88: printf("  SPI BIT BANGING PROGRAM    \n\r");
+      0020C5 74 0D            [12]  649 	mov	a,#___str_0
       0020C7 C0 E0            [24]  650 	push	acc
-      0020C9 74 2B            [12]  651 	mov	a,#(___str_0 >> 8)
+      0020C9 74 2C            [12]  651 	mov	a,#(___str_0 >> 8)
       0020CB C0 E0            [24]  652 	push	acc
       0020CD 74 80            [12]  653 	mov	a,#0x80
       0020CF C0 E0            [24]  654 	push	acc
-      0020D1 12 21 96         [24]  655 	lcall	_printf
+      0020D1 12 21 AB         [24]  655 	lcall	_printf
       0020D4 15 81            [12]  656 	dec	sp
       0020D6 15 81            [12]  657 	dec	sp
       0020D8 15 81            [12]  658 	dec	sp
-                                    659 ;	spi_bit_banging.c:90: while(1)
-      0020DA                        660 00102$:
-                                    661 ;	spi_bit_banging.c:92: spi_write(TEST_DATA);
-      0020DA 90 1F F0         [24]  662 	mov	dptr,#0x1ff0
-      0020DD 12 20 FE         [24]  663 	lcall	_spi_write
-                                    664 ;	spi_bit_banging.c:93: delay_ms(DELAY_PERIOD);
-      0020E0 90 01 F4         [24]  665 	mov	dptr,#0x01f4
-      0020E3 12 20 8F         [24]  666 	lcall	_delay_ms
-                                    667 ;	spi_bit_banging.c:94: spi_write(IDLE_DATA);
-      0020E6 90 10 00         [24]  668 	mov	dptr,#0x1000
-      0020E9 12 20 FE         [24]  669 	lcall	_spi_write
-                                    670 ;	spi_bit_banging.c:95: delay_ms(DELAY_PERIOD);
-      0020EC 90 01 F4         [24]  671 	mov	dptr,#0x01f4
-      0020EF 12 20 8F         [24]  672 	lcall	_delay_ms
-                                    673 ;	spi_bit_banging.c:97: }
-      0020F2 80 E6            [24]  674 	sjmp	00102$
-                                    675 ;------------------------------------------------------------
-                                    676 ;Allocation info for local variables in function 'spi_init'
-                                    677 ;------------------------------------------------------------
-                                    678 ;	spi_bit_banging.c:103: void spi_init(void) {
-                                    679 ;	-----------------------------------------
-                                    680 ;	 function spi_init
-                                    681 ;	-----------------------------------------
-      0020F4                        682 _spi_init:
-                                    683 ;	spi_bit_banging.c:104: SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
-      0020F4 75 C3 00         [24]  684 	mov	_SPCON,#0x00
-                                    685 ;	spi_bit_banging.c:105: SDA = DATA_HIGH;                 /* Set data line high */
-                                    686 ;	assignBit
-      0020F7 D2 97            [12]  687 	setb	_P1_7
-                                    688 ;	spi_bit_banging.c:106: SCL = CLOCK_LOW;                 /* Set clock line low */
-                                    689 ;	assignBit
-      0020F9 C2 96            [12]  690 	clr	_P1_6
-                                    691 ;	spi_bit_banging.c:107: SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
-                                    692 ;	assignBit
-      0020FB D2 91            [12]  693 	setb	_P1_1
-                                    694 ;	spi_bit_banging.c:108: }
-      0020FD 22               [24]  695 	ret
-                                    696 ;------------------------------------------------------------
-                                    697 ;Allocation info for local variables in function 'spi_write'
-                                    698 ;------------------------------------------------------------
-                                    699 ;data                      Allocated with name '_spi_write_data_65536_31'
-                                    700 ;i                         Allocated with name '_spi_write_i_65536_32'
-                                    701 ;------------------------------------------------------------
-                                    702 ;	spi_bit_banging.c:115: int spi_write(uint16_t data) {
-                                    703 ;	-----------------------------------------
-                                    704 ;	 function spi_write
-                                    705 ;	-----------------------------------------
-      0020FE                        706 _spi_write:
-      0020FE AF 83            [24]  707 	mov	r7,dph
-      002100 E5 82            [12]  708 	mov	a,dpl
-      002102 90 04 04         [24]  709 	mov	dptr,#_spi_write_data_65536_31
-      002105 F0               [24]  710 	movx	@dptr,a
-      002106 EF               [12]  711 	mov	a,r7
-      002107 A3               [24]  712 	inc	dptr
-      002108 F0               [24]  713 	movx	@dptr,a
-                                    714 ;	spi_bit_banging.c:118: SS = SLAVE_SELECT_ACTIVE;        /* Assert slave select (active low) */
-                                    715 ;	assignBit
-      002109 C2 91            [12]  716 	clr	_P1_1
-                                    717 ;	spi_bit_banging.c:121: for(i = 0; i < SPI_DATA_WIDTH; i++) {
-      00210B 7E 00            [12]  718 	mov	r6,#0x00
-      00210D 7F 00            [12]  719 	mov	r7,#0x00
-      00210F                        720 00102$:
-                                    721 ;	spi_bit_banging.c:122: SDA = (data & MSB_FIRST_MASK) ? DATA_HIGH : DATA_LOW;    /* MSB first */
-      00210F 90 04 04         [24]  722 	mov	dptr,#_spi_write_data_65536_31
-      002112 E0               [24]  723 	movx	a,@dptr
-      002113 FC               [12]  724 	mov	r4,a
-      002114 A3               [24]  725 	inc	dptr
-      002115 E0               [24]  726 	movx	a,@dptr
-      002116 FD               [12]  727 	mov	r5,a
-      002117 23               [12]  728 	rl	a
-      002118 54 01            [12]  729 	anl	a,#0x01
-      00211A 24 FF            [12]  730 	add	a,#0xff
-      00211C 92 97            [24]  731 	mov	_P1_7,c
-                                    732 ;	spi_bit_banging.c:123: SCL = CLOCK_HIGH;            /* Clock high */
-                                    733 ;	assignBit
-      00211E D2 96            [12]  734 	setb	_P1_6
-                                    735 ;	spi_bit_banging.c:124: SCL = CLOCK_LOW;             /* Clock low */
-                                    736 ;	assignBit
-      002120 C2 96            [12]  737 	clr	_P1_6
-                                    738 ;	spi_bit_banging.c:125: data <<= 1;                  /* Shift to next bit */
-      002122 EC               [12]  739 	mov	a,r4
-      002123 2C               [12]  740 	add	a,r4
-      002124 FC               [12]  741 	mov	r4,a
-      002125 ED               [12]  742 	mov	a,r5
-      002126 33               [12]  743 	rlc	a
-      002127 FD               [12]  744 	mov	r5,a
-      002128 90 04 04         [24]  745 	mov	dptr,#_spi_write_data_65536_31
-      00212B EC               [12]  746 	mov	a,r4
-      00212C F0               [24]  747 	movx	@dptr,a
-      00212D ED               [12]  748 	mov	a,r5
-      00212E A3               [24]  749 	inc	dptr
-      00212F F0               [24]  750 	movx	@dptr,a
-                                    751 ;	spi_bit_banging.c:121: for(i = 0; i < SPI_DATA_WIDTH; i++) {
-      002130 0E               [12]  752 	inc	r6
-      002131 BE 00 01         [24]  753 	cjne	r6,#0x00,00115$
-      002134 0F               [12]  754 	inc	r7
-      002135                        755 00115$:
-      002135 C3               [12]  756 	clr	c
-      002136 EE               [12]  757 	mov	a,r6
-      002137 94 10            [12]  758 	subb	a,#0x10
-      002139 EF               [12]  759 	mov	a,r7
-      00213A 94 00            [12]  760 	subb	a,#0x00
-      00213C 40 D1            [24]  761 	jc	00102$
-                                    762 ;	spi_bit_banging.c:129: SS = SLAVE_SELECT_INACTIVE;      /* Deassert slave select */
-                                    763 ;	assignBit
-      00213E D2 91            [12]  764 	setb	_P1_1
-                                    765 ;	spi_bit_banging.c:130: SCL = CLOCK_LOW;                 /* Clock low */
-                                    766 ;	assignBit
-      002140 C2 96            [12]  767 	clr	_P1_6
-                                    768 ;	spi_bit_banging.c:131: SDA = DATA_HIGH;                 /* Data high */
-                                    769 ;	assignBit
-      002142 D2 97            [12]  770 	setb	_P1_7
-                                    771 ;	spi_bit_banging.c:133: return 0;
-      002144 90 00 00         [24]  772 	mov	dptr,#0x0000
-                                    773 ;	spi_bit_banging.c:134: }
-      002147 22               [24]  774 	ret
-                                    775 	.area CSEG    (CODE)
-                                    776 	.area CONST   (CODE)
-                                    777 	.area CONST   (CODE)
-      002BF8                        778 ___str_0:
-      002BF8 20 53 50 49 20 42 49   779 	.ascii " SPI BIT BANGING PROGRAM"
-             54 20 42 41 4E 47 49
-             4E 47 20 50 52 4F 47
-             52 41 4D
-      002C10 0A                     780 	.db 0x0a
-      002C11 0D                     781 	.db 0x0d
-      002C12 00                     782 	.db 0x00
-                                    783 	.area CSEG    (CODE)
-                                    784 	.area XINIT   (CODE)
-                                    785 	.area CABS    (ABS,CODE)
+                                    659 ;	spi_bit_banging.c:89: printf(" SQUARE WAVE \n\r");
+      0020DA 74 2D            [12]  660 	mov	a,#___str_1
+      0020DC C0 E0            [24]  661 	push	acc
+      0020DE 74 2C            [12]  662 	mov	a,#(___str_1 >> 8)
+      0020E0 C0 E0            [24]  663 	push	acc
+      0020E2 74 80            [12]  664 	mov	a,#0x80
+      0020E4 C0 E0            [24]  665 	push	acc
+      0020E6 12 21 AB         [24]  666 	lcall	_printf
+      0020E9 15 81            [12]  667 	dec	sp
+      0020EB 15 81            [12]  668 	dec	sp
+      0020ED 15 81            [12]  669 	dec	sp
+                                    670 ;	spi_bit_banging.c:90: while(1)
+      0020EF                        671 00102$:
+                                    672 ;	spi_bit_banging.c:92: spi_write(TEST_DATA);
+      0020EF 90 1F F0         [24]  673 	mov	dptr,#0x1ff0
+      0020F2 12 21 13         [24]  674 	lcall	_spi_write
+                                    675 ;	spi_bit_banging.c:93: delay_ms(DELAY_PERIOD);
+      0020F5 90 01 F4         [24]  676 	mov	dptr,#0x01f4
+      0020F8 12 20 8F         [24]  677 	lcall	_delay_ms
+                                    678 ;	spi_bit_banging.c:94: spi_write(IDLE_DATA);
+      0020FB 90 10 00         [24]  679 	mov	dptr,#0x1000
+      0020FE 12 21 13         [24]  680 	lcall	_spi_write
+                                    681 ;	spi_bit_banging.c:95: delay_ms(DELAY_PERIOD);
+      002101 90 01 F4         [24]  682 	mov	dptr,#0x01f4
+      002104 12 20 8F         [24]  683 	lcall	_delay_ms
+                                    684 ;	spi_bit_banging.c:97: }
+      002107 80 E6            [24]  685 	sjmp	00102$
+                                    686 ;------------------------------------------------------------
+                                    687 ;Allocation info for local variables in function 'spi_init'
+                                    688 ;------------------------------------------------------------
+                                    689 ;	spi_bit_banging.c:103: void spi_init(void) {
+                                    690 ;	-----------------------------------------
+                                    691 ;	 function spi_init
+                                    692 ;	-----------------------------------------
+      002109                        693 _spi_init:
+                                    694 ;	spi_bit_banging.c:104: SPCON = SPI_INIT_VALUE;          /* Clear SPI control register */
+      002109 75 C3 00         [24]  695 	mov	_SPCON,#0x00
+                                    696 ;	spi_bit_banging.c:105: SDA = DATA_HIGH;                 /* Set data line high */
+                                    697 ;	assignBit
+      00210C D2 97            [12]  698 	setb	_P1_7
+                                    699 ;	spi_bit_banging.c:106: SCL = CLOCK_LOW;                 /* Set clock line low */
+                                    700 ;	assignBit
+      00210E C2 96            [12]  701 	clr	_P1_6
+                                    702 ;	spi_bit_banging.c:107: SS = SLAVE_SELECT_INACTIVE;      /* Set slave select high (inactive) */
+                                    703 ;	assignBit
+      002110 D2 91            [12]  704 	setb	_P1_1
+                                    705 ;	spi_bit_banging.c:108: }
+      002112 22               [24]  706 	ret
+                                    707 ;------------------------------------------------------------
+                                    708 ;Allocation info for local variables in function 'spi_write'
+                                    709 ;------------------------------------------------------------
+                                    710 ;data                      Allocated with name '_spi_write_data_65536_31'
+                                    711 ;i                         Allocated with name '_spi_write_i_65536_32'
+                                    712 ;------------------------------------------------------------
+                                    713 ;	spi_bit_banging.c:115: int spi_write(uint16_t data) {
+                                    714 ;	-----------------------------------------
+                                    715 ;	 function spi_write
+                                    716 ;	-----------------------------------------
+      002113                        717 _spi_write:
+      002113 AF 83            [24]  718 	mov	r7,dph
+      002115 E5 82            [12]  719 	mov	a,dpl
+      002117 90 04 04         [24]  720 	mov	dptr,#_spi_write_data_65536_31
+      00211A F0               [24]  721 	movx	@dptr,a
+      00211B EF               [12]  722 	mov	a,r7
+      00211C A3               [24]  723 	inc	dptr
+      00211D F0               [24]  724 	movx	@dptr,a
+                                    725 ;	spi_bit_banging.c:118: SS = SLAVE_SELECT_ACTIVE;        /* Assert slave select (active low) */
+                                    726 ;	assignBit
+      00211E C2 91            [12]  727 	clr	_P1_1
+                                    728 ;	spi_bit_banging.c:121: for(i = 0; i < SPI_DATA_WIDTH; i++) {
+      002120 7E 00            [12]  729 	mov	r6,#0x00
+      002122 7F 00            [12]  730 	mov	r7,#0x00
+      002124                        731 00102$:
+                                    732 ;	spi_bit_banging.c:122: SDA = (data & MSB_FIRST_MASK) ? DATA_HIGH : DATA_LOW;    /* MSB first */
+      002124 90 04 04         [24]  733 	mov	dptr,#_spi_write_data_65536_31
+      002127 E0               [24]  734 	movx	a,@dptr
+      002128 FC               [12]  735 	mov	r4,a
+      002129 A3               [24]  736 	inc	dptr
+      00212A E0               [24]  737 	movx	a,@dptr
+      00212B FD               [12]  738 	mov	r5,a
+      00212C 23               [12]  739 	rl	a
+      00212D 54 01            [12]  740 	anl	a,#0x01
+      00212F 24 FF            [12]  741 	add	a,#0xff
+      002131 92 97            [24]  742 	mov	_P1_7,c
+                                    743 ;	spi_bit_banging.c:123: SCL = CLOCK_HIGH;            /* Clock high */
+                                    744 ;	assignBit
+      002133 D2 96            [12]  745 	setb	_P1_6
+                                    746 ;	spi_bit_banging.c:124: SCL = CLOCK_LOW;             /* Clock low */
+                                    747 ;	assignBit
+      002135 C2 96            [12]  748 	clr	_P1_6
+                                    749 ;	spi_bit_banging.c:125: data <<= 1;                  /* Shift to next bit */
+      002137 EC               [12]  750 	mov	a,r4
+      002138 2C               [12]  751 	add	a,r4
+      002139 FC               [12]  752 	mov	r4,a
+      00213A ED               [12]  753 	mov	a,r5
+      00213B 33               [12]  754 	rlc	a
+      00213C FD               [12]  755 	mov	r5,a
+      00213D 90 04 04         [24]  756 	mov	dptr,#_spi_write_data_65536_31
+      002140 EC               [12]  757 	mov	a,r4
+      002141 F0               [24]  758 	movx	@dptr,a
+      002142 ED               [12]  759 	mov	a,r5
+      002143 A3               [24]  760 	inc	dptr
+      002144 F0               [24]  761 	movx	@dptr,a
+                                    762 ;	spi_bit_banging.c:121: for(i = 0; i < SPI_DATA_WIDTH; i++) {
+      002145 0E               [12]  763 	inc	r6
+      002146 BE 00 01         [24]  764 	cjne	r6,#0x00,00115$
+      002149 0F               [12]  765 	inc	r7
+      00214A                        766 00115$:
+      00214A C3               [12]  767 	clr	c
+      00214B EE               [12]  768 	mov	a,r6
+      00214C 94 10            [12]  769 	subb	a,#0x10
+      00214E EF               [12]  770 	mov	a,r7
+      00214F 94 00            [12]  771 	subb	a,#0x00
+      002151 40 D1            [24]  772 	jc	00102$
+                                    773 ;	spi_bit_banging.c:129: SS = SLAVE_SELECT_INACTIVE;      /* Deassert slave select */
+                                    774 ;	assignBit
+      002153 D2 91            [12]  775 	setb	_P1_1
+                                    776 ;	spi_bit_banging.c:130: SCL = CLOCK_LOW;                 /* Clock low */
+                                    777 ;	assignBit
+      002155 C2 96            [12]  778 	clr	_P1_6
+                                    779 ;	spi_bit_banging.c:131: SDA = DATA_HIGH;                 /* Data high */
+                                    780 ;	assignBit
+      002157 D2 97            [12]  781 	setb	_P1_7
+                                    782 ;	spi_bit_banging.c:133: return 0;
+      002159 90 00 00         [24]  783 	mov	dptr,#0x0000
+                                    784 ;	spi_bit_banging.c:134: }
+      00215C 22               [24]  785 	ret
+                                    786 	.area CSEG    (CODE)
+                                    787 	.area CONST   (CODE)
+                                    788 	.area CONST   (CODE)
+      002C0D                        789 ___str_0:
+      002C0D 20 20 53 50 49 20 42   790 	.ascii "  SPI BIT BANGING PROGRAM    "
+             49 54 20 42 41 4E 47
+             49 4E 47 20 50 52 4F
+             47 52 41 4D 20 20 20
+             20
+      002C2A 0A                     791 	.db 0x0a
+      002C2B 0D                     792 	.db 0x0d
+      002C2C 00                     793 	.db 0x00
+                                    794 	.area CSEG    (CODE)
+                                    795 	.area CONST   (CODE)
+      002C2D                        796 ___str_1:
+      002C2D 20 53 51 55 41 52 45   797 	.ascii " SQUARE WAVE "
+             20 57 41 56 45 20
+      002C3A 0A                     798 	.db 0x0a
+      002C3B 0D                     799 	.db 0x0d
+      002C3C 00                     800 	.db 0x00
+                                    801 	.area CSEG    (CODE)
+                                    802 	.area XINIT   (CODE)
+                                    803 	.area CABS    (ABS,CODE)
